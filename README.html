@@ -1,0 +1,1533 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body {
+  width: 45em;
+  border: 1px solid #ddd;
+  outline: 1300px solid #fff;
+  margin: 16px auto;
+}
+
+body .markdown-body
+{
+  padding: 30px;
+}
+
+@font-face {
+  font-family: fontawesome-mini;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+@font-face {
+  font-family: octicons-anchor;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+.markdown-body {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #333333;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.markdown-body sup {
+  top: -0.5em;
+}
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body .codehilitetable {
+  border: 0;
+  border-spacing: 0;
+}
+
+.markdown-body .codehilitetable tr {
+  border: 0;
+}
+
+.markdown-body .codehilitetable pre,
+.markdown-body .codehilitetable div.codehilite {
+  margin: 0;
+}
+
+.markdown-body .linenos,
+.markdown-body .code,
+.markdown-body .codehilitetable td {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body td:not(.linenos) .linenodiv {
+  padding: 0 !important;
+}
+
+.markdown-body .code {
+  width: 100%;
+}
+
+.markdown-body .linenos div pre,
+.markdown-body .linenodiv pre,
+.markdown-body .linenodiv {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.markdown-body .code div pre,
+.markdown-body .code div {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.markdown-body * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.4;
+}
+
+.markdown-body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:focus,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before,
+.markdown-body hr:after {
+  display: table;
+  content: " ";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
+  font-size: 30px;
+}
+
+.markdown-body h2 {
+  font-size: 21px;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
+  font-size: 12px;
+}
+
+.markdown-body h6 {
+  font-size: 11px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body kbd {
+  background-color: #e7e7e7;
+  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
+  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+  background-image: linear-gradient(#fefefe, #e7e7e7);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #cfcfcf;
+  color: #000;
+  padding: 3px 5px;
+  line-height: 10px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  display: inline-block;
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .headeranchor-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.markdown-body .headeranchor-link:focus {
+  outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.markdown-body h1 .headeranchor,
+.markdown-body h2 .headeranchor,
+.markdown-body h3 .headeranchor,
+.markdown-body h4 .headeranchor,
+.markdown-body h5 .headeranchor,
+.markdown-body h6 .headeranchor {
+  display: none;
+  color: #000;
+  vertical-align: middle;
+}
+
+.markdown-body h1:hover .headeranchor-link,
+.markdown-body h2:hover .headeranchor-link,
+.markdown-body h3:hover .headeranchor-link,
+.markdown-body h4:hover .headeranchor-link,
+.markdown-body h5:hover .headeranchor-link,
+.markdown-body h6:hover .headeranchor-link {
+  height: 1em;
+  padding-left: 8px;
+  margin-left: -30px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .headeranchor-link .headeranchor,
+.markdown-body h2:hover .headeranchor-link .headeranchor,
+.markdown-body h3:hover .headeranchor-link .headeranchor,
+.markdown-body h4:hover .headeranchor-link .headeranchor,
+.markdown-body h5:hover .headeranchor-link .headeranchor,
+.markdown-body h6:hover .headeranchor-link .headeranchor {
+  display: inline-block;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body .admonition {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body code,
+.markdown-body samp {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .codehilite {
+  margin-bottom: 16px;
+}
+
+.markdown-body .codehilite pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .codehilite pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+/* Admonition */
+.markdown-body .admonition {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  border-left: 6px solid #333;
+  padding: 10px 10px 10px 30px;
+}
+
+.markdown-body .admonition table {
+  color: #333;
+}
+
+.markdown-body .admonition p {
+  padding: 0;
+}
+
+.markdown-body .admonition-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.markdown-body .admonition>.admonition-title {
+  color: #333;
+}
+
+.markdown-body .attention>.admonition-title {
+  color: #a6d796;
+}
+
+.markdown-body .caution>.admonition-title {
+  color: #d7a796;
+}
+
+.markdown-body .hint>.admonition-title {
+  color: #96c6d7;
+}
+
+.markdown-body .danger>.admonition-title {
+  color: #c25f77;
+}
+
+.markdown-body .question>.admonition-title {
+  color: #96a6d7;
+}
+
+.markdown-body .note>.admonition-title {
+  color: #d7c896;
+}
+
+.markdown-body .admonition:before,
+.markdown-body .attention:before,
+.markdown-body .caution:before,
+.markdown-body .hint:before,
+.markdown-body .danger:before,
+.markdown-body .question:before,
+.markdown-body .note:before {
+  font: normal normal 16px fontawesome-mini;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 1.5;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.markdown-body .admonition:before {
+  content: "\f056\00a0";
+  color: 333;
+}
+
+.markdown-body .attention:before {
+  content: "\f058\00a0";
+  color: #a6d796;
+}
+
+.markdown-body .caution:before {
+  content: "\f06a\00a0";
+  color: #d7a796;
+}
+
+.markdown-body .hint:before {
+  content: "\f05a\00a0";
+  color: #96c6d7;
+}
+
+.markdown-body .danger:before {
+  content: "\f057\00a0";
+  color: #c25f77;
+}
+
+.markdown-body .question:before {
+  content: "\f059\00a0";
+  color: #96a6d7;
+}
+
+.markdown-body .note:before {
+  content: "\f040\00a0";
+  color: #d7c896;
+}
+
+.markdown-body .admonition::after {
+  content: normal;
+}
+
+.markdown-body .attention {
+  border-left: 6px solid #a6d796;
+}
+
+.markdown-body .caution {
+  border-left: 6px solid #d7a796;
+}
+
+.markdown-body .hint {
+  border-left: 6px solid #96c6d7;
+}
+
+.markdown-body .danger {
+  border-left: 6px solid #c25f77;
+}
+
+.markdown-body .question {
+  border-left: 6px solid #96a6d7;
+}
+
+.markdown-body .note {
+  border-left: 6px solid #d7c896;
+}
+
+.markdown-body .admonition>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .admonition>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* progress bar*/
+.markdown-body .progress {
+  display: block;
+  width: 300px;
+  margin: 10px 0;
+  height: 24px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #ededed;
+  position: relative;
+  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
+}
+
+.markdown-body .progress-label {
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  width: 100%; margin: 0;
+  line-height: 24px;
+  color: #333;
+  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
+  -webkit-font-smoothing: antialiased !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.markdown-body .progress-bar {
+  height: 24px;
+  float: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #96c6d7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  background-size: 30px 30px;
+  background-image: -webkit-linear-gradient(
+    135deg, rgba(255, 255, 255, .4) 27%,
+    transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%,
+    transparent 77%, transparent
+  );
+  background-image: -moz-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -ms-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+}
+
+.markdown-body .progress-100plus .progress-bar {
+  background-color: #a6d796;
+}
+
+.markdown-body .progress-80plus .progress-bar {
+  background-color: #c6d796;
+}
+
+.markdown-body .progress-60plus .progress-bar {
+  background-color: #d7c896;
+}
+
+.markdown-body .progress-40plus .progress-bar {
+  background-color: #d7a796;
+}
+
+.markdown-body .progress-20plus .progress-bar {
+  background-color: #d796a6;
+}
+
+.markdown-body .progress-0plus .progress-bar {
+  background-color: #c25f77;
+}
+
+.markdown-body .candystripe-animate .progress-bar{
+  -webkit-animation: animate-stripes 3s linear infinite;
+  -moz-animation: animate-stripes 3s linear infinite;
+  animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@-moz-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+.markdown-body .gloss .progress-bar {
+  box-shadow:
+    inset 0 4px 12px rgba(255, 255, 255, .7),
+    inset 0 -12px 0 rgba(0, 0, 0, .05);
+}
+
+/* Multimarkdown Critic Blocks */
+.markdown-body .critic_mark {
+  background: #ff0;
+}
+
+.markdown-body .critic_delete {
+  color: #c82829;
+  text-decoration: line-through;
+}
+
+.markdown-body .critic_insert {
+  color: #718c00 ;
+  text-decoration: underline;
+}
+
+.markdown-body .critic_comment {
+  color: #8e908c;
+  font-style: italic;
+}
+
+.markdown-body .headeranchor {
+  font: normal normal 16px octicons-anchor;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.headeranchor:before {
+  content: '\f05c';
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 4px 0.25em -20px;
+  vertical-align: middle;
+}
+
+/* Media */
+@media only screen and (min-width: 480px) {
+  .markdown-body {
+    font-size:14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .markdown-body {
+    font-size:16px;
+  }
+}
+
+@media print {
+  .markdown-body * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+    -ms-filter: none !important;
+  }
+
+  .markdown-body {
+    font-size:12pt;
+    max-width:100%;
+    outline:none;
+    border: 0;
+  }
+
+  .markdown-body a,
+  .markdown-body a:visited {
+    text-decoration: underline;
+  }
+
+  .markdown-body .headeranchor-link {
+    display: none;
+  }
+
+  .markdown-body a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  .markdown-body abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .markdown-body .ir a:after,
+  .markdown-body a[href^="javascript:"]:after,
+  .markdown-body a[href^="#"]:after {
+    content: "";
+  }
+
+  .markdown-body pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .markdown-body pre,
+  .markdown-body blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  .markdown-body .progress,
+  .markdown-body .progress-bar {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .markdown-body .progress {
+    border: 1px solid #ddd;
+  }
+
+  .markdown-body .progress-bar {
+    height: 22px;
+    border-right: 1px solid #ddd;
+  }
+
+  .markdown-body tr,
+  .markdown-body img {
+    page-break-inside: avoid;
+  }
+
+  .markdown-body img {
+    max-width: 100% !important;
+  }
+
+  .markdown-body p,
+  .markdown-body h2,
+  .markdown-body h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+  }
+}
+</style><title>README</title></head><body><article class="markdown-body"><h1 id="formbuilder"><a name="user-content-formbuilder" href="#formbuilder" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>formBuilder</h1>
+<h2 id="setup"><a name="user-content-setup" href="#setup" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Setup</h2>
+<h3 id="dependencies"><a name="user-content-dependencies" href="#dependencies" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Dependencies</h3>
+<h4 id="css"><a name="user-content-css" href="#css" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CSS</h4>
+<ul>
+<li>normalize.css (external)</li>
+</ul>
+<h4 id="javascript"><a name="user-content-javascript" href="#javascript" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>JavaScript</h4>
+<ul>
+<li><a href="https://code.jquery.com/jquery-1.11.3.min.js">jQuery v1.11.3</a> - not sure of min version</li>
+<li><a href="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js">jQuery ui 1.11.4</a> - not sure of min version</li>
+<li>jquery.formBuilder.js</li>
+</ul>
+<h3 id="initialization"><a name="user-content-initialization" href="#initialization" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Initialization</h3>
+<p><em>HTML</em><br />
+<pre><code class="html">&lt;form style=&quot;display:none;&quot;&gt;
+            ....
+&lt;/form&gt;
+</code></pre><br />
+<em>JavaScript</em><br />
+<pre><code class="javascript">$('form').formBuilder();
+</code></pre></p>
+<h2 id="components"><a name="user-content-components" href="#components" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Components</h2>
+<h3 id="preinputpostinput"><a name="user-content-preinputpostinput" href="#preinputpostinput" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Preinput/Postinput</h3>
+<p><strong>data-preinput</strong> &lt; string &gt;, &lt; html &gt; = &ldquo;Block of text that appears before form field&rdquo;<br />
+<strong>data-postinput</strong> &lt; string &gt;, &lt; html &gt; = &ldquo;Block of text that appears after form field&rdquo;<br />
+    - These attributes can be defined to add a block of text or html directly to the left or the right of any form field <br />
+    - Can use one, the other, or both at the same time </p>
+<h3 id="prefixsuffix"><a name="user-content-prefixsuffix" href="#prefixsuffix" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Prefix/Suffix</h3>
+<p><strong>data-prefix</strong> &lt; string&gt; = &ldquo;text at front of form field&rdquo;<br />
+<strong>data-suffix</strong> &lt; string&gt; = &ldquo;text at end of form field&rdquo;<br />
+- Will add text at front/end of form field that can only be visible once the user has begun entering text into the field. Appears inside the form field box. <br />
+    * setPrefix (&lt; string &gt;) sets the text of the prefix-overlay <br />
+    * setSuffix (&lt; string &gt;) sets the text of the suffix-overlay </p>
+<h3 id="max"><a name="user-content-max" href="#max" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Max</h3>
+<p><strong>data-max</strong> &lt; int &gt; = &ldquo;10&rdquo;<br />
+    - Can be defined to set the maximum size of the input allowed in the form field<br />
+    - The max is ignored when set to 0, and is 0 by default.</p>
+<h3 id="placeholder"><a name="user-content-placeholder" href="#placeholder" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Placeholder</h3>
+<p><strong>data-placeholder</strong> &lt; string &gt; = &ldquo;some placeholder text&rdquo;<br />
+    - Attribute will display placeholder text inside of the formfield as long as no input has been entered.<br />
+    - Placeholder text will disappear when text is entered into the field.<br />
+    - Note: (legacy support) the attribute <strong>data-empty</strong> performs the same task as data-placeholder and they are set equal to each other </p>
+<h3 id="error"><a name="user-content-error" href="#error" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Error</h3>
+<p><strong>data-error</strong> &lt; boolean &gt; = &ldquo;status of the object&rdquo; <br />
+- Attribute is set to true if there is an error present, otherwise it is reset to false <br />
+<strong>showError</strong> &lt; boolean &gt; = &ldquo;status of error-display&rdquo;<br />
+- Attribute is set to true if an error has occured <em>and</em> a message needs to be displayed, otherwise it is set to false<br />
+    * setError (&lt; object &gt; err) Passes in an error message and appends it to the input layer, as an error-overlay class <br />
+    * flashError (&lt; int &gt; numberOfTimes) Flashes error for a certain &lsquo;numberOfTimes&rsquo; that is passed into the function in order to get the user&rsquo;s attention<br />
+    * clearError () resets the value of data-error to false </p>
+<h3 id="focus"><a name="user-content-focus" href="#focus" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Focus</h3>
+<p><strong>data-focus</strong> &lt; boolean &gt; = &ldquo;status of the object&rdquo;<br />
+- Attribute is set to true on keydown, otherwise it is set to false. Focuses the formfield when it is selected. <br />
+* _keyDownNavigate (&lt; object &gt; ev) Called when a key is pressed, sets focus and selection accordingly. </p>
+<h3 id="disable"><a name="user-content-disable" href="#disable" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Disable</h3>
+<p><strong>data-disable</strong> &lt; boolean &gt; = &ldquo;status of the object&rdquo; <br />
+- When set to true will make the selection dark and unable to be edited or used in any way. <br />
+<strong>Default:</strong> false <br />
+    * disable () Sets the status of the object to disabled <br />
+    * enable () Sets the status of the object to not disabled <br />
+    * isDisabled () Determines the status of whether or not the object is disabled </p>
+<h3 id="label"><a name="user-content-label" href="#label" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Label</h3>
+<p><strong>data-label</strong> &lt; string &gt; = &ldquo;Label text&rdquo;<br />
+<strong>Default:</strong> undefined <br />
+    * setLabel (&lt; string &gt; label) Receives a string for a label and prepends it above the form field </p>
+<h3 id="tooltips"><a name="user-content-tooltips" href="#tooltips" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Tooltips</h3>
+<ul>
+<li>A tooltip can be added to a form field. This tooltip will display a hovering widget when it is clicked on. The div class must be set to &ldquo;tooltip&rdquo; and there is an optional title attribute that can be set to a string.<br />
+<strong>data-title</strong> &lt; string &gt; = &ldquo;Title of tooltip&rdquo; <br />
+<strong>Default:</strong> undefined <ul>
+<li>Sets the title of the form, which is appended to the top of the tooltip</li>
+</ul>
+</li>
+</ul>
+<h3 id="input-field-data-types"><a name="user-content-input-field-data-types" href="#input-field-data-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Input Field Data Types</h3>
+<p>On any <code>&lt;input&gt;</code> tag you can add a <strong>data-type=&rdquo;<em>typeName</em>&ldquo;</strong> attribute to specify an input type that formBuilder will handle for input validation.</p>
+<h4 id="normal-form-types"><a name="user-content-normal-form-types" href="#normal-form-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Normal Form Types:</h4>
+<ul>
+<li><strong>text</strong> - <em>For nomal text with no extra formatting or validation.</em> Default data-type.</li>
+<li><strong>utext</strong> - <em>For uppercase text.</em> If a user types in lowercase text, it is automatically converted to uppercase.</li>
+<li><strong>integer</strong> - <em>For digits [0-9].</em> If a user types in a non-digit, the form field will flash and the input will be ignored.</li>
+<li><strong>number</strong> - <em>For integers or decimal numbers [[0-9].].</em> If multiple decimal points are added the field is marked as invalid. If the user types in an invalid character, the field will flash and the input will be ignored.</li>
+<li><strong>money</strong> - <em>For currency inputs.</em> Similar to the number field, but will automatically round to two decimal places on blur. In addition, a box with a &lsquo;$&rsquo; is prepended to the left of the field with a weight of -100. It is also possible to set a data-currency-symbol attribute in order to be able to have international currency symbols appear in front of the input field instead of a dollar sign. </li>
+<li><strong>state</strong> - <em>For state abbreviations [A-Z].</em> Must have two characters. If only a single character is entered, the field is marked as invalid. If a user enters a non-character, the field will flash and the input will be ignored.</li>
+<li><strong>zip</strong> - <em>For entering 5 digit or 9 digit (with or without &lsquo;-&lsquo;) zip codes.</em> If there are multiple dashes, a dash in an incorrect position, or an incorrect number of digits the field is marked as invalid. Allows for [A-Z] input for international zip codes. </li>
+<li><strong>email</strong> - <em>For email inputs.</em> The correct format is a username, then a single &lsquo;@&rsquo;, then an alphanumeric domain name, then a single &lsquo;.&rsquo;, then a alphabetic domain extension 2-4 characters in length. If it is an invalid format the field is marked as invalid. If the user enters a special character the field will flash and the input will be ignored.</li>
+<li><strong>phone</strong> - <em>For entering US phone numbers.</em> Upon blur, the number is converted into the format &lsquo;234-234-2345x423423&rsquo; and checked for invalid numbers of digits (7, 10, 10+ are valid). An extension may be added to a local 9 digit number by explicitly adding a single &lsquo;x&rsquo; before the extension.  the Any entered non-digits out of the format are ignored. All digits after the 10th digit are counted as the extension. If there is a preceding &lsquo;1&rsquo;, it is removed. If a character not in the above format is entered the field will flash and the input will be ignored.</li>
+<li><strong>date</strong> - <em>For entering dates in the &lsquo;MM/DD/YYYY&rsquo; format.</em> Input not in that exact format will mark the field as invalid. A user may manually type the date or click the calendar icon to reveal a jquery ui popup calendar. This icon is inside appended to the right of the field with a weight of 0.<ul>
+<li>The calender icon can be modified for Spanish speakers by changing util.lang.code to equal &lsquo;es&rsquo;. This will set the popup calandar to display its information in Spanish.</li>
+</ul>
+</li>
+<li><strong>dateTime</strong> - <em>For entering dates and times in the &lsquo;MM/DD/YYYY h:MM AM/PM</em> format. Works the same way as date, but also checks for a valid time. The calendar picker will set the time to noon.<ul>
+<li>The attribute &lsquo;data-hours&rsquo; can be used to have date-time be set to military time. It just must be included and can be set to any arbitrary value, as long at the form field is built with that attribtue then the time will be in military format. The time will now be set to 24 hour time and will not include AM/PM signifiers at the end </li>
+</ul>
+</li>
+<li><strong>display</strong> - <em>For displaying uneditable values.</em> Displays <strong>value</strong> attribute where the input field would be. If no value is specified, it is a blank area. Displayed as html. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25]. </li>
+<li><strong>code</strong> - see <a href="#code-input">Code Input</a> below</li>
+<li><strong>select</strong> - see <a href="#select-input">Select Input</a> below</li>
+<li><strong>feid</strong> - <em>For entering Federal Employer Identification Number.</em></li>
+</ul>
+<h4 id="adding-custom-types"><a name="user-content-adding-custom-types" href="#adding-custom-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Adding Custom Types</h4>
+<p>The user can add custom types to the form by adding their desired regular expression and a new type name. In order to do this is it necessary to utilize the createRegexType function. It may also be necessary to override the setUp and validate functions in order to meet the specific needs of the type. See <a href="customization">Customization</a>.</p>
+<h3 id="code-input"><a name="user-content-code-input" href="#code-input" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Code Input</h3>
+<p>A field with <strong>data-type=&rdquo;code&rdquo;</strong> requires a user to input a <em>value</em> that has a corresponding <em>label</em>. A user may type a word and labels containing that word will be shown in a dropdown. When a dropdown label is clicked, it&rsquo;s code  replaces the input value.</p>
+<ul>
+<li>The typed value must be valid, or the field will be marked as invalid.</li>
+<li>The field <em>must</em> have a <strong>data-codes</strong> attribute containing a javascript variable name of an array of objects with a <em>value</em> and <em>label</em>. You must then declare and initialize the variable in javascript <strong><em>before</em></strong> formBuilder is initialized.</li>
+</ul>
+<p><em>HTML</em><br />
+<pre><code class="html">&lt;form&gt;
+    &lt;input data-type=&quot;code&quot; data-codes=&quot;testCodes&quot;&gt;
+&lt;/form&gt;
+</code></pre><br />
+<em>JavaScript</em><br />
+<pre><code class="javascript">var testCodes = [
+    {value:'what the user types', label:'what the user sees in the dropdown'},
+    {value:'100',  label:'Some label'},
+    {value:'AAA',  label:'123 Some St.'},
+    {value:'BBB',  label:'Some Business Name Inc.'},
+    {value:'Hodor',  label:'Bran'}
+];
+form.formBuilder();
+</code></pre></p>
+<h3 id="select-input"><a name="user-content-select-input" href="#select-input" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Select Input</h3>
+<p>Instead of using a normal select tag, you can use an <em>input</em> tag with <strong>data-type=&rdquo;select&rdquo;</strong>. It has the basic functions of a select tag, but with more functionality. When clicked, a dropdown appears with sorted option labels (scrollable vertically and horizontally) for the user choose. It also has a search box the user can use to quickly find a label. </p>
+<ul>
+<li><strong>data-default</strong> <em>Optional.</em> Set the default selected option by <em>value</em>. Must be an actual option value. Sets to the first option if not specified.</li>
+<li><strong>data-no-sort</strong> <em>Optional.</em> Set to &ldquo;1&rdquo; to prevent the sorting of labels </li>
+<li><strong>data-options</strong> <em>Required.</em> String representation of a JSON array of objects each containing a &ldquo;value&rdquo; and a &ldquo;label&rdquo;.</li>
+</ul>
+<p><em>HTML</em><br />
+<pre><code class="html">&lt;form&gt;
+    ...
+    &lt;input type='text' data-type='select' data-options='[
+            {&quot;value&quot;:&quot;true&quot;, &quot;label&quot;:&quot;Yes&quot;},
+            {&quot;value&quot;:&quot;false&quot;, &quot;label&quot;:&quot;No&quot;},
+            {&quot;value&quot;:&quot;1&quot;, &quot;label&quot;:&quot;option 1&quot;},
+            {&quot;value&quot;:&quot;2&quot;, &quot;label&quot;:&quot;option 2&quot;},
+            {&quot;value&quot;:&quot;3&quot;, &quot;label&quot;:&quot;option 3&quot;},
+            {&quot;value&quot;:&quot;4&quot;, &quot;label&quot;:&quot;option 4&quot;},
+            {&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 5&quot;},
+            {&quot;value&quot;:&quot;100&quot;, &quot;label&quot;:&quot;Some label&quot;},
+            {&quot;value&quot;:&quot;AAA&quot;, &quot;label&quot;:&quot;123 Some St.&quot;},
+            {&quot;value&quot;:&quot;BBB&quot;, &quot;label&quot;:&quot;Some Business Name Inc.&quot;},
+            {&quot;value&quot;:&quot;Hodor&quot;, &quot;label&quot;:&quot;Bran&quot;}
+        ]'&gt;
+    ...
+&lt;/form&gt;
+</code></pre></p>
+<h2 id="handling-validation-errors"><a name="user-content-handling-validation-errors" href="#handling-validation-errors" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Handling Validation Errors</h2>
+<p>Form field inputs are validated using regular expressions. <br />
+The data-type should be set in order for the input to be validated as correct.<br />
+<strong>data-type</strong> = &ldquo;input form type&rdquo;<br />
+<em> createRegexType (&lt; regex &gt; pattern, &lt; regex &gt; filter, &lt; boolean &gt; flags, &lt; int &gt; max) <br />
+    - validate (&lt; object &gt; ui) checks to determine if the input matches the regex pattern associated with the current type.<br />
+    -  If they do not match the message &lsquo;invalid&rsquo; is printed in the form field. <br />
+    -  type.setUp (&lt; object &gt; ui) Only performed if there is a filter or a max parameter passed into createRegexType<br />
+        +  Checks that input meets filter and max limits </em> It is possible to create a new type that can be entered as input. A new type extension must created by extending $.add123.inputField.types and defining a new type using a regular expression.  </p>
+<h2 id="handling-form-submissions"><a name="user-content-handling-form-submissions" href="#handling-form-submissions" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Handling Form Submissions</h2>
+<p>In order to correctly handle the storage of input fields, you must use a submitButton widget inside of the form and add event listeners. A loading spinner is displayed inside of the submitButton while it is submitting. See <a href="#example-usage">Usage</a> below.</p>
+<h3 id="required-fields"><a name="user-content-required-fields" href="#required-fields" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Required Fields</h3>
+<p>To require a input field to be filled out you can either add the <strong>data-require=&rdquo;true&rdquo;</strong> attribute to the specific field. You can also add the <strong>data-default-required=&rdquo;true&rdquo;</strong> attribute to a <code>form</code> tag to set the require status for all of it&rsquo;s fields. If the user attempts to submit the form before all required fields are filled out, the submit will fail and the fields will flash and enter the error state.</p>
+<h2 id="widgets"><a name="user-content-widgets" href="#widgets" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Widgets</h2>
+<h3 id="formbuilder_1"><a name="user-content-formbuilder_1" href="#formbuilder_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>formBuilder</h3>
+<ul>
+<li>Options<ul>
+<li><strong>ignoreHidden</strong> <em>(boolean)</em> Ignore fields that are not <code>$(:visible)</code>. <strong>Default:</strong> false</li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromForm(data)</strong> Form data is passed through this function when retrieving it from the form. Just returns data by default.</li>
+<li><strong>toForm(data)</strong> Form data is passed through this function when passing it to the form. Just returns data by default. </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><strong>scanForNewFields()</strong> Checks inside of the form container for new fields and constructs them. Called once automatically when intialized. </li>
+<li><strong>isDirty()</strong> Runs dirty checks and returns boolean result.</li>
+<li><strong>clearDirty()</strong> Clears all dirty field states. Use this after saving dirty field data. </li>
+<li><strong>flashDirty(numberOfTimes)</strong> <em>Deprecated.</em> Does nothing. Use <code>flashError</code> instead.</li>
+<li><strong>flashError(<em>int</em> numberOfTimes)</strong> Filters fields and calls the <code>inputField.flash(numberOfTimes)</code> on each incorrect one.</li>
+<li><strong>get()</strong> Returns converted form data from all fields. </li>
+<li><strong>clear()</strong> Runs inputField.clear() for each field. Empties form.</li>
+<li><strong>conflicts(data, ignoreKeys)</strong> Checks to see if the given data would overwrite and dirty fields if set. Returns an array of conflict data, and false for no conflicts.</li>
+<li><strong>set(data, setOptions)</strong> Replaces the values in the dom with the given data. Triggers <code>beforeset</code> and <code>afterset</code>.</li>
+<li><strong>validate()</strong> Runs all enabled field validations. Returns true/false for valid/invalid.</li>
+<li><strong>getFields()</strong> Returns all current formBuilder inputFields.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>beforeset(formData)</strong> <em>Optional.</em> Called before <code>set</code> replaced the form values. <strong>Default:</strong> undefined</li>
+<li><strong>afterset(formData)</strong> <em>Optional.</em> Called after <code>set</code> replaces the form values <strong>Default:</strong> undefined</li>
+</ul>
+</li>
+</ul>
+<h3 id="submitbutton"><a name="user-content-submitbutton" href="#submitbutton" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>submitButton</h3>
+<ul>
+<li>Options<ul>
+<li><strong>color</strong> <em>(string)</em> Color of loading spinner. <strong>Default:</strong> &lsquo;#000&rsquo;</li>
+<li><strong>delay</strong> <em>(int)</em> Delay between UI update and submission call, in miliseconds <strong>Default:</strong> 10</li>
+<li><strong>disabled</strong> <em>(boolean)</em> Prevents form submission. Set by user. <strong>Default:</strong> false</li>
+<li><strong>waiting</strong> <em>(boolean)</em> Prevents form submission. Set to  <strong>Default:</strong> false</li>
+<li><strong>label</strong> <em>(string)</em> Label above button. <strong>Default:</strong> undefined</li>
+<li><strong>preventDefault</strong> <em>(boolean)</em> Prevents default form submission. <strong>Default:</strong> true</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><strong>enable()</strong> Sets <code>disabled</code> to false.</li>
+<li><strong>disable()</strong> Sets <code>disabled</code> to true.</li>
+<li><strong>getButtonLabel()</strong> Returns <code>label</code>.</li>
+<li><strong>submit()</strong> Begins submission process as if the button was clicked.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>beforesubmit(ev)</strong> <em>Optional.</em> - called before a submit, if false it does not submit</li>
+<li><strong>submit(ev, finish())</strong> <em>Required.</em> - called to submit the code<ul>
+<li>Not called if in a <code>disabled</code> or <code>waiting</code> state. </li>
+<li>Write your ajax or other form submission here</li>
+<li>Must call <code>finish()</code> after completed</li>
+</ul>
+</li>
+<li><strong>aftersubmit(ev)</strong> <em>Optional.</em> - called after the submit returns<ul>
+<li>Clean up form here</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="example-usage"><a name="user-content-example-usage" href="#example-usage" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Example Usage</h2>
+<p>See <code>demo2.html</code> for a live version of this example.<br />
+<em>HTML</em><br />
+<pre><code class="html">&lt;form id=&quot;example&quot; action=&quot;#&quot; style=&quot;display: none&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;name&quot; data-label=&quot;Name*&quot; data-require=&quot;true&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;phoneNumber&quot; data-type=&quot;phone&quot; data-label=&quot;Phone Number&quot; )=&quot;&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;email&quot; data-type=&quot;email&quot; data-label=&quot;Email*&quot; data-require=&quot;true&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;bestColor&quot; data-type=&quot;select&quot; data-label=&quot;Which is the best color?&quot; data-default=&quot;#0000FF&quot; data-options=&quot;[
+            {'value':'#FF0000', 'label':'red'},
+            {'value':'#0000FF', 'label':'blue'},
+            {'value':'#00FF00', 'label':'green'},
+            {'value':'#FF9900', 'label':'orange'},
+            {'value':'#FFFF00', 'label':'yellow'},
+            {'value':'#000000', 'label':'black'},
+            {'value':'#FFFFFF', 'label':'white'},
+            {'value':'#CC66CC', 'label':'purple'},
+            {'value':'#808080', 'label':'gray'}
+        ]&quot;&gt;
+    &lt;button type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+</code></pre><br />
+<em>JavaScript</em><br />
+<pre><code class="javascript">var formExample = $('form#example:first').formBuilder({
+    beforeset: function(ev) {
+
+    },
+    afterset: function(ev) {
+
+    }
+});
+
+var saveForm = function(data, finish) {
+    // Save data to server
+    $.ajax({
+        url: 'someserver.com',
+        type: 'POST',
+        data: data,
+        success: function(result) {
+            //handle your server result
+            finish();
+        },
+        error: function() {
+            //connection error
+            finish();
+        }
+    });
+};
+
+formExample.find('button[type=&quot;submit&quot;]').submitButton({
+    color: '#FF0000',
+    beforesubmit: function(ev) {
+        // Runs any presubmission stuff
+    },
+
+    submit: function(ev, finish) {                              
+        // Run validation
+        if(!formExample.formBuilder('validate')) {
+            // The form is invalid somewhere
+            finish();
+            return;
+        }
+
+        saveForm(formExample.formBuilder('get'), finish);
+    },
+
+    aftersubmit: function(ev) {
+        // Run any post-submission stuff
+    }
+});
+</code></pre></p>
+<h2 id="other-widgets"><a name="user-content-other-widgets" href="#other-widgets" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Other Widgets</h2>
+<p>These are created dynamically and do not need to be manually handled. They are included here for reference if needed for modifications and/or additions.</p>
+<h3 id="inputfield"><a name="user-content-inputfield" href="#inputfield" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>inputField</h3>
+<ul>
+<li>Options<ul>
+<li><strong>type</strong> <em>(string)</em> Field type from <code>types</code>. <strong>Default:</strong> &lsquo;text&rsquo;</li>
+<li><strong>label</strong> <em>(string)</em> Label to go above field. <strong>Default:</strong> &lsquo; &lsquo;</li>
+<li><strong>require</strong> <em>(boolean)</em> Whether or not the field is required for submission. <strong>Default:</strong> false</li>
+<li><strong>placeholder</strong> <em>(string)</em> Text in empty form field. <strong>Default</strong> &lsquo; &lsquo; </li>
+<li><strong>min</strong> <em>(integer)</em> Minimum amount of input required. <strong>Default</strong> &lsquo; &lsquo;</li>
+<li><strong>max</strong> <em>(integer)</em> Maximum amount of input allowed. <strong>Default</strong> &lsquo; &lsquo;</li>
+</ul>
+</li>
+<li>Methods <ul>
+<li><strong>setLabel(label)</strong> Prepends the given label to the top of the form field</li>
+<li><strong>setSuffix(t)</strong> Sets text that will be displayed at the end of the form field once the user has started typing.</li>
+<li><strong>setPrefix(t)</strong> Sets text that will be displayed at the front of the form field once the user has started typing.</li>
+<li><strong>setMax(max)</strong> Sets the maximum size that the input can be </li>
+<li><strong>checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing </li>
+<li><strong>isDirty()</strong> returns the value of data-dirty (true/false)</li>
+<li><strong>addOn(weight, html, className)</strong> Appends given html around form field based on weight. If no input found, it will appened to the items layer</li>
+<li><strong>placeholder(s)</strong> If there is no placeholder it will be hidden, otherwise it will be shown if the input field is empty. </li>
+<li><strong>clear()</strong> Runs inputField.clear() for each field. Empties form.</li>
+<li><strong>clearDirty()</strong> Resets the dirty status to false. </li>
+<li><strong>conflicts(value)</strong> Checks to see if dirty status is set to true. If it is then returns conflicting values, otherwise returns null. </li>
+<li><strong>set(value, setOptions)</strong> Replaces the values in the dom with the given data. Triggers <code>afterset</code>.</li>
+<li><strong>get()</strong> Returns converted field value</li>
+<li><strong>value(value)</strong> If the value passed in is undefined then return the converted form data from all fields, otherwise set the value into the form. </li>
+<li><strong>validate(skipRequired)</strong> Validates the input matches the declared type, but only if the form field is not empty and skiRequired is true.</li>
+<li><strong>flash(numberOfTimes)</strong> Flashes an error message to the screen according to the &lsquo;numberOfTimes&rsquo; that have been passed into the function</li>
+<li><strong>setError(err)</strong> Sets the error message passed in into the error label overlay. Sets error status to true. </li>
+<li><strong>clearError()</strong> Sets autoValidate to blur. Sets error status to false. C</li>
+<li><strong>redraw()</strong> Re-enters all of the previous saved information into the form. </li>
+<li><strong>setType(sType)</strong> If the type doesnt exist, sets it to default of &lsquo;text&rsquo;. If it does exist then run the type&rsquo;s tear down. Then set the field type and run the type&rsquo;s setup. </li>
+<li><strong>getType()</strong> Returns the type object. </li>
+<li><strong>hide()</strong> Hides the field that calls this function. </li>
+<li><strong>show(displayValue)</strong> Displays the value passed into the function. </li>
+<li><strong>getField()</strong> Returns the field.</li>
+<li><strong>enable()</strong> Sets the &lsquo;disable&rsquo; status to false.</li>
+<li><strong>disable()</strong> Sets the &lsquo;disable&rsquo; status to true.</li>
+<li><strong>isDisabled()</strong> Returns the &lsquo;disable&rsquo; status&rsquo;s value (true/false)</li>
+<li><strong>status(statusName,bool,fireEvents)</strong> Sets the status class to the field and runs any updates to the field needed. </li>
+<li><strong>updateStatus(statusName, bool, fireEvents)</strong> legacy code that simply calles the <strong>status(statusName,bool,fireEvents)</strong> method </li>
+<li><strong>hasStatus(statusName)</strong> Returns this current object&rsquo;s current state for the status name that was passed into the function. </li>
+</ul>
+</li>
+<li>Events <ul>
+<li><strong>dirty</strong> <em>Optional</em> Triggered if the form has been changed but not saved</li>
+<li><strong>clean</strong> <em>Optional</em> Triggered if the form&rsquo;s current value equals the previous value, the form has been correctly saved. <ul>
+<li>Also triggered in the clearDirty() method</li>
+</ul>
+</li>
+<li><strong>afterset(null, [val, value])</strong> <em>Optional.</em> Called after <code>set</code> replaces the form values <strong>Default:</strong> (undefined)</li>
+</ul>
+</li>
+</ul>
+<h3 id="fieldwidget"><a name="user-content-fieldwidget" href="#fieldwidget" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>fieldWidget</h3>
+<ul>
+<li>Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements</li>
+<li>Methods<ul>
+<li><strong>isDirty()</strong> </li>
+<li><strong>validate()</strong> </li>
+<li><strong>clearDirty()</strong>  </li>
+<li><strong>clear()</strong> Calls this.set()</li>
+<li><strong>flash()</strong> </li>
+<li><strong>set(data)</strong> </li>
+<li><strong>get()</strong> Prints &ldquo;base get method&rdquo; to the console and returns null </li>
+</ul>
+</li>
+</ul>
+<h3 id="inputfilter"><a name="user-content-inputfilter" href="#inputfilter" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>inputFilter</h3>
+<ul>
+<li>Options<ul>
+<li><strong>toUpper</strong> <em>(boolean)</em> flag to determine if the type is utext. <strong>Default:</strong> &lsquo;false&rsquo;</li>
+<li><strong>max</strong> <em>(integer)</em> Largest input that is allowed in the form field. <strong>Default:</strong> &lsquo;0&rsquo;</li>
+<li><strong>pattern</strong> <em>(regex)</em> The pattern that the input will be checked against for validity. <strong>Default:</strong> &lsquo;/[A-Z]/&rsquo;</li>
+</ul>
+</li>
+<li>Methods <ul>
+<li><strong>setMax(max)</strong> Sets the current object&rsquo;s max variabgle to the max passed into the method.</li>
+<li><strong>setPattern(regex)</strong> Sets the pattern of the current object to the regular experssion passed into the function. </li>
+<li><strong>destroy()</strong> Calls the destroy function with the current object as the parameter</li>
+<li><strong>nextArrayFieldId()</strong> Returns the arrayFieldId incremented by one. </li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>keyignored</strong> <em>Optional</em> Ignore the character that has been entered if it is not valid for the current type</li>
+<li><strong>keytyped</strong> <em>Optional</em> If the character entered is valid for the current type then enter it into the formfield</li>
+</ul>
+</li>
+</ul>
+<h2 id="customization"><a name="user-content-customization" href="#customization" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Customization</h2>
+<h3 id="custom-type"><a name="user-content-custom-type" href="#custom-type" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Custom type</h3>
+<p>To add a type, you must extend the <code>$.add123.inputField.types</code> object with a new type object.</p>
+<p>Default Type Object</p>
+<ul>
+<li><strong>setUp(<em>object</em> ui)</strong> <em>Required.</em> Called initially to setup the field. Use this to add any events or elements. A jQuery object is passed in.</li>
+<li><strong>tearDown(<em>object</em> ui)</strong> <em>Optional.</em> Called when disabling/reconstructing field. Use this to reverse setUp.</li>
+<li><strong>converter *(object)</strong>*<ul>
+<li><strong>toField(<em>string</em> value, <em>object</em> ui)</strong> <em>Optional.</em> Called to convert the value to display inside of the field. Returns the converted value.</li>
+<li><strong>fromField(<em>string</em> value, <em>object</em> ui)</strong> <em>Optional.</em> Called to convert the field value when retrieved from the field. Returns the converted value.</li>
+</ul>
+</li>
+<li><strong>validate(<em>object</em> ui)</strong> <em>Required.</em> Called to check the field for correct input. When invalid, return an object in the format <code>{message:'yourerror'}</code> and the error message will be displayed in red on the field.</li>
+</ul>
+<h4 id="creating-simple-regex-types"><a name="user-content-creating-simple-regex-types" href="#creating-simple-regex-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Creating Simple Regex Types</h4>
+<p>You can use the createRegexType function to make new types based on regular expressions. It will automatically create the needed type functions.</p>
+<p><code>$.add123.inputField.createRegexType(pattern[,filter[,flags[, max]]])</code></p>
+<ul>
+<li><strong>pattern *(RegEx)</strong>* The regular expression used to match the full input for validation.</li>
+<li><strong>filter *(RegEx)</strong>* The regular expression used to match each key input. Those that do not match will be ignored and not placed inside of the field.</li>
+<li><strong>flags *(object)</strong>*<ul>
+<li><strong>toUpper</strong> <em>boolean</em> Converts all text to uppercase. <strong>Default:</strong> true</li>
+</ul>
+</li>
+<li>*<em>max </em>(int)<strong><em> The maximum characters a user can input in a field. If the max is 0, it ignores this constraint. </em>*Default:</strong> 0</li>
+</ul>
+<p>HTML<br />
+<pre><code class="html">&lt;form id=&quot;simpleCustomTypeForm&quot; action=&quot;#&quot;&gt;
+    &lt;input type=&quot;text&quot; data-label=&quot;Custom 'swear' type&quot; data-type=&quot;swear&quot;&gt;
+    &lt;input type=&quot;text&quot; data-label=&quot;Custom 'theLetterF' type&quot; data-type=&quot;theLetterF&quot;&gt;
+    &lt;input type=&quot;text&quot; data-label=&quot;Custom 'luckySeven' type&quot; data-type=&quot;luckySeven&quot;&gt;
+&lt;/form&gt;
+</code></pre><br />
+JavaScript<br />
+<pre><code class="javascript">$.extend($.add123.inputField.types,{
+    'swear': $.add123.inputField.createRegexType(/^[\!@#\$%\&amp;*]*$/, /[\!@#\$%\&amp;*]/),
+    'theLetterF': $.add123.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
+            toUpper: false
+        }),
+    'luckySeven': $.add123.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
+});
+$('simpleCustomTypeForm').formBuilder();
+</code></pre></p>
+<h4 id="creating-full-custom-types"><a name="user-content-creating-full-custom-types" href="#creating-full-custom-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Creating Full Custom Types</h4>
+<p>You can also manually create type objects.</p>
+<p>HTML<br />
+<pre><code class="html">&lt;form id=&quot;fullCustomTypeForm&quot; action=&quot;#&quot;&gt;
+    &lt;input type=&quot;text&quot; data-label=&quot;Custom 'SSN' type&quot; data-type=&quot;SSN&quot;&gt;
+&lt;/form&gt;
+</code></pre><br />
+JavaScript<br />
+<pre><code class="javascript">$.extend($.add123.inputField.types,{
+    'SSN': {
+        setUp: function(ui) {
+            var self = this,
+                e = ui.element;
+
+            //- Set the characters a user can enter
+            e.inputFilter({
+                pattern: /[0-9]/,
+                max: 12
+            });
+
+            //- Replace the input with a formatted input
+            e.on('blur keydown', function(){
+                e.val(self.format(e.val()));
+            });
+        },
+        converter: {
+            toField: function(value, ui) {
+                return this.format(value);
+            },
+            fromField: function(value, ui) {
+                return this.format(value);
+            }
+        },
+        validate: function(ui) {
+            if(!this.format(ui.element.val()).match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{4}$/))
+                return {
+                    message: 'invalid'
+                };
+        },
+
+        //- This is an extra function specifically for this type
+        format: function(text) {
+            if(!text)
+                return '';
+
+            //- Remove non-digits
+            text = text.replace(/[^0-9]/g,'');
+            text = text.substring(0, 10);
+
+            //- add correct dashes
+            if(text.length &amp;lt;= 4)
+                return text;
+            else if(text.length &amp;lt;= 6)
+                return text.substring(0,4) + '-' + text.substring(4);
+            else
+                return  text.substring(0,4) + '-' + text.substring(4,6) + '-' + text.substring(6);
+        }
+    } 
+});
+$('fullCustomTypeForm').formBuilder();
+
+</code></pre></p>
+<h3 id="custom-inputfilter"><a name="user-content-custom-inputfilter" href="#custom-inputfilter" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Custom inputFilter</h3>
+<ul>
+<li>It is possible to create your own unique inputFilters in order to make sure that the input that is being typed into form fields is validated against the custom types that have been created. </li>
+<li>Simply call object.inputFilter and fill in the desired values for the options (toUpper &lt; boolean &gt;, max &lt; int &gt;, pattern &lt; regex &gt; ) and the inputFilter methods will work to validate the input based off of these parameters. </li>
+</ul>
+<p>JavaScript<br />
+<pre><code>e.inputFilter({
+                    toUpper: false,
+                    max: max,
+                    pattern: /./
+                });
+</code></pre></p>
+<h3 id="custom-inputwidget"><a name="user-content-custom-inputwidget" href="#custom-inputwidget" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Custom inputWidget</h3>
+<ul>
+<li>If the user wishes they can design their own inputWidget that will allow them to have their own custom input field. In order to do this it is necessary to give the widget &lsquo;options&rsquo; for what they want their input field to look like. This includes attributes such as color, size, or whatever else the user can think of. They can also include their own methods here to have the input field perform in a unique way. </li>
+<li>In order to ensure that the input field will perform correctly in the form field there are methods that deal with the custom inputWidget on lines 2816-3644. This way the widget is safeguarded from damaging other input fields and items that reside on the form field. These functions also ensure that the custom inputWidget perfroms in the correct manner, such as going into focus, when it is clicked on and other events of that nature. </li>
+</ul>
+<h3 id="unit-tests"><a name="user-content-unit-tests" href="#unit-tests" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Unit Tests</h3>
+<p>There are unit tests for this project. Check the <code>/tests/README.md</code> to see how to run them and add your own.</p>
+<h2 id="credits"><a name="user-content-credits" href="#credits" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Credits</h2>
+<p>Auto Data Direct, Inc.</p>
+<h2 id="license"><a name="user-content-license" href="#license" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>License</h2>
+<p>MIT</p></article></body></html>

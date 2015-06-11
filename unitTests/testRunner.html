@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>jquery.formBuilder Test Runner</title>
+    <!-- External CSS Dependencies-->
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
+    <!-- formBuilder CSS Dependencies	-->
+    <link type="text/css" rel="stylesheet" href="../assets/css/formBuilder.css">
+    <!-- Testing-->
+    <link type="text/css" rel="stylesheet" href="../bower_components/jasmine/lib/jasmine-core/jasmine.css">
+    <!-- =================== JavaScript ===================-->
+    <!-- External JS Dependencies-->
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../bower_components/spinjs/spin.min.js"></script>
+    <!-- formBuilder JS Dependencies		-->
+    <script type="text/javascript" src="../build/jquery.formBuilder-ADD.min.js"></script>
+    <!-- ADD Dependencies-->
+    <script type="text/javascript" src="../AutoDataDirect/jquery.vinUtils.js"></script>
+    <!-- Testing Dependencies-->
+    <script type="text/javascript" src="../bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+    <script type="text/javascript" src="../bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+    <script type="text/javascript" src="../bower_components/requirejs/require.js"></script>
+    <script type="text/javascript" src="../bower_components/jasmine/lib/jasmine-core/boot.js"></script>
+    <!-- Some styling to make the tests look better-->
+    <style>
+      html, body {
+      	height: 100%;
+      	width: 100%;
+      }
+      .test-container {
+      	padding: 2em;
+      	height: 300px;
+      }
+      #outside {
+      	position: absolute;
+      	background-color: #000000;
+      	left: 40em;
+      	top: 10em;
+      	padding: 2em;
+      	width: 5em;
+      	height: 5em;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="test-container"></div>
+    <div id="outside"></div>
+    <script type="text/javascript" src="formBuilderTesting.js"></script>
+    <!-- Specs-->
+    <script type="text/javascript" src="specs/plugins/caret.spec.js"></script>
+    <script type="text/javascript" src="specs/widgets/fromBuilder.spec.js"></script>
+    <script type="text/javascript" src="specs/widgets/inputField.spec.js"></script>
+    <script type="text/javascript" src="specs/widgets/inputFilter.spec.js"></script>
+    <script type="text/javascript" src="specs/widgets/popOver.spec.js"></script>
+    <script type="text/javascript" src="specs/widgets/submitButton.spec.js"></script>
+    <script type="text/javascript" src="specs/types/code.spec.js"></script>
+    <script type="text/javascript" src="specs/types/display.spec.js"></script>
+    <script type="text/javascript" src="specs/types/select.spec.js"></script>
+    <script type="text/javascript" src="specs/types/types.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/date.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/dateTime-military.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/dateTime.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/default.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/email.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/feid.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/integer.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/money.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/phone.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/state.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/text.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/utext.spec.js"></script>
+    <script type="text/javascript" src="specs/types/standard/zip.spec.js"></script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+doctype html
+html
+	head
+		meta(charset='UTF-8')
+		meta(http-equiv='content-type' content='text/html; charset=utf-8')
+
+		title jquery.formBuilder Test Runner
+
+		// External CSS Dependencies
+		link(type='text/css' rel='stylesheet' href='http://code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css')
+		link(type='text/css' rel='stylesheet' href ='../bower_components/normalize.css/normalize.css')
+
+		// formBuilder CSS Dependencies	
+		link(type='text/css' rel='stylesheet' href ='../assets/css/formBuilder.css')
+
+		// Testing
+		link(type='text/css' rel='stylesheet' href ='../bower_components/jasmine/lib/jasmine-core/jasmine.css')
+
+
+		// =================== JavaScript ===================
+
+		// External JS Dependencies
+		script(type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js')
+		script(type='text/javascript' src='../bower_components/jquery-ui/ui/minified/jquery-ui.min.js')
+		script(type='text/javascript' src='../bower_components/moment/min/moment.min.js')
+		script(type='text/javascript' src='../bower_components/spinjs/spin.min.js')
+
+		// formBuilder JS Dependencies		
+		script(type='text/javascript' src='../build/jquery.formBuilder-ADD.min.js')
+
+		// ADD Dependencies
+		script(type='text/javascript' src='../AutoDataDirect/jquery.vinUtils.js')
+
+		// Testing Dependencies
+		script(type='text/javascript' src='../bower_components/jasmine/lib/jasmine-core/jasmine.js')
+		script(type='text/javascript' src='../bower_components/jasmine/lib/jasmine-core/jasmine-html.js')
+		script(type='text/javascript' src='../bower_components/requirejs/require.js')
+		script(type='text/javascript' src='../bower_components/jasmine/lib/jasmine-core/boot.js')
+
+		//- script(type='text/javascript' src='../bower_components/bililiteRange/bililiteRange.js')
+		//- script(type='text/javascript' src='../bower_components//bililiteRange/jquery.sendkeys.js')
+		
+
+		
+		
+		// Some styling to make the tests look better
+		style.
+			html, body {
+				height: 100%;
+				width: 100%;
+			}
+			.test-container {
+				padding: 2em;
+				height: 300px;
+			}
+			#outside {
+				position: absolute;
+				background-color: #000000;
+				left: 40em;
+				top: 10em;
+				padding: 2em;
+				width: 5em;
+				height: 5em;
+			}
+
+	body
+		.test-container
+			
+
+		#outside
+
+
+		script(type='text/javascript' src='formBuilderTesting.js')
+
+		// Specs
+		for file in specs
+			script(type='text/javascript' src='#{file}')
+
+
+

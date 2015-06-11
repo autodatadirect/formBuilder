@@ -1,0 +1,28 @@
+{
+  "name": "formbuilder",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "bower.json",
+    "Gruntfile.js",
+    "README.md",
+    "unitTests",
+    "e2eTests",
+    "spec",
+    ".gitignore",
+    "src",
+    "assets",
+    "uncomplete"
+  ],
+  "dependencies": {
+    "jquery": "1.8.3 - 1.11.3",
+    "jquery-ui": "1.9.2",
+    "normalize.css": "~3.0.3",
+    "moment": "~2.10.3",
+    "spinjs": "~2.3.0"
+  },
+  "devDependencies":{
+    "requirejs": "~2.1.18",
+    "jasmine": "~2.3.4"
+  }
+}

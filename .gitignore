@@ -1,0 +1,10 @@
+npm-debug.log
+node_modules
+bower_components
+release
+build
+dist
+.jshintrc
+.tmp
+spec/reports
+phantomjsdriver.log
