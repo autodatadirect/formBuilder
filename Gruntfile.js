@@ -3,7 +3,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		dirs: {
-			output: 'build'
+			output: 'build',
+			distribution: 'dist'
 		},
 		copy: {
 			main: {
@@ -12,6 +13,14 @@ module.exports = function(grunt) {
 					cwd: 'assets/',
 					src: ['**'],
 					dest: '<%= dirs.output %>'
+				}]
+			},
+			dist: {
+				files: [{
+					expand: true,
+					cwd: '<%= dirs.output %>',
+					src: ['**'],
+					dest: '<%= dirs.distribution %>'
 				}]
 			}
 		},
@@ -99,5 +108,6 @@ module.exports = function(grunt) {
 	// Default task(s).
 	grunt.registerTask('default', ['jshint', 'clean', 'copy', 'uglify']);
 	grunt.registerTask('jTest', ['default', 'jade', 'jasmine_nodejs']);
+	grunt.registerTask('dist', ['default', 'copy:dist']);
 
 };
