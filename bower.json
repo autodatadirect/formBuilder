@@ -12,8 +12,12 @@
     ".gitignore",
     "src",
     "assets",
-    "uncomplete"
+    "uncomplete",
+    "package.json",
+    "build",
+    "bower.json"
   ],
+  "main": [],
   "dependencies": {
     "jquery": "1.8.3 - 1.11.3",
     "jquery-ui": "1.9.2",

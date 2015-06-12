@@ -141,12 +141,10 @@
 
 		converter: {
 			toField: function (val, ui) {
-				var e = ui.element;
-
-				e.parents('.field-items').find('.input-display').html(val);
+				ui.element.parents('.field-items').find('.input-display').html(val);
 			},
 			fromField: function(value, ui) {
-				return e.parents('.field-items').find('.input-display').html().trim();
+				return ui.element.parents('.field-items').find('.input-display').html().trim();
 			}
 		}
 	};

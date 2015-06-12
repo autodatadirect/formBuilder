@@ -57,7 +57,10 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		clean: ['<%= dirs.output %>'],
+		clean: {
+			output: ['<%= dirs.output %>'],
+			dist: ['<%= dirs.distribution %>']
+		},
 		jasmine_nodejs: {
 			options: {
 				specNameSuffix: "spec.js",
@@ -106,8 +109,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jade');
 
 	// Default task(s).
-	grunt.registerTask('default', ['jshint', 'clean', 'copy', 'uglify']);
+	grunt.registerTask('default', ['jshint', 'clean:output', 'copy', 'uglify']);
 	grunt.registerTask('jTest', ['default', 'jade', 'jasmine_nodejs']);
-	grunt.registerTask('dist', ['default', 'copy:dist']);
-
+	grunt.registerTask('dist', ['default', 'clean:dist', 'copy:dist']);
 };
