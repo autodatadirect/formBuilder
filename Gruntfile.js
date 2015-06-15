@@ -25,14 +25,33 @@ module.exports = function(grunt) {
 			}
 		},
 		uglify: {
-			options: {
-				banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-				sourceMap: true,
-				sourceMapIncludeSources: true,
-				mangle: true,
-				// beautify: true
+			testBuild: {
+				options: {
+					banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+					sourceMap: true,
+					sourceMapIncludeSources: true,
+					mangle: false,
+					beautify: true,
+					compress: false
+				},
+				files: {
+					'<%= dirs.output %>/<%= pkg.name %>.min.js': [
+						'src/util/**/*.js',
+						'src/plugins/**/*.js',
+						'src/widgets/**/*.js',
+						'src/types/**/*.js',
+					]
+				}
 			},
-			build: {
+			dist: {
+				options: {
+					banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+					sourceMap: true,
+					sourceMapIncludeSources: true,
+					mangle: true,
+					beautify: false,
+					compress: true
+				},
 				files: {
 					'<%= dirs.output %>/<%= pkg.name %>.min.js': [
 						'src/util/**/*.js',
@@ -42,6 +61,7 @@ module.exports = function(grunt) {
 					]
 				}
 			}
+			
 		},
 		jshint: {
 			files: [
@@ -97,6 +117,17 @@ module.exports = function(grunt) {
 					ext: '.html'
 				}]
 			}
+		},
+
+		// Auto rebuild
+		watch: {
+			scrips: {
+				files: ['src/**/*.js'],
+				tasks: ['default'],
+				options: {
+
+				}
+			}
 		}
 	});
 
@@ -107,9 +138,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-jasmine-nodejs');
 	grunt.loadNpmTasks('grunt-contrib-jade');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
-	grunt.registerTask('default', ['jshint', 'clean:output', 'copy', 'uglify']);
+	grunt.registerTask('default', ['jshint', 'clean:output', 'copy:main', 'uglify:testBuild']);
+	grunt.registerTask('dist', ['jshint', 'clean:output', 'copy:main', 'uglify:dist', 'clean:dist', 'copy:dist']);
+
 	grunt.registerTask('jTest', ['default', 'jade', 'jasmine_nodejs']);
-	grunt.registerTask('dist', ['default', 'clean:dist', 'copy:dist']);
+	
 };
