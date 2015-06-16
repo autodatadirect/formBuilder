@@ -6,7 +6,7 @@ var fs = require('fs');
 var path = require('path');
 var jade = require('jade');
 
-module.exports = function(){
+module.exports = function(done){
 	var priortySpecFiles = [];
 	var specFiles = [];
 	var specDirs = [];
@@ -78,6 +78,10 @@ module.exports = function(){
 		}
 
 		console.log('"'+outputHtmlFile+'" created successfully');
+
+		//Complete outside callback
+		if(done !== undefined)
+			done();
 	});
 
 

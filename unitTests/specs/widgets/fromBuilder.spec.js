@@ -52,6 +52,7 @@ describe('A formBuilder widget',function(){
 			expect(fbw).toBeDefined();
 			expect(util.equals(fbw.options.converter, options.converter)).toBe(true);
 			expect(fbw.options.ignoreHidden).toBe(options.ignoreHidden);
+			expect(2).toBe(1);
 		});
 	});
 

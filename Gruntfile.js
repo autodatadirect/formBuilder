@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 			dist: {
 				files: [{
 					expand: true,
-					cwd: '<%= dirs.output %>',
+					cwd: 'assets/',
 					src: ['**'],
 					dest: '<%= dirs.distribution %>'
 				}]
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
 					compress: true
 				},
 				files: {
-					'<%= dirs.output %>/<%= pkg.name %>.min.js': [
+					'<%= dirs.distribution %>/<%= pkg.name %>.min.js': [
 						'src/util/**/*.js',
 						'src/plugins/**/*.js',
 						'src/widgets/**/*.js',
@@ -142,7 +142,7 @@ module.exports = function(grunt) {
 
 	// Default task(s).
 	grunt.registerTask('default', ['jshint', 'clean:output', 'copy:main', 'uglify:testBuild']);
-	grunt.registerTask('dist', ['jshint', 'clean:output', 'copy:main', 'uglify:dist', 'clean:dist', 'copy:dist']);
+	grunt.registerTask('dist', ['jshint', 'clean:dist', 'copy:dist', 'uglify:dist']);
 
 	grunt.registerTask('jTest', ['default', 'jade', 'jasmine_nodejs']);
 	
