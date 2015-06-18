@@ -25,8 +25,9 @@
     "moment": "~2.10.3",
     "spinjs": "~2.3.0"
   },
-  "devDependencies":{
+  "devDependencies": {
     "requirejs": "~2.1.18",
-    "jasmine": "~2.3.4"
+    "jasmine": "~2.3.4",
+    "jquery-timepicker-jt": "~1.8.0"
   }
 }

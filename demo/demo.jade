@@ -12,7 +12,7 @@ html
 
 
 		// ==================== formBuilder CSS Dependancies ==================== 
-
+		link(type='text/css' rel='stylesheet' href='../bower_components/jquery-timepicker-jt/jquery.timepicker.css')
 		link(type='text/css' rel='stylesheet' href='../dist/css/formBuilder.css')
 
 		// Display purposes
@@ -645,6 +645,10 @@ html
 							}
 						});
 					//- 
+			.sect(data-title='New Types')
+				.example
+					input(type='text' data-label='time' data-type='time')
+
 					
 		// Bower JS Dependencies (using CDNs for demo)
 		// script(type='text/javascript' src='/bower_components/jquery/jquery.min.js')
@@ -657,6 +661,7 @@ html
 		script(type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js')
 		
 		// formBuilder Dependencies
+		script(type='text/javascript' src='../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js')
 		script(type='text/javascript' src='../dist/jquery.formBuilder.min.js')
 
 		// Extra for displaying

@@ -77,7 +77,7 @@ gulp.task('build', ['lint', 'copy:assets'], function(){
 				banner: '/*! ' + pkg.name + ' ' + pkg.version + ' ' + today + '*/\n',
 				mangle: !argv.original && argv.dist || argv.mangle,
 				compress: !argv.original && argv.dist || argv.mangle,
-				preserveComments: argv.original || !argv.dist
+				// preserveComments: argv.original || !argv.dist
 			}))
 		.pipe(sourcemaps.write('./',{
 			addComment: true,
