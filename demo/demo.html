@@ -2,13 +2,14 @@
 <html>
   <head>
     <title>jquery.formBuilder.js | Demo 2</title>
-    <!-- ==================== External CSS Dependancies ==================== -->
+    <!-- ==================== External CSS Dependencies ==================== -->
     <!-- Any jquery-ui theme-->
     <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css">
-    <!-- ==================== bower CSS Dependancies ==================== -->
-    <link type="text/css" rel="stylesheet" href="./../bower_components/normalize.css/normalize.css">
-    <!-- ==================== formBuilder CSS Dependancies ==================== -->
+    <!-- ==================== bower CSS Dependencies ==================== -->
+    <link type="text/css" rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
+    <!-- ==================== formBuilder CSS Dependencies ==================== -->
     <link type="text/css" rel="stylesheet" href="../bower_components/jquery-timepicker-jt/jquery.timepicker.css">
+    <link type="text/css" rel="stylesheet" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css">
     <link type="text/css" rel="stylesheet" href="../dist/css/formBuilder.css">
     <!-- Display purposes-->
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
@@ -648,6 +649,12 @@
         <div class="example">
           <input type="text" data-label="time" data-type="time">
         </div>
+        <div class="example">
+          <input type="text" data-label="date" data-type="date">
+        </div>
+        <div class="example">
+          <input type="text" data-label="dateTime" data-type="dateTime">
+        </div>
       </div>
     </div>
     <!-- Bower JS Dependencies (using CDNs for demo)-->
@@ -659,8 +666,9 @@
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js"></script>
-    <!-- formBuilder Dependencies-->
+    <script type="text/javascript" src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js"></script>
+    <!-- formBuilder Dependencies-->
     <script type="text/javascript" src="../dist/jquery.formBuilder.min.js"></script>
     <!-- Extra for displaying-->
     <script type="text/javascript" src="./js/codemirror.js"></script>

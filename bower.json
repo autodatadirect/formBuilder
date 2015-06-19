@@ -28,6 +28,7 @@
   "devDependencies": {
     "requirejs": "~2.1.18",
     "jasmine": "~2.3.4",
-    "jquery-timepicker-jt": "~1.8.0"
+    "jquery-timepicker-jt": "~1.8.0",
+    "bootstrap-datepicker": "~1.4.0"
   }
 }

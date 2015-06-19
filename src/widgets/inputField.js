@@ -612,23 +612,23 @@
 			}
 		},
 
+		isEmpty: function() {
+			var self = this,
+				type = self.type;
+
+			// check if type declares an isEmpty method
+			if($.isFunction(type.isEmpty)) {
+				return type.isEmpty.call(type, self);
+			}
+			
+			return $.trim(self.element.val()) === '';
+		},
+
 		validate: function(skipRequired) {
 			var self = this,
-				o = self.options,
-				e = self.element,
 				states = self.states,
 				type = self.type,
-				empty;
-
-
-			/*
-			 * check if type declares an isEmpty method
-			 */
-			if($.isFunction(type.isEmpty)) {
-				empty = type.isEmpty.call(type, self);
-			}else{
-				empty = $.trim(e.val()) === '';
-			}
+				empty = self.isEmpty();
 
 			/*
 			 * check required, compare against the actual value in the field
