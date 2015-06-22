@@ -887,8 +887,8 @@
 				// MISC-919 make sure placeholder stays in input box
 				if(layer === 'placeholder') {
 					var ph = self.layers[layer];
-					while(ph.outerWidth(true) > e.width()) {
-						ph.css('font-size','-=1');
+					while(ph.outerWidth(true) > e.width() && parseInt(ph.css('font-size'),10) >= 8.0) {
+						ph.css('font-size','-=1.0');
 					}
 				}
 			} else {
