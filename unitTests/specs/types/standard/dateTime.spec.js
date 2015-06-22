@@ -2,7 +2,7 @@
  * Testing dateTime data-type
  */
 
- describe('The dateTime data-type', function(){
+xdescribe('The dateTime data-type', function(){
 	var testContainer = window.formBuilderTesting.testContainer;
  	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
