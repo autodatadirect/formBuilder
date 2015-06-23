@@ -7,7 +7,7 @@
 	var doc = $(document);
 	$.add123.inputField.types.select = {
 		setUp: function(inputWidget) {
-			var self = this,
+			var self = this, // Object = {}
 				o = inputWidget.options,
 				e = inputWidget.element;
 
@@ -107,9 +107,9 @@
 			 */
 
 			filter.on('click', function (ev) {
+				console.log('inside click');
 				ev.preventDefault();
 				ev.stopPropagation();
-				return false;
 			});
 
 			/*
@@ -173,7 +173,7 @@
 				which = ev.which;
 
 			/*
-			 * special handling for tab
+			 * special handling for tab, does not perform any function (keeping for legacy)
 			 */
 			if(which === 9){
 				self.element.next('input').focus();
@@ -192,7 +192,6 @@
 			 * move down
 			 */
 			if(which === 40){
-
 				selected = panel.find('.' + selectionClass);
 
 				if(!selected.length){
@@ -212,7 +211,6 @@
 			 * move down
 			 */
 			if(which === 38){
-
 				selected = panel.find('.' + selectionClass);
 
 				if(!selected.length){
@@ -232,7 +230,6 @@
 			if(which < 32 || which > 126){
 				return;
 			}
-
 			self.open();
 		},
 
@@ -247,6 +244,7 @@
 			}
 
 			self.filterValue = val;
+
 
 			self._filterOptions();
 		},
@@ -266,7 +264,6 @@
 			selected = self.panel.find('.selected:not(.filtered):visible');
 
 			var item = self.item = selected.data('item');
-
 			/*
 			 * TMS-1137
 			 * if nothing is selected, ignore this call
@@ -327,12 +324,11 @@
 						self._handleItemNotFound();
 					}
 				}
-
 			});
 		},
 
 		_removeSelection: function () {
-			this.panel.find('.option').removeClass('selected');
+			this.panel.find('.option.selected').removeClass('selected');
 		},
 
 		_handleItemNotFound: function () {
@@ -406,6 +402,7 @@
 		clear: function () {
 			var self = this,
 				e = self.element;
+
 			self.item = {};
 			self.panel.find('.selected').removeClass('selected');
 			e.val('');
@@ -469,7 +466,6 @@
 		__filterOptionsWork: function (optionsElements) {
 			var self = this,
 				val = self.filterValue;
-
 			/*
 			if(val && item.label && item.label.match(new RegExp($.ui.autocomplete.escapeRegex(val), 'i')) === null){
 				return;
@@ -505,7 +501,7 @@
 
 			if(self._itemShoudBeFiltered(item, val)){
 				optionEl.addClass('filtered');
-			}else{
+			}else{			
 				optionEl.removeClass('filtered');
 			}
 		},
@@ -517,6 +513,7 @@
 			if(!item.label){
 				return true;
 			}
+
 			return item.label.match(new RegExp($.ui.autocomplete.escapeRegex(val), 'i')) === null;
 		},
 
@@ -598,17 +595,14 @@
 			}
 
 			setTimeout(function() {
-
-				var selected = self.panel.find('.selected'),
-					top;
+				var selected = self.panel.find('.selected');
 
 				if(selected.length === 0){
-					top = 0;
+					options.scrollTop(0);
 				}else{
-					top = selected.position().top;
+					options.scrollTop(selected.position().top - selected.before().outerHeight());
 				}
-
-				options.scrollTop(top + selected.height());
+				
 			}, 0);
 
 
@@ -708,6 +702,7 @@
 				 * scan for showClass commands
 				 */
 				var form, sections = $([]);
+
 				$.each(source, function (i, item) {
 					if(item.showClass){
 						if(!form){
@@ -725,11 +720,11 @@
 
 		removeInvalid: function (ev, ui) {
 			var self = this,
-				e = self.element,
+				e = self.element, 
 				val = e.val(),
-				source = self.source,
-				l = source.length,
-				i;
+				source = self.source, 
+				l = source.length, 
+				i; 
 
 			/*
 			 * if ui.item is set, the autocomplete just set this
@@ -739,11 +734,12 @@
 				return;
 			}
 
+
 			/*
 			 * verify that the current self.item matches an id in the source and that the label matches
 			 */
 			for(i = 0; i < l; i++){
-				if(source[i].label === val && self.item && self.item.id === source[i].id){
+				if(source[i].label === val && self.item && self.item.value === source[i].value){
 					self.item = source[i];
 					return;
 				}
@@ -771,7 +767,7 @@
 					});
 				});
 			}
-			return $.when(source);
+			return $.when(source); // returns a promise object
 		},
 
 		map: function (raw) {
@@ -808,6 +804,7 @@
 				if(val === undefined){
 					return null;
 				}
+
 				return val;
 			},
 
@@ -827,7 +824,12 @@
 
 				self._set(data);
 
-				return data.label;
+				if (!self.item) {
+					self.clear();
+					return;
+				}
+
+				return self.item.label;
 			}
 		}
 	};

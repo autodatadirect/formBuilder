@@ -97,6 +97,12 @@
       	border-bottom-style: solid;
       	margin-top: 1em;
       }
+      .aClass {
+      	display: block;
+      	background-color: yellow;
+      	height: 1em;
+      	width: 1em;
+      }
       
     </style>
   </head>
@@ -343,7 +349,8 @@
             </select>
           </div>
           <div class="example">
-            <input type="text" data-label="formBuilder select" data-type="select" data-options="[						{&quot;value&quot;:&quot;submitted to form&quot;, &quot;label&quot;:&quot;Searched Item&quot;},						{&quot;value&quot;:&quot;true&quot;, &quot;label&quot;:&quot;Yes&quot;},						{&quot;value&quot;:&quot;false&quot;, &quot;label&quot;:&quot;No&quot;},						{&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 1&quot;},						{&quot;value&quot;:&quot;2&quot;, &quot;label&quot;:&quot;option 2&quot;},						{&quot;value&quot;:&quot;3&quot;, &quot;label&quot;:&quot;option 3&quot;},						{&quot;value&quot;:&quot;4&quot;, &quot;label&quot;:&quot;option 4&quot;},						{&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 5&quot;},						{&quot;value&quot;:&quot;100&quot;,  &quot;label&quot;:&quot;Some label&quot;},						{&quot;value&quot;:&quot;AAA&quot;,  &quot;label&quot;:&quot;123 Some St.&quot;},						{&quot;value&quot;:&quot;BBB&quot;,  &quot;label&quot;:&quot;Some Business Name Inc.&quot;},						{&quot;value&quot;:&quot;Hodor&quot;,  &quot;label&quot;:&quot;Bran&quot;}						]">
+            <input type="text" data-label="formBuilder select" data-type="select" data-options="[							{&quot;value&quot;:&quot;submitted to form&quot;, &quot;label&quot;:&quot;Searched Item&quot;, &quot;showClass&quot;:&quot;aClass&quot;},							{&quot;value&quot;:&quot;true&quot;, &quot;label&quot;:&quot;Yes&quot;},							{&quot;value&quot;:&quot;false&quot;, &quot;label&quot;:&quot;No&quot;},							{&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 1&quot;},							{&quot;value&quot;:&quot;2&quot;, &quot;label&quot;:&quot;option 2&quot;},							{&quot;value&quot;:&quot;3&quot;, &quot;label&quot;:&quot;option 3&quot;},							{&quot;value&quot;:&quot;4&quot;, &quot;label&quot;:&quot;option 4&quot;},							{&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 5&quot;},							{&quot;value&quot;:&quot;100&quot;,  &quot;label&quot;:&quot;Some label&quot;},							{&quot;value&quot;:&quot;AAA&quot;,  &quot;label&quot;:&quot;123 Some St.&quot;},							{&quot;value&quot;:&quot;BBB&quot;,  &quot;label&quot;:&quot;Some Business Name Inc.&quot;},							{&quot;value&quot;:&quot;Hodor&quot;,  &quot;label&quot;:&quot;Bran&quot;}						]">
+            <div class="aClass"></div>
           </div>
           <p>The value is what is submitted to the form while the label is what the user can search for. <b>Note:</b> In this example the single quotes should be escaped double quotes.
             <div data-title="HTML" data-mode="html" class="code">
@@ -864,6 +871,7 @@
       	}
       });
       
+      $('.aClass').hide();
       
       // ================= DEMO DISPLAY CODE BELOW ===================
       

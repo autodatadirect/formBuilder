@@ -104,6 +104,12 @@ html
 				border-bottom-style: solid;
 				margin-top: 1em;
 			}
+			.aClass {
+				display: block;
+				background-color: yellow;
+				height: 1em;
+				width: 1em;
+			}
 
 	body
 		.container
@@ -330,20 +336,22 @@ html
 						option(value='BBB') Some Business Name Inc.
 						option(value='Hodor') Bran
 				
-					.example: input(type='text' data-label='formBuilder select' data-type='select' data-options='[\
-						{"value":"submitted to form", "label":"Searched Item"},\
-						{"value":"true", "label":"Yes"},\
-						{"value":"false", "label":"No"},\
-						{"value":"5", "label":"option 1"},\
-						{"value":"2", "label":"option 2"},\
-						{"value":"3", "label":"option 3"},\
-						{"value":"4", "label":"option 4"},\
-						{"value":"5", "label":"option 5"},\
-						{"value":"100",  "label":"Some label"},\
-						{"value":"AAA",  "label":"123 Some St."},\
-						{"value":"BBB",  "label":"Some Business Name Inc."},\
-						{"value":"Hodor",  "label":"Bran"}\
+					.example
+						input(type='text' data-label='formBuilder select' data-type='select' data-options='[\
+							{"value":"submitted to form", "label":"Searched Item", "showClass":"aClass"},\
+							{"value":"true", "label":"Yes"},\
+							{"value":"false", "label":"No"},\
+							{"value":"5", "label":"option 1"},\
+							{"value":"2", "label":"option 2"},\
+							{"value":"3", "label":"option 3"},\
+							{"value":"4", "label":"option 4"},\
+							{"value":"5", "label":"option 5"},\
+							{"value":"100",  "label":"Some label"},\
+							{"value":"AAA",  "label":"123 Some St."},\
+							{"value":"BBB",  "label":"Some Business Name Inc."},\
+							{"value":"Hodor",  "label":"Bran"}\
 						]')
+						.aClass
 					p The value is what is submitted to the form while the label is what the user can search for. <b>Note:</b> In this example the single quotes should be escaped double quotes.
 						.code(data-title="HTML" data-mode='html').
 							<input type='text' data-label='formBuilder select' data-type='select' data-options='[
@@ -866,6 +874,7 @@ html
 				}
 			});
 
+			$('.aClass').hide();
 
 			// ================= DEMO DISPLAY CODE BELOW ===================
 

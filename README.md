@@ -135,6 +135,7 @@ Instead of using a normal select tag, you can use an *input* tag with **data-typ
 * **data-default** *Optional.* Set the default selected option by *value*. Must be an actual option value. Sets to the first option if not specified.
 * **data-no-sort** *Optional.* Set to "1" to prevent the sorting of labels 
 * **data-options** *Required.* String representation of a JSON array of objects each containing a "value" and a "label".
+* **showClass** *Optional* Set the showClass equal to a class that you wish to be able to show or hide based on the user's click on the item where showClass is set. In order for this functionality to work the showClass must be placed inside of the same formbuilder form that the select input is. 
 
 *HTML*
 ```html
