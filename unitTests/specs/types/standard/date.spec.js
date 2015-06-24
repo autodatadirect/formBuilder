@@ -2,7 +2,7 @@
  * Testing date data-type
  */
 
-xdescribe('The date data-type', function(){
+describe('The date data-type', function(){
  	var testContainer = window.formBuilderTesting.testContainer;
  	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
@@ -13,7 +13,7 @@ xdescribe('The date data-type', function(){
 	var type = $.add123.inputField.types[typeName];
 
 	it('is a valid data-type', function(){
-		var input = $('<input type="text"/>').wrap('<div/>').inputField();
+		var input = $('<input type="text"/>').appendTo(testContainer).inputField();
 		var ifw = input.data('add123InputField');
 		
 		expect(type).toBeDefined();
@@ -21,46 +21,96 @@ xdescribe('The date data-type', function(){
 		ifw.setType(typeName);
 		
 		expect(util.equals(ifw.getType(), type)).toBe(true);
+
+		testContainer.empty();
 	});
 
-	it('can be created with a placeholder and a calendar addon', function(){
-		var input = $('<input type="text" data-type="date"/>').wrap('<div/>').inputField();	
+	it('is created with a placeholder', function(){
+		var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();	
 
-		expect(input.parent().siblings('.addon').length).toBe(1);
 		expect(input.parent().children('.placeholder').length).toBe(1);
 		expect(input.parent().children('.placeholder').text()).toBe('MM/DD/YYYY');
-		expect(input.parent().siblings('.addon').attr('class')).toBe('field-item addon clickable');
-		expect(input.parent().siblings('.addon').children().length).toBe(1);
-		expect(input.parent().siblings('.addon').children().attr('class')).toBe('calendar-icon');
+
+		testContainer.empty();
 	});
 
-	it('has a calender addon that can be manipulated', function(done){
-		var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+	describe('has a datepicker', function(){
+		it('that opens on focus', function(done){
+			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
 
-		expect(ifw.get()).toBe('');
+			expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
+			expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
 
-		$('span.addon').click();
-		pause(triggerWaitTime)
-		.then(function(){
-			expect($('#ui-datepicker-div').length).toBe(1); // There should be one datepicker
-			expect($('#ui-datepicker-div:visible').length).toBe(1); // The datepicker should be visible after a click 
- 
+			input.focus();
 
-			$('td[data-handler="selectDay"]').click(); // Choose a day
-			return pause(500);
-		})
-		.then(function(){
-			expect($('#ui-datepicker-div:visible').length).toBe(0); // The datepicker should not be visible after selecting a day 
-			expect(ifw.get()).not.toBe(''); // Expect the value of the input field to be equal to the last date on the calender icon
-			
-			testContainer.empty();
-			done();
+			pause(triggerWaitTime)
+			.then(function(){
+				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
+				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+
+				testContainer.empty();
+
+				done();
+			});	 
+		});
+
+		it('that can select a date', function(done){
+			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+
+			expect(ifw.get()).toBe('');
+
+			input.focus();
+			pause(triggerWaitTime)
+			.then(function(){
+				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
+				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+
+				var day = testContainer.siblings().eq(26).children().eq(0).children().eq(0).children().eq(1).children().eq(1).children().eq(2);
+
+				day.click(); 
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
+				expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
+				expect(ifw.get()).not.toBe('');
+
+				testContainer.empty();
+
+				done();
+			});		
+		}); 
+
+		it('and can be torn down', function(done){
+			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+
+			expect(ifw.get()).toBe('');
+
+			input.focus();
+			pause(triggerWaitTime)
+			.then(function(){
+				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
+				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+
+				ifw.getType().tearDown(ifw);
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
+				expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
+
+				done(); 
+			});
 		});
 	});
+	
 
 	it('has filter support', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').wrap('<div/>').inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 		var ifw = input.data('add123InputField');
 		var filter = input.data('add123InputFilter'); 
 
@@ -75,10 +125,12 @@ xdescribe('The date data-type', function(){
 		expect(typeNewString(chars.ALPHAS)).toEqual('');
 		expect(typeNewString(chars.digits)).toEqual(chars.digits);
 		expect(typeNewString(chars.symbols)).toEqual('/');
+
+		testContainer.empty();
 	});
 
 	describe('has simple regex validation', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').wrap('<div/>').inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 		var ifw = input.data('add123InputField');
 		var valids, invalids;
 
@@ -95,7 +147,9 @@ xdescribe('The date data-type', function(){
 			'00/02/2222',
 			'02/00/2222',
 			'13/02/2222',
-			'02/32/2222'
+			'02/32/2222',
+			'0222/33/222222',
+			'55555555555555' // too many characters, max allowed is ten
 		];
 		
 		var validateNewVal = function(str){
@@ -105,30 +159,57 @@ xdescribe('The date data-type', function(){
 
 		batchTest('that accepts',valids,true,validateNewVal);
 		batchTest('that rejects',invalids,false,validateNewVal);
+
+		testContainer.empty();
 	});
 
-	xdescribe('can be converted', function(){
-		it('by changing the values when they are entered into the field', function(){
-			// toField
-			var input = $('<input type="text" data-type="date"/>').wrap('<div/>').inputField();
-			var ifw;
+	describe('can handle conversion', function(){
+		it('using its toField', function(){
+			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
 
-			//var spy = spyOn(input, 'toField').and.callThrough(); 
+			var spy_to = spyOn(ifw.getType().converter, 'toField').and.callThrough();
+
+			// With correct input 
+			var result = ifw.getType().converter.toField('1988-07-23');
+
+			expect(result).toBe('07/23/1988');
+
+			// With incorrect input 
+			var result2 = ifw.getType().converter.toField('18-07-23');
+
+			expect(result2).toBe('');
+
+			// With no input 
+			var result3 = ifw.getType().converter.toField();
+
+			expect(result3).toBe('');
 
 			testContainer.empty();
-
-			input.appendTo(window.testContainer).inputField();
-			ifw = input.data('add123InputField');
-
-
-			ifw.set('12/23/2000'); // Trying to test fromField
-
-			expect(input.val()).toBe('12/23/2000'); // This is returning rwar which means it thinks the data is invalid
-			expect(ifw.get()).toBe('2000-12-23'); // This is returning rwar which means it thinks the data is invalid
 		});
 
-		xit('by changing the values when they are taken from the field', function(){
-			// fromField
+		it('and fromField functions', function(){
+			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+
+			var spy_from = spyOn(ifw.getType().converter, 'fromField').and.callThrough();
+
+			// With correct input 
+			var result = ifw.getType().converter.fromField('07/23/1988');
+
+			expect(result).toBe('1988-07-23');
+
+			// With incorrect input 
+			var result2 = ifw.getType().converter.fromField('07/23/88');
+
+			expect(result2).toBe('');
+
+			// With no input 
+			var result3 = ifw.getType().converter.fromField();
+
+			expect(result3).toBe('');
+
+			testContainer.empty();
 		});
 	});
 

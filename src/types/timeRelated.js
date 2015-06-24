@@ -180,7 +180,7 @@
 			 */
 			fromField: function(val, ifw) {
 				var self = this;
-				if(!val || !val.match(self._regex))
+				if(!val || !val.match(/^((0[0-9])|([0-9])|(1[0-2])):([0-5][0-9])((am)|(pm))$/))
 					return '';
 				return moment(val,'h:mma').utc().format('HH:mm');
 			}
@@ -347,7 +347,6 @@
 					date: self.dateWidget.inputField('get'),
 					time: self.timeWidget.inputField('get') 
 				};
-
 				return self._joinDateAndTime(dateTimeObject);
 			}
 		},
