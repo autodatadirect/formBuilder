@@ -194,7 +194,7 @@
 
 			if(tooltip) {
 
-				var addon = self.addOn(1000, '<span class="tooltip">?</span>', 'clickable');
+				var addon = self.addOn(1000, '<span class="tooltip noselect">?</span>', 'clickable');
 
 				field.addClass('has-tooltip');
 
@@ -308,7 +308,7 @@
 				layers = self.layers;
 
 			if(!layers.suffix){
-				layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value">' + t + '</span></div>').prependTo(layers.items);
+				layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value noselect">' + t + '</span></div>').prependTo(layers.items);
 				self.suffixShim = layers.suffix.find('.shim');
 				
 			} else {
@@ -321,7 +321,7 @@
 				layers = self.layers;
 
 			if(!layers.prefix){
-				layers.prefix = $('<div class="prefix-overlay">' + t + '</div>').prependTo(layers.items);
+				layers.prefix = $('<div class="prefix-overlay noselect">' + t + '</div>').prependTo(layers.items);
 			}else{
 				self.layers.prefix.find('.value').text(t);
 			}
@@ -495,7 +495,7 @@
 				layers = self.layers;
 
 			if(!layers.placeholder){
-				layers.placeholder = $('<div class="placeholder"></div>').hide().appendTo(layers.input);
+				layers.placeholder = $('<div class="placeholder noselect"></div>').hide().appendTo(layers.input);
 			}
 
 			layers.placeholder.text(s);
@@ -709,7 +709,7 @@
 			}
 
 			if(!layers.error) {
-				layers.error = $('<div class="error-overlay"></div>').appendTo(layers.input);
+				layers.error = $('<div class="error-overlay noselect"></div>').appendTo(layers.input);
 			}
 
 			//TODO: place error then check for overlaps
