@@ -1018,13 +1018,10 @@
 				}
 
 				if(cleanBool) {
-					setTimeout(function() {
-						layers.disable.css({
-							width: (layers.items.outerWidth() - 2) + 'px',
-							height: (layers.items.outerHeight() - 2) + 'px'
-						}).show();
-					}, 0);
-
+					layers.disable.css({
+						width: (layers.items.outerWidth() - 2) + 'px',
+						height: (layers.items.outerHeight() - 2) + 'px'
+					}).show();
 				} else {
 					layers.disable.hide();
 				}

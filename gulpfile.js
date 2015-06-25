@@ -19,14 +19,16 @@ var pkg = require('./package.json');
 
 // Command line flags (the yargs github guide is glorious)
 var argv = require('yargs')
-	.alias('d', 'dist')	// building dirstribution or test build
-	.alias('o', 'original') // uglify without mangling variable names or compressing
-	.alias('m', 'mangle') // uglify with mangling/compressing (default is true)
-	.alias('k', 'keepalive') // run karma with singlerun=false (defualt true)
-	.boolean('d')
-	.boolean('o')
-	.boolean('m')
-	.boolean('k')
+	.alias('d', 'dist')
+	.alias('o', 'original')
+	.alias('m', 'mangle')
+	.alias('k', 'keepalive')
+	.alias('w', 'watch')
+	.boolean('d') // building dirstribution or test build
+	.boolean('o') // uglify without mangling variable names or compressing
+	.boolean('m') // uglify with mangling/compressing (default is true)
+	.boolean('k') // run karma with singlerun=false (defualt true)
+	.boolean('w') // watch assets/src for changes and rebuild
 	.argv;
 
 
@@ -98,13 +100,26 @@ gulp.task('test', ['build', 'refreshTester'], function(done){
 });
 
 
-gulp.task('default', ['build']);
 
-gulp.task('autoBuild', function(){
+
+
+var startBuildWatch = function(){
+	console.log('Watching for changes...');
 	gulp.watch([
 		dirs.src + '/**/*',
-		dirs.assets + '/**/*'
+		dirs.assets + '/**/*',
 	], ['build']);
+};
+
+
+gulp.task('default', ['build'], function(){
+	if(argv.watch) {
+		startBuildWatch();
+	}
+});
+
+gulp.task('autoBuild', function(){
+	startBuildWatch();
 });
 
 gulp.task('autoTest', function(){
@@ -114,4 +129,3 @@ gulp.task('autoTest', function(){
 		dirs.unitTests + '/**/*'
 	], ['test']);
 });
-
