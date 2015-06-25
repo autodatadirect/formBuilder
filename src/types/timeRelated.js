@@ -132,6 +132,7 @@
 	 *
 	 * Attribute Settings:
 	 * data-step (default=30) - Minute increment between times in dropdown
+	 * data-military - Converts time into 24-hour 
 	 * 
 	 */
 	types.time = {
@@ -398,8 +399,6 @@
 				return self._joinDateAndTime(dateTimeObject);
 			}
 		},
-
-		_momentDateFormat: 'YYYY-MM-DDTHH:mm:ss[Z]', //The Z is escaped
 
 		_splitDateAndTime: function (dateTimeString) {
 			var dateString, timeString;

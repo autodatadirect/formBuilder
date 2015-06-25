@@ -242,12 +242,27 @@
 		}
 	};
 
+	/**
+	 * Money type. 
+	 *
+	 * 
+	 * Attribute Settings:
+	 * data-currency-symbol (default=$) - Can modify currency symbol to any other symbol
+	 * data-show-symbol (default=true) - Choose whether or not to show currency symbol
+	 * 
+	 */
 	types.money = {
+
+		attributes: ['currency-symbol', 'show-symbol'],
+
 		setUp: function (ui) {
 			var self = this,
 				e = ui.element;
 
 			self.element = e;
+
+			self.currency = e.data('currency-symbol');
+			self.showSymbol = e.data('show-symbol');
 
 			e.inputFilter({
 				pattern: /[0-9\.]/
@@ -257,11 +272,15 @@
 				e.val(self.format(e.val()));
 			});
 
-			if(!(e.data('currency-symbol'))) {
-				ui.addOn(-100, '$');
-			} else {
-				ui.addOn(-100, e.data('currency-symbol'));
+			if(self.showSymbol === undefined || !!self.showSymbol)
+			{
+				if(!self.currency) {
+					ui.addOn(-100, '$');
+				} else {
+					ui.addOn(-100, self.currency);
+				}
 			}
+		
 			
 		},
 		_onChange: function () {

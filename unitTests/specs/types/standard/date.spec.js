@@ -99,6 +99,8 @@ describe('The date data-type', function(){
 				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
 				expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
 
+				testContainer.empty();
+
 				done(); 
 			});
 		});
