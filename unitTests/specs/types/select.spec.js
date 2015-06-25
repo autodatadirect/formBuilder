@@ -38,7 +38,7 @@
 
 		describe('with a close listener', function(){
 			it('that can handle if the escape key is pressed', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 
 				var spy_focus = spyOn($.fn, 'focus').and.callThrough();
@@ -54,13 +54,12 @@
 					expect(spy_focus).toHaveBeenCalled();
 					expect(spy_close).toHaveBeenCalled();
 
-					testContainer.empty(); 
 					done(); 
 				});
 			});
 
 			it('that can handle when the enter key is pressed', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 
 				var spy_selected = spyOn(ifw.getType(), '_setSelected').and.callThrough();
@@ -76,13 +75,12 @@
 					expect(spy_selected).toHaveBeenCalled();
 					expect(spy_close).toHaveBeenCalled();
 
-					testContainer.empty(); 
 					done(); 
 				});
 			});
 
 			it('that can handle when a key other than the escape or the enter key are pressed', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 
 				var spy_focus = spyOn($.fn, 'focus').and.callThrough();
@@ -99,7 +97,6 @@
 					expect(spy_focus).not.toHaveBeenCalled();
 					expect(spy_selected).not.toHaveBeenCalled();
 
-					testContainer.empty(); 
 					done(); 
 				});
 			});
@@ -107,7 +104,7 @@
 
 		describe('with a dropdown panel', function(){
 			it('with content', function(){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 				var dropDown = input.parent().eq(0).siblings().eq(0);
 				var dropSearch = dropDown.children().children().eq(0);  
 
@@ -120,12 +117,10 @@
 				expect(dropDown.children().children().eq(0).is('.search')).toBe(true);
 				expect(dropSearch.children().eq(0).is('.input-field.filter-box')).toBe(true); 
 				expect(dropDown.children().children().eq(1).is('.options')).toBe(true);
-
-				testContainer.empty();
 			});
 
 			it('that can handle a click on an option', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 				var shim = input.siblings().eq(2);
@@ -139,14 +134,12 @@
 				.then(function(){
 					expect(spy_select).toHaveBeenCalled(); 
 
-					testContainer.empty(); 
-
 					done(); 
 				});
 			});
 
 			it('that can handle a mouseenter on an option', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 				var option1 = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(1);
@@ -165,14 +158,12 @@
  					expect(option.is('.option.selected')).toBe(false);
  					expect(option1.is('.option.selected')).toBe(true);
 
- 					testContainer.empty();
-
 					done(); 
 				});
 			});
 
 			it('that can handle a mouseleave on an option', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 				var shim = input.siblings().eq(2);
@@ -188,8 +179,6 @@
 				.then(function(){
  					expect(option.is('.option.selected')).toBe(false);
 
- 					testContainer.empty();
-
 					done(); 
 				});
 			});
@@ -197,7 +186,7 @@
 		});
 
 		it('so that it will not display an input field in the dropdown if there are less than five values', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var panel = input.parent().eq(0).siblings();
 			var dropDown = input.parent().eq(0).siblings().eq(0);
@@ -207,12 +196,10 @@
 			ifw.getType().open(); 
 
 			expect(dropSearch.children().eq(0).css('display')).toBe('none');
-
-			testContainer.empty();
 		});
 
 		it('so that it will display an input field in the dropdown if there are more than five values', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var dropDown = input.parent().eq(0).siblings().eq(0);
 			var dropSearch = dropDown.children().children().eq(0); 
@@ -221,15 +208,13 @@
 			ifw.getType().open();  
 
 			expect(dropSearch.children().eq(0).css('display')).toBe('block');
-
-			testContainer.empty();
 		});
 
 	});
 
 	describe('can detect when an event will be fired on key down', function(){
 		it('when the tab key is pressed (nothing happens, keeping for legacy)', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
@@ -243,12 +228,10 @@
 			expect(spy_down).toHaveBeenCalled();
 			expect(spy_focus).toHaveBeenCalled();
 			expect(spy_open).not.toHaveBeenCalled();
-			
-			testContainer.empty();
 		});
 	
 		it('when the escape key is pressed', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
@@ -263,12 +246,10 @@
 
 			expect(ev.isDefaultPrevented()).toBe(true); 
 			ev.preventDefault(); //just in case
-
-			testContainer.empty();
 		}); 
 
 		it('when the enter key is pressed', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
@@ -283,13 +264,11 @@
 
 			expect(ev.isDefaultPrevented()).toBe(true); 
 			ev.preventDefault(); //just in case
-
-			testContainer.empty();
 		}); 
 
 
 		it('when the down arrow key is pressed and no option is selected', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -317,12 +296,10 @@
 			// Should have selected the first option
 			expect(options.eq(0).is('.selected')).toBe(true);
 			expect(options.eq(1).is('.selected')).not.toBe(true);
-			
-			testContainer.empty();
 		}); 
 
 			it('when the down arrow key is pressed and an option is selected', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i;
@@ -358,12 +335,10 @@
 			// Should have selected the next option
 			expect(options.eq(3).is('.selected')).not.toBe(true);
 			expect(options.eq(4).is('.selected')).toBe(true);
-			
-			testContainer.empty();
 		}); 
 
 		it('when the up arrow key is pressed and no option is selected', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i; 
@@ -399,12 +374,10 @@
 			}
 
 			expect(options.eq(7).is('.selected')).toBe(true);
-
-			testContainer.empty();
 		}); 
 
 		it('when the up arrow key is pressed and an option is selected', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i; 
@@ -441,12 +414,10 @@
 			// Now the option before the selected option should be the one selected
 			expect(options.eq(3).is('.selected')).toBe(true);
 			expect(options.eq(4).is('.selected')).not.toBe(true);
-
-			testContainer.empty();
 		}); 
 
 		it('when a key code that is less than 32 that has not been previously allowed has been used', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
@@ -462,13 +433,11 @@
 			expect(spy_scroll).not.toHaveBeenCalled(); 
 			expect(spy_find).not.toHaveBeenCalled();
 			expect(spy_add).not.toHaveBeenCalled(); 
-			expect(spy_open).not.toHaveBeenCalled(); 
-
-			testContainer.empty(); 
+			expect(spy_open).not.toHaveBeenCalled();  
 		});
 
 		it('when a key code that is greater than 126 has been used', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
@@ -484,15 +453,13 @@
 			expect(spy_scroll).not.toHaveBeenCalled(); 
 			expect(spy_find).not.toHaveBeenCalled();
 			expect(spy_add).not.toHaveBeenCalled(); 
-			expect(spy_open).not.toHaveBeenCalled(); 
-
-			testContainer.empty(); 
+			expect(spy_open).not.toHaveBeenCalled();  
 		});
 
 	});
 
 	it('can detect when an event will be fired on key up', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone", "filter":"test"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone", "filter":"test"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_up = spyOn(ifw.getType(), '_onKeyup').and.callThrough();
@@ -510,13 +477,11 @@
 
 		expect(spy_up).toHaveBeenCalled();
 		expect(spy_Op.calls.count()).toBe(1); // We should expect that _filterOptions will not be called the second time since self.filterValue and val have been set equal to each other 
-
-		testContainer.empty();
 	});
 
 	describe('can handle conversion', function(){
 		it('using its toField and fromField functions', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var param = ifw.getType();
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
@@ -544,7 +509,6 @@
 
 				expect(option.is('.option')).toBe(true);	
 
-				testContainer.empty();
 				done();
 			});
 		});
@@ -636,12 +600,13 @@
 			expect(input.parent().children().eq(2).css('display')).toBe('block');
 
 			testContainer.empty();
+
 			done();
 		});
 	});
 
 	it('can set its\' status when there is no item', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_set = spyOn(ifw.getType(), '_set').and.callThrough();
@@ -655,12 +620,10 @@
 		expect(spy_rem).toHaveBeenCalled();
 		expect(spy_find).toHaveBeenCalled();
 		expect(spy_hand).toHaveBeenCalled();
-
-		testContainer.empty(); 
 	});
 
 	it('can set its\' status when there is an item', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -689,13 +652,11 @@
 		expect(spy_hand).not.toHaveBeenCalled();
 
 		expect(options.eq(2).is('.selected')).toBe(true);
-
-		testContainer.empty(); 
 	});
 
 	describe('can type a search in the dropdown input field', function(){
 		it('and the correct label will be selected if the correct value is typed in', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var shim = input.parent().children().eq(2);
 			var parameter = ifw.getType();
@@ -707,7 +668,6 @@
 			expect(options.eq(2).is('.option')).toBe(true);
 			expect(options.eq(3).is('.option')).toBe(true);
 			expect(options.eq(4).is('.option')).toBe(true);
-
 
 			ifw.getType().open(); 
 
@@ -739,13 +699,10 @@
 			$(document).trigger('keyup');
 
 			expect(options.eq(4).is('.selected')).toBe(true);
-
-			testContainer.empty();
-
 		});
 
 		it('and an incorrect entry will result in the first item being selected, using scroll', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var shim = input.parent().children().eq(2);
 			var parameter = ifw.getType();
@@ -762,13 +719,10 @@
 
 			expect(options.eq(0).is('.option.selected')).toBe(true);
 			expect(spy).toHaveBeenCalled();
-
-			testContainer.empty();
-
 		});
 
 		it('and the shim will hold the correct value', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var shim = input.parent().children().eq(2);
 			var parameter = ifw.getType();
@@ -779,12 +733,10 @@
 			$(document).trigger('keyup');
 
 			expect(input.parent().children().eq(3).text()).toBe('Two');
-
-			testContainer.empty();
 		});
 
 		it('a partial entry will display only relevant labels', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var spy_item = spyOn(ifw.getType(), '_filterItem').and.callThrough();
@@ -814,10 +766,7 @@
 			// Will be filtered out since they do not contain the letter T 
 			expect(options.eq(1).is('.option.filtered')).toBe(true);
 			expect(options.eq(2).is('.option.filtered')).toBe(true);
-
-			testContainer.empty();
 		});
-
 	});
 
 	it('can handle when an item has been selected', function(){
@@ -860,6 +809,7 @@
 		expect(spy_change).toHaveBeenCalled();
 		expect(spy_redraw).toHaveBeenCalled(); 
 		expect(spy_hide).toHaveBeenCalled();
+
 		testContainer.empty();
 	});
 
@@ -884,11 +834,11 @@
 
 		expect(option.eq(0).is('.option.selected')).toBe(true);
 
-		testContainer.empty(); 
+		testContainer.empty();
 	});
 
 	it('can clear its status', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_clear = spyOn(ifw.getType(), 'clear').and.callThrough();
@@ -913,12 +863,10 @@
 
 		expect(ifw.item).toBe();
 		expect(option.is('.option')).toBe(true);
-
-		testContainer.empty();	
 	});
 
 	it('can handle when an item that has been selected is not found', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -929,12 +877,10 @@
 
 		expect(spy_handle).toHaveBeenCalled();
 		expect(spy_default).toHaveBeenCalled();
-
-		testContainer.empty();
 	});
 
 	it('can set a default item', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-default = "Cat"/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-default = "Cat"/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -961,12 +907,10 @@
 		expect(option.eq(2).is('.option.selected')).toBe(true); // This option was set to be the default selected in data-options
 		expect(option.eq(3).is('.option')).toBe(true);
 		expect(option.eq(4).is('.option')).toBe(true);
-
-		testContainer.empty();
 	}); 
 
 	it('can select the first item if a default item is not set', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
@@ -981,8 +925,6 @@
 		expect(option.is('.option.selected')).toBe(true);
 		expect(spy_hide).toHaveBeenCalled();
 		expect(spy_label).toHaveBeenCalled();
-
-		testContainer.empty();
 	});
 
 	describe('can show or hide a command', function(){
@@ -1030,11 +972,10 @@
 
 			testContainer.empty();
 		});
-
 	}); 
 
 	it('can test if two values are equal to each other', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_equal = spyOn(ifw.getType(), '_equal').and.callThrough();
 
@@ -1061,12 +1002,10 @@
 		expect(spy_equal).toHaveBeenCalled(); 
 		expect(result).toBeFalsy();
 		expect(result2).toBeTruthy();
-
-		testContainer.empty();
 	}); 
 
 	it('can set and get its label', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_set = spyOn(ifw.getType(), '_setLabel').and.callThrough();
 		var spy_get = spyOn(ifw.getType(), '_getLabel').and.callThrough();
@@ -1077,12 +1016,10 @@
 		expect(spy_set).toHaveBeenCalled(); 
 		expect(spy_get).toHaveBeenCalled();
 		expect(result).toBe("Some label");
-
-		testContainer.empty();
 	}); 
 
 	it('can get its options', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_get = spyOn(ifw.getType(), 'getOptions').and.callThrough();
 		var spy_push = spyOn($.fn, 'push').and.callThrough();
@@ -1094,13 +1031,10 @@
 
 		expect(spy_get).toHaveBeenCalled();
 		expect(result).toEqual(mainObject); 
-
-		testContainer.empty();
-
 	});
 
 	it('can remove invalid data', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_inval = spyOn(ifw.getType(), 'removeInvalid').and.callThrough();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
@@ -1118,12 +1052,10 @@
 		ifw.getType().removeInvalid(); 
 
 		expect(ifw.element.val()).toBe('Xylophone'); // X-Ray is a valid entry so the val will now be set to its label 
-
-		testContainer.empty();
 	});
 
 	it('can remove a selection', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
@@ -1158,13 +1090,11 @@
 		expect(options.eq(2).is('.selected')).not.toBe(true);
 		expect(options.eq(3).is('.selected')).not.toBe(true);
 		expect(options.eq(4).is('.selected')).not.toBe(true);
-
-		testContainer.empty();
 	});
 
 	describe('has a filter', function(){
 		it('that can handle clicks', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
@@ -1178,14 +1108,12 @@
 				expect(ev.isDefaultPrevented()).toBe(true); 
 				expect(ev.isPropagationStopped()).toBe(true);
 
-				testContainer.empty(); 
-
 				done(); 
 			});
 		});
 
 		it('that can handle a dirty status', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
@@ -1197,14 +1125,12 @@
 				expect(ev.isDefaultPrevented()).toBe(true); 
 				expect(ev.isPropagationStopped()).toBe(true);
 
-				testContainer.empty(); 
-
 				done();
 			});
 		});
 
 		it('that can handle a clean status', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
@@ -1216,14 +1142,12 @@
 				expect(ev.isDefaultPrevented()).toBe(true); 
 				expect(ev.isPropagationStopped()).toBe(true);
 
-				testContainer.empty(); 
-
 				done();
 			});
 		});
 
 		it('that can filter its\' options', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var spy_filter = spyOn(ifw.getType(), '_filterOptions').and.callThrough();
 			var spy_work = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
@@ -1239,13 +1163,12 @@
 				expect(spy_add).toHaveBeenCalled();
 				expect(spy_work).toHaveBeenCalled();	
 
-				testContainer.empty();
 				done(); 
 			});		
 		});
 
 		it('that can filter its\' options\' work', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var spy_work = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -1258,12 +1181,10 @@
 			expect(spy_filter).toHaveBeenCalled();	
 
 			expect(input.parent().eq(0).siblings().is('.dropdown-panel.filtering')).toBe(true);
-
-			testContainer.empty();
 		});
 
 		it('that can filter the item selected', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var spy_filter = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
 			var spy_item = spyOn(ifw.getType(), '_filterItem').and.callThrough();
@@ -1279,7 +1200,6 @@
 			.then(function(){
 				expect(input.parent().eq(0).siblings().is('.dropdown-panel')).toBe(true);
 
-				testContainer.empty(); 
 				done();
 			});
 
@@ -1309,7 +1229,7 @@
 		});
 
 		it('that can be cleared', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var spy_clear = spyOn(ifw.getType(), '_clearFilter').and.callThrough();
 			var spy_remove = spyOn($.fn, 'removeClass').and.callThrough();
@@ -1332,7 +1252,6 @@
 
 				expect(option.is('.option')).toBe(true);
 
-				testContainer.empty();
 				done();
 			});
 		});
@@ -1341,7 +1260,7 @@
 
 	describe('can build an empty option', function(){
 		it('without an empty-label',function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var spy_empty = spyOn(ifw.getType(), '_buildEmptyOption').and.callThrough();
@@ -1358,12 +1277,10 @@
 			expect(option.eq(5).text()).toBe('Zingales');
 
 			// Will return immediately since there is no set empty label 
-
-			testContainer.empty(); 
 		});
 
 		it('with an empty-label', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-empty-label="Test"/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-empty-label="Test"/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var spy_empty = spyOn(ifw.getType(), '_buildEmptyOption').and.callThrough();
@@ -1381,14 +1298,12 @@
 			expect(option.eq(4).text()).toBe('Xylophone');
 			expect(option.eq(5).text()).toBe('Yellow');
 			expect(option.eq(6).text()).toBe('Zingales');
-
-			testContainer.empty(); 
 		});
 
 	}); 
 
 	it('can build options', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_build = spyOn(ifw.getType(), '_buildOptions').and.callThrough();
 		var spy_empty = spyOn($.fn, 'empty').and.callThrough();
@@ -1409,12 +1324,10 @@
 		expect(spy_render).toHaveBeenCalled();
 		expect(spy_append).toHaveBeenCalled();
 		expect(spy_sort).toHaveBeenCalled();
-
-		testContainer.empty(); 
 	}); 
 
 	it('can sort', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_firstSort = spyOn(ifw.getType(), '_sort').and.callThrough();
 		var spy_sort = spyOn($.fn, 'sort').and.callThrough();
@@ -1433,8 +1346,6 @@
 		expect(option.eq(3).text()).toBe('Xylophone');
 		expect(option.eq(4).text()).toBe('Yellow');
 		expect(option.eq(5).text()).toBe('Zingales');
-
-		testContainer.empty(); 
 	}); 
 
 	it('can scroll', function(done){
@@ -1455,8 +1366,6 @@
 		.then(function(){
 			expect(scroll).toBe(options.scrollTop());
 
-			console.log(options.scrollTop());
-
 			selected = options.children().children().eq(3).addClass('selected');
 
 			scroll = options.scrollTop();	
@@ -1467,7 +1376,7 @@
 		})
 		.then(function(){
 			expect(scroll).not.toBe(options.scrollTop());
-			console.log(selected.before().outerHeight());
+
 			expect(options.scrollTop()).toBe(selected.before().outerHeight() + selected.before().before().outerHeight());
 
 			selected.removeClass('selected');
@@ -1539,7 +1448,7 @@
 	});
 
 	it('can render a label', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_render = spyOn(ifw.getType(), 'renderLabel').and.callThrough();
 
@@ -1552,12 +1461,10 @@
 
 		expect(spy_render).toHaveBeenCalled();  
 		expect(result).toBe('Some label');
-
-		testContainer.empty(); 
 	}); 
 
 	it('can render an item', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_render = spyOn(ifw.getType(), 'renderItem').and.callThrough();
 
@@ -1565,8 +1472,6 @@
 
 		expect(spy_render).toHaveBeenCalled();  
 		expect(result).not.toBeNull();
-
-		testContainer.empty(); 
 	}); 
 
 	it('can close a panel', function(){
@@ -1610,7 +1515,7 @@
 	}); 
 
 	it('can be updated', function(done){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_up = spyOn(ifw.getType(), 'update').and.callThrough(); 
@@ -1633,9 +1538,7 @@
 			expect(spy_sh).toHaveBeenCalled(); 
 			expect(spy_each).toHaveBeenCalled(); 
 			expect(result).not.toBeNull(); 
-
-			testContainer.empty(); 
-
+		
 			done(); 
 		});
 
@@ -1645,7 +1548,7 @@
 	it('can load its values', function(){
 		// returns a sorted array of objects that have value and label properties
 
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var source = []; 
 
@@ -1665,12 +1568,10 @@
 		cast.then(function(v) {
   			expect(v).toEqual(mainObject);
 		});
-
-		testContainer.empty(); 
 	});
 
 	it('can create a map', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_map = spyOn(ifw.getType(), 'map').and.callThrough();
@@ -1685,12 +1586,10 @@
 		expect(spy_map).toHaveBeenCalled();
 		expect(result.label).toBe('test'); 
 		expect(result.value).toBe('test'); 
-
-		testContainer.empty();
 	});
 
 	it('can de-map itself', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_Dmap = spyOn(ifw.getType(), 'deMap').and.callThrough();
@@ -1708,8 +1607,6 @@
 		var result2 = ifw.getType().deMap(object);
 
 		expect(result2).toBe('Some Value');
-
-		testContainer.empty();
 	}); 
 
 

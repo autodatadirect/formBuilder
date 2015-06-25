@@ -54,7 +54,7 @@
 			tmp = e.data('startdate');
 			if(tmp !== undefined) {
 				if(tmp === 'TODAY') {
-					startDate = new moment().format('MM/DD/YYYY');
+					startDate = moment().format('MM/DD/YYYY');
 				} else if(tmp.match(/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/)) {
 					startDate = tmp;
 				}
@@ -63,7 +63,7 @@
 			tmp = e.data('enddate');
 			if(tmp !== undefined) {
 				if(tmp === 'TODAY') {
-					endDate = new moment().format('MM/DD/YYYY');
+					endDate = moment().format('MM/DD/YYYY');
 				} else if(tmp.match(/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/)) {
 					endDate = tmp;
 				}
@@ -131,29 +131,47 @@
 	 * Has a dropdown with shortcuts.
 	 *
 	 * Attribute Settings:
-	 * date-step (default=30) - Minute increment between times in dropdown
+	 * data-step (default=30) - Minute increment between times in dropdown
 	 * 
 	 */
 	types.time = {
-		attributes: ['step'],
+		attributes: ['step', 'military'],
 
 		_regex: /^((0[0-9])|([0-9])|(1[0-2])):([0-5][0-9])((am)|(pm))$/,
+		_regex2400: /^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9]$/,
 
 		setUp: function(ifw) {
 			var self = this,
 				e = ifw.element;
 
-			ifw.placeholder('H:MMam/pm');
+			military = !!e.data('military');
+			self.step = e.data('step');
 
-			e.inputFilter({
-				pattern: /[0-9:apm]/,
-				max: 7
-			});
+			if(!military)
+			{
+				ifw.placeholder('H:MMam/pm');
+
+				e.inputFilter({
+					pattern: /[0-9:apm]/,
+					max: 7
+				});
+			}
+			else
+			{
+				ifw.placeholder('HH:MM');
+
+				e.inputFilter({
+					pattern: /[0-9:]/,
+					max: 5
+				});
+			}
+			
 
 			e.timepicker({
 				appendTo: e.parent(),
 				selectOnBlur: false,
-				step: e.data('step') //default is 30 and will be set if undefined
+				step: self.step, //default is 30 and will be set if undefined
+				timeFormat: military?'H:i':'g:ia'
 			});
 
 			// Make sure the timepicker width matches the field width
@@ -169,10 +187,20 @@
 			 */
 			toField: function(val, ifw) {
 				var self = this;
+				
+				if(military)
+				{
+					if(!val || !val.match(/^[0-9]{2}:[0-9]{2}$/))
+					return '';
+					else{
+						return moment.utc(val, 'HH:mm', true).local().format('h:mm');
+					}			
+				}
 				if(!val || !val.match(/^[0-9]{2}:[0-9]{2}$/))
 					return '';
-				
-				return moment.utc(val, 'HH:mm', true).local().format('h:mma');
+				else{
+					return moment.utc(val, 'HH:mm', true).local().format('h:mma');
+				}
 			},
 
 			/**
@@ -180,9 +208,21 @@
 			 */
 			fromField: function(val, ifw) {
 				var self = this;
+
+				if(military)
+				{
+					if(!val || !val.match(/^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9]$/))
+						return '';
+					else{
+						return moment(val,'h:mm').utc().format('HH:mm');
+					}
+				}
+
 				if(!val || !val.match(/^((0[0-9])|([0-9])|(1[0-2])):([0-5][0-9])((am)|(pm))$/))
 					return '';
-				return moment(val,'h:mma').utc().format('HH:mm');
+				else{
+					return moment(val,'h:mma').utc().format('HH:mm');
+				}
 			}
 		},
 
@@ -193,11 +233,19 @@
 		validate: function(ifw) {
 			var self = this,
 				e = ifw.element,
+				military = !!e.data('military'),
 				val = e.val(),
 				invalidMessage = {message: 'invalid'};
 
-			if(!val.match(self._regex))
-				return invalidMessage;
+			if(military)
+			{
+				if(!val.match(self._regex2400))
+					return invalidMessage;
+			}
+			else{
+				if(!val.match(self._regex))
+					return invalidMessage;
+			}
 		}
 	};
 
@@ -355,7 +403,7 @@
 
 		_splitDateAndTime: function (dateTimeString) {
 			var dateString, timeString;
-			var dateTime = moment(dateTimeString, self._momentDateFormat, true);
+			var dateTime = moment(dateTimeString, 'YYYY-MM-DDTHH:mm:ss[Z]');
 			
 			if(!dateTime.isValid()){
 				return {

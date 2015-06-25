@@ -13,7 +13,7 @@ describe('The time data-type', function(){
 	var type = $.add123.inputField.types[typeName];
 
 	it('is a valid data-type', function(){
-		var input = $('<input type="text"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text"/>').inputField();
 		var ifw = input.data('add123InputField');
 		
 		expect(type).toBeDefined();
@@ -21,17 +21,14 @@ describe('The time data-type', function(){
 		ifw.setType(typeName);
 		
 		expect(util.equals(ifw.getType(), type)).toBe(true);
-
-		testContainer.empty();
 	});
 
 	it('is created with a placeholder', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();	
+		var ifw = input.data('add123InputField');
 
 		expect(input.parent().children('.placeholder').length).toBe(1);
 		expect(input.parent().children('.placeholder').text()).toBe('H:MMam/pm');
-
-		testContainer.empty();
 	});
 
 	describe('has a timepicker', function(){
@@ -47,6 +44,22 @@ describe('The time data-type', function(){
 			.then(function(){
 				expect(input.parent().children().length).toBe(3);
 				expect(input.parent().children().eq(2).is('.ui-timepicker-wrapper')).toBe(true);
+
+				testContainer.empty();
+
+				done();
+			});	 
+		});
+
+		it('that has a twelve hour selection with am/pm', function(done){
+			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+
+			input.focus();
+
+			pause(triggerWaitTime)
+			.then(function(){
+				expect(input.parent().children().eq(2).children().children().eq(0).text()).toBe('12:00am');
 
 				testContainer.empty();
 
@@ -108,7 +121,7 @@ describe('The time data-type', function(){
 	});
 
 	it('has filter support', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 		var filter = input.data('add123InputFilter'); 
 
@@ -124,12 +137,10 @@ describe('The time data-type', function(){
 		expect(typeNewString(chars.digits)).toEqual('1234567'); // Allows a max of seven digits
 		expect(typeNewString('890')).toEqual('890'); // Confirming it allows all digits
 		expect(typeNewString(chars.symbols)).toEqual(':');
-
-		testContainer.empty();
 	});
 
 	describe('has simple regex validation', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 		var valids, invalids;
 
@@ -155,13 +166,11 @@ describe('The time data-type', function(){
 
 		batchTest('that accepts',valids,true,validateNewVal);
 		batchTest('that rejects',invalids,false,validateNewVal);
-
-		testContainer.empty();
 	});
 
 	describe('can handle conversion', function(){
 		it('using its toField', function(){
-			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 
 			var spy_to = spyOn(ifw.getType().converter, 'toField').and.callThrough();
@@ -180,23 +189,21 @@ describe('The time data-type', function(){
 			var result3 = ifw.getType().converter.toField();
 
 			expect(result3).toBe('');
-
-			testContainer.empty();
 		});
 
 		it('and fromField functions', function(){
-			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 
 			var spy_from = spyOn(ifw.getType().converter, 'fromField').and.callThrough();
 
 			//With correct input 
-			var result = ifw.getType().converter.fromField('12:34am');
+			var result = ifw.getType().converter.fromField('12:34am', ifw);
 
 			expect(result).toBe('04:34'); // Returns moment which has been modified four hours 
 
 			//With incorrect input 
-			var result2 = ifw.getType().converter.fromField('2??34');
+			var result2 = ifw.getType().converter.fromField('2??34', ifw);
 
 			expect(result2).toBe('');
 
@@ -204,8 +211,6 @@ describe('The time data-type', function(){
 			var result3 = ifw.getType().converter.fromField();
 
 			expect(result3).toBe('');
-
-			testContainer.empty();
 		});
 	});
 });

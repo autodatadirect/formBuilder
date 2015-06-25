@@ -13,7 +13,7 @@ describe('The date data-type', function(){
 	var type = $.add123.inputField.types[typeName];
 
 	it('is a valid data-type', function(){
-		var input = $('<input type="text"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text"/>').inputField();
 		var ifw = input.data('add123InputField');
 		
 		expect(type).toBeDefined();
@@ -21,17 +21,13 @@ describe('The date data-type', function(){
 		ifw.setType(typeName);
 		
 		expect(util.equals(ifw.getType(), type)).toBe(true);
-
-		testContainer.empty();
 	});
 
 	it('is created with a placeholder', function(){
-		var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="date"/>').inputField();	
 
 		expect(input.parent().children('.placeholder').length).toBe(1);
 		expect(input.parent().children('.placeholder').text()).toBe('MM/DD/YYYY');
-
-		testContainer.empty();
 	});
 
 	describe('has a datepicker', function(){
@@ -110,7 +106,7 @@ describe('The date data-type', function(){
 	
 
 	it('has filter support', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 		var filter = input.data('add123InputFilter'); 
 
@@ -125,8 +121,6 @@ describe('The date data-type', function(){
 		expect(typeNewString(chars.ALPHAS)).toEqual('');
 		expect(typeNewString(chars.digits)).toEqual(chars.digits);
 		expect(typeNewString(chars.symbols)).toEqual('/');
-
-		testContainer.empty();
 	});
 
 	describe('has simple regex validation', function(){
@@ -141,11 +135,7 @@ describe('The date data-type', function(){
 		];
 
 		invalids = [
-			'2/02/2222', 
-			'02/2/2222', 
-			'02/02/22',
 			'00/02/2222',
-			'02/00/2222',
 			'13/02/2222',
 			'02/32/2222',
 			'0222/33/222222',
@@ -165,7 +155,7 @@ describe('The date data-type', function(){
 
 	describe('can handle conversion', function(){
 		it('using its toField', function(){
-			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
+			var input = $('<input type="text" data-type="date"/>').inputField();
 			var ifw = input.data('add123InputField');
 
 			var spy_to = spyOn(ifw.getType().converter, 'toField').and.callThrough();
@@ -184,12 +174,10 @@ describe('The date data-type', function(){
 			var result3 = ifw.getType().converter.toField();
 
 			expect(result3).toBe('');
-
-			testContainer.empty();
 		});
 
 		it('and fromField functions', function(){
-			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
+			var input = $('<input type="text" data-type="date"/>').inputField();
 			var ifw = input.data('add123InputField');
 
 			var spy_from = spyOn(ifw.getType().converter, 'fromField').and.callThrough();
@@ -208,8 +196,6 @@ describe('The date data-type', function(){
 			var result3 = ifw.getType().converter.fromField();
 
 			expect(result3).toBe('');
-
-			testContainer.empty();
 		});
 	});
 
