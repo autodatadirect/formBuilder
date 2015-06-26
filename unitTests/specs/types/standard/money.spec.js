@@ -62,7 +62,7 @@ describe('The money data-type', function(){
 
 	describe('has a converter', function(){
 		it('that formats to field', function(){
-			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 		
 			spyOn(type, 'format');
@@ -73,7 +73,7 @@ describe('The money data-type', function(){
 		});
 
 		it('that formats from field', function(){
-			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 		
 			spyOn(type, 'format');
@@ -131,7 +131,9 @@ describe('The money data-type', function(){
 				expect(type.format).toHaveBeenCalled();
 				expect(util.equals(pos,input.caret())).toBe(true);
 				expect(input.val()).toEqual('7777.00');
+
 				testContainer.empty();
+
 				done();
 			});
 			

@@ -13,15 +13,13 @@ describe('The dateTime data-type', function(){
 	var type = $.add123.inputField.types[typeName];
 
 	it('can be created with placeholders', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		expect(input.parent().parent().parent().children().children().eq(0).is('.input-field.undefined.require')).toBe(true);
 		expect(input.parent().parent().parent().children().children().eq(0).children().children().eq(0).children().eq(1).text()).toBe('MM/DD/YYYY');
 		expect(input.parent().parent().parent().children().children().eq(2).is('.input-field.undefined.require')).toBe(true);
 		expect(input.parent().parent().parent().children().children().eq(2).children().children().eq(0).children().eq(1).text()).toBe('H:MMam/pm');
-
-		testContainer.empty();
 	});
 
 	describe('has datepicker and time picker widgets', function(){
@@ -135,7 +133,7 @@ describe('The dateTime data-type', function(){
 	});
 
 	it('can be set up', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 
 		var spy_set = spyOn(ifw.getType(), 'setUp').and.callThrough();
@@ -152,12 +150,10 @@ describe('The dateTime data-type', function(){
 		input.trigger('resize');
 
 		expect(spy_re.calls.count()).toBe(3);
-
-		testContainer.empty();
 	});
 
 	it('can set up its fields', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 
 		var spy_set = spyOn(ifw.getType(), '_setUpFields').and.callThrough();
@@ -167,8 +163,6 @@ describe('The dateTime data-type', function(){
 		expect(spy_set).toHaveBeenCalled();
 
 		expect(input.parent().css('display')).toBe('none');
-
-		testContainer.empty();
 	});
 
 	it('can refresh its field width', function(){
@@ -183,7 +177,7 @@ describe('The dateTime data-type', function(){
 
 	describe('it can handle changes', function(){
 		it('with dirty events', function(){
-			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 			var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
 			var date_pick = input.parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(0);
@@ -201,12 +195,10 @@ describe('The dateTime data-type', function(){
 
 			expect(ev2.isPropagationStopped()).toBe(true);
 			expect(spy_check.calls.count()).toBe(2);
-			
-			testContainer.empty(); 
 		});
 
 		it('and with clean events', function(){
-			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 			var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
 			var date_pick = input.parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(0);
@@ -224,14 +216,12 @@ describe('The dateTime data-type', function(){
 
 			expect(ev2.isPropagationStopped()).toBe(true);
 			expect(spy_check.calls.count()).toBe(2);
-			
-			testContainer.empty(); 
 		});
 	});
 	
 
 	it('can split date and time', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 		var spy_split = spyOn(ifw.getType(), '_splitDateAndTime').and.callThrough();
 
@@ -241,23 +231,21 @@ describe('The dateTime data-type', function(){
 		};
 
 		var Object2 = {
-			date: '1990-08-07',
-			time: '04:00'
+			date: '2014-04-25',
+			time: '05:32'
 		};
 
 		var result = ifw.getType()._splitDateAndTime('Not a valid date');
 
 		expect(result).toEqual(Object1);
 
-		var result2 = ifw.getType()._splitDateAndTime('08/07/1990');
+		var result2 = ifw.getType()._splitDateAndTime('2014-04-25T01:32:21');
 
 		expect(result2).toEqual(Object2);
-
-		testContainer.empty();
 	});
 
 	it('can join date and time', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 		var spy_join = spyOn(ifw.getType(), '_joinDateAndTime').and.callThrough();
 
@@ -287,8 +275,6 @@ describe('The dateTime data-type', function(){
 		var result3 = ifw.getType()._joinDateAndTime(correct);
 
 		expect(result3).toBe('2015-06-09T06:30:00Z');
-
-		testContainer.empty();
 	});
 
 });

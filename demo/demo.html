@@ -295,7 +295,8 @@
           </div>
           <div class="example">
             <input type="text" data-label="money" data-type="money">
-            <input type="text" data-type="money" data-currency-symbol="&amp;pound;"><span>For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur. In addition, a box with a '$' (by default) is prepended to the left of the field with a weight of -100. To change the currency symbol, set it with the <b>data-currency-symbol</b> attribute.  </span>
+            <input type="text" data-type="money" data-currency-symbol="&amp;pound;">
+            <input type="text" data-type="money" data-show-symbol="false"><span>For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur. In addition, a box with a '$' (by default) is prepended to the left of the field with a weight of -100. To change the currency symbol, set it with the <b>data-currency-symbol</b> attribute. To not show any currency symbol, set the <b>data-show-symbol</b> attribute to false.   </span>
           </div>
           <div class="example">
             <input type="text" data-label="phone" data-type="phone"><span>For entering US phone numbers. </span>
@@ -307,7 +308,7 @@
             <input type="text" data-label="dateTime" data-type="dateTime"><span>For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM format. Works the same way as date, but also checks for a valid time. The calendar picker will set the time to noon.</span>
           </div>
           <div class="example">
-            <input type="text" data-label="dateTime" data-type="dateTime" data-hours="true"><span>For entering military times, performs in the same way as dateTime except time is 24 hours and does not include AM/PM</span>
+            <input type="text" data-label="dateTime" data-type="dateTime" data-military="true"><span>For entering military times, performs in the same way as dateTime except time is 24 hours and does not include AM/PM</span>
           </div>
           <div class="example">
             <input type="text" data-label="display" data-type="display" value="Some value">
@@ -655,6 +656,9 @@
       <div data-title="New Types" class="sect">
         <div class="example">
           <input type="text" data-label="time" data-type="time">
+        </div>
+        <div class="example">
+          <input type="text" data-label="military time" data-type="time" data-military="true">
         </div>
         <div class="example">
           <input type="text" data-label="date" data-type="date">

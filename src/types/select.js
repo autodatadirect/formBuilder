@@ -107,7 +107,6 @@
 			 */
 
 			filter.on('click', function (ev) {
-				console.log('inside click');
 				ev.preventDefault();
 				ev.stopPropagation();
 			});
