@@ -409,6 +409,8 @@
 		},
 
 		tearDown: function(ifw) {
+			var self = this;
+
 			self.dateWidget.remove();
 			self.timeWidget.remove();
 
