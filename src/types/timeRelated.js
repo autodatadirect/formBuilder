@@ -2,7 +2,11 @@
  * dateTimeSeparate, a combination of a date field and a time field
  */
 
+
+/*global util:true, moment:true */
 (function($){
+	'use strict';
+
 	var types = $.add123.inputField.types;
 
 	/*
@@ -139,16 +143,16 @@
 		attributes: ['step', 'military'],
 
 		_regex: /^((0[0-9])|([0-9])|(1[0-2])):([0-5][0-9])((am)|(pm))$/,
-		_regex2400: /^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9]$/,
+		_regex2400: /^(([01]?[0-9])|(2[0-3])):[0-5][0-9]$/,
 
 		setUp: function(ifw) {
 			var self = this,
 				e = ifw.element;
 
-			military = !!e.data('military');
+			self.military = !!e.data('military');
 			self.step = e.data('step');
 
-			if(!military)
+			if(!self.military)
 			{
 				ifw.placeholder('H:MMam/pm');
 
@@ -172,7 +176,7 @@
 				appendTo: e.parent(),
 				selectOnBlur: false,
 				step: self.step, //default is 30 and will be set if undefined
-				timeFormat: military?'H:i':'g:ia'
+				timeFormat: self.military?'H:i':'g:ia'
 			});
 
 			// Make sure the timepicker width matches the field width
@@ -188,20 +192,15 @@
 			 */
 			toField: function(val, ifw) {
 				var self = this;
+				if(!val || !val.match(/^[0-9]{2}:[0-9]{2}$/)){
+					return '';
+				}
+
+				if(self.military) {
+					return moment.utc(val, 'HH:mm', true).local().format('H:mm');
+				}
 				
-				if(military)
-				{
-					if(!val || !val.match(/^[0-9]{2}:[0-9]{2}$/))
-					return '';
-					else{
-						return moment.utc(val, 'HH:mm', true).local().format('h:mm');
-					}			
-				}
-				if(!val || !val.match(/^[0-9]{2}:[0-9]{2}$/))
-					return '';
-				else{
-					return moment.utc(val, 'HH:mm', true).local().format('h:mma');
-				}
+				return moment.utc(val, 'HH:mm', true).local().format('h:mma');
 			},
 
 			/**
@@ -210,20 +209,21 @@
 			fromField: function(val, ifw) {
 				var self = this;
 
-				if(military)
+				if(self.military)
 				{
-					if(!val || !val.match(/^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9]$/))
+					if(!val || !val.match(/^([0-9]|0[0-9]|1?[0-9]|2[0-3]):[0-5]?[0-9]$/)) {
 						return '';
-					else{
-						return moment(val,'h:mm').utc().format('HH:mm');
 					}
+					
+					return moment(val,'h:mm').utc().format('HH:mm');
 				}
 
-				if(!val || !val.match(/^((0[0-9])|([0-9])|(1[0-2])):([0-5][0-9])((am)|(pm))$/))
+				if(!val || !val.match(/^((0[0-9])|([0-9])|(1[0-2])):([0-5][0-9])((am)|(pm))$/)) {
 					return '';
-				else{
-					return moment(val,'h:mma').utc().format('HH:mm');
 				}
+				
+				return moment(val,'h:mma').utc().format('HH:mm');
+
 			}
 		},
 
@@ -234,19 +234,16 @@
 		validate: function(ifw) {
 			var self = this,
 				e = ifw.element,
-				military = !!e.data('military'),
 				val = e.val(),
-				invalidMessage = {message: 'invalid'};
+				invalidMessage = {message: 'invalid'},
+				valid;
 
-			if(military)
-			{
-				if(!val.match(self._regex2400))
-					return invalidMessage;
+			valid = self.military? val.match(self._regex2400) : val.match(self._regex);
+
+			if(!valid) {
+				return invalidMessage;
 			}
-			else{
-				if(!val.match(self._regex))
-					return invalidMessage;
-			}
+
 		}
 	};
 
@@ -421,8 +418,9 @@
 		_joinDateAndTime: function(dateTimeObject) {
 			var dto = dateTimeObject;
 
-			if(dto.date === '' || dto.time === '')
+			if(dto.date === '' || dto.time === '') {
 				return '';
+			}
 
 			return dto.date + 'T' + dto.time + ':00Z';
 		},

@@ -2,6 +2,8 @@
  * Simple node app to grab all the specs and put them into a single html file.
  */
 
+'use strict';
+
 var fs = require('fs');
 var path = require('path');
 var jade = require('jade');
@@ -20,8 +22,9 @@ module.exports = function(done){
 
 	// Get all the specs
 	var searchDirectory = function(dir, ignoreDirs) {
-		if(!dir)
+		if(!dir) {
 			dir = '';
+		}
 		
 		var stat, filePath, relPath;
 
@@ -80,8 +83,9 @@ module.exports = function(done){
 		console.log('"'+outputHtmlFile+'" created successfully');
 
 		//Complete outside callback
-		if(done !== undefined)
+		if(done !== undefined) {
 			done();
+		}
 	});
 
 

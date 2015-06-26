@@ -2,7 +2,8 @@
  * Testing submitButton
  */
 
-
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  util:true*/
+'use strict';
 describe('A submitButton', function(){
 	var testContainer = window.formBuilderTesting.testContainer;
 	var pause = window.formBuilderTesting.pause;

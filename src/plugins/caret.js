@@ -3,6 +3,8 @@
  */
 
 (function($){
+	'use strict';
+	
 	/*
 	 * This plugin only operates on the first element of the working set
 	 */

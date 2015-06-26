@@ -17,6 +17,7 @@
 
 
 (function($) {
+	'use strict';
 
 	/*
 	 * binary array search, codes must be in alpha order!

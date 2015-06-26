@@ -2,6 +2,8 @@
  * Testing date data-type
  */
 
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+'use strict';
 describe('The date data-type', function(){
  	var testContainer = window.formBuilderTesting.testContainer;
  	var pause = window.formBuilderTesting.pause;
@@ -34,16 +36,19 @@ describe('The date data-type', function(){
 		it('that opens on focus', function(done){
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var datepicker;
 
-			expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
-			expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
+			datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+			expect(datepicker.length).toBe(0);
+			expect(datepicker.is(':visible')).toBe(false);
 
 			input.focus();
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(1);
+				expect(datepicker.is(':visible')).toBe(true);
 
 				testContainer.empty();
 
@@ -54,23 +59,24 @@ describe('The date data-type', function(){
 		it('that can select a date', function(done){
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var datepicker;
 
 			expect(ifw.get()).toBe('');
 
 			input.focus();
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(1);
 
-				var day = testContainer.siblings().eq(26).children().eq(0).children().eq(0).children().eq(1).children().eq(1).children().eq(2);
+				var day = datepicker.children().eq(0).children().eq(0).children().eq(1).children().eq(1).children().eq(2);
 
 				day.click(); 
 				return pause(triggerWaitTime);
 			})
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(0);
 				expect(ifw.get()).not.toBe('');
 
 				testContainer.empty();
@@ -82,22 +88,23 @@ describe('The date data-type', function(){
 		it('and can be torn down', function(done){
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var datepicker;
 
 			expect(ifw.get()).toBe('');
 
 			input.focus();
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(1);
 
 				ifw.getType().tearDown(ifw);
 
 				return pause(triggerWaitTime);
 			})
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(0);
 
 				testContainer.empty();
 
@@ -114,8 +121,10 @@ describe('The date data-type', function(){
 
 		var typeNewString = function(str) {
 			input.val('');
-			for(var i = 0; i < str.length; ++i)
+			for(var i = 0; i < str.length; ++i){
 				filter._type(str[i]);
+			}
+
 			return input.val();
 		};
 
@@ -133,7 +142,7 @@ describe('The date data-type', function(){
 		valids = [
 			'02/02/2222', 
 			'01/31/1234', 
-			'12/31/9999',
+			'12/31/9999'
 		];
 
 		invalids = [

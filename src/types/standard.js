@@ -306,7 +306,7 @@
 						count++;}
 					}
 					var dec = money.indexOf('.');
-					if(dec != -1) {
+					if(dec !== -1) {
 						money = money.replace(/\./g,'');
 						money = money.substring(0,dec) + '.' + money.substring(dec);
 					}			

@@ -2,6 +2,8 @@
  * Testing dateTime data-type
  */
 
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+'use strict';
 describe('The dateTime data-type', function(){
  	var testContainer = window.formBuilderTesting.testContainer;
  	var pause = window.formBuilderTesting.pause;
@@ -26,6 +28,7 @@ describe('The dateTime data-type', function(){
 		it('that can be opened on focus', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var datepicker;
 
 			var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
 			var date_pick = input.parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(0);
@@ -33,8 +36,8 @@ describe('The dateTime data-type', function(){
 			expect(time_pick.is('.ui-timepicker-input')).toBe(true);
 			expect(time_pick.siblings().length).toBe(1);
 
-			expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
-			expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
+			datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+			expect(datepicker.is(':visible')).toBe(false);
 
 			time_pick.focus();
 			date_pick.focus();
@@ -45,60 +48,76 @@ describe('The dateTime data-type', function(){
 				expect(time_pick.siblings().eq(1).is('.ui-timepicker-wrapper')).toBe(true);
 				expect(time_pick.siblings().eq(1).css('display')).toBe('block');
 
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(1);
+				expect(datepicker.is(':visible')).toBe(true);
 				
 				testContainer.empty();
 				done();
 			});
 		});
 
-		it('and can select a date and/or a time', function(done){
+		it('and can select a date', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
-			var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
-			var date_pick = input.parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(0);
+			var dateWidget = ifw.getType().dateWidget;
+			var datepicker;
 
 			expect(ifw.get()).toBe('');
 
-			time_pick.focus();
-			date_pick.focus();
+			dateWidget.focus();
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(1);
+				expect(datepicker.is(':visible')).toBe(true);
 
-				var day = testContainer.siblings().eq(26).children().eq(0).children().eq(0).children().eq(1).children().eq(1).children().eq(2);
+				var day = datepicker.find('.day').eq(0);
 
-				expect(input.parent().parent().parent().children().children().eq(0).children().children().eq(0).children().eq(1).css('display')).toBe('block');
+				expect(dateWidget.inputField('isEmpty')).toBe(true);
 				day.click(); 
 				return pause(triggerWaitTime);
 			})
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.is(':visible')).toBe(false);
 
 				// The placeholder should no longer be visible now there is data in the field
-				expect(input.parent().parent().parent().children().children().eq(0).children().children().eq(0).children().eq(1).css('display')).toBe('none');
+				expect(dateWidget.inputField('isEmpty')).toBe(false);
+
+				// testContainer.empty();
+				done();
+			});		
+		});
+
+		it('and can select a time', function(done){
+			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			var timeWidget = ifw.getType().timeWidget;
+			var timepicker, time;
+
+			timeWidget.focus();
+			pause(triggerWaitTime)
+			.then(function(){
+				timepicker = timeWidget.siblings('.ui-timepicker-wrapper');
+				expect(timepicker.is(':visible')).toBe(true);
+
+				time = timepicker.find('.ui-timepicker-list').children().eq(5);				
+
+				time.mousedown();
 
 				return pause(triggerWaitTime);
 			})
 			.then(function(){
-				expect(time_pick.siblings().length).toBe(2);
-				expect(time_pick.siblings().eq(1).is('.ui-timepicker-wrapper')).toBe(true);
-				expect(time_pick.siblings().eq(1).css('display')).toBe('block');
-
-				var time = time_pick.siblings().eq(1).children().children().eq(5);
-			
-				time.mousedown();
 				time.mouseup();
-
-				expect(input.parent().children().eq(2).is(':visible')).not.toBe(true);
-			 	expect(ifw.get()).not.toBe('');
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				expect(timepicker.is(':visible')).toBe(false);
+			 	expect(timeWidget.inputField('isEmpty')).toBe(false);
 			 	expect(time.is('.ui-timepicker-selected')).toBe(true);
 
 			 	testContainer.empty();
-
 				done();
 			});		
 		});
@@ -106,22 +125,24 @@ describe('The dateTime data-type', function(){
 		it('and can be torn down', function(done){
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var datepicker;
 
 			expect(ifw.get()).toBe('');
 
 			input.focus();
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(true);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(true);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(1);
+				expect(datepicker.is(':visible')).toBe(true);
 
 				ifw.getType().tearDown(ifw);
 
 				return pause(triggerWaitTime);
 			})
 			.then(function(){
-				expect(testContainer.siblings().eq(26).is('.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top')).toBe(false);
-				expect(testContainer.siblings().eq(26).is(':visible')).toBe(false);
+				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
+				expect(datepicker.length).toBe(0);
 				expect(input.parent().children().eq(2).is(':visible')).not.toBe(true);
 
 				testContainer.empty();

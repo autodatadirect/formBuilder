@@ -1,7 +1,8 @@
 /**
  * Testing money data-type
  */
-
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+'use strict';
 describe('The money data-type', function(){
 	var chars = window.formBuilderTesting.chars;
 	var batchTest = window.formBuilderTesting.batchTest;
@@ -29,8 +30,9 @@ describe('The money data-type', function(){
 
 		var typeNewString = function(str) {
 			input.val('');
-			for(var i = 0; i < str.length; ++i)
+			for(var i = 0; i < str.length; ++i) {
 				filter._type(str[i]);
+			}
 			return input.val();
 		};
 
@@ -65,51 +67,54 @@ describe('The money data-type', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 		
-			spyOn(type, 'format');
+			spyOn(ifw.getType(), 'format');
 
 			ifw._formatToField('1234'); 
 			
-			expect(type.format).toHaveBeenCalled(); 
+			expect(ifw.getType().format).toHaveBeenCalled(); 
 		});
 
 		it('that formats from field', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 		
-			spyOn(type, 'format');
+			spyOn(ifw.getType(), 'format');
 
 			var result = ifw._formatFromField('1234'); 
 			
-			expect(type.format).toHaveBeenCalled(); 
+			expect(ifw.getType().format).toHaveBeenCalled(); 
 			expect(result).toEqual(jasmine.any(Number)); 
 		});
 	});
 
 	describe('has a format', function(){
 		it('that formats it like money, only using the first', function(){
-			expect(type.format(chars.digits)).toBe('1234567890.00');
-			expect(type.format('01234567890')).toBe('1234567890.00');
-			expect(type.format('56619')).toBe('56619.00');
-			expect(type.format('56619.')).toBe('56619.00');
-			expect(type.format('.56619')).toBe('0.57');
-			expect(type.format('-123')).toBe('-123.00');
-			expect(type.format('123.155')).toBe('123.16');
-			expect(type.format('2312.3.12.3.1')).toBe('2312.31');
-			expect(type.format('12..34')).toBe('12.34');// This one needs to be looked at 
-			expect(type.format('12.3.4.6')).toBe('12.35');
-			expect(type.format('12345.4123')).toBe('12345.41');
+			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			
+			expect(ifw.getType().format(chars.digits)).toBe('1234567890.00');
+			expect(ifw.getType().format('01234567890')).toBe('1234567890.00');
+			expect(ifw.getType().format('56619')).toBe('56619.00');
+			expect(ifw.getType().format('56619.')).toBe('56619.00');
+			expect(ifw.getType().format('.56619')).toBe('0.57');
+			expect(ifw.getType().format('-123')).toBe('-123.00');
+			expect(ifw.getType().format('123.155')).toBe('123.16');
+			expect(ifw.getType().format('2312.3.12.3.1')).toBe('2312.31');
+			expect(ifw.getType().format('12..34')).toBe('12.34');// This one needs to be looked at 
+			expect(ifw.getType().format('12.3.4.6')).toBe('12.35');
+			expect(ifw.getType().format('12345.4123')).toBe('12345.41');
 		});
 
 		it('that is set on blur', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			
-			spyOn(type, 'format');
+			spyOn(ifw.getType(), 'format');
 
 			input.focus(); 
 			input.blur(); // When input is blurred the input should be formatted 
 
-			expect(type.format).toHaveBeenCalled(); 
+			expect(ifw.getType().format).toHaveBeenCalled(); 
 
 			testContainer.empty();
 		});
@@ -117,8 +122,9 @@ describe('The money data-type', function(){
 		it('that is set on change, keeping the caret position', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var pos;
 			
-			spyOn(type, 'format').and.callThrough();
+			spyOn(ifw.getType(), 'format').and.callThrough();
 
 			input.val('7777').caret(2,2); //start after 2
 			
@@ -128,7 +134,7 @@ describe('The money data-type', function(){
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(type.format).toHaveBeenCalled();
+				expect(ifw.getType().format).toHaveBeenCalled();
 				expect(util.equals(pos,input.caret())).toBe(true);
 				expect(input.val()).toEqual('7777.00');
 

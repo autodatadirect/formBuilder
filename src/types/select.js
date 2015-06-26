@@ -4,6 +4,8 @@
  */
 
 (function($) {
+	'use strict';
+	
 	var doc = $(document);
 	$.add123.inputField.types.select = {
 		setUp: function(inputWidget) {

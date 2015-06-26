@@ -2,7 +2,8 @@
  * Testing inputFilter
  */
 
-
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  util:true*/
+'use strict';
 describe('An inputFilter', function(){
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
@@ -172,6 +173,7 @@ describe('An inputFilter', function(){
 		var input = $('<input type="text"/>').inputFilter();
 		var filter = input.data('add123InputFilter');
 		var cCount = 0;
+		var code;
 
 		spyOn(filter, '_type');
 
