@@ -329,8 +329,12 @@
 			};
 
 			// Create the widgets
-			self.dateWidget = $('<input type="text" data-type="date" '+dateAttr+'/>').prependTo(fieldItems).inputField(options);
-			self.timeWidget = $('<input type="text" data-type="time" '+timeAttr+'/>').appendTo(fieldItems).inputField(options);
+			self.dateWidget = $('<input type="text" data-type="date" '+dateAttr+'/>')
+				.prependTo(fieldItems)
+				.inputField(options);
+			self.timeWidget = $('<input type="text" data-type="time" '+timeAttr+'/>')
+				.appendTo(fieldItems)
+				.inputField(options);			
 		},
 
 		/**
@@ -343,7 +347,7 @@
 				elTime = self.timeWidget,
 				timeWidthRatio,
 				minWidth;
-
+					
 				// Take out widghet margins/padding from outer width
 				fullWidth -= elDate.outerWidth() - elDate.width();
 				fullWidth -= elTime.outerWidth() - elTime.width();
@@ -418,7 +422,7 @@
 					return '';
 				}
 
-				utcMoment = self._joinDateAndTimeMoments(localDateMoment, localTimeMoment);
+				utcMoment = self._joinDateAndTimeMoments(localDateMoment, localTimeMoment).utc();
 
 				return utcMoment.format('YYYY-MM-DDTHH:mm:ss[Z]');
 			}
@@ -443,15 +447,14 @@
 		},
 
 		_joinDateAndTimeMoments: function(localDateMoment, localTimeMoment) {
-			var utcMoment = moment()
+			return moment()
 				.second(localTimeMoment.second())
 				.minute(localTimeMoment.minute())
 				.hour(localTimeMoment.hour())
+
 				.date(localDateMoment.date())
 				.month(localDateMoment.month())
 				.year(localDateMoment.year());
-
-			return utcMoment.utc();
 		},
 
 		validate: function(ifw) {
@@ -485,13 +488,13 @@
 		tearDown: function(ifw) {
 			var self = this;
 
-			self.dateWidget.remove();
-			self.timeWidget.remove();
+			self.dateWidget.inputField('getField').remove();
+			self.timeWidget.inputField('getField').remove();
 
 			self.dateWidget = undefined;
 			self.timeWidget = undefined;
 
-			ifw.parent().show();
+			ifw.element.parent().show();
 		}
 
 	};
