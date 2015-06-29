@@ -2,7 +2,10 @@
  * Testing caret plugin
  */
 
+/*global describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
 describe('A caret', function(){
+	'use strict';
+
 	var testContainer = window.formBuilderTesting.testContainer;
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
@@ -44,7 +47,7 @@ describe('A caret', function(){
 		var result2 = { begin: 1, end: 1};
 		var result3 = { begin: 1, end: 4};
 
-		spy = spyOn(input, 'caret').and.callThrough();
+		var spy = spyOn(input, 'caret').and.callThrough();
 			
 		// Type something into the input field
 		input.appendTo(testContainer);
@@ -78,7 +81,7 @@ describe('A caret', function(){
 		var input = $('<input type="text"/>');
 		var result = { begin: 1, end: 4};
 
-		spy = spyOn(input, 'caret').and.callThrough();
+		var spy = spyOn(input, 'caret').and.callThrough();
 			
 		// Type something into the input field
 		input.appendTo(testContainer);

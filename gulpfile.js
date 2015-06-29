@@ -6,6 +6,11 @@
  * More: https://github.com/Pestov/essential-gulp-plugins
  */
 
+
+/*jshint -W024 */
+
+'use strict';
+
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
@@ -50,8 +55,8 @@ gulp.task('lint', function(){
 	return gulp.src([
 			'gulpfile.js',
 			dirs.src + '/**/*.js',
-			dirs.e2eTests + '/**/*.js',
-			dirs.unitTests + '/**/*.js',
+			// dirs.e2eTests + '/**/*.js',
+			dirs.unitTests + '/**/*.js'
 		])
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
@@ -71,15 +76,14 @@ gulp.task('build', ['lint', 'copy:assets'], function(){
 			dirs.src + '/util/**/*.js',
 			dirs.src + '/plugins/**/*.js',
 			dirs.src + '/widgets/**/*.js',
-			dirs.src + '/types/**/*.js',
+			dirs.src + '/types/**/*.js'
 		])
 		.pipe(sourcemaps.init())
 			.pipe(concat(pkg.name + '.min.js'))
 			.pipe(uglify({
 				banner: '/*! ' + pkg.name + ' ' + pkg.version + ' ' + today + '*/\n',
 				mangle: !argv.original && argv.dist || argv.mangle,
-				compress: !argv.original && argv.dist || argv.mangle,
-				// preserveComments: argv.original || !argv.dist
+				compress: !argv.original && argv.dist || argv.mangle
 			}))
 		.pipe(sourcemaps.write('./',{
 			addComment: true,
@@ -107,7 +111,7 @@ var startBuildWatch = function(){
 	console.log('Watching for changes...');
 	gulp.watch([
 		dirs.src + '/**/*',
-		dirs.assets + '/**/*',
+		dirs.assets + '/**/*'
 	], ['build']);
 };
 

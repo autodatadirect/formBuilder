@@ -2,12 +2,8 @@
  * Testing inputField ifw
  */
 
-/*
-var input = $('<input type="text"/>').inputField();
-var ifw = input.data('add123InputField');
-var container = ifw.getField();
-*/
-
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  util:true*/
+'use strict';
 describe('An inputField', function(){
 	var testContainer = window.formBuilderTesting.testContainer;
 	var pause = window.formBuilderTesting.pause;
@@ -728,7 +724,7 @@ describe('An inputField', function(){
 		var field = ifw.getField();
 
 		spyOn(ifw.field, 'addClass').and.callThrough();
-		removeSpy = spyOn(ifw.field, 'removeClass').and.callThrough();
+		spyOn(ifw.field, 'removeClass').and.callThrough();
 
 		ifw.flash(1);
 		pause(155)

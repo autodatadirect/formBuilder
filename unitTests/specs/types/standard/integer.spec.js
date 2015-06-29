@@ -3,7 +3,8 @@
  *
  * Regex type
  */
-
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+'use strict';
 describe('The integer data-type', function(){
 	var chars = window.formBuilderTesting.chars;
 	var batchTest = window.formBuilderTesting.batchTest;
@@ -29,8 +30,9 @@ describe('The integer data-type', function(){
 
 		var typeNewString = function(str) {
 			input.val('');
-			for(var i = 0; i < str.length; ++i)
+			for(var i = 0; i < str.length; ++i) {
 				filter._type(str[i]);
+			}
 			return input.val();
 		};
 
@@ -48,7 +50,7 @@ describe('The integer data-type', function(){
 
 		valids = [
 			chars.digits,
-			'12512351613',
+			'12512351613'
 		];
 
 		invalids = [
@@ -58,12 +60,12 @@ describe('The integer data-type', function(){
 			'123.0',
 			'bad',
 			'worse',
-			'!@#',
+			'!@#'
 		];
 		
 		var validateNewVal = function(str){
 			input.val(str);
-			return (typeof(type.validate(ifw)) === 'undefined');
+			return (typeof(ifw.getType().validate(ifw)) === 'undefined');
 		};
 
 		batchTest('that accepts',valids,true,validateNewVal);

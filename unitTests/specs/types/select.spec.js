@@ -2,7 +2,10 @@
  * Testing select data type 
  */
 
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true, JSON:true*/
  describe('A select data type', function(){
+ 	'use strict';
+
  	var testContainer = window.formBuilderTesting.testContainer;
  	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
@@ -765,7 +768,7 @@
 
 			var val = 't';
 
-			for(i = 0; i < 5; i++){
+			for(var i = 0; i < 5; i++){
 				ifw.getType()._filterItem(options.eq(i), val);
 			}
 
@@ -1558,28 +1561,27 @@
 	}); 
 
 
-	it('can load its values', function(){
+	it('can load its values', function(done){
 		// returns a sorted array of objects that have value and label properties
-
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
-		var source = []; 
 
 		var mainObject = [{value: 'X-Ray', label: 'Xylophone'},{value: 'Cat',label: 'Cucumber'},{value: 'Yak',label: 'Yellow'},{value: 'Book',label: 'Banana'},{value: 'Zoo',label: 'Zingales'},{value: 'Aragorn',label: 'Apple'}];
 
+		var input = $('<input type="text" data-type="select" data-options =\''+JSON.stringify(mainObject)+'\'/>').inputField();	
+		var ifw = input.data('add123InputField');
+		var source = []; 
+
 		var spy_load = spyOn(ifw.getType(), 'load').and.callThrough();
 
-		var option = input.find('data-options');
-		var result = ifw.getType().load();
+		var result_dfd = ifw.getType().load();
 
 		expect(spy_load).toHaveBeenCalled();
 
-		expect(result).not.toBeNull(); 
+		expect(result_dfd).not.toBeNull(); 
 
-		var original = Promise.resolve(result); // Load returns a promise that as to be cast 
-		var cast = Promise.resolve(original);
-		cast.then(function(v) {
-  			expect(v).toEqual(mainObject);
+		result_dfd.done(function(source){
+			expect(util.equals(source, mainObject)).toBe(true);
+
+			done();
 		});
 	});
 

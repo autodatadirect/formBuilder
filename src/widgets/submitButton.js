@@ -2,6 +2,8 @@
  * submitButton Widget
  */
 (function($) {
+	'use strict';
+
 	/*
 	 * when you catch the submitbuttonsubmit event, you need to call execute
 	 * 'event.data.onComplete' when the processing is done
@@ -97,17 +99,21 @@
 			var self = this;
 			var o = self.options;
 
-			if(o.preventDefault && ev)
+			if(o.preventDefault && ev) {
 				ev.preventDefault();
+			}
 
-			if(o.waiting === true || o.disabled === true)
+			if(o.waiting === true || o.disabled === true) {
 				return this;
+			}
 
-			if(!ev)
+			if(!ev) {
 				ev = null;
+			}
 
-			if(self._trigger('beforesubmit', ev) === false)
+			if(self._trigger('beforesubmit', ev) === false) {
 				return this;
+			}
 
 
 			o.waiting = true;

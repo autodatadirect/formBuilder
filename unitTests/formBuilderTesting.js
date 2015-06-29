@@ -2,11 +2,13 @@
  * Tools for testing. Must be included before all specs
  */
 
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  util:true*/
+'use strict';
 (function(){
 	var chars = {
 		alphas: 'abcdefghijklmnopqrstuvwxyz',
 		digits: '1234567890',
-		symbols: "!@#$%^&*()_-=+,<.>/?;:'\"[{]}\\|`~ ",
+		symbols: "!@#$%^&*()_-=+,<.>/?;:'\"[{]}\\|`~ "
 	};
 
 	chars.ALPHAS = chars.alphas.toUpperCase();
@@ -38,8 +40,9 @@
 				});
 			};
 
-			for(var i = 0; i < vals.length; ++i)
+			for(var i = 0; i < vals.length; ++i) {
 				makeTest(vals[i]);
+			}
 		}
 	};
 })();

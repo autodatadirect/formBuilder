@@ -8,6 +8,8 @@
  */
 
 (function($){
+	'use strict';
+	
 	/**
 	 * Datepicker Spanish support
 	 */

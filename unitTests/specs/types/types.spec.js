@@ -2,7 +2,10 @@
  * General type testing
  */
 
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
 describe('Any type', function(){
+	'use strict';
+
 	describe('may be a simple regex type', function(){
 		it('that has a regex validation pattern');
 

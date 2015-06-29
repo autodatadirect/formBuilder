@@ -4,6 +4,8 @@
  * Regex type
  */
 
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+'use strict';
 describe('The zip data-type', function(){
 	var chars = window.formBuilderTesting.chars;
 	var batchTest = window.formBuilderTesting.batchTest;
@@ -29,8 +31,9 @@ describe('The zip data-type', function(){
 
 		var typeNewString = function(str) {
 			input.val('');
-			for(var i = 0; i < str.length; ++i)
+			for(var i = 0; i < str.length; ++i) {
 				filter._type(str[i]);
+			}
 			return input.val();
 		};
 
@@ -48,7 +51,7 @@ describe('The zip data-type', function(){
 		valids = [
 			'12345',
 			'12345-1234',
-			'123451234',	
+			'123451234'
 		];
 
 		invalids = [
@@ -56,7 +59,7 @@ describe('The zip data-type', function(){
 			'1234',
 			'12345-123',
 			'12345--1234',
-			'1234-51234',
+			'1234-51234'
 		];
 		
 		var validateNewVal = function(str){

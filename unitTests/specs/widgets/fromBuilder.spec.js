@@ -1,7 +1,8 @@
 /**
  * Testing formBuilder
  */
-
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+'use strict';
 describe('A formBuilder widget',function(){
 	var testContainer = window.formBuilderTesting.testContainer;
 
@@ -9,12 +10,14 @@ describe('A formBuilder widget',function(){
 		'<input name="" type="test"/>',
 		'<input name="" type="test"/>',
 		'<input name="" type="test"/>',
-		'<input name="" type="test"/>',
+		'<input name="" type="test"/>'
 	];
 
 	var baseFormHtml = '<form>';
-	for(var i = 0; i < testInputs.length; ++i)
+	for(var i = 0; i < testInputs.length; ++i){
 		baseFormHtml += testInputs[i].replace('name=""', 'name="test'+i+'"');
+	}
+
 	baseFormHtml += '</form>';
 
 
@@ -87,8 +90,9 @@ describe('A formBuilder widget',function(){
 		expect(fields.length).toBeGreaterThan(0);
 		expect(fields.filter(':add123-inputField').length).toBe(fields.length);
 
-		for(var i = 0; i < fields.length; ++i)
+		for(var i = 0; i < fields.length; ++i) {
 			expect(fields[i]).toBe(fbw.fields[i]);
+		}
 	});
 
 	it('can make a proxy command to a widget');

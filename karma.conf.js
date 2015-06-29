@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Tue Jun 16 2015 11:20:54 GMT-0400 (EDT)
 
+'use strict';
+
 module.exports = function(config) {
   config.set({
 
@@ -32,7 +34,7 @@ module.exports = function(config) {
         './unitTests/testRunner.html',
 
         './unitTests/formBuilderTesting.js',
-        './unitTests/specs/**/*.spec.js',
+        './unitTests/specs/**/*.spec.js'
         // {pattern:'./unitTests/testRunner.html',watched:false,included:false,serverd:true}
        
     ],
@@ -80,7 +82,7 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-        'Chrome', 
+        'Chrome'
         // 'Firefox', 
         // 'PhantomJS'
     ],

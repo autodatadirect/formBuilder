@@ -12,6 +12,8 @@
  * call _setOption from outside?
  */
 
+
+/*global util:true */
 (function($) {
 	"use strict";
 

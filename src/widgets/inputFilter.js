@@ -2,7 +2,10 @@
  * inputFilter widget
  */
 
+
 (function($) {
+	'use strict';
+
 	$.widget('add123.inputFilter', {
 
 		options: {

@@ -12,6 +12,8 @@
  *   redraw()
  *   status(statusName, bool)
  */
+
+/*global util:true */
 (function($) {
 	"use strict";
 
@@ -561,8 +563,9 @@
 			}
 
 			// Remove error (only if needed to avoid a redraw)
-			if(self.hasStatus('error'))
+			if(self.hasStatus('error')) {
 				self.status('error', false, false);
+			}
 
 			var val = self._formatToField(value);
 
@@ -790,7 +793,7 @@
 					if(!self.prefixPaddingAdded) {
 						self.startInputWidth = e.width();
 						self.startPaddingLeft = e.css('padding-left').replace('[^0-9]','');
-						self.startPaddingLeft = isNaN(self.startPaddingLeft)? 5 : parseInt(self.startPaddingLeft);
+						self.startPaddingLeft = isNaN(self.startPaddingLeft)? 5 : parseInt(self.startPaddingLeft, 10);
 						e.css({
 							paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + "px",
 							width: (self.startInputWidth - layers.prefix.outerWidth())  + 'px'
@@ -815,7 +818,7 @@
 
 						self.startInputWidth = e.width();
 						self.startPaddingRight = e.css('padding-right').replace('[^0-9]','');
-						self.startPaddingRight = isNaN(self.startPaddingRight)? 0 : parseInt(self.startPaddingRight);
+						self.startPaddingRight = isNaN(self.startPaddingRight)? 0 : parseInt(self.startPaddingRight, 10);
 
 						e.css({
 							paddingRight: (self.startPaddingRight + valWidth) + 'px',
@@ -879,10 +882,11 @@
 			}
 
 			if(show) {
-				if(layer === 'suffix')
+				if(layer === 'suffix') {
 					self.layers[layer].css('visibility', 'visible');
-				else
+				} else {
 					self.layers[layer].show();
+				}
 
 				// MISC-919 make sure placeholder stays in input box
 				if(layer === 'placeholder' && e.width() > 0) {
@@ -892,10 +896,11 @@
 					}
 				}
 			} else {
-				if(layer === 'suffix')
+				if(layer === 'suffix') {
 					self.layers[layer].css('visibility', 'hidden');
-				else
+				} else {
 					self.layers[layer].hide();
+				}
 			}
 		},
 

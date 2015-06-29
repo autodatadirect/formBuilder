@@ -1,6 +1,10 @@
-
+/**
+ * add123.popOver widget
+ */
 
 (function($){
+	'use strict';
+
 	var doc = $(document),
 		win = $(window),
 		body = $('body');

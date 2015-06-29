@@ -1,7 +1,8 @@
 /**
  * Testing default data-type
  */
-
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+'use strict';
  describe('The default type', function(){
  	var testContainer = window.formBuilderTesting.testContainer;
  	var chars = window.formBuilderTesting.chars;
@@ -14,8 +15,9 @@
 
 		var typeNewString = function(str) {
 			input.val('');
-			for(var i = 0; i < str.length; ++i)
+			for(var i = 0; i < str.length; ++i) {
 				filter._type(str[i]);
+			}
 			return input.val();
 		};
 

@@ -4,6 +4,8 @@
  * Regex type
  */
 
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+'use strict';
 describe('The text data-type', function(){
 	var chars = window.formBuilderTesting.chars;
 	var batchTest = window.formBuilderTesting.batchTest;
@@ -37,8 +39,9 @@ describe('The text data-type', function(){
 		//I think that this doesn't work b/c text doesnt need a filter 
 		var typeNewString = function(str) {
 			input.val('');
-			for(var i = 0; i < str.length; ++i)
+			for(var i = 0; i < str.length; ++i) {
 				filter._type(str[i]);
+			}
 			return input.val();
 		};
 
