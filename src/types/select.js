@@ -43,7 +43,7 @@
 				return false;
 			});
 			*/
-			var panel = self.panel = $('<div class="dropdown-panel"><div class="tms-select-dropdown-content"><div class="search"/><div class="options" style="position:relative;"/></div></div>').hide();
+			var panel = self.panel = $('<div class="dropdown-panel"><div class="tms-select-dropdown-content"><div class="search" style="position:relative;"/><div class="options" style="position:relative;"/></div></div>').hide();
 			self.options = panel.find('.options');
 
 			inputWidget.layers.items.append(panel).css('position', 'relative');
@@ -98,12 +98,12 @@
 			/*
 			 * build filter input
 			 */
-			var filter = self.filter = $('<input type="text" class="filter-box" style="width:100%;position:relative;" />').appendTo(panel.find('.search')).inputField();
-			filter.after('<span class="tms-icon tms-icon-search" style="position:absolute;right: 7px;top: 1px; font-size: 15px; cursor: default;"></span>');
+			var filter = self.filter = $('<input type="text" class="filter-box" style="width:100%; position:relative; cursor:text;" />').appendTo(panel.find('.search')).inputField();
+			filter.after('<span class="tms-icon tms-icon-search" style="position:absolute;right: 7px;top: 1px; font-size: 15px; cursor: default; pointer-events:none;"></span>');
 			filter.parents('.field-item').first().addClass('first');
 
 			filter.parent().css('display', 'block').parent().css('display', 'block').parent().css('display', 'block');
-
+			filter.parent().css('padding-right', '30px');
 			/*
 			 * kill click event, to prevent the inputField from grabbing focus
 			 */

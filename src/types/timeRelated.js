@@ -17,18 +17,25 @@
 	 * Attribute Settings:
 	 * data-minyear (default [-=15]) - Can be set to 'CURRENT'
 	 * data-maxyear (default [+=2]) - Can be set to 'CURRENT'
-	 * date-startdate (default 01/01/[minyear]) - trumps minyear if both set. Can be set to 'TODAY'
-	 * date-enddate (default 12/31/[maxyear]) - trumps maxyear if both set. Can be set to 'TODAY'
+	 * data-startdate (default 01/01/[minyear]) - trumps minyear if both set. Can be set to 'TODAY'
+	 * data-enddate (default 12/31/[maxyear]) - trumps maxyear if both set. Can be set to 'TODAY'
+	 * data-enforce-min (default false) - marks dates <startDate as invalid
+	 * data-enforce-max (default false) - marks dates >endDate as invalid
 	 */
 	types.date = {
-		attributes: ['minyear', 'maxyear', 'startdate', 'enddate'],
+		attributes: ['minyear', 'maxyear', 'startdate', 'enddate','enforceMax','enforceMin'],
+
+		_dateFormat: 'MM/DD/YYYY',
 
 		setUp: function(ui) {
 			var self = this,
 				e = ui.element,
-				tmp;
+				tmp, startDate, endDate;
 
-			ui.placeholder('MM/DD/YYYY');
+			ui.placeholder(self._dateFormat);
+
+			self.enforceMin = e.data('enforceMin');
+			self.enforceMax = e.data('enforceMax');
 
 			// Determine year ends
 			var minYear = new Date().getFullYear() - 15,
@@ -42,6 +49,7 @@
 					minYear = tmp;
 				}
 			}
+
 			tmp = e.data('maxyear');
 			if(tmp !== undefined) {
 				if(tmp === 'CURRENT') {
@@ -51,32 +59,33 @@
 				}
 			}
 
-			// Determine date ends
-			var startDate = '1/1/' + minYear,
-				endDate = '12/31/' + maxYear;
+			self.startDate = '01/1/' + minYear;
+			self.endDate = '12/31/' + maxYear;
+
+			// Determine date ends and save for validation
 
 			tmp = e.data('startdate');
 			if(tmp !== undefined) {
 				if(tmp === 'TODAY') {
-					startDate = moment().format('MM/DD/YYYY');
+					self.startDate = moment().format(self._dateFormat);
 				} else if(tmp.match(/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/)) {
-					startDate = tmp;
+					self.startDate = tmp;
 				}
 			}
 			
 			tmp = e.data('enddate');
 			if(tmp !== undefined) {
 				if(tmp === 'TODAY') {
-					endDate = moment().format('MM/DD/YYYY');
+					self.endDate = moment().format(self._dateFormat);
 				} else if(tmp.match(/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/)) {
-					endDate = tmp;
-				}
+					self.endDate = tmp;
+				}				
 			}
 
 			// Setup datepicker
 			var datePickerOptions = {
-				startDate: startDate,
-				endDate: endDate,
+				startDate: self.startDate, 
+				endDate: self.endDate,
 				autoclose: true,
 				forceParse: false,
 				format: 'mm/dd/yyyy',
@@ -120,8 +129,12 @@
 
 		validate: function(ui) {
 			var self = this,
-				date = ui.element.val();
-			if(!moment(date, ["MM/DD/YYYY"], true).isValid()) {
+				date = moment(ui.element.val(),self._dateFormat,true);
+
+
+			if(!date.isValid() || 
+				(self.enforceMin && date.isBefore(moment(self.startDate, self._dateFormat))) ||
+				(self.enforceMax && moment(self.endDate, self._dateFormat).isBefore(date))) {
 				return {
 					message: 'invalid'
 				};
@@ -329,8 +342,12 @@
 			};
 
 			// Create the widgets
-			self.dateWidget = $('<input type="text" data-type="date" '+dateAttr+'/>').prependTo(fieldItems).inputField(options);
-			self.timeWidget = $('<input type="text" data-type="time" '+timeAttr+'/>').appendTo(fieldItems).inputField(options);
+			self.dateWidget = $('<input type="text" data-type="date" '+dateAttr+'/>')
+				.prependTo(fieldItems)
+				.inputField(options);
+			self.timeWidget = $('<input type="text" data-type="time" '+timeAttr+'/>')
+				.appendTo(fieldItems)
+				.inputField(options);			
 		},
 
 		/**
@@ -343,7 +360,7 @@
 				elTime = self.timeWidget,
 				timeWidthRatio,
 				minWidth;
-
+					
 				// Take out widghet margins/padding from outer width
 				fullWidth -= elDate.outerWidth() - elDate.width();
 				fullWidth -= elTime.outerWidth() - elTime.width();
@@ -398,12 +415,6 @@
 
 				self.timeWidget.inputField('set', splitDate.time);
 				self.dateWidget.inputField('set', splitDate.date);
-
-				// Redraw them via async
-				setTimeout(function(){
-					self.timeWidget.inputField('redraw');
-					self.dateWidget.inputField('redraw');
-				}, 0);
 			}, 
 
 			fromField: function(val, ifw) {
@@ -418,7 +429,7 @@
 					return '';
 				}
 
-				utcMoment = self._joinDateAndTimeMoments(localDateMoment, localTimeMoment);
+				utcMoment = self._joinDateAndTimeMoments(localDateMoment, localTimeMoment).utc();
 
 				return utcMoment.format('YYYY-MM-DDTHH:mm:ss[Z]');
 			}
@@ -443,15 +454,14 @@
 		},
 
 		_joinDateAndTimeMoments: function(localDateMoment, localTimeMoment) {
-			var utcMoment = moment()
+			return moment()
 				.second(localTimeMoment.second())
 				.minute(localTimeMoment.minute())
 				.hour(localTimeMoment.hour())
+
 				.date(localDateMoment.date())
 				.month(localDateMoment.month())
 				.year(localDateMoment.year());
-
-			return utcMoment.utc();
 		},
 
 		validate: function(ifw) {
@@ -485,13 +495,13 @@
 		tearDown: function(ifw) {
 			var self = this;
 
-			self.dateWidget.remove();
-			self.timeWidget.remove();
+			self.dateWidget.inputField('getField').remove();
+			self.timeWidget.inputField('getField').remove();
 
 			self.dateWidget = undefined;
 			self.timeWidget = undefined;
 
-			ifw.parent().show();
+			ifw.element.parent().show();
 		}
 
 	};

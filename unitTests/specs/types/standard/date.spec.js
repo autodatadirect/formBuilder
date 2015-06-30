@@ -12,17 +12,20 @@ describe('The date data-type', function(){
 	var batchTest = window.formBuilderTesting.batchTest;
 
 	var typeName = 'date';
-	var type = $.add123.inputField.types[typeName];
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').inputField();
 		var ifw = input.data('add123InputField');
-		
-		expect(type).toBeDefined();
+		var typeInstance;
+
+		expect($.add123.inputField.types[typeName]).toBeDefined();
 
 		ifw.setType(typeName);
 		
-		expect(util.equals(ifw.getType(), type)).toBe(true);
+		// Should have these
+		typeInstance = ifw.getType();
+		expect(typeInstance.startDate).toBeDefined();
+		expect(typeInstance.endDate).toBeDefined();
 	});
 
 	it('is created with a placeholder', function(){
@@ -135,7 +138,7 @@ describe('The date data-type', function(){
 	});
 
 	describe('has simple regex validation', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 		var valids, invalids;
 
@@ -155,13 +158,43 @@ describe('The date data-type', function(){
 		
 		var validateNewVal = function(str){
 			input.val(str);
-			return (typeof(type.validate(ifw)) === 'undefined');
+			return (typeof(ifw.getType().validate(ifw)) === 'undefined');
 		};
 
 		batchTest('that accepts',valids,true,validateNewVal);
 		batchTest('that rejects',invalids,false,validateNewVal);
+	});
 
-		testContainer.empty();
+	it('can enforce the startDate', function(){
+		var input = $('<input type="text" data-type="'+typeName+'" data-minyear="2000" data-enforce-min="true"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType();
+
+		// Valid
+		input.val('02/02/2000');
+		expect(typeInstance.validate(ifw)).toBeUndefined();
+		input.val('02/02/2001');
+		expect(typeInstance.validate(ifw)).toBeUndefined();
+
+		// Invalid
+		input.val('02/02/1999');
+		expect(typeInstance.validate(ifw)).toBeDefined();
+	});
+
+	it('can enforce the endDate', function(){
+		var input = $('<input type="text" data-type="'+typeName+'" data-maxyear="2017" data-enforce-max="true"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType();
+
+		// Valid
+		input.val('02/02/2016');
+		expect(typeInstance.validate(ifw)).toBeUndefined();
+		input.val('02/02/2017');
+		expect(typeInstance.validate(ifw)).toBeUndefined();
+
+		// Invalid
+		input.val('02/02/2018');
+		expect(typeInstance.validate(ifw)).toBeDefined();
 	});
 
 	describe('can handle conversion', function(){

@@ -2,7 +2,7 @@
  * Testing dateTime data-type
  */
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true, moment:true*/
 'use strict';
 describe('The dateTime data-type', function(){
  	var testContainer = window.formBuilderTesting.testContainer;
@@ -12,17 +12,102 @@ describe('The dateTime data-type', function(){
 	var batchTest = window.formBuilderTesting.batchTest;
 
 	var typeName = 'dateTime';
-	var type = $.add123.inputField.types[typeName];
 
-	it('can be created with placeholders', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();	
+	it('is a valid data-type', function(){
+		var input = $('<input type="text"/>').inputField();
 		var ifw = input.data('add123InputField');
+		var type = $.add123.inputField.types[typeName];
+		var typeInstance;
+		
+		expect(type).toBeDefined();
 
-		expect(input.parent().parent().parent().children().children().eq(0).is('.input-field.undefined.require')).toBe(true);
-		expect(input.parent().parent().parent().children().children().eq(0).children().children().eq(0).children().eq(1).text()).toBe('MM/DD/YYYY');
-		expect(input.parent().parent().parent().children().children().eq(2).is('.input-field.undefined.require')).toBe(true);
-		expect(input.parent().parent().parent().children().children().eq(2).children().children().eq(0).children().eq(1).text()).toBe('H:MMam/pm');
+		ifw.setType(typeName);
+
+		// Should have these
+		typeInstance = ifw.getType();
+		expect(typeInstance.dateWidget).toBeDefined();
+		expect(typeInstance.timeWidget).toBeDefined();
 	});
+
+
+	it('can be setup', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType();
+
+		var spy_set = spyOn(typeInstance, 'setUp').and.callThrough();
+		var spy_fields = spyOn(typeInstance, '_setUpFields').and.callThrough();
+		var spy_re = spyOn(typeInstance, '_refreshFieldWidth').and.callThrough();
+		var spy_clean = spyOn(typeInstance, '_setUpCleanDirtyEvents').and.callThrough();
+
+		// ifw.getType().setUp(ifw);
+		typeInstance.setUp(ifw);
+
+		expect(spy_fields).toHaveBeenCalled();
+		expect(spy_re).toHaveBeenCalled();
+		expect(spy_clean).toHaveBeenCalled();
+
+		input.trigger('resize');
+
+		expect(spy_re.calls.count()).toBe(3);
+	});
+
+	it('can setup its fields', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>')
+			.appendTo(testContainer).inputField();	
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType(),
+			fieldItems = input.parent().parent().children();
+
+		expect(fieldItems.length).toBe(3);
+
+		expect(fieldItems.eq(0).find('input').is('[data-type="date"]')).toBe(true);
+		expect(fieldItems.eq(0).is(':visible')).toBe(true);
+
+		expect(fieldItems.eq(1).find('input').is('[data-type="dateTime"]')).toBe(true);
+		expect(fieldItems.eq(1).is(':visible')).toBe(false);
+
+		expect(fieldItems.eq(2).find('input').is('[data-type="time"]')).toBe(true);
+		expect(fieldItems.eq(2).is(':visible')).toBe(true);
+
+		testContainer.empty();
+	});
+
+
+	it('can refresh its field widths', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType();
+		var startWidth;
+
+		input.width(300);
+		typeInstance._refreshFieldWidth();
+		expect(typeInstance.dateWidget.outerWidth()+typeInstance.timeWidget.outerWidth()).toBe(300);
+
+		input.width(400);
+		typeInstance._refreshFieldWidth();
+		expect(typeInstance.dateWidget.outerWidth()+typeInstance.timeWidget.outerWidth()).toBe(400);
+
+	});
+
+	it('refreshes its field widths on resize', function(done){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType();
+
+		spyOn(typeInstance, '_refreshFieldWidth');
+
+		input.trigger('resize');
+		pause(triggerWaitTime)
+		.then(function(){
+			expect(typeInstance._refreshFieldWidth).toHaveBeenCalled();
+
+			done();
+		});
+	});
+
+	it('can have option attributes');
+	
 
 	describe('has datepicker and time picker widgets', function(){
 		it('that can be opened on focus', function(done){
@@ -85,7 +170,7 @@ describe('The dateTime data-type', function(){
 				// The placeholder should no longer be visible now there is data in the field
 				expect(dateWidget.inputField('isEmpty')).toBe(false);
 
-				// testContainer.empty();
+				testContainer.empty();
 				done();
 			});		
 		});
@@ -121,80 +206,8 @@ describe('The dateTime data-type', function(){
 				done();
 			});		
 		});
-
-		it('and can be torn down', function(done){
-			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
-			var datepicker;
-
-			expect(ifw.get()).toBe('');
-
-			input.focus();
-			pause(triggerWaitTime)
-			.then(function(){
-				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
-				expect(datepicker.length).toBe(1);
-				expect(datepicker.is(':visible')).toBe(true);
-
-				ifw.getType().tearDown(ifw);
-
-				return pause(triggerWaitTime);
-			})
-			.then(function(){
-				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
-				expect(datepicker.length).toBe(0);
-				expect(input.parent().children().eq(2).is(':visible')).not.toBe(true);
-
-				testContainer.empty();
-
-				done(); 
-			});
-		});
-
 	});
 
-	it('can be set up', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
-
-		var spy_set = spyOn(ifw.getType(), 'setUp').and.callThrough();
-		var spy_fields = spyOn(ifw.getType(), '_setUpFields').and.callThrough();
-		var spy_re = spyOn(ifw.getType(), '_refreshFieldWidth').and.callThrough();
-		var spy_clean = spyOn(ifw.getType(), '_setUpCleanDirtyEvents').and.callThrough();
-
-		ifw.getType().setUp(ifw);
-
-		expect(spy_fields).toHaveBeenCalled();
-		expect(spy_re).toHaveBeenCalled();
-		expect(spy_clean).toHaveBeenCalled();
-
-		input.trigger('resize');
-
-		expect(spy_re.calls.count()).toBe(3);
-	});
-
-	it('can set up its fields', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
-
-		var spy_set = spyOn(ifw.getType(), '_setUpFields').and.callThrough();
-
-		ifw.getType()._setUpFields(); 
-
-		expect(spy_set).toHaveBeenCalled();
-
-		expect(input.parent().css('display')).toBe('none');
-	});
-
-	it('can refresh its field width', function(){
-		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
-		var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
-
-		expect(time_pick.width()).toBe(135);
-
-		testContainer.empty();
-	});
 
 	describe('it can handle changes', function(){
 		it('with dirty events', function(){
@@ -244,58 +257,70 @@ describe('The dateTime data-type', function(){
 	it('can split date and time', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
-		var spy_split = spyOn(ifw.getType(), '_splitDateAndTime').and.callThrough();
-
-		var Object1 = {
+		var timeInstance = ifw.getType();
+		var testDate;
+		
+		expect(timeInstance._splitDateAndTime('Not a valid date')).toEqual({
 			date: '',
 			time: ''
-		};
+		});
 
-		var Object2 = {
-			date: '2014-04-25',
-			time: '05:32'
-		};
+		testDate = '2014-04-25T01:32:21Z';
+		expect(timeInstance._splitDateAndTime(testDate)).toEqual({
+			date: moment.utc(testDate,'YYYY-MM-DDTHH:mm:ss').local().format('YYYY-MM-DD'),		//local
+			time: '01:32'			//utc
+		});
 
-		var result = ifw.getType()._splitDateAndTime('Not a valid date');
-
-		expect(result).toEqual(Object1);
-
-		var result2 = ifw.getType()._splitDateAndTime('2014-04-25T01:32:21');
-
-		expect(result2).toEqual(Object2);
 	});
 
-	it('can join date and time', function(){
+	it('can join local date & time moments into one utc moment', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
-		var spy_join = spyOn(ifw.getType(), '_joinDateAndTime').and.callThrough();
+		var timeInstance = ifw.getType();
+		var localDateMoment, localTimeMoment, utcMoment;
+		var inDateFormat = 'YYYY-MM-DD',
+			outDateTimeFormat = 'YYYY-MM-DDTHH:mm:ss[Z]',
+			utcOffset = -240;
 
-		var empty_date = {
-			date: '',
-			time: '06:30'
-		};
+		//Check time zone boundaries
 
-		var empty_time = {
-			date: '2015-06-09',
-			time: ''
-		};
+		localDateMoment = moment('2004-06-28', inDateFormat);
+		localTimeMoment = moment().hour(0).minute(0).second(0).utcOffset(utcOffset);
+		utcMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment).utcOffset(utcOffset).utc();
+		expect(utcMoment.format(outDateTimeFormat)).toBe('2004-06-28T04:00:00Z');
 
-		var correct = {
-			date: '2015-06-09',
-			time: '06:30'
-		};
+		localDateMoment = moment('2004-06-27', inDateFormat);
+		localTimeMoment = moment().hour(22).minute(0).second(0).utcOffset(utcOffset);
+		utcMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment).utcOffset(utcOffset).utc();
+		expect(utcMoment.format(outDateTimeFormat)).toBe('2004-06-28T02:00:00Z');
 
-		var result = ifw.getType()._joinDateAndTime(empty_date);
+		localDateMoment = moment('2004-06-27', inDateFormat);
+		localTimeMoment = moment().hour(18).minute(0).second(0).utcOffset(utcOffset);
+		utcMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment).utcOffset(utcOffset).utc();
+		expect(utcMoment.format(outDateTimeFormat)).toBe('2004-06-27T22:00:00Z');
+	});
 
-		expect(result).toBe('');
 
-		var result2 = ifw.getType()._joinDateAndTime(empty_time);
+	it('can be torn down', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>')
+			.appendTo(testContainer).inputField();
+		var ifw = input.data('add123InputField');
+		var fieldItems = input.parent().parent(),
+			typeInstance = ifw.getType();
 
-		expect(result2).toBe('');
+		expect(fieldItems.children().length).toBe(3);
+		expect(typeInstance.dateWidget).toBeDefined();
+		expect(typeInstance.timeWidget).toBeDefined();
+		expect(ifw.element.parent().is(':visible')).toBe(false);
 
-		var result3 = ifw.getType()._joinDateAndTime(correct);
+		typeInstance.tearDown(ifw);
 
-		expect(result3).toBe('2015-06-09T06:30:00Z');
+		expect(fieldItems.children().length).toBe(1);
+		expect(typeInstance.dateWidget).toBeUndefined();
+		expect(typeInstance.timeWidget).toBeUndefined();
+		expect(ifw.element.parent().is(':visible')).toBe(true);
+
+		testContainer.empty();
 	});
 
 });
