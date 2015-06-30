@@ -165,7 +165,9 @@
 /* nth-of-type */
 
 
-
+.input-field .clickable {
+	cursor: pointer;
+}
 
 .input-field .addon {
 	padding-left:8px;
@@ -176,9 +178,6 @@
 }
 
 .input-field .addon.clickable {
-	cursor: pointer;
-
-
 	text-align: center;
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 	vertical-align: middle;
@@ -443,6 +442,11 @@
 .filter-box .field-item-input,
 .filter-box input {
 	border-radius: 10px/25px;
+}
+
+.filter-box input {
+	cursor: text;
+	padding-right: 20px;
 }
 
 .select-box .field-item-input,
