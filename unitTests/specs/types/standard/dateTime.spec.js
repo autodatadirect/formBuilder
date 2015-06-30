@@ -22,9 +22,9 @@ describe('The dateTime data-type', function(){
 		expect(type).toBeDefined();
 
 		ifw.setType(typeName);
-		typeInstance = ifw.getType();
 
 		// Should have these
+		typeInstance = ifw.getType();
 		expect(typeInstance.dateWidget).toBeDefined();
 		expect(typeInstance.timeWidget).toBeDefined();
 	});

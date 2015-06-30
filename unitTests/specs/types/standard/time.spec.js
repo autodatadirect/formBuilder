@@ -2,7 +2,7 @@
  * Testing time data-type
  */
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true, moment:true*/
 'use strict';
 describe('The time data-type', function(){
  	var testContainer = window.formBuilderTesting.testContainer;
@@ -12,17 +12,19 @@ describe('The time data-type', function(){
 	var batchTest = window.formBuilderTesting.batchTest;
 
 	var typeName = 'time';
-	var type = $.add123.inputField.types[typeName];
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').inputField();
 		var ifw = input.data('add123InputField');
-		
-		expect(type).toBeDefined();
+		var typeInstance;
+
+		expect($.add123.inputField.types[typeName]).toBeDefined();
 
 		ifw.setType(typeName);
 		
-		expect(util.equals(ifw.getType(), type)).toBe(true);
+		// Should have these
+		typeInstance = ifw.getType();
+		expect(typeInstance.military).toBeDefined();
 	});
 
 	it('is created with a placeholder (regular by default)', function(){
@@ -330,5 +332,32 @@ describe('The time data-type', function(){
 
 			expect(result4).toBe('');
 		});
+	});
+
+
+	it('can handle UTC vs local time when setting/getting', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var utcOffset = -240,
+			utcTime;
+		
+		utcTime = '04:00';
+		ifw.set(utcTime);
+		// expect(input.val()).toBe('12:00am');
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
+		expect(ifw.get()).toBe(utcTime);
+
+		utcTime = '02:00';
+		ifw.set(utcTime);
+		// expect(input.val()).toBe('10:00pm');
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
+		expect(ifw.get()).toBe(utcTime);
+
+		utcTime = '22:00';
+		ifw.set(utcTime);
+		// expect(input.val()).toBe('6:00pm');
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
+		expect(ifw.get()).toBe(utcTime);
+	
 	});
 });
