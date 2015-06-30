@@ -10,7 +10,21 @@
  	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 
+	var typeName = 'select';
+	var type = $.add123.inputField.types[typeName];
+
  	describe('can be setup', function(){
+ 		it('is a valid data-type', function(){
+			var input = $('<input type="text"/>').wrap('<div/>').inputField();
+			var ifw = input.data('add123InputField');
+			
+			expect(type).toBeDefined();
+
+			ifw.setType(typeName);
+			
+			expect(util.equals(ifw.getType(), $.add123.inputField.types.text)).toBe(false);
+		});
+
  		it('to have an input field with data', function(){
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
 			var ifw = input.data('add123InputField');
@@ -1387,8 +1401,7 @@
 			return pause(triggerWaitTime);
 		})
 		.then(function(){
-			scroll = options.scrollTop(); 
-			expect(scroll).toBe(0);			
+			expect(options.scrollTop()).toBe(0);			
 
 			testContainer.empty(); 
 

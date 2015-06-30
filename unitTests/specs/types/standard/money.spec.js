@@ -50,15 +50,24 @@ describe('The money data-type', function(){
 
 			expect(addon.length).toBe(1);
 			expect(addon.text()).toBe("$");
+
+			expect(input.parent().siblings().length).toBe(1);
 		});
 
 		it('that can be customized with attribute data-currency-symbol', function(){
-			var input = $('<input type="text" data-type="'+typeName+'" data-currency-symbol="&pound;"/>')
-				.wrap('<div/>').inputField();
+			var input = $('<input type="text" data-type="'+typeName+'" data-currency-symbol="&pound;"/>').wrap('<div/>').inputField();
 			var addon = input.parent().siblings('.addon');
 
 			expect(addon.length).toBe(1);
 			expect(addon.text()).toBe("£");
+
+			expect(input.parent().siblings().length).toBe(1);
+		});
+
+		it('that can be set to not be displayed', function(){
+			var input = $('<input type="text" data-type="'+typeName+'" data-show-symbol="true/>').wrap('<div/>').inputField();
+			
+			expect(input.parent().siblings().length).toBe(0);
 		});
 	});
 
