@@ -587,9 +587,8 @@
 
 			self._trigger('afterset', null, [val, value]);
 			
-			setTimeout(function(){
-				self.redraw();
-			}, 0);
+			// Redraw synchronously to avoid display errors (was not working perfectly with setTimeout)
+			self.redraw();
 
 		},
 		
@@ -772,7 +771,7 @@
 			var self = this,
 				e = self.element,
 				o = self.options,
-				hasVal = !!self.element.val(),
+				hasVal = !!e.val(),
 				showError = false,
 				showNotice = true,
 				showPlaceholder = true,

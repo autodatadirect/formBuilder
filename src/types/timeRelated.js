@@ -415,12 +415,6 @@
 
 				self.timeWidget.inputField('set', splitDate.time);
 				self.dateWidget.inputField('set', splitDate.date);
-
-				// Redraw them via async
-				setTimeout(function(){
-					self.timeWidget.inputField('redraw');
-					self.dateWidget.inputField('redraw');
-				}, 0);
 			}, 
 
 			fromField: function(val, ifw) {
