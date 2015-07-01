@@ -294,9 +294,16 @@
             <input type="text" data-label="email" data-type="email"><span>For email inputs. The correct format is a username, then a single '@', then an alphanumeric domain name, then a single '.', then a alphabetic domain extension 2-4 characters in length. </span>
           </div>
           <div class="example">
-            <input type="text" data-label="money" data-type="money">
-            <input type="text" data-type="money" data-currency-symbol="&amp;pound;">
-            <input type="text" data-type="money" data-show-symbol="false"><span>For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur. In addition, a box with a '$' (by default) is prepended to the left of the field with a weight of -100. To change the currency symbol, set it with the <b>data-currency-symbol</b> attribute. To not show any currency symbol, set the <b>data-show-symbol</b> attribute to false.   </span>
+            <input type="text" data-label="money: default" data-type="money"><span>For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur.</span>
+          </div>
+          <div class="example">
+            <input type="text" data-label="money: custom currency symbol" data-type="money" data-currency-symbol="&amp;pound;">
+            <input type="text" data-type="money" data-show-symbol="false"><span>In addition, a box with a '$' (by default) is prepended to the left of the field with a weight of -100. To change the currency symbol, set it with the <b>data-currency-symbol</b> attribute. To not show any currency symbol, set the <b>data-show-symbol</b> attribute to false.</span>
+          </div>
+          <div class="example">
+            <input type="text" data-label="money: max and min attributes" data-type="money" data-max-amount="10.00">
+            <input type="text" data-type="money" data-min-amount="10.00">
+            <input type="text" data-type="money" data-min-amount="10.00" data-max-amount="100.00"><span>Max and min amounts for money can be set using the <b>data-max-amount</b> and/or the <b>data-min-amount</b>. An error message will be displayed if too large or too small an amount is entered.</span>
           </div>
           <div class="example">
             <input type="text" data-label="phone" data-type="phone"><span>For entering US phone numbers. </span>

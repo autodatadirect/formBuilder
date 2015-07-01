@@ -71,6 +71,234 @@ describe('The money data-type', function(){
 		});
 	});
 
+	describe('has a max/min attribute', function(){
+		var testContainer = window.formBuilderTesting.testContainer;
+	 	var pause = window.formBuilderTesting.pause;
+		var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
+
+		it('that allows you to set a max amount of money to be entered', function(done){
+			var input = $('<input type="text" data-type="'+typeName+'" data-max-amount="10.00"/>').appendTo(testContainer).inputField();
+			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			var err;
+
+			input.focus();
+			
+			pause(triggerWaitTime)
+			.then(function(){	
+				// Legal entry		
+				ifw.set('9.00');
+
+				input.removeClass('focus');
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				input2.focus();
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				err = $(document).find('div .error-overlay');
+
+				expect(err.is(':visible')).toBe(false);
+
+				testContainer.empty();
+
+				done();
+			});
+		});
+
+		it('and will not allow input to exceed that amount', function(done){
+	 		var input = $('<input type="text" data-type="'+typeName+'" data-max-amount="10.00"/>').appendTo(testContainer).inputField();
+			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			var err;
+
+			input.focus();
+
+	 		pause(triggerWaitTime)
+	 		.then(function(){	
+				// Illegal entry		
+				ifw.set('900.00');
+
+				input.removeClass('focus');
+
+				return pause(triggerWaitTime*100);
+			})
+			.then(function(){
+				input2.focus();
+
+				return pause(triggerWaitTime*100);
+			})
+			.then(function(){
+				err = $(document).find('div .error-overlay');
+
+				expect(err.is(':visible')).toBe(true);
+				expect(err.text()).toBe('over');
+
+				testContainer.empty(); 
+
+				done(); 
+			});
+ 		}); 
+
+ 		it('that allows you to set a min amount of money to be entered', function(done){
+			var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00"/>').appendTo(testContainer).inputField();
+			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			var err;
+
+			input.focus();
+			
+			pause(triggerWaitTime)
+			.then(function(){	
+				// Legal entry		
+				ifw.set('19.00');
+
+				input.removeClass('focus');
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				input2.focus();
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				err = $(document).find('div .error-overlay');
+
+				expect(err.is(':visible')).toBe(false);
+
+				testContainer.empty();
+
+				done();
+			});
+		});
+
+		it('and will not allow input to be less than that amount', function(done){
+	 		var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00"/>').appendTo(testContainer).inputField();
+			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			var err;
+
+			input.focus();
+
+	 		pause(triggerWaitTime)
+	 		.then(function(){	
+				// Illegal entry		
+				ifw.set('9.00');
+
+				input.removeClass('focus');
+
+				return pause(triggerWaitTime*100);
+			})
+			.then(function(){
+				input2.focus();
+
+				return pause(triggerWaitTime*100);
+			})
+			.then(function(){
+				err = $(document).find('div .error-overlay');
+
+				expect(err.is(':visible')).toBe(true);
+				expect(err.text()).toBe('under');
+
+				testContainer.empty(); 
+
+				done(); 
+			});
+ 		}); 
+
+ 		it('that allows you to set a both min amount and a max amount of money to be entered', function(done){
+			var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00" data-max-amount="100.00"/>').appendTo(testContainer).inputField();
+			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			var err;
+
+			input.focus();
+			
+			pause(triggerWaitTime)
+			.then(function(){	
+				// Legal entry		
+				ifw.set('19.00');
+
+				input.removeClass('focus');
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				input2.focus();
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				err = $(document).find('div .error-overlay');
+
+				expect(err.is(':visible')).toBe(false);
+
+				testContainer.empty();
+
+				done();
+			});
+		});
+
+		it('and will not allow input to be less than the min or greater than the max', function(done){
+	 		var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00" data-max-amount="100.00"/>').appendTo(testContainer).inputField();
+			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			var err;
+
+			input.focus();
+
+	 		pause(triggerWaitTime)
+	 		.then(function(){	
+				// Illegal entry		
+				ifw.set('9.00');
+
+				input.removeClass('focus');
+
+				return pause(triggerWaitTime*100);
+			})
+			.then(function(){
+				input2.focus();
+
+				return pause(triggerWaitTime*100);
+			})
+			.then(function(){
+				err = $(document).find('div .error-overlay');
+
+				expect(err.is(':visible')).toBe(true);
+				expect(err.text()).toBe('under');
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){	
+				// Illegal entry		
+				ifw.set('900.00');
+
+				input.removeClass('focus');
+
+				return pause(triggerWaitTime*100);
+			})
+			.then(function(){
+				input2.focus();
+
+				return pause(triggerWaitTime*100);
+			})
+			.then(function(){
+				err = $(document).find('div .error-overlay');
+
+				expect(err.is(':visible')).toBe(true);
+				expect(err.text()).toBe('over');
+
+				testContainer.empty(); 
+
+				done();
+			});
+ 		});
+	});
+
 	describe('has a converter', function(){
 		it('that formats to field', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
