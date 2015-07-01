@@ -176,6 +176,7 @@
 
 		format: function (text) {
 
+
 			if(!text){
 				return '';
 			}
