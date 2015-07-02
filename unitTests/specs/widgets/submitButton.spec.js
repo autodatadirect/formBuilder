@@ -154,8 +154,7 @@ describe('A submitButton', function(){
 			});
 		});
 
-		// Works in browser, this does not trigger correctly
-		xit('on enter key (by default)', function(done){
+		it('on enter key (by default)', function(done){
 			var btn =  $(buttonHtml);
 			var form = $('<form><form>');
 			var input = $('<input type="text"></input>');
@@ -174,7 +173,7 @@ describe('A submitButton', function(){
 			input.focus();
 
 			e = $.Event('keydown');
-			e.which = 13;	//enter
+			e.keyCode = 13;	//enter
 			btn.siblings('input').trigger(e);
 			pause(triggerWaitTime)
 			.then(function(){
