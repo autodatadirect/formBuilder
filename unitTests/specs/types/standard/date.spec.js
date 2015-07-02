@@ -199,7 +199,7 @@ describe('The date data-type', function(){
 
 	describe('can handle conversion', function(){
 		it('using its toField', function(){
-			var input = $('<input type="text" data-type="date"/>').inputField();
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 
 			var spy_to = spyOn(ifw.getType().converter, 'toField').and.callThrough();
@@ -221,7 +221,7 @@ describe('The date data-type', function(){
 		});
 
 		it('and fromField functions', function(){
-			var input = $('<input type="text" data-type="date"/>').inputField();
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 
 			var spy_from = spyOn(ifw.getType().converter, 'fromField').and.callThrough();
@@ -243,4 +243,25 @@ describe('The date data-type', function(){
 		});
 	});
 
-}); // End of the first describe 
+	it('stores as local date, rather than utc date', function(){
+		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').inputField();
+		var ifw = input.data('add123InputField');
+
+		ifw.set('2015-06-14');
+		expect(ifw.get()).toBe('2015-06-14');
+		expect(input.val()).toBe('06/14/2015');
+	});
+
+	it('can be torn down', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType();
+
+		spyOn(ifw.element, 'datepicker').and.callThrough();
+
+		typeInstance.tearDown(ifw);
+		expect(ifw.element.datepicker).toHaveBeenCalled();
+		expect(ifw.element.datepicker).toHaveBeenCalledWith('remove');
+	});
+
+});

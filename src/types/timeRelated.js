@@ -1,7 +1,10 @@
 /**
- * dateTimeSeparate, a combination of a date field and a time field
+ * Time Related Types
+ * 
+ * date, 
+ * time,
+ * dateTime, a combination of a date field and a time field
  */
-
 
 /*global util:true, moment:true */
 (function($){
@@ -24,8 +27,9 @@
 	 */
 	types.date = {
 		attributes: ['minyear', 'maxyear', 'startdate', 'enddate','enforceMax','enforceMin'],
+		momentStoreFormat: 'YYYY-MM-DD',
 
-		_dateFormat: 'MM/DD/YYYY',
+		_dateFormat: 'MM/DD/YYYY', // for output + datepicker
 
 		setUp: function(ui) {
 			var self = this,
@@ -34,8 +38,14 @@
 
 			ui.placeholder(self._dateFormat);
 
-			self.enforceMin = e.data('enforceMin');
-			self.enforceMax = e.data('enforceMax');
+			self.enforceMin = !!e.data('enforceMin');
+			self.enforceMax = !!e.data('enforceMax');
+
+			if(self.storeUtc === undefined) {
+				self.storeUtc = true;
+			} else {
+				self.storeUtc = !!self.storeUtc;
+			}
 
 			// Determine year ends
 			var minYear = new Date().getFullYear() - 15,
@@ -107,7 +117,11 @@
 
 		converter: {
 			/*
-			 * Store date in XSD standard: yyyy-mm-dd <=> mm/dd/yyyy
+			 * Store date in XSD standard: yyyy-mm-dd, display in dd/mm/yyy 
+			 */
+			
+			/**
+			 * yyyy-mm-dd => mm/dd/yyyy
 			 */
 			toField: function(val, ui) {
 				if(!val || !val.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
@@ -115,10 +129,15 @@
 				}
 				return val.substring(5, 7) + '/' + val.substring(8, 10) + '/' + val.substring(0, 4);
 			},
+
+			/**
+			 * mm/dd/yyyy (local) => yyyy-mm-dd (utc)
+			 */
 			fromField: function(val, ui) {
 				if(!val || !val.match(/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/)) {
 					return '';
 				}
+
 				return val.substring(6, 10) + '-' + val.substring(0, 2) + '-' + val.substring(3, 5);
 			}
 		},
@@ -149,11 +168,12 @@
 	 *
 	 * Attribute Settings:
 	 * data-step (default=30) - Minute increment between times in dropdown
-	 * data-military - Converts time into 24-hour 
-	 * 
+	 * data-military - Converts time into 24-hour
+	 * data-store-utc (default true) - keeps set/get in utc time zone format, rather than local.
 	 */
 	types.time = {
-		attributes: ['step', 'military'],
+		attributes: ['step', 'military','storeUtc'],
+		momentStoreFormat: 'HH:mm',
 
 		_regex: /^((0[0-9])|([0-9])|(1[0-2])):([0-5][0-9])((am)|(pm))$/,
 		_regex2400: /^(([01]?[0-9])|(2[0-3])):[0-5][0-9]$/,
@@ -164,6 +184,13 @@
 
 			self.military = !!e.data('military');
 			self.step = e.data('step');
+			self.storeUtc = e.data('storeUtc');
+
+			if(self.storeUtc === undefined) {
+				self.storeUtc = true;
+			} else {
+				self.storeUtc = !!self.storeUtc;
+			}
 
 			if(!self.military)
 			{
@@ -186,7 +213,7 @@
 			
 
 			e.timepicker({
-				appendTo: e.parent(),
+				appendTo: ifw.getField(),
 				selectOnBlur: false,
 				step: self.step, //default is 30 and will be set if undefined
 				timeFormat: self.military?'H:i':'g:ia'
@@ -194,28 +221,12 @@
 
 			// Make sure the timepicker width matches the field width
 			e.on('showTimepicker', function(){
-				e.siblings('.ui-timepicker-wrapper').width(e.outerWidth());
-			});
-
-		},
-
-		getLocalMoment: function(val) {
-			var self = this;
-
-			if(self.military)
-			{
-				if(!val || !val.match(self._regex2400)) {
-					return '';
+				var newWidth = e.outerWidth();
+				if(newWidth < 80) {
+					newWidth = 80;
 				}
-				
-				return moment(val,'h:mm');
-			}
-
-			if(!val || !val.match(self._regex)) {
-				return '';
-			}
-			
-			return moment(val,'h:mma');
+				ifw.getField().children('.ui-timepicker-wrapper').width(newWidth);
+			});
 
 		},
 
@@ -225,24 +236,24 @@
 			 */
 			toField: function(val, ifw) {
 				var self = this,
-					localTime;
+					time;
 
 				if(!val || !val.match(/^[0-9]{2}:[0-9]{2}$/)){
 					return '';
 				}
 
-				// Convert given UTC to local
-				localTime = moment.utc(val, 'HH:mm', true).local();
+				time = moment.utc(val, self.momentStoreFormat, true);
 
-				if(!localTime.isValid()) {
+				if(!time.isValid()) {
 					return '';
 				}
 
-				if(self.military) {
-					return localTime.format('H:mm');
+				if(self.storeUtc) {
+					// Convert utc back to local for display
+					time.local();
 				}
-				
-				return localTime.format('h:mma');
+
+				return time.format(self.military? 'H:mm' : 'h:mma');
 			},
 
 			/**
@@ -250,14 +261,26 @@
 			 */
 			fromField: function(val, ifw) {
 				var self = this,
-					localMoment = self.getLocalMoment(val);
+					time;
 				
-				if(localMoment === '') {
-					return localMoment;
-				} else {
-					return localMoment.utc().format('HH:mm'); //return in utc
+				if(!val || !val.match(self.military? self._regex2400 : self._regex)) {
+					return '';
 				}
 
+
+				time = moment(val, self.military? 'H:mm' : 'h:mma');
+
+				if(!time.isValid()) {
+					return '';
+				}
+
+				if(self.storeUtc) {
+					// Convert to utc for storage
+					time.utc();
+				}
+
+				// Return in 24hr format
+				return time.format(self.momentStoreFormat);
 			}
 		},
 
@@ -290,6 +313,7 @@
 	 *
 	 * Attribute Settings:
 	 * data-time-width-ratio (default=0.5, min=.2, max=.8) 
+	 * data-store-utc (default true) keeps set/get in utc time zone format, rather than local.
 	 *
 	 * CSS Settings:
 	 * min-width (default=270px, min=100px)
@@ -297,8 +321,21 @@
 	 * Attributes specific for date or time will be passed to them.
 	 */
 	types.dateTime = {
+		momentStoreFormat: 'YYYY-MM-DDTHH:mm:ss[Z]',
+
+
 		setUp: function(inputFieldWidgetInstance) {
-			var self = this;
+			var self = this,
+				e = inputFieldWidgetInstance.element;
+
+
+			// Get option constants
+			self.storeUtc = e.data('storeUtc');
+			if(self.storeUtc === undefined) {
+				self.storeUtc = true;
+			} else {
+				self.storeUtc = !!self.storeUtc;
+			}
 
 			self.ifw = inputFieldWidgetInstance;
 
@@ -315,25 +352,27 @@
 			var self = this,
 				e = self.ifw.element,
 				fieldItems = self.ifw.element.parent().parent(),
-				dateAttr = '',
-				timeAttr = '',
 				options, tmp, i;
 
 			self.ifw.element.parent().hide();
 
-			// Get date attributes
+			// Create the elements
+			self.dateWidget = $('<input type="text" data-type="date"/>');
+			self.timeWidget = $('<input type="text" data-type="time"/>');
+
+			// Pass date attributes
 			for(i = 0; i < types.date.attributes.length; ++i) {
 				tmp = e.data(types.date.attributes[i]);
 				if(tmp !== undefined) {
-					dateAttr += 'data-'+types.date.attributes[i]+'="'+tmp+'" ';
+					self.dateWidget.data(types.date.attributes[i], tmp);
 				}
 			}
 			
-			// Get time attributes
+			// Pass time attributes
 			for(i = 0; i < types.time.attributes.length; ++i) {
 				tmp = e.data(types.time.attributes[i]);
 				if(tmp !== undefined) {
-					timeAttr += 'data-'+types.time.attributes[i]+'="'+tmp+'" ';
+					self.timeWidget.data(types.time.attributes[i], tmp);
 				}
 			}
 
@@ -342,12 +381,13 @@
 			};
 
 			// Create the widgets
-			self.dateWidget = $('<input type="text" data-type="date" '+dateAttr+'/>')
-				.prependTo(fieldItems)
-				.inputField(options);
-			self.timeWidget = $('<input type="text" data-type="time" '+timeAttr+'/>')
-				.appendTo(fieldItems)
-				.inputField(options);			
+			self.dateWidget.prependTo(fieldItems).inputField(options);
+			self.timeWidget.appendTo(fieldItems).inputField(options);
+
+			self.dateWidget.parent().addClass('first');
+
+			self.timeWidgetInstance = self.timeWidget.data('add123InputField');
+			self.dateWidgetInstance = self.dateWidget.data('add123InputField');
 		},
 
 		/**
@@ -370,7 +410,7 @@
 				if(minWidth !== null) {
 					minWidth = parseInt(minWidth, 10);
 				}
-				if(minWidth === null || minWidth < 100) {
+				if(isNaN(minWidth) || minWidth < 100) {
 					minWidth = 270; //default
 				}
 
@@ -383,6 +423,7 @@
 				if(isNaN(timeWidthRatio) || timeWidthRatio < 0.2 || 0.8 < timeWidthRatio) {
 					timeWidthRatio = 0.5; //default
 				}
+
 				elTime.width(fullWidth * timeWidthRatio);
 				elDate.width(fullWidth - elTime.width());
 		},
@@ -413,32 +454,69 @@
 				var self = this,
 					splitDate = self._splitDateAndTime(val);
 
-				self.timeWidget.inputField('set', splitDate.time);
-				self.dateWidget.inputField('set', splitDate.date);
+				self.timeWidgetInstance.set(splitDate.time);
+				self.dateWidgetInstance.set(splitDate.date);
 			}, 
-
+			
 			fromField: function(val, ifw) {
 				var self = this,
-					dateTimeObject,
-					timeType = self.timeWidget.inputField('getType'),
-					localDateMoment = moment(self.dateWidget.inputField('get'), 'YYYY-MM-DD'),
-					localTimeMoment = timeType.getLocalMoment.call(timeType, self.timeWidget.val()),
-					utcMoment;
+					localDate = self.dateWidgetInstance.get(),
+					time = self.timeWidgetInstance.get(),
+					dateTime;
 
-				if(!localDateMoment.isValid() || localTimeMoment === '') {
+				// If one is empty just return nothing
+				if(!localDate.trim() || !time.trim()) {
 					return '';
 				}
 
-				utcMoment = self._joinDateAndTimeMoments(localDateMoment, localTimeMoment).utc();
+				// Convert them to moments
+				localDate = moment(localDate, types.date.momentStoreFormat);
 
-				return utcMoment.format('YYYY-MM-DDTHH:mm:ss[Z]');
+
+				if(self.storeUtc) {
+					// Parse as UTC and localize
+					time = moment.utc(time, types.time.momentStoreFormat).local();
+				} else {
+					// Parse as local
+					time = moment(time, types.time.momentStoreFormat);
+				}
+				
+
+				// Account for DST shifts 
+				if(localDate.isDST() && !time.isDST()) {
+					time.add(1,'h');
+				} else if(!localDate.isDST() && time.isDST()) {
+					time.subtract(1,'h');
+				}
+
+				// Combine them
+				dateTime = self._joinDateAndTimeMoments(localDate,time);
+
+				if(self.storeUtc) {
+					dateTime.utc();
+				}
+
+				if(!dateTime.isValid()) {
+					return '';
+				}
+
+				return dateTime.format(self.momentStoreFormat);
 			}
 		},
 
 		_splitDateAndTime: function (dateTimeString) {
-			var dateString, timeString;
-			var dateTime = moment.utc(dateTimeString, 'YYYY-MM-DDTHH:mm:ss[Z]');
+			var self = this,
+				dateTime,
+				result = {};
 			
+			if(self.storeUtc) {
+				// Parse as UTC
+				dateTime = moment.utc(dateTimeString, self.momentStoreFormat);
+			} else {
+				// Parse as local
+				dateTime = moment(dateTimeString, self.momentStoreFormat);
+			}
+
 			if(!dateTime.isValid()){
 				return {
 					date: '',
@@ -446,11 +524,16 @@
 				};
 			}
 
-			return {
-				time: dateTime.format('HH:mm'), //must come before date, before the local conversion
-				date: dateTime.local().format('YYYY-MM-DD')
-			};
-			
+			result.time = dateTime.format(types.time.momentStoreFormat);
+
+			if(self.storeUtc) {
+				// need local for date type
+				dateTime.local();
+			}
+
+			result.date = dateTime.format(types.date.momentStoreFormat);
+
+			return result;
 		},
 
 		_joinDateAndTimeMoments: function(localDateMoment, localTimeMoment) {
@@ -471,12 +554,12 @@
 
 			// Do not skip require check when only one is empty
 			if(skipRequired){
-				skipRequired = !self.dateWidget.inputField('isEmpty');
-				skipRequired = skipRequired && !self.timeWidget.inputField('isEmpty');
+				skipRequired = !self.dateWidgetInstance.isEmpty();
+				skipRequired = skipRequired && !self.timeWidgetInstance.isEmpty();
 			}
 
-			valid = valid && self.dateWidget.inputField('validate', skipRequired);
-			valid = valid && self.timeWidget.inputField('validate', skipRequired);
+			valid = valid && self.dateWidgetInstance.validate(skipRequired);
+			valid = valid && self.timeWidgetInstance.validate(skipRequired);
 
 			if(!valid) {
 				return {

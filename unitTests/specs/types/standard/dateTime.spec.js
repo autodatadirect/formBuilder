@@ -104,19 +104,17 @@ describe('The dateTime data-type', function(){
 
 			done();
 		});
-	});
-
-	it('can have option attributes');
-	
+	});	
 
 	describe('has datepicker and time picker widgets', function(){
 		it('that can be opened on focus', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
-			var datepicker;
-
 			var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
 			var date_pick = input.parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(0);
+			var timeField = time_pick.inputField('getField');
+			var datepicker;
+			var timepicker;
 
 			expect(time_pick.is('.ui-timepicker-input')).toBe(true);
 			expect(time_pick.siblings().length).toBe(1);
@@ -124,14 +122,17 @@ describe('The dateTime data-type', function(){
 			datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
 			expect(datepicker.is(':visible')).toBe(false);
 
+			timepicker = timeField.children('.ui-timepicker-wrapper');
+			expect(timepicker.length).toBe(0);
+
 			time_pick.focus();
 			date_pick.focus();
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(time_pick.siblings().length).toBe(2);
-				expect(time_pick.siblings().eq(1).is('.ui-timepicker-wrapper')).toBe(true);
-				expect(time_pick.siblings().eq(1).css('display')).toBe('block');
+				timepicker = timeField.children('.ui-timepicker-wrapper');
+				expect(timepicker.length).toBe(1);
+				expect(timepicker.is(':visible')).toBe(true);
 
 				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
 				expect(datepicker.length).toBe(1);
@@ -179,12 +180,13 @@ describe('The dateTime data-type', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			var timeWidget = ifw.getType().timeWidget;
+			var timeField = timeWidget.inputField('getField');
 			var timepicker, time;
 
 			timeWidget.focus();
 			pause(triggerWaitTime)
 			.then(function(){
-				timepicker = timeWidget.siblings('.ui-timepicker-wrapper');
+				timepicker = timeField.children('.ui-timepicker-wrapper');
 				expect(timepicker.is(':visible')).toBe(true);
 
 				time = timepicker.find('.ui-timepicker-list').children().eq(5);				
@@ -267,8 +269,14 @@ describe('The dateTime data-type', function(){
 
 		testDate = '2014-04-25T01:32:21Z';
 		expect(timeInstance._splitDateAndTime(testDate)).toEqual({
-			date: moment.utc(testDate,'YYYY-MM-DDTHH:mm:ss').local().format('YYYY-MM-DD'),		//local
-			time: '01:32'			//utc
+			date: '2014-04-24',
+			time: '01:32'
+		});
+
+		testDate = '2014-04-25T10:32:21Z';
+		expect(timeInstance._splitDateAndTime(testDate)).toEqual({
+			date: '2014-04-25',
+			time: '10:32'
 		});
 
 	});
@@ -283,7 +291,6 @@ describe('The dateTime data-type', function(){
 			utcOffset = -240;
 
 		//Check time zone boundaries
-
 		localDateMoment = moment('2004-06-28', inDateFormat);
 		localTimeMoment = moment().hour(0).minute(0).second(0).utcOffset(utcOffset);
 		utcMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment).utcOffset(utcOffset).utc();
@@ -300,6 +307,82 @@ describe('The dateTime data-type', function(){
 		expect(utcMoment.format(outDateTimeFormat)).toBe('2004-06-27T22:00:00Z');
 	});
 
+	it('can join local date & time moments into one local moment', function(){
+		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var timeInstance = ifw.getType();
+		var localDateMoment, localTimeMoment, localMoment;
+		var inDateFormat = 'YYYY-MM-DD',
+			outDateTimeFormat = 'YYYY-MM-DDTHH:mm:ss[Z]';
+
+		//Check time zone boundaries
+
+		localDateMoment = moment('2004-06-28', inDateFormat);
+		localTimeMoment = moment().hour(0).minute(0).second(0);
+		localMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment);
+		expect(localMoment.format(outDateTimeFormat)).toBe('2004-06-28T00:00:00Z');
+
+		localDateMoment = moment('2004-06-27', inDateFormat);
+		localTimeMoment = moment().hour(22).minute(0).second(0);
+		localMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment);
+		expect(localMoment.format(outDateTimeFormat)).toBe('2004-06-27T22:00:00Z');
+
+		localDateMoment = moment('2004-06-27', inDateFormat);
+		localTimeMoment = moment().hour(18).minute(0).second(0);
+		localMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment);
+		expect(localMoment.format(outDateTimeFormat)).toBe('2004-06-27T18:00:00Z');
+	});
+
+
+	it('can be set using UTC (default)', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType(),
+			dateFomat = 'MM/DD/YYYY',
+			timeFormat = 'h:mma',
+			dateTimeFormat = 'YYYY-MM-DDTHH:mm:ss[Z]',
+			dateTimeMoment,
+			testVal;
+
+		testVal = '2004-06-28T00:00:00Z';
+		ifw.set(testVal);
+		dateTimeMoment = moment.utc(testVal,dateTimeFormat).local();
+		expect(typeInstance.dateWidget.val()).toBe(dateTimeMoment.format(dateFomat));
+		expect(typeInstance.timeWidget.val()).toBe(dateTimeMoment.format(timeFormat));
+		expect(ifw.get()).toBe(testVal);
+
+		testVal = '2004-06-28T12:00:00Z';
+		ifw.set(testVal);
+		dateTimeMoment = moment.utc(testVal,dateTimeFormat).local();
+		expect(typeInstance.dateWidget.val()).toBe(dateTimeMoment.format(dateFomat));
+		expect(typeInstance.timeWidget.val()).toBe(dateTimeMoment.format(timeFormat));
+		expect(ifw.get()).toBe(testVal);
+	});
+
+	it('can be set using local', function(){
+		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').appendTo(testContainer).inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType(),
+			dateFomat = 'MM/DD/YYYY',
+			timeFormat = 'h:mma',
+			dateTimeFormat = 'YYYY-MM-DDTHH:mm:ss[Z]',
+			dateTimeMoment,
+			testVal;
+
+		testVal = '2004-06-28T00:00:00Z';
+		ifw.set(testVal);
+		dateTimeMoment = moment(testVal,dateTimeFormat);
+		expect(typeInstance.dateWidget.val()).toBe(dateTimeMoment.format(dateFomat));
+		expect(typeInstance.timeWidget.val()).toBe(dateTimeMoment.format(timeFormat));
+		expect(ifw.get()).toBe(testVal);
+
+		testVal = '2004-06-28T12:00:00Z';
+		ifw.set(testVal);
+		dateTimeMoment = moment(testVal,dateTimeFormat);
+		expect(typeInstance.dateWidget.val()).toBe(dateTimeMoment.format(dateFomat));
+		expect(typeInstance.timeWidget.val()).toBe(dateTimeMoment.format(timeFormat));
+		expect(ifw.get()).toBe(testVal);
+	});
 
 	it('can be torn down', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>')
