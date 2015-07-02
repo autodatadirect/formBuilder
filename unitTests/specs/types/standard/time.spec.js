@@ -47,15 +47,16 @@ describe('The time data-type', function(){
 		it('that opens on focus', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var field = ifw.getField();
 
-			expect(input.parent().children().length).toBe(2);
+			expect(field.children().length).toBe(1);
 
 			input.focus();
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(input.parent().children().length).toBe(3);
-				expect(input.parent().children().eq(2).is('.ui-timepicker-wrapper')).toBe(true);
+				expect(field.children().length).toBe(2);
+				expect(field.children().eq(1).is('.ui-timepicker-wrapper')).toBe(true);
 
 				testContainer.empty();
 
@@ -66,12 +67,13 @@ describe('The time data-type', function(){
 		it('that has a twelve hour selection with am/pm', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var field = ifw.getField();
 
 			input.focus();
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(input.parent().children().eq(2).children().children().eq(0).text()).toBe('12:00am');
+				expect(field.children('.ui-timepicker-wrapper').children().children().eq(0).text()).toBe('12:00am');
 
 				testContainer.empty();
 
@@ -82,12 +84,13 @@ describe('The time data-type', function(){
 		it('that can have a twenty-four hour selection without am/pm', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"data-military="true"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var field = ifw.getField();
 
 			input.focus();
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(input.parent().children().eq(2).children().children().eq(47).text()).toBe('23:30');
+				expect(field.children('.ui-timepicker-wrapper').children().children().eq(47).text()).toBe('23:30');
 
 				testContainer.empty();
 
@@ -98,6 +101,8 @@ describe('The time data-type', function(){
 		it('that can select a time', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
+			var field = ifw.getField();
+			var timepicker;
 
 			expect(ifw.get()).toBe('');
 
@@ -106,45 +111,22 @@ describe('The time data-type', function(){
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(input.parent().children().length).toBe(3);
-				expect(input.parent().children().eq(2).is('.ui-timepicker-wrapper')).toBe(true);
-
-				var time = input.parent().children().eq(2).children().children().eq(3);
+				timepicker = field.children('.ui-timepicker-wrapper');
+				var time = timepicker.children().children().eq(3);
 			
 				time.mousedown();
 				time.mouseup();
 		
-				expect(input.parent().children().eq(2).is(':visible')).not.toBe(true);
+				expect(timepicker.is(':visible')).not.toBe(true);
 			 	expect(ifw.get()).not.toBe('');
 			 	expect(time.is('.ui-timepicker-selected')).toBe(true);
 
 			 	testContainer.empty();
 				done();
 			});
-
-			it('and can be torn down', function(done){
-				var input = $('<input type="text" data-type="time"/>').appendTo(testContainer).inputField();
-				var ifw = input.data('add123InputField');
-
-				expect(ifw.get()).toBe('');
-
-				input.focus();
-				pause(triggerWaitTime)
-				.then(function(){
-					expect(input.parent().children().length).toBe(3);
-					expect(input.parent().children().eq(2).is('.ui-timepicker-wrapper')).toBe(true);
-
-					ifw.getType().tearDown(ifw);
-
-					return pause(triggerWaitTime);
-				})
-				.then(function(){
-					expect(input.parent().children().eq(2).is(':visible')).not.toBe(true);
-
-					done(); 
-				});
-			});
 		});
+
+		
 
 	});
 
@@ -360,4 +342,39 @@ describe('The time data-type', function(){
 		expect(ifw.get()).toBe(utcTime);
 	
 	});
+
+
+	it('can be set to store as local', function(){
+		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var localTime;
+		
+		localTime = '04:00';
+		ifw.set(localTime);
+		expect(input.val()).toBe(moment(localTime,'HH:mm').format('h:mma'));
+		expect(ifw.get()).toBe(localTime);
+
+		localTime = '02:00';
+		ifw.set(localTime);
+		expect(input.val()).toBe(moment(localTime,'HH:mm').format('h:mma'));
+		expect(ifw.get()).toBe(localTime);
+
+		localTime = '22:00';
+		ifw.set(localTime);
+		expect(input.val()).toBe(moment(localTime,'HH:mm').format('h:mma'));
+		expect(ifw.get()).toBe(localTime);
+	});
+
+	it('can be torn down', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType();
+
+		spyOn(ifw.element, 'timepicker').and.callThrough();
+
+		typeInstance.tearDown(ifw);
+		expect(ifw.element.timepicker).toHaveBeenCalled();
+		expect(ifw.element.timepicker).toHaveBeenCalledWith('remove');
+	});
+
 });
