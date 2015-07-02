@@ -23,9 +23,9 @@ $('form').formBuilder();
 
 ##Components
 ###Preinput/Postinput
-**data-preinput** < string >, < html > = "Block of text that appears before form field"
-**data-postinput** < string >, < html > = "Block of text that appears after form field"
-    - These attributes can be defined to add a block of text or html directly to the left or the right of any form field 
+**data-preinput** < string >, < HTML > = "Block of text that appears before form field"
+**data-postinput** < string >, < HTML > = "Block of text that appears after form field"
+    - These attributes can be defined to add a block of text or HTML directly to the left or the right of any form field 
     - Can use one, the other, or both at the same time 
 
 ###Prefix/Suffix
@@ -42,7 +42,7 @@ $('form').formBuilder();
 
 ###Placeholder
 **data-placeholder** < string > = "some placeholder text"
-    - Attribute will display placeholder text inside of the formfield as long as no input has been entered.
+    - Attribute will display placeholder text inside of the form field as long as no input has been entered.
     - Placeholder text will disappear when text is entered into the field.
     - Note: (legacy support) the attribute **data-empty** performs the same task as data-placeholder and they are set equal to each other 
 
@@ -50,14 +50,14 @@ $('form').formBuilder();
 **data-error** < boolean > = "status of the object" 
 - Attribute is set to true if there is an error present, otherwise it is reset to false 
 **showError** < boolean > = "status of error-display"
-- Attribute is set to true if an error has occured *and* a message needs to be displayed, otherwise it is set to false
+- Attribute is set to true if an error has occurred *and* a message needs to be displayed, otherwise it is set to false
     * setError (< object > err) Passes in an error message and appends it to the input layer, as an error-overlay class 
     * flashError (< int > numberOfTimes) Flashes error for a certain 'numberOfTimes' that is passed into the function in order to get the user's attention
     * clearError () resets the value of data-error to false 
 
 ###Focus
 **data-focus** < boolean > = "status of the object"
-- Attribute is set to true on keydown, otherwise it is set to false. Focuses the formfield when it is selected. 
+- Attribute is set to true on keydown, otherwise it is set to false. Focuses the form field when it is selected. 
 * _keyDownNavigate (< object > ev) Called when a key is pressed, sets focus and selection accordingly. 
 
 ###Disable
@@ -84,20 +84,23 @@ $('form').formBuilder();
 On any `<input>` tag you can add a **data-type="*typeName*"** attribute to specify an input type that formBuilder will handle for input validation.
 
 ####Normal Form Types:
-* **text** - *For nomal text with no extra formatting or validation.* Default data-type.
+* **text** - *For normal text with no extra formatting or validation.* Default data-type.
 * **utext** - *For uppercase text.* If a user types in lowercase text, it is automatically converted to uppercase.
 * **integer** - *For digits [0-9].* If a user types in a non-digit, the form field will flash and the input will be ignored.
 * **number** - *For integers or decimal numbers [[0-9].].* If multiple decimal points are added the field is marked as invalid. If the user types in an invalid character, the field will flash and the input will be ignored.
-* **money** - *For currency inputs.* Similar to the number field, but will automatically round to two decimal places on blur. In addition, a box with a '$' is prepended to the left of the field with a weight of -100. It is also possible to set a data-currency-symbol attribute in order to be able to have international currency symbols appear in front of the input field instead of a dollar sign. To not show any currency symbol, set the data-show-symbol attribute to false.   
+* **money** - *For currency inputs.* Similar to the number field, but will automatically round to two decimal places on blur. In addition, a box with a '$' is prepended to the left of the field with a weight of -100. It is also possible to set a data-currency-symbol attribute in order to be able to have international currency symbols appear in front of the input field instead of a dollar sign. To not show any currency symbol, set the data-show-symbol attribute to false. There is also an optional **data-max-amount** and **data-min-amount** attribute that can be set that will display an error message if the user enters an amount that is greater than the max amount or smaller than the min amount. If these attributes are not set then any positive amount can be entered. 
 * **state** - *For state abbreviations [A-Z].* Must have two characters. If only a single character is entered, the field is marked as invalid. If a user enters a non-character, the field will flash and the input will be ignored.
 * **zip** - *For entering 5 digit or 9 digit (with or without '-') zip codes.* If there are multiple dashes, a dash in an incorrect position, or an incorrect number of digits the field is marked as invalid. Allows for [A-Z] input for international zip codes. 
-* **email** - *For email inputs.* The correct format is a username, then a single '@', then an alphanumeric domain name, then a single '.', then a alphabetic domain extension 2-4 characters in length. If it is an invalid format the field is marked as invalid. If the user enters a special character the field will flash and the input will be ignored.
+* **email** - *For email inputs.* The correct format is a user name, then a single '@', then an alphanumeric domain name, then a single '.', then a alphabetic domain extension 2-4 characters in length. If it is an invalid format the field is marked as invalid. If the user enters a special character the field will flash and the input will be ignored.
 * **phone** - *For entering US phone numbers.* Upon blur, the number is converted into the format '234-234-2345x423423' and checked for invalid numbers of digits (7, 10, 10+ are valid). An extension may be added to a local 9 digit number by explicitly adding a single 'x' before the extension.  the Any entered non-digits out of the format are ignored. All digits after the 10th digit are counted as the extension. If there is a preceding '1', it is removed. If a character not in the above format is entered the field will flash and the input will be ignored.
-* **date** - *For entering dates in the 'MM/DD/YYYY' format.* Input not in that exact format will mark the field as invalid. A user may manually type the date or click the calendar icon to reveal a jquery ui popup calendar. This icon is inside appended to the right of the field with a weight of 0.
+* **date** - *For entering dates in the 'MM/DD/YYYY' format.* Input not in that exact format will mark the field as invalid. A user may manually type the date or click the input field to reveal a jquery ui popup calendar.
     - The calender icon can be modified for Spanish speakers by changing util.lang.code to equal 'es'. This will set the popup calandar to display its information in Spanish.
-* **dateTime** - *For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM* format. Works the same way as date, but also checks for a valid time. The calendar picker will set the time to noon.
-    - The attribute 'data-military' can be used to have date-time be set to military time. It just must be included and can be set to true. The time will now be set to 24 hour time and will not include AM/PM signifiers at the end 
-* **display** - *For displaying uneditable values.* Displays **value** attribute where the input field would be. If no value is specified, it is a blank area. Displayed as html. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25]. 
+    - The user can use the calendar icon to select a date that will then be entered into the input field. 
+* **time** - *For entering time in the 'H:MMam/pm' format.* Input not in that exact format will mark the field as invalid. A user may manually type the time or click the input field to reveal a jquery dropdown menu for time. 
+    - The attribute 'data-military' can be used to have time set to military time. It must be included in the input setup and be set to true. The time in the dropdown menu will now be set to 24 hour time and will not include AM/PM at the end. The placeholder will also be modified to not display AM/PM and if the user tries to enter AM or PM in the field it will not be allowed by the input filter.  
+* **dateTime** - *For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM* format. Combines the two data types date and time so that they are positioned next to each other on top of a hidden input field.
+    - The time field in dateTime can also be modified to military time if desired. 
+* **display** - *For displaying values that are not to be edited.* Displays **value** attribute where the input field would be. If no value is specified, it is a blank area. Displayed as HTML. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25]. 
 * **code** - see [Code Input](#code-input) below
 * **select** - see [Select Input](#select-input) below
 * **feid** - *For entering Federal Employer Identification Number.*
@@ -109,7 +112,7 @@ The user can add custom types to the form by adding their desired regular expres
 A field with **data-type="code"** requires a user to input a *value* that has a corresponding *label*. A user may type a word and labels containing that word will be shown in a dropdown. When a dropdown label is clicked, it's code  replaces the input value.
 
 * The typed value must be valid, or the field will be marked as invalid.
-* The field *must* have a **data-codes** attribute containing a javascript variable name of an array of objects with a *value* and *label*. You must then declare and initialize the variable in javascript ***before*** formBuilder is initialized.
+* The field *must* have a **data-codes** attribute containing a JavaScript variable name of an array of objects with a *value* and *label*. You must then declare and initialize the variable in JavaScript ***before*** formBuilder is initialized.
 
 *HTML*
 ```html
@@ -184,7 +187,7 @@ To require a input field to be filled out you can either add the **data-require=
         + **fromForm(data)** Form data is passed through this function when retrieving it from the form. Just returns data by default.
         + **toForm(data)** Form data is passed through this function when passing it to the form. Just returns data by default. 
 * Methods
-    - **scanForNewFields()** Checks inside of the form container for new fields and constructs them. Called once automatically when intialized. 
+    - **scanForNewFields()** Checks inside of the form container for new fields and constructs them. Called once automatically when initialized. 
     - **isDirty()** Runs dirty checks and returns boolean result.
     - **clearDirty()** Clears all dirty field states. Use this after saving dirty field data. 
     - **flashDirty(numberOfTimes)** *Deprecated.* Does nothing. Use `flashError` instead.
@@ -192,7 +195,7 @@ To require a input field to be filled out you can either add the **data-require=
     - **get()** Returns converted form data from all fields. 
     - **clear()** Runs inputField.clear() for each field. Empties form.
     - **conflicts(data, ignoreKeys)** Checks to see if the given data would overwrite and dirty fields if set. Returns an array of conflict data, and false for no conflicts.
-    - **set(data, setOptions)** Replaces the values in the dom with the given data. Triggers `beforeset` and `afterset`.
+    - **set(data, setOptions)** Replaces the values in the DOM with the given data. Triggers `beforeset` and `afterset`.
     - **validate()** Runs all enabled field validations. Returns true/false for valid/invalid.
     - **getFields()** Returns all current formBuilder inputFields.
 * Events
@@ -202,7 +205,7 @@ To require a input field to be filled out you can either add the **data-require=
 ###submitButton
 * Options
     - **color** *(string)* Color of loading spinner. **Default:** '#000'
-    - **delay** *(int)* Delay between UI update and submission call, in miliseconds **Default:** 10
+    - **delay** *(int)* Delay between UI update and submission call, in milliseconds **Default:** 10
     - **disabled** *(boolean)* Prevents form submission. Set by user. **Default:** false
     - **waiting** *(boolean)* Prevents form submission. Set to  **Default:** false
     - **label** *(string)* Label above button. **Default:** undefined
@@ -216,7 +219,7 @@ To require a input field to be filled out you can either add the **data-require=
     - **beforesubmit(ev)** *Optional.* - called before a submit, if false it does not submit
     - **submit(ev, finish())** *Required.* - called to submit the code
         + Not called if in a `disabled` or `waiting` state. 
-        + Write your ajax or other form submission here
+        + Write your Ajax or other form submission here
         + Must call `finish()` after completed
     - **aftersubmit(ev)** *Optional.* - called after the submit returns
         + Clean up form here
@@ -295,6 +298,7 @@ formExample.find('button[type="submit"]').submitButton({
 ```
 
 
+
 ##Other Widgets
 These are created dynamically and do not need to be manually handled. They are included here for reference if needed for modifications and/or additions.
 
@@ -313,12 +317,12 @@ These are created dynamically and do not need to be manually handled. They are i
     - **setMax(max)** Sets the maximum size that the input can be 
     - **checkDirty()** Determines whether the data-dirty is supposed to be true or false in that moment of typing 
     - **isDirty()** returns the value of data-dirty (true/false)
-    - **addOn(weight, html, className)** Appends given html around form field based on weight. If no input found, it will appened to the items layer
+    - **addOn(weight, HTML, className)** Appends given HTML around form field based on weight. If no input found, it will append to the items layer
     - **placeholder(s)** If there is no placeholder it will be hidden, otherwise it will be shown if the input field is empty. 
     - **clear()** Runs inputField.clear() for each field. Empties form.
     - **clearDirty()** Resets the dirty status to false. 
     - **conflicts(value)** Checks to see if dirty status is set to true. If it is then returns conflicting values, otherwise returns null. 
-    - **set(value, setOptions)** Replaces the values in the dom with the given data. Triggers `afterset`.
+    - **set(value, setOptions)** Replaces the values in the DOM with the given data. Triggers `afterset`.
     - **get()** Returns converted field value
     - **value(value)** If the value passed in is undefined then return the converted form data from all fields, otherwise set the value into the form. 
     - **validate(skipRequired)** Validates the input matches the declared type, but only if the form field is not empty and skiRequired is true.
@@ -326,7 +330,7 @@ These are created dynamically and do not need to be manually handled. They are i
     - **setError(err)** Sets the error message passed in into the error label overlay. Sets error status to true. 
     - **clearError()** Sets autoValidate to blur. Sets error status to false. C
     - **redraw()** Re-enters all of the previous saved information into the form. 
-    - **setType(sType)** If the type doesnt exist, sets it to default of 'text'. If it does exist then run the type's tear down. Then set the field type and run the type's setup. 
+    - **setType(sType)** If the type doesn't exist, sets it to default of 'text'. If it does exist then run the type's tear down. Then set the field type and run the type's setup. 
     - **getType()** Returns the type object. 
     - **hide()** Hides the field that calls this function. 
     - **show(displayValue)** Displays the value passed into the function. 
@@ -335,7 +339,7 @@ These are created dynamically and do not need to be manually handled. They are i
     - **disable()** Sets the 'disable' status to true.
     - **isDisabled()** Returns the 'disable' status's value (true/false)
     - **status(statusName,bool,fireEvents)** Sets the status class to the field and runs any updates to the field needed. 
-    - **updateStatus(statusName, bool, fireEvents)** legacy code that simply calles the **status(statusName,bool,fireEvents)** method 
+    - **updateStatus(statusName, bool, fireEvents)** legacy code that simply calls the **status(statusName,bool,fireEvents)** method 
     - **hasStatus(statusName)** Returns this current object's current state for the status name that was passed into the function. 
 * Events 
     - **dirty** *Optional* Triggered if the form has been changed but not saved
@@ -360,8 +364,8 @@ These are created dynamically and do not need to be manually handled. They are i
     - **max** *(integer)* Largest input that is allowed in the form field. **Default:** '0'
     - **pattern** *(regex)* The pattern that the input will be checked against for validity. **Default:** '/[A-Z]/'
 * Methods 
-    - **setMax(max)** Sets the current object's max variabgle to the max passed into the method.
-    - **setPattern(regex)** Sets the pattern of the current object to the regular experssion passed into the function. 
+    - **setMax(max)** Sets the current object's max variable to the max passed into the method.
+    - **setPattern(regex)** Sets the pattern of the current object to the regular expression passed into the function. 
     - **destroy()** Calls the destroy function with the current object as the parameter
     - **nextArrayFieldId()** Returns the arrayFieldId incremented by one. 
 * Events

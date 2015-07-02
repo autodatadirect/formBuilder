@@ -176,6 +176,7 @@
 
 		format: function (text) {
 
+
 			if(!text){
 				return '';
 			}
@@ -253,7 +254,7 @@
 	 */
 	types.money = {
 
-		attributes: ['currency-symbol', 'show-symbol'],
+		attributes: ['currency-symbol', 'show-symbol', 'max-amount', 'min-amount'],
 
 		setUp: function (ui) {
 			var self = this,
@@ -263,6 +264,8 @@
 
 			self.currency = e.data('currency-symbol');
 			self.showSymbol = e.data('show-symbol');
+			self.max = e.data('max-amount');
+			self.min = e.data('min-amount');
 
 			e.inputFilter({
 				pattern: /[0-9\.]/
@@ -279,9 +282,8 @@
 				} else {
 					ui.addOn(-100, self.currency);
 				}
-			}
-		
-			
+			}	
+
 		},
 		_onChange: function () {
 			var self = this,
@@ -292,6 +294,7 @@
 		},
 
 		format: function (money) {
+			var self = this; 
 			if($.trim(money) === ''){
 				return '';
 			}
@@ -317,6 +320,7 @@
 				return '';
 			}
 		},
+
 		converter: {
 			toField: function(val, ui) {
 				return this.format(val);
@@ -326,6 +330,27 @@
 					return '';
 				}
 				return +this.format(val);
+			}
+		},
+
+		validate: function(ifw){
+			var self = this; 
+
+			if(self.max || self.min){
+				var e = ifw.element,
+					enteredAmount = +ifw.get();
+
+				if(self.max && enteredAmount > self.max){
+					return {
+						message: 'over'
+					};
+				}
+				if(self.min && enteredAmount < self.min){
+					return {
+						message: 'under'
+					};
+				}
+				
 			}
 		}
 	};
