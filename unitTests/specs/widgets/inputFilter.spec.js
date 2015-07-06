@@ -240,28 +240,30 @@ describe('An inputFilter', function(){
 			expect(input.val()).toBe('123456A');
 		});
 
-		it('with the caret in the middle of a value without moving it', function(){
-			var input = $('<input type="text"/>').inputFilter();
+		it('with the caret in the middle of a value without moving it', function(done){
+			var input = $('<input type="text"/>').appendTo(testContainer).inputFilter();
 			var filter, pos, isTyped;
 
-			input.appendTo(testContainer).inputFilter();
 			filter = input.data('add123InputFilter');
 
 			input.focus();
+			pause(triggerWaitTime)
+			.then(function(){
+				input.val('123456').caret(2,2); //start after 2
 
-			input.val('123456').caret(2,2); //start after 2
+				pos = input.caret();
+				++pos.begin;
+				++pos.end;
 
-			pos = input.caret();
-			++pos.begin;
-			++pos.end;
+				isTyped = filter._type('A');
 
-			isTyped = filter._type('A');
+				expect(isTyped).toBe(true);
+				expect(input.val()).toBe('12A3456');
+				expect(util.equals(pos,input.caret())).toBe(true);
 
-			expect(isTyped).toBe(true);
-			expect(input.val()).toBe('12A3456');
-			expect(util.equals(pos,input.caret())).toBe(true);
-
-			testContainer.empty();
+				testContainer.empty();
+				done();
+			});
 		});
 
 		it('and can convert it to uppercase', function(){

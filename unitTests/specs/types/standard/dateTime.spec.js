@@ -82,12 +82,11 @@ describe('The dateTime data-type', function(){
 
 		input.width(300);
 		typeInstance._refreshFieldWidth();
-		expect(typeInstance.dateWidget.outerWidth()+typeInstance.timeWidget.outerWidth()).toBe(300);
+		expect(typeInstance.dateWidget.outerWidth(true)+typeInstance.timeWidget.outerWidth(true)).toBe(300);
 
 		input.width(400);
 		typeInstance._refreshFieldWidth();
-		expect(typeInstance.dateWidget.outerWidth()+typeInstance.timeWidget.outerWidth()).toBe(400);
-
+		expect(typeInstance.dateWidget.outerWidth(true)+typeInstance.timeWidget.outerWidth(true)).toBe(400);
 	});
 
 	it('refreshes its field widths on resize', function(done){

@@ -1372,7 +1372,6 @@
 		var parameter = ifw.getType();
 		var panel = input.parent().eq(0).siblings();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1);
-		var spy_scrollT = spyOn($.fn, 'scrollTop').and.callThrough();
 		var selected;
 
 		var scroll = options.scrollTop();			
@@ -1394,7 +1393,7 @@
 		.then(function(){
 			expect(scroll).not.toBe(options.scrollTop());
 
-			expect(options.scrollTop()).toBe(selected.before().outerHeight() + selected.before().before().outerHeight());
+			expect(options.scrollTop()).toBe(selected.before().outerHeight(true) + selected.before().before().outerHeight(true));
 
 			selected.removeClass('selected');
 			ifw.getType()._scroll(); // Call the scroll function

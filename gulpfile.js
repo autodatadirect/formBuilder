@@ -28,12 +28,14 @@ var argv = require('yargs')
 	.alias('o', 'original')
 	.alias('m', 'mangle')
 	.alias('k', 'keepalive')
+	.alias('n', 'nice')
 	.alias('w', 'watch')
 	.boolean('d') // building dirstribution or test build
 	.boolean('o') // uglify without mangling variable names or compressing
 	.boolean('m') // uglify with mangling/compressing (default is true)
 	.boolean('k') // run karma with singlerun=false (defualt true)
 	.boolean('w') // watch assets/src for changes and rebuild
+	.boolean('n') // run karma with a nice display format 
 	.argv;
 
 
@@ -51,7 +53,7 @@ var today = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
 
 var outDir = argv.dist? dirs.distribution : dirs.build;
 
-gulp.task('lint', function(){
+gulp.task('lint', function(done){
 	return gulp.src([
 			'gulpfile.js',
 			dirs.src + '/**/*.js',
@@ -67,12 +69,12 @@ gulp.task('clean', function(done){
 });
 
 gulp.task('copy:assets', ['clean'], function(){
-	gulp.src(dirs.assets + '/**')
+	return gulp.src(dirs.assets + '/**')
 		.pipe(gulp.dest(outDir));
 });
 
-gulp.task('build', ['lint', 'copy:assets'], function(){
-	var stream = gulp.src([
+gulp.task('build', ['lint', 'clean', 'copy:assets'], function(){
+	return gulp.src([
 			dirs.src + '/util/**/*.js',
 			dirs.src + '/plugins/**/*.js',
 			dirs.src + '/widgets/**/*.js',
@@ -96,16 +98,19 @@ gulp.task('refreshTester', function(done){
 	require(dirs.unitTests)(done);
 });
 
-gulp.task('test', ['build', 'refreshTester'], function(done){
+gulp.task('test',['build'], function(done){
+	var reporters = ['progress'];
+
+	if(argv.nice) {
+		reporters.push('html');
+	}
+
 	karma.start({
 		configFile: __dirname + '/karma.conf.js',
-		singleRun: !argv.keepalive
+		singleRun: !argv.keepalive,
+		reporters: reporters 
 	}, done);
 });
-
-
-
-
 
 var startBuildWatch = function(){
 	console.log('Watching for changes...');
