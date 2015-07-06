@@ -50,9 +50,8 @@
 	types.text = {};
 
 	var cannedFormatters = {
-		trim: function(ui) {
-			var e = ui.element;
-			return $.trim(e.val());
+		trim: function(val) {
+			return $.trim(val);
 		}
 	};
 
@@ -101,8 +100,8 @@
 
 				// add converters
 				type.converter = {
-					toField: function (val, ui) { return type.format(ui); },
-					fromField: function (val, ui) { return type.format(ui); }
+					toField: function (val, ui) { return type.format(val); },
+					fromField: function (val, ui) { return type.format(val); }
 				};
 			}
 		}

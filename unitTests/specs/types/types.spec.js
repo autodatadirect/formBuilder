@@ -70,9 +70,7 @@ describe('Any custom type', function(){
 			var ifw = input.data('add123InputField');
 			var typeInstance = ifw.getType();
 
-			input.val('  32424  ');
-
-			expect(typeInstance.format(ifw)).toBe('32424');
+			expect(typeInstance.format('  32424  ')).toBe('32424');
 
 			types.testType = undefined;
 		});

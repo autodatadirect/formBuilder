@@ -6,6 +6,7 @@
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
 'use strict';
 describe('The feid data-type', function(){
+	var testContainer = window.formBuilderTesting.testContainer;
 	var chars = window.formBuilderTesting.chars;
 	var batchTest = window.formBuilderTesting.batchTest;
 
@@ -66,5 +67,16 @@ describe('The feid data-type', function(){
 
 		batchTest('that accepts',valids,true,validateNewVal);
 		batchTest('that rejects',invalids,false,validateNewVal);
+	});
+
+	it('can set and get its values', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var ifw = input.data('add123InputField');
+
+		ifw.set('123456789'); 
+
+		expect(ifw.get()).toBe('123456789');
+
+		testContainer.empty();
 	});
 });

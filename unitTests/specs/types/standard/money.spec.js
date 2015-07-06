@@ -342,5 +342,16 @@ describe('The money data-type', function(){
 			
 	});
 
+	it('can set and get its values', function(){
+		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+		var ifw = input.data('add123InputField');
+
+		ifw.set(100.55); 
+
+		expect(ifw.get()).toEqual(100.55);
+
+		testContainer.empty();
+	});
+
 	// does not have validation, is format based
 });

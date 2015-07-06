@@ -1532,5 +1532,16 @@
 		expect(result2).toBe('Some Value');
 	}); 
 
+	it('can set and get its values', function(){
+		var input = $('<input type="text" data-type="select" data-options=\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();
+		var ifw = input.data('add123InputField');
+
+		ifw.set('test'); 
+
+		expect(ifw.get()).toBe('Aragorn');
+
+		testContainer.empty();
+	});
+
 
  }); // End of the first describe
