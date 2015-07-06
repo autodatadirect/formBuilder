@@ -78,7 +78,6 @@ describe('The money data-type', function(){
 
 		it('that allows you to set a max amount of money to be entered', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-max-amount="10.00"/>').appendTo(testContainer).inputField();
-			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			var err;
 
@@ -89,12 +88,7 @@ describe('The money data-type', function(){
 				// Legal entry		
 				ifw.set('9.00');
 
-				input.removeClass('focus');
-
-				return pause(triggerWaitTime);
-			})
-			.then(function(){
-				input2.focus();
+				input.blur();
 
 				return pause(triggerWaitTime);
 			})
@@ -111,7 +105,6 @@ describe('The money data-type', function(){
 
 		it('and will not allow input to exceed that amount', function(done){
 	 		var input = $('<input type="text" data-type="'+typeName+'" data-max-amount="10.00"/>').appendTo(testContainer).inputField();
-			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			var err;
 
@@ -122,12 +115,7 @@ describe('The money data-type', function(){
 				// Illegal entry		
 				ifw.set('900.00');
 
-				input.removeClass('focus');
-
-				return pause(triggerWaitTime*100);
-			})
-			.then(function(){
-				input2.focus();
+				input.blur();
 
 				return pause(triggerWaitTime*100);
 			})
@@ -145,7 +133,6 @@ describe('The money data-type', function(){
 
  		it('that allows you to set a min amount of money to be entered', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00"/>').appendTo(testContainer).inputField();
-			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			var err;
 
@@ -156,12 +143,7 @@ describe('The money data-type', function(){
 				// Legal entry		
 				ifw.set('19.00');
 
-				input.removeClass('focus');
-
-				return pause(triggerWaitTime);
-			})
-			.then(function(){
-				input2.focus();
+				input.blur();
 
 				return pause(triggerWaitTime);
 			})
@@ -178,7 +160,6 @@ describe('The money data-type', function(){
 
 		it('and will not allow input to be less than that amount', function(done){
 	 		var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00"/>').appendTo(testContainer).inputField();
-			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			var err;
 
@@ -189,12 +170,7 @@ describe('The money data-type', function(){
 				// Illegal entry		
 				ifw.set('9.00');
 
-				input.removeClass('focus');
-
-				return pause(triggerWaitTime*100);
-			})
-			.then(function(){
-				input2.focus();
+				input.blur();
 
 				return pause(triggerWaitTime*100);
 			})
@@ -212,7 +188,6 @@ describe('The money data-type', function(){
 
  		it('that allows you to set a both min amount and a max amount of money to be entered', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00" data-max-amount="100.00"/>').appendTo(testContainer).inputField();
-			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			var err;
 
@@ -223,13 +198,7 @@ describe('The money data-type', function(){
 				// Legal entry		
 				ifw.set('19.00');
 
-				input.removeClass('focus');
-
-				return pause(triggerWaitTime);
-			})
-			.then(function(){
-				input2.focus();
-
+				input.blur();
 				return pause(triggerWaitTime);
 			})
 			.then(function(){
@@ -245,7 +214,6 @@ describe('The money data-type', function(){
 
 		it('and will not allow input to be less than the min or greater than the max', function(done){
 	 		var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00" data-max-amount="100.00"/>').appendTo(testContainer).inputField();
-			var input2 = $('<input type="text"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			var err;
 
@@ -256,12 +224,7 @@ describe('The money data-type', function(){
 				// Illegal entry		
 				ifw.set('9.00');
 
-				input.removeClass('focus');
-
-				return pause(triggerWaitTime*100);
-			})
-			.then(function(){
-				input2.focus();
+				input.blur();
 
 				return pause(triggerWaitTime*100);
 			})
@@ -277,12 +240,7 @@ describe('The money data-type', function(){
 				// Illegal entry		
 				ifw.set('900.00');
 
-				input.removeClass('focus');
-
-				return pause(triggerWaitTime*100);
-			})
-			.then(function(){
-				input2.focus();
+				input.blur();
 
 				return pause(triggerWaitTime*100);
 			})
