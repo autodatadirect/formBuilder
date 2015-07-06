@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "requirejs": "~2.1.18",
-    "jasmine": "~2.3.4"
+    "jasmine": "~2.3.4",
+    "Aristo-jQuery-UI-Theme":"https://github.com/taitems/Aristo-jQuery-UI-Theme.git#master"
   }
 }

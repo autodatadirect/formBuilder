@@ -70,7 +70,7 @@ describe('A submitButton', function(){
 
 			expect(label.length).toBe(1);
 			expect(label.text()).toBe('Submit');
-			expect(label.css('visibility')).toBe('');
+			expect(label.css('visibility')).not.toBe('hidden');
 		});
 	});
 
@@ -89,7 +89,7 @@ describe('A submitButton', function(){
 		var label = sbw.getButtonLabel();
 
 		expect(spinner.children().length).toBe(0);
-		expect(label.css('visibility')).toBe('');
+		expect(label.css('visibility')).not.toBe('hidden');
 
 		sbw._showLoading();
 

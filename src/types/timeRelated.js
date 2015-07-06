@@ -395,15 +395,15 @@
 		 */
 		_refreshFieldWidth: function() {
 			var self = this,
-				fullWidth = self.ifw.element.outerWidth(),
+				fullWidth = self.ifw.element.width(),
 				elDate = self.dateWidget,
 				elTime = self.timeWidget,
 				timeWidthRatio,
 				minWidth;
 					
 				// Take out widghet margins/padding from outer width
-				fullWidth -= elDate.outerWidth() - elDate.width();
-				fullWidth -= elTime.outerWidth() - elTime.width();
+				fullWidth -= elDate.outerWidth(true) - elDate.width();
+				fullWidth -= elTime.outerWidth(true) - elTime.width();
 				
 				// Prevent it from being too small
 				minWidth = self.ifw.element.css('min-width');

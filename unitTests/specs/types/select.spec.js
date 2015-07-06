@@ -1321,7 +1321,7 @@
 		.then(function(){
 			expect(scroll).not.toBe(options.scrollTop());
 
-			expect(options.scrollTop()).toBe(selected.before().outerHeight() + selected.before().before().outerHeight());
+			expect(options.scrollTop()).toBe(selected.before().outerHeight(true) + selected.before().before().outerHeight(true));
 
 			selected.removeClass('selected');
 			ifw.getType()._scroll(); // Call the scroll function

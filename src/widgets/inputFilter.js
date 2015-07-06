@@ -125,8 +125,11 @@
 			if(text.match(o.pattern)) {
 				/*
 				 * only deal with the caret if the field is focused
+				 *
+				 * (changed focus check because of a PhantomJS bug)
+				 * https://github.com/ariya/phantomjs/issues/10427
 				 */
-				if(e.is(':focus')) {
+				if(e[0] === document.activeElement) {
 					p = e.caret();
 					tmp = val.slice(0, p.begin) + text + val.slice(p.end);
 					if(o.max && tmp.length > o.max){
