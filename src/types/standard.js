@@ -52,7 +52,7 @@
 	var cannedFormatters = {
 		trim: function(ui) {
 			var e = ui.element;
-			e.val($.trim(e.val()));
+			return $.trim(e.val());
 		}
 	};
 
