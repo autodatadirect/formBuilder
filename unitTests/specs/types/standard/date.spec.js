@@ -202,8 +202,6 @@ describe('The date data-type', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 
-			var spy_to = spyOn(ifw.getType().converter, 'toField').and.callThrough();
-
 			// With correct input 
 			var result = ifw.getType().converter.toField('1988-07-23');
 
@@ -223,8 +221,6 @@ describe('The date data-type', function(){
 		it('and fromField functions', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
-
-			var spy_from = spyOn(ifw.getType().converter, 'fromField').and.callThrough();
 
 			// With correct input 
 			var result = ifw.getType().converter.fromField('07/23/1988');

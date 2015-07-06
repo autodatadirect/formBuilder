@@ -370,11 +370,11 @@ describe('The time data-type', function(){
 		var ifw = input.data('add123InputField');
 		var typeInstance = ifw.getType();
 
-		spyOn(ifw.element, 'timepicker').and.callThrough();
+		var spy_time = spyOn(ifw.element, 'timepicker').and.callThrough();
 
 		typeInstance.tearDown(ifw);
-		expect(ifw.element.timepicker).toHaveBeenCalled();
-		expect(ifw.element.timepicker).toHaveBeenCalledWith('remove');
+		expect(spy_time).toHaveBeenCalled();
+		expect(spy_time ).toHaveBeenCalledWith('remove');
 	});
 
 });

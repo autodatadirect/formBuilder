@@ -304,22 +304,22 @@ describe('The money data-type', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 		
-			spyOn(ifw.getType(), 'format');
+			var spy_format = spyOn(ifw.getType(), 'format');
 
 			ifw._formatToField('1234'); 
 			
-			expect(ifw.getType().format).toHaveBeenCalled(); 
+			expect(spy_format).toHaveBeenCalled(); 
 		});
 
 		it('that formats from field', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
 		
-			spyOn(ifw.getType(), 'format');
+			var spy_format = spyOn(ifw.getType(), 'format');
 
 			var result = ifw._formatFromField('1234'); 
 			
-			expect(ifw.getType().format).toHaveBeenCalled(); 
+			expect(spy_format).toHaveBeenCalled(); 
 			expect(result).toEqual(jasmine.any(Number)); 
 		});
 	});
@@ -346,12 +346,12 @@ describe('The money data-type', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('add123InputField');
 			
-			spyOn(ifw.getType(), 'format');
+			var spy_format = spyOn(ifw.getType(), 'format');
 
 			input.focus(); 
 			input.blur(); // When input is blurred the input should be formatted 
 
-			expect(ifw.getType().format).toHaveBeenCalled(); 
+			expect(spy_format).toHaveBeenCalled(); 
 
 			testContainer.empty();
 		});
@@ -361,7 +361,7 @@ describe('The money data-type', function(){
 			var ifw = input.data('add123InputField');
 			var pos;
 			
-			spyOn(ifw.getType(), 'format').and.callThrough();
+			var spy_format = spyOn(ifw.getType(), 'format').and.callThrough();
 
 			input.val('7777').caret(2,2); //start after 2
 			
@@ -371,7 +371,7 @@ describe('The money data-type', function(){
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(ifw.getType().format).toHaveBeenCalled();
+				expect(spy_format).toHaveBeenCalled();
 				expect(util.equals(pos,input.caret())).toBe(true);
 				expect(input.val()).toEqual('7777.00');
 
