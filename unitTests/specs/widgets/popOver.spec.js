@@ -261,7 +261,7 @@ describe('A popOver', function(){
 			});
 
 			pop.remove();
-			options.target.remove();
+			testContainer.empty();
 			done();
 		});
 	});

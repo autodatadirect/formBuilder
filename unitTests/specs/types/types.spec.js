@@ -7,7 +7,7 @@
 describe('Any custom type', function(){
 	var testContainer = window.formBuilderTesting.testContainer;
 
-	describe('may be a simple regex type', function(){
+	xdescribe('may be a simple regex type', function(){
 		xit('that has a regex validation pattern', function(){
 			var input = $('<input type="text"/>').inputField();
 			var ifw = input.data('add123InputField');

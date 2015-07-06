@@ -247,7 +247,7 @@ describe('An inputFilter', function(){
 			filter = input.data('add123InputFilter');
 
 			input.focus();
-			pause(triggerWaitTime)
+			pause(triggerWaitTime + 10)
 			.then(function(){
 				input.val('123456').caret(2,2); //start after 2
 
@@ -259,7 +259,7 @@ describe('An inputFilter', function(){
 
 				expect(isTyped).toBe(true);
 				expect(input.val()).toBe('12A3456');
-				expect(util.equals(pos,input.caret())).toBe(true);
+				expect(input.caret()).toEqual(pos);
 
 				testContainer.empty();
 				done();
