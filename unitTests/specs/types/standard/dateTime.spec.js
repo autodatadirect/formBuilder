@@ -35,7 +35,6 @@ describe('The dateTime data-type', function(){
 		var ifw = input.data('add123InputField');
 		var typeInstance = ifw.getType();
 
-		var spy_set = spyOn(typeInstance, 'setUp').and.callThrough();
 		var spy_fields = spyOn(typeInstance, '_setUpFields').and.callThrough();
 		var spy_re = spyOn(typeInstance, '_refreshFieldWidth').and.callThrough();
 		var spy_clean = spyOn(typeInstance, '_setUpCleanDirtyEvents').and.callThrough();
@@ -94,12 +93,12 @@ describe('The dateTime data-type', function(){
 		var ifw = input.data('add123InputField');
 		var typeInstance = ifw.getType();
 
-		spyOn(typeInstance, '_refreshFieldWidth');
+		var spy_refresh = spyOn(typeInstance, '_refreshFieldWidth');
 
 		input.trigger('resize');
 		pause(triggerWaitTime)
 		.then(function(){
-			expect(typeInstance._refreshFieldWidth).toHaveBeenCalled();
+			expect(spy_refresh).toHaveBeenCalled();
 
 			done();
 		});

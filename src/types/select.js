@@ -400,7 +400,7 @@
 			sections.filter('.' + showClass).show();
 		},
 
-		clear: function () {
+		clear: function (andSelectNothing) {
 			var self = this,
 				e = self.element;
 
@@ -409,7 +409,12 @@
 			e.val('');
 			self.filter.val('');
 			self.filterValue = '';
-			self._handleItemNotFound();
+			self.shim.children().children().text('');
+
+			if(!andSelectNothing) {
+				self._handleItemNotFound();
+			}
+
 			self.inputWidget.redraw();
 		},
 
@@ -545,7 +550,6 @@
 				panel = self.panel,
 				options = self.options;
 
-			
 			self.element.trigger('tmsselectbeforebuild');
 
 			options.empty();

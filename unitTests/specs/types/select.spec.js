@@ -31,8 +31,6 @@
 			var openIcon = '.tms-icon.tms-icon-sort-up.dropdown-open-icon';
 			var closedIcon = '.tms-icon.tms-icon-sort-down.dropdown-closed-icon';
 
-			var spy = spyOn(ifw.getType(), 'setUp').and.callThrough();
-
 			expect(input.parent().parent().parent().parent().is('.input-field-group')).toBe(true);
 			expect(input.parent().is('.field-item.field-item-input.first')).toBe(true);
 			expect(input.parent().parent().is('.field-items')).toBe(true);
@@ -80,7 +78,6 @@
 				var ifw = input.data('add123InputField');
 
 				var spy_selected = spyOn(ifw.getType(), '_setSelected').and.callThrough();
-				var spy_close = spyOn(ifw.getType(), 'close').and.callThrough();
 
 				var ev = $.Event("keydown");
 				ev.which = 13; // Enter key code value
@@ -90,7 +87,6 @@
 				pause(triggerWaitTime)
 				.then(function(){
 					expect(spy_selected).toHaveBeenCalled();
-					expect(spy_close).toHaveBeenCalled();
 
 					done(); 
 				});
@@ -234,7 +230,6 @@
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
-			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_focus = spyOn($.fn, 'focus').and.callThrough();
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
 
@@ -242,7 +237,6 @@
 			ev.which = 9; // Tab key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy_down).toHaveBeenCalled();
 			expect(spy_focus).toHaveBeenCalled();
 			expect(spy_open).not.toHaveBeenCalled();
 		});
@@ -251,14 +245,12 @@
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
-			var spy = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
 
 			var ev = $.Event("keydown");
 			ev.which = 27; // Escape key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy).toHaveBeenCalled();
 			expect(spy_open).not.toHaveBeenCalled();
 
 			expect(ev.isDefaultPrevented()).toBe(true); 
@@ -269,14 +261,12 @@
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
-			var spy = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
 
 			var ev = $.Event("keydown");
 			ev.which = 13; // Enter key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy).toHaveBeenCalled();
 			expect(spy_open).not.toHaveBeenCalled();
 
 			expect(ev.isDefaultPrevented()).toBe(true); 
@@ -289,8 +279,6 @@
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
-
-			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
 			var spy_find = spyOn($.fn, 'find').and.callThrough();
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -304,7 +292,6 @@
 			ev.which = 40; // Down arrow key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy_down).toHaveBeenCalled();
 			expect(spy_scroll).toHaveBeenCalled();
 			expect(spy_find.calls.count()).toBe(2); 
 			expect(spy_add).toHaveBeenCalled(); 
@@ -321,7 +308,6 @@
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i;
 
-			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
 			var spy_find = spyOn($.fn, 'find').and.callThrough();
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -343,7 +329,6 @@
 			ev.which = 40; // Down arrow key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy_down).toHaveBeenCalled();
 			expect(spy_scroll).toHaveBeenCalled();
 			expect(spy_find.calls.count()).toBe(1); 
 			expect(spy_add).toHaveBeenCalled(); 
@@ -361,7 +346,6 @@
 			var i; 
 			var x; 
 
-			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
 			var spy_find = spyOn($.fn, 'find').and.callThrough();
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -378,7 +362,6 @@
 			ev.which = 38; // Up arrow key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy_down).toHaveBeenCalled();
 			expect(spy_scroll).toHaveBeenCalled(); 
 			expect(spy_find.calls.count()).toBe(2);
 			expect(spy_add).toHaveBeenCalled(); 
@@ -400,7 +383,6 @@
 			var i; 
 			var x; 
 
-			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
 			var spy_find = spyOn($.fn, 'find').and.callThrough();
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -422,7 +404,6 @@
 			ev.which = 38; // Up arrow key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy_down).toHaveBeenCalled();
 			expect(spy_scroll).toHaveBeenCalled(); 
 			expect(spy_find.calls.count()).toBe(1); 
 			expect(spy_add).toHaveBeenCalled(); 
@@ -436,7 +417,7 @@
 		it('when a key code that is less than 32 that has not been previously allowed has been used', function(){
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
+
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
 			var spy_find = spyOn($.fn, 'find').and.callThrough();
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -446,7 +427,6 @@
 			ev.which = 8; // Backspace key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy_down).toHaveBeenCalled();
 			expect(spy_scroll).not.toHaveBeenCalled(); 
 			expect(spy_find).not.toHaveBeenCalled();
 			expect(spy_add).not.toHaveBeenCalled(); 
@@ -456,7 +436,7 @@
 		it('when a key code that is greater than 126 has been used', function(){
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
+
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
 			var spy_find = spyOn($.fn, 'find').and.callThrough();
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -466,7 +446,6 @@
 			ev.which = 187; // Equals sign key code value
 			ifw.getType()._keyDownNavigate(ev);
 
-			expect(spy_down).toHaveBeenCalled();
 			expect(spy_scroll).not.toHaveBeenCalled(); 
 			expect(spy_find).not.toHaveBeenCalled();
 			expect(spy_add).not.toHaveBeenCalled(); 
@@ -479,20 +458,17 @@
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone", "filter":"test"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
-		var spy_up = spyOn(ifw.getType(), '_onKeyup').and.callThrough();
 		var spy_Op = spyOn(ifw.getType(), '_filterOptions').and.callThrough();
 
 		// keyup event will trigger _onKeyup to have been called 
 		var ev = $.Event("keyup");
 		ifw.getType()._onKeyup(ev);
 
-		expect(spy_up).toHaveBeenCalled();
 		expect(spy_Op).toHaveBeenCalled(); // We should expect that self.filterValue = undefiend, and val = ''. So the function should not return
 
 		var ev2 = $.Event("keyup");
 		ifw.getType()._onKeyup(ev2);
 
-		expect(spy_up).toHaveBeenCalled();
 		expect(spy_Op.calls.count()).toBe(1); // We should expect that _filterOptions will not be called the second time since self.filterValue and val have been set equal to each other 
 	});
 
@@ -626,14 +602,12 @@
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
-		var spy_set = spyOn(ifw.getType(), '_set').and.callThrough();
 		var spy_rem = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
 		var spy_find = spyOn($.fn, 'find').and.callThrough(); 
 		var spy_hand = spyOn(ifw.getType(), '_handleItemNotFound').and.callThrough();
 
 		ifw.getType()._set();
 
-		expect(spy_set).toHaveBeenCalled(); 
 		expect(spy_rem).toHaveBeenCalled();
 		expect(spy_find).toHaveBeenCalled();
 		expect(spy_hand).toHaveBeenCalled();
@@ -644,8 +618,6 @@
 		var ifw = input.data('add123InputField');
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
-
-		var spy_set = spyOn(ifw.getType(), '_set').and.callThrough();
 		var spy_rem = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
 		var spy_find = spyOn($.fn, 'find').and.callThrough(); 
 		var spy_label = spyOn(ifw.getType(), '_setLabel').and.callThrough();
@@ -661,7 +633,6 @@
 
 		ifw.getType()._set(val);
 
-		expect(spy_set).toHaveBeenCalled(); 
 		expect(spy_rem).toHaveBeenCalled();
 		expect(spy_find).toHaveBeenCalled();
 		expect(spy_label).toHaveBeenCalled();
@@ -756,7 +727,7 @@
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
-			var spy_item = spyOn(ifw.getType(), '_filterItem').and.callThrough();
+
 			var spy_should = spyOn(ifw.getType(), '_itemShoudBeFiltered').and.callThrough();
 
 			//At this point none of the options should be filtered
@@ -772,7 +743,6 @@
 				ifw.getType()._filterItem(options.eq(i), val);
 			}
 
-			expect(spy_item).toHaveBeenCalled();
 			expect(spy_should).toHaveBeenCalled();
 
 			// Wont be filtered out since they contain the letter T
@@ -792,7 +762,6 @@
 		var shim = input.parent().children().eq(2);
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
-		var spy_setSelected = spyOn(ifw.getType(), '_setSelected').and.callThrough();
 		var spy_setLabel = spyOn(ifw.getType(), '_setLabel').and.callThrough();
 		var spy_renderLabel = spyOn(ifw.getType(), 'renderLabel').and.callThrough();
 		var spy_close = spyOn(ifw.getType(), 'close').and.callThrough(); 
@@ -836,7 +805,6 @@
 		var shim = input.parent().children().eq(2);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
-		var spy_non = spyOn(ifw.getType(), '_selectFirstNonEmptyOption').and.callThrough();
 		var spy_remove = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
 		var spy_find = spyOn($.fn, 'find').and.callThrough();
 
@@ -845,7 +813,6 @@
 		ifw.getType().open();
 		ifw.getType()._selectFirstNonEmptyOption(); 
 
-		expect(spy_non).toHaveBeenCalled(); 
 		expect(spy_remove).toHaveBeenCalled(); 
 		expect(spy_find).toHaveBeenCalled(); 
 
@@ -858,11 +825,10 @@
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
-		var spy_clear = spyOn(ifw.getType(), 'clear').and.callThrough();
 		var spy_remove = spyOn($.fn, 'removeClass').and.callThrough();
 		var spy_handle = spyOn(ifw.getType(), '_handleItemNotFound').and.callThrough();
 		var spy_redraw = spyOn(ifw, 'redraw').and.callThrough(); 
-		var spy_default = spyOn(ifw.getType(), '_setDefaultItem').and.callThrough();
+
 		var shim = input.parent().children().eq(2);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
@@ -873,7 +839,6 @@
 
 		ifw.getType().clear();
 
-		expect(spy_clear).toHaveBeenCalled();
 		expect(spy_remove).toHaveBeenCalled();
 		expect(spy_handle).toHaveBeenCalled();
 		expect(spy_redraw).toHaveBeenCalled();
@@ -887,12 +852,10 @@
 		var ifw = input.data('add123InputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
-		var spy_handle = spyOn(ifw.getType(), '_handleItemNotFound').and.callThrough();
 		var spy_default = spyOn(ifw.getType(), '_setDefaultItem').and.callThrough();
 
 		ifw.getType()._handleItemNotFound();
 
-		expect(spy_handle).toHaveBeenCalled();
 		expect(spy_default).toHaveBeenCalled();
 	});
 
@@ -901,7 +864,6 @@
 		var ifw = input.data('add123InputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
-		var spy_def = spyOn(ifw.getType(), '_setDefaultItem').and.callThrough();
 		var spy_add = spyOn($.fn, 'addClass').and.callThrough();
 		var spy_label = spyOn(ifw.getType(), '_setLabel').and.callThrough();
 		var spy_SH = spyOn(ifw.getType(), 'showHideCommand').and.callThrough();
@@ -914,7 +876,6 @@
 
 		ifw.getType()._setDefaultItem(); 
 
-		expect(spy_def).toHaveBeenCalled(); 
 		expect(spy_add).toHaveBeenCalled();
 		expect(spy_label).toHaveBeenCalled();
 		expect(spy_SH).toHaveBeenCalled();
@@ -933,7 +894,6 @@
 
 		expect(option.is('.option')).toBe(true);
 
-		var spy_first = spyOn(ifw.getType(), '_selectFirstItem').and.callThrough();
 		var spy_hide = spyOn(ifw.getType(), 'showHideCommand').and.callThrough();
 		var spy_label = spyOn(ifw.getType(), '_setLabel').and.callThrough();
 
@@ -964,6 +924,7 @@
 
 			option.eq(0).click(); 
 
+			expect(spy_showHide).toHaveBeenCalled();
 			expect(spy_hide).toHaveBeenCalled();
 			expect(spy_filter).toHaveBeenCalled(); 
 			expect(aClass.css('display')).toBe('block');
@@ -996,9 +957,6 @@
 		var ifw = input.data('add123InputField');
 		var spy_equal = spyOn(ifw.getType(), '_equal').and.callThrough();
 
-		// Included for testing 
-		var spy_set = spyOn(ifw.getType(), '_set').and.callThrough();
-		var spy_setD = spyOn(ifw.getType(), '_setDefaultItem').and.callThrough();
 		ifw.getType()._set(); 
 		ifw.getType()._setDefaultItem(); 
 
@@ -1024,36 +982,28 @@
 	it('can set and get its label', function(){
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
-		var spy_set = spyOn(ifw.getType(), '_setLabel').and.callThrough();
-		var spy_get = spyOn(ifw.getType(), '_getLabel').and.callThrough();
 
 		ifw.getType()._setLabel("Some label");	
 		var result = ifw.getType()._getLabel();
 
-		expect(spy_set).toHaveBeenCalled(); 
-		expect(spy_get).toHaveBeenCalled();
 		expect(result).toBe("Some label");
 	}); 
 
 	it('can get its options', function(){
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
-		var spy_get = spyOn(ifw.getType(), 'getOptions').and.callThrough();
-		var spy_push = spyOn($.fn, 'push').and.callThrough();
 
 		// Create object to test equality of result 
 		var mainObject = [{value: 'Aragorn', label: 'Apple'},{value: 'Book',label: 'Banana'},{value: 'Cat',label: 'Cucumber'},{value: 'X-Ray',label: 'Xylophone'},{value: 'Yak',label: 'Yellow'},{value: 'Zoo',label: 'Zingales'}];
 
 		var result = ifw.getType().getOptions(); 
 
-		expect(spy_get).toHaveBeenCalled();
 		expect(result).toEqual(mainObject); 
 	});
 
 	it('can remove invalid data', function(){
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
-		var spy_inval = spyOn(ifw.getType(), 'removeInvalid').and.callThrough();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 		var i; 
 
@@ -1061,7 +1011,6 @@
 
 		ifw.getType().removeInvalid(); 
 
-		expect(spy_inval).toHaveBeenCalled();
 		expect(ifw.element.val()).toBe(''); // val should be reset to zero since 'test' is an incorrect value 
 
 		ifw.set('X-Ray');
@@ -1076,8 +1025,7 @@
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
-
-		var spy_rem = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
+ 
 		var spy_remC = spyOn($.fn, 'removeClass').and.callThrough(); 
 
 		// At this point none of the options should be selected
@@ -1099,7 +1047,6 @@
 
 		ifw.getType()._removeSelection();
 
-		expect(spy_rem).toHaveBeenCalled();
 		expect(spy_remC).toHaveBeenCalled();
 
 		expect(options.eq(0).is('.selected')).not.toBe(true);
@@ -1166,7 +1113,7 @@
 		it('that can filter its\' options', function(done){
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var spy_filter = spyOn(ifw.getType(), '_filterOptions').and.callThrough();
+
 			var spy_work = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
 			var spy_remove = spyOn(ifw.getType(), '_removeSelection').and.callThrough();
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -1175,7 +1122,6 @@
 
 			pause(200)
 			.then(function(){
-				expect(spy_filter).toHaveBeenCalled(); 
 				expect(spy_remove).toHaveBeenCalled();
 				expect(spy_add).toHaveBeenCalled();
 				expect(spy_work).toHaveBeenCalled();	
@@ -1187,13 +1133,12 @@
 		it('that can filter its\' options\' work', function(){
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var spy_work = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
+
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
 			var spy_filter = spyOn(ifw.getType(), '_filterItem').and.callThrough();
 
 			ifw.getType().__filterOptionsWork();
 
-			expect(spy_work).toHaveBeenCalled();
 			expect(spy_add).toHaveBeenCalled();	
 			expect(spy_filter).toHaveBeenCalled();	
 
@@ -1203,14 +1148,13 @@
 		it('that can filter the item selected', function(done){
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var spy_filter = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
+
 			var spy_item = spyOn(ifw.getType(), '_filterItem').and.callThrough();
 
 			ifw.getType().__filterOptionsWork(); 
 
 			expect(input.parent().eq(0).siblings().is('.dropdown-panel.filtering')).toBe(true);
 
-			expect(spy_filter).toHaveBeenCalled();
 			expect(spy_item).toHaveBeenCalled(); 
 
 			pause(triggerWaitTime)
@@ -1225,11 +1169,9 @@
 		it('that can check if the item is filtered', function(){
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 			var ifw = input.data('add123InputField');
-			var spy_should = spyOn(ifw.getType(), '_itemShoudBeFiltered').and.callThrough();
 
 			var result = ifw.getType()._itemShoudBeFiltered('test'); 
 
-			expect(spy_should).toHaveBeenCalled(); 
 			expect(result).toBeFalsy();  // Should be false since there is no 'val' passed in
 
 			var result2 = ifw.getType()._itemShoudBeFiltered('test', 1); 
@@ -1238,19 +1180,14 @@
 
 			var attempt = { label: "try"};
 
-			// var result3 = ifw.getType()._itemShoudBeFiltered(attempt, 1); // This does go into the third if but it gives the error that e.replace is not a function
-
-			// expect(result3).toBeTruthy();
-
 			testContainer.empty(); 
 		});
 
 		it('that can be cleared', function(done){
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var spy_clear = spyOn(ifw.getType(), '_clearFilter').and.callThrough();
+
 			var spy_remove = spyOn($.fn, 'removeClass').and.callThrough();
-			var spy_filter = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(3);
 
 			option.addClass('filtered');
@@ -1264,7 +1201,6 @@
 				return pause(triggerWaitTime);
 			})
 			.then(function(){
-				expect(spy_clear).toHaveBeenCalled(); 
 				expect(spy_remove).toHaveBeenCalled(); 
 
 				expect(option.is('.option')).toBe(true);
@@ -1280,11 +1216,8 @@
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
-			var spy_empty = spyOn(ifw.getType(), '_buildEmptyOption').and.callThrough();
 
 			ifw.getType()._buildEmptyOption(); 
-
-			expect(spy_empty).toHaveBeenCalled();
 
 			expect(option.eq(0).text()).toBe('Apple'); // Contains the text of the first element that comes first alphabetically 
 			expect(option.eq(1).text()).toBe('Banana');
@@ -1300,11 +1233,8 @@
 			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-empty-label="Test"/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
-			var spy_empty = spyOn(ifw.getType(), '_buildEmptyOption').and.callThrough();
 
 			ifw.getType()._buildEmptyOption(); 
-
-			expect(spy_empty).toHaveBeenCalled();
 
 			expect(option.eq(0).text()).toBe('Test'); // Contains the element with a label and no other data, is not placed alphabetically 
 
@@ -1322,7 +1252,7 @@
 	it('can build options', function(){
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
-		var spy_build = spyOn(ifw.getType(), '_buildOptions').and.callThrough();
+
 		var spy_empty = spyOn($.fn, 'empty').and.callThrough();
 		var spy_trigger = jasmine.createSpy('event');
 		var spy_Bempty = spyOn(ifw.getType(), '_buildEmptyOption').and.callThrough(); 
@@ -1334,7 +1264,6 @@
 
 		ifw.getType()._buildOptions(); 
 
-		expect(spy_build).toHaveBeenCalled();
 		expect(spy_trigger).toHaveBeenCalled(); 
 		expect(spy_empty).toHaveBeenCalled();
 		expect(spy_Bempty).toHaveBeenCalled();
@@ -1346,14 +1275,13 @@
 	it('can sort', function(){
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
-		var spy_firstSort = spyOn(ifw.getType(), '_sort').and.callThrough();
+
 		var spy_sort = spyOn($.fn, 'sort').and.callThrough();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 		ifw.getType()._sort(options); 
 
-		expect(spy_firstSort).toHaveBeenCalled();
 		expect(spy_sort).toHaveBeenCalled();
 
 		// Expect the options to be alphabetical 
@@ -1414,7 +1342,7 @@
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
-		var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();	
+
 		var spy_trigger = jasmine.createSpy('event');		
 		input.on('click keyup', spy_trigger);
 
@@ -1422,7 +1350,6 @@
 		var spy_show = spyOn($.fn, 'show').and.callThrough();
 		var spy_focus = spyOn($.fn, 'focus').and.callThrough();
 		var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();	
-		var spy_down = spyOn(ifw.getType(), '_keyDownNavigate').and.callThrough();
 		var spy_listen = spyOn(ifw.getType(), 'closeListener').and.callThrough(); 	
 
 		var dropDown = input.parent().eq(0).siblings().eq(0); 
@@ -1431,7 +1358,6 @@
 
 		ifw.getType().open(); 
 
-		expect(spy_open).toHaveBeenCalled(); 
 		expect(spy_trigger).not.toHaveBeenCalled();
 		expect(spy_listen).not.toHaveBeenCalled();
 		expect(spy_hide).toHaveBeenCalled();
@@ -1465,7 +1391,6 @@
 	it('can render a label', function(){
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
-		var spy_render = spyOn(ifw.getType(), 'renderLabel').and.callThrough();
 
 		var item = {
 			value: 'Some value',
@@ -1474,18 +1399,15 @@
 
 		var result = ifw.getType().renderLabel(item);
 
-		expect(spy_render).toHaveBeenCalled();  
 		expect(result).toBe('Some label');
 	}); 
 
 	it('can render an item', function(){
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
-		var spy_render = spyOn(ifw.getType(), 'renderItem').and.callThrough();
 
 		var result = ifw.getType().renderItem(input);
 
-		expect(spy_render).toHaveBeenCalled();  
 		expect(result).not.toBeNull();
 	}); 
 
@@ -1495,7 +1417,7 @@
 		var shim = input.parent().children().eq(2);
 		var panel = input.parent().eq(0).siblings();
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
-		var spy_close = spyOn(ifw.getType(), 'close').and.callThrough();
+
 		var spy_hide = spyOn($.fn, 'hide').and.callThrough();
 		var spy_show = spyOn($.fn, 'show').and.callThrough();
 		var spy_clear = spyOn(ifw.getType(), '_clearFilter').and.callThrough();
@@ -1508,7 +1430,6 @@
 
 		ifw.getType().close(); 
 
-		expect(spy_close).toHaveBeenCalled();
 		expect(spy_hide).toHaveBeenCalled(); 
 		expect(panel.css('display')).toBe('none');
 
@@ -1533,7 +1454,6 @@
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
-		var spy_up = spyOn(ifw.getType(), 'update').and.callThrough(); 
 		var spy_def = spyOn($, 'Deferred').and.callThrough();
 		var spy_each = spyOn($, 'each').and.callThrough();
 		var spy_load = spyOn(ifw.getType(), 'load').and.callThrough();
@@ -1545,7 +1465,6 @@
 
 		pause(triggerWaitTime)
 		.then(function() {
-			expect(spy_up).toHaveBeenCalled(); 
 			expect(spy_def).toHaveBeenCalled();
 			expect(spy_load).toHaveBeenCalled();
 			expect(spy_inval).toHaveBeenCalled();
@@ -1569,11 +1488,7 @@
 		var ifw = input.data('add123InputField');
 		var source = []; 
 
-		var spy_load = spyOn(ifw.getType(), 'load').and.callThrough();
-
 		var result_dfd = ifw.getType().load();
-
-		expect(spy_load).toHaveBeenCalled();
 
 		expect(result_dfd).not.toBeNull(); 
 
@@ -1588,8 +1503,6 @@
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
-		var spy_map = spyOn(ifw.getType(), 'map').and.callThrough();
-
 		var result = {
 			label: '',
 			value: ''
@@ -1597,7 +1510,6 @@
 
 		result = ifw.getType().map('test');
 
-		expect(spy_map).toHaveBeenCalled();
 		expect(result.label).toBe('test'); 
 		expect(result.value).toBe('test'); 
 	});
@@ -1606,11 +1518,8 @@
 		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
-		var spy_Dmap = spyOn(ifw.getType(), 'deMap').and.callThrough();
-
 		var result = ifw.getType().deMap('test');
 
-		expect(spy_Dmap).toHaveBeenCalled();
 		expect(result).toBeNull(); // Should be null since parameter passed in is not an object 
 
 		var object = {
