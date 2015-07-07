@@ -234,85 +234,89 @@ describe('The time data-type', function(){
 		it('using its toField', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
+			var typeInstance = ifw.getType();
+			var formatConverted = 'h:mma',
+				formatPassed = 'HH:mm',
+				testTime;
 
-			// With correct input 
-			var result = ifw.getType().converter.toField.call(ifw.getType(), '17:34');
+			// With correct input
+			testTime = '17:34';
+			expect(typeInstance.converter.toField.call(typeInstance,testTime)).toBe(moment.utc(testTime,formatPassed).local().format(formatConverted));
+			testTime = '06:34';
+			expect(typeInstance.converter.toField.call(typeInstance,testTime)).toBe(moment.utc(testTime,formatPassed).local().format(formatConverted));
 
-			expect(result).toBe('1:34pm'); // Returns moment which has been modified four hours 
+			// With incorrect input
+			testTime = '222:44';
+			expect(typeInstance.converter.toField.call(typeInstance,testTime)).toBe('');
 
-			// With incorrect input 
-			var result2 = ifw.getType().converter.toField.call(ifw.getType(), '222:44');
-
-			expect(result2).toBe('');
-
-			// With no input 
-			var result3 = ifw.getType().converter.toField.call(ifw.getType());
-
-			expect(result3).toBe('');
+			// With no input
+			expect(typeInstance.converter.toField.call(typeInstance,'')).toBe('');
 		});
 
 		it('using its toField (military)', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-military="true"/>').inputField();
 			var ifw = input.data('add123InputField');
+			var typeInstance = ifw.getType();
+			var formatConverted = 'H:mm',
+				formatPassed = 'HH:mm',
+				testTime;
 
-			// With correct input 
-			var result = ifw.getType().converter.toField.call(ifw.getType(), '17:34');
+			// With correct input
+			testTime = '17:34';
+			expect(typeInstance.converter.toField.call(typeInstance,testTime)).toBe(moment.utc(testTime,formatPassed).local().format(formatConverted));
+			testTime = '06:34';
+			expect(typeInstance.converter.toField.call(typeInstance,testTime)).toBe(moment.utc(testTime,formatPassed).local().format(formatConverted));
 
-			expect(result).toBe('13:34'); // Returns moment which has been modified four hours 
+			// With incorrect input
+			testTime = '222:44';
+			expect(typeInstance.converter.toField.call(typeInstance,testTime)).toBe('');
 
-			// With incorrect input 
-			var result2 = ifw.getType().converter.toField.call(ifw.getType(), '222:44');
-
-			expect(result2).toBe('');
-
-			// With no input 
-			var result3 = ifw.getType().converter.toField.call(ifw.getType());
-
-			expect(result3).toBe('');
+			// With no input
+			expect(typeInstance.converter.toField.call(typeInstance,'')).toBe('');
 		});
 
 		it('and fromField functions', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('add123InputField');
+			var typeInstance = ifw.getType();
+			var formatConverted = 'HH:mm',
+				formatPassed = 'h:mma',
+				testTime;
 
-			//With correct input 
-			var result = ifw.getType().converter.fromField.call(ifw.getType(), '12:34am', ifw);
+			//With correct input
+			testTime = '12:34am';
+			expect(typeInstance.converter.fromField.call(typeInstance,testTime)).toBe(moment(testTime,formatPassed).utc().format(formatConverted));
+			testTime = '11:34pm';
+			expect(typeInstance.converter.fromField.call(typeInstance,testTime)).toBe(moment(testTime,formatPassed).utc().format(formatConverted));
 
-			expect(result).toBe('04:34'); // Returns moment which has been modified four hours 
+			// With incorrect input
+			testTime = '222:44';
+			expect(typeInstance.converter.fromField.call(typeInstance,testTime)).toBe('');
 
-			//With incorrect input 
-			var result2 = ifw.getType().converter.fromField.call(ifw.getType(), '2??34', ifw);
-
-			expect(result2).toBe('');
-
-			//With no input 
-			var result3 = ifw.getType().converter.fromField.call(ifw.getType());
-
-			expect(result3).toBe('');
+			// With no input
+			expect(typeInstance.converter.fromField.call(typeInstance,'')).toBe('');
 		});
 
 		it('and fromField functions (military)', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-military="true"/>').inputField();
 			var ifw = input.data('add123InputField');
+			var typeInstance = ifw.getType();
+			var formatConverted = 'HH:mm',
+				formatPassed = 'H:mm',
+				testTime;
 
-			//With correct input 
-			var result = ifw.getType().converter.fromField.call(ifw.getType(), '12:34', ifw);
+			//With correct input
+			testTime = '12:34';
+			expect(typeInstance.converter.fromField.call(typeInstance,testTime)).toBe(moment(testTime,formatPassed).utc().format(formatConverted));
+			testTime = '23:34';
+			expect(typeInstance.converter.fromField.call(typeInstance,testTime)).toBe(moment(testTime,formatPassed).utc().format(formatConverted));
 
-			expect(result).toBe('16:34'); // Returns moment which has been modified four hours 
+			// With incorrect input
+			testTime = '222:44';
+			expect(typeInstance.converter.fromField.call(typeInstance,testTime)).toBe('');
 
-			//With incorrect input 
-			var result2 = ifw.getType().converter.fromField.call(ifw.getType(), '2??34', ifw);
-
-			expect(result2).toBe('');
-
-			var result3 = ifw.getType().converter.fromField.call(ifw.getType(), '12:34am', ifw);
-
-			expect(result3).toBe(''); // Returns moment which has been modified four hours 
-
-			//With no input 
-			var result4 = ifw.getType().converter.fromField.call(ifw.getType());
-
-			expect(result4).toBe('');
+			// With no input
+			expect(typeInstance.converter.fromField.call(typeInstance,'')).toBe('');
 		});
 	});
 
@@ -326,19 +330,19 @@ describe('The time data-type', function(){
 		utcTime = '04:00';
 		ifw.set(utcTime);
 		// expect(input.val()).toBe('12:00am');
-		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).local().format('h:mma'));
 		expect(ifw.get()).toBe(utcTime);
 
 		utcTime = '02:00';
 		ifw.set(utcTime);
 		// expect(input.val()).toBe('10:00pm');
-		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).local().format('h:mma'));
 		expect(ifw.get()).toBe(utcTime);
 
 		utcTime = '22:00';
 		ifw.set(utcTime);
 		// expect(input.val()).toBe('6:00pm');
-		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).local().format('h:mma'));
 		expect(ifw.get()).toBe(utcTime);
 	
 	});
