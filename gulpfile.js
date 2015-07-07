@@ -139,6 +139,11 @@ gulp.task('test',['build'], function(done){
 		reporters.push('html');
 	}
 
+	if(process.env.TRAVIS) {
+		// Switch to travis-ci specific browsers
+		browsers[1] = 'Chrome_travis_ci'; 
+	}
+
 	karmaOptions = {
 		configFile: dirs.unitTests + '/karma.conf.js',
 		singleRun: !argv.keepalive,
