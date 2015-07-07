@@ -1,5 +1,7 @@
 formBuilder
 ===========
+[![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master)](https://travis-ci.org/autodatadirect/formBuilder)
+
 ##Setup
 ###Dependencies
 ####CSS
