@@ -6,6 +6,9 @@ install:
  - npm install -g bower
  - npm install
  - bower install
+before_script:
+ - date
+ - date +%z
 script:
  - gulp test
 before_deploy:
