@@ -7,7 +7,7 @@ module.exports = function(config) {
 	config.set({
 
 		// base path that will be used to resolve all patterns (eg. files, exclude)
-		basePath: './',
+		basePath: './../',
 
 
 		// frameworks to use
@@ -28,13 +28,8 @@ module.exports = function(config) {
 			{pattern:'bower_components/jquery-timepicker-jt/jquery.timepicker.css',watched:false,included:false,served:true},
 			{pattern:'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css',watched:false,included:false,served:true},
 			
-			// 'node_modules/requirejs/require.js',
-			// 'node_modules/karma-requirejs/lib/adapter.js',
-
 			'bower_components/jquery/dist/jquery.min.js',
-			'unitTests/karma/karmaSetup.js',
-			// 'unitTests/karma/test-main.js',
-
+			'unitTests/karmaSetup.js',
 
 			// Executed Javascript
 			'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',

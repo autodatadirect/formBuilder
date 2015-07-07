@@ -34,7 +34,7 @@
 		'	padding: 2em;'+
 		'	height: 300px;'+
 		'}'+
-    	'</style>');
+		'</style>');
 	body.append('<div class="test-container"></div>');
 
 
