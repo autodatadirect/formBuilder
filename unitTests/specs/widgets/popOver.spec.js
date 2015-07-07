@@ -305,4 +305,52 @@ describe('A popOver', function(){
 
 		pop.remove();
 	});
+
+	it('is added by the user through a tooltip', function(){
+		var input = $('<input type="text" data-type="text"/>').wrap('<div></div>');
+		var tool = $('<div class="tooltip" </div>').insertAfter(input);	
+
+		input.inputField();
+
+		expect(tool.is(':add123-popOver')).toBe(true);
+
+		var toolT = $('body').find('.tooltip');
+		var wrapper = $('body').find('.tooltip.tooltip-wrapper');
+		expect(wrapper.length).toBe(1);
+		expect(toolT.length).toBe(2);
+
+		tool.remove();
+	});
+
+	it('can be added with a title if the user chooses to', function(){
+		var input = $('<input type="text" data-type="text"/>').wrap('<div></div>');
+		var tool = $('<div class="tooltip" title="Example Title"></div>').insertAfter(input);	
+
+		input.inputField();
+
+		var title = $('body').find('.tooltip-title');
+		expect(title.length).toBe(1);
+		expect(title.text()).toBe("Example Title");
+
+		tool.remove();
+	});
+
+	it('can be added with data inside the tooltip that is entered by the user', function(){
+		var input = $('<input type="text" data-type="text"/>').wrap('<div></div>');
+		var tool = $('<div class="tooltip" <h1>Tooltip without a header</h1><p>Paragraph One</p><p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a></div>').insertAfter(input);	
+
+		input.inputField();
+
+		var tool_input = $('body').find('.tooltip.form-input-tooltip');
+
+		var firstP = $(tool_input).find('p').eq(0);
+		var secondP = $(tool_input).find('p').eq(1);
+		var link = $(tool_input).find('a').attr('href');
+
+		expect(firstP.text()).toBe('Paragraph One');
+		expect(secondP.text()).toBe('Paragraph Two');
+		expect(link).toBe('http://add123.com');
+
+		tool.remove();
+	});
 });

@@ -195,7 +195,6 @@
 			}
 
 			if(tooltip) {
-
 				var addon = self.addOn(1000, '<span class="tooltip noselect">?</span>', 'clickable');
 
 				field.addClass('has-tooltip');
