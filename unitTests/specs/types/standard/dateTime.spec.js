@@ -258,7 +258,10 @@ describe('The dateTime data-type', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('add123InputField');
 		var timeInstance = ifw.getType();
-		var testDate;
+		var formatDT = 'YYYY-MM-DDTHH:mm:ss[Z]',
+			formatD = 'YYYY-MM-DD',
+			formatT = 'HH:mm',
+			testDate;
 		
 		expect(timeInstance._splitDateAndTime('Not a valid date')).toEqual({
 			date: '',
@@ -267,14 +270,14 @@ describe('The dateTime data-type', function(){
 
 		testDate = '2014-04-25T01:32:21Z';
 		expect(timeInstance._splitDateAndTime(testDate)).toEqual({
-			date: '2014-04-24',
-			time: '01:32'
+			date: moment.utc(testDate,formatDT).local().format(formatD),
+			time: moment.utc(testDate,formatDT).format(formatT)
 		});
 
 		testDate = '2014-04-25T10:32:21Z';
 		expect(timeInstance._splitDateAndTime(testDate)).toEqual({
-			date: '2014-04-25',
-			time: '10:32'
+			date: moment.utc(testDate,formatDT).local().format(formatD),
+			time: moment.utc(testDate,formatDT).format(formatT)
 		});
 
 	});
@@ -290,17 +293,17 @@ describe('The dateTime data-type', function(){
 
 		//Check time zone boundaries
 		localDateMoment = moment('2004-06-28', inDateFormat);
-		localTimeMoment = moment().hour(0).minute(0).second(0).utcOffset(utcOffset);
+		localTimeMoment = moment().utcOffset(utcOffset).hour(0).minute(0).second(0);
 		utcMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment).utcOffset(utcOffset).utc();
 		expect(utcMoment.format(outDateTimeFormat)).toBe('2004-06-28T04:00:00Z');
 
 		localDateMoment = moment('2004-06-27', inDateFormat);
-		localTimeMoment = moment().hour(22).minute(0).second(0).utcOffset(utcOffset);
+		localTimeMoment = moment().utcOffset(utcOffset).hour(22).minute(0).second(0);
 		utcMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment).utcOffset(utcOffset).utc();
 		expect(utcMoment.format(outDateTimeFormat)).toBe('2004-06-28T02:00:00Z');
 
 		localDateMoment = moment('2004-06-27', inDateFormat);
-		localTimeMoment = moment().hour(18).minute(0).second(0).utcOffset(utcOffset);
+		localTimeMoment = moment().utcOffset(utcOffset).hour(18).minute(0).second(0);
 		utcMoment = timeInstance._joinDateAndTimeMoments(localDateMoment,localTimeMoment).utcOffset(utcOffset).utc();
 		expect(utcMoment.format(outDateTimeFormat)).toBe('2004-06-27T22:00:00Z');
 	});

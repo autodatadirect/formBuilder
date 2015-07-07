@@ -537,7 +537,7 @@
 		},
 
 		_joinDateAndTimeMoments: function(localDateMoment, localTimeMoment) {
-			return moment()
+			return moment().utcOffset(localTimeMoment.utcOffset())
 				.second(localTimeMoment.second())
 				.minute(localTimeMoment.minute())
 				.hour(localTimeMoment.hour())
