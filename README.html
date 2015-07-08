@@ -1095,6 +1095,7 @@ body .markdown-body
 <h4 id="normal-form-types"><a name="user-content-normal-form-types" href="#normal-form-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Normal Form Types:</h4>
 <ul>
 <li><strong>text</strong> - <em>For normal text with no extra formatting or validation.</em> Default data-type.</li>
+<li><strong>tmsFullname</strong> - An extension of the utext data type. All input is converted into all-caps. Requires two or more names that are separated by a space. Allows commas, hyphens, and apostrophes but only one comma or hyphen and up to three apostrophes. Does not allow any other symbol. Does not accept integers.</li>
 <li><strong>utext</strong> - <em>For uppercase text.</em> If a user types in lowercase text, it is automatically converted to uppercase.</li>
 <li><strong>integer</strong> - <em>For digits [0-9].</em> If a user types in a non-digit, the form field will flash and the input will be ignored.</li>
 <li><strong>number</strong> - <em>For integers or decimal numbers [[0-9].].</em> If multiple decimal points are added the field is marked as invalid. If the user types in an invalid character, the field will flash and the input will be ignored.</li>

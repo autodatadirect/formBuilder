@@ -87,6 +87,7 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
 
 ####Normal Form Types:
 * **text** - *For normal text with no extra formatting or validation.* Default data-type.
+* **tmsFullname** - An extension of the utext data type. All input is converted into all-caps. Requires two or more names that are separated by a space. Allows commas, hyphens, and apostrophes but only one comma or hyphen and up to three apostrophes. Does not allow any other symbol. Does not accept integers.
 * **utext** - *For uppercase text.* If a user types in lowercase text, it is automatically converted to uppercase.
 * **integer** - *For digits [0-9].* If a user types in a non-digit, the form field will flash and the input will be ignored.
 * **number** - *For integers or decimal numbers [[0-9].].* If multiple decimal points are added the field is marked as invalid. If the user types in an invalid character, the field will flash and the input will be ignored.
