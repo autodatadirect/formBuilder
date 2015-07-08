@@ -36,7 +36,20 @@
 	 * Define formBuilder language
 	 */
 	$.extend(true, lang.locales[code], {
-		// TODO
+		// arrayField
+		remove: 'Remove',
+
+		// textSubmitter TODO
+		
+		// tmsPhone
+		mobile: 'Mobile',
+		home: 'Home',
+		work: 'Work',
+		fax: 'Fax',
+
+		// booleanSelectCreator
+		yes: 'Yes',
+		no: 'No'
 	});
 
 

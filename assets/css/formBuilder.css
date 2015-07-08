@@ -620,6 +620,11 @@
 .tms-icon-sort-up:before 	{ content: "\e004"; }
 .tms-icon-sort-down:before 	{ content: "\e005"; }
 .tms-icon-search:before 	{ content: "\e02d"; }
+.tms-icon-remove:before { content: "\e01a"; }
+.tms-icon-office:before { content: "\e001"; }
+.tms-icon-home:before { content: "\e000"; }
+.tms-icon-iphone:before { content: "\e012";}
+.tms-icon-print:before { content: "\e02a";}
 
 
 /**
@@ -637,3 +642,4 @@
 .clickable {
 	cursor: pointer;
 }
+
