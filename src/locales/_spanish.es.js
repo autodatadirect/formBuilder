@@ -1,18 +1,49 @@
 /**
- * Localization support additions
+ * Localization support
  *
- * Supported
- * --------------
- * en = English
- * es = Spanish
+ * Language: Spanish
+ * Code: 'es'
+ *
+ * This is included by default
  */
 
 (function($){
 	'use strict';
-	
+
+	var code = 'es',
+		lang;
+
 	/**
-	 * Datepicker Spanish support
+	 * Make sure language structure is setup
 	 */
+	if(!window.util) {
+		window.util = {};
+	}
+
+	lang = window.util.lang;
+
+	if(!lang) {
+		lang = window.util.lang = {};
+	}
+	if(!lang.locales) {
+		lang.locales = {};
+	}
+	if(!lang.locales[code]) {
+		lang.locales[code] = {};
+	}
+
+	/**
+	 * Define formBuilder language
+	 */
+	$.extend(true, lang.locales[code], {
+		// TODO
+	});
+
+
+	/**
+	 * Extension language support
+	 */
+	// Datepicker
 	$.fn.datepicker.dates.es = {
 		days: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
 		daysShort: ['Dom', 'Lun', 'Mar', 'Mi&eacute;', 'Juv', 'Vie', 'S&aacute;b'],
@@ -23,5 +54,5 @@
 		clear: "Borre",
 		rtl: false
 	};
-	
+
 })(jQuery);

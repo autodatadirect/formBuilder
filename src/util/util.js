@@ -6,12 +6,14 @@
 
 /*global util:true */
 
-if(typeof(window.util) === 'undefined') {
-	window.util = {};
-}
+
 
 (function($) {
 	"use strict";
+
+	if(typeof(window.util) === 'undefined') {
+		window.util = {};
+	}
 
 	/*
 	 * If console is not defined build a mock console to avoid script errors in production
@@ -50,22 +52,39 @@ if(typeof(window.util) === 'undefined') {
 
 
 
-	/*
-	 * supported language codes
+	/**
+	 * Language Support Setup
 	 */
-	var langCodes = {
-		'en': 'English',
-		'es': 'Español',
-		'fr': 'Français'
-	};
 	
 	if(typeof(util.lang) === 'undefined') {
 		util.lang = {};
 	}
-	
-	if(typeof(util.lang.code) === 'undefined') {
-		util.lang.code = 'en'; //default
+
+	// TODO: Make this actually change everything in the code
+	if(typeof(util.lang.setLanguage) === 'undefined') {
+		util.lang.setLanguage = function(code) {
+			var lang = util.lang;
+
+			if(!code || !lang.locales[code]) {
+				// Default to english
+				code = 'en';
+			}
+
+			if(!lang.dict) {
+				// Initialize the dictonary
+				lang.dict = {};
+			} 
+
+			// Override and/or add the words into the dictionary
+			$.extend(true, lang.dict, lang.locales[code]);
+
+			// Update the language code
+			lang.code = code;
+		};
 	}
+
+	// Set language (english by default)
+	util.lang.setLanguage();
 
 	/*
 	 * Retrieve from a namespace given the dot-notated key

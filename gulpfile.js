@@ -103,6 +103,7 @@ gulp.task('copy:assets', ['clean'], function(){
 
 gulp.task('build', ['lint', 'clean', 'copy:assets'], function(){
 	return gulp.src([
+			dirs.src + '/locales/_*.js', // only select locales
 			dirs.src + '/util/**/*.js',
 			dirs.src + '/plugins/**/*.js',
 			dirs.src + '/widgets/**/*.js',
