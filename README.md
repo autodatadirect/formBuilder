@@ -166,6 +166,18 @@ Instead of using a normal select tag, you can use an *input* tag with **data-typ
 </form>
 ```
 
+
+##Array Fields
+Array fields can be used in formBuilder to allow variable amounts, depending on the user's decisions, of the same input-field-group to be submitted.
+* The main div must have a name attribute.
+* Extra input-field-groups are added dynamically if the user chooses to press a '+' addon at the bottom of the page that will allow them to add one. 
+* The input-field-groups can be reordered using the addon that is to the left of the field identified by '::' The user only needs to drag and drop the icon to its' desired location.
+* The input-field-groups can be deleted from the array field by clicking on the right-side addon that is identified by a trash can logo. 
+
+A message that will be displayed next to the add '+' button can also be added. This can be done by including a data-addmessage attribute when building the array field and setting the address equal to the message that you wish to display.
+
+Array Fields can also have labels like other fields. 
+
 ##Handling Validation Errors
 Form field inputs are validated using regular expressions. 
 The data-type should be set in order for the input to be validated as correct.

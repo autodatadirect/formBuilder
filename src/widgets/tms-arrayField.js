@@ -1,9 +1,64 @@
+/**
+ * Array Field Widget.
+ *
+ * - We may want to put this in formBuilder-os
+ * - May require css from dyn
+ *
+ * Attribute Settings:
+ * data-addmessage="Some message"	- Message next to the '+' button
+ * data-sub-widget="widgetName"		- Name of jQuery widget to be used as the items
+ */
+/*global util:true */
 (function($){
+	'use strict';
+	
 	var arrayFieldId = 0;
 	var nextArrayFieldId = function () {
 		return arrayFieldId++;
 	};
-	$.widget("add123.arrayField", {
+
+	// Localization
+	if(!util.lang.remove) {
+		switch(util.lang.code) {
+			case 'es': util.lang.remove = 'Quitar'; break;
+
+			//add more lang code translations here
+
+			default: //'en'
+				util.lang.remove = 'Remove'; 
+				break;
+		}
+	}
+
+
+	$.widget("tms.arrayField", {
+		_arrayFieldTemplate: 
+			'<div class="array-field">' + 
+				'<div class="items"><div class="items-content"></div></div>' + 
+				'<div class="input-field">' + 
+					'<div class="field-items">' + 
+						'<span class="first field-item addon clickable array-field-add noselect"><a href="#">+</a></span>' + 
+						'<span class="field-item array-field-add-message"></span>' + 
+					'</div>' + 
+				'</div>' + 
+			'</div>',
+
+		_arrayFieldItemTemplate:
+			'<div class="input-field-group array-field-item">' +
+				'<div class="input-field">' +
+					'<div class="field-items">' +
+						'<span class="first field-item addon clickable sort-handle noselect" style="width:8px;">::</span>' +
+					'</div>' +
+				'</div>' +
+				'<span class="sub-field"></span>' +
+				'<div class="input-field">' +
+					'<div class="field-items">' +
+						'<span class="field-item addon clickable array-field-delete">' +
+							'<span class="tms-icon tms-icon-remove" title="'+util.lang.remove+'"></span>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
+			'</div>', 
 
 		_create: function(){
 			var self = this,
@@ -13,7 +68,7 @@
 
 			self.id = nextArrayFieldId();
 
-			e.html(util.tmpl('array-field-tmpl'));
+			e.html(self._arrayFieldTemplate);
 
 			if(e.attr('data-addmessage')){
 				e.find('.array-field-add-message').text(e.attr('data-addmessage'));
@@ -25,7 +80,6 @@
 			//CDH 2013-12-05 removed this during the rafactor needed for waypoints
 			//self.data = [];
 			//self.draw();
-
 
 
 			e.on('click', '.array-field-add, .array-field-add-message', function (ev) {
@@ -51,6 +105,8 @@
 			self.itemsContent.sortable({
 				axis: "y",
 				handle: '.sort-handle',
+				containment: self.itemsContent,
+				tolerance: 'pointer',
 				stop: function () {
 					self._checkDirty();
 				}
@@ -86,9 +142,14 @@
 			});
 		},
 
+		getId: function(){
+			return this.id;
+		},
+
 		_handleAddButtonClick: function () {
 			var self = this;
 			if(self._trigger('beforeaddnewitem')){
+				//default can be prevented
 				self.addItem();
 			}
 		},
@@ -129,13 +190,6 @@
 
 		isDirty: function () {
 			return this.dirty;
-		},
-
-		/*
-		 * convert the data object into a string for a text field
-		 */
-		renderSummary: function (data) {
-			return data;
 		},
 
 		getFieldInstances: function () {
@@ -216,7 +270,7 @@
 			var self = this,
 				items = self.items,
 				content = self.itemsContent;
-				//debugger;
+
 			self._empty();
 
 			if(!$.isArray(data)){
@@ -236,34 +290,34 @@
 		_empty: function () {
 			var self = this,
 				content = self.itemsContent;
-			content.children().remove();
-			content.empty();
+			content.children().remove(); // calls the destroy on widgets + removed them
+			// content.empty(); //redundant
 		},
 
-		addItem: function (index) {
+		addItem: function (index, item) {
 			var self = this,
-				item = self.drawItem(),
+				itemEl = self.drawItem(item),
 				content = self.itemsContent;
 
-			if(index || index === 0){
-				content.children().eq(index).before(item);
+			if((index || index === 0) && index >= 0){
+				content.children().eq(index).before(itemEl);
 			}else{
 				/*
 				 * if no insert index is defined, just append
 				 */
-				content.append(item);
+				content.append(itemEl);
 			}
 
-			self._trigger('afteradd', null, item);
+			self._trigger('afteradd', null, itemEl);
 
-			return item || null;
+			return itemEl || null;
 		},
 
 		drawItem: function (item) {
 			var self = this,
 				subWidget = self.element.attr('data-sub-widget'),
-				itemView = util.tmpl('array-field-item-tmpl');
-			//debugger;
+				itemView = $(self._arrayFieldItemTemplate);
+
 			if(subWidget) {
 				self._drawWidgetItem(item, itemView, subWidget);
 			}else{
@@ -278,7 +332,10 @@
 
 			self._trigger('beforeadd', null, field);
 			itemView.find('.sub-field').html(field);
-			field.parent().find('input[type!=submit], select, textarea, [data-load-widget-as-field]').inputField().inputField('set', item).addClass('array-field-input-' + self.id);
+			field.parent().find('input[type!=submit], select, textarea, [data-load-widget-as-field]')
+				.inputField()
+				.inputField('set', item)
+				.addClass('array-field-input-' + self.id);
 		},
 
 		_drawWidgetItem: function (item, itemView, subWidget) {
@@ -292,6 +349,16 @@
 
 		subFieldMarkup: function () {
 			return this.subField;
+		},
+
+
+		_destroy: function(){
+			var self = this;
+
+			// Remove everything and put the inital back
+			self._empty(); //destroys the widgets gracefully
+			self.element.empty();
+			self.element.html(self.subField);
 		}
 	});
 })(jQuery);

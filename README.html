@@ -1174,6 +1174,14 @@ form.formBuilder();
     ...
 &lt;/form&gt;
 </code></pre></p>
+<h2 id="array-fields"><a name="user-content-array-fields" href="#array-fields" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Array Fields</h2>
+<p>Array fields can be used in formBuilder to allow variable amounts, depending on the user&rsquo;s decisions, of the same input-field-group to be submitted.<br />
+<em> The main div must have a name attribute.<br />
+</em> Extra input-field-groups are added dynamically if the user chooses to press a &lsquo;+&rsquo; addon at the bottom of the page that will allow them to add one. <br />
+<em> The input-field-groups can be reordered using the addon that is to the left of the field identified by &lsquo;::&rsquo; The user only needs to drag and drop the icon to its&rsquo; desired location.<br />
+</em> The input-field-groups can be deleted from the array field by clicking on the right-side addon that is identified by a trash can logo. </p>
+<p>A message that will be displayed next to the add &lsquo;+&rsquo; button can also be added. This can be done by including a data-addmessage attribute when building the array field and setting the address equal to the message that you wish to display.</p>
+<p>Array Fields can also have labels like other fields. </p>
 <h2 id="handling-validation-errors"><a name="user-content-handling-validation-errors" href="#handling-validation-errors" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Handling Validation Errors</h2>
 <p>Form field inputs are validated using regular expressions. <br />
 The data-type should be set in order for the input to be validated as correct.<br />
