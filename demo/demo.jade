@@ -1,7 +1,7 @@
 doctype html
 html
 	head
-		title jquery.formBuilder.js | Demo 2
+		title jquery.formBuilder.js | Demo
 
 		// ==================== External CSS Dependencies ==================== 
 		// Any jquery-ui theme
@@ -146,7 +146,7 @@ html
 
 	body
 		.container
-			h1 formBuilder Demo 2
+			h1 formBuilder Demo
 			hr
 			.sect(data-title='Base Form')
 				h2 Applying the formBuilder
@@ -418,6 +418,11 @@ html
 									{"value":"Hodor",  "label":"Bran"}
 								]'>
 						//- 
+					p The options in the select may be set with a function
+					.example
+						input#settableSelect(type='text' data-type='select')
+						span Click on the button to cycle the select options.
+							button(type='button' name='toggleSelect') Change Options
 
 				h2 Textarea
 				p No extra attributes are required. Note, pre/post-inputs will not grow with the area.
@@ -951,6 +956,39 @@ html
 				*/
 			};
 
+			/**
+			 * SettableSelect Handling
+			 */
+			var optionSetChanged = false;
+			var sOptionsOne = [
+				{value:"true",	label:"Yes"},
+				{value:"false",	label:"No"},
+				{value:"5",		label:"option 1"},
+				{value:"2",		label:"option 2"},
+				{value:"3",		label:"option 3"},
+				{value:"4",		label:"option 4"},
+				{value:"5",		label:"option 5"},
+				{value:"100",	label:"Some label"},
+				{value:"AAA",	label:"123 Some St."},
+				{value:"BBB",	label:"Some Business Name Inc."},
+				{value:"Hodor",	label:"Bran"}
+			];
+
+			var sOptionsTwo = [
+				{value:"some",	label:"Different Option"},
+				{value:"value",	label:"Different Source"},
+				{value:"here",	label:"Settable with function"},
+			];
+
+			var sts = $('input#settableSelect[data-type="select"]');
+			sts.inputField('getType').setOptions(sOptionsOne);
+			$('button[name="toggleSelect"]').click(function(){
+				sts.inputField('getType')
+					.setOptions(optionSetChanged? sOptionsOne : sOptionsTwo);
+
+				optionSetChanged = !optionSetChanged;
+			});
+
 			formExample.find('button[type="submit"]').submitButton({
 				color: '#FF0000',
 				beforesubmit: function(ev) {
@@ -1004,7 +1042,7 @@ html
 					setTimeout(function(){
 						data.text = data.text.trim();
 						if(data.text) {
-							messages.append('<div class="message"><span class="submitTime">['+moment().format('hh:mm:ss')+']</span><span class="submitText">"'+data.text+'"</span></div>');
+							messages.append('<div class="message"><span class="submitTime">['+moment().format('HH:mm:ss')+']</span><span class="submitText">"'+data.text+'"</span></div>');
 							messages.scrollTop(messages[0].scrollHeight);
 							data.onComplete(true);
 						} else {
