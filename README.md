@@ -178,6 +178,12 @@ A message that will be displayed next to the add '+' button can also be added. T
 
 Array Fields can also have labels like other fields. 
 
+##Text Submitter
+The text submitter is used to submit multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form. The text submitter allows several options to be set including the width, placeholder, rows and how the user wishes to send instructions. 
+
+**submit event** 
+The submit event is fired when the enter key is pressed. This event will pass in an object that is in the format of {text:'What the user types in, onComplete:(callback function'} The onComplete function will reset the text area. This behaves very similarly to something like an instant message. 
+
 ##Handling Validation Errors
 Form field inputs are validated using regular expressions. 
 The data-type should be set in order for the input to be validated as correct.

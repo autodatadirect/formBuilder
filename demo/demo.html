@@ -103,6 +103,39 @@
       	height: 1em;
       	width: 1em;
       }
+      #textSubmitterSubmitBox {
+      	position: relative;
+      	display: block;
+      	margin-bottom: 1em;
+      	padding-left: 1em;
+      	padding-top: 1.7em;
+      	font-size: .8em;
+      	width: 400px;
+      }
+      #textSubmitterSubmitBox .title {
+      	position: absolute;
+      	font-size: 1.2em;
+      	top: 0px;
+      	left: 1em;
+      	font-weight: bold;
+      }
+      #textSubmitterSubmitBox .messages {
+      	overflow-y: scroll;
+      	height: 8.2em;
+      	background-color: #E6E6E6;
+      	padding: .5em;
+      }
+      #textSubmitterSubmitBox .messages .message {
+      	display: block;
+      }
+      #textSubmitterSubmitBox .messages .message .submitTime {
+      	display: inline-block;
+      	padding-right: 5px;
+      	color: gray;
+      }
+      #textSubmitterSubmitBox .messages .message .submitText {
+      	display: inline-block;
+      }
       
     </style>
   </head>
@@ -443,7 +476,18 @@
           	<input type="text" data-type="utext">
           </div>
         </div>
-        
+        <h2>Text Submitter</h2>
+        <p>Text submitter can be used for submitting multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form.</p>
+        <p>Simple example using defaults:</p>
+        <div id="textSubmitterDefault"></div>
+        <p>The width, placeholder, rows, and send instruction options may be set.</p>
+        <div id="textSubmitterOptions"></div>
+        <p>The <b>submit</b> event is fired when a the enter key is pressed. The event passes an object in the format <i>{text:'What the user types in', onComplete: (callback function)}</i>. The onComplete function will reset the textarea. This example has a 200ms submit setTimeout to simulate server lag time. </p>
+        <div id="textSubmitterSubmitBox">
+          <div class="title">Submitted Messages</div>
+          <div class="messages"></div>
+        </div>
+        <div id="textSubmitterSubmit"></div>
       </div>
       <div data-title="Customization" class="sect">
         <h2>Creating Simple Regex Types</h2>
@@ -942,6 +986,40 @@
       });
       
       $('.aClass').hide();
+      
+      
+      /**
+       * testSubmitter setup
+       */
+      $('#textSubmitterStandalone').textSubmitter();
+      $('#textSubmitterDefault').textSubmitter();
+      
+      var messages = $('#textSubmitterSubmitBox .messages');
+      $('#textSubmitterSubmit').textSubmitter({
+      	width: messages.outerWidth() + 15,
+      	rows: 1,
+      	placeholder: 'Type a message!',
+      	ignoreEmptySubmit: true,
+      	submit: function(ev, data){
+      		setTimeout(function(){
+      			data.text = data.text.trim();
+      			if(data.text) {
+      				messages.append('<div class="message"><span class="submitTime">['+moment().format('hh:mm:ss')+']</span><span class="submitText">"'+data.text+'"</span></div>');
+      				messages.scrollTop(messages[0].scrollHeight);
+      				data.onComplete(true);
+      			} else {
+      				data.onComplete(false);
+      			}
+      		}, 200);
+      		
+      	}
+      });
+      $('#textSubmitterOptions').textSubmitter({
+      	width: '600px',
+      	placeholder: 'Some placeholder',
+      	sendInstruction: 'Some sendInstruction',
+      	rows: 2
+      });
       
       // ================= DEMO DISPLAY CODE BELOW ===================
       

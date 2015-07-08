@@ -1182,6 +1182,10 @@ form.formBuilder();
 </em> The input-field-groups can be deleted from the array field by clicking on the right-side addon that is identified by a trash can logo. </p>
 <p>A message that will be displayed next to the add &lsquo;+&rsquo; button can also be added. This can be done by including a data-addmessage attribute when building the array field and setting the address equal to the message that you wish to display.</p>
 <p>Array Fields can also have labels like other fields. </p>
+<h2 id="text-submitter"><a name="user-content-text-submitter" href="#text-submitter" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Text Submitter</h2>
+<p>The text submitter is used to submit multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form. The text submitter allows several options to be set including the width, placeholder, rows and how the user wishes to send instructions. </p>
+<p><strong>submit event</strong> <br />
+The submit event is fired when the enter key is pressed. This event will pass in an object that is in the format of {text:&rsquo;What the user types in, onComplete:(callback function&rsquo;} The onComplete function will reset the text area. This behaves very similarly to something like an instant message. </p>
 <h2 id="handling-validation-errors"><a name="user-content-handling-validation-errors" href="#handling-validation-errors" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Handling Validation Errors</h2>
 <p>Form field inputs are validated using regular expressions. <br />
 The data-type should be set in order for the input to be validated as correct.<br />
