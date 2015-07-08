@@ -673,6 +673,7 @@
         <div class="example">
           <input type="text" data-label="dateTime" data-type="dateTime">
         </div>
+        <div class="example"><div class='dateRange'></div>
       </div>
     </div>
     <!-- Bower JS Dependencies (using CDNs for demo)-->
@@ -686,6 +687,7 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js"></script>
     <script type="text/javascript" src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js"></script>
+    <script type="text/javascript" src="../../dyn/res/js/jquery.plugins.custom/formBuilder/jquery.formBuilder.js"></script>
     <!-- formBuilder Dependencies-->
     <script type="text/javascript" src="../dist/jquery.formBuilder.min.js"></script>
     <!-- Extra for displaying-->
@@ -961,6 +963,8 @@
       });
       
       $('.sect').toggle(false);
+      
+      $('.dateRange').dateRangePicker();
     </script>
   </body>
 </html>

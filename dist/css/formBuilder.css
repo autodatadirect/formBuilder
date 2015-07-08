@@ -637,3 +637,14 @@
 .clickable {
 	cursor: pointer;
 }
+
+/*
+ * date range picker
+ */
+.date-range-picker button {
+	vertical-align: top;
+}
+
+.date-range-picker .range-select {
+	display: inline-block;
+}
