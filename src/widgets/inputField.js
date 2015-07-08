@@ -1067,8 +1067,37 @@
 		}
 	});
 
+	
 
 
+
+	/*
+	 * InputField Types
+	 *
+	 * Stored in $.add123.inputField.types
+	 *
+	 * The context (this) will get set to the context of the type object, use the ui parameter to obtain access to the inputField widget
+	 *
+	 * setUp: add any events, elements, etc.
+	 *
+	 * tearDown: reverse whatever setUp did
+	 *
+	 * converter: used to convert data between "human" and transport formats (e.g. mm/dd/yyyy <-> yyyymmdd)
+	 *
+	 * format: attempt to format the human readable value (e.g. mm/ dd/yyyy -> mm/dd/yyyy, '  foo ' -> 'foo')
+	 *    format is called on before validate
+	 *
+	 * validate: returns an error object on error or undefined on success
+	 * err: {
+	 *   message: '',
+	 *   code: '',
+	 *   description: ''
+	 * }
+	 *
+	 */
+	$.add123.inputField.types = {};
+
+	/* Basic Type Structure
 	$.add123.inputField.types = {
 		setUp: function(ui) {},
 		tearDown: function(ui) {},
@@ -1082,10 +1111,11 @@
 		},
 		validate: function(ui) {
 			return {
-				message: 'Demo Error'
+				message: 'invalid'
 			};
 		}
 	};
+	*/
 
 
 }(jQuery));
