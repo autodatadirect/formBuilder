@@ -16,6 +16,7 @@ var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
+var sass = require('gulp-sass');
 
 var karma = require('karma').server;
 
@@ -73,7 +74,8 @@ var dirs = {
 	distribution: __dirname + '/dist',
 	src: __dirname + '/src',
 	e2eTests: __dirname + '/e2eTests',
-	unitTests: __dirname + '/unitTests'
+	unitTests: __dirname + '/unitTests',
+	sass: __dirname + '/sass'
 };
 
 var date = new Date();
@@ -97,11 +99,25 @@ gulp.task('clean', function(done){
 });
 
 gulp.task('copy:assets', ['clean'], function(){
-	return gulp.src(dirs.assets + '/**')
+	return gulp.src(dirs.assets + '/**/*')
 		.pipe(gulp.dest(outDir));
 });
 
-gulp.task('build', ['lint', 'clean', 'copy:assets'], function(){
+gulp.task('sass', ['clean'], function(){
+	return gulp.src(dirs.sass + '/**/*.scss')
+		.pipe(
+			sass({
+				outputStyle: 'compressed'
+			})
+			.on('error', sass.logError)
+		)
+		.pipe(gulp.dest(outDir + '/css'));
+});
+gulp.task('sass:watch', function(){
+	gulp.watch(dirs.sass + '/**/*.scss', ['sass']);
+});
+
+gulp.task('build', ['lint', 'clean', 'copy:assets', 'sass'], function(){
 	return gulp.src([
 			dirs.src + '/locales/_*.js', // only select locales
 			dirs.src + '/util/**/*.js',
@@ -177,7 +193,8 @@ var startBuildWatch = function(){
 	console.log('Watching for changes to rebuild...');
 	gulp.watch([
 		dirs.src + '/**/*',
-		dirs.assets + '/**/*'
+		dirs.assets + '/**/*',
+		dirs.sass + '/**/**'
 	], ['build']);
 };
 
@@ -193,6 +210,7 @@ gulp.task('autoTest', ['test'], function(){
 	gulp.watch([
 		dirs.src + '/**/*',
 		dirs.assets + '/**/*',
-		dirs.unitTests + '/**/*'
+		dirs.unitTests + '/**/*',
+		dirs.sass + '/**/**'
 	], ['test']);
 });
