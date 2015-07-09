@@ -63,18 +63,17 @@ var argv = require('yargs')
 
 	.alias('b', 'browser')
 	.describe('b','[test] specify browser to use with karma (Chrome/PhantomJS/Firefox)')
-	.default('b', 'PhantomJS')
 
 	.argv;
 
 
 var dirs = {
-	assets: './assets',
-	build: './build',
-	distribution: './dist',
-	src: './src',
-	e2eTests: './e2eTests',
-	unitTests: './unitTests'
+	assets: __dirname + '/assets',
+	build: __dirname + '/build',
+	distribution: __dirname + '/dist',
+	src: __dirname + '/src',
+	e2eTests: __dirname + '/e2eTests',
+	unitTests: __dirname + '/unitTests'
 };
 
 var date = new Date();
@@ -104,6 +103,7 @@ gulp.task('copy:assets', ['clean'], function(){
 
 gulp.task('build', ['lint', 'clean', 'copy:assets'], function(){
 	return gulp.src([
+			dirs.src + '/locales/_*.js', // only select locales
 			dirs.src + '/util/**/*.js',
 			dirs.src + '/plugins/**/*.js',
 			dirs.src + '/widgets/**/*.js',
@@ -129,17 +129,48 @@ gulp.task('refreshTester', function(done){
 
 gulp.task('test',['build'], function(done){
 	var reporters = ['progress'];
+	var browsers = [
+		'PhantomJS',
+		'Chrome',
+		'Firefox'
+	];
+	var karmaOptions;
 
 	if(argv.nice) {
 		reporters.push('html');
 	}
 
-	karma.start({
-		configFile: __dirname + '/karma.conf.js',
+	if(process.env.TRAVIS) {
+		// Switch to travis-ci specific browsers
+		browsers[1] = 'Chrome_travis_ci'; 
+	}
+
+	karmaOptions = {
+		configFile: dirs.unitTests + '/karma.conf.js',
 		singleRun: !argv.keepalive,
 		reporters: reporters,
-		browsers: [argv.browser]
-	}, done);
+		browsers: browsers
+	};
+
+
+	if(argv.browser && browsers.indexOf(argv.browser) !== -1) {
+		// Just do the one browser
+		karmaOptions.browsers = [argv.browser];
+		karma.start(karmaOptions, done);
+	} else {
+		// Do all browsers in a chain (JS events mess up when done asynchronously)
+		karmaOptions.browsers = [browsers[0]];
+		karma.start(karmaOptions, function(){
+			karmaOptions.browsers = [browsers[1]];
+			karma.start(karmaOptions, function(){
+				karmaOptions.browsers = [browsers[2]];
+				karma.start(karmaOptions, function(){
+					done();
+				});
+			});
+		});
+	}
+
 });
 
 var startBuildWatch = function(){

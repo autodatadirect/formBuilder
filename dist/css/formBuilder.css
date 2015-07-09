@@ -620,6 +620,11 @@
 .tms-icon-sort-up:before 	{ content: "\e004"; }
 .tms-icon-sort-down:before 	{ content: "\e005"; }
 .tms-icon-search:before 	{ content: "\e02d"; }
+.tms-icon-remove:before { content: "\e01a"; }
+.tms-icon-office:before { content: "\e001"; }
+.tms-icon-home:before { content: "\e000"; }
+.tms-icon-iphone:before { content: "\e012";}
+.tms-icon-print:before { content: "\e02a";}
 
 
 /**
@@ -647,4 +652,73 @@
 
 .date-range-picker .range-select {
 	display: inline-block;
+}
+
+
+/*
+ * array field widget
+ */
+
+.array-field-add a {
+	color:#444;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.array-field .input-field .addon.sort-handle {
+	cursor: row-resize;
+}
+
+.array-field-item {
+	padding-bottom: 5px;
+}
+
+.array-field-delete {
+	width:8px;
+	color:#bbb;
+}
+
+.array-field-item:hover .array-field-delete {
+	width:8px;
+	color:#555;
+}
+
+.array-field-delete .tms-icon {
+	margin-left:-3px;
+	text-shadow: none;
+}
+
+.array-field-add-message.field-item {
+	border:0;
+	vertical-align: middle;
+	margin-left:0.5em;
+	cursor: pointer;
+}
+
+.array-field-add-message.field-item:hover {
+	text-decoration: underline;
+}
+
+.array-field-item.include-ticket-header {
+	position: relative;
+	padding-top: 18px;
+}
+
+.array-field-item .ticket-header {
+	position: absolute;
+	top: -2px;
+	font-size: 14px;
+	left: 0;
+	color:#848484;
+}
+
+/**
+ * tms.textSubmitter widget
+ */
+.text-submitter .send-instruction {
+	width: 100%;
+	text-align: right;
+	font-size: 0.8em;
+	margin-top: -3px;
+	cursor: default;
 }

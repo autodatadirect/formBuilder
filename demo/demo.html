@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>jquery.formBuilder.js | Demo 2</title>
+    <title>jquery.formBuilder.js | Demo</title>
     <!-- ==================== External CSS Dependencies ==================== -->
     <!-- Any jquery-ui theme-->
     <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css">
@@ -103,12 +103,45 @@
       	height: 1em;
       	width: 1em;
       }
+      #textSubmitterSubmitBox {
+      	position: relative;
+      	display: block;
+      	margin-bottom: 1em;
+      	padding-left: 1em;
+      	padding-top: 1.7em;
+      	font-size: .8em;
+      	width: 400px;
+      }
+      #textSubmitterSubmitBox .title {
+      	position: absolute;
+      	font-size: 1.2em;
+      	top: 0px;
+      	left: 1em;
+      	font-weight: bold;
+      }
+      #textSubmitterSubmitBox .messages {
+      	overflow-y: scroll;
+      	height: 8.2em;
+      	background-color: #E6E6E6;
+      	padding: .5em;
+      }
+      #textSubmitterSubmitBox .messages .message {
+      	display: block;
+      }
+      #textSubmitterSubmitBox .messages .message .submitTime {
+      	display: inline-block;
+      	padding-right: 5px;
+      	color: gray;
+      }
+      #textSubmitterSubmitBox .messages .message .submitText {
+      	display: inline-block;
+      }
       
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>formBuilder Demo 2</h1>
+      <h1>formBuilder Demo</h1>
       <hr>
       <div data-title="Base Form" class="sect">
         <h2>Applying the formBuilder</h2>
@@ -276,6 +309,9 @@
             <input type="text" data-label="no data-type"><span>No specified data type, will not throw errors for any input. </span>
           </div>
           <div class="example">
+            <input type="text" data-label="tmsFullname" data-type="tmsFullname"><span>Extension of <b>utext</b>. Requires two names separated by a space</span>
+          </div>
+          <div class="example">
             <input type="text" data-label="utext" data-type="utext"><span>For uppercase text. If a user types in lowercase text, it is automatically converted to uppercase.</span>
           </div>
           <div class="example">
@@ -306,7 +342,10 @@
             <input type="text" data-type="money" data-min-amount="10.00" data-max-amount="100.00"><span>Max and min amounts for money can be set using the <b>data-max-amount</b> and/or the <b>data-min-amount</b>. An error message will be displayed if too large or too small an amount is entered.</span>
           </div>
           <div class="example">
-            <input type="text" data-label="phone" data-type="phone"><span>For entering US phone numbers. </span>
+            <input type="text" data-label="phone" data-type="phone"><span>For entering US phone numbers.</span>
+          </div>
+          <div class="example">
+            <input type="text" data-label="tmsPhone" data-type="tmsPhone"><span>Extension of <b>phone</b>. Allows user to choose phone type</span>
           </div>
           <div class="example">
             <input type="text" data-label="date" data-type="date"><span>For entering dates in the 'MM/DD/YYYY' format. A user may manually type the date or click the calendar icon to reveal a jquery ui popup calendar. This icon is inside appended to the right of the field with a weight of 0. </span>
@@ -320,6 +359,9 @@
           <div class="example">
             <input type="text" data-label="display" data-type="display" value="Some value">
             <p> <span>For displaying uneditable values. Displays value attribute where the input field would be. Displayed as html. </span></p>
+          </div>
+          <div class="example">
+            <input type="text" data-label="tmsQuantityUnit" data-type="tmsQuantityUnit"><span>Autocomplete for common units. Any text can be entered, it just suggests some.</span>
           </div>
         </p>
         <h2>Codes</h2>
@@ -378,6 +420,11 @@
               	]'>
             </div>
           </p>
+          <p>The options in the select may be set with a function</p>
+          <div class="example">
+            <input id="settableSelect" type="text" data-type="select"><span>Click on the button to cycle the select options.
+              <button type="button" name="toggleSelect">Change Options</button></span>
+          </div>
         </p>
         <h2>Textarea</h2>
         <p>No extra attributes are required. Note, pre/post-inputs will not grow with the area.
@@ -385,6 +432,67 @@
             <textarea rows="3" data-label="TextArea"></textarea>
           </div>
         </p>
+        <h2>Array Field</h2>
+        <p>You can use array fields in a formBuilder form to allow variable amounts of the same input-field-group to be submitted.
+          <ul>
+            <li>Items can be added to the array with the bottom '+' addon.</li>
+            <li>Items can be reordered with the left '::' addon.</li>
+            <li>Items can be removed from the arrray with the right addon icon.</li>
+            <li>The main div must have a name attribute</li>
+          </ul>
+        </p>
+        <p>This is a basic example of an arrayField of an input-field-group containing a utext input.</p>
+        <div class="example">
+          <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField">
+            <input type="text" data-type="utext" data-placeholder="a utext input">
+          </div>
+        </div>
+        <div data-mode="html" class="code">
+          <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField">
+          	<input type="text" data-type="utext" data-placeholder="a utext input">
+          </div>
+        </div>
+        <p>By adding more inputs to the arrayField div, you add more inputs to the input-field-group. (this might not actually work)</p>
+        <div class="example">
+          <div name="arrayFieldExampleMultiple" data-load-widget-as-field="arrayField">
+            <input type="text" data-type="utext" data-placeholder="a utext input">
+            <input type="text" data-type="date">
+          </div>
+        </div>
+        <p>You can add a message next to the add button using the <b>data-addmessage</b> attribute.</p>
+        <div class="example">
+          <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
+            <input type="text" data-type="utext">
+          </div>
+        </div>
+        <div data-mode="html" class="code">
+          <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
+          	<input type="text" data-type="utext">
+          </div>
+        </div>
+        <p>ArrayFields can have labels like other fields</p>
+        <div class="example">
+          <div name="arrayFieldExampleLabel" data-load-widget-as-field="arrayField" data-label="Some label">
+            <input name="someInput" type="text" data-type="utext">
+          </div>
+        </div>
+        <div data-mode="html" class="code">
+          <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-label="Some label">
+          	<input type="text" data-type="utext">
+          </div>
+        </div>
+        <h2>Text Submitter</h2>
+        <p>Text submitter can be used for submitting multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form.</p>
+        <p>Simple example using defaults:</p>
+        <div id="textSubmitterDefault"></div>
+        <p>The width, placeholder, rows, and send instruction options may be set.</p>
+        <div id="textSubmitterOptions"></div>
+        <p>The <b>submit</b> event is fired when a the enter key is pressed. The event passes an object in the format <i>{text:'What the user types in', onComplete: (callback function)}</i>. The onComplete function will reset the textarea. This example has a 200ms submit setTimeout to simulate server lag time. </p>
+        <div id="textSubmitterSubmitBox">
+          <div class="title">Submitted Messages</div>
+          <div class="messages"></div>
+        </div>
+        <div id="textSubmitterSubmit"></div>
       </div>
       <div data-title="Customization" class="sect">
         <h2>Creating Simple Regex Types</h2>
@@ -850,6 +958,39 @@
       	*/
       };
       
+      /**
+       * SettableSelect Handling
+       */
+      var optionSetChanged = false;
+      var sOptionsOne = [
+      	{value:"true",	label:"Yes"},
+      	{value:"false",	label:"No"},
+      	{value:"5",		label:"option 1"},
+      	{value:"2",		label:"option 2"},
+      	{value:"3",		label:"option 3"},
+      	{value:"4",		label:"option 4"},
+      	{value:"5",		label:"option 5"},
+      	{value:"100",	label:"Some label"},
+      	{value:"AAA",	label:"123 Some St."},
+      	{value:"BBB",	label:"Some Business Name Inc."},
+      	{value:"Hodor",	label:"Bran"}
+      ];
+      
+      var sOptionsTwo = [
+      	{value:"some",	label:"Different Option"},
+      	{value:"value",	label:"Different Source"},
+      	{value:"here",	label:"Settable with function"},
+      ];
+      
+      var sts = $('input#settableSelect[data-type="select"]');
+      sts.inputField('getType').setOptions(sOptionsOne);
+      $('button[name="toggleSelect"]').click(function(){
+      	sts.inputField('getType')
+      		.setOptions(optionSetChanged? sOptionsOne : sOptionsTwo);
+      
+      	optionSetChanged = !optionSetChanged;
+      });
+      
       formExample.find('button[type="submit"]').submitButton({
       	color: '#FF0000',
       	beforesubmit: function(ev) {
@@ -885,6 +1026,40 @@
       });
       
       $('.aClass').hide();
+      
+      
+      /**
+       * testSubmitter setup
+       */
+      $('#textSubmitterStandalone').textSubmitter();
+      $('#textSubmitterDefault').textSubmitter();
+      
+      var messages = $('#textSubmitterSubmitBox .messages');
+      $('#textSubmitterSubmit').textSubmitter({
+      	width: messages.outerWidth() + 15,
+      	rows: 1,
+      	placeholder: 'Type a message!',
+      	ignoreEmptySubmit: true,
+      	submit: function(ev, data){
+      		setTimeout(function(){
+      			data.text = data.text.trim();
+      			if(data.text) {
+      				messages.append('<div class="message"><span class="submitTime">['+moment().format('HH:mm:ss')+']</span><span class="submitText">"'+data.text+'"</span></div>');
+      				messages.scrollTop(messages[0].scrollHeight);
+      				data.onComplete(true);
+      			} else {
+      				data.onComplete(false);
+      			}
+      		}, 200);
+      		
+      	}
+      });
+      $('#textSubmitterOptions').textSubmitter({
+      	width: '600px',
+      	placeholder: 'Some placeholder',
+      	sendInstruction: 'Some sendInstruction',
+      	rows: 2
+      });
       
       // ================= DEMO DISPLAY CODE BELOW ===================
       

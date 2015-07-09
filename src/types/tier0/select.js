@@ -678,8 +678,12 @@
 
 		update: function () {
 			var self = this,
-				e =self.element;
+				e = self.element;
 
+			// Clear any selected option 
+			self.clear(true);
+
+			// Setup the new options 
 			self.loaded = $.Deferred();
 			self.load().done(function (source) {
 				if (!source) {
@@ -752,6 +756,13 @@
 			e.val('');
 		},
 
+		setOptions: function(options) {
+			var self = this;
+
+			self.optionsMap = options;
+			self.optionsSetDynamically = true;
+			self.update();
+		},
 		/*
 		 * returns a sorted array of objects that have value and label properties
 		 */
@@ -759,7 +770,16 @@
 			var self = this,
 				e = self.element,
 				source = [],
-				dataOptions = e.attr('data-options');
+				dataOptions;
+
+			if(self.optionsSetDynamically) {
+				// Options already loaded from setOptions
+				self.optionsSetDynamically = false;
+				return $.when(self.optionsMap);
+			}
+
+			// Load options from DOM
+			dataOptions = e.attr('data-options');
 
 			if(dataOptions) {
 				source = $.parseJSON(dataOptions);

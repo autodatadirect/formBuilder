@@ -1,5 +1,7 @@
 formBuilder
 ===========
+[![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master)](https://travis-ci.org/autodatadirect/formBuilder)
+
 ##Setup
 ###Dependencies
 ####CSS
@@ -85,6 +87,7 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
 
 ####Normal Form Types:
 * **text** - *For normal text with no extra formatting or validation.* Default data-type.
+* **tmsFullname** - An extension of the utext data type. All input is converted into all-caps. Requires two or more names that are separated by a space. Allows commas, hyphens, and apostrophes but only one comma or hyphen and up to three apostrophes. Does not allow any other symbol. Does not accept integers.
 * **utext** - *For uppercase text.* If a user types in lowercase text, it is automatically converted to uppercase.
 * **integer** - *For digits [0-9].* If a user types in a non-digit, the form field will flash and the input will be ignored.
 * **number** - *For integers or decimal numbers [[0-9].].* If multiple decimal points are added the field is marked as invalid. If the user types in an invalid character, the field will flash and the input will be ignored.
@@ -93,6 +96,7 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
 * **zip** - *For entering 5 digit or 9 digit (with or without '-') zip codes.* If there are multiple dashes, a dash in an incorrect position, or an incorrect number of digits the field is marked as invalid. Allows for [A-Z] input for international zip codes. 
 * **email** - *For email inputs.* The correct format is a user name, then a single '@', then an alphanumeric domain name, then a single '.', then a alphabetic domain extension 2-4 characters in length. If it is an invalid format the field is marked as invalid. If the user enters a special character the field will flash and the input will be ignored.
 * **phone** - *For entering US phone numbers.* Upon blur, the number is converted into the format '234-234-2345x423423' and checked for invalid numbers of digits (7, 10, 10+ are valid). An extension may be added to a local 9 digit number by explicitly adding a single 'x' before the extension.  the Any entered non-digits out of the format are ignored. All digits after the 10th digit are counted as the extension. If there is a preceding '1', it is removed. If a character not in the above format is entered the field will flash and the input will be ignored.
+* **tmsPhone** - An extension of the phone data type. This type allows the user to select the category of phone from a drop down menu on the right side of the input field. They can choose between home, office, work, and fax. Each type of phone has a corresponding icon in the drop down menu.
 * **date** - *For entering dates in the 'MM/DD/YYYY' format.* Input not in that exact format will mark the field as invalid. A user may manually type the date or click the input field to reveal a jquery ui popup calendar.
     - The calender icon can be modified for Spanish speakers by changing util.lang.code to equal 'es'. This will set the popup calandar to display its information in Spanish.
     - The user can use the calendar icon to select a date that will then be entered into the input field. 
@@ -100,7 +104,8 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
     - The attribute 'data-military' can be used to have time set to military time. It must be included in the input setup and be set to true. The time in the dropdown menu will now be set to 24 hour time and will not include AM/PM at the end. The placeholder will also be modified to not display AM/PM and if the user tries to enter AM or PM in the field it will not be allowed by the input filter.  
 * **dateTime** - *For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM* format. Combines the two data types date and time so that they are positioned next to each other on top of a hidden input field.
     - The time field in dateTime can also be modified to military time if desired. 
-* **display** - *For displaying values that are not to be edited.* Displays **value** attribute where the input field would be. If no value is specified, it is a blank area. Displayed as HTML. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25]. 
+* **display** - *For displaying values that are not to be edited.* Displays **value** attribute where the input field would be. If no value is specified, it is a blank area. Displayed as HTML. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25].
+* **tmsQuantityUnit** - Auto-complete for common units. Any text can be entered and if there is text in the options that matches, even partially, what has been typed then it will display that data in a drop down menu.
 * **code** - see [Code Input](#code-input) below
 * **select** - see [Select Input](#select-input) below
 * **feid** - *For entering Federal Employer Identification Number.*
@@ -160,6 +165,24 @@ Instead of using a normal select tag, you can use an *input* tag with **data-typ
     ...
 </form>
 ```
+
+
+##Array Fields
+Array fields can be used in formBuilder to allow variable amounts, depending on the user's decisions, of the same input-field-group to be submitted.
+* The main div must have a name attribute.
+* Extra input-field-groups are added dynamically if the user chooses to press a '+' addon at the bottom of the page that will allow them to add one. 
+* The input-field-groups can be reordered using the addon that is to the left of the field identified by '::' The user only needs to drag and drop the icon to its' desired location.
+* The input-field-groups can be deleted from the array field by clicking on the right-side addon that is identified by a trash can logo. 
+
+A message that will be displayed next to the add '+' button can also be added. This can be done by including a data-addmessage attribute when building the array field and setting the address equal to the message that you wish to display.
+
+Array Fields can also have labels like other fields. 
+
+##Text Submitter
+The text submitter is used to submit multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form. The text submitter allows several options to be set including the width, placeholder, rows and how the user wishes to send instructions. 
+
+**submit event** 
+The submit event is fired when the enter key is pressed. This event will pass in an object that is in the format of {text:'What the user types in, onComplete:(callback function'} The onComplete function will reset the text area. This behaves very similarly to something like an instant message. 
 
 ##Handling Validation Errors
 Form field inputs are validated using regular expressions. 

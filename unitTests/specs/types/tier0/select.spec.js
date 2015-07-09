@@ -26,7 +26,7 @@
 		});
 
  		it('to have an input field with data', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
 			var ifw = input.data('add123InputField');
 			var openIcon = '.tms-icon.tms-icon-sort-up.dropdown-open-icon';
 			var closedIcon = '.tms-icon.tms-icon-sort-down.dropdown-closed-icon';
@@ -53,7 +53,7 @@
 
 		describe('with a close listener', function(){
 			it('that can handle if the escape key is pressed', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 
 				var spy_focus = spyOn($.fn, 'focus').and.callThrough();
@@ -74,7 +74,7 @@
 			});
 
 			it('that can handle when the enter key is pressed', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 
 				var spy_selected = spyOn(ifw.getType(), '_setSelected').and.callThrough();
@@ -93,7 +93,7 @@
 			});
 
 			it('that can handle when a key other than the escape or the enter key are pressed', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 
 				var spy_focus = spyOn($.fn, 'focus').and.callThrough();
@@ -117,7 +117,7 @@
 
 		describe('with a dropdown panel', function(){
 			it('with content', function(){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 				var dropDown = input.parent().eq(0).siblings().eq(0);
 				var dropSearch = dropDown.children().children().eq(0);  
 
@@ -133,7 +133,7 @@
 			});
 
 			it('that can handle a click on an option', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 				var shim = input.siblings().eq(2);
@@ -152,7 +152,7 @@
 			});
 
 			it('that can handle a mouseenter on an option', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 				var option1 = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(1);
@@ -176,7 +176,7 @@
 			});
 
 			it('that can handle a mouseleave on an option', function(done){
-				var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 				var shim = input.siblings().eq(2);
@@ -199,7 +199,7 @@
 		});
 
 		it('so that it will not display an input field in the dropdown if there are less than five values', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var panel = input.parent().eq(0).siblings();
 			var dropDown = input.parent().eq(0).siblings().eq(0);
@@ -212,7 +212,7 @@
 		});
 
 		it('so that it will display an input field in the dropdown if there are more than five values', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var dropDown = input.parent().eq(0).siblings().eq(0);
 			var dropSearch = dropDown.children().children().eq(0); 
@@ -227,7 +227,7 @@
 
 	describe('can detect when an event will be fired on key down', function(){
 		it('when the tab key is pressed (nothing happens, keeping for legacy)', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_focus = spyOn($.fn, 'focus').and.callThrough();
@@ -242,7 +242,7 @@
 		});
 	
 		it('when the escape key is pressed', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
@@ -258,7 +258,7 @@
 		}); 
 
 		it('when the enter key is pressed', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
@@ -275,7 +275,7 @@
 
 
 		it('when the down arrow key is pressed and no option is selected', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -303,7 +303,7 @@
 		}); 
 
 			it('when the down arrow key is pressed and an option is selected', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i;
@@ -340,7 +340,7 @@
 		}); 
 
 		it('when the up arrow key is pressed and no option is selected', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i; 
@@ -377,7 +377,7 @@
 		}); 
 
 		it('when the up arrow key is pressed and an option is selected', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i; 
@@ -415,7 +415,7 @@
 		}); 
 
 		it('when a key code that is less than 32 that has not been previously allowed has been used', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
@@ -434,7 +434,7 @@
 		});
 
 		it('when a key code that is greater than 126 has been used', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
@@ -455,26 +455,30 @@
 	});
 
 	it('can detect when an event will be fired on key up', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone", "filter":"test"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone", "filter":"test"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
+		var typeInstance = ifw.getType();
+		var ev = $.Event("keyup");
 
-		var spy_Op = spyOn(ifw.getType(), '_filterOptions').and.callThrough();
+		var spy_Op = spyOn(typeInstance, '_filterOptions').and.callThrough();
 
 		// keyup event will trigger _onKeyup to have been called 
-		var ev = $.Event("keyup");
-		ifw.getType()._onKeyup(ev);
+		typeInstance._onKeyup(ev);
 
-		expect(spy_Op).toHaveBeenCalled(); // We should expect that self.filterValue = undefiend, and val = ''. So the function should not return
+		// We should expect that self.filterValue = '', and val = ''. So the function should not return
+		expect(spy_Op).not.toHaveBeenCalled(); 
 
-		var ev2 = $.Event("keyup");
-		ifw.getType()._onKeyup(ev2);
+		
+		typeInstance.filter.val('some search');
+		typeInstance._onKeyup(ev);
 
-		expect(spy_Op.calls.count()).toBe(1); // We should expect that _filterOptions will not be called the second time since self.filterValue and val have been set equal to each other 
+		// We should expect that _filterOptions will be called the second time since self.filterValue and val are not equal to each other 
+		expect(spy_Op).toHaveBeenCalled();
 	});
 
 	describe('can handle conversion', function(){
 		it('using its toField and fromField functions', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var param = ifw.getType();
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
@@ -508,7 +512,7 @@
 	});
 
 	it('can open and close dropdown menu on mouseclicks', function(done){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var box = $('<body></body>').children().eq(1);
@@ -554,7 +558,7 @@
 	});
 
 	it('can toggle dropdown menu on mouseclicks', function(done){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 
@@ -599,7 +603,7 @@
 	});
 
 	it('can set its\' status when there is no item', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_rem = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
@@ -614,7 +618,7 @@
 	});
 
 	it('can set its\' status when there is an item', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -644,7 +648,7 @@
 
 	describe('can type a search in the dropdown input field', function(){
 		it('and the correct label will be selected if the correct value is typed in', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var shim = input.parent().children().eq(2);
 			var parameter = ifw.getType();
@@ -690,7 +694,7 @@
 		});
 
 		it('and an incorrect entry will result in the first item being selected, using scroll', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var shim = input.parent().children().eq(2);
 			var parameter = ifw.getType();
@@ -710,7 +714,7 @@
 		});
 
 		it('and the shim will hold the correct value', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var shim = input.parent().children().eq(2);
 			var parameter = ifw.getType();
@@ -724,7 +728,7 @@
 		});
 
 		it('a partial entry will display only relevant labels', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -757,7 +761,7 @@
 	});
 
 	it('can handle when an item has been selected', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
@@ -800,7 +804,7 @@
 	});
 
 	it('can select the first non-empty option', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
@@ -822,7 +826,7 @@
 	});
 
 	it('can clear its status', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_remove = spyOn($.fn, 'removeClass').and.callThrough();
@@ -848,7 +852,7 @@
 	});
 
 	it('can handle when an item that has been selected is not found', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -860,7 +864,7 @@
 	});
 
 	it('can set a default item', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-default = "Cat"/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-default = "Cat"/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -888,7 +892,7 @@
 	}); 
 
 	it('can select the first item if a default item is not set', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
@@ -909,7 +913,7 @@
 			var testForm = $('<form></form>').appendTo(testContainer).formBuilder();
 			var aClass = $('<div class="aClass" style="display: block; height: 1em; width: 1em;">visible</div>').appendTo(testForm);
 			testForm.find(".aClass").hide();
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple", "showClass":"aClass"}]\'/>').appendTo(testForm).inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple", "showClass":"aClass"}]\'/>').appendTo(testForm).inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var shim = input.parent().children().eq(2);
@@ -933,7 +937,7 @@
 		});
 
 		it('and it can handle if there is no showClass variable', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var spy_showHide = spyOn(ifw.getType(), 'showHideCommand').and.callThrough();
@@ -953,7 +957,7 @@
 	}); 
 
 	it('can test if two values are equal to each other', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var spy_equal = spyOn(ifw.getType(), '_equal').and.callThrough();
 
@@ -980,7 +984,7 @@
 	}); 
 
 	it('can set and get its label', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		ifw.getType()._setLabel("Some label");	
@@ -990,7 +994,7 @@
 	}); 
 
 	it('can get its options', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		// Create object to test equality of result 
@@ -1002,7 +1006,7 @@
 	});
 
 	it('can remove invalid data', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 		var i; 
@@ -1021,7 +1025,7 @@
 	});
 
 	it('can remove a selection', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
@@ -1058,7 +1062,7 @@
 
 	describe('has a filter', function(){
 		it('that can handle clicks', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
@@ -1077,7 +1081,7 @@
 		});
 
 		it('that can handle a dirty status', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
@@ -1094,7 +1098,7 @@
 		});
 
 		it('that can handle a clean status', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
@@ -1111,7 +1115,7 @@
 		});
 
 		it('that can filter its\' options', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_work = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
@@ -1131,7 +1135,7 @@
 		});
 
 		it('that can filter its\' options\' work', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -1146,7 +1150,7 @@
 		});
 
 		it('that can filter the item selected', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_item = spyOn(ifw.getType(), '_filterItem').and.callThrough();
@@ -1167,7 +1171,7 @@
 		});
 
 		it('that can check if the item is filtered', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 			var ifw = input.data('add123InputField');
 
 			var result = ifw.getType()._itemShoudBeFiltered('test'); 
@@ -1184,7 +1188,7 @@
 		});
 
 		it('that can be cleared', function(done){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 
 			var spy_remove = spyOn($.fn, 'removeClass').and.callThrough();
@@ -1213,7 +1217,7 @@
 
 	describe('can build an empty option', function(){
 		it('without an empty-label',function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -1230,7 +1234,7 @@
 		});
 
 		it('with an empty-label', function(){
-			var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-empty-label="Test"/>').inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-empty-label="Test"/>').inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -1250,7 +1254,7 @@
 	}); 
 
 	it('can build options', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_empty = spyOn($.fn, 'empty').and.callThrough();
@@ -1273,7 +1277,7 @@
 	}); 
 
 	it('can sort', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_sort = spyOn($.fn, 'sort').and.callThrough();
@@ -1294,7 +1298,7 @@
 	}); 
 
 	it('can scroll', function(done){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}, {"value":"Lion", "label": "Lettuce"},  {"value":"Frida", "label": "Fancy"},  {"value":"Window", "label": "Washer"}, {"value":"Orange", "label": "Oval"},  {"value":"Pineapple", "label": "Penguin"},  {"value":"Goodie", "label": "Gelatin"},  {"value":"King", "label":"Kevin"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}, {"value":"Lion", "label": "Lettuce"},  {"value":"Frida", "label": "Fancy"},  {"value":"Window", "label": "Washer"}, {"value":"Orange", "label": "Oval"},  {"value":"Pineapple", "label": "Penguin"},  {"value":"Goodie", "label": "Gelatin"},  {"value":"King", "label":"Kevin"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var parameter = ifw.getType();
@@ -1338,7 +1342,7 @@
 	});
 
 	it('can open a panel if it is not already visible', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
@@ -1389,7 +1393,7 @@
 	});
 
 	it('can render a label', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var item = {
@@ -1403,7 +1407,7 @@
 	}); 
 
 	it('can render an item', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var result = ifw.getType().renderItem(input);
@@ -1412,7 +1416,7 @@
 	}); 
 
 	it('can close a panel', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
 		var shim = input.parent().children().eq(2);
 		var panel = input.parent().eq(0).siblings();
@@ -1451,7 +1455,7 @@
 	}); 
 
 	it('can be updated', function(done){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var spy_def = spyOn($, 'Deferred').and.callThrough();
@@ -1484,7 +1488,7 @@
 
 		var mainObject = [{value: 'X-Ray', label: 'Xylophone'},{value: 'Cat',label: 'Cucumber'},{value: 'Yak',label: 'Yellow'},{value: 'Book',label: 'Banana'},{value: 'Zoo',label: 'Zingales'},{value: 'Aragorn',label: 'Apple'}];
 
-		var input = $('<input type="text" data-type="select" data-options =\''+JSON.stringify(mainObject)+'\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\''+JSON.stringify(mainObject)+'\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 		var source = []; 
 
@@ -1500,7 +1504,7 @@
 	});
 
 	it('can create a map', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var result = {
@@ -1515,7 +1519,7 @@
 	});
 
 	it('can de-map itself', function(){
-		var input = $('<input type="text" data-type="select" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
 
 		var result = ifw.getType().deMap('test');
@@ -1533,7 +1537,7 @@
 	}); 
 
 	it('can set and get its values', function(){
-		var input = $('<input type="text" data-type="select" data-options=\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="'+typeName+'" data-options=\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();
 		var ifw = input.data('add123InputField');
 
 		ifw.set('test'); 
@@ -1543,5 +1547,78 @@
 		testContainer.empty();
 	});
 
+	describe('can be set dynamically', function(){
+		var sOptionsOne = [
+				{value:"true",	label:"Yes"},
+				{value:"false",	label:"No"},
+				{value:"5",		label:"option 1"},
+				{value:"2",		label:"option 2"},
+				{value:"3",		label:"option 3"},
+				{value:"4",		label:"option 4"},
+				{value:"5",		label:"option 5"},
+				{value:"100",	label:"Some label"},
+				{value:"AAA",	label:"123 Some St."},
+				{value:"BBB",	label:"Some Business Name Inc."},
+				{value:"Hodor",	label:"Bran"}
+			];
 
- }); // End of the first describe
+		var sOptionsTwo = [
+			{value:"some",	label:"Different Option"},
+			{value:"value",	label:"Different Souce"},
+			{value:"here",	label:"Settable with function"}
+		];
+
+		it('can toggle the options that will be displayed', function(){
+			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+			var ifw = input.data('add123InputField');
+			var typeInstance = ifw.getType();
+
+			var first_op = input.parent().siblings().eq(0).children().children().eq(1).children().children().eq(0).text();
+
+			typeInstance.setOptions(sOptionsOne);
+
+			first_op = input.parent().siblings().eq(0).children().children().eq(1).children().children().eq(0).text();
+
+			expect(first_op).toBe('123 Some St.');
+
+
+			typeInstance.setOptions(sOptionsTwo);
+
+			first_op = input.parent().siblings().eq(0).children().children().eq(1).children().children().eq(0).text();
+
+			expect(first_op).toBe('Different Option');
+		});
+
+		it('and the selected option will dissapear when the options are changed', function(done){
+			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
+			var ifw = input.data('add123InputField');
+			var typeInstance = ifw.getType();
+
+			typeInstance.setOptions(sOptionsTwo);
+
+			var second_op = input.parent().siblings().eq(0).children().children().eq(1).children().children().eq(1);
+
+			input.click();
+			pause(triggerWaitTime)
+			.then(function(){
+				second_op.click();
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				expect(typeInstance.shim.text()).toBe('Different Option');
+
+				typeInstance.setOptions(sOptionsOne);
+
+				return pause(triggerWaitTime);
+			})
+			.then(function(){
+				expect(typeInstance.shim.text()).toBe('');
+
+				testContainer.empty();
+				done();
+			});
+		});
+	});
+
+ });

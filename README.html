@@ -1015,6 +1015,7 @@ body .markdown-body
   }
 }
 </style><title>README</title></head><body><article class="markdown-body"><h1 id="formbuilder"><a name="user-content-formbuilder" href="#formbuilder" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>formBuilder</h1>
+<p><a href="https://travis-ci.org/autodatadirect/formBuilder"><img alt="Build Status" src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master" /></a></p>
 <h2 id="setup"><a name="user-content-setup" href="#setup" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Setup</h2>
 <h3 id="dependencies"><a name="user-content-dependencies" href="#dependencies" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Dependencies</h3>
 <h4 id="css"><a name="user-content-css" href="#css" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CSS</h4>
@@ -1038,9 +1039,9 @@ body .markdown-body
 </code></pre></p>
 <h2 id="components"><a name="user-content-components" href="#components" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Components</h2>
 <h3 id="preinputpostinput"><a name="user-content-preinputpostinput" href="#preinputpostinput" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Preinput/Postinput</h3>
-<p><strong>data-preinput</strong> &lt; string &gt;, &lt; html &gt; = &ldquo;Block of text that appears before form field&rdquo;<br />
-<strong>data-postinput</strong> &lt; string &gt;, &lt; html &gt; = &ldquo;Block of text that appears after form field&rdquo;<br />
-    - These attributes can be defined to add a block of text or html directly to the left or the right of any form field <br />
+<p><strong>data-preinput</strong> &lt; string &gt;, &lt; HTML &gt; = &ldquo;Block of text that appears before form field&rdquo;<br />
+<strong>data-postinput</strong> &lt; string &gt;, &lt; HTML &gt; = &ldquo;Block of text that appears after form field&rdquo;<br />
+    - These attributes can be defined to add a block of text or HTML directly to the left or the right of any form field <br />
     - Can use one, the other, or both at the same time </p>
 <h3 id="prefixsuffix"><a name="user-content-prefixsuffix" href="#prefixsuffix" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Prefix/Suffix</h3>
 <p><strong>data-prefix</strong> &lt; string&gt; = &ldquo;text at front of form field&rdquo;<br />
@@ -1054,20 +1055,20 @@ body .markdown-body
     - The max is ignored when set to 0, and is 0 by default.</p>
 <h3 id="placeholder"><a name="user-content-placeholder" href="#placeholder" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Placeholder</h3>
 <p><strong>data-placeholder</strong> &lt; string &gt; = &ldquo;some placeholder text&rdquo;<br />
-    - Attribute will display placeholder text inside of the formfield as long as no input has been entered.<br />
+    - Attribute will display placeholder text inside of the form field as long as no input has been entered.<br />
     - Placeholder text will disappear when text is entered into the field.<br />
     - Note: (legacy support) the attribute <strong>data-empty</strong> performs the same task as data-placeholder and they are set equal to each other </p>
 <h3 id="error"><a name="user-content-error" href="#error" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Error</h3>
 <p><strong>data-error</strong> &lt; boolean &gt; = &ldquo;status of the object&rdquo; <br />
 - Attribute is set to true if there is an error present, otherwise it is reset to false <br />
 <strong>showError</strong> &lt; boolean &gt; = &ldquo;status of error-display&rdquo;<br />
-- Attribute is set to true if an error has occured <em>and</em> a message needs to be displayed, otherwise it is set to false<br />
+- Attribute is set to true if an error has occurred <em>and</em> a message needs to be displayed, otherwise it is set to false<br />
     * setError (&lt; object &gt; err) Passes in an error message and appends it to the input layer, as an error-overlay class <br />
     * flashError (&lt; int &gt; numberOfTimes) Flashes error for a certain &lsquo;numberOfTimes&rsquo; that is passed into the function in order to get the user&rsquo;s attention<br />
     * clearError () resets the value of data-error to false </p>
 <h3 id="focus"><a name="user-content-focus" href="#focus" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Focus</h3>
 <p><strong>data-focus</strong> &lt; boolean &gt; = &ldquo;status of the object&rdquo;<br />
-- Attribute is set to true on keydown, otherwise it is set to false. Focuses the formfield when it is selected. <br />
+- Attribute is set to true on keydown, otherwise it is set to false. Focuses the form field when it is selected. <br />
 * _keyDownNavigate (&lt; object &gt; ev) Called when a key is pressed, sets focus and selection accordingly. </p>
 <h3 id="disable"><a name="user-content-disable" href="#disable" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Disable</h3>
 <p><strong>data-disable</strong> &lt; boolean &gt; = &ldquo;status of the object&rdquo; <br />
@@ -1093,24 +1094,32 @@ body .markdown-body
 <p>On any <code>&lt;input&gt;</code> tag you can add a <strong>data-type=&rdquo;<em>typeName</em>&ldquo;</strong> attribute to specify an input type that formBuilder will handle for input validation.</p>
 <h4 id="normal-form-types"><a name="user-content-normal-form-types" href="#normal-form-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Normal Form Types:</h4>
 <ul>
-<li><strong>text</strong> - <em>For nomal text with no extra formatting or validation.</em> Default data-type.</li>
+<li><strong>text</strong> - <em>For normal text with no extra formatting or validation.</em> Default data-type.</li>
+<li><strong>tmsFullname</strong> - An extension of the utext data type. All input is converted into all-caps. Requires two or more names that are separated by a space. Allows commas, hyphens, and apostrophes but only one comma or hyphen and up to three apostrophes. Does not allow any other symbol. Does not accept integers.</li>
 <li><strong>utext</strong> - <em>For uppercase text.</em> If a user types in lowercase text, it is automatically converted to uppercase.</li>
 <li><strong>integer</strong> - <em>For digits [0-9].</em> If a user types in a non-digit, the form field will flash and the input will be ignored.</li>
 <li><strong>number</strong> - <em>For integers or decimal numbers [[0-9].].</em> If multiple decimal points are added the field is marked as invalid. If the user types in an invalid character, the field will flash and the input will be ignored.</li>
-<li><strong>money</strong> - <em>For currency inputs.</em> Similar to the number field, but will automatically round to two decimal places on blur. In addition, a box with a &lsquo;$&rsquo; is prepended to the left of the field with a weight of -100. It is also possible to set a data-currency-symbol attribute in order to be able to have international currency symbols appear in front of the input field instead of a dollar sign. </li>
+<li><strong>money</strong> - <em>For currency inputs.</em> Similar to the number field, but will automatically round to two decimal places on blur. In addition, a box with a &lsquo;$&rsquo; is prepended to the left of the field with a weight of -100. It is also possible to set a data-currency-symbol attribute in order to be able to have international currency symbols appear in front of the input field instead of a dollar sign. To not show any currency symbol, set the data-show-symbol attribute to false. There is also an optional <strong>data-max-amount</strong> and <strong>data-min-amount</strong> attribute that can be set that will display an error message if the user enters an amount that is greater than the max amount or smaller than the min amount. If these attributes are not set then any positive amount can be entered. </li>
 <li><strong>state</strong> - <em>For state abbreviations [A-Z].</em> Must have two characters. If only a single character is entered, the field is marked as invalid. If a user enters a non-character, the field will flash and the input will be ignored.</li>
 <li><strong>zip</strong> - <em>For entering 5 digit or 9 digit (with or without &lsquo;-&lsquo;) zip codes.</em> If there are multiple dashes, a dash in an incorrect position, or an incorrect number of digits the field is marked as invalid. Allows for [A-Z] input for international zip codes. </li>
-<li><strong>email</strong> - <em>For email inputs.</em> The correct format is a username, then a single &lsquo;@&rsquo;, then an alphanumeric domain name, then a single &lsquo;.&rsquo;, then a alphabetic domain extension 2-4 characters in length. If it is an invalid format the field is marked as invalid. If the user enters a special character the field will flash and the input will be ignored.</li>
+<li><strong>email</strong> - <em>For email inputs.</em> The correct format is a user name, then a single &lsquo;@&rsquo;, then an alphanumeric domain name, then a single &lsquo;.&rsquo;, then a alphabetic domain extension 2-4 characters in length. If it is an invalid format the field is marked as invalid. If the user enters a special character the field will flash and the input will be ignored.</li>
 <li><strong>phone</strong> - <em>For entering US phone numbers.</em> Upon blur, the number is converted into the format &lsquo;234-234-2345x423423&rsquo; and checked for invalid numbers of digits (7, 10, 10+ are valid). An extension may be added to a local 9 digit number by explicitly adding a single &lsquo;x&rsquo; before the extension.  the Any entered non-digits out of the format are ignored. All digits after the 10th digit are counted as the extension. If there is a preceding &lsquo;1&rsquo;, it is removed. If a character not in the above format is entered the field will flash and the input will be ignored.</li>
-<li><strong>date</strong> - <em>For entering dates in the &lsquo;MM/DD/YYYY&rsquo; format.</em> Input not in that exact format will mark the field as invalid. A user may manually type the date or click the calendar icon to reveal a jquery ui popup calendar. This icon is inside appended to the right of the field with a weight of 0.<ul>
+<li><strong>tmsPhone</strong> - An extension of the phone data type. This type allows the user to select the category of phone from a drop down menu on the right side of the input field. They can choose between home, office, work, and fax. Each type of phone has a corresponding icon in the drop down menu.</li>
+<li><strong>date</strong> - <em>For entering dates in the &lsquo;MM/DD/YYYY&rsquo; format.</em> Input not in that exact format will mark the field as invalid. A user may manually type the date or click the input field to reveal a jquery ui popup calendar.<ul>
 <li>The calender icon can be modified for Spanish speakers by changing util.lang.code to equal &lsquo;es&rsquo;. This will set the popup calandar to display its information in Spanish.</li>
+<li>The user can use the calendar icon to select a date that will then be entered into the input field. </li>
 </ul>
 </li>
-<li><strong>dateTime</strong> - <em>For entering dates and times in the &lsquo;MM/DD/YYYY h:MM AM/PM</em> format. Works the same way as date, but also checks for a valid time. The calendar picker will set the time to noon.<ul>
-<li>The attribute &lsquo;data-hours&rsquo; can be used to have date-time be set to military time. It just must be included and can be set to any arbitrary value, as long at the form field is built with that attribtue then the time will be in military format. The time will now be set to 24 hour time and will not include AM/PM signifiers at the end </li>
+<li><strong>time</strong> - <em>For entering time in the &lsquo;H:MMam/pm&rsquo; format.</em> Input not in that exact format will mark the field as invalid. A user may manually type the time or click the input field to reveal a jquery dropdown menu for time. <ul>
+<li>The attribute &lsquo;data-military&rsquo; can be used to have time set to military time. It must be included in the input setup and be set to true. The time in the dropdown menu will now be set to 24 hour time and will not include AM/PM at the end. The placeholder will also be modified to not display AM/PM and if the user tries to enter AM or PM in the field it will not be allowed by the input filter.  </li>
 </ul>
 </li>
-<li><strong>display</strong> - <em>For displaying uneditable values.</em> Displays <strong>value</strong> attribute where the input field would be. If no value is specified, it is a blank area. Displayed as html. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25]. </li>
+<li><strong>dateTime</strong> - <em>For entering dates and times in the &lsquo;MM/DD/YYYY h:MM AM/PM</em> format. Combines the two data types date and time so that they are positioned next to each other on top of a hidden input field.<ul>
+<li>The time field in dateTime can also be modified to military time if desired. </li>
+</ul>
+</li>
+<li><strong>display</strong> - <em>For displaying values that are not to be edited.</em> Displays <strong>value</strong> attribute where the input field would be. If no value is specified, it is a blank area. Displayed as HTML. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25].</li>
+<li><strong>tmsQuantityUnit</strong> - Auto-complete for common units. Any text can be entered and if there is text in the options that matches, even partially, what has been typed then it will display that data in a drop down menu.</li>
 <li><strong>code</strong> - see <a href="#code-input">Code Input</a> below</li>
 <li><strong>select</strong> - see <a href="#select-input">Select Input</a> below</li>
 <li><strong>feid</strong> - <em>For entering Federal Employer Identification Number.</em></li>
@@ -1121,7 +1130,7 @@ body .markdown-body
 <p>A field with <strong>data-type=&rdquo;code&rdquo;</strong> requires a user to input a <em>value</em> that has a corresponding <em>label</em>. A user may type a word and labels containing that word will be shown in a dropdown. When a dropdown label is clicked, it&rsquo;s code  replaces the input value.</p>
 <ul>
 <li>The typed value must be valid, or the field will be marked as invalid.</li>
-<li>The field <em>must</em> have a <strong>data-codes</strong> attribute containing a javascript variable name of an array of objects with a <em>value</em> and <em>label</em>. You must then declare and initialize the variable in javascript <strong><em>before</em></strong> formBuilder is initialized.</li>
+<li>The field <em>must</em> have a <strong>data-codes</strong> attribute containing a JavaScript variable name of an array of objects with a <em>value</em> and <em>label</em>. You must then declare and initialize the variable in JavaScript <strong><em>before</em></strong> formBuilder is initialized.</li>
 </ul>
 <p><em>HTML</em><br />
 <pre><code class="html">&lt;form&gt;
@@ -1165,6 +1174,18 @@ form.formBuilder();
     ...
 &lt;/form&gt;
 </code></pre></p>
+<h2 id="array-fields"><a name="user-content-array-fields" href="#array-fields" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Array Fields</h2>
+<p>Array fields can be used in formBuilder to allow variable amounts, depending on the user&rsquo;s decisions, of the same input-field-group to be submitted.<br />
+<em> The main div must have a name attribute.<br />
+</em> Extra input-field-groups are added dynamically if the user chooses to press a &lsquo;+&rsquo; addon at the bottom of the page that will allow them to add one. <br />
+<em> The input-field-groups can be reordered using the addon that is to the left of the field identified by &lsquo;::&rsquo; The user only needs to drag and drop the icon to its&rsquo; desired location.<br />
+</em> The input-field-groups can be deleted from the array field by clicking on the right-side addon that is identified by a trash can logo. </p>
+<p>A message that will be displayed next to the add &lsquo;+&rsquo; button can also be added. This can be done by including a data-addmessage attribute when building the array field and setting the address equal to the message that you wish to display.</p>
+<p>Array Fields can also have labels like other fields. </p>
+<h2 id="text-submitter"><a name="user-content-text-submitter" href="#text-submitter" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Text Submitter</h2>
+<p>The text submitter is used to submit multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form. The text submitter allows several options to be set including the width, placeholder, rows and how the user wishes to send instructions. </p>
+<p><strong>submit event</strong> <br />
+The submit event is fired when the enter key is pressed. This event will pass in an object that is in the format of {text:&rsquo;What the user types in, onComplete:(callback function&rsquo;} The onComplete function will reset the text area. This behaves very similarly to something like an instant message. </p>
 <h2 id="handling-validation-errors"><a name="user-content-handling-validation-errors" href="#handling-validation-errors" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Handling Validation Errors</h2>
 <p>Form field inputs are validated using regular expressions. <br />
 The data-type should be set in order for the input to be validated as correct.<br />
@@ -1191,7 +1212,7 @@ The data-type should be set in order for the input to be validated as correct.<b
 </ul>
 </li>
 <li>Methods<ul>
-<li><strong>scanForNewFields()</strong> Checks inside of the form container for new fields and constructs them. Called once automatically when intialized. </li>
+<li><strong>scanForNewFields()</strong> Checks inside of the form container for new fields and constructs them. Called once automatically when initialized. </li>
 <li><strong>isDirty()</strong> Runs dirty checks and returns boolean result.</li>
 <li><strong>clearDirty()</strong> Clears all dirty field states. Use this after saving dirty field data. </li>
 <li><strong>flashDirty(numberOfTimes)</strong> <em>Deprecated.</em> Does nothing. Use <code>flashError</code> instead.</li>
@@ -1199,7 +1220,7 @@ The data-type should be set in order for the input to be validated as correct.<b
 <li><strong>get()</strong> Returns converted form data from all fields. </li>
 <li><strong>clear()</strong> Runs inputField.clear() for each field. Empties form.</li>
 <li><strong>conflicts(data, ignoreKeys)</strong> Checks to see if the given data would overwrite and dirty fields if set. Returns an array of conflict data, and false for no conflicts.</li>
-<li><strong>set(data, setOptions)</strong> Replaces the values in the dom with the given data. Triggers <code>beforeset</code> and <code>afterset</code>.</li>
+<li><strong>set(data, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>beforeset</code> and <code>afterset</code>.</li>
 <li><strong>validate()</strong> Runs all enabled field validations. Returns true/false for valid/invalid.</li>
 <li><strong>getFields()</strong> Returns all current formBuilder inputFields.</li>
 </ul>
@@ -1214,7 +1235,7 @@ The data-type should be set in order for the input to be validated as correct.<b
 <ul>
 <li>Options<ul>
 <li><strong>color</strong> <em>(string)</em> Color of loading spinner. <strong>Default:</strong> &lsquo;#000&rsquo;</li>
-<li><strong>delay</strong> <em>(int)</em> Delay between UI update and submission call, in miliseconds <strong>Default:</strong> 10</li>
+<li><strong>delay</strong> <em>(int)</em> Delay between UI update and submission call, in milliseconds <strong>Default:</strong> 10</li>
 <li><strong>disabled</strong> <em>(boolean)</em> Prevents form submission. Set by user. <strong>Default:</strong> false</li>
 <li><strong>waiting</strong> <em>(boolean)</em> Prevents form submission. Set to  <strong>Default:</strong> false</li>
 <li><strong>label</strong> <em>(string)</em> Label above button. <strong>Default:</strong> undefined</li>
@@ -1232,7 +1253,7 @@ The data-type should be set in order for the input to be validated as correct.<b
 <li><strong>beforesubmit(ev)</strong> <em>Optional.</em> - called before a submit, if false it does not submit</li>
 <li><strong>submit(ev, finish())</strong> <em>Required.</em> - called to submit the code<ul>
 <li>Not called if in a <code>disabled</code> or <code>waiting</code> state. </li>
-<li>Write your ajax or other form submission here</li>
+<li>Write your Ajax or other form submission here</li>
 <li>Must call <code>finish()</code> after completed</li>
 </ul>
 </li>
@@ -1333,12 +1354,12 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 <li><strong>setMax(max)</strong> Sets the maximum size that the input can be </li>
 <li><strong>checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing </li>
 <li><strong>isDirty()</strong> returns the value of data-dirty (true/false)</li>
-<li><strong>addOn(weight, html, className)</strong> Appends given html around form field based on weight. If no input found, it will appened to the items layer</li>
+<li><strong>addOn(weight, HTML, className)</strong> Appends given HTML around form field based on weight. If no input found, it will append to the items layer</li>
 <li><strong>placeholder(s)</strong> If there is no placeholder it will be hidden, otherwise it will be shown if the input field is empty. </li>
 <li><strong>clear()</strong> Runs inputField.clear() for each field. Empties form.</li>
 <li><strong>clearDirty()</strong> Resets the dirty status to false. </li>
 <li><strong>conflicts(value)</strong> Checks to see if dirty status is set to true. If it is then returns conflicting values, otherwise returns null. </li>
-<li><strong>set(value, setOptions)</strong> Replaces the values in the dom with the given data. Triggers <code>afterset</code>.</li>
+<li><strong>set(value, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>afterset</code>.</li>
 <li><strong>get()</strong> Returns converted field value</li>
 <li><strong>value(value)</strong> If the value passed in is undefined then return the converted form data from all fields, otherwise set the value into the form. </li>
 <li><strong>validate(skipRequired)</strong> Validates the input matches the declared type, but only if the form field is not empty and skiRequired is true.</li>
@@ -1346,7 +1367,7 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 <li><strong>setError(err)</strong> Sets the error message passed in into the error label overlay. Sets error status to true. </li>
 <li><strong>clearError()</strong> Sets autoValidate to blur. Sets error status to false. C</li>
 <li><strong>redraw()</strong> Re-enters all of the previous saved information into the form. </li>
-<li><strong>setType(sType)</strong> If the type doesnt exist, sets it to default of &lsquo;text&rsquo;. If it does exist then run the type&rsquo;s tear down. Then set the field type and run the type&rsquo;s setup. </li>
+<li><strong>setType(sType)</strong> If the type doesn&rsquo;t exist, sets it to default of &lsquo;text&rsquo;. If it does exist then run the type&rsquo;s tear down. Then set the field type and run the type&rsquo;s setup. </li>
 <li><strong>getType()</strong> Returns the type object. </li>
 <li><strong>hide()</strong> Hides the field that calls this function. </li>
 <li><strong>show(displayValue)</strong> Displays the value passed into the function. </li>
@@ -1355,7 +1376,7 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 <li><strong>disable()</strong> Sets the &lsquo;disable&rsquo; status to true.</li>
 <li><strong>isDisabled()</strong> Returns the &lsquo;disable&rsquo; status&rsquo;s value (true/false)</li>
 <li><strong>status(statusName,bool,fireEvents)</strong> Sets the status class to the field and runs any updates to the field needed. </li>
-<li><strong>updateStatus(statusName, bool, fireEvents)</strong> legacy code that simply calles the <strong>status(statusName,bool,fireEvents)</strong> method </li>
+<li><strong>updateStatus(statusName, bool, fireEvents)</strong> legacy code that simply calls the <strong>status(statusName,bool,fireEvents)</strong> method </li>
 <li><strong>hasStatus(statusName)</strong> Returns this current object&rsquo;s current state for the status name that was passed into the function. </li>
 </ul>
 </li>
@@ -1392,8 +1413,8 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 </ul>
 </li>
 <li>Methods <ul>
-<li><strong>setMax(max)</strong> Sets the current object&rsquo;s max variabgle to the max passed into the method.</li>
-<li><strong>setPattern(regex)</strong> Sets the pattern of the current object to the regular experssion passed into the function. </li>
+<li><strong>setMax(max)</strong> Sets the current object&rsquo;s max variable to the max passed into the method.</li>
+<li><strong>setPattern(regex)</strong> Sets the pattern of the current object to the regular expression passed into the function. </li>
 <li><strong>destroy()</strong> Calls the destroy function with the current object as the parameter</li>
 <li><strong>nextArrayFieldId()</strong> Returns the arrayFieldId incremented by one. </li>
 </ul>
