@@ -549,25 +549,48 @@
 		set: function(value, setOptions) {
 			var self = this,
 				e = self.element;
+			var val;
 
-			setOptions = $.extend({autoClean: true}, setOptions);
+			if(setOptions === 'daterange'){
+				setOptions = $.extend({autoClean: true}, setOptions);
 
-			if (setOptions.autoClean) {
-				/*
-				 * store the base value
-				 */
-				self.prevValue = value;
+				if (setOptions.autoClean) {
+					/*
+					 * store the base value
+					 */
+					self.prevValue = value;
 
-				self.clearDirty();
+					self.clearDirty();
+				}
+
+				// Remove error (only if needed to avoid a redraw)
+				if(self.hasStatus('error')) {
+					self.status('error', false, false);
+				}
+
+				val = value;
+			}
+			else{
+				setOptions = $.extend({autoClean: true}, setOptions);
+
+				if (setOptions.autoClean) {
+					/*
+					 * store the base value
+					 */
+					self.prevValue = value;
+
+					self.clearDirty();
+				}
+
+				// Remove error (only if needed to avoid a redraw)
+				if(self.hasStatus('error')) {
+					self.status('error', false, false);
+				}
+
+				val = self._formatToField(value);
 			}
 
-			// Remove error (only if needed to avoid a redraw)
-			if(self.hasStatus('error')) {
-				self.status('error', false, false);
-			}
-
-			var val = self._formatToField(value);
-
+			// var val = value;
 			/*
 			 * some complex types might not want input.val() to be called,
 			 * so ignore all undefined variables

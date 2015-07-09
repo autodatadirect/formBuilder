@@ -334,7 +334,7 @@
 				formData = self._convertFormData(data);
 
 			self.baseData = formData;
-
+			
 			self._trigger('beforeset', null, formData);
 			self._writeDataToDom(formData, setOptions);
 			self._trigger('afterset', null, formData);
