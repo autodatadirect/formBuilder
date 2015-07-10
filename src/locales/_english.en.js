@@ -49,7 +49,16 @@
 
 		// booleanSelectCreator
 		yes: 'Yes',
-		no: 'No'
+		no: 'No',
+
+		// dateRangePicker
+		from :'From',
+		to : 'To',
+		custom :'Custom',
+		day : 'Day',
+		week:'Week',
+		month :'Month',
+		year :'Year'
 	});
 
 

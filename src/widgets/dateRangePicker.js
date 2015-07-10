@@ -3,49 +3,21 @@
 (function($) {
 	"use strict";
 
-	// Localization
-	if(util.lang.code) {
-		switch(util.lang.code) {
-			// TODO check that this spanish is right 
-			case 'es': 
-				util.lang.from = 'A partir de';
-				util.lang.to = 'Hasta';
-				util.lang.custom = 'Personalizado';
-				util.lang.day = 'Día';
-				util.lang.week = 'Semana';
-				util.lang.month = 'Mes';
-				util.lang.year = 'Año';
-				break;
-
-			//add more lang code translations here
-
-			default: //'en'
-				util.lang.from = 'From'; 
-				util.lang.to = 'To'; 
-				util.lang.custom = 'Custom'; 
-				util.lang.day = 'Day';
-				util.lang.week = 'Week';
-				util.lang.month = 'Month';
-				util.lang.year = 'Year';
-				break;
-		}
-	}
-
 	$.widget("add123.dateRangePicker", {
 		_dateRangePickerTemplate:
 			'<div class="date-range-picker form">'+
-				'<input type="text" name="from" data-type="date" data-label="'+util.lang.from+'"/>' +
-				'<input type="text" name="to" data-type="date" data-label="'+util.lang.to+'"/>' +
+				'<input type="text" name="from" data-type="date" data-label="'+util.lang.dict.from+'"/>' +
+				'<input type="text" name="to" data-type="date" data-label="'+util.lang.dict.to+'"/>' +
 				
 				'<button type="button" class="previous-range">&lt;&lt;</button>' +
 				
 				'<div class="input-field-group range-select">' +
 					'<select name="range" style="width: 138px;">' +
-						'<option value="custom">'+util.lang.custom+'</option>' +
-						'<option value="day">'+util.lang.day+'</option>' +
-						'<option value="week">'+util.lang.week+'</option>' +
-						'<option value="month">'+util.lang.month+'</option>' +
-						'<option value="year">'+util.lang.year+'</option>' +
+						'<option value="custom">'+util.lang.dict.custom+'</option>' +
+						'<option value="day">'+util.lang.dict.day+'</option>' +
+						'<option value="week">'+util.lang.dict.week+'</option>' +
+						'<option value="month">'+util.lang.dict.month+'</option>' +
+						'<option value="year">'+util.lang.dict.year+'</option>' +
 					'</select>' +
 				'</div>'+
 
@@ -91,8 +63,12 @@
 
 			fromDate = self.deserialize(fromDate);
 
+			// console.log(fromDate);
+
 			var begin = fromDate.add(number, unit);
 			var end = moment(begin).endOf(unit);
+
+			// console.log(begin);
 
 			self._setFromAndTo(begin, end);
 		},
@@ -106,7 +82,6 @@
 			var fromDate = self.fromDate.inputField('get');
 
 			if (!fromDate) {
-				console.log('!fromDate');
 				fromDate = moment();
 			}
 
@@ -134,20 +109,20 @@
 			self.toDate.inputField('set', to);
 		},
 
-		serialize: function (date) {
-			if (!date) {
+		serialize: function (momentDate) {	
+			if (!momentDate) {
 				return;
 			}
 
-			return date.format('YYYY-MM-DD');
+			return momentDate.format('YYYY-MM-DD');
 		},
 
-		deserialize: function (date) {
-			if (!date) {
+		deserialize: function (sDate) {
+			if (!sDate) {
 				return;
 			}
 
-			return moment(date, 'YYYY-MM-DD');
+			return moment(sDate, 'YYYY-MM-DD');
 		},
 
 		get: function () {
@@ -159,23 +134,29 @@
 		set: function (data) {
 			var self = this;
 			var test = 'daterange';
+
 			self.form.formBuilder('set', data, test);
 		},
 
 		isDirty: function () {
-			return this.dirty;
+			console.log('inside of date picker is dirty');
+			return this.form.formBuilder('isDirty');
 		},
 
 		clearDirty: function () {
 			var self = this;
 
-			self.dirty = false;
+			return self.form.formBuilder('clearDirty');
 		},
 
 		clear: function () {
 			var self = this;
 
-			self.set();
+			self.set({
+				from: '',
+				to: '',
+				range: 'custom'
+			});
 		},
 
 		validate: function () {
