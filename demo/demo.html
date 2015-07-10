@@ -420,12 +420,20 @@
               	]'>
             </div>
           </p>
-          <p>The options in the select may be set with a function</p>
-          <div class="example">
-            <input id="settableSelect" type="text" data-type="select"><span>Click on the button to cycle the select options.
-              <button type="button" name="toggleSelect">Change Options</button></span>
-          </div>
         </p>
+        <p>The options in the select may be set with a function</p>
+        <div class="example">
+          <input id="settableSelect" type="text" data-type="select"><span>Click on the button to cycle the select options.
+            <button type="button" name="toggleSelect">Change Options</button></span>
+        </div>
+        <h3>Other Select-Based Types</h3>
+        <div class="example">
+          <input type="text" data-label="tmsExpYear" data-type="tmsExpYear"><span>Created with <b>arraySelectCreator(arrayOfOptions)</b>. A select created with an array of options where label == value. This type uses the next 10 years.</span>
+        </div>
+        <div class="example">
+          <input type="text" data-label="tmsYesNo" data-type="tmsYesNo"><span>Created with <b>booleanSelectCreator(trueLabel,falseLabel)</b>. A select created with two options where the trueLabel's value is true and the falseLabel's value is false. Can be used for localization support. With this type, 'Yes' is true and 'No' is false.</span>
+          <mark>Add the localization support back to the type</mark>
+        </div>
         <h2>Textarea</h2>
         <p>No extra attributes are required. Note, pre/post-inputs will not grow with the area.
           <div class="example">

@@ -1,0 +1,80 @@
+@font-face {
+	font-family: 'tmsIcons';
+	src:url('../fonts/tmsIcons3.eot');
+	src:url('../fonts/tmsIcons3.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/tmsIcons3.ttf') format('truetype'),
+		url('../fonts/tmsIcons3.woff') format('woff'),
+		url('../fonts/tmsIcons3.svg#tmsIcons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.ui-state-default .ui-icon {
+	background:transparent;
+	/*text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);*/
+	width:auto;
+	height: auto;
+}
+
+.tms-icon,
+.tms-icon.ui-icon {
+	font-family: 'tmsIcons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+
+	/*
+	 * reset ui-cion
+	 */
+	background:transparent;
+	display: inline;
+	text-indent: 0;
+}
+
+.tms-icon {
+	&:hover {
+		color:#46e;
+	}
+
+	&:active {
+		color:#68f;
+		text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+	}
+}
+
+.tms-icon:before {
+	text-indent: 0;
+}
+
+.ui-button {
+	.tms-icon {
+		font-size:14px;
+		line-height: 17px;
+
+		&:hover {
+			color:inherit;
+		}
+	}
+}
+
+
+// Icons
+@each $icon in (
+	sort-up		e004,
+	sort-down	e005,
+	search		e02d,
+	remove		e01a,
+	office		e001,
+	home		e000,
+	iphone		e012,
+	print		e02a
+) {
+	.tms-icon-#{nth($icon, 1)}:before {
+		// See https://github.com/sass/sass/issues/659
+		content: #{'\"\\'}#{nth($icon, 2) + '\"'}
+	}
+}
+

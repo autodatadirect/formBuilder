@@ -1,0 +1,58 @@
+.array-field-add {
+	a {
+		color:#444;
+		text-decoration: none;
+		font-weight: bold;
+	}
+}
+
+.array-field {
+	.input-field .addon.sort-handle {
+		cursor: row-resize;
+	}
+}
+
+.array-field-item {
+	padding-bottom: 5px;
+
+	&:hover .array-field-delete {
+		width:8px;
+		color:#555;
+	}
+
+	&.include-ticker-header {
+		position: relative;
+		padding-top: 18px;
+	}
+
+	.ticket-header {
+		position: absolute;
+		top: -2px;
+		font-size: 14px;
+		left: 0;
+		color:#848484;
+	}
+}
+
+.array-field-delete {
+	width:8px;
+	color:#bbb;
+
+	.tms-icon {
+		margin-left:-3px;
+		text-shadow: none;
+	}
+}
+
+.array-field-add-message {
+	&.field-item {
+		border:0;
+		vertical-align: middle;
+		margin-left:0.5em;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

@@ -48,7 +48,7 @@
 		fax: 'Fax',
 
 		// booleanSelectCreator
-		yes: 'Yes',
+		yes: 'Sí',
 		no: 'No'
 	});
 

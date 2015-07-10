@@ -108,6 +108,8 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
 * **tmsQuantityUnit** - Auto-complete for common units. Any text can be entered and if there is text in the options that matches, even partially, what has been typed then it will display that data in a drop down menu.
 * **code** - see [Code Input](#code-input) below
 * **select** - see [Select Input](#select-input) below
+* **tmsExpYear** - A select type that is created with **arraySelectCreator(arrayOfOptions)** This select creator creates an array of options where the label is equal to the value.
+* **tmsYesNo** - A select type that is created with **booleanSelectCreator(trueLabel,falseLabel)** This select creator creates two options where the trueLabel's value is true and the falseLabel's value is false. This data type can be used for localization support. To create a new boolean type the function booleanSelectCreator should be called and set equal to a new type name. 
 * **feid** - *For entering Federal Employer Identification Number.*
 
 ####Adding Custom Types
