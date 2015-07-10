@@ -397,6 +397,19 @@ These are created dynamically and do not need to be manually handled. They are i
     - **keyignored** *Optional* Ignore the character that has been entered if it is not valid for the current type
     - **keytyped** *Optional* If the character entered is valid for the current type then enter it into the formfield
 
+###dateRangePicker
+Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type. 
+* Methods 
+    - **setRange(string)** Sets the range of the date field to either 'custom', 'day', 'week', 'month', or 'year'. Will modify the input fields so that the date range reflects this selection.
+    - **serialize(moment)** Takes a passed-in moment and returns YYYY-MM-DD format
+    - **deserialize(string)** Takes a passed-in string and returns a moment in the YYYY-MM-DD format
+    - **get()** Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. 
+    - **set(Object)** Sets the input fields of the dateRangePicker to the value of the object that is passed into the method
+    - **isDirty()** Returns the dirty value of the current calling object
+    - **clearDirty()** Resets the current object's dirty value to false.
+    - **clear()** Sets the values inside of the dateRangePicker's inputfields to '' and sets the range value to 'custom'
+    - **validate()** Validates that the input matches the date-format that it should be. Uses the formBuilder widget's validate function
+
 ##Customization
 ###Custom type
 To add a type, you must extend the `$.add123.inputField.types` object with a new type object.
