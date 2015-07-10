@@ -139,14 +139,13 @@
 		},
 
 		isDirty: function () {
-			console.log('inside of date picker is dirty');
 			return this.form.formBuilder('isDirty');
 		},
 
 		clearDirty: function () {
 			var self = this;
 
-			return self.form.formBuilder('clearDirty');
+			self.form.formBuilder('clearDirty');
 		},
 
 		clear: function () {

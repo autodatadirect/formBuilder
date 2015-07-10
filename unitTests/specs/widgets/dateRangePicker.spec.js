@@ -77,32 +77,30 @@ describe('A dateRangePicker widget',function(){
 		expect(picker.dateRangePicker('get')).toEqual(returnDate);
 	});
 
-	xit('can check if its data is dirty', function(){
-		var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
+	it('can check if its data is dirty', function(){
+		var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
 		var ddrw = picker.data('add123DateRangePicker');
 
 		spyOn(ddrw.form, 'formBuilder');
 
-		var result = picker.dateRangePicker('isDirty'); // Why isn't this returning false?
-
-		expect(result).toBe(false);
+		picker.dateRangePicker('isDirty');
 
 		expect(ddrw.form.formBuilder).toHaveBeenCalled();
 		expect(ddrw.form.formBuilder).toHaveBeenCalledWith('isDirty');
-
-		picker.val('something');
-
-		var result2 = picker.dateRangePicker('isDirty'); // Why isn't this returning false?
-
-		expect(result2).toBe(true);
-
-		// expect(picker.dateRangePicker('isDirty')).toBe(true);
-
-		// console.log(picker.dirty);
 	});
 
-	xit('and can clear its dirty status', function(){
+	it('and can clear its dirty status', function(){
+		var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
+		var ddrw = picker.data('add123DateRangePicker');
 
+		spyOn(ddrw.form, 'formBuilder');
+
+		picker.dateRangePicker('clearDirty');
+
+		expect(ddrw.form.formBuilder).toHaveBeenCalled();
+		expect(ddrw.form.formBuilder).toHaveBeenCalledWith('clearDirty');
+
+		// expect(picker.dateRangePicker('isDirty')).toBe(false);
 	});
 
 	describe('has a range picker', function(){

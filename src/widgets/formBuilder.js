@@ -186,7 +186,6 @@
 	
 
 		isDirty: function() {
-			console.log('inside of formbuilder isDirty');
 			var self = this,
 				dirty = false;
 
