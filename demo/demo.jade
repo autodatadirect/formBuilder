@@ -151,12 +151,12 @@ html
 			.sect(data-title='Base Form')
 				h2 Applying the formBuilder
 				p To initialize a form with formBuilder
-					.code(data-title="JavaScript" data-mode='javascript').
+					.code(data-mode='javascript').
 						 $('form').formBuilder();
 					//- 
 
 				p To keep the form hidden until it is constructed or if it is unsupported, style the form with
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<form style="display:none;">
 							....
 						</form>
@@ -170,7 +170,7 @@ html
 						input(type='text' data-label='Not Required')
 						input(type='text' data-label='Required' data-require='true')
 						button(type='submit') Submit Test
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<form action='#' style='display:none;'>
 							<input type="text" data-label="Not Required">
 							<input type="text" data-label="Required" data-require="true">
@@ -183,7 +183,7 @@ html
 						input(type='text' data-label='Still Required')
 						button(type='submit') Submit Test
 				p In order to set the default data-require state for all nested input the attibute 'data-default-required' must be set to true in the parent attribute
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<form action="#" style="display:none;" data-default-required="true">
 							<input type="text" data-label="Required" data-require="true">
 							<input type="text" data-label="Still Required">
@@ -199,7 +199,7 @@ html
 					.example: input(type='text' data-postinput='post')
 				p Both can be used at the same time
 					.example: input(type='text' data-preinput='pre' data-postinput='post')
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<input type="text" data-preinput="pre">
 						<input type="text" data-postinput="post">
 						<input type="text" data-preinput="pre" data-postinput="post">
@@ -211,7 +211,7 @@ html
 					.example: input(type='text' data-prefix='prefix')
 				p The <i>data-suffix</i>
 					.example: input(type='text' data-suffix='suffix')
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<input type="text" data-prefix="prefix">
 						<input type="text" data-suffix="suffix">
 					//- 
@@ -219,7 +219,7 @@ html
 				h2 Labels
 				p The <i>data-label</i> attribute adds text above any input field
 					.example: input(type='text' data-label='Some Label Text')
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						 <input type="text" data-label="Some Label Text">
 					//- 
 
@@ -227,7 +227,7 @@ html
 				p The <i>data-empty</i> or <i>data-placeholder</i> attribute will display placeholder text when an input field is empty
 					.example: input(type='text' data-empty='some text (empty)')
 					.example: input(type='text' data-placeholder='some text (placeholder)')
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<input type="text" data-empty="some text (empty)">
 						<input type="text" data-placeholder="some text (placeholder)">
 					//- 
@@ -235,7 +235,7 @@ html
 				h2 Max
 				p the <i>data-max</i> attribute adds a maximum character requirement, enforced while typed
 					.example: input(type='text' data-label='Maxmum of 10 chars' data-max='10')
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<input type="text" data-label="Maxmum of 10 chars" data-max="10">
 					//- 
 				
@@ -246,7 +246,7 @@ html
 						input(type='text' data-label='input 2')
 						input(type='text' data-label='input 3 w/ pre' data-preinput='pre')
 						p This is done by simply coding each desired input directly after the one before it
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<div class='input-field-group'>
 							<input type="text" data-label="input 1">
 							<input type="text" data-label="input 2">
@@ -270,7 +270,7 @@ html
 							p Paragraph One
 							p Paragraph Two
 							a(href='http://add123.com') Some link somewhere cool
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<input type="text">
 						<div title="Tooltip Title" class="tooltip">
 							<h1>Tooltip Header</h1>
@@ -358,7 +358,7 @@ html
 						{"value":"BBB",  "label":"Some Business Name Inc."},\
 						{"value":"Hodor",  "label":"Bran"}\
 						]')
-					.code(data-title="JavaScript" data-mode='javascript').
+					.code(data-mode='javascript').
 						var yourCodeArrayVariableName = [
 							{"value":"what the user types 1", "label":"what the user sees 1"},
 							{"value":"what the user types 2", "label":"what the user sees 2"},
@@ -402,7 +402,7 @@ html
 						]')
 						.aClass
 					p The value is what is submitted to the form while the label is what the user can search for. <b>Note:</b> In this example the single quotes should be escaped double quotes.
-						.code(data-title="HTML" data-mode='html').
+						.code(data-mode='html').
 							<input type='text' data-label='formBuilder select' data-type='select' data-options='[
 									{"value":"submitted to form", "label":"Searched Item"},
 									{"value":"true", "label":"Yes"},
@@ -505,14 +505,14 @@ html
 					.example: input(type='text' data-label='Custom "swear" type' data-type='swear')
 					.example: input(type='text' data-label='Custom "theLetterF" type' data-type='theLetterF')
 					.example: input(type='text' data-label='Custom "luckySeven" type' data-type='luckySeven')
-					.code(data-title='HTML', data-mode='html').
+					.code(data-mode='html').
 						<form id='simpleCustomTypeForm' action='#'>
 							<input type='text' data-label='Custom "swear" type' data-type='swear'>
 							<input type='text' data-label='Custom "theLetterF" type' data-type='theLetterF'>
 							<input type='text' data-label='Custom "luckySeven" type' data-type='luckySeven'>
 						</form>
 					//- 
-					.code(data-title='JavaScript' data-mode='javascript').
+					.code(data-mode='javascript').
 						$.extend($.add123.inputField.types,{
 							'swear': $.add123.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
 							'theLetterF': $.add123.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
@@ -527,13 +527,13 @@ html
 				p You may also create new types if you provide all the needed base type functions.
 					.example: input(type='text' data-label='Custom "SSN" type' data-type='SSN')
 
-					.code(data-title='HTML' data-mode='html').
+					.code(data-mode='html').
 						<form id='fullCustomTypeForm' action='#'>
 							<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
 						</form>
 					//- 
 					
-					.code(data-title='JavaScript' data-mode='javascript').
+					.code(data-mode='javascript').
 						$.extend($.add123.inputField.types,{
 							'SSN': {
 								setUp: function(ui) {
@@ -627,7 +627,7 @@ html
 					
 				h2 Source
 				p
-					.code(data-title="HTML" data-mode='html').
+					.code(data-mode='html').
 						<form id="example" action="#" style="display: none">
 							<input type="text" name="name" data-label="Name*" data-require="true">
 							<input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number")>
@@ -647,7 +647,7 @@ html
 						</form>
 					//- 
 
-					.code(data-title="JavaScript (without result logging)" data-mode='javascript').
+					.code(data-title="JAVASCRIPT (without result logging)" data-mode='javascript').
 						var formExample = $('form#example:first').formBuilder({
 							beforeset: function(ev) {
 
@@ -697,7 +697,7 @@ html
 						});
 					//- 
 
-					.code(data-title="JavaScript (with result logging)" data-mode='javascript' data-hidden='true').
+					.code(data-title="JAVASCRIPT (with result logging)" data-mode='javascript' data-hidden='true').
 						var events = $('#example-events');
 						var data = $('#example-data');
 						var eventNum = 1;
@@ -1124,9 +1124,10 @@ html
 				}
 				var newCodeMirror = CodeMirror(this, cm);
 
+
 				//- Add toggle button
 				$(this).prepend('<button class="codeToggle">Toggle Source</button>');
-				$(this).prepend('<div class="codeTitle">'+$(this).data('title')+'</div>');
+				$(this).prepend('<div class="codeTitle">'+($(this).data('title') || $(this).data('mode').toUpperCase())+'</div>');
 
 				if($(this).data('hidden')) {
 					$(this).find('.CodeMirror:first').hide();
@@ -1143,7 +1144,7 @@ html
 			var sections = $('.sect');
 			sections.wrap('<div class="sect-container"></div>');
 			sections.each(function(i, section){
-				$(section).parent().prepend('<div class="sect-title">'+$(section).data('title')+'<div>');
+				$(section).parent().prepend('<div class="sect-title">'+$(this).data('title')+'<div>');
 			});
 
 			$('.sect-title').click(function(){

@@ -47,7 +47,7 @@
 			'<div class="input-field-group array-field-item">' +
 				'<div class="input-field">' +
 					'<div class="field-items">' +
-						'<span class="first field-item addon clickable sort-handle noselect" style="width:8px;">::</span>' +
+						'<span class="first field-item addon clickable sort-handle noselect">::</span>' +
 					'</div>' +
 				'</div>' +
 				'<span class="sub-field"></span>' +

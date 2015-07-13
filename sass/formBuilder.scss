@@ -1,18 +1,20 @@
-@import 'partials/inputField';
+// Choose a theme with constants
+@import 'themes/default';
 
+@import 'partials/inputField';
 
 .submitting {
 	color: #aaa;
 }
 
-@import 'partials/tooltip';
+@import 'partials/widgets/tooltip';
 
 
 .input-hidden {
 	display: none;
 }
 
-@import 'partials/select';
+@import 'partials/types/select';
 @import 'partials/tmsIcons';
 
 /**
@@ -22,6 +24,6 @@
 	user-select: none;
 }
 
-@import 'partials/dateRangePicker';
-@import 'partials/arrayField';
-@import 'partials/textSubmitter';
+@import 'partials/widgets/dateRangePicker';
+@import 'partials/widgets/arrayField';
+@import 'partials/widgets/textSubmitter';

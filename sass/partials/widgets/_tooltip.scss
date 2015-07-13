@@ -1,0 +1,72 @@
+.tooltip-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1010;
+	display: none;
+
+	background-color: $tooltip-backgroundColor;
+	background-clip: padding-box;
+
+	border: $tooltip-borderWidth solid rgba($tooltip-borderColorBase, .3);
+	border-radius: $tooltip-borderRadius;
+
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		
+	.tooltip-title {
+		margin: 0;
+		padding: $tooltip-contentMargin $tooltip-contentMargin*1.75;
+
+		font-size: .85em;
+		font-weight: normal;
+		line-height: 1.5em;
+		background-color: darken($tooltip-backgroundColor, 5%);
+		border-bottom: $tooltip-borderWidth solid rgba($tooltip-borderColorBase, .1);
+	}
+
+	.form-input-tooltip {
+		position: relative;
+		display: block;
+		margin: $tooltip-contentMargin;
+		padding: $tooltip-contentMargin $tooltip-contentMargin*1.75;
+		color: $tooltip-textColor;
+		
+		> :first-child {
+			margin-top: 0;
+		}
+
+		p, ul, ol {
+			margin-bottom: 0;
+		}
+
+	}
+
+	/* Not used
+	.arrow, .arrow:after {
+		position: absolute;
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-color: transparent;
+		border-style: solid;
+	}
+
+	.arrow {
+		top: -10px;
+		right: 15px;
+		margin-left: -10px;
+		border-bottom-color: #ffffff;
+		border-width: 0 10px 10px;
+	}
+
+	.arrow:after {
+		top: -1px;
+		left: -11px;
+		border-bottom-color: #aaa;
+		border-bottom-color: rgba(0, 0, 0, 0.3);
+		border-width: 0 11px 11px;
+	}
+	*/
+	
+
+}

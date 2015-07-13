@@ -146,10 +146,10 @@
       <div data-title="Base Form" class="sect">
         <h2>Applying the formBuilder</h2>
         <p>To initialize a form with formBuilder
-          <div data-title="JavaScript" data-mode="javascript" class="code"> $('form').formBuilder();</div>
+          <div data-mode="javascript" class="code"> $('form').formBuilder();</div>
         </p>
         <p>To keep the form hidden until it is constructed or if it is unsupported, style the form with
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <form style="display:none;">
             	....
             </form>
@@ -165,7 +165,7 @@
               <button type="submit">Submit Test</button>
             </form>
           </div>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <form action='#' style='display:none;'>
             	<input type="text" data-label="Not Required">
             	<input type="text" data-label="Required" data-require="true">
@@ -182,7 +182,7 @@
           </div>
         </p>
         <p>In order to set the default data-require state for all nested input the attibute 'data-default-required' must be set to true in the parent attribute
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <form action="#" style="display:none;" data-default-required="true">
             	<input type="text" data-label="Required" data-require="true">
             	<input type="text" data-label="Still Required">
@@ -206,7 +206,7 @@
           <div class="example">
             <input type="text" data-preinput="pre" data-postinput="post">
           </div>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <input type="text" data-preinput="pre">
             <input type="text" data-postinput="post">
             <input type="text" data-preinput="pre" data-postinput="post">
@@ -223,7 +223,7 @@
           <div class="example">
             <input type="text" data-suffix="suffix">
           </div>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <input type="text" data-prefix="prefix">
             <input type="text" data-suffix="suffix">
           </div>
@@ -233,7 +233,7 @@
           <div class="example">
             <input type="text" data-label="Some Label Text">
           </div>
-          <div data-title="HTML" data-mode="html" class="code"> <input type="text" data-label="Some Label Text"></div>
+          <div data-mode="html" class="code"> <input type="text" data-label="Some Label Text"></div>
         </p>
         <h2>Placeholder Text</h2>
         <p>The <i>data-empty</i> or <i>data-placeholder</i> attribute will display placeholder text when an input field is empty
@@ -243,7 +243,7 @@
           <div class="example">
             <input type="text" data-placeholder="some text (placeholder)">
           </div>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <input type="text" data-empty="some text (empty)">
             <input type="text" data-placeholder="some text (placeholder)">
           </div>
@@ -253,7 +253,7 @@
           <div class="example">
             <input type="text" data-label="Maxmum of 10 chars" data-max="10">
           </div>
-          <div data-title="HTML" data-mode="html" class="code"><input type="text" data-label="Maxmum of 10 chars" data-max="10"></div>
+          <div data-mode="html" class="code"><input type="text" data-label="Maxmum of 10 chars" data-max="10"></div>
         </p>
         <h2>Input Groups</h2>
         <p>Use input groups to keep inputs inline
@@ -265,7 +265,7 @@
               <p>This is done by simply coding each desired input directly after the one before it</p>
             </div>
           </div>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <div class='input-field-group'>
             	<input type="text" data-label="input 1">
             	<input type="text" data-label="input 2">
@@ -291,7 +291,7 @@
               <p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a>
             </div>
           </div>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <input type="text">
             <div title="Tooltip Title" class="tooltip">
             	<h1>Tooltip Header</h1>
@@ -369,7 +369,7 @@
           <div class="example">
             <input type="text" data-label="code initialized w/ js" data-type="code" data-codes="testCodes">
           </div>
-          <div data-title="JavaScript" data-mode="javascript" class="code">
+          <div data-mode="javascript" class="code">
             var yourCodeArrayVariableName = [
             	{"value":"what the user types 1", "label":"what the user sees 1"},
             	{"value":"what the user types 2", "label":"what the user sees 2"},
@@ -403,7 +403,7 @@
             <div class="aClass"></div>
           </div>
           <p>The value is what is submitted to the form while the label is what the user can search for. <b>Note:</b> In this example the single quotes should be escaped double quotes.
-            <div data-title="HTML" data-mode="html" class="code">
+            <div data-mode="html" class="code">
               <input type='text' data-label='formBuilder select' data-type='select' data-options='[
               		{"value":"submitted to form", "label":"Searched Item"},
               		{"value":"true", "label":"Yes"},
@@ -514,14 +514,14 @@
           <div class="example">
             <input type="text" data-label="Custom &quot;luckySeven&quot; type" data-type="luckySeven">
           </div>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <form id='simpleCustomTypeForm' action='#'>
             	<input type='text' data-label='Custom "swear" type' data-type='swear'>
             	<input type='text' data-label='Custom "theLetterF" type' data-type='theLetterF'>
             	<input type='text' data-label='Custom "luckySeven" type' data-type='luckySeven'>
             </form>
           </div>
-          <div data-title="JavaScript" data-mode="javascript" class="code">
+          <div data-mode="javascript" class="code">
             $.extend($.add123.inputField.types,{
             	'swear': $.add123.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
             	'theLetterF': $.add123.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
@@ -537,12 +537,12 @@
           <div class="example">
             <input type="text" data-label="Custom &quot;SSN&quot; type" data-type="SSN">
           </div>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <form id='fullCustomTypeForm' action='#'>
             	<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
             </form>
           </div>
-          <div data-title="JavaScript" data-mode="javascript" class="code">
+          <div data-mode="javascript" class="code">
             $.extend($.add123.inputField.types,{
             	'SSN': {
             		setUp: function(ui) {
@@ -625,7 +625,7 @@
         </p>
         <h2>Source</h2>
         <p>
-          <div data-title="HTML" data-mode="html" class="code">
+          <div data-mode="html" class="code">
             <form id="example" action="#" style="display: none">
             	<input type="text" name="name" data-label="Name*" data-require="true">
             	<input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number")>
@@ -644,7 +644,7 @@
             	<button type="submit">Save</button>
             </form>
           </div>
-          <div data-title="JavaScript (without result logging)" data-mode="javascript" class="code">
+          <div data-title="JAVASCRIPT (without result logging)" data-mode="javascript" class="code">
             var formExample = $('form#example:first').formBuilder({
             	beforeset: function(ev) {
             
@@ -693,7 +693,7 @@
             	}
             });
           </div>
-          <div data-title="JavaScript (with result logging)" data-mode="javascript" data-hidden="true" class="code">
+          <div data-title="JAVASCRIPT (with result logging)" data-mode="javascript" data-hidden="true" class="code">
             var events = $('#example-events');
             var data = $('#example-data');
             var eventNum = 1;
@@ -1119,9 +1119,10 @@
       	}
       	var newCodeMirror = CodeMirror(this, cm);
       
+      
       	//- Add toggle button
       	$(this).prepend('<button class="codeToggle">Toggle Source</button>');
-      	$(this).prepend('<div class="codeTitle">'+$(this).data('title')+'</div>');
+      	$(this).prepend('<div class="codeTitle">'+($(this).data('title') || $(this).data('mode').toUpperCase())+'</div>');
       
       	if($(this).data('hidden')) {
       		$(this).find('.CodeMirror:first').hide();
@@ -1138,7 +1139,7 @@
       var sections = $('.sect');
       sections.wrap('<div class="sect-container"></div>');
       sections.each(function(i, section){
-      	$(section).parent().prepend('<div class="sect-title">'+$(section).data('title')+'<div>');
+      	$(section).parent().prepend('<div class="sect-title">'+$(this).data('title')+'<div>');
       });
       
       $('.sect-title').click(function(){

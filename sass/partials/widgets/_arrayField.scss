@@ -1,6 +1,6 @@
 .array-field-add {
 	a {
-		color:#444;
+		color: $color-textNormal;
 		text-decoration: none;
 		font-weight: bold;
 	}
@@ -13,13 +13,13 @@
 }
 
 .array-field-item {
-	padding-bottom: 5px;
+	padding-bottom: $arrayField-separationPadding;
 
 	&:hover .array-field-delete {
-		width:8px;
-		color:#555;
+		color: $arrayField-removeIconHoverColor;
 	}
 
+	/* Not used
 	&.include-ticker-header {
 		position: relative;
 		padding-top: 18px;
@@ -32,23 +32,35 @@
 		left: 0;
 		color:#848484;
 	}
+	*/
 }
 
+
 .array-field-delete {
-	width:8px;
-	color:#bbb;
+	color: lighten($arrayField-removeIconHoverColor, 40%);
 
 	.tms-icon {
-		margin-left:-3px;
 		text-shadow: none;
+	}
+}
+
+// Force addon to be the same, smaller size
+.input-field .addon {
+	&.array-field-delete,
+	&.sort-handle,
+	&.array-field-add {
+		width: 1em;
+		padding-right: 5.5px;
+		padding-left: 5.5px;
+		text-align: center;
 	}
 }
 
 .array-field-add-message {
 	&.field-item {
-		border:0;
+		border: 0;
 		vertical-align: middle;
-		margin-left:0.5em;
+		margin-left: 0.5em;
 		cursor: pointer;
 
 		&:hover {
