@@ -12,6 +12,10 @@ $base-background: #fff;
 $color-error: #c55;
 $color-flash: #a00;
 
+$color-textNormal: #555;
+$color-textLight: #999;
+
+
 /**
  * InputField
  */
@@ -21,7 +25,7 @@ $inputField-overlay-color: #aaa;
 $inputField-placeholder-color: #999;
 
 $inputField-fieldItem-borderColor: #aaa;
-$inputField-fieldItem-inputColor: #555;
+$inputField-fieldItem-inputColor: $color-textNormal;
 
 $inputField-addon-backgroundColor: #f0f0f0;
 $inputField-addon-clickable-backgroundColor: #E6E6E6;
@@ -44,10 +48,18 @@ $inputField-fieldItem-borderWidth: 1px;
  * tooltip, also known as popOver
  */
 $tooltip-backgroundColor: $base-background;
-$tooltip-textColor: #555;
+$tooltip-textColor: $color-textNormal;
 
 $tooltip-borderWidth: 1px;
 $tooltip-borderColorBase: #000;
 $tooltip-borderRadius: 6px;
 
 $tooltip-contentMargin: 8px;
+
+
+/**
+ * arrayField
+ */
+$arrayField-removeIconHoverColor: $color-textNormal;
+$arrayField-separationPadding: 5px;
+
