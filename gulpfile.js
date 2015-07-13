@@ -107,7 +107,7 @@ gulp.task('copy:assets', ['clean'], function(){
 gulp.task('sass', ['clean'], function(){
 	return gulp.src(dirs.sass + '/**/*.scss')
 		.pipe(sourcemaps.init())
-		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+		.pipe(sass(/*{outputStyle: 'compressed'}*/).on('error', sass.logError))
 		.pipe(autoprefixer({
 			cascade: false
 		}))

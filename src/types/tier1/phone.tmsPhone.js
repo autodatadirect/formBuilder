@@ -4,6 +4,7 @@
  * It adds a secondary addon to the right to specify number type.
  */
 
+/* global util:true */
 (function($){
 	'use strict';
 	
@@ -12,10 +13,10 @@
 	types.tmsPhone = $.extend({}, types.phone, {
 		_phoneTypeTemplate:
 				'<div class="phone-type-form">' +
-					'<div class="phone-type clickable" data-code="mobile"><span class="tms-icon tms-icon-iphone"></span> '+'mobile'+'</div>' +
-					'<div class="phone-type clickable" data-code="home"><span class="tms-icon tms-icon-home"></span> '+'home'+'</div>' +
-					'<div class="phone-type clickable" data-code="work"><span class="tms-icon tms-icon-office"></span> '+'work'+'</div>' +
-					'<div class="phone-type clickable" data-code="fax"><span class="tms-icon tms-icon-print"></span> '+'fax'+'</div>' +
+					'<div class="phone-type clickable" data-code="mobile" ><span class="tms-icon tms-icon-iphone"> '+util.lang.dict.mobile+'</span></div>' +
+					'<div class="phone-type clickable" data-code="home"><span class="tms-icon tms-icon-home"> '+util.lang.dict.home+'</span></div>' +
+					'<div class="phone-type clickable" data-code="work"><span class="tms-icon tms-icon-office"> '+util.lang.dict.work+'</span></div>' +
+					'<div class="phone-type clickable" data-code="fax"><span class="tms-icon tms-icon-print"> '+util.lang.dict.fax+'</span></div>' +
 				'</div>',
 
 		setUp: function(inputWidget) {
@@ -33,7 +34,15 @@
 
 			self.desc = $('<span></span>');
 			self.setType();
-			self.icon = inputWidget.addOn(1, '').addClass('clickable').append(self.desc).width(75).css('textAlign', 'left');
+
+			self.menu = $(self._phoneTypeTemplate);
+			self.icon = inputWidget.addOn(1, '').addClass('clickable').append(self.desc).css({
+				textAlign: 'center',
+				// padding: '0px 22px',
+				width: '4.5em'
+			});
+
+			console.log(self.menu.width());
 
 			self.icon.on('click', function() {
 				/*
@@ -62,7 +71,7 @@
 				return;
 			}
 
-			self.menu = $(self._phoneTypeTemplate).popOver({
+			self.menu.popOver({
 				target: self.icon,
 				appendTo: inputWidget.getField()
 			}).on('click', function (ev) {
@@ -96,7 +105,7 @@
 				icon = type = 'home';
 			}
 
-			self.desc.html('<span class="tms-icon tms-icon-' + icon + '" style="margin-right:0.25em;"></span> ' + type);
+			self.desc.html('<span class="tms-icon tms-icon-' + icon + '"></span> ' + util.lang.dict[type]);
 			self.type = type;
 		},
 
