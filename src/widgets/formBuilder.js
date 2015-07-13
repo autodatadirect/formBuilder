@@ -332,7 +332,7 @@
 		set: function(data, setOptions) {
 			var self = this,
 				formData = self._convertFormData(data);
-			
+
 			self._trigger('beforeset', null, formData);
 			self._writeDataToDom(formData, setOptions);
 			self._trigger('afterset', null, formData);
@@ -412,7 +412,6 @@
 			});
 
 			self.fieldsWidgets.each(function() {
-				//debugger;
 				self._proxyCommandToWidget($(this), 'set', util.selectPath(data, $(this).attr('name')), setOptions);
 			});
 		},

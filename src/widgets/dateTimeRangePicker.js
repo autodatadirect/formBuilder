@@ -3,42 +3,44 @@
 (function($) {
 	"use strict";
 
-	$.widget("add123.dateRangePicker", {
-		_dateRangePickerTemplate:
-			'<div class="date-range-picker form">'+
-				'<input type="text" name="from" data-type="date" data-label="'+util.lang.dict.from+'"/>' +
-				'<input type="text" name="to" data-type="date" data-label="'+util.lang.dict.to+'"/>' +
-				
-				'<button type="button" class="previous-range">&lt;&lt;</button>' +
-				
-				'<div class="input-field-group range-select">' +
-					'<select name="range" style="width: 138px;">' +
-						'<option value="custom">'+util.lang.dict.custom+'</option>' +
-						'<option value="day">'+util.lang.dict.day+'</option>' +
-						'<option value="week">'+util.lang.dict.week+'</option>' +
-						'<option value="month">'+util.lang.dict.month+'</option>' +
-						'<option value="year">'+util.lang.dict.year+'</option>' +
-					'</select>' +
-				'</div>'+
+$.widget("add123.dateTimeRangePicker", {
+	_dateTimeRangePickerTemplate:
+				'<div class="date-range-picker form">' +
+					'<input type="text" name="from" data-type="dateTime" data-label="'+util.lang.dict.from+'" style="width: 215px;"/>' +
+					'<input type="text" name="to" data-type="dateTime" data-label="'+util.lang.dict.to+'" style="width: 215px;"/>' +
 
-				'<button type="button" class="next-range">&gt;&gt;</button>' +
-			'</div>',
+					'<button class="previous-range">&lt;&lt;</button>' +
 
+					'<div class="input-field-group range-select">' +
+						'<select name="range" style="width: 138px;">' +
+							'<option value="custom">'+util.lang.dict.custom+'</option>' +
+							'<option value="day">'+util.lang.dict.day+'</option>' +
+							'<option value="week">'+util.lang.dict.week+'</option>' +
+							'<option value="month">'+util.lang.dict.month+'</option>' +
+							'<option value="year">'+util.lang.dict.year+'</option>' +
+						'</select>' +
+					'</div>' +
+
+					'<button class="next-range">&gt;&gt;</button>' +
+				'</div>',
+				
 		_create: function () {
 			var self = this,
 				e = self.element;
 
-			var form = self.form = $('<div></div>').html(self._dateRangePickerTemplate).find('.date-range-picker').formBuilder();
+			var form = self.form = $('<div></div>').html(self._dateTimeRangePickerTemplate).find('.date-range-picker').formBuilder();
 
 			e.append(form);
 
 			self.fromDate = form.find('input[name="from"]').on('keyup ondateselect', function () {
 				$(self.range).val('custom');
 			});
+			self.fromDate.inputField('setLabel', e.attr('data-from-label'));
 
 			self.toDate = form.find('input[name="to"]').on('keyup ondateselect', function () {
 				$(self.range).val('custom');
 			});
+			self.toDate.inputField('setLabel', e.attr('data-to-label'));
 
 			form.find('button.previous-range').button().on('click', function () {
 				self._moveRange(-1, $(self.range).val());
@@ -63,9 +65,8 @@
 
 			fromDate = self.deserialize(fromDate);
 
-
 			var begin = fromDate.add(number, unit);
-			var end = moment(begin).endOf(unit);
+			var end = moment(begin).add(1, unit);
 
 			self._setFromAndTo(begin, end);
 		},
@@ -83,15 +84,15 @@
 			}
 
 			if (typeof fromDate === 'string') {
-				fromDate = self.deserialize(fromDate);	
+				fromDate = self.deserialize(fromDate);
 			}
 
-			var from = fromDate.startOf(range);
-			var to = moment(from).endOf(range);
+			var from = fromDate;
+			var to = moment(from).add(1, range);
 
 			self._setFromAndTo(from, to);
 		},
-		
+
 		_setFromAndTo: function (from, to) {
 			var self = this;
 
@@ -106,20 +107,20 @@
 			self.toDate.inputField('set', to);
 		},
 
-		serialize: function (momentDate) {	
-			if (!momentDate) {
+		serialize: function (date) {
+			if (!date) {
 				return;
 			}
 
-			return momentDate.format('YYYY-MM-DD');
+			return date.utc().format('YYYY-MM-DDTHH:mm:ss') + 'Z';
 		},
 
-		deserialize: function (sDate) {
-			if (!sDate) {
+		deserialize: function (string) {
+			if (!string) {
 				return;
 			}
 
-			return moment(sDate, 'YYYY-MM-DD');
+			return moment.utc(string);
 		},
 
 		get: function () {
@@ -147,11 +148,7 @@
 		clear: function () {
 			var self = this;
 
-			self.set({
-				from: '',
-				to: '',
-				range: 'custom'
-			});
+			self.set();
 		},
 
 		validate: function () {
@@ -161,7 +158,7 @@
 
 			if (!form.formBuilder('validate')) {
 				return false;
-			}			
+			}
 		}
 	});
 

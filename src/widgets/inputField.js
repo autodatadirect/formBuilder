@@ -551,44 +551,23 @@
 				e = self.element;
 			var val;
 
-			if(setOptions === 'daterange'){
-				setOptions = $.extend({autoClean: true}, setOptions);
+			setOptions = $.extend({autoClean: true}, setOptions);
 
-				if (setOptions.autoClean) {
-					/*
-					 * store the base value
-					 */
-					self.prevValue = value;
+			if (setOptions.autoClean) {
+				/*
+				 * store the base value
+				 */
+				self.prevValue = value;
 
-					self.clearDirty();
-				}
-
-				// Remove error (only if needed to avoid a redraw)
-				if(self.hasStatus('error')) {
-					self.status('error', false, false);
-				}
-
-				val = value;
+				self.clearDirty();
 			}
-			else{
-				setOptions = $.extend({autoClean: true}, setOptions);
 
-				if (setOptions.autoClean) {
-					/*
-					 * store the base value
-					 */
-					self.prevValue = value;
-
-					self.clearDirty();
-				}
-
-				// Remove error (only if needed to avoid a redraw)
-				if(self.hasStatus('error')) {
-					self.status('error', false, false);
-				}
-
-				val = self._formatToField(value);
+			// Remove error (only if needed to avoid a redraw)
+			if(self.hasStatus('error')) {
+				self.status('error', false, false);
 			}
+
+			val = self._formatToField(value);
 
 			// var val = value;
 			/*
@@ -611,7 +590,6 @@
 			
 			// Redraw synchronously to avoid display errors (was not working perfectly with setTimeout)
 			self.redraw();
-
 		},
 		
 
