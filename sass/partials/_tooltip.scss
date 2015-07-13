@@ -4,23 +4,12 @@
 	left: 0;
 	z-index: 1010;
 	display: none;
-	
 	padding: 1px;
 	background-color: white;
 	border: 1px solid #aaa;
-	
 	border: 1px solid rgba(0, 0, 0, 0.3);
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	
 	border-radius: 6px;
-	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	-webkit-background-clip: padding-box;
-	-moz-background-clip: padding;
-	
 	background-clip: padding-box;
 
 	.form-input-tooltip {
@@ -65,9 +54,7 @@
 		line-height: 18px;
 		background-color: #f7f7f7;
 		border-bottom: 1px solid #ebebeb;
-		-webkit-border-radius: 5px 5px 0 0;
-		   -moz-border-radius: 5px 5px 0 0;
-		        border-radius: 5px 5px 0 0;
+		border-radius: 5px 5px 0 0;
 	}
 
 	.form-input-tooltip {

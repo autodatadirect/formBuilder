@@ -17,6 +17,7 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
 
 var karma = require('karma').server;
 
@@ -105,12 +106,12 @@ gulp.task('copy:assets', ['clean'], function(){
 
 gulp.task('sass', ['clean'], function(){
 	return gulp.src(dirs.sass + '/**/*.scss')
-		.pipe(
-			sass({
-				outputStyle: 'compressed'
-			})
-			.on('error', sass.logError)
-		)
+		.pipe(sourcemaps.init())
+		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+		.pipe(autoprefixer({
+			cascade: false
+		}))
+		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(outDir + '/css'));
 });
 gulp.task('sass:watch', function(){

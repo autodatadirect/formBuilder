@@ -32,7 +32,8 @@
     "karma-phantomjs-launcher": "~0.2.0",
     "karma-jasmine-html-reporter": "~0.1.8",
     "karma-spec-reporter": "0.0.19",
-    "gulp-sass": "~2.0.3"
+    "gulp-sass": "~2.0.3",
+    "gulp-autoprefixer": "~2.3.1"
   },
   "scripts": {
     "test": "gulp test"
