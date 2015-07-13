@@ -8,6 +8,7 @@
 $base-fontSize: 14px;
 $base-background: #fff;
 
+
 $color-error: #c55;
 $color-flash: #a00;
 
@@ -40,5 +41,13 @@ $inputField-fieldItem-borderWidth: 1px;
 
 
 /**
- * Calculated
+ * tooltip, also known as popOver
  */
+$tooltip-backgroundColor: $base-background;
+$tooltip-textColor: #555;
+
+$tooltip-borderWidth: 1px;
+$tooltip-borderColorBase: #000;
+$tooltip-borderRadius: 6px;
+
+$tooltip-contentMargin: 8px;

@@ -8,7 +8,7 @@
  * InputField
  */
 /**
- * Calculated
+ * tooltip, also known as popOver
  */
 .input-field {
   font-size: 14px;
@@ -173,50 +173,53 @@
   left: 0;
   z-index: 1010;
   display: none;
-  padding: 1px;
-  background-color: white;
-  border: 1px solid #aaa;
+  background-color: #fff;
+  background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  background-clip: padding-box; }
+  /* Not used
+	.arrow, .arrow:after {
+		position: absolute;
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-color: transparent;
+		border-style: solid;
+	}
+
+	.arrow {
+		top: -10px;
+		right: 15px;
+		margin-left: -10px;
+		border-bottom-color: #ffffff;
+		border-width: 0 10px 10px;
+	}
+
+	.arrow:after {
+		top: -1px;
+		left: -11px;
+		border-bottom-color: #aaa;
+		border-bottom-color: rgba(0, 0, 0, 0.3);
+		border-width: 0 11px 11px;
+	}
+	*/ }
+  .tooltip-wrapper .tooltip-title {
+    margin: 0;
+    padding: 8px 14px;
+    font-size: .85em;
+    font-weight: normal;
+    line-height: 1.5em;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
   .tooltip-wrapper .form-input-tooltip {
     position: relative;
     display: block;
-    float: left;
-    /*width: 260px; setting width here causes a lot of problems*/
     margin: 8px;
-    color: #555; }
-  .tooltip-wrapper .arrow, .tooltip-wrapper .arrow:after {
-    position: absolute;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid; }
-  .tooltip-wrapper .arrow {
-    top: -10px;
-    right: 15px;
-    margin-left: -10px;
-    border-bottom-color: #ffffff;
-    border-width: 0 10px 10px; }
-  .tooltip-wrapper .arrow:after {
-    top: -1px;
-    left: -11px;
-    border-bottom-color: #aaa;
-    border-bottom-color: rgba(0, 0, 0, 0.3);
-    border-width: 0 11px 11px; }
-  .tooltip-wrapper .tooltip-title {
     padding: 8px 14px;
-    margin: 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 18px;
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #ebebeb;
-    border-radius: 5px 5px 0 0; }
-  .tooltip-wrapper .form-input-tooltip {
-    padding: 9px 14px; }
+    color: #555; }
+    .tooltip-wrapper .form-input-tooltip > :first-child {
+      margin-top: 0; }
     .tooltip-wrapper .form-input-tooltip p, .tooltip-wrapper .form-input-tooltip ul, .tooltip-wrapper .form-input-tooltip ol {
       margin-bottom: 0; }
 

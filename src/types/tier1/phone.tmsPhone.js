@@ -12,7 +12,7 @@
 
 	types.tmsPhone = $.extend({}, types.phone, {
 		_phoneTypeTemplate:
-				'<div class="phone-type-form">' +
+				'<div class="phone-type-form" style="padding: 1px;">' +
 					'<div class="phone-type clickable" data-code="mobile" ><span class="tms-icon tms-icon-iphone"> '+util.lang.dict.mobile+'</span></div>' +
 					'<div class="phone-type clickable" data-code="home"><span class="tms-icon tms-icon-home"> '+util.lang.dict.home+'</span></div>' +
 					'<div class="phone-type clickable" data-code="work"><span class="tms-icon tms-icon-office"> '+util.lang.dict.work+'</span></div>' +
@@ -37,9 +37,9 @@
 
 			self.menu = $(self._phoneTypeTemplate);
 			self.icon = inputWidget.addOn(1, '').addClass('clickable').append(self.desc).css({
-				textAlign: 'center',
+				textAlign: 'left',
 				// padding: '0px 22px',
-				width: '4.5em'
+				width: '4.8em'
 			});
 
 			console.log(self.menu.width());
@@ -105,7 +105,7 @@
 				icon = type = 'home';
 			}
 
-			self.desc.html('<span class="tms-icon tms-icon-' + icon + '"></span> ' + util.lang.dict[type]);
+			self.desc.html('<span class="tms-icon tms-icon-' + icon + '"> ' + util.lang.dict[type] + '</span>');
 			self.type = type;
 		},
 
