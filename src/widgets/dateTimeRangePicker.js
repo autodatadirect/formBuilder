@@ -80,17 +80,18 @@ $.widget("add123.dateTimeRangePicker", {
 			var fromDate = self.fromDate.inputField('get');
 
 			if (!fromDate) {
-				fromDate = moment();
+				fromDate = moment().utc();
 			}
 
 			if (typeof fromDate === 'string') {
 				fromDate = self.deserialize(fromDate);
 			}
 
-			var from = fromDate;
-			var to = moment(from).add(1, range);
+			var from = fromDate.startOf(range);
+			var to = moment(from).endOf(range);
 
 			self._setFromAndTo(from, to);
+			self.range.val(range);
 		},
 
 		_setFromAndTo: function (from, to) {
@@ -107,20 +108,20 @@ $.widget("add123.dateTimeRangePicker", {
 			self.toDate.inputField('set', to);
 		},
 
-		serialize: function (date) {
-			if (!date) {
+		serialize: function (momentDateUTC) {
+			if (!momentDateUTC) {
 				return;
 			}
 
-			return date.utc().format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+			return momentDateUTC.format('YYYY-MM-DDTHH:mm:ss') + 'Z';
 		},
 
-		deserialize: function (string) {
-			if (!string) {
+		deserialize: function (stringDateUTC) {
+			if (!stringDateUTC) {
 				return;
 			}
 
-			return moment.utc(string);
+			return moment.utc(stringDateUTC);
 		},
 
 		get: function () {
@@ -148,7 +149,11 @@ $.widget("add123.dateTimeRangePicker", {
 		clear: function () {
 			var self = this;
 
-			self.set();
+			self.set({
+				from: '',
+				to: '',
+				range: 'custom'
+			});
 		},
 
 		validate: function () {
