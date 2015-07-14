@@ -195,7 +195,7 @@ The data-type should be set in order for the input to be validated as correct.
     -  If they do not match the message 'invalid' is printed in the form field. 
     -  type.setUp (< object > ui) Only performed if there is a filter or a max parameter passed into createRegexType
         +  Checks that input meets filter and max limits 
-* It is possible to create a new type that can be entered as input. A new type extension must created by extending $.add123.inputField.types and defining a new type using a regular expression.  
+* It is possible to create a new type that can be entered as input. A new type extension must created by extending $.formBuilder.inputField.types and defining a new type using a regular expression.  
 
 ##Handling Form Submissions
 In order to correctly handle the storage of input fields, you must use a submitButton widget inside of the form and add event listeners. A loading spinner is displayed inside of the submitButton while it is submitting. See [Usage](#example-usage) below.
@@ -412,7 +412,7 @@ Creates two input fields for a beginning and ending date. Allows the user to sel
 
 ##Customization
 ###Custom type
-To add a type, you must extend the `$.add123.inputField.types` object with a new type object.
+To add a type, you must extend the `$.formBuilder.inputField.types` object with a new type object.
 
 Default Type Object
 
@@ -426,7 +426,7 @@ Default Type Object
 ####Creating Simple Regex Types
 You can use the createRegexType function to make new types based on regular expressions. It will automatically create the needed type functions.
 
-`$.add123.inputField.createRegexType(pattern[,filter[,flags[, max]]])`
+`$.formBuilder.inputField.createRegexType(pattern[,filter[,flags[, max]]])`
 
 * **pattern *(RegEx)*** The regular expression used to match the full input for validation.
 * **filter *(RegEx)*** The regular expression used to match each key input. Those that do not match will be ignored and not placed inside of the field.
@@ -444,12 +444,12 @@ HTML
 ```
 JavaScript
 ```javascript
-$.extend($.add123.inputField.types,{
-    'swear': $.add123.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
-    'theLetterF': $.add123.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
+$.extend($.formBuilder.inputField.types,{
+    'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
+    'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
             toUpper: false
         }),
-    'luckySeven': $.add123.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
+    'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
 });
 $('simpleCustomTypeForm').formBuilder();
 ```
@@ -465,7 +465,7 @@ HTML
 ```
 JavaScript
 ```javascript
-$.extend($.add123.inputField.types,{
+$.extend($.formBuilder.inputField.types,{
     'SSN': {
         setUp: function(ui) {
             var self = this,
