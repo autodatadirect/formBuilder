@@ -17,7 +17,7 @@
 (function($) {
 	"use strict";
 
-	$.widget("add123.formBuilder", {
+	$.widget("formBuilder.formBuilder", {
 
 		options: {
 			converter: {
@@ -134,11 +134,11 @@
 				el.addClass('field-items').wrap('<div class="input-field-group"><div class="input-field"></div></div>').before('<label>' + label + '</label>');
 			});
 			/*
-			self.fields = e.find('input[type!=submit], select, textarea').not(':add123-inputField').inputField({
+			self.fields = e.find('input[type!=submit], select, textarea').not(':formBuilder-inputField').inputField({
 				require: typeof o.defaultRequired !== 'undefined' && o.defaultRequired === true
 			});
 			*/
-			e.find('input[type!=submit], select, textarea').not(':add123-inputField').not('.form-builder-ignore *').each(function () {
+			e.find('input[type!=submit], select, textarea').not(':formBuilder-inputField').not('.form-builder-ignore *').each(function () {
 				var newInput = $(this);
 				if(newInput.is('[data-load-widget-as-field]') || newInput.parents('[data-load-widget-as-field]').length){
 					//console.log('ingnore input in field widgets: ', newInput.attr('name'));

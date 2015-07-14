@@ -522,12 +522,12 @@
             </form>
           </div>
           <div data-mode="javascript" class="code">
-            $.extend($.add123.inputField.types,{
-            	'swear': $.add123.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
-            	'theLetterF': $.add123.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
+            $.extend($.formBuilder.inputField.types,{
+            	'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
+            	'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
             			toUpper: false
             		}),
-            	'luckySeven': $.add123.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
+            	'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
             });
             $('simpleCustomTypeForm').formBuilder();
           </div>
@@ -543,7 +543,7 @@
             </form>
           </div>
           <div data-mode="javascript" class="code">
-            $.extend($.add123.inputField.types,{
+            $.extend($.formBuilder.inputField.types,{
             	'SSN': {
             		setUp: function(ui) {
             			var self = this,
@@ -835,16 +835,16 @@
       ];
       
       //- Adding simple regex types
-      $.extend($.add123.inputField.types,{
-      	'swear': $.add123.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
-      	'theLetterF': $.add123.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
+      $.extend($.formBuilder.inputField.types,{
+      	'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
+      	'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
       			toUpper: false
       		}),
-      	'luckySeven': $.add123.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
+      	'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
       });
       
       //- Adding full custom types
-      $.extend($.add123.inputField.types,{
+      $.extend($.formBuilder.inputField.types,{
       	'SSN': {
       		setUp: function(ui) {
       			var self = this,

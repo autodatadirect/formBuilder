@@ -43,7 +43,7 @@
 		});
 	};
 
-	$.widget('add123.fieldWidget', {
+	$.widget('formBuilder.fieldWidget', {
 
 		isDirty: function () {
 			return false;
@@ -74,7 +74,7 @@
 		}
 	});
 
-	$.widget("add123.inputField", {
+	$.widget("formBuilder.inputField", {
 		options: {
 
 			type: 'text',
@@ -332,7 +332,7 @@
 			var self = this,
 				e = self.element;
 
-			if(e.is(':add123-inputFilter')){
+			if(e.is(':formBuilder-inputFilter')){
 				e.inputFilter('setMax', max);
 			}else{
 				e.inputFilter({
@@ -905,7 +905,7 @@
 
 		setType: function(sType) {
 			var self = this,
-				types = $.add123.inputField.types,
+				types = $.formBuilder.inputField.types,
 				type = self.type;
 
 			/*
@@ -1075,7 +1075,7 @@
 	/*
 	 * InputField Types
 	 *
-	 * Stored in $.add123.inputField.types
+	 * Stored in $.formBuilder.inputField.types
 	 *
 	 * The context (this) will get set to the context of the type object, use the ui parameter to obtain access to the inputField widget
 	 *
@@ -1096,10 +1096,10 @@
 	 * }
 	 *
 	 */
-	$.add123.inputField.types = {};
+	$.formBuilder.inputField.types = {};
 
 	/* Basic Type Structure
-	$.add123.inputField.types = {
+	$.formBuilder.inputField.types = {
 		setUp: function(ui) {},
 		tearDown: function(ui) {},
 		converter: {

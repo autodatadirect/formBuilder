@@ -10,9 +10,9 @@
 (function($){
 	'use strict';
 	
-	var types = $.add123.inputField.types;
+	var types = $.formBuilder.inputField.types;
 
-	$.add123.inputField.arraySelectCreator = function (array) {
+	$.formBuilder.inputField.arraySelectCreator = function (array) {
 		return $.extend({}, types.select, {
 			map: function (s) {
 				var d = {};
@@ -28,7 +28,7 @@
 		});
 	};
 
-	$.add123.inputField.booleanSelectCreator = function (trueString, falseString) {
+	$.formBuilder.inputField.booleanSelectCreator = function (trueString, falseString) {
 		return $.extend({}, types.select, {
 			map: function (s) {
 				var d = {},
@@ -66,7 +66,7 @@
 		years.push((date.getFullYear() + i).toString());
 	}
 	
-	types.tmsExpYear = $.add123.inputField.arraySelectCreator(years);
-	types.tmsYesNo = $.add123.inputField.booleanSelectCreator(util.lang.dict.yes, util.lang.dict.no);
+	types.tmsExpYear = $.formBuilder.inputField.arraySelectCreator(years);
+	types.tmsYesNo = $.formBuilder.inputField.booleanSelectCreator(util.lang.dict.yes, util.lang.dict.no);
 	
 })(jQuery);

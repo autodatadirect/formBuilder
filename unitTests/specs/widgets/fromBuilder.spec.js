@@ -27,9 +27,9 @@ describe('A formBuilder widget',function(){
 			var fbw;
 
 			form.formBuilder();
-			fbw = form.data('add123FormBuilder');
+			fbw = form.data('formBuilderFormBuilder');
 
-			expect(form.is(':add123-formBuilder')).toBe(true);
+			expect(form.is(':formBuilder-formBuilder')).toBe(true);
 			expect(fbw).toBeDefined();
 		});
 
@@ -49,9 +49,9 @@ describe('A formBuilder widget',function(){
 			};
 
 			form.formBuilder(options);
-			fbw = form.data('add123FormBuilder');
+			fbw = form.data('formBuilderFormBuilder');
 
-			expect(form.is(':add123-formBuilder')).toBe(true);
+			expect(form.is(':formBuilder-formBuilder')).toBe(true);
 			expect(fbw).toBeDefined();
 			expect(util.equals(fbw.options.converter, options.converter)).toBe(true);
 			expect(fbw.options.ignoreHidden).toBe(options.ignoreHidden);
@@ -70,12 +70,12 @@ describe('A formBuilder widget',function(){
 			form.append('<input type="submit"></input>'); //ignored
 
 			form.formBuilder();
-			fbw = form.data('add123FormBuilder');
+			fbw = form.data('formBuilderFormBuilder');
 
 			expect(fbw.fields.length).toBe(3);
 			expect(fbw.fields.filter('.form-builder-ignore *').length).toBe(0);
 			expect(fbw.fields.filter('input[type="submit"]').length).toBe(0);
-			expect(fbw.fields.filter(':add123-inputField').length).toBe(3);
+			expect(fbw.fields.filter(':formBuilder-inputField').length).toBe(3);
 		});
 
 		it('by checking any elements with attribute "data-load-widget-as-field"');
@@ -84,11 +84,11 @@ describe('A formBuilder widget',function(){
 
 	it('can get its fields', function(){
 		var form = $(baseFormHtml).formBuilder();
-		var	fbw = form.data('add123FormBuilder');
+		var	fbw = form.data('formBuilderFormBuilder');
 		var fields = fbw.getFields();
 		
 		expect(fields.length).toBeGreaterThan(0);
-		expect(fields.filter(':add123-inputField').length).toBe(fields.length);
+		expect(fields.filter(':formBuilder-inputField').length).toBe(fields.length);
 
 		for(var i = 0; i < fields.length; ++i) {
 			expect(fields[i]).toBe(fbw.fields[i]);
@@ -110,7 +110,7 @@ describe('A formBuilder widget',function(){
 
 	it('can disable all of its fields', function(){
 		var form = $(baseFormHtml).formBuilder();
-		var	fbw = form.data('add123FormBuilder');
+		var	fbw = form.data('formBuilderFormBuilder');
 		var fields = fbw.getFields();
 
 		fields.each(function(){
@@ -126,7 +126,7 @@ describe('A formBuilder widget',function(){
 		
 	it('can enable all its fields', function(){
 		var form = $(baseFormHtml).formBuilder();
-		var	fbw = form.data('add123FormBuilder');
+		var	fbw = form.data('formBuilderFormBuilder');
 		var fields = fbw.getFields();
 
 		fbw.disable();
@@ -151,7 +151,7 @@ describe('A formBuilder widget',function(){
 
 	it('can get its data', function(){
 		var form = $(baseFormHtml).formBuilder();
-		var	fbw = form.data('add123FormBuilder');
+		var	fbw = form.data('formBuilderFormBuilder');
 		var fields = fbw.getFields();
 
 		//check them
@@ -179,7 +179,7 @@ describe('A formBuilder widget',function(){
 
 	it('can clear its data', function(){
 		var form = $(baseFormHtml).formBuilder();
-		var	fbw = form.data('add123FormBuilder');
+		var	fbw = form.data('formBuilderFormBuilder');
 		var fields = fbw.getFields();
 
 		//change them
@@ -227,7 +227,7 @@ describe('A formBuilder widget',function(){
 	it('can run validate on each field', function(){
 		// Must be visible
 		var form = $(baseFormHtml).appendTo(testContainer).formBuilder();
-		var	fbw = form.data('add123FormBuilder');
+		var	fbw = form.data('formBuilderFormBuilder');
 		var fields = fbw.getFields();
 
 		// Make one required
@@ -249,7 +249,7 @@ describe('A formBuilder widget',function(){
 
 	it('can have a default require status for its fields', function(){
 		var form = $(baseFormHtml.replace('<form>','<form data-default-required="true">')).formBuilder();
-		var	fbw = form.data('add123FormBuilder');
+		var	fbw = form.data('formBuilderFormBuilder');
 		var fields = fbw.getFields();
 
 		fbw.disable();

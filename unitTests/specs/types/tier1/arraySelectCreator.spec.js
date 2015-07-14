@@ -26,12 +26,12 @@ describe('the array select creator', function(){
 	});
 
 	it('can create new array dropdown menus, and alpabetize them', function(){
-		var types = $.add123.inputField.types;
+		var types = $.formBuilder.inputField.types;
 		var testArray = ['Cat', 'Dog', 'Armadillo', 'Gator', 'Horse', 'Panda', 'Koalla', "Mamma Bear"];
 		var alphabetical = ['Armadillo', 'Cat', 'Dog', 'Gator', 'Horse', 'Koalla',  "Mamma Bear",'Panda'];
 		var i; 
 
-		types.tmsTestArray = $.add123.inputField.arraySelectCreator(testArray);
+		types.tmsTestArray = $.formBuilder.inputField.arraySelectCreator(testArray);
 
 		var input = $('<input type="text" data-type="tmsTestArray"/>').appendTo(testContainer).inputField();
 		var drop = $(document).find('.tms-select-dropdown-content');

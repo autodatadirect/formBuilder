@@ -15,8 +15,8 @@ describe('The dateTime data-type', function(){
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').inputField();
-		var ifw = input.data('add123InputField');
-		var type = $.add123.inputField.types[typeName];
+		var ifw = input.data('formBuilderInputField');
+		var type = $.formBuilder.inputField.types[typeName];
 		var typeInstance;
 		
 		expect(type).toBeDefined();
@@ -32,7 +32,7 @@ describe('The dateTime data-type', function(){
 
 	it('can be setup', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 
 		var spy_fields = spyOn(typeInstance, '_setUpFields').and.callThrough();
@@ -54,7 +54,7 @@ describe('The dateTime data-type', function(){
 	it('can setup its fields', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>')
 			.appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType(),
 			fieldItems = input.parent().parent().children();
 
@@ -75,7 +75,7 @@ describe('The dateTime data-type', function(){
 
 	it('can refresh its field widths', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 		var startWidth;
 
@@ -90,7 +90,7 @@ describe('The dateTime data-type', function(){
 
 	it('refreshes its field widths on resize', function(done){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 
 		var spy_refresh = spyOn(typeInstance, '_refreshFieldWidth');
@@ -107,7 +107,7 @@ describe('The dateTime data-type', function(){
 	describe('has datepicker and time picker widgets', function(){
 		it('that can be opened on focus', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
 			var date_pick = input.parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(0);
 			var timeField = time_pick.inputField('getField');
@@ -143,7 +143,7 @@ describe('The dateTime data-type', function(){
 
 		it('and can select a date', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var dateWidget = ifw.getType().dateWidget;
 			var datepicker;
 
@@ -176,7 +176,7 @@ describe('The dateTime data-type', function(){
 
 		it('and can select a time', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var timeWidget = ifw.getType().timeWidget;
 			var timeField = timeWidget.inputField('getField');
 			var timepicker, time;
@@ -212,7 +212,7 @@ describe('The dateTime data-type', function(){
 	describe('it can handle changes', function(){
 		it('with dirty events', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
 			var date_pick = input.parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(0);
 
@@ -233,7 +233,7 @@ describe('The dateTime data-type', function(){
 
 		it('and with clean events', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var time_pick = input.parent().parent().children().eq(2).children().children().children().eq(0);
 			var date_pick = input.parent().parent().children().eq(0).children().eq(0).children().eq(0).children().eq(0);
 
@@ -256,7 +256,7 @@ describe('The dateTime data-type', function(){
 
 	it('can split date and time', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var timeInstance = ifw.getType();
 		var formatDT = 'YYYY-MM-DDTHH:mm:ss[Z]',
 			formatD = 'YYYY-MM-DD',
@@ -284,7 +284,7 @@ describe('The dateTime data-type', function(){
 
 	it('can join local date & time moments into one utc moment', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var timeInstance = ifw.getType();
 		var localDateMoment, localTimeMoment, utcMoment;
 		var inDateFormat = 'YYYY-MM-DD',
@@ -310,7 +310,7 @@ describe('The dateTime data-type', function(){
 
 	it('can join local date & time moments into one local moment', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var timeInstance = ifw.getType();
 		var localDateMoment, localTimeMoment, localMoment;
 		var inDateFormat = 'YYYY-MM-DD',
@@ -337,7 +337,7 @@ describe('The dateTime data-type', function(){
 
 	it('can be set using UTC (default)', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType(),
 			dateFomat = 'MM/DD/YYYY',
 			timeFormat = 'h:mma',
@@ -362,7 +362,7 @@ describe('The dateTime data-type', function(){
 
 	it('can be set using local', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType(),
 			dateFomat = 'MM/DD/YYYY',
 			timeFormat = 'h:mma',
@@ -388,7 +388,7 @@ describe('The dateTime data-type', function(){
 	it('can be torn down', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>')
 			.appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var fieldItems = input.parent().parent(),
 			typeInstance = ifw.getType();
 

@@ -1,9 +1,9 @@
 /**
- * Testing for the tms.textSubmitter widget
+ * Testing for the formBuilder.textSubmitter widget
  */
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
 'use strict';
-describe('A tms.textSubmitter widget', function(){
+describe('A formBuilder.textSubmitter widget', function(){
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 	var testContainer = window.formBuilderTesting.testContainer;
@@ -18,7 +18,7 @@ describe('A tms.textSubmitter widget', function(){
 			e = e.children(); //move down
 			expect(e.length).toBe(2);
 			expect(e.eq(0).is('.input-field-group')).toBe(true);
-			expect(e.find('textarea[name="text-entry"]').is(':add123-inputField')).toBe(true);
+			expect(e.find('textarea[name="text-entry"]').is(':formBuilder-inputField')).toBe(true);
 
 			expect(e.eq(1).is('.send-instruction.noselect')).toBe(true);
 			expect(e.eq(1).text()).toBe(tsw.options.sendInstruction);
@@ -28,9 +28,9 @@ describe('A tms.textSubmitter widget', function(){
 
 		it('with the default settings', function(){
 			var textSubmitter = $('<div/>').textSubmitter();
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
-			expect(textSubmitter.is(':tms-textSubmitter')).toBe(true);
+			expect(textSubmitter.is(':formBuilder-textSubmitter')).toBe(true);
 			expect(tsw).toBeDefined();
 
 			checkStructure(tsw);
@@ -45,9 +45,9 @@ describe('A tms.textSubmitter widget', function(){
 			};
 
 			var textSubmitter = $('<div/>').textSubmitter(options);
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
-			expect(textSubmitter.is(':tms-textSubmitter')).toBe(true);
+			expect(textSubmitter.is(':formBuilder-textSubmitter')).toBe(true);
 			expect(tsw).toBeDefined();
 
 			checkStructure(tsw);
@@ -55,14 +55,14 @@ describe('A tms.textSubmitter widget', function(){
 			options.width = parseInt(options.width, 10);
 			expect(tsw.textEntry.width()).toBe(options.width);
 			expect(tsw.element.width()).toBe(options.width);
-			expect(tsw.textEntry.data('add123InputField').options.placeholder).toBe(options.placeholder);
+			expect(tsw.textEntry.data('formBuilderInputField').options.placeholder).toBe(options.placeholder);
 			expect(tsw.textEntry.attr('rows')).toBe(options.rows.toString());
 		});
 	});
 
 	describe('has a textarea inputField', function(){
 		var textSubmitter = $('<div/>').textSubmitter();
-		var tsw = textSubmitter.data('tmsTextSubmitter');
+		var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
 		it('whose value can be set', function(){
 			spyOn(tsw.textEntry, 'inputField');
@@ -112,14 +112,14 @@ describe('A tms.textSubmitter widget', function(){
 			var textSubmitter = $('<div/>').textSubmitter({
 				sendInstruction: instr
 			});
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
 			expect(tsw.sendInstruction.text().trim()).toBe(instr);
 		});
 
 		it('which can be set with a function', function(){
 			var textSubmitter = $('<div/>').textSubmitter();
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 			var instr = 'some instruction';
 
 			expect(tsw.sendInstruction.text().trim()).not.toBe(instr);
@@ -130,7 +130,7 @@ describe('A tms.textSubmitter widget', function(){
 
 		it('which is visible only when focused', function(done){
 			var textSubmitter = $('<div/>').textSubmitter().appendTo(testContainer);
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
 			expect(tsw.sendInstruction.css('visibility')).toBe('hidden');
 
@@ -153,7 +153,7 @@ describe('A tms.textSubmitter widget', function(){
 	describe('can be submitted', function(){		
 		it('by pressing enter in the textEntry', function(done){
 			var textSubmitter = $('<div/>').textSubmitter();
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
 			spyOn(tsw,'_submit');
 
@@ -170,7 +170,7 @@ describe('A tms.textSubmitter widget', function(){
 
 		it('and is disabled + triggers an event on submit', function(){
 			var textSubmitter = $('<div/>').textSubmitter();
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
 			spyOn(tsw, 'disable');
 			spyOn(tsw, '_trigger');
@@ -197,7 +197,7 @@ describe('A tms.textSubmitter widget', function(){
 					f.submit(ev,data);
 				}
 			});
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
 
 			spyOn(tsw, 'clear');
@@ -223,7 +223,7 @@ describe('A tms.textSubmitter widget', function(){
 
 		it('and by default accepts empty input submissions', function(){
 			var textSubmitter = $('<div/>').textSubmitter();
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
 			spyOn(tsw, '_trigger');
 
@@ -237,7 +237,7 @@ describe('A tms.textSubmitter widget', function(){
 			var textSubmitter = $('<div/>').textSubmitter({
 				ignoreEmptySubmit: true
 			});
-			var tsw = textSubmitter.data('tmsTextSubmitter');
+			var tsw = textSubmitter.data('formBuilderTextSubmitter');
 
 			spyOn(tsw, '_trigger');
 
@@ -251,18 +251,18 @@ describe('A tms.textSubmitter widget', function(){
 	it('can be destroyed', function(){
 		var textSubmitter = $('<div/>').textSubmitter()
 			.appendTo(testContainer); //make sure it is in the dom to test removal
-		var tsw = textSubmitter.data('tmsTextSubmitter');
+		var tsw = textSubmitter.data('formBuilderTextSubmitter');
 		var textEntry = tsw.textEntry;
 
 		expect(tsw).toBeDefined();
-		expect(textEntry.is(':add123-inputField')).toBe(true);
+		expect(textEntry.is(':formBuilder-inputField')).toBe(true);
 		expect(textEntry.closest(document.documentElement).length).toBe(1); //in dom
 
 		tsw.destroy();
-		tsw = textSubmitter.data('tms-arrayField');
+		tsw = textSubmitter.data('formBuilder-arrayField');
 
 		expect(tsw).toBeUndefined();
-		expect(textEntry.is(':add123-inputField')).toBe(false);
+		expect(textEntry.is(':formBuilder-inputField')).toBe(false);
 		expect(textEntry.closest(document.documentElement).length).toBe(0); //not in dom
 
 		expect(textSubmitter.is(':empty')).toBe(true);

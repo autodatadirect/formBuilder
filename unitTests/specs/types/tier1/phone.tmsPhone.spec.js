@@ -76,7 +76,7 @@
 
 	describe('has simple regex validation', function(){
 		var input = $('<input type="text" data-type="tmsPhone"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var valids, invalids;
 
 		valids = [
@@ -103,8 +103,8 @@
 
 	it('has filter support', function(){
 		var input = $('<input type="text" data-type="tmsPhone"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
-		var filter = input.data('add123InputFilter'); 
+		var ifw = input.data('formBuilderInputField');
+		var filter = input.data('formBuilderInputFilter'); 
 
 		var typeNewString = function(str) {
 			input.val('');

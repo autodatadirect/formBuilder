@@ -1,5 +1,5 @@
 /**
- * tms.textSubmitter widget
+ * formBuilder.textSubmitter widget
  *
  * You can type text then hit enter to trigger a submit event with the data and a callback.
  * Once submitted, the textbox is cleared and ready for new input.
@@ -13,7 +13,7 @@
 	// Converted the lang.sendInstruction to an option with 'press enter to submit' as a default
 	// Note: this differs from the tms 'press enter to add note'
 
-	$.widget("tms.textSubmitter", {
+	$.widget("formBuilder.textSubmitter", {
 		_textSubmitterTemplate:
 			'<div class="text-submitter">' +
 				'<textarea name="text-entry" rows="3" />' +

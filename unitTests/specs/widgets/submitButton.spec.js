@@ -14,9 +14,9 @@ describe('A submitButton', function(){
  	describe('can be created', function(){
  		it('with defaults', function(){
  			var btn =  $(buttonHtml).submitButton();
- 			var sbw = btn.data('add123SubmitButton');
+ 			var sbw = btn.data('formBuilderSubmitButton');
 
- 			expect(btn.is(':add123-submitButton')).toBe(true);
+ 			expect(btn.is(':formBuilder-submitButton')).toBe(true);
  			expect(sbw).toBeDefined();
  			expect(btn.children().length).toBe(2);
  		});
@@ -36,9 +36,9 @@ describe('A submitButton', function(){
  				}
  			};
  			var btn =  $(buttonHtml).submitButton(options);
- 			var sbw = btn.data('add123SubmitButton');
+ 			var sbw = btn.data('formBuilderSubmitButton');
 
- 			expect(btn.is(':add123-submitButton')).toBe(true);
+ 			expect(btn.is(':formBuilder-submitButton')).toBe(true);
  			expect(sbw).toBeDefined();
  			expect(btn.children().length).toBe(2);
 
@@ -56,7 +56,7 @@ describe('A submitButton', function(){
 	describe('is created with', function(){
 		it('a hidden spinner', function(){
 			var btn =  $(buttonHtml).submitButton();
-			var sbw = btn.data('add123SubmitButton');
+			var sbw = btn.data('formBuilderSubmitButton');
 			var spinner = btn.children('.spinner');
 
 			expect(spinner.length).toBe(1);
@@ -65,7 +65,7 @@ describe('A submitButton', function(){
 
 		it('jquery-ui button text', function(){
 			var btn =  $(buttonHtml).submitButton();
-			var sbw = btn.data('add123SubmitButton');
+			var sbw = btn.data('formBuilderSubmitButton');
 			var label = btn.children('.ui-button-text');
 
 			expect(label.length).toBe(1);
@@ -76,7 +76,7 @@ describe('A submitButton', function(){
 
 	it('can get its button label', function(){
 		var btn =  $(buttonHtml).submitButton();
-		var sbw = btn.data('add123SubmitButton');
+		var sbw = btn.data('formBuilderSubmitButton');
 		var label = btn.children('.ui-button-text');
 
 		expect(label.is(sbw.getButtonLabel())).toBe(true);
@@ -84,7 +84,7 @@ describe('A submitButton', function(){
 	
 	it('can show its loading status', function(){
 		var btn =  $(buttonHtml).submitButton();
-		var sbw = btn.data('add123SubmitButton');
+		var sbw = btn.data('formBuilderSubmitButton');
 		var spinner = btn.children('.spinner');
 		var label = sbw.getButtonLabel();
 
@@ -99,7 +99,7 @@ describe('A submitButton', function(){
 
 	it('can hide its loading status', function(){
 		var btn =  $(buttonHtml).submitButton();
-		var sbw = btn.data('add123SubmitButton');
+		var sbw = btn.data('formBuilderSubmitButton');
 		var spinner = btn.children('.spinner');
 		var label = sbw.getButtonLabel();
 
@@ -116,7 +116,7 @@ describe('A submitButton', function(){
 
 	it('can be disabled', function(){
 		var btn =  $(buttonHtml).submitButton();
-		var sbw = btn.data('add123SubmitButton');
+		var sbw = btn.data('formBuilderSubmitButton');
 
 		expect(sbw.options.disabled).toBe(false);
 
@@ -127,7 +127,7 @@ describe('A submitButton', function(){
 
 	it('can be enabled', function(){
 		var btn =  $(buttonHtml).submitButton();
-		var sbw = btn.data('add123SubmitButton');
+		var sbw = btn.data('formBuilderSubmitButton');
 
 		sbw.disable();
 
@@ -141,7 +141,7 @@ describe('A submitButton', function(){
 	describe('can be submitted', function(done){
 		it('on click', function(done){
 			var btn =  $(buttonHtml).appendTo(testContainer).submitButton();
-			var sbw = btn.data('add123SubmitButton');
+			var sbw = btn.data('formBuilderSubmitButton');
 
 			spyOn(sbw, '_showLoading'); //actual submit is proxied
 			btn.click();
@@ -165,7 +165,7 @@ describe('A submitButton', function(){
 			form.appendTo(testContainer);
 
 			btn. submitButton();
-			sbw = btn.data('add123SubmitButton');
+			sbw = btn.data('formBuilderSubmitButton');
 
 
 			spyOn(sbw, '_showLoading'); //actual submit is proxied
@@ -187,7 +187,7 @@ describe('A submitButton', function(){
 		it('on form submit (manual)', function(done){
 			var form = $('<form></form>');
 			var btn =  $(buttonHtml).appendTo(form).submitButton();
-			var sbw = btn.data('add123SubmitButton');
+			var sbw = btn.data('formBuilderSubmitButton');
 
 			spyOn(sbw, '_showLoading');
 
@@ -210,7 +210,7 @@ describe('A submitButton', function(){
 
 		it('directly, without an event', function(done){
 			var btn =  $(buttonHtml).submitButton();
-			var sbw = btn.data('add123SubmitButton');
+			var sbw = btn.data('formBuilderSubmitButton');
 
 			spyOn(sbw, '_showLoading');
 			
@@ -225,7 +225,7 @@ describe('A submitButton', function(){
 
 		it('and trigger "beforesubmit"', function(done){
 			var btn =  $(buttonHtml).submitButton();
-			var sbw = btn.data('add123SubmitButton');
+			var sbw = btn.data('formBuilderSubmitButton');
 
 			spyOn(sbw,'_trigger'); 
 			
@@ -241,7 +241,7 @@ describe('A submitButton', function(){
 
 		it('and trigger "submit"', function(done){
 			var btn =  $(buttonHtml).submitButton();
-			var sbw = btn.data('add123SubmitButton');
+			var sbw = btn.data('formBuilderSubmitButton');
 
 			spyOn(sbw,'_trigger'); 
 			
@@ -270,7 +270,7 @@ describe('A submitButton', function(){
 					cb();
 				}
 			});
-			var sbw = btn.data('add123SubmitButton');
+			var sbw = btn.data('formBuilderSubmitButton');
 
 			spyOn(sbw,'_trigger').and.callThrough();
 			spyOn(sbw, '_hideLoading');
@@ -294,7 +294,7 @@ describe('A submitButton', function(){
 
 	it('can destory itself', function(){
 		var btn =  $(buttonHtml).submitButton();
-		var sbw = btn.data('add123SubmitButton');
+		var sbw = btn.data('formBuilderSubmitButton');
 
 		expect(sbw).toBeDefined();
 
@@ -302,7 +302,7 @@ describe('A submitButton', function(){
 
 		expect(sbw.destroyed).toBe(true);
 
-		sbw = btn.data('add123SubmitButton');
+		sbw = btn.data('formBuilderSubmitButton');
 
 		expect(sbw).toBeUndefined();
 	}); 

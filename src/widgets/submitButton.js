@@ -8,7 +8,7 @@
 	 * when you catch the submitbuttonsubmit event, you need to call execute
 	 * 'event.data.onComplete' when the processing is done
 	 */
-	$.widget('add123.submitButton', {
+	$.widget('formBuilder.submitButton', {
 		options: {
 			color: '#000',
 			delay: 10,

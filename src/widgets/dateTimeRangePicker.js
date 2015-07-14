@@ -3,7 +3,7 @@
 (function($) {
 	"use strict";
 
-$.widget("add123.dateTimeRangePicker", {
+$.widget("formBuilder.dateTimeRangePicker", {
 	_dateTimeRangePickerTemplate:
 				'<div class="date-range-picker form">' +
 					'<input type="text" name="from" data-type="dateTime" data-label="'+util.lang.dict.from+'" style="width: 215px;"/>' +

@@ -15,10 +15,10 @@ describe('The time data-type', function(){
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance;
 
-		expect($.add123.inputField.types[typeName]).toBeDefined();
+		expect($.formBuilder.inputField.types[typeName]).toBeDefined();
 
 		ifw.setType(typeName);
 		
@@ -29,7 +29,7 @@ describe('The time data-type', function(){
 
 	it('is created with a placeholder (regular by default)', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		expect(input.parent().children('.placeholder').length).toBe(1);
 		expect(input.parent().children('.placeholder').text()).toBe('H:MMam/pm');
@@ -37,7 +37,7 @@ describe('The time data-type', function(){
 
 	it('is created with a placeholder (military)', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-military="true"/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		expect(input.parent().children('.placeholder').length).toBe(1);
 		expect(input.parent().children('.placeholder').text()).toBe('HH:MM');
@@ -46,7 +46,7 @@ describe('The time data-type', function(){
 	describe('has a timepicker', function(){
 		it('that opens on focus', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var field = ifw.getField();
 
 			expect(field.children().length).toBe(1);
@@ -66,7 +66,7 @@ describe('The time data-type', function(){
 
 		it('that has a twelve hour selection with am/pm', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var field = ifw.getField();
 
 			input.focus();
@@ -83,7 +83,7 @@ describe('The time data-type', function(){
 
 		it('that can have a twenty-four hour selection without am/pm', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"data-military="true"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var field = ifw.getField();
 
 			input.focus();
@@ -100,7 +100,7 @@ describe('The time data-type', function(){
 
 		it('that can select a time', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var field = ifw.getField();
 			var timepicker;
 
@@ -132,8 +132,8 @@ describe('The time data-type', function(){
 
 	it('has filter support', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
-		var filter = input.data('add123InputFilter'); 
+		var ifw = input.data('formBuilderInputField');
+		var filter = input.data('formBuilderInputFilter'); 
 
 		var typeNewString = function(str) {
 			input.val('');
@@ -152,8 +152,8 @@ describe('The time data-type', function(){
 
 	it('has filter support (military)', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-military="true"/>').inputField();
-		var ifw = input.data('add123InputField');
-		var filter = input.data('add123InputFilter'); 
+		var ifw = input.data('formBuilderInputField');
+		var filter = input.data('formBuilderInputFilter'); 
 
 		var typeNewString = function(str) {
 			input.val('');
@@ -172,7 +172,7 @@ describe('The time data-type', function(){
 
 	describe('has simple regex validation', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var valids, invalids;
 
 		valids = [
@@ -202,7 +202,7 @@ describe('The time data-type', function(){
 
 	describe('has simple regex validation (military)', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-military="true"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var valids, invalids;
 
 		valids = [
@@ -233,7 +233,7 @@ describe('The time data-type', function(){
 	describe('can handle conversion', function(){
 		it('using its toField', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var typeInstance = ifw.getType();
 			var formatConverted = 'h:mma',
 				formatPassed = 'HH:mm',
@@ -255,7 +255,7 @@ describe('The time data-type', function(){
 
 		it('using its toField (military)', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-military="true"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var typeInstance = ifw.getType();
 			var formatConverted = 'H:mm',
 				formatPassed = 'HH:mm',
@@ -277,7 +277,7 @@ describe('The time data-type', function(){
 
 		it('and fromField functions', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var typeInstance = ifw.getType();
 			var formatConverted = 'HH:mm',
 				formatPassed = 'h:mma',
@@ -299,7 +299,7 @@ describe('The time data-type', function(){
 
 		it('and fromField functions (military)', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-military="true"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var typeInstance = ifw.getType();
 			var formatConverted = 'HH:mm',
 				formatPassed = 'H:mm',
@@ -323,7 +323,7 @@ describe('The time data-type', function(){
 
 	it('can handle UTC vs local time when setting/getting', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var utcOffset = -240,
 			utcTime;
 		
@@ -350,7 +350,7 @@ describe('The time data-type', function(){
 
 	it('can be set to store as local', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var localTime;
 		
 		localTime = '04:00';
@@ -371,7 +371,7 @@ describe('The time data-type', function(){
 
 	it('can be torn down', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 
 		var spy_time = spyOn(ifw.element, 'timepicker').and.callThrough();

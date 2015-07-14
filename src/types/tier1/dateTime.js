@@ -21,7 +21,7 @@
 (function($){
 	'use strict';
 
-	var types = $.add123.inputField.types;
+	var types = $.formBuilder.inputField.types;
 
 	types.dateTime = {
 		momentStoreFormat: 'YYYY-MM-DDTHH:mm:ss[Z]',
@@ -89,8 +89,8 @@
 
 			self.dateWidget.parent().addClass('first');
 
-			self.timeWidgetInstance = self.timeWidget.data('add123InputField');
-			self.dateWidgetInstance = self.dateWidget.data('add123InputField');
+			self.timeWidgetInstance = self.timeWidget.data('formBuilderInputField');
+			self.dateWidgetInstance = self.dateWidget.data('formBuilderInputField');
 		},
 
 		/**

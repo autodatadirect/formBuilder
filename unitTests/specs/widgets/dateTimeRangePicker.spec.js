@@ -17,7 +17,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 	it('can get and set its data', function(){
 		var picker = $('<div></div>').dateTimeRangePicker(); 
-		var ddrw = picker.data('add123DateTimeRangePicker');
+		var ddrw = picker.data('formBuilderDateTimeRangePicker');
 
 		var date = {
 			from: '2001-05-13T15:52:00Z',
@@ -52,7 +52,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 	it('can clear its data', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker();
-		var drpw = picker.data('add123DateTimeRangePicker');
+		var drpw = picker.data('formBuilderDateTimeRangePicker');
 
 		var date = {
 			from: '',
@@ -73,7 +73,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 	it('can check if its data is dirty', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-		var ddrw = picker.data('add123DateTimeRangePicker');
+		var ddrw = picker.data('formBuilderDateTimeRangePicker');
 
 		spyOn(ddrw.form, 'formBuilder');
 
@@ -85,7 +85,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 	it('and can clear its dirty status', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-		var ddrw = picker.data('add123DateTimeRangePicker');
+		var ddrw = picker.data('formBuilderDateTimeRangePicker');
 
 		spyOn(ddrw.form, 'formBuilder');
 
@@ -118,7 +118,7 @@ describe('A dateTimeRangePicker widget',function(){
 			it('a day date range', function(){
 				// Problem with moment where the miliseconds are lagging after running test 
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-				var drpw = picker.data('add123DateTimeRangePicker');
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 
 				var date = {
 					from: '2001-05-13T00:00:00Z',
@@ -503,7 +503,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 	xit('can switch the range type of the dates', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-		var ddrw = picker.data('add123DateTimeRangePicker');
+		var ddrw = picker.data('formBuilderDateTimeRangePicker');
 
 		// var spy_de = spyOn(picker.dateTimeRangePicker(), 'deserialize').and.callThrough();
 
@@ -543,7 +543,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 	xit('can set its from and to fields', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-		var ddrw = picker.data('add123DateTimeRangePicker');
+		var ddrw = picker.data('formBuilderDateTimeRangePicker');
 
 		var from1 = moment();
 		var to1 = moment();

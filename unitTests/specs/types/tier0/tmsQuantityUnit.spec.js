@@ -11,7 +11,7 @@ describe('The Quantity Unit data type',function(){
 
 	it('allows a search', function(done){
 		var input = $('<input type="text" data-type="tmsQuantityUnit"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var items; 
 
 		var drop = ifw.getField().children('ul.ui-autocomplete.ui-menu.ui-widget');
@@ -52,7 +52,7 @@ describe('The Quantity Unit data type',function(){
 
 	it('converts all input to upper case', function(done){
 		var input = $('<input type="text" data-type="tmsQuantityUnit"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var items; 
 
 		var drop = ifw.getField().children('ul.ui-autocomplete.ui-menu.ui-widget');

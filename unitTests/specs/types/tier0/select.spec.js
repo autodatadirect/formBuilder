@@ -11,23 +11,23 @@
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 
 	var typeName = 'select';
-	var type = $.add123.inputField.types[typeName];
+	var type = $.formBuilder.inputField.types[typeName];
 
  	describe('can be setup', function(){
  		it('is a valid data-type', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			
 			expect(type).toBeDefined();
 
 			ifw.setType(typeName);
 			
-			expect(util.equals(ifw.getType(), $.add123.inputField.types.text)).toBe(false);
+			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.text)).toBe(false);
 		});
 
  		it('to have an input field with data', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var openIcon = '.tms-icon.tms-icon-sort-up.dropdown-open-icon';
 			var closedIcon = '.tms-icon.tms-icon-sort-down.dropdown-closed-icon';
 
@@ -54,7 +54,7 @@
 		describe('with a close listener', function(){
 			it('that can handle if the escape key is pressed', function(done){
 				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 
 				var spy_focus = spyOn($.fn, 'focus').and.callThrough();
 				var spy_close = spyOn(ifw.getType(), 'close').and.callThrough();
@@ -75,7 +75,7 @@
 
 			it('that can handle when the enter key is pressed', function(done){
 				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 
 				var spy_selected = spyOn(ifw.getType(), '_setSelected').and.callThrough();
 
@@ -94,7 +94,7 @@
 
 			it('that can handle when a key other than the escape or the enter key are pressed', function(done){
 				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 
 				var spy_focus = spyOn($.fn, 'focus').and.callThrough();
 				var spy_selected = spyOn(ifw.getType(), '_setSelected').and.callThrough();
@@ -134,7 +134,7 @@
 
 			it('that can handle a click on an option', function(done){
 				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
 				var spy_select = spyOn(ifw.getType(), '_setSelected').and.callThrough(); 
@@ -152,7 +152,7 @@
 
 			it('that can handle a mouseenter on an option', function(done){
 				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 				var option1 = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(1);
 
@@ -175,7 +175,7 @@
 
 			it('that can handle a mouseleave on an option', function(done){
 				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
 				ifw.getType().open(); 
@@ -197,7 +197,7 @@
 
 		it('so that it will not display an input field in the dropdown if there are less than five values', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var panel = input.parent().eq(0).siblings();
 			var dropDown = input.parent().eq(0).siblings().eq(0);
 			var dropSearch = dropDown.children().children().eq(0); 
@@ -209,7 +209,7 @@
 
 		it('so that it will display an input field in the dropdown if there are more than five values', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var dropDown = input.parent().eq(0).siblings().eq(0);
 			var dropSearch = dropDown.children().children().eq(0); 
 
@@ -223,7 +223,7 @@
 	describe('can detect when an event will be fired on key down', function(){
 		it('when the tab key is pressed (nothing happens, keeping for legacy)', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_focus = spyOn($.fn, 'focus').and.callThrough();
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
@@ -238,7 +238,7 @@
 	
 		it('when the escape key is pressed', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
 
@@ -254,7 +254,7 @@
 
 		it('when the enter key is pressed', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
 
@@ -271,7 +271,7 @@
 
 		it('when the down arrow key is pressed and no option is selected', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
@@ -299,7 +299,7 @@
 
 			it('when the down arrow key is pressed and an option is selected', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i;
 
@@ -336,7 +336,7 @@
 
 		it('when the up arrow key is pressed and no option is selected', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i; 
 			var x; 
@@ -373,7 +373,7 @@
 
 		it('when the up arrow key is pressed and an option is selected', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var i; 
 			var x; 
@@ -411,7 +411,7 @@
 
 		it('when a key code that is less than 32 that has not been previously allowed has been used', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
 			var spy_find = spyOn($.fn, 'find').and.callThrough();
@@ -430,7 +430,7 @@
 
 		it('when a key code that is greater than 126 has been used', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
 			var spy_find = spyOn($.fn, 'find').and.callThrough();
@@ -451,7 +451,7 @@
 
 	it('can detect when an event will be fired on key up', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone", "filter":"test"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 		var ev = $.Event("keyup");
 
@@ -474,7 +474,7 @@
 	describe('can handle conversion', function(){
 		it('using its toField and fromField functions', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var param = ifw.getType();
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
@@ -508,7 +508,7 @@
 
 	it('can open and close dropdown menu on mouseclicks', function(done){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var box = $('<body></body>').children().eq(1);
 
 		var spy_tog = spyOn(ifw.getType(), 'toggle').and.callThrough(); 
@@ -553,7 +553,7 @@
 
 	it('can toggle dropdown menu on mouseclicks', function(done){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var spy_tog = spyOn(ifw.getType(), 'toggle').and.callThrough(); 
 		var spy_close = spyOn(ifw.getType(), 'close').and.callThrough(); 
@@ -597,7 +597,7 @@
 
 	it('can set its\' status when there is no item', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var spy_rem = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
 		var spy_find = spyOn($.fn, 'find').and.callThrough(); 
@@ -612,7 +612,7 @@
 
 	it('can set its\' status when there is an item', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 		var spy_rem = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
@@ -642,7 +642,7 @@
 	describe('can type a search in the dropdown input field', function(){
 		it('and the correct label will be selected if the correct value is typed in', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var parameter = ifw.getType();
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -687,7 +687,7 @@
 
 		it('and an incorrect entry will result in the first item being selected, using scroll', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var parameter = ifw.getType();
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var spy = spyOn(ifw.getType(), '_scroll').and.callThrough(); 
@@ -706,7 +706,7 @@
 
 		it('and the shim will hold the correct value', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var typeInstance = ifw.getType();
 
 			typeInstance.open();
@@ -719,7 +719,7 @@
 
 		it('a partial entry will display only relevant labels', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 			var spy_should = spyOn(ifw.getType(), '_itemShoudBeFiltered').and.callThrough();
@@ -752,7 +752,7 @@
 
 	it('can handle when an item has been selected', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -795,7 +795,7 @@
 
 	it('can select the first non-empty option', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 		var spy_remove = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
@@ -816,7 +816,7 @@
 
 	it('can clear its status', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var spy_remove = spyOn($.fn, 'removeClass').and.callThrough();
 		var spy_handle = spyOn(ifw.getType(), '_handleItemNotFound').and.callThrough();
@@ -841,7 +841,7 @@
 
 	it('can handle when an item that has been selected is not found', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 		var spy_default = spyOn(ifw.getType(), '_setDefaultItem').and.callThrough();
@@ -853,7 +853,7 @@
 
 	it('can set a default item', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-default = "Cat"/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 		var spy_add = spyOn($.fn, 'addClass').and.callThrough();
@@ -881,7 +881,7 @@
 
 	it('can select the first item if a default item is not set', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
 		expect(option.is('.option')).toBe(true);
@@ -902,7 +902,7 @@
 			var aClass = $('<div class="aClass" style="display: block; height: 1em; width: 1em;">visible</div>').appendTo(testForm);
 			testForm.find(".aClass").hide();
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple", "showClass":"aClass"}]\'/>').appendTo(testForm).inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 			expect(aClass.css('display')).toBe('none');
@@ -925,7 +925,7 @@
 
 		it('and it can handle if there is no showClass variable', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var spy_showHide = spyOn(ifw.getType(), 'showHideCommand').and.callThrough();
 			var spy_hide = spyOn($.fn, 'hide').and.callThrough();
@@ -945,7 +945,7 @@
 
 	it('can test if two values are equal to each other', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var spy_equal = spyOn(ifw.getType(), '_equal').and.callThrough();
 
 		ifw.getType()._set(); 
@@ -972,7 +972,7 @@
 
 	it('can set and get its label', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		ifw.getType()._setLabel("Some label");	
 		var result = ifw.getType()._getLabel();
@@ -982,7 +982,7 @@
 
 	it('can get its options', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		// Create object to test equality of result 
 		var mainObject = [{value: 'Aragorn', label: 'Apple'},{value: 'Book',label: 'Banana'},{value: 'Cat',label: 'Cucumber'},{value: 'X-Ray',label: 'Xylophone'},{value: 'Yak',label: 'Yellow'},{value: 'Zoo',label: 'Zingales'}];
@@ -994,7 +994,7 @@
 
 	it('can remove invalid data', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 		var i; 
 
@@ -1013,7 +1013,7 @@
 
 	it('can remove a selection', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
  
 		var spy_remC = spyOn($.fn, 'removeClass').and.callThrough(); 
@@ -1049,7 +1049,7 @@
 	describe('has a filter', function(){
 		it('that can handle clicks', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
 			var ev = $.Event('click');  
@@ -1068,7 +1068,7 @@
 
 		it('that can handle a dirty status', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
 			var ev = $.Event('dirty');  
@@ -1085,7 +1085,7 @@
 
 		it('that can handle a clean status', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var filter = input.parent().eq(0).siblings().children().children().eq(0).children().eq(0).find('input');
 
 			var ev = $.Event('clean');  
@@ -1102,7 +1102,7 @@
 
 		it('that can filter its\' options', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_work = spyOn(ifw.getType(), '__filterOptionsWork').and.callThrough();
 			var spy_remove = spyOn(ifw.getType(), '_removeSelection').and.callThrough();
@@ -1122,7 +1122,7 @@
 
 		it('that can filter its\' options\' work', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
 			var spy_filter = spyOn(ifw.getType(), '_filterItem').and.callThrough();
@@ -1137,7 +1137,7 @@
 
 		it('that can filter the item selected', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_item = spyOn(ifw.getType(), '_filterItem').and.callThrough();
 
@@ -1158,7 +1158,7 @@
 
 		it('that can check if the item is filtered', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var result = ifw.getType()._itemShoudBeFiltered('test'); 
 
@@ -1175,7 +1175,7 @@
 
 		it('that can be cleared', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			var spy_remove = spyOn($.fn, 'removeClass').and.callThrough();
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(3);
@@ -1204,7 +1204,7 @@
 	describe('can build an empty option', function(){
 		it('without an empty-label',function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 			ifw.getType()._buildEmptyOption(); 
@@ -1221,7 +1221,7 @@
 
 		it('with an empty-label', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-empty-label="Test"/>').inputField();	
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 			ifw.getType()._buildEmptyOption(); 
@@ -1241,7 +1241,7 @@
 
 	it('can build options', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var spy_empty = spyOn($.fn, 'empty').and.callThrough();
 		var spy_trigger = jasmine.createSpy('event');
@@ -1264,7 +1264,7 @@
 
 	it('can sort', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var spy_sort = spyOn($.fn, 'sort').and.callThrough();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
@@ -1285,7 +1285,7 @@
 
 	it('can scroll', function(done){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}, {"value":"Lion", "label": "Lettuce"},  {"value":"Frida", "label": "Fancy"},  {"value":"Window", "label": "Washer"}, {"value":"Orange", "label": "Oval"},  {"value":"Pineapple", "label": "Penguin"},  {"value":"Goodie", "label": "Gelatin"},  {"value":"King", "label":"Kevin"}]\'/>').appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var parameter = ifw.getType();
 		var panel = input.parent().eq(0).siblings();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1);
@@ -1328,7 +1328,7 @@
 
 	it('can open a panel if it is not already visible', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
 		var spy_trigger = jasmine.createSpy('event');		
@@ -1378,7 +1378,7 @@
 
 	it('can render a label', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var item = {
 			value: 'Some value',
@@ -1392,7 +1392,7 @@
 
 	it('can render an item', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var result = ifw.getType().renderItem(input);
 
@@ -1401,7 +1401,7 @@
 
 	it('can close a panel', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var panel = input.parent().eq(0).siblings();
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
@@ -1439,7 +1439,7 @@
 
 	it('can be updated', function(done){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var spy_def = spyOn($, 'Deferred').and.callThrough();
 		var spy_each = spyOn($, 'each').and.callThrough();
@@ -1472,7 +1472,7 @@
 		var mainObject = [{value: 'X-Ray', label: 'Xylophone'},{value: 'Cat',label: 'Cucumber'},{value: 'Yak',label: 'Yellow'},{value: 'Book',label: 'Banana'},{value: 'Zoo',label: 'Zingales'},{value: 'Aragorn',label: 'Apple'}];
 
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\''+JSON.stringify(mainObject)+'\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var source = []; 
 
 		var result_dfd = ifw.getType().load();
@@ -1488,7 +1488,7 @@
 
 	it('can create a map', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var result = {
 			label: '',
@@ -1503,7 +1503,7 @@
 
 	it('can de-map itself', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var result = ifw.getType().deMap('test');
 
@@ -1521,7 +1521,7 @@
 
 	it('can set and get its values', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options=\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		ifw.set('test'); 
 
@@ -1553,7 +1553,7 @@
 
 		it('can toggle the options that will be displayed', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var typeInstance = ifw.getType();
 
 			var first_op = input.parent().siblings().eq(0).children().children().eq(1).children().children().eq(0).text();
@@ -1574,7 +1574,7 @@
 
 		it('and the selected option will dissapear when the options are changed', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var typeInstance = ifw.getType();
 
 			typeInstance.setOptions(sOptionsTwo);

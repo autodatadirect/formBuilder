@@ -8,25 +8,25 @@ describe('The money data-type', function(){
 	var batchTest = window.formBuilderTesting.batchTest;
 	var testContainer = window.formBuilderTesting.testContainer;
 	var typeName = 'money';
-	var type = $.add123.inputField.types[typeName];
+	var type = $.formBuilder.inputField.types[typeName];
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		
 		expect(type).toBeDefined();
 
 		ifw.setType(typeName);
 		
-		expect(util.equals(ifw.getType(), $.add123.inputField.types.text)).toBe(false);
+		expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.text)).toBe(false);
 	});
 	
 	it('has filter support', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
-		var filter = input.data('add123InputFilter'); 
+		var ifw = input.data('formBuilderInputField');
+		var filter = input.data('formBuilderInputFilter'); 
 
 		var typeNewString = function(str) {
 			input.val('');
@@ -78,7 +78,7 @@ describe('The money data-type', function(){
 
 		it('that allows you to set a max amount of money to be entered', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-max-amount="10.00"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var err;
 
 			input.focus();
@@ -105,7 +105,7 @@ describe('The money data-type', function(){
 
 		it('and will not allow input to exceed that amount', function(done){
 	 		var input = $('<input type="text" data-type="'+typeName+'" data-max-amount="10.00"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var err;
 
 			input.focus();
@@ -133,7 +133,7 @@ describe('The money data-type', function(){
 
  		it('that allows you to set a min amount of money to be entered', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var err;
 
 			input.focus();
@@ -160,7 +160,7 @@ describe('The money data-type', function(){
 
 		it('and will not allow input to be less than that amount', function(done){
 	 		var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var err;
 
 			input.focus();
@@ -188,7 +188,7 @@ describe('The money data-type', function(){
 
  		it('that allows you to set a both min amount and a max amount of money to be entered', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00" data-max-amount="100.00"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var err;
 
 			input.focus();
@@ -214,7 +214,7 @@ describe('The money data-type', function(){
 
 		it('and will not allow input to be less than the min or greater than the max', function(done){
 	 		var input = $('<input type="text" data-type="'+typeName+'" data-min-amount="10.00" data-max-amount="100.00"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var err;
 
 			input.focus();
@@ -260,7 +260,7 @@ describe('The money data-type', function(){
 	describe('has a converter', function(){
 		it('that formats to field', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 		
 			var spy_format = spyOn(ifw.getType(), 'format');
 
@@ -271,7 +271,7 @@ describe('The money data-type', function(){
 
 		it('that formats from field', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 		
 			var spy_format = spyOn(ifw.getType(), 'format');
 
@@ -285,7 +285,7 @@ describe('The money data-type', function(){
 	describe('has a format', function(){
 		it('that formats it like money, only using the first', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			
 			expect(ifw.getType().format(chars.digits)).toBe('1234567890.00');
 			expect(ifw.getType().format('01234567890')).toBe('1234567890.00');
@@ -302,7 +302,7 @@ describe('The money data-type', function(){
 
 		it('that is set on blur', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			
 			var spy_format = spyOn(ifw.getType(), 'format');
 
@@ -316,7 +316,7 @@ describe('The money data-type', function(){
 
 		it('that is set on change, keeping the caret position', function(done){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var pos;
 			
 			var spy_format = spyOn(ifw.getType(), 'format').and.callThrough();
@@ -344,7 +344,7 @@ describe('The money data-type', function(){
 
 	it('can set and get its values', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		ifw.set(100.55); 
 

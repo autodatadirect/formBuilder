@@ -11,9 +11,9 @@ describe('An inputFilter', function(){
 
 	it('can be created', function(){
 		var input = $('<input type="text"/>').inputFilter();
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 
-		expect(input.is(':add123-inputFilter')).toBe(true);
+		expect(input.is(':formBuilder-inputFilter')).toBe(true);
 		expect(filter).toBeDefined();
 	});
 
@@ -24,9 +24,9 @@ describe('An inputFilter', function(){
 			pattern: /./
 		};
 		var input = $('<input type="text"/>').inputFilter(ops);
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 
-		expect(input.is(':add123-inputFilter')).toBe(true);
+		expect(input.is(':formBuilder-inputFilter')).toBe(true);
 		expect(filter).toBeDefined();
 		expect(filter.options.toUpper).toBe(ops.toUpper);
 		expect(filter.options.max).toBe(ops.max);
@@ -35,7 +35,7 @@ describe('An inputFilter', function(){
 
 	it('can set its max value', function(){
 		var input = $('<input type="text"/>').inputFilter();
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 		var testMax = 12;
 
 		filter.options.max = 0;
@@ -45,7 +45,7 @@ describe('An inputFilter', function(){
 
 	it('can set its pattern', function(){
 		var input = $('<input type="text"/>').inputFilter();
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 		var testPattern = /a-zA-Z0-9/g;
 
 		filter.options.pattern = /./;
@@ -55,7 +55,7 @@ describe('An inputFilter', function(){
 
 	it('will schedule a clean after on paste', function(done){
 		var input = $('<input type="text"/>').inputFilter();
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 
 		spyOn(filter, '_clean');
 
@@ -70,7 +70,7 @@ describe('An inputFilter', function(){
 
 	it('detects potential native changes from keydown events', function(done){
 		var input = $('<input type="text"/>').inputFilter();
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 		var code;
 
 		expect(filter.nativeChange).toBe(false);
@@ -127,7 +127,7 @@ describe('An inputFilter', function(){
 	
 	it('calls change event for new native changes on blur', function(done){
 		var input = $('<input type="text"/>').inputFilter();
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 		var cCount;
 
 		// spyOn(input, 'change').and.callThrough();
@@ -171,7 +171,7 @@ describe('An inputFilter', function(){
 
 	it('can handle typing on keypress for typeable text', function(done){
 		var input = $('<input type="text"/>').inputFilter();
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 		var cCount = 0;
 		var code;
 
@@ -229,7 +229,7 @@ describe('An inputFilter', function(){
 		
 		it('to the end of the input', function(){
 			var input = $('<input type="text"/>').inputFilter();
-			var filter = input.data('add123InputFilter');
+			var filter = input.data('formBuilderInputFilter');
 			var isTyped;
 
 			input.val('123456');
@@ -244,7 +244,7 @@ describe('An inputFilter', function(){
 			var input = $('<input type="text"/>').appendTo(testContainer).inputFilter();
 			var filter, pos, isTyped;
 
-			filter = input.data('add123InputFilter');
+			filter = input.data('formBuilderInputFilter');
 
 			input.focus();
 			pause(triggerWaitTime + 10)
@@ -270,7 +270,7 @@ describe('An inputFilter', function(){
 			var input = $('<input type="text"/>').inputFilter({
 				toUpper: true
 			});
-			var filter = input.data('add123InputFilter');
+			var filter = input.data('formBuilderInputFilter');
 			var isTyped;
 
 			isTyped = filter._type('a');
@@ -283,7 +283,7 @@ describe('An inputFilter', function(){
 			var input = $('<input type="text"/>').inputFilter({
 				pattern: /[A-Z]/
 			});
-			var filter = input.data('add123InputFilter');
+			var filter = input.data('formBuilderInputFilter');
 
 			spyOn(filter, '_trigger');
 
@@ -305,7 +305,7 @@ describe('An inputFilter', function(){
 
 		it('and prevent going over the max (unfocused)', function(){
 			var input = $('<input type="text"/>').inputFilter();
-			var filter = input.data('add123InputFilter');
+			var filter = input.data('formBuilderInputFilter');
 			var isTyped;
 
 			filter.setMax(6);
@@ -323,7 +323,7 @@ describe('An inputFilter', function(){
 			var filter, pos, isTyped;
 
 			input.appendTo(testContainer).inputFilter();
-			filter = input.data('add123InputFilter');
+			filter = input.data('formBuilderInputFilter');
 
 			filter.setMax(6);
 			input.focus();
@@ -344,13 +344,13 @@ describe('An inputFilter', function(){
 
 	it('can destroy itself', function(){
 		var input = $('<input type="text"/>').inputFilter();
-		var filter = input.data('add123InputFilter');
+		var filter = input.data('formBuilderInputFilter');
 
 		expect(filter).toBeDefined();
 		
 		filter.destroy();
 		
-		filter = input.data('add123InputFilter');
+		filter = input.data('formBuilderInputFilter');
 
 		expect(filter).toBeUndefined();
 	});

@@ -17,7 +17,7 @@ describe('A dateRangePicker widget',function(){
 
 	it('can get and set its data', function(){
 		var picker = $('<div></div>').dateRangePicker(); 
-		var ddrw = picker.data('add123DateRangePicker');
+		var ddrw = picker.data('formBuilderDateRangePicker');
 
 		var date = {
 			from: '2001-05-13',
@@ -52,7 +52,7 @@ describe('A dateRangePicker widget',function(){
 
 	it('can clear its data', function(){
 		var picker = $('<div class="dateRange"></div>').dateRangePicker();
-		var drpw = picker.data('add123DateRangePicker');
+		var drpw = picker.data('formBuilderDateRangePicker');
 
 		var date = {
 			from: '',
@@ -73,7 +73,7 @@ describe('A dateRangePicker widget',function(){
 
 	it('can check if its data is dirty', function(){
 		var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-		var ddrw = picker.data('add123DateRangePicker');
+		var ddrw = picker.data('formBuilderDateRangePicker');
 
 		spyOn(ddrw.form, 'formBuilder');
 
@@ -85,7 +85,7 @@ describe('A dateRangePicker widget',function(){
 
 	it('and can clear its dirty status', function(){
 		var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-		var ddrw = picker.data('add123DateRangePicker');
+		var ddrw = picker.data('formBuilderDateRangePicker');
 
 		spyOn(ddrw.form, 'formBuilder');
 
@@ -119,7 +119,7 @@ describe('A dateRangePicker widget',function(){
 		describe('and can set', function(){
 			it('a day date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker');
+				var ddrw = picker.data('formBuilderDateRangePicker');
 
 				var from1 = moment();
 				var to1 = moment();
@@ -141,7 +141,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('a week date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker');
+				var ddrw = picker.data('formBuilderDateRangePicker');
 
 				var from1 = moment().startOf('week');
 				var to1 = moment().endOf('week');
@@ -163,7 +163,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('a month date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker');
+				var ddrw = picker.data('formBuilderDateRangePicker');
 
 				var from1 = moment().startOf('month');
 				var to1 = moment().endOf('month');
@@ -184,7 +184,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('and a year date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker');
+				var ddrw = picker.data('formBuilderDateRangePicker');
 
 				var from1 = moment().startOf('year');
 				var to1 = moment().endOf('year');
@@ -205,7 +205,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('but will not set a custom date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker();
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 
 				var date2 = {
 					from: '', 
@@ -239,7 +239,7 @@ describe('A dateRangePicker widget',function(){
 		describe('and can be used to move the date range forward', function(){
 			it('by one day', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
 				ddrw.set({
@@ -263,7 +263,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('by one week', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
 				ddrw.set({
@@ -287,7 +287,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('by one month', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
 				ddrw.set({
@@ -311,7 +311,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('by one year', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
 				ddrw.set({
@@ -336,7 +336,7 @@ describe('A dateRangePicker widget',function(){
 
 		it('but will not do anything if the custom type is selected', function(){
 			var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-			var ddrw = picker.data('add123DateRangePicker'); 
+			var ddrw = picker.data('formBuilderDateRangePicker'); 
 			var buttons = $(document).find('.ui-button');
 
 			ddrw.set({
@@ -361,7 +361,7 @@ describe('A dateRangePicker widget',function(){
 		describe('and can be used to move the date range backward', function(){
 			it('by one day', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
 				ddrw.set({
@@ -385,7 +385,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('by one week', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
 				ddrw.set({
@@ -409,7 +409,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('by one month', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
 				ddrw.set({
@@ -433,7 +433,7 @@ describe('A dateRangePicker widget',function(){
 
 			it('by one year', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-				var ddrw = picker.data('add123DateRangePicker'); 
+				var ddrw = picker.data('formBuilderDateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
 				ddrw.set({
@@ -458,7 +458,7 @@ describe('A dateRangePicker widget',function(){
 
 		it('but will not do anything if the custom type is selected', function(){
 			var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-			var ddrw = picker.data('add123DateRangePicker'); 
+			var ddrw = picker.data('formBuilderDateRangePicker'); 
 			var buttons = $(document).find('.ui-button');
 
 			ddrw.set({
@@ -483,7 +483,7 @@ describe('A dateRangePicker widget',function(){
 
 	it('can move the range', function(){
 		var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-		var ddrw = picker.data('add123DateRangePicker');
+		var ddrw = picker.data('formBuilderDateRangePicker');
 
 		var from = '2015-01-02';
 		var from2 = '2015-01-03';
@@ -518,7 +518,7 @@ describe('A dateRangePicker widget',function(){
 
 	it('can set its from and to fields', function(){
 		var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-		var ddrw = picker.data('add123DateRangePicker');
+		var ddrw = picker.data('formBuilderDateRangePicker');
 
 		var from1 = moment();
 		var to1 = moment();
@@ -539,7 +539,7 @@ describe('A dateRangePicker widget',function(){
 
 	it('can validate its input', function(){
 		var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-		var ddrw = picker.data('add123DateRangePicker');
+		var ddrw = picker.data('formBuilderDateRangePicker');
 
 		ddrw.set({
 			from: '2014-01-02', 

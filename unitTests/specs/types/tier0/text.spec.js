@@ -12,11 +12,11 @@ describe('The text data-type', function(){
 	var batchTest = window.formBuilderTesting.batchTest;
 
 	var typeName = 'text';
-	var type = $.add123.inputField.types[typeName];
+	var type = $.formBuilder.inputField.types[typeName];
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		
 		expect(type).toBeDefined();
 
@@ -27,15 +27,15 @@ describe('The text data-type', function(){
 
 	it('is the default data-type', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		
 		expect(util.equals(ifw.getType(), type)).toBe(true);
 	});
 
 	it('does not have filter support', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
-		var filter = input.data('add123InputFilter');
+		var ifw = input.data('formBuilderInputField');
+		var filter = input.data('formBuilderInputFilter');
 
 		//I think that this doesn't work b/c text doesnt need a filter 
 		var typeNewString = function(str) {
@@ -51,7 +51,7 @@ describe('The text data-type', function(){
 
 	it('can set and get its values', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		ifw.set('any text is allowed'); 
 

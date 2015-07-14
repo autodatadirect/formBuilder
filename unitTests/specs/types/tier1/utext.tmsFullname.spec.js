@@ -13,7 +13,7 @@
 
 	it('will not allow a single word input', function(done){
 		var input = $('<input type="text" data-type="tmsFullname"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var err; 
 
 		input.focus();
@@ -40,7 +40,7 @@
 
 	it('will allow two or more words as input', function(done){
 		var input = $('<input type="text" data-type="tmsFullname"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var err; 
 
 		input.focus();
@@ -81,7 +81,7 @@
 
 	it('should allow commas in between the two names', function(done){
 		var input = $('<input type="text" data-type="tmsFullname"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var err; 
 
 		input.focus();
@@ -107,7 +107,7 @@
 
 	it('should allow hyphenated last names', function(done){
 		var input = $('<input type="text" data-type="tmsFullname"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var err; 
 
 		input.focus();
@@ -133,7 +133,7 @@
 
 	it('should allow apostrophes in names', function(done){
 		var input = $('<input type="text" data-type="tmsFullname"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var err; 
 
 		input.focus();
@@ -159,8 +159,8 @@
 
 	it('has filter support that will convert all lower case to upper case', function(){
 		var input = $('<input type="text" data-type="tmsFullname"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
-		var filter = input.data('add123InputFilter'); 
+		var ifw = input.data('formBuilderInputField');
+		var filter = input.data('formBuilderInputFilter'); 
 
 		var typeNewString = function(str) {
 			input.val('');
@@ -175,7 +175,7 @@
 
 	describe('has simple regex validation', function(){
 		var input = $('<input type="text" data-type="tmsFullname"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var valids, invalids;
 
 		valids = [

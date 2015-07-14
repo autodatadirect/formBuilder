@@ -15,10 +15,10 @@ describe('The date data-type', function(){
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance;
 
-		expect($.add123.inputField.types[typeName]).toBeDefined();
+		expect($.formBuilder.inputField.types[typeName]).toBeDefined();
 
 		ifw.setType(typeName);
 		
@@ -38,7 +38,7 @@ describe('The date data-type', function(){
 	describe('has a datepicker', function(){
 		it('that opens on focus', function(done){
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var datepicker;
 
 			datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
@@ -61,7 +61,7 @@ describe('The date data-type', function(){
 
 		it('that can select a date', function(done){
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var datepicker;
 
 			expect(ifw.get()).toBe('');
@@ -90,7 +90,7 @@ describe('The date data-type', function(){
 
 		it('and can be torn down', function(done){
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var datepicker;
 
 			expect(ifw.get()).toBe('');
@@ -119,8 +119,8 @@ describe('The date data-type', function(){
 
 	it('has filter support', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
-		var filter = input.data('add123InputFilter'); 
+		var ifw = input.data('formBuilderInputField');
+		var filter = input.data('formBuilderInputFilter'); 
 
 		var typeNewString = function(str) {
 			input.val('');
@@ -139,7 +139,7 @@ describe('The date data-type', function(){
 
 	describe('has simple regex validation', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var valids, invalids;
 
 		valids = [
@@ -167,7 +167,7 @@ describe('The date data-type', function(){
 
 	it('can enforce the startDate', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-minyear="2000" data-enforce-min="true"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 
 		// Valid
@@ -183,7 +183,7 @@ describe('The date data-type', function(){
 
 	it('can enforce the endDate', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-maxyear="2017" data-enforce-max="true"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 
 		// Valid
@@ -200,7 +200,7 @@ describe('The date data-type', function(){
 	describe('can handle conversion', function(){
 		it('using its toField', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			// With correct input 
 			var result = ifw.getType().converter.toField('1988-07-23');
@@ -220,7 +220,7 @@ describe('The date data-type', function(){
 
 		it('and fromField functions', function(){
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			// With correct input 
 			var result = ifw.getType().converter.fromField('07/23/1988');
@@ -241,7 +241,7 @@ describe('The date data-type', function(){
 
 	it('stores as local date, rather than utc date', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		ifw.set('2015-06-14');
 		expect(ifw.get()).toBe('2015-06-14');
@@ -250,7 +250,7 @@ describe('The date data-type', function(){
 
 	it('can be torn down', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 
 		spyOn(ifw.element, 'datepicker').and.callThrough();
