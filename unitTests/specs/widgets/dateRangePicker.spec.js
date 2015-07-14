@@ -17,16 +17,21 @@ describe('A dateRangePicker widget',function(){
 
 	it('can get and set its data', function(){
 		var picker = $('<div></div>').dateRangePicker(); 
+		var ddrw = picker.data('add123DateRangePicker');
 
 		var date = {
-			from: '2000-01-01',
-			to: '2000-01-02',
-			range: 'day'
+			from: '2001-05-13',
+			to: '2001-05-13',
+			range: 'custom'
 		};
 
-		picker.dateRangePicker('set', date);
+		ddrw.set({
+			from: '2001-05-13',
+			to: '2001-05-13',
+			range: 'custom'
+		});
 
-		expect(picker.dateRangePicker('get')).toEqual(date);
+		expect(ddrw.get()).toEqual(date);
 	});
 
 	it('can serialize its data', function(){
@@ -47,24 +52,23 @@ describe('A dateRangePicker widget',function(){
 
 	it('can clear its data', function(){
 		var picker = $('<div class="dateRange"></div>').dateRangePicker();
+		var drpw = picker.data('add123DateRangePicker');
 
 		var date = {
-			from: '2000-01-01',
-			to: '2000-01-02',
-			range: 'day' 
-		};
-
-		var returnDate = {
 			from: '',
 			to: '',
-			range: 'custom'
+			range: 'custom' 
 		};
 
-		picker.dateRangePicker('set', date);
+		drpw.set({
+			from: '2001-05-13T15:52:00Z',
+			to: '2001-05-13T19:34:00Z',
+			range: 'custom'
+		});
 
-		picker.dateRangePicker('clear');
+		drpw.clear();
 
-		expect(picker.dateRangePicker('get')).toEqual(returnDate);
+		expect(drpw.get()).toEqual(date);
 	});
 
 	it('can check if its data is dirty', function(){
@@ -115,6 +119,7 @@ describe('A dateRangePicker widget',function(){
 		describe('and can set', function(){
 			it('a day date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
+				var ddrw = picker.data('add123DateRangePicker');
 
 				var from1 = moment();
 				var to1 = moment();
@@ -129,13 +134,14 @@ describe('A dateRangePicker widget',function(){
 					range: 'custom'
 				};
 
-				picker.dateRangePicker('setRange', 'day');
+				ddrw.setRange('day');
 
-				expect(picker.dateRangePicker('get')).toEqual(date);
+				expect(ddrw.get()).toEqual(date);
 			});
 
 			it('a week date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
+				var ddrw = picker.data('add123DateRangePicker');
 
 				var from1 = moment().startOf('week');
 				var to1 = moment().endOf('week');
@@ -150,13 +156,14 @@ describe('A dateRangePicker widget',function(){
 					range: 'custom'
 				};
 
-				picker.dateRangePicker('setRange', 'week');
+				ddrw.setRange('week');
 
-				expect(picker.dateRangePicker('get')).toEqual(date);
+				expect(ddrw.get()).toEqual(date);
 			});
 
 			it('a month date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
+				var ddrw = picker.data('add123DateRangePicker');
 
 				var from1 = moment().startOf('month');
 				var to1 = moment().endOf('month');
@@ -170,13 +177,14 @@ describe('A dateRangePicker widget',function(){
 					range: 'custom'
 				};
 
-				picker.dateRangePicker('setRange', 'month');
+				ddrw.setRange('month');
 
-				expect(picker.dateRangePicker('get')).toEqual(date);
+				expect(ddrw.get()).toEqual(date);
 			});
 
 			it('and a year date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
+				var ddrw = picker.data('add123DateRangePicker');
 
 				var from1 = moment().startOf('year');
 				var to1 = moment().endOf('year');
@@ -190,19 +198,14 @@ describe('A dateRangePicker widget',function(){
 					range: 'custom'
 				};
 
-				picker.dateRangePicker('setRange', 'year');
+				ddrw.setRange('year');
 
-				expect(picker.dateRangePicker('get')).toEqual(date);
+				expect(ddrw.get()).toEqual(date);
 			});
 
 			it('but will not set a custom date range', function(){
-				var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
-
-				var date = {
-					from: '2000-01-01',
-					to: '2000-01-02', 
-					range: 'custom'
-				};
+				var picker = $('<div class="dateRange"></div>').dateRangePicker();
+				var ddrw = picker.data('add123DateRangePicker'); 
 
 				var date2 = {
 					from: '', 
@@ -210,9 +213,9 @@ describe('A dateRangePicker widget',function(){
 					range: 'custom'
 				};
 
-				picker.dateRangePicker('setRange', 'custom');
+				ddrw.setRange('custom');
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date2);
 			});
 		});
 	});
@@ -236,104 +239,96 @@ describe('A dateRangePicker widget',function(){
 		describe('and can be used to move the date range forward', function(){
 			it('by one day', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+				var ddrw = picker.data('add123DateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
-				var date = {
+				ddrw.set({
 					from: '2000-01-02', 
 					to: '2000-01-02',
 					range: 'day' 
-				};
+				});
 
-				var date2 = {
+				var date = {
 					from: '2000-01-03', 
 					to: '2000-01-03', 
 					range: 'day' 
 				};
 
-				picker.dateRangePicker('set', date);
-
 				buttons.eq(1).click();
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date);
 
 				testContainer.empty();
 			});
 
 			it('by one week', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+				var ddrw = picker.data('add123DateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
-				var date = {
+				ddrw.set({
 					from: '2015-07-19', 
 					to: '2015-07-25', 
 					range: 'week' 
-				};
+				});
 
-				var date2 = {
+				var date = {
 					from: '2015-07-26', 
 					to: '2015-08-01', 
 					range: 'week' 
 				};
 
-				picker.dateRangePicker('set', date);
-
 				buttons.eq(1).click();
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date);
 
 				testContainer.empty();
 			});
 
 			it('by one month', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+				var ddrw = picker.data('add123DateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
-				var date = {
+				ddrw.set({
 					from: '2015-07-01', 
 					to: '2015-07-31', 
 					range: 'month' 
-				};
+				});
 
-				var date2 = {
+				var date = {
 					from: '2015-08-01', 
 					to: '2015-08-31', 
 					range: 'month' 
 				};
 
-				picker.dateRangePicker('set', date);
-
 				buttons.eq(1).click();
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date);
 
 				testContainer.empty();
 			});
 
 			it('by one year', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+				var ddrw = picker.data('add123DateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
-				var date = {
+				ddrw.set({
 					from: '2015-01-01', 
 					to: '2015-12-31', 
 					range: 'year' 
-				};
+				});
 
-				var date2 = {
+				var date = {
 					from: '2016-01-01', 
 					to: '2016-12-31', 
 					range: 'year' 
 				};
 
-				picker.dateRangePicker('set', date);
-
 				buttons.eq(1).click();
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date);
 
 				testContainer.empty();
 			});
@@ -341,8 +336,14 @@ describe('A dateRangePicker widget',function(){
 
 		it('but will not do anything if the custom type is selected', function(){
 			var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+			var ddrw = picker.data('add123DateRangePicker'); 
 			var buttons = $(document).find('.ui-button');
+
+			ddrw.set({
+				from: '2015-01-01', 
+				to: '2015-08-05', 
+				range: 'custom' 
+			});
 
 			var date = {
 				from: '2015-01-01', 
@@ -350,11 +351,9 @@ describe('A dateRangePicker widget',function(){
 				range: 'custom' 
 			};
 
-			picker.dateRangePicker('set', date);
-
 			buttons.eq(1).click();
 
-			expect(picker.dateRangePicker('get')).toEqual(date);
+			expect(ddrw.get()).toEqual(date);
 
 			testContainer.empty();
 		});
@@ -362,104 +361,96 @@ describe('A dateRangePicker widget',function(){
 		describe('and can be used to move the date range backward', function(){
 			it('by one day', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+				var ddrw = picker.data('add123DateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
-				var date = {
+				ddrw.set({
 					from: '2000-01-02', 
 					to: '2000-01-02', 
 					range: 'day' 
-				};
+				});
 
-				var date2 = {
+				var date = {
 					from: '2000-01-01', 
 					to: '2000-01-01', 
 					range: 'day' 
 				};
 
-				picker.dateRangePicker('set', date);
-
 				buttons.eq(0).click();
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date);
 
 				testContainer.empty();
 			});
 
 			it('by one week', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+				var ddrw = picker.data('add123DateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
-				var date = {
+				ddrw.set({
 					from: '2015-07-19', 
 					to: '2015-07-25', 
 					range: 'week' 
-				};
+				});
 
-				var date2 = {
+				var date = {
 					from: '2015-07-12', 
 					to: '2015-07-18', 
 					range: 'week' 
 				};
 
-				picker.dateRangePicker('set', date);
-
 				buttons.eq(0).click();
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date);
 
 				testContainer.empty();
 			});
 
 			it('by one month', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+				var ddrw = picker.data('add123DateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
-				var date = {
+				ddrw.set({
 					from: '2015-07-01', 
 					to: '2015-07-30', 
 					range: 'month' 
-				};
+				});
 
-				var date2 = {
+				var date = {
 					from: '2015-06-01', 
 					to: '2015-06-30', 
 					range: 'month' 
 				};
 
-				picker.dateRangePicker('set', date);
-
 				buttons.eq(0).click();
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date);
 
 				testContainer.empty();
 			});
 
 			it('by one year', function(){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+				var ddrw = picker.data('add123DateRangePicker'); 
 				var buttons = $(document).find('.ui-button');
 
-				var date = {
+				ddrw.set({
 					from: '2015-01-01', 
 					to: '2015-12-31', 
 					range: 'year' 
-				};
+				});
 
-				var date2 = {
+				var date = {
 					from: '2014-01-01', 
 					to: '2014-12-31', 
 					range: 'year' 
 				};
 
-				picker.dateRangePicker('set', date);
-
 				buttons.eq(0).click();
 
-				expect(picker.dateRangePicker('get')).toEqual(date2);
+				expect(ddrw.get()).toEqual(date);
 
 				testContainer.empty();
 			});
@@ -467,8 +458,14 @@ describe('A dateRangePicker widget',function(){
 
 		it('but will not do anything if the custom type is selected', function(){
 			var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
-
+			var ddrw = picker.data('add123DateRangePicker'); 
 			var buttons = $(document).find('.ui-button');
+
+			ddrw.set({
+				from: '2015-01-01', 
+				to: '2015-08-05', 
+				range: 'custom' 
+			});
 
 			var date = {
 				from: '2015-01-01', 
@@ -476,17 +473,9 @@ describe('A dateRangePicker widget',function(){
 				range: 'custom' 
 			};
 
-			var date2 = {
-				from: '2015-01-01', 
-				to: '2015-08-05', 
-				range: 'custom' 
-			};
-
-			picker.dateRangePicker('set', date);
-
 			buttons.eq(0).click();
 
-			expect(picker.dateRangePicker('get')).toEqual(date2);
+			expect(ddrw.get()).toEqual(date);
 
 			testContainer.empty();
 		});
@@ -496,40 +485,35 @@ describe('A dateRangePicker widget',function(){
 		var picker = $('<div class="dateRange"></div>').dateRangePicker(); 
 		var ddrw = picker.data('add123DateRangePicker');
 
-		// var spy_de = spyOn(picker.dateRangePicker(), 'deserialize').and.callThrough();
-
 		var from = '2015-01-02';
 		var from2 = '2015-01-03';
-		var from3 = '2015-01-01';
+		var from3 = '2015-01-02';
 
-		var date = {
-				from: from, 
-				to: from, 
-				range: 'day' 
-			};
-
-		var date2 = {
-				from: from2, 
-				to: from2, 
-				range: 'day' 
-			};
-
-		var date3 = {
-				from: from3, 
-				to: from3, 
-				range: 'day' 
-			};
-
-
-		picker.dateRangePicker('set', date);
+		ddrw.set({
+			from: from, 
+			to: from, 
+			range: 'day' 
+		});
 
 		ddrw._moveRange(1, 'day');
+
+		var date2 = {
+			from: from2, 
+			to: from2, 
+			range: 'day' 
+		};
 
 		expect(picker.dateRangePicker('get')).toEqual(date2);
 
 		ddrw._moveRange(-1, 'day');
 
-		// expect(picker.dateRangePicker('get')).toEqual(date3);
+		var date3 = {
+			from: from3, 
+			to: from3, 
+			range: 'day' 
+		};
+
+		expect(picker.dateRangePicker('get')).toEqual(date3);
 	});
 
 	it('can set its from and to fields', function(){
@@ -550,29 +534,26 @@ describe('A dateRangePicker widget',function(){
 
    		ddrw._setFromAndTo(from, to); 
 
-   		expect(picker.dateRangePicker('get')).toEqual(date);
+   		expect(ddrw.get()).toEqual(date);
 	});
 
 	it('can validate its input', function(){
 		var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateRangePicker(); 
+		var ddrw = picker.data('add123DateRangePicker');
 
-		var date = {
+		ddrw.set({
 			from: '2014-01-02', 
 			to: '2015-08-02', 
 			range: 'custom' 
-		};
-
-		picker.dateRangePicker('set', date);
+		});
 
 		expect(picker.dateRangePicker('validate')).toBeTruthy();
 
-		var date2 = {
+		ddrw.set({
 			from: '2015-13-01', 
 			to: '2015-08-02', 
 			range: 'custom' 
-		};
-
-		picker.dateRangePicker('set', date2);
+		});
 
 		expect(picker.dateRangePicker('validate')).toBeFalsy();
 

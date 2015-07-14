@@ -112,7 +112,7 @@
 				}
 
 
-				time = moment(val, self.military? 'H:mm' : 'h:mma');
+				time = moment(val, self.military? 'H:mm' : 'h:mma').milliseconds(0);
 
 				if(!time.isValid()) {
 					return '';
