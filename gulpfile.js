@@ -152,6 +152,7 @@ gulp.task('test',['build'], function(done){
 		'Firefox'
 	];
 	var karmaOptions;
+	var karmaFailureMessage = '\n**** KARMA TEST FAILURE ****\n';
 
 	if(argv.nice) {
 		reporters.push('html');
@@ -173,16 +174,37 @@ gulp.task('test',['build'], function(done){
 	if(argv.browser && browsers.indexOf(argv.browser) !== -1) {
 		// Just do the one browser
 		karmaOptions.browsers = [argv.browser];
-		karma.start(karmaOptions, done);
+		karma.start(karmaOptions, function(exitCode){
+			if(exitCode !== 0) {
+				console.log(karmaFailureMessage);
+				done(exitCode);
+			}
+		});
 	} else {
 		// Do all browsers in a chain (JS events mess up when done asynchronously)
 		karmaOptions.browsers = [browsers[0]];
-		karma.start(karmaOptions, function(){
+		karma.start(karmaOptions, function(exitCode){
+			if(exitCode !== 0) {
+				console.log(karmaFailureMessage);
+				done(exitCode);
+				return;
+			}
+
 			karmaOptions.browsers = [browsers[1]];
-			karma.start(karmaOptions, function(){
+			karma.start(karmaOptions, function(exitCode){
+				if(exitCode !== 0) {
+					console.log(karmaFailureMessage);
+					done(exitCode);
+					return;
+				}
+
 				karmaOptions.browsers = [browsers[2]];
-				karma.start(karmaOptions, function(){
-					done();
+				karma.start(karmaOptions, function(exitCode){
+					if(exitCode !== 0) {
+						console.log(karmaFailureMessage);
+					}
+
+					done(exitCode);
 				});
 			});
 		});
