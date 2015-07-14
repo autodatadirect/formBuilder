@@ -136,7 +136,6 @@
 				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
-				var shim = input.siblings().eq(2);
 
 				var spy_select = spyOn(ifw.getType(), '_setSelected').and.callThrough(); 
 
@@ -156,7 +155,6 @@
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 				var option1 = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(1);
-				var shim = input.siblings().eq(2);
 
 				ifw.getType().open(); 
 
@@ -179,7 +177,6 @@
 				var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
 				var ifw = input.data('add123InputField');
 				var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
-				var shim = input.siblings().eq(2);
 
 				ifw.getType().open(); 
 
@@ -204,7 +201,6 @@
 			var panel = input.parent().eq(0).siblings();
 			var dropDown = input.parent().eq(0).siblings().eq(0);
 			var dropSearch = dropDown.children().children().eq(0); 
-			var shim = input.parent().children().eq(2);
 
 			ifw.getType().open(); 
 
@@ -216,7 +212,6 @@
 			var ifw = input.data('add123InputField');
 			var dropDown = input.parent().eq(0).siblings().eq(0);
 			var dropSearch = dropDown.children().children().eq(0); 
-			var shim = input.parent().children().eq(2);
 
 			ifw.getType().open();  
 
@@ -514,7 +509,6 @@
 	it('can open and close dropdown menu on mouseclicks', function(done){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
-		var shim = input.parent().children().eq(2);
 		var box = $('<body></body>').children().eq(1);
 
 		var spy_tog = spyOn(ifw.getType(), 'toggle').and.callThrough(); 
@@ -527,7 +521,7 @@
 		expect(input.parent().children().eq(1).css('display')).toBe('none');
 		expect(input.parent().children().eq(2).css('display')).toBe('block');
 
-		shim.click();
+		ifw.layers.items.click();
 		pause(triggerWaitTime)
 		.then(function(){
 			expect(spy_tog).toHaveBeenCalled();
@@ -560,7 +554,6 @@
 	it('can toggle dropdown menu on mouseclicks', function(done){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
-		var shim = input.parent().children().eq(2);
 
 		var spy_tog = spyOn(ifw.getType(), 'toggle').and.callThrough(); 
 		var spy_close = spyOn(ifw.getType(), 'close').and.callThrough(); 
@@ -572,7 +565,7 @@
 		expect(input.parent().children().eq(1).css('display')).toBe('none');
 		expect(input.parent().children().eq(2).css('display')).toBe('block');
 
-		shim.click();
+		ifw.layers.items.click();
 		pause(triggerWaitTime)
 		.then(function(){
 			expect(spy_tog).toHaveBeenCalled();
@@ -585,7 +578,7 @@
 			expect(input.parent().children().eq(1).css('display')).toBe('block');
 			expect(input.parent().children().eq(2).css('display')).toBe('none');
 			
-			shim.click();
+			ifw.layers.items.click();
 			return pause(triggerWaitTime);
 		})
 		.then(function(){
@@ -650,7 +643,6 @@
 		it('and the correct label will be selected if the correct value is typed in', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var shim = input.parent().children().eq(2);
 			var parameter = ifw.getType();
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -696,7 +688,6 @@
 		it('and an incorrect entry will result in the first item being selected, using scroll', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var shim = input.parent().children().eq(2);
 			var parameter = ifw.getType();
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 			var spy = spyOn(ifw.getType(), '_scroll').and.callThrough(); 
@@ -716,15 +707,14 @@
 		it('and the shim will hold the correct value', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"Submitted", "label":"Searched"}, {"value":"Option", "label":"Select"}, {"value":"One", "label":"Two"}, {"value":"Test", "label": "Run"}, {"value":"Try", "label": "Catch"}]\'/>').inputField();	
 			var ifw = input.data('add123InputField');
-			var shim = input.parent().children().eq(2);
-			var parameter = ifw.getType();
+			var typeInstance = ifw.getType();
 
-			ifw.getType().open();
+			typeInstance.open();
 
 			ifw.set('One');
 			$(document).trigger('keyup');
 
-			expect(input.parent().children().eq(3).text()).toBe('Two');
+			expect(typeInstance.shim.text()).toBe('Two');
 		});
 
 		it('a partial entry will display only relevant labels', function(){
@@ -763,35 +753,35 @@
 	it('can handle when an item has been selected', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
-		var shim = input.parent().children().eq(2);
+		var typeInstance = ifw.getType();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
-		var spy_setLabel = spyOn(ifw.getType(), '_setLabel').and.callThrough();
-		var spy_renderLabel = spyOn(ifw.getType(), 'renderLabel').and.callThrough();
-		var spy_close = spyOn(ifw.getType(), 'close').and.callThrough(); 
+		var spy_setLabel = spyOn(typeInstance, '_setLabel').and.callThrough();
+		var spy_renderLabel = spyOn(typeInstance, 'renderLabel').and.callThrough();
+		var spy_close = spyOn(typeInstance, 'close').and.callThrough(); 
 		var spy_focus = spyOn($.fn, 'focus').and.callThrough();
 		var spy_change = spyOn($.fn, 'change').and.callThrough();
 		var spy_redraw = spyOn(ifw, 'redraw').and.callThrough(); 
-		var spy_hide = spyOn(ifw.getType(), 'showHideCommand').and.callThrough(); 
-		var spy_first = spyOn(ifw.getType(), '_selectFirstNonEmptyOption').and.callThrough(); 
+		var spy_hide = spyOn(typeInstance, 'showHideCommand').and.callThrough(); 
+		var spy_first = spyOn(typeInstance, '_selectFirstNonEmptyOption').and.callThrough(); 
 
 		// If nothing has been selected, first item should be selected 
-		ifw.getType().open();
-		ifw.getType()._setSelected(); 
+		typeInstance.open();
+		typeInstance._setSelected(); 
 		expect(spy_first).toHaveBeenCalled(); 
 
 		expect(options.eq(0).is('.option.selected')).toBe(true);
 		options.eq(0).removeClass('selected');
 
 		// Select another option
-		ifw.getType().open();
+		typeInstance.open();
 		options.eq(2).addClass('selected');
-		ifw.getType()._setSelected(); 
+		typeInstance._setSelected(); 
 
 		// Check that the label has been set correctly 
 		expect(spy_renderLabel).toHaveBeenCalled();
 		expect(spy_setLabel).toHaveBeenCalled(); 
-		expect(shim.siblings().eq(2).text()).toBe('Cucumber'); 
+		expect(typeInstance.shim.text()).toBe('Cucumber'); 
 
 		expect(spy_close).toHaveBeenCalled(); 
 
@@ -806,7 +796,6 @@
 	it('can select the first non-empty option', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
-		var shim = input.parent().children().eq(2);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
 		var spy_remove = spyOn(ifw.getType(), '_removeSelection').and.callThrough(); 
@@ -833,7 +822,6 @@
 		var spy_handle = spyOn(ifw.getType(), '_handleItemNotFound').and.callThrough();
 		var spy_redraw = spyOn(ifw, 'redraw').and.callThrough(); 
 
-		var shim = input.parent().children().eq(2);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
 		ifw.getType().open();
@@ -916,7 +904,6 @@
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple", "showClass":"aClass"}]\'/>').appendTo(testForm).inputField();	
 			var ifw = input.data('add123InputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
-			var shim = input.parent().children().eq(2);
 
 			expect(aClass.css('display')).toBe('none');
 
@@ -1027,7 +1014,6 @@
 	it('can remove a selection', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('add123InputField');
-		var shim = input.parent().children().eq(2);
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
  
 		var spy_remC = spyOn($.fn, 'removeClass').and.callThrough(); 
@@ -1300,7 +1286,6 @@
 	it('can scroll', function(done){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}, {"value":"Lion", "label": "Lettuce"},  {"value":"Frida", "label": "Fancy"},  {"value":"Window", "label": "Washer"}, {"value":"Orange", "label": "Oval"},  {"value":"Pineapple", "label": "Penguin"},  {"value":"Goodie", "label": "Gelatin"},  {"value":"King", "label":"Kevin"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
-		var shim = input.parent().children().eq(2);
 		var parameter = ifw.getType();
 		var panel = input.parent().eq(0).siblings();
 		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1);
@@ -1344,7 +1329,6 @@
 	it('can open a panel if it is not already visible', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
-		var shim = input.parent().children().eq(2);
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
 		var spy_trigger = jasmine.createSpy('event');		
@@ -1375,7 +1359,7 @@
 
 		// These should not have been called an additional time
 		// Since the panel is already visible 
-		expect(spy_hide.calls.count()).toBe(2);
+		expect(spy_hide.calls.count()).toBe(1);
 		expect(spy_show.calls.count()).toBe(2);
 		expect(spy_focus.calls.count()).toBe(1);
 		expect(spy_scroll.calls.count()).toBe(1);
@@ -1418,7 +1402,6 @@
 	it('can close a panel', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').appendTo(testContainer).inputField();	
 		var ifw = input.data('add123InputField');
-		var shim = input.parent().children().eq(2);
 		var panel = input.parent().eq(0).siblings();
 		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 

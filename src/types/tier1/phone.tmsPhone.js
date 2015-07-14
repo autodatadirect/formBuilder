@@ -42,8 +42,6 @@
 				width: '4.8em'
 			});
 
-			console.log(self.menu.width());
-
 			self.icon.on('click', function() {
 				/*
 				 * build the menu lazily, so that popovers are not created when now needed and the field has time to attach
@@ -115,8 +113,6 @@
 				number = types.phone.converter.fromField.call(self, number, inputWidget);
 				// Number is the value being entered
 
-				console.log(this);
-
 				// Returns null if the value entered is not a number 
 				if(number !== 0 && !number){
 					return null;
@@ -128,7 +124,6 @@
 				};
 
 				if(self.id){
-					console.log(self.id);
 					data.id = self.id;
 				}
 

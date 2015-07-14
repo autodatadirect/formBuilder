@@ -7,7 +7,7 @@
  */
 $base-fontSize: 14px;
 $base-background: #fff;
-
+$base-padding: 5px;
 
 $color-error: #c55;
 $color-flash: #a00;
@@ -36,7 +36,7 @@ $inputField-borderColor-hover: #666;
 
 
 //formatting
-$inputField-fieldText-horizontalPadding: 5px;
+$inputField-fieldText-horizontalPadding: $base-padding;
 $inputField-fieldText-verticalPadding: 7px;
 $inputField-fieldItem-height: $base-fontSize * 2;
 
@@ -62,4 +62,22 @@ $tooltip-contentMargin: 8px;
  */
 $arrayField-removeIconHoverColor: $color-textNormal;
 $arrayField-separationPadding: 5px;
+
+
+/**
+ * select
+ */
+$select-hoverTextColor: $base-background;
+$select-hoverBackgroundColor-dark: #2a62bc;
+$select-hoverBackgroundColor-light: #3875d7;
+$select-iconPaddingRight: $inputField-fieldText-horizontalPadding*2;
+
+$select-dropdown-maxHeight: 250px;
+
+
+/**
+ * Icons
+ */
+$icons-hoverColor: #46e;
+$icons-activeColor: #68f;
 
