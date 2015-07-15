@@ -157,6 +157,7 @@
 				var self = this,
 					splitDate = self._splitDateAndTime(val);
 
+
 				self.timeWidgetInstance.set(splitDate.time);
 				self.dateWidgetInstance.set(splitDate.date);
 			}, 
@@ -195,15 +196,6 @@
 					}
 				}
 				
-				
-
-				// Account for DST shifts 
-				if(localDate.isDST() && !time.isDST()) {
-					time.add(1,'h');
-				} else if(!localDate.isDST() && time.isDST()) {
-					time.subtract(1,'h');
-				}
-
 				// Combine them
 				dateTime = self._joinDateAndTimeMoments(localDate,time);
 
@@ -227,6 +219,7 @@
 			if(self.storeUtc) {
 				// Parse as UTC
 				dateTime = moment.utc(dateTimeString, self.momentStoreFormat);
+				
 			} else {
 				// Parse as local
 				dateTime = moment(dateTimeString, self.momentStoreFormat);
@@ -242,7 +235,7 @@
 			result.time = dateTime.format(types.time.momentStoreFormat);
 
 			if(self.storeUtc) {
-				// need local for date type
+				// need local for date typ
 				dateTime.local();
 			}
 

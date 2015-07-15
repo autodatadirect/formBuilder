@@ -46,7 +46,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 		var date = {
 			from: '', 
-			to: '2016-12-03T10:00:00Z', 
+			to: '2016-12-03T11:00:00Z', 
 			range: 'custom'
 		};
 
@@ -56,10 +56,10 @@ describe('A dateTimeRangePicker widget',function(){
 	it('can serialize its date', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
 		var drpw = picker.data('formBuilderDateTimeRangePicker');
+		var dateString = '2015-07-15',
+			date = moment(dateString,'YYYY-MM-DD');
 
-		var date = moment();
-
-		expect(drpw.serializeDate(date)).toBe('2015-07-15');
+		expect(drpw.serializeDate(date)).toBe(dateString);
 	});
 
 	it('can deserialize its date', function(){
@@ -206,12 +206,6 @@ describe('A dateTimeRangePicker widget',function(){
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
 				var drpw = picker.data('formBuilderDateTimeRangePicker');
 
-				var date = {
-					from: '2005-01-01T14:52:00Z',
-					to: '2005-12-31T18:34:00Z',
-					range: 'year'
-				};
-
 				drpw.set({
 					from: '2005-05-07T15:52:00Z',
 					to: '2001-05-08T19:34:00Z',
@@ -220,18 +214,16 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('year');
 
-				expect(drpw.get()).toEqual(date);
+				expect(drpw.get()).toEqual({
+					from: '2005-01-01T15:52:00Z',
+					to: '2005-12-31T19:34:00Z',
+					range: 'year'
+				});
 			});
 
 			it('but will not modify a custom date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
 				var drpw = picker.data('formBuilderDateTimeRangePicker');
-
-				var date = {
-					from: '2003-01-02T08:00:00Z', 
-					to: '2000-01-21T10:00:00Z',
-					range: 'custom'
-				};
 
 				drpw.set({
 					from: '2003-01-02T09:00:00Z', 
@@ -241,7 +233,11 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('custom');
 
-				expect(drpw.get()).toEqual(date);
+				expect(drpw.get()).toEqual({
+					from: '2003-01-02T09:00:00Z', 
+					to: '2000-01-21T11:00:00Z',
+					range: 'custom'
+				});
 			});
 		});
 	});
@@ -276,17 +272,15 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('day');
 
-				var date = {
-					from: '2000-01-02T02:00:00Z', 
-					to: '2000-01-02T02:00:00Z', 
-					range: 'day' 
-				};
-
 				buttons.eq(1).click();
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual(date);
+					expect(drpw.get()).toEqual({
+						from: '2000-01-02T03:00:00Z', 
+						to: '2000-01-02T03:00:00Z', 
+						range: 'day' 
+					});
 
 					testContainer.empty();
 
@@ -307,17 +301,15 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('week');
 
-				var date = {
-					from: '2015-01-04T14:52:00Z', 
-					to: '2015-01-10T04:34:00Z', 
-					range: 'week' 
-				};
-
 				buttons.eq(1).click();
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual(date);
+					expect(drpw.get()).toEqual({
+						from: '2015-01-04T15:52:00Z', 
+						to: '2015-01-10T05:34:00Z', 
+						range: 'week' 
+					});
 
 					testContainer.empty();
 
@@ -331,24 +323,22 @@ describe('A dateTimeRangePicker widget',function(){
 				var buttons = $(document).find('.ui-button');
 
 				drpw.set({
-					from: '2000-01-02T00:00:00Z', 
-					to: '2000-01-21T00:00:00Z', 
+					from: '2000-01-02T12:00:00Z', 
+					to: '2000-01-21T13:00:00Z', 
 					range: 'month' 
 				});
 
 				drpw.setRange('month');
 
-				var date = {
-					from: '2000-02-01T23:00:00Z', 
-					to: '2000-02-28T23:00:00Z', 
-					range: 'month' 
-				};
-
 				buttons.eq(1).click();
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual(date);
+					expect(drpw.get()).toEqual({
+						from: '2000-02-01T12:00:00Z', 
+						to: '2000-02-28T13:00:00Z', 
+						range: 'month' 
+					});
 
 					testContainer.empty();
 
@@ -362,24 +352,22 @@ describe('A dateTimeRangePicker widget',function(){
 				var buttons = $(document).find('.ui-button');
 
 				drpw.set({
-					from: '2003-01-01T23:00:00Z', 
-					to: '2003-01-21T00:00:00Z', 
+					from: '2003-01-01T13:00:00Z', 
+					to: '2003-01-21T12:00:00Z', 
 					range: 'custom' 
 				});
 
 				drpw.setRange('year');
 
-				var date = {
-					from: '2004-01-01T22:00:00Z', 
-					to: '2004-12-31T23:00:00Z',  
-					range: 'year' 
-				};
-
 				buttons.eq(1).click();
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual(date);
+					expect(drpw.get()).toEqual({
+						from: '2004-01-01T13:00:00Z', 
+						to: '2004-12-31T12:00:00Z',  
+						range: 'year' 
+					});
 
 					testContainer.empty();
 
@@ -399,17 +387,15 @@ describe('A dateTimeRangePicker widget',function(){
 				range: 'custom' 
 			});
 
-			var date = {
-				from: '2003-01-02T09:00:00Z', 
-				to: '2000-01-21T11:00:00Z', 
-				range: 'custom' 
-			};
-
 			buttons.eq(1).click();
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(drpw.get()).toEqual(date);
+				expect(drpw.get()).toEqual({
+					from: '2003-01-02T10:00:00Z', 
+					to: '2000-01-21T12:00:00Z', 
+					range: 'custom' 
+				});
 
 				testContainer.empty();
 
@@ -431,17 +417,15 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('day');
 
-				var date = {
-					from: '2000-01-01T09:00:00Z', 
-					to: '2000-01-01T11:00:00Z',
-					range: 'day' 
-				};
-
 				buttons.eq(0).click();
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual(date);
+					expect(drpw.get()).toEqual({
+						from: '2000-01-01T10:00:00Z', 
+						to: '2000-01-01T12:00:00Z',
+						range: 'day' 
+					});
 
 					testContainer.empty();
 
@@ -462,17 +446,15 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('week');
 
-				var date = {
-					from: '1999-12-26T09:00:00Z', 
-					to: '2000-01-01T11:00:00Z',
-					range: 'week' 
-				};
-
 				buttons.eq(0).click();
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual(date);
+					expect(drpw.get()).toEqual({
+						from: '1999-12-26T10:00:00Z', 
+						to: '2000-01-01T12:00:00Z',
+						range: 'week' 
+					});
 
 					testContainer.empty();
 
@@ -493,17 +475,15 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('month');
 
-				var date = {
-					from: '1999-12-01T09:00:00Z', 
-					to: '1999-12-31T11:00:00Z',
-					range: 'month' 
-				};
-
 				buttons.eq(0).click();
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual(date);
+					expect(drpw.get()).toEqual({
+						from: '1999-12-01T10:00:00Z', 
+						to: '1999-12-31T12:00:00Z',
+						range: 'month' 
+					});
 
 					testContainer.empty();
 
@@ -524,17 +504,15 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('year');
 
-				var date = {
-					from: '1999-01-01T09:00:00Z', 
-					to: '1999-12-31T11:00:00Z',
-					range: 'year' 
-				};
-
 				buttons.eq(0).click();
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual(date);
+					expect(drpw.get()).toEqual({
+						from: '1999-01-01T10:00:00Z', 
+						to: '1999-12-31T12:00:00Z',
+						range: 'year' 
+					});
 
 					testContainer.empty();
 
@@ -556,17 +534,15 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw.setRange('custom');
 
-			var date = {
-				from: '2000-01-02T09:00:00Z', 
-				to: '2000-01-02T11:00:00Z', 
-				range: 'custom'
-			};
-
 			buttons.eq(0).click();
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(drpw.get()).toEqual(date);
+				expect(drpw.get()).toEqual( {
+					from: '2000-01-02T10:00:00Z', 
+					to: '2000-01-02T12:00:00Z', 
+					range: 'custom'
+				});
 
 				testContainer.empty();
 
@@ -586,25 +562,21 @@ describe('A dateTimeRangePicker widget',function(){
 				range: 'custom' 
 			});
 
-			var date = {
-				from: '2000-01-03T09:00:00Z', 
-				to: '2000-01-03T11:00:00Z', 
-				range: 'custom'
-			};
-
-			var date2 = {
-				from: '2000-01-02T09:00:00Z', 
-				to: '2000-01-02T11:00:00Z',
-				range: 'custom'
-			};
-
 			drpw._moveRange(1, 'day');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date);
+			expect(picker.dateTimeRangePicker('get')).toEqual({
+				from: '2000-01-03T10:00:00Z', 
+				to: '2000-01-03T12:00:00Z', 
+				range: 'custom'
+			});
 
 			drpw._moveRange(-1, 'day');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+			expect(picker.dateTimeRangePicker('get')).toEqual({
+				from: '2000-01-02T10:00:00Z', 
+				to: '2000-01-02T12:00:00Z',
+				range: 'custom'
+			});
 		});
 
 		it('by one week', function(){
@@ -617,25 +589,21 @@ describe('A dateTimeRangePicker widget',function(){
 				range: 'custom' 
 			});
 
-			var date = {
-				from: '2015-01-11T09:00:00Z', 
-				to: '2015-01-17T11:00:00Z',
-				range: 'custom'
-			};
-
-			var date2 = {
-				from: '2015-01-04T09:00:00Z', 
-				to: '2015-01-10T11:00:00Z',
-				range: 'custom'
-			};
-
 			drpw._moveRange(1, 'week');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date);
+			expect(picker.dateTimeRangePicker('get')).toEqual({
+				from: '2015-01-11T10:00:00Z', 
+				to: '2015-01-17T12:00:00Z',
+				range: 'custom'
+			});
 
 			drpw._moveRange(-1, 'week');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+			expect(picker.dateTimeRangePicker('get')).toEqual({
+				from: '2015-01-04T10:00:00Z', 
+				to: '2015-01-10T12:00:00Z',
+				range: 'custom'
+			});
 		});
 
 		it('by one month', function(){
@@ -648,25 +616,21 @@ describe('A dateTimeRangePicker widget',function(){
 				range: 'custom' 
 			});
 
-			var date = {
-				from: '2015-02-01T09:00:00Z', 
-				to: '2015-02-28T11:00:00Z',
-				range: 'custom'
-			};
-
-			var date2 = {
-				from: '2015-01-01T09:00:00Z', 
-				to: '2015-01-31T11:00:00Z',
-				range: 'custom'
-			};
-
 			drpw._moveRange(1, 'month');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date);
+			expect(picker.dateTimeRangePicker('get')).toEqual({
+				from: '2015-02-01T10:00:00Z', 
+				to: '2015-02-28T12:00:00Z',
+				range: 'custom'
+			});
 
 			drpw._moveRange(-1, 'month');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+			expect(picker.dateTimeRangePicker('get')).toEqual({
+				from: '2015-01-01T10:00:00Z', 
+				to: '2015-01-31T12:00:00Z',
+				range: 'custom'
+			});
 		});
 
 		it('by one year', function(){
@@ -679,25 +643,21 @@ describe('A dateTimeRangePicker widget',function(){
 				range: 'custom' 
 			});
 
-			var date = {
-				from: '2016-01-01T09:00:00Z', 
-				to: '2016-12-31T11:00:00Z', 
-				range: 'custom'
-			};
-
-			var date2 = {
-				from: '2015-01-01T09:00:00Z', 
-				to: '2015-12-31T11:00:00Z', 
-				range: 'custom'
-			};
-
 			drpw._moveRange(1, 'year');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date);
+			expect(picker.dateTimeRangePicker('get')).toEqual({
+				from: '2016-01-01T10:00:00Z', 
+				to: '2016-12-31T12:00:00Z', 
+				range: 'custom'
+			});
 
 			drpw._moveRange(-1, 'year');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+			expect(picker.dateTimeRangePicker('get')).toEqual({
+				from: '2015-01-01T10:00:00Z', 
+				to: '2015-12-31T12:00:00Z', 
+				range: 'custom'
+			});
 		});
 	});
 
