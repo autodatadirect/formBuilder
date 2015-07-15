@@ -42,8 +42,6 @@
 				width: '4.8em'
 			});
 
-			console.log(self.menu.width());
-
 			self.icon.on('click', function() {
 				/*
 				 * build the menu lazily, so that popovers are not created when now needed and the field has time to attach

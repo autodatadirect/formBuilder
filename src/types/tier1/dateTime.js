@@ -167,22 +167,34 @@
 					time = self.timeWidgetInstance.get(),
 					dateTime;
 
-				// If one is empty just return nothing
+				// If one is empty just default to current time
 				if(!localDate.trim() || !time.trim()) {
 					return '';
 				}
-
-				// Convert them to moments
-				localDate = moment(localDate, types.date.momentStoreFormat);
-
-
-				if(self.storeUtc) {
-					// Parse as UTC and localize
-					time = moment.utc(time, types.time.momentStoreFormat).local();
+				
+				if(!localDate.trim()) {
+					localDate = moment();
 				} else {
-					// Parse as local
-					time = moment(time, types.time.momentStoreFormat);
+					// Convert them to moments
+					localDate = moment(localDate, types.date.momentStoreFormat);
 				}
+
+				if(!time.trim()) {
+					time.moment();
+					
+					if(self.storeUtc) {
+						time.utc();
+					}
+				} else {
+					if(self.storeUtc) {
+						// Parse as UTC and localize
+						time = moment.utc(time, types.time.momentStoreFormat).local();
+					} else {
+						// Parse as local
+						time = moment(time, types.time.momentStoreFormat);
+					}
+				}
+				
 				
 
 				// Account for DST shifts 

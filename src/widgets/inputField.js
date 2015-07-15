@@ -369,7 +369,6 @@
 				e = self.element,
 				val;
 
-			//console.log('checkDirty', self.prevValue, self.get());
 
 			if(!self.dirty){
 				val = self.get();
@@ -554,9 +553,9 @@
 			setOptions = $.extend({autoClean: true}, setOptions);
 
 			if (setOptions.autoClean) {
-				/*
-				 * store the base value
-				 */
+				
+				 // * store the base value
+				 
 				self.prevValue = value;
 
 				self.clearDirty();

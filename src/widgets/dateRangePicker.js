@@ -65,7 +65,7 @@
 
 
 			var begin = fromDate.add(number, unit);
-			var end = moment(begin).endOf(unit);
+			var end = moment(begin).add(1,unit).subtract(1,'day');
 
 			self._setFromAndTo(begin, end);
 		},
