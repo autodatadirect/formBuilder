@@ -6,10 +6,10 @@
 $.widget("formBuilder.dateTimeRangePicker", {
 	_dateTimeRangePickerTemplate:
 				'<div class="date-range-picker form">' +
-					'<input type="text" name="from" data-type="dateTime" data-label="'+util.lang.dict.from+'" style="width: 215px;"/>' +
-					'<input type="text" name="to" data-type="dateTime" data-label="'+util.lang.dict.to+'" style="width: 215px;"/>' +
+					'<input type="text" name="from" data-type="dateTime" data-label="'+util.lang.dict.from+'"/>' +
+					'<input type="text" name="to" data-type="dateTime" data-label="'+util.lang.dict.to+'"/>' +
 
-					'<button class="previous-range">&lt;&lt;</button>' +
+					'<button type="button" class="previous-range">&lt;&lt;</button>' +
 
 					'<div class="input-field-group range-select">' +
 						'<select name="range" style="width: 138px;">' +
@@ -21,7 +21,7 @@ $.widget("formBuilder.dateTimeRangePicker", {
 						'</select>' +
 					'</div>' +
 
-					'<button class="next-range">&gt;&gt;</button>' +
+					'<button type="button" class="next-range">&gt;&gt;</button>' +
 				'</div>',
 				
 		_create: function () {
@@ -35,12 +35,12 @@ $.widget("formBuilder.dateTimeRangePicker", {
 			self.fromDate = form.find('input[name="from"]').on('keyup ondateselect', function () {
 				$(self.range).val('custom');
 			});
-			self.fromDate.inputField('setLabel', e.attr('data-from-label'));
+			// self.fromDate.inputField('setLabel', e.attr('data-from-label'));
 
 			self.toDate = form.find('input[name="to"]').on('keyup ondateselect', function () {
 				$(self.range).val('custom');
 			});
-			self.toDate.inputField('setLabel', e.attr('data-to-label'));
+			// self.toDate.inputField('setLabel', e.attr('data-to-label'));
 
 			form.find('button.previous-range').button().on('click', function () {
 				self._moveRange(-1, $(self.range).val());
@@ -57,71 +57,85 @@ $.widget("formBuilder.dateTimeRangePicker", {
 
 		_moveRange: function (number, unit) {
 			var self = this,
-				fromDate = self.fromDate.inputField('get');
+				fromTypeInstance = self.fromDate.inputField('getType'),
+				toTypeInstance = self.toDate.inputField('getType'),
+				fromDate;
 
-			if (!fromDate || unit === 'custom') {
+			if (fromTypeInstance.dateWidgetInstance.isEmpty() || unit === 'custom') {
 				return;
 			}
 
-			fromDate = self.deserialize(fromDate);
+			fromDate = self.deserializeDate(fromTypeInstance.dateWidgetInstance.get());
 
 			var begin = fromDate.add(number, unit);
-			var end = moment(begin).add(1, unit);
+			var end = moment(begin).add(1,unit).subtract(1,'day');
 
-			self._setFromAndTo(begin, end);
+			fromTypeInstance.dateWidgetInstance.set(self.serializeDate(begin));
+			toTypeInstance.dateWidgetInstance.set(self.serializeDate(end));
+
+			// Force times to be correct in regards to DST
+			if(fromTypeInstance.timeWidgetInstance.isEmpty()) {
+				fromTypeInstance.timeWidgetInstance.set(moment().hours(0).minutes(0).utc().format('HH:mm'));
+			}
+			
+			if(toTypeInstance.timeWidgetInstance.isEmpty()) {
+				toTypeInstance.timeWidgetInstance.set(moment().hours(23).minutes(59).utc().format('HH:mm'));
+			}
 		},
 
 		setRange: function (range) {
-			var self = this;
+			var self = this,
+				fromTypeInstance = self.fromDate.inputField('getType'),
+				toTypeInstance = self.toDate.inputField('getType'),
+				fromDate;
+
 			if (range === 'custom') {
 				return;
 			}
 
-			var fromDate = self.fromDate.inputField('get');
+			fromDate = fromTypeInstance.dateWidgetInstance.get();
 
 			if (!fromDate) {
-				fromDate = moment().utc();
+				fromDate = moment();
 			}
 
 			if (typeof fromDate === 'string') {
-				fromDate = self.deserialize(fromDate);
+				fromDate = self.deserializeDate(fromDate);
 			}
+						
 
 			var from = fromDate.startOf(range);
 			var to = moment(from).endOf(range);
 
-			self._setFromAndTo(from, to);
+			fromTypeInstance.dateWidgetInstance.set(self.serializeDate(from));
+			toTypeInstance.dateWidgetInstance.set(self.serializeDate(to));
+
+			// Force times to be correct in regards to DST
+			if(fromTypeInstance.timeWidgetInstance.isEmpty()) {
+				fromTypeInstance.timeWidgetInstance.set(moment().hours(0).minutes(0).utc().format('HH:mm'));
+			}
+			
+			if(toTypeInstance.timeWidgetInstance.isEmpty()) {
+				toTypeInstance.timeWidgetInstance.set(moment().hours(23).minutes(59).utc().format('HH:mm'));
+			}
+
 			self.range.val(range);
 		},
 
-		_setFromAndTo: function (from, to) {
-			var self = this;
-
-			if (typeof from !== 'string') {
-				from = self.serialize(from);
-			}
-			if (typeof to !== 'string') {
-				to = self.serialize(to);
-			}
-
-			self.fromDate.inputField('set', from);
-			self.toDate.inputField('set', to);
-		},
-
-		serialize: function (momentDateUTC) {
-			if (!momentDateUTC) {
+		serializeDate: function (momentDate) {
+			if (!momentDate) {
 				return;
 			}
 
-			return momentDateUTC.format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+			return momentDate.format('YYYY-MM-DD');
 		},
 
-		deserialize: function (stringDateUTC) {
-			if (!stringDateUTC) {
+		deserializeDate: function (stringDate) {
+			if (!stringDate) {
 				return;
 			}
 
-			return moment.utc(stringDateUTC);
+			return moment(stringDate, 'YYYY-MM-DD');
 		},
 
 		get: function () {

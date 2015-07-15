@@ -141,10 +141,8 @@
 			e.find('input[type!=submit], select, textarea').not(':formBuilder-inputField').not('.form-builder-ignore *').each(function () {
 				var newInput = $(this);
 				if(newInput.is('[data-load-widget-as-field]') || newInput.parents('[data-load-widget-as-field]').length){
-					//console.log('ingnore input in field widgets: ', newInput.attr('name'));
 					return;
 				}
-				//console.log('ADDING FIELD: ', newInput.attr('name'));
 				newInput.inputField({
 					require: !!o.defaultRequired
 				});
@@ -165,7 +163,6 @@
 				e.find('.input-field-group').each(function () {
 					$(this).find('.field-item:first').addClass('first');
 				});
-				//console.log(ingroup);
 				//e.find('.input-field .field-item:first-child').not('.input-field-group .input-field:first-child .field-item:first-child').addClass('first');
 			//}, 0);
 		},
@@ -294,15 +291,10 @@
 			var aData = $.extend(true, {}, self.baseData),
 				bData = $.extend(true, {}, formData);
 
-			console.log('aData', aData);
-			console.log('bData', bData);
-
 			/*
 			 * only check fields that are different than the base value
 			 */
 			util.removeEqual(aData, bData, ignoreKeys);
-
-			console.log('changes from base:', aData);
 
 			self.fields.each(function() {
 				var conflict = $(this).inputField('conflicts', formData);

@@ -34,20 +34,43 @@ describe('A dateTimeRangePicker widget',function(){
 		expect(picker.dateTimeRangePicker('get')).toEqual(date);
 	});
 
-	it('can serialize its data', function(){
+	it('but will not set invalid data', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+		var drpw = picker.data('formBuilderDateTimeRangePicker');
 
-		var date = '2013-01-01T05:00:00Z';
+		drpw.set({
+			from: '2016-13-01T09:00:00Z', 
+			to: '2016-12-03T11:00:00Z', 
+			range: 'custom'
+		});
 
-		expect(picker.dateTimeRangePicker('serialize', moment(date,'YYYY-MM-DD'))).toBe(date);
+		var date = {
+			from: '', 
+			to: '2016-12-03T10:00:00Z', 
+			range: 'custom'
+		};
+
+		expect(drpw.get()).toEqual(date);
 	});
 
-	it('can deserialize its data', function(){
+	it('can serialize its date', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+		var drpw = picker.data('formBuilderDateTimeRangePicker');
 
-		var date = '2013-01-01T05:00:00Z';
+		var date = moment();
 
-		expect(picker.dateTimeRangePicker('deserialize', date)).toEqual(moment(date,'YYYY-MM-DD'));
+		expect(drpw.serializeDate(date)).toBe('2015-07-15');
+	});
+
+	it('can deserialize its date', function(){
+		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+		var drpw = picker.data('formBuilderDateTimeRangePicker');
+
+		var date = moment();
+
+		var date2 = drpw.serializeDate(date);
+
+		expect(drpw.deserializeDate(date2)).toEqual(moment(date2, 'YYYY-MM-DD'));
 	});
 
 	it('can clear its data', function(){
@@ -121,8 +144,8 @@ describe('A dateTimeRangePicker widget',function(){
 				var drpw = picker.data('formBuilderDateTimeRangePicker');
 
 				var date = {
-					from: '2001-05-13T00:00:00Z',
-					to: '2001-05-13T23:59:00Z',
+					from: '2001-05-13T15:52:00Z',
+					to: '2001-05-13T19:34:00Z',
 					range: 'day'
 				};
 
@@ -137,85 +160,88 @@ describe('A dateTimeRangePicker widget',function(){
 				expect(drpw.get()).toEqual(date);
 			});
 
-			xit('a week date range', function(){
+			it('a week date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-
-				var from1 = moment().startOf('week');
-				var to1 = moment().endOf('week');
-
-				var from = picker.dateTimeRangePicker('serialize', from1);
-				var to = picker.dateTimeRangePicker('serialize', to1);
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 
 				var date = {
-					from: from, 
-					to: to, 
-					range: 'custom'
+					from: '2001-05-06T15:52:00Z',
+					to: '2001-05-12T19:34:00Z',
+					range: 'week'
 				};
 
-				picker.dateTimeRangePicker('setRange', 'week');
+				drpw.set({
+					from: '2001-05-07T15:52:00Z',
+					to: '2001-05-08T19:34:00Z',
+					range: 'custom'
+				});
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date);
+				drpw.setRange('week');
+
+				expect(drpw.get()).toEqual(date);
 			});
 
-			xit('a month date range', function(){
+			it('a month date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-
-				var from1 = moment().startOf('month');
-				var to1 = moment().endOf('month');
-
-				var from = picker.dateTimeRangePicker('serialize', from1);
-				var to = picker.dateTimeRangePicker('serialize', to1);
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 
 				var date = {
-					from: from, 
-					to: to, 
-					range: 'custom'
+					from:  '2001-05-01T15:52:00Z',
+					to: '2001-05-31T19:34:00Z',
+					range: 'month'
 				};
 
-				picker.dateTimeRangePicker('setRange', 'month');
+				drpw.set({
+					from: '2001-05-07T15:52:00Z',
+					to: '2001-05-08T19:34:00Z',
+					range: 'custom'
+				});
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date);
+				drpw.setRange('month');
+
+				expect(drpw.get()).toEqual(date);
 			});
 
-			xit('and a year date range', function(){
+			it('a year date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-
-				var from1 = moment().startOf('year');
-				var to1 = moment().endOf('year');
-
-				var from = picker.dateTimeRangePicker('serialize', from1);
-				var to = picker.dateTimeRangePicker('serialize', to1);
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 
 				var date = {
-					from: from, 
-					to: to, 
-					range: 'custom'
+					from: '2005-01-01T14:52:00Z',
+					to: '2005-12-31T18:34:00Z',
+					range: 'year'
 				};
 
-				picker.dateTimeRangePicker('setRange', 'year');
+				drpw.set({
+					from: '2005-05-07T15:52:00Z',
+					to: '2001-05-08T19:34:00Z',
+					range: 'custom'
+				});
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date);
+				drpw.setRange('year');
+
+				expect(drpw.get()).toEqual(date);
 			});
 
-			xit('but will not set a custom date range', function(){
+			it('but will not modify a custom date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 
 				var date = {
-					from: '01/01/2000', 
-					to: '08/05/2015', 
+					from: '2003-01-02T08:00:00Z', 
+					to: '2000-01-21T10:00:00Z',
 					range: 'custom'
 				};
 
-				var date2 = {
-					from: '', 
-					to: '', 
+				drpw.set({
+					from: '2003-01-02T09:00:00Z', 
+					to: '2000-01-21T11:00:00Z',
 					range: 'custom'
-				};
+				});
 
-				picker.dateTimeRangePicker('setRange', 'custom');
+				drpw.setRange('custom');
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				expect(drpw.get()).toEqual(date);
 			});
 		});
 	});
@@ -236,355 +262,471 @@ describe('A dateTimeRangePicker widget',function(){
 			testContainer.empty();
 		});
 
-		describe('and can be used to move the date range forward', function(){
-			xit('by one day', function(){
+		describe('that can be used to move the date range forward', function(){
+			it('by one day', function(done){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 				var buttons = $(document).find('.ui-button');
 				
+				drpw.set({
+					from: '2000-01-01T03:00:00Z', 
+					to: '2000-01-01T03:00:00Z',
+					range: 'custom' 
+				});
+
+				drpw.setRange('day');
+
 				var date = {
-					from: '2000-01-02', 
-					to: '2000-01-02',
+					from: '2000-01-02T02:00:00Z', 
+					to: '2000-01-02T02:00:00Z', 
 					range: 'day' 
 				};
 
-				// var date2 = {
-				// 	from: '2000-01-03', 
-				// 	to: '2000-01-03', 
-				// 	range: 'day' 
-				// };
-
-				picker.dateTimeRangePicker('set', date);
-
 				buttons.eq(1).click();
 
-				// expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				pause(triggerWaitTime)
+				.then(function(){
+					expect(drpw.get()).toEqual(date);
 
-				//testContainer.empty();
+					testContainer.empty();
+
+					done();
+				});
 			});
 
-			xit('by one week', function(){
+			it('by one week', function(done){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 				var buttons = $(document).find('.ui-button');
 
+				drpw.set({
+					from: '2014-12-28T15:52:00Z',
+					to: '2015-01-03T05:34:00Z',
+					range: 'custom'
+				});
+
+				drpw.setRange('week');
+
 				var date = {
-					from: '07/19/2015', 
-					to: '07/25/2015', 
+					from: '2015-01-04T14:52:00Z', 
+					to: '2015-01-10T04:34:00Z', 
 					range: 'week' 
 				};
 
-				var date2 = {
-					from: '2015-07-26', 
-					to: '2015-08-01', 
-					range: 'week' 
-				};
-
-				picker.dateTimeRangePicker('set', date);
-
 				buttons.eq(1).click();
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				pause(triggerWaitTime)
+				.then(function(){
+					expect(drpw.get()).toEqual(date);
 
-				testContainer.empty();
+					testContainer.empty();
+
+					done();
+				});
 			});
 
-			xit('by one month', function(){
+			it('by one month', function(done){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 				var buttons = $(document).find('.ui-button');
 
+				drpw.set({
+					from: '2000-01-02T00:00:00Z', 
+					to: '2000-01-21T00:00:00Z', 
+					range: 'month' 
+				});
+
+				drpw.setRange('month');
+
 				var date = {
-					from: '07/01/2015', 
-					to: '07/31/2015', 
+					from: '2000-02-01T23:00:00Z', 
+					to: '2000-02-28T23:00:00Z', 
 					range: 'month' 
 				};
 
-				var date2 = {
-					from: '2015-08-01', 
-					to: '2015-08-31', 
-					range: 'month' 
-				};
-
-				picker.dateTimeRangePicker('set', date);
-
 				buttons.eq(1).click();
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				pause(triggerWaitTime)
+				.then(function(){
+					expect(drpw.get()).toEqual(date);
 
-				testContainer.empty();
+					testContainer.empty();
+
+					done();
+				});
 			});
 
-			xit('by one year', function(){
+			it('by one year', function(done){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 				var buttons = $(document).find('.ui-button');
 
+				drpw.set({
+					from: '2003-01-01T23:00:00Z', 
+					to: '2003-01-21T00:00:00Z', 
+					range: 'custom' 
+				});
+
+				drpw.setRange('year');
+
 				var date = {
-					from: '01/01/2015', 
-					to: '12/31/2015', 
+					from: '2004-01-01T22:00:00Z', 
+					to: '2004-12-31T23:00:00Z',  
 					range: 'year' 
 				};
-
-				var date2 = {
-					from: '2016-01-01', 
-					to: '2016-12-31', 
-					range: 'year' 
-				};
-
-				picker.dateTimeRangePicker('set', date);
 
 				buttons.eq(1).click();
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				pause(triggerWaitTime)
+				.then(function(){
+					expect(drpw.get()).toEqual(date);
 
-				testContainer.empty();
+					testContainer.empty();
+
+					done();
+				});
 			});
 		});
 
-		xit('but will not do anything if the custom type is selected', function(){
+		it('but will not do anything if the custom type is selected', function(done){
 			var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+			var drpw = picker.data('formBuilderDateTimeRangePicker');
 			var buttons = $(document).find('.ui-button');
 
+			drpw.set({
+				from: '2003-01-02T10:00:00Z', 
+				to: '2000-01-21T12:00:00Z', 
+				range: 'custom' 
+			});
+
 			var date = {
-				from: '01/01/2015', 
-				to: '08/05/2015', 
+				from: '2003-01-02T09:00:00Z', 
+				to: '2000-01-21T11:00:00Z', 
 				range: 'custom' 
 			};
-
-			var date2 = {
-				from: '2015-01-01', 
-				to: '2015-08-05', 
-				range: 'custom' 
-			};
-
-			picker.dateTimeRangePicker('set', date);
 
 			buttons.eq(1).click();
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+			pause(triggerWaitTime)
+			.then(function(){
+				expect(drpw.get()).toEqual(date);
 
-			testContainer.empty();
+				testContainer.empty();
+
+				done();
+			});
 		});
 
 		describe('and can be used to move the date range backward', function(){
-			xit('by one day', function(){
+			it('by one day', function(done){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 				var buttons = $(document).find('.ui-button');
 
+				drpw.set({
+					from: '2000-01-02T10:00:00Z', 
+					to: '2000-01-02T12:00:00Z', 
+					range: 'custom' 
+				});
+
+				drpw.setRange('day');
+
 				var date = {
-					from: '01/02/2000', 
-					to: '01/02/2000', 
+					from: '2000-01-01T09:00:00Z', 
+					to: '2000-01-01T11:00:00Z',
 					range: 'day' 
 				};
 
-				var date2 = {
-					from: '2000-01-01', 
-					to: '2000-01-01', 
-					range: 'day' 
-				};
-
-				picker.dateTimeRangePicker('set', date);
-
 				buttons.eq(0).click();
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				pause(triggerWaitTime)
+				.then(function(){
+					expect(drpw.get()).toEqual(date);
 
-				testContainer.empty();
+					testContainer.empty();
+
+					done();
+				});
 			});
 
-			xit('by one week', function(){
+			it('by one week', function(done){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 				var buttons = $(document).find('.ui-button');
 
+				drpw.set({
+					from: '2000-01-02T10:00:00Z', 
+					to: '2000-01-02T12:00:00Z', 
+					range: 'custom' 
+				});
+
+				drpw.setRange('week');
+
 				var date = {
-					from: '07/19/2015', 
-					to: '07/25/2015', 
+					from: '1999-12-26T09:00:00Z', 
+					to: '2000-01-01T11:00:00Z',
 					range: 'week' 
 				};
 
-				var date2 = {
-					from: '2015-07-12', 
-					to: '2015-07-18', 
-					range: 'week' 
-				};
-
-				picker.dateTimeRangePicker('set', date);
-
 				buttons.eq(0).click();
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				pause(triggerWaitTime)
+				.then(function(){
+					expect(drpw.get()).toEqual(date);
 
-				testContainer.empty();
+					testContainer.empty();
+
+					done();
+				});
 			});
 
-			xit('by one month', function(){
+			it('by one month', function(done){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 				var buttons = $(document).find('.ui-button');
 
+				drpw.set({
+					from: '2000-01-02T10:00:00Z', 
+					to: '2000-01-02T12:00:00Z', 
+					range: 'custom' 
+				});
+
+				drpw.setRange('month');
+
 				var date = {
-					from: '07/01/2015', 
-					to: '07/31/2015', 
+					from: '1999-12-01T09:00:00Z', 
+					to: '1999-12-31T11:00:00Z',
 					range: 'month' 
 				};
 
-				var date2 = {
-					from: '2015-06-01', 
-					to: '2015-06-30', 
-					range: 'month' 
-				};
-
-				picker.dateTimeRangePicker('set', date);
-
 				buttons.eq(0).click();
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				pause(triggerWaitTime)
+				.then(function(){
+					expect(drpw.get()).toEqual(date);
 
-				testContainer.empty();
+					testContainer.empty();
+
+					done();
+				});
 			});
 
-			xit('by one year', function(){
+			it('by one year', function(done){
 				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+				var drpw = picker.data('formBuilderDateTimeRangePicker');
 				var buttons = $(document).find('.ui-button');
 
+				drpw.set({
+					from: '2000-01-02T10:00:00Z', 
+					to: '2000-01-02T12:00:00Z', 
+					range: 'custom' 
+				});
+
+				drpw.setRange('year');
+
 				var date = {
-					from: '01/01/2015', 
-					to: '12/31/2015', 
+					from: '1999-01-01T09:00:00Z', 
+					to: '1999-12-31T11:00:00Z',
 					range: 'year' 
 				};
-
-				var date2 = {
-					from: '2014-01-01', 
-					to: '2014-12-31', 
-					range: 'year' 
-				};
-
-				picker.dateTimeRangePicker('set', date);
 
 				buttons.eq(0).click();
 
-				expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+				pause(triggerWaitTime)
+				.then(function(){
+					expect(drpw.get()).toEqual(date);
 
-				testContainer.empty();
+					testContainer.empty();
+
+					done();
+				});
 			});
 		});
 
-		xit('but will not do anything if the custom type is selected', function(){
+		it('but will not do anything if the custom type is selected', function(done){
 			var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
+			var drpw = picker.data('formBuilderDateTimeRangePicker');
 			var buttons = $(document).find('.ui-button');
 
+			drpw.set({
+				from: '2000-01-02T10:00:00Z', 
+				to: '2000-01-02T12:00:00Z', 
+				range: 'custom' 
+			});
+
+			drpw.setRange('custom');
+
 			var date = {
-				from: '01/01/2015', 
-				to: '08/05/2015', 
-				range: 'custom' 
+				from: '2000-01-02T09:00:00Z', 
+				to: '2000-01-02T11:00:00Z', 
+				range: 'custom'
 			};
-
-			var date2 = {
-				from: '2015-01-01', 
-				to: '2015-08-05', 
-				range: 'custom' 
-			};
-
-			picker.dateTimeRangePicker('set', date);
 
 			buttons.eq(0).click();
 
-			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+			pause(triggerWaitTime)
+			.then(function(){
+				expect(drpw.get()).toEqual(date);
 
-			testContainer.empty();
+				testContainer.empty();
+
+				done();
+			});
 		});
 	});
 
-	xit('can switch the range type of the dates', function(){
-		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-		var ddrw = picker.data('formBuilderDateTimeRangePicker');
+	describe('can move the range type of the dates', function(){
+		it('by one day', function(){
+			var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+			var drpw = picker.data('formBuilderDateTimeRangePicker');
 
-		// var spy_de = spyOn(picker.dateTimeRangePicker(), 'deserialize').and.callThrough();
+			drpw.set({
+				from: '2000-01-02T10:00:00Z', 
+				to: '2000-01-02T12:00:00Z', 
+				range: 'custom' 
+			});
 
-		var from = '01/01/2015';
-		var from2 = '2015-01-02';
-		var from3 = '2015-01-01';
-
-		var date = {
-				from: from, 
-				to: from, 
-				range: 'day' 
+			var date = {
+				from: '2000-01-03T09:00:00Z', 
+				to: '2000-01-03T11:00:00Z', 
+				range: 'custom'
 			};
 
-		var date2 = {
-				from: from2, 
-				to: from2, 
-				range: 'day' 
+			var date2 = {
+				from: '2000-01-02T09:00:00Z', 
+				to: '2000-01-02T11:00:00Z',
+				range: 'custom'
 			};
 
-		var date3 = {
-				from: from3, 
-				to: from3, 
-				range: 'day' 
+			drpw._moveRange(1, 'day');
+
+			expect(picker.dateTimeRangePicker('get')).toEqual(date);
+
+			drpw._moveRange(-1, 'day');
+
+			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+		});
+
+		it('by one week', function(){
+			var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+			var drpw = picker.data('formBuilderDateTimeRangePicker');
+
+			drpw.set({
+				from: '2015-01-04T10:00:00Z', 
+				to: '2015-01-10T12:00:00Z', 
+				range: 'custom' 
+			});
+
+			var date = {
+				from: '2015-01-11T09:00:00Z', 
+				to: '2015-01-17T11:00:00Z',
+				range: 'custom'
 			};
 
+			var date2 = {
+				from: '2015-01-04T09:00:00Z', 
+				to: '2015-01-10T11:00:00Z',
+				range: 'custom'
+			};
 
-		picker.dateTimeRangePicker('set', date);
+			drpw._moveRange(1, 'week');
 
-		ddrw._moveRange(1, 'day');
+			expect(picker.dateTimeRangePicker('get')).toEqual(date);
 
-		expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+			drpw._moveRange(-1, 'week');
 
-		ddrw._moveRange(-1, 'day');
+			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+		});
 
-		expect(picker.dateTimeRangePicker('get')).toEqual(date3);
+		it('by one month', function(){
+			var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+			var drpw = picker.data('formBuilderDateTimeRangePicker');
+
+			drpw.set({
+				from: '2015-01-01T10:00:00Z', 
+				to: '2015-01-31T12:00:00Z', 
+				range: 'custom' 
+			});
+
+			var date = {
+				from: '2015-02-01T09:00:00Z', 
+				to: '2015-02-28T11:00:00Z',
+				range: 'custom'
+			};
+
+			var date2 = {
+				from: '2015-01-01T09:00:00Z', 
+				to: '2015-01-31T11:00:00Z',
+				range: 'custom'
+			};
+
+			drpw._moveRange(1, 'month');
+
+			expect(picker.dateTimeRangePicker('get')).toEqual(date);
+
+			drpw._moveRange(-1, 'month');
+
+			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+		});
+
+		it('by one year', function(){
+			var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+			var drpw = picker.data('formBuilderDateTimeRangePicker');
+
+			drpw.set({
+				from: '2015-01-01T10:00:00Z', 
+				to: '2015-12-31T12:00:00Z', 
+				range: 'custom' 
+			});
+
+			var date = {
+				from: '2016-01-01T09:00:00Z', 
+				to: '2016-12-31T11:00:00Z', 
+				range: 'custom'
+			};
+
+			var date2 = {
+				from: '2015-01-01T09:00:00Z', 
+				to: '2015-12-31T11:00:00Z', 
+				range: 'custom'
+			};
+
+			drpw._moveRange(1, 'year');
+
+			expect(picker.dateTimeRangePicker('get')).toEqual(date);
+
+			drpw._moveRange(-1, 'year');
+
+			expect(picker.dateTimeRangePicker('get')).toEqual(date2);
+		});
 	});
 
-	xit('can set its from and to fields', function(){
+	it('can validate its input', function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
-		var ddrw = picker.data('formBuilderDateTimeRangePicker');
+		var drpw = picker.data('formBuilderDateTimeRangePicker');
 
-		var from1 = moment();
-		var to1 = moment();
-
-		var from = picker.dateTimeRangePicker('serialize', from1);
-		var to = picker.dateTimeRangePicker('serialize', to1);
-
-		var date = {
-			from: from, 
-			to: to, 
+		drpw.set({
+			from: '2016-01-01T09:00:00Z', 
+			to: '2016-12-31T11:00:00Z', 
 			range: 'custom'
-		};
-
-   		ddrw._setFromAndTo(from, to); 
-
-   		expect(picker.dateTimeRangePicker('get')).toEqual(date);
-	});
-
-	xit('can validate its input', function(){
-		var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
-
-		var date = {
-			from: '01/01/2015', 
-			to: '08/05/2015', 
-			range: 'custom' 
-		};
-
-		picker.dateTimeRangePicker('set', date);
+		});
 
 		expect(picker.dateTimeRangePicker('validate')).toBeTruthy();
 
-		var date2 = {
-			from: '13/01/2015',
-			to: '08/05/2015', 
-			range: 'custom' 
-		};
+		drpw.set({
+			from: '2016-13-01T09:00:00Z', 
+			to: '', 
+			range: 'custom'
+		});
 
-		picker.dateTimeRangePicker('set', date2);
+		expect(drpw.validate()).toBeFalsy();
 
-		expect(picker.dateTimeRangePicker('validate')).toBeFalsy();
+		drpw.set({
+			from: '2016-01-33T09:00:00Z', 
+			to: '2016-12-31T11:00:00Z', 
+			range: 'custom'
+		});
 
-		testContainer.empty();
+		expect(drpw.validate()).toBeFalsy();
 	});
 });
