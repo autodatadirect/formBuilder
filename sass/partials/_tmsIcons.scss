@@ -10,9 +10,9 @@
 }
 
 .ui-state-default .ui-icon {
-	background:transparent;
+	background: transparent;
 	/*text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);*/
-	width:auto;
+	width: auto;
 	height: auto;
 }
 
@@ -29,18 +29,18 @@
 	/*
 	 * reset ui-cion
 	 */
-	background:transparent;
+	background: transparent;
 	display: inline;
 	text-indent: 0;
 }
 
 .tms-icon {
 	&:hover {
-		color:#46e;
+		color: $icons-hoverColor;
 	}
 
 	&:active {
-		color:#68f;
+		color: $icons-activeColor;
 		text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 	}
 }
@@ -51,8 +51,8 @@
 
 .ui-button {
 	.tms-icon {
-		font-size:14px;
-		line-height: 17px;
+		font-size: $base-fontSize;
+		line-height: #{17px/14px * $base-fontSize};
 
 		&:hover {
 			color:inherit;
@@ -61,7 +61,7 @@
 }
 
 
-// Icons
+// Icons (only including those used)
 @each $icon in (
 	sort-up		e004,
 	sort-down	e005,

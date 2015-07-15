@@ -28,12 +28,15 @@
 			/*
 			 * width(inputWidget.layers.items.width() - 26).
 			 */
-			var shim = self.shim = $('<div class="shim" style="width:100%;height:100%;position:absolute;top:0;left:0;"><div style="padding:0 25px 0 6px;overflow:hidden;"><div style="overflow:hidden;"></div></div></div>').insertAfter(e);
+			var shim = self.shim = $('<div class="shim"></div>').insertAfter(e);
 
 			inputWidget.field.addClass('select-box');
 
 			self.iconClosed = $('<span class="tms-icon tms-icon-sort-down dropdown-closed-icon"></span>').insertAfter(e);
 			self.iconOpen = $('<span class="tms-icon tms-icon-sort-up dropdown-open-icon"></span>').insertAfter(e).hide();
+			
+
+
 			/*
 			self.iconClear = $('<span class="tms-icon tms-icon-erase clear-icon"></span>').insertAfter(shim).on('click', function (ev) {
 				ev.stopPropagation();
@@ -98,12 +101,18 @@
 			/*
 			 * build filter input
 			 */
-			var filter = self.filter = $('<input type="text" class="filter-box" style="width:100%; position:relative; cursor:text;" />').appendTo(panel.find('.search')).inputField();
-			filter.after('<span class="tms-icon tms-icon-search" style="position:absolute;right: 7px;top: 1px; font-size: 15px; cursor: default; pointer-events:none;"></span>');
+			var filter = self.filter = $('<input type="text" class="filter-box"/>')
+				.appendTo(panel.find('.search')).inputField();
+
+			filter.after('<span class="tms-icon tms-icon-search"></span>');
 			filter.parents('.field-item').first().addClass('first');
 
-			filter.parent().css('display', 'block').parent().css('display', 'block').parent().css('display', 'block');
-			filter.parent().css('padding-right', '30px');
+			filter.parent().css({
+					display: 'block',
+					paddingRight: '2em'
+				})
+				.parent().css('display', 'block')
+				.parent().css('display', 'block');
 			/*
 			 * kill click event, to prevent the inputField from grabbing focus
 			 */
@@ -277,6 +286,10 @@
 
 			self.close();
 			e.val(self.item.value);
+
+
+
+
 			e.focus();
 			e.change();
 			self.inputWidget.redraw();
@@ -409,7 +422,7 @@
 			e.val('');
 			self.filter.val('');
 			self.filterValue = '';
-			self.shim.children().children().text('');
+			self.shim.text('');
 
 			if(!andSelectNothing) {
 				self._handleItemNotFound();
@@ -423,14 +436,29 @@
 		},
 
 		_setLabel: function (text) {
-			this.shim.children().children().text(text);
+			var self = this;
+
+			self.shim.text(text);
+
+			// Account for overlap (only needs to do this once)
+			if(!self.shimWidthSet) {
+				var paddingRight, eWidth;
+
+				paddingRight = parseFloat(self.iconClosed.outerWidth(true)) + parseFloat(self.iconClosed.css('right'))*2;
+				eWidth = parseFloat(self.element.width());
+				self.shim.css('max-width', eWidth - paddingRight);
+
+				self.shimWidthSet = true;
+			}
+			
+			
 		},
 
 		/*
 		 * used for testing
 		 */
 		_getLabel: function () {
-			return this.shim.children().children().text();
+			return this.shim.text();
 		},
 
 		toggle: function () {
@@ -487,6 +515,11 @@
 			if(!optionsElements.length){
 				self.panel.removeClass('filtering');
 				self.inputWidget._trigger('filterdone');
+
+				// Update option list spacer
+				var margin = (self.panel.find('.option').not('.filtered').length > 0)? self.panel.children().css('padding-top') : 0;
+				self.filter.inputField('getField').css('margin-bottom', margin);
+
 				return;
 			}
 
@@ -643,13 +676,17 @@
 				left: leftOffset,
 				top: (itemsLayer.height() - 1) + 'px',
 				width: (e.outerWidth() ) + 'px'
-			}).hide();
+			});
 
 			self.iconClosed.hide();
 			self.iconOpen.show();
 			panel.show();
+
+			// update options margin
+			var margin = self.panel.children().css('padding-top');
+			self.filter.inputField('getField').css('margin-bottom', margin);
+
 			self.filter.focus();
-			//self.filter.hide();
 
 			self._scroll();
 		},

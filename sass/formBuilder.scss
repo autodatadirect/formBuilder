@@ -15,6 +15,14 @@
 }
 
 @import 'partials/types/select';
+
+.ui-autocomplete {
+	max-height: 400px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+
 @import 'partials/tmsIcons';
 
 /**
@@ -27,3 +35,5 @@
 @import 'partials/widgets/dateRangePicker';
 @import 'partials/widgets/arrayField';
 @import 'partials/widgets/textSubmitter';
+
+

@@ -250,7 +250,6 @@ describe('A tms.arrayField widget', function(){
 			expect(e2.length).toBe(1);
 			expect(e2.is('.first.field-item.addon.clickable.sort-handle')).toBe(true);
 			expect(e2.text()).toBe('::');
-			expect(e2.width()).toBe(8);
 
 			expect(e.eq(1).is('span.sub-field')).toBe(true);
 
