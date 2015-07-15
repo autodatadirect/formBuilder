@@ -403,12 +403,25 @@ Creates two input fields for a beginning and ending date. Allows the user to sel
     - **setRange(string)** Sets the range of the date field to either 'custom', 'day', 'week', 'month', or 'year'. Will modify the input fields so that the date range reflects this selection.
     - **serialize(moment)** Takes a passed-in moment and returns YYYY-MM-DD format
     - **deserialize(string)** Takes a passed-in string and returns a moment in the YYYY-MM-DD format
-    - **get()** Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. 
+    - **get()** Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. The from and to fields should be in the 'YYYY-MM-DD' format. The range value should be a string. 
     - **set(Object)** Sets the input fields of the dateRangePicker to the value of the object that is passed into the method
-    - **isDirty()** Returns the dirty value of the current calling object
-    - **clearDirty()** Resets the current object's dirty value to false.
+    - **isDirty()** Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.
+    - **clearDirty()** Resets the current object's dirty value to false.Calls the formBuilder clearDirty() method.
     - **clear()** Sets the values inside of the dateRangePicker's inputfields to '' and sets the range value to 'custom'
     - **validate()** Validates that the input matches the date-format that it should be. Uses the formBuilder widget's validate function
+
+###dateTimeRangePicker
+Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type. 
+* Methods 
+    - **setRange(string)**  Sets the range of the date field to either 'custom', 'day', 'week', 'month', or 'year'. Will modify the input fields so that the date range reflects this selection. Will set the time fields to 12:00am and 11:59pm if there is nothing in those fields already, otherwise will not modify the time fields. 
+    - **serializeDate(moment)** Takes a moment input and returns that input turned into a string in the format of 'YYYY-MM-DD'. 
+    - **deserializeDate(string)** Takes a string input and returns that input turned into a moment in the format of 'YYYY-MM-DD'.  
+    - **get()** Returns the value, that is an object, that is currently inside of the dateTimeRangePicker input fields. The from and to fields should be in the format 'YYYY-MM-DDTHH:MM:mmZ'. The range value of the object should be a string. 
+    - **set(object)** Sets the input fields of the dateTimeRangePicker to the value of the object that is passed into the method.
+    - **isDirty()** Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.
+    - **clearDirty()** Resets the current object's dirty value to false.Calls the formBuilder clearDirty() method.
+    - **clear()** Sets the values inside of the dateTimeRangePicker's inputfields to '' and sets the range value to 'custom'
+    - **validate()** Validates that the input matches the dateTime-format that it should be. Uses the formBuilder widget's validate function
 
 ##Customization
 ###Custom type

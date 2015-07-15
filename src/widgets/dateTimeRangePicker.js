@@ -135,8 +135,7 @@ $.widget("add123.dateTimeRangePicker", {
 				return;
 			}
 
-			return moment(stringDate, 'YYYY-MM-DD'
-				);
+			return moment(stringDate, 'YYYY-MM-DD');
 		},
 
 		get: function () {
