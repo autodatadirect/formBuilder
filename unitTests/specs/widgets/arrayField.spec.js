@@ -262,7 +262,7 @@ describe('A formBuilder.arrayField widget', function(){
 			e = e.children();
 			expect(e.length).toBe(1);
 			expect(e.is('span.field-item.addon.clickable.arra-field-delete'));
-			expect(e.children().is('span.tms-icon.tms-icon-remove[title="'+util.lang.remove+'"]'));
+			expect(e.children().is('span.fb-icon.fb-icon-remove[title="'+util.lang.remove+'"]'));
 		};
 
 		it('an internal markup item', function(){

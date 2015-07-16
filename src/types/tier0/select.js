@@ -32,13 +32,13 @@
 
 			inputWidget.field.addClass('select-box');
 
-			self.iconClosed = $('<span class="tms-icon tms-icon-sort-down dropdown-closed-icon"></span>').insertAfter(e);
-			self.iconOpen = $('<span class="tms-icon tms-icon-sort-up dropdown-open-icon"></span>').insertAfter(e).hide();
+			self.iconClosed = $('<span class="fb-icon fb-icon-sort-down dropdown-closed-icon"></span>').insertAfter(e);
+			self.iconOpen = $('<span class="fb-icon fb-icon-sort-up dropdown-open-icon"></span>').insertAfter(e).hide();
 			
 
 
 			/*
-			self.iconClear = $('<span class="tms-icon tms-icon-erase clear-icon"></span>').insertAfter(shim).on('click', function (ev) {
+			self.iconClear = $('<span class="fb-icon fb-icon-erase clear-icon"></span>').insertAfter(shim).on('click', function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				self.clear();
@@ -104,7 +104,7 @@
 			var filter = self.filter = $('<input type="text" class="filter-box"/>')
 				.appendTo(panel.find('.search')).inputField();
 
-			filter.after('<span class="tms-icon tms-icon-search"></span>');
+			filter.after('<span class="fb-icon fb-icon-search"></span>');
 			filter.parents('.field-item').first().addClass('first');
 
 			filter.parent().css({

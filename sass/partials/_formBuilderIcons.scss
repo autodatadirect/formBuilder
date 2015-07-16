@@ -1,10 +1,10 @@
 @font-face {
-	font-family: 'tmsIcons';
-	src:url('../fonts/tmsIcons3.eot');
-	src:url('../fonts/tmsIcons3.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/tmsIcons3.ttf') format('truetype'),
-		url('../fonts/tmsIcons3.woff') format('woff'),
-		url('../fonts/tmsIcons3.svg#tmsIcons') format('svg');
+	font-family: 'formBuilderIcons';
+	src:url('../fonts/formBuilderIcons.eot');
+	src:url('../fonts/formBuilderIcons.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/formBuilderIcons.ttf') format('truetype'),
+		url('../fonts/formBuilderIcons.woff') format('woff'),
+		url('../fonts/formBuilderIcons.svg#formBuilderIcons') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -16,12 +16,13 @@
 	height: auto;
 }
 
-.tms-icon,
-.tms-icon.ui-icon {
-	font-family: 'tmsIcons';
+.fb-icon,
+.fb-icon.ui-icon {
+	font-family: 'formBuilderIcons';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
+	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 	cursor: pointer;
@@ -34,7 +35,7 @@
 	text-indent: 0;
 }
 
-.tms-icon {
+.fb-icon {
 	&:hover {
 		color: $icons-hoverColor;
 	}
@@ -45,12 +46,12 @@
 	}
 }
 
-.tms-icon:before {
+.fb-icon:before {
 	text-indent: 0;
 }
 
 .ui-button {
-	.tms-icon {
+	.fb-icon {
 		font-size: $base-fontSize;
 		line-height: #{17px/14px * $base-fontSize};
 
@@ -61,25 +62,25 @@
 }
 
 
-// Icons (only including those used)
+// Icons
 @each $icon in (
+	home		e000,
+	office		e001,
 	sort-up		e004,
 	sort-down	e005,
-	search		e02d,
-	remove		e01a,
-	office		e001,
-	home		e000,
 	iphone		e012,
-	print		e02a
+	remove		e01a,
+	print		e02a,
+	search		e02d
 ) {
-	.tms-icon-#{nth($icon, 1)}:before {
+	.fb-icon-#{nth($icon, 1)}:before {
 		// See https://github.com/sass/sass/issues/659
 		content: #{'\"\\'}#{nth($icon, 2) + '\"'}
 	}
 }
 
 // Specials
-.tms-icon-iphone:before {
+.fb-icon-iphone:before {
 	padding-left: .14em;
 	padding-right: .15em;
 }

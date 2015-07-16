@@ -54,7 +54,7 @@
 				'<div class="input-field">' +
 					'<div class="field-items">' +
 						'<span class="field-item addon clickable array-field-delete">' +
-							'<span class="tms-icon tms-icon-remove" title="'+util.lang.remove+'"></span>' +
+							'<span class="fb-icon fb-icon-remove" title="'+util.lang.remove+'"></span>' +
 						'</span>' +
 					'</div>' +
 				'</div>' +

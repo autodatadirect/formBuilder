@@ -28,14 +28,14 @@
  		it('to have an input field with data', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
 			var ifw = input.data('formBuilderInputField');
-			var openIcon = '.tms-icon.tms-icon-sort-up.dropdown-open-icon';
-			var closedIcon = '.tms-icon.tms-icon-sort-down.dropdown-closed-icon';
+			var openIcon = '.fb-icon.fb-icon-sort-up.dropdown-open-icon';
+			var closedIcon = '.fb-icon.fb-icon-sort-down.dropdown-closed-icon';
 
 			expect(input.parent().parent().parent().parent().is('.input-field-group')).toBe(true);
 			expect(input.parent().is('.field-item.field-item-input.first')).toBe(true);
 			expect(input.parent().parent().is('.field-items')).toBe(true);
-			expect(input.parent().children().eq(1).is('.tms-icon.tms-icon-sort-up.dropdown-open-icon')).toBe(true);
-			expect(input.parent().children().eq(2).is('.tms-icon.tms-icon-sort-down.dropdown-closed-icon')).toBe(true);
+			expect(input.parent().children().eq(1).is('.fb-icon.fb-icon-sort-up.dropdown-open-icon')).toBe(true);
+			expect(input.parent().children().eq(2).is('.fb-icon.fb-icon-sort-down.dropdown-closed-icon')).toBe(true);
 			expect(input.parent().parent().parent().is('.input-field.undefined.select-box')).toBe(true);
 			expect(input.attr('data-options')).toBe('[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]');
 
