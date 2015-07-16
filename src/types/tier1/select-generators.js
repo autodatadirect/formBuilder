@@ -6,11 +6,11 @@
  * 
  */
 
-/* global util:true */
 (function($){
 	'use strict';
 	
 	var types = $.formBuilder.inputField.types;
+	var util = $.formBuilder.util;
 
 	$.formBuilder.inputField.arraySelectCreator = function (array) {
 		return $.extend({}, types.select, {

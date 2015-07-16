@@ -2,7 +2,7 @@
  * Testing codes
  */
 
-/*global describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
  describe('A code data type', function(){
  	'use strict';
  	

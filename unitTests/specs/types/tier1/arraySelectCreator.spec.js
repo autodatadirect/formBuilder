@@ -1,7 +1,7 @@
 /** 
  * Testing the arraySelectCreator
  */
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
 describe('the array select creator', function(){
 	var testContainer = window.formBuilderTesting.testContainer;

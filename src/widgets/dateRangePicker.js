@@ -1,7 +1,8 @@
 
-/*global util:true, moment:true */
+/*global  moment:true */
 (function($) {
 	"use strict";
+	var util = $.formBuilder.util;
 
 	$.widget("formBuilder.dateRangePicker", {
 		_dateRangePickerTemplate:

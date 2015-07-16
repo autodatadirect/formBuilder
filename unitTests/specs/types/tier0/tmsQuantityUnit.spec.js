@@ -1,7 +1,7 @@
 /** 
  * Testing the Quantity unit type
  */
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
 
 describe('The Quantity Unit data type',function(){

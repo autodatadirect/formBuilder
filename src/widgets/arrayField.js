@@ -11,25 +11,12 @@
 /*global util:true */
 (function($){
 	'use strict';
-	
+	var util = $.formBuilder.util;
+
 	var arrayFieldId = 0;
 	var nextArrayFieldId = function () {
 		return arrayFieldId++;
 	};
-
-	// Localization
-	if(!util.lang.remove) {
-		switch(util.lang.code) {
-			case 'es': util.lang.remove = 'Quitar'; break;
-
-			//add more lang code translations here
-
-			default: //'en'
-				util.lang.remove = 'Remove'; 
-				break;
-		}
-	}
-
 
 	$.widget("formBuilder.arrayField", {
 		_arrayFieldTemplate: 

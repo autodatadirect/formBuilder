@@ -2,12 +2,14 @@
  * Testing inputField ifw
  */
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true */
 'use strict';
 describe('An inputField', function(){
 	var testContainer = window.formBuilderTesting.testContainer;
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
+
+	var util = $.formBuilder.util;
 
 	it('can be created', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();

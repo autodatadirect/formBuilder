@@ -2,7 +2,7 @@
  * Tools for testing. Must be included before all specs
  */
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true */
 'use strict';
 (function(){
 	var chars = {

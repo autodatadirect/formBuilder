@@ -1,13 +1,14 @@
 /**
  * formBuilder.arrayField widget unit tests
  */
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
 describe('A formBuilder.arrayField widget', function(){
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 	var testContainer = window.formBuilderTesting.testContainer;
-
+	var util = $.formBuilder.util;
+	
 	// Setup test html
 	var testCode = {};
 	testCode.name = 'testArrayField';

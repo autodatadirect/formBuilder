@@ -13,9 +13,9 @@
  *   status(statusName, bool)
  */
 
-/*global util:true */
 (function($) {
 	"use strict";
+	var util = $.formBuilder.util;
 
 	var repeat = function(work, delay, count, idx) {
 		idx = idx || 0;

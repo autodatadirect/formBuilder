@@ -2,7 +2,7 @@
  * Testing select data type 
  */
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true, JSON:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  JSON:true*/
  describe('A select data type', function(){
  	'use strict';
 
@@ -12,6 +12,7 @@
 
 	var typeName = 'select';
 	var type = $.formBuilder.inputField.types[typeName];
+	var util = $.formBuilder.util;
 
  	describe('can be setup', function(){
  		it('is a valid data-type', function(){

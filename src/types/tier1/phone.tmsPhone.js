@@ -9,6 +9,7 @@
 	'use strict';
 	
 	var types = $.formBuilder.inputField.types;
+	var util = $.formBuilder.util;
 
 	types.tmsPhone = $.extend({}, types.phone, {
 		_phoneTypeTemplate:

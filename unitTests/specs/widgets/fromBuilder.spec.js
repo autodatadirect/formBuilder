@@ -1,10 +1,11 @@
 /**
  * Testing formBuilder
  */
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
 describe('A formBuilder widget',function(){
 	var testContainer = window.formBuilderTesting.testContainer;
+	var util = $.formBuilder.util;
 
 	var testInputs = [
 		'<input name="" type="test"/>',

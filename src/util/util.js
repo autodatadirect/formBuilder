@@ -4,16 +4,10 @@
  * It only declares objects/functions when they do not already exist
  */
 
-/*global util:true */
-
-
-
 (function($) {
 	"use strict";
 
-	if(typeof(window.util) === 'undefined') {
-		window.util = {};
-	}
+
 
 	/*
 	 * If console is not defined build a mock console to avoid script errors in production
@@ -50,6 +44,20 @@
 		};
 	}
 
+
+	/*****************************************************
+	 * $.formBuilder.util (formerly window.util)
+	 */
+	
+	if(typeof($.formBuilder) === 'undefined') {
+		$.formBuilder = {};
+	}
+
+	if(typeof($.formBuilder.util) === 'undefined') {
+		$.formBuilder.util = {};
+	}
+
+	var util = $.formBuilder.util;
 
 
 	/**
