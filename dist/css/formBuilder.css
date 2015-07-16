@@ -186,33 +186,7 @@
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  /* Not used
-	.arrow, .arrow:after {
-		position: absolute;
-		display: inline-block;
-		width: 0;
-		height: 0;
-		border-color: transparent;
-		border-style: solid;
-	}
-
-	.arrow {
-		top: -10px;
-		right: 15px;
-		margin-left: -10px;
-		border-bottom-color: #ffffff;
-		border-width: 0 10px 10px;
-	}
-
-	.arrow:after {
-		top: -1px;
-		left: -11px;
-		border-bottom-color: #aaa;
-		border-bottom-color: rgba(0, 0, 0, 0.3);
-		border-width: 0 11px 11px;
-	}
-	*/ }
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
   .tooltip-wrapper .tooltip-title {
     margin: 0;
     padding: 8px 14px;
@@ -312,16 +286,6 @@
   top: -.2em;
   right: 10px; }
 
-/* Not used
-.option .fb-icon {
-	padding-right: 5px;
-	line-height: 53px;
-}
-
-.field-warning-note {
-	color: red;
-}
-*/
 .ui-autocomplete {
   max-height: 400px;
   overflow-y: auto;
@@ -426,21 +390,7 @@
   cursor: row-resize; }
 
 .array-field-item {
-  padding-bottom: 5px;
-  /* Not used
-	&.include-ticker-header {
-		position: relative;
-		padding-top: 18px;
-	}
-
-	.ticket-header {
-		position: absolute;
-		top: -2px;
-		font-size: 14px;
-		left: 0;
-		color:#848484;
-	}
-	*/ }
+  padding-bottom: 5px; }
   .array-field-item:hover .array-field-delete {
     color: #555; }
 
