@@ -203,7 +203,7 @@ describe('A dateTimeRangePicker widget',function(){
 			});
 
 			it('a year date range', function(){
-				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+				var picker = $('<div class="dateRange"></div>').appendTo(testContainer).dateTimeRangePicker(); 
 				var drpw = picker.data('add123DateTimeRangePicker');
 
 				var date = {

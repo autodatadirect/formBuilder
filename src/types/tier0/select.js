@@ -287,9 +287,6 @@
 			self.close();
 			e.val(self.item.value);
 
-
-
-
 			e.focus();
 			e.change();
 			self.inputWidget.redraw();
