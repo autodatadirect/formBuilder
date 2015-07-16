@@ -1,7 +1,7 @@
 doctype html
 html
 	head
-		title jquery.formBuilder.js | Demo
+		title jquery.formBuilder.js | Documentation
 
 		// ==================== External CSS Dependencies ==================== 
 		// Any jquery-ui theme
@@ -20,136 +20,79 @@ html
 		link(type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans')
 		link(type='text/css' rel='stylesheet' href='./css/codemirror.css')
 		link(type='text/css' rel='stylesheet' href='./css/monokai.css')
-		
-	
-		style(type='text/css').
-			html, body {
-				font-family: 'Open Sans';
-				background-color: #CEECF5;
-				height: 100%;
-			}
-			.container {
-				width: 800px;
-				margin-left: auto;
-				margin-right: auto;
-				padding: 2em;
-				background-color: #FFFFFF;
-				height: auto;
-				min-height: 100%;
-			}
-			.example {
-				display: block;
-				margin-bottom: 1em;
-				margin-left: 1em;
-			}
-			.CodeMirror {
-				height: auto;
-				margin-top: .5em;
-				margin-bottom: .5em;
-			}
-			.CodeMirror-scroll {
-				height: auto;
-				overflow-y: hidden;
-				overflow-x: hidden;
-			}
-			.resultDisplay {
-				width: 100%;
-				min-height: 15em;
-				resize: vertical;
-			}
-
-			.code {
-				display: block;
-				position: relative;
-				width: 100%;
-			}
-			.codeTitle {
-				display: block;
-				position: absolute;
-				top: 0px;
-				left: 0px;
-				font-style: italic;
-			}
-			.codeToggle {
-				display: block;
-				position: relative;
-				margin-left: auto;
-				margin-right: auto;
-			}
-
-			.sect-title {
-				font-weight: bold;
-				font-size: 1.3em;
-				margin-bottom: .5em;
-				background-color: #B2CAD1;
-				padding: .2em;
-				padding-left: 1em;
-			}
-			.sect-title:hover {
-				cursor: pointer;
-			}
-			.sect-title.selected {
-				background-color: #5D85E3;
-				color: white;
-			}
-			.sect {
-				margin-bottom: 4em;
-				padding-left: 1em;
-				padding-right: 1em;
-			}
-			h2 {
-				color: #5D85E3;
-				border-bottom-color: #B2CAD1;
-				border-bottom-width: 2px;
-				border-bottom-style: solid;
-				margin-top: 1em;
-			}
-			.aClass {
-				display: block;
-				background-color: yellow;
-				height: 1em;
-				width: 1em;
-			}
-			#textSubmitterSubmitBox {
-				position: relative;
-				display: block;
-				margin-bottom: 1em;
-				padding-left: 1em;
-				padding-top: 1.7em;
-				font-size: .8em;
-				width: 400px;
-			}
-			#textSubmitterSubmitBox .title {
-				position: absolute;
-				font-size: 1.2em;
-				top: 0px;
-				left: 1em;
-				font-weight: bold;
-			}
-			#textSubmitterSubmitBox .messages {
-				overflow-y: scroll;
-				height: 8.2em;
-				background-color: #E6E6E6;
-				padding: .5em;
-			}
-			#textSubmitterSubmitBox .messages .message {
-				display: block;
-			}
-			#textSubmitterSubmitBox .messages .message .submitTime {
-				display: inline-block;
-				padding-right: 5px;
-				color: gray;
-			}
-			#textSubmitterSubmitBox .messages .message .submitText {
-				display: inline-block;
-			}
+		link(type='text/css' rel='stylesheet' href='./css/docs.css')
 
 	body
+		.header
+			.title jQuery.formBuilder
+			.links
+				a.travis(href='https://travis-ci.org/autodatadirect/formBuilder')
+					img(src='https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master')
+				a.github(href='https://github.com/autodatadirect/formBuilder')
+					img(src='./img/GitHub-Mark-Light-32px.png')
 		.container
-			h1 formBuilder Demo
-			hr
-			.sect(data-title='Base Form')
-				h2 Applying the formBuilder
+			.sideNav
+				ul.navDepth-0
+					li.current(name='baseForm')
+						a(href='#') Base Form
+						ul.navDepth-1
+							li.current(name='baseForm-applyingFormBuilder'): a(href='#baseForm-applyingFormBuilder') Applying the formBuilder
+							li(name='baseForm-requiredInputs'): a(href='#baseForm-requiredInputs') Required Inputs
+
+					li(name='fieldEnhancments')
+						a(href='#fieldEnhancments') Field Enhancements
+						ul.navDepth-1
+							li(name='fieldEnhancments-preinputPostinput'): a(href='#fieldEnhancments-preinputPostinput') Preinput/Postinput
+							li(name='fieldEnhancments-prefixSuffix'): a(href='#fieldEnhancments-prefixSuffix') Prefix/Suffix
+							li(name='fieldEnhancments-labels'): a(href='#fieldEnhancments-labels') Labels
+							li(name='fieldEnhancments-placeholderText'): a(href='#fieldEnhancments-placeholderText') Placeholder Text
+							li(name='fieldEnhancments-max'): a(href='#fieldEnhancments-max') Max
+							li(name='fieldEnhancments-inputGroups'): a(href='#fieldEnhancments-inputGroups') Input Groups
+							li(name='fieldEnhancments-tooltip'): a(href='#fieldEnhancments-tooltip') Tooltip
+					
+					li(name='dataTypes')
+						a(href='#dataTypes') Data Types
+						ul.navDepth-1
+							li(name='dataTypes-inputTypes'): a(href='#dataTypes-inputTypes') Input Types
+							li(name='dataTypes-codes'): a(href='#dataTypes-codes') Codes
+							li(name='dataTypes-select'): a(href='#dataTypes-select') Select
+							li(name='dataTypes-textarea'): a(href='#dataTypes-textarea') Textarea
+							li(name='dataTypes-arrayField'): a(href='#dataTypes-arrayField') Array Field
+							li(name='dataTypes-textSubmitter'): a(href='#dataTypes-textSubmitter') Text Submitter
+					
+					li(name='customization')
+						a(href='#customization') Customization
+						ul.navDepth-1
+							li(name='customization-regexTypes'): a(href='#customization-regexTypes') Creating Simple Regex Types
+							li(name='customization-fullTypes'): a(href='#customization-fullTypes') Creating Full Custom Types
+					
+					li(name='unsupported')
+						a(href='#unsupported') Unsupported
+						ul.navDepth-1
+							li(name='unsupported-checkbox'): a(href='#unsupported-checkbox') Checkboxes
+							li(name='unsupported-radio'): a(href='#unsupported-radio') Radio Buttons
+
+					li(name='demo')
+						a(href='#demo') Live Demo
+						ul.navDepth-1
+							li(name='demo-form'): a(href='#demo-form') Form
+							li(name='demo-results'): a(href='#demo-results') Results
+							li(name='demo-source'): a(href='#demo-source') Source
+					
+					
+					//- TEMPORARY FOR TESTING PURPOSES
+					li(name='newTypes')
+						a(href='#newTypes') New Types
+
+			.content
+				h1
+					a.anchor(name='baseForm' href='#baseForm')
+					| Base Form 
+
+				h2
+					a.anchor(name='baseForm-applyingFormBuilder' href='#baseForm-applyingFormBuilder')
+					| Applying the formBuilder
+
 				p To initialize a form with formBuilder
 					.code(data-mode='javascript').
 						 $('form').formBuilder();
@@ -164,7 +107,10 @@ html
 
 				p Only elements inside of the formBuilder are effected
 
-				h2 Required Inputs
+				h2
+					a.anchor(name='baseForm-requiredInputs' href='#baseForm-requiredInputs')
+					| Required Inputs
+
 				p The <i>data-required</i> attribute if set on an input element will prevent form submission if it is not valid
 					.example: form(id='fb' action='#' style='display:none;')
 						input(type='text' data-label='Not Required')
@@ -190,9 +136,17 @@ html
 						</form>
 					//- 
 
-			.sect(data-title='Field Enhancements')
-				
-				h2 Preinput/Postinput
+
+
+
+
+				h1
+					a.anchor(name='fieldEnhancments' href='#fieldEnhancments')
+					| Field Enhancements
+				h2
+					a.anchor(name='fieldEnhancments-preinputPostinput' href='#fieldEnhancments-preinputPostinput')
+					| Preinput/Postinput
+
 				p The <i>data-preinput</i> attribute adds a block of text before any input
 					.example: input(type='text' data-preinput='pre')
 				p The <i>data-postinput</i> attribute adds a block of text after any input
@@ -205,7 +159,10 @@ html
 						<input type="text" data-preinput="pre" data-postinput="post">
 					//- 
 
-				h2 Prefix/Suffix
+				h2
+					a.anchor(name='fieldEnhancments-prefixSuffix' href='#fieldEnhancments-prefixSuffix')
+					| Prefix/Suffix
+
 				p Will add text at front/end of form field that can only be visible once the user has begun entering text into the field
 				p The <i>data-prefix</i>
 					.example: input(type='text' data-prefix='prefix')
@@ -216,14 +173,20 @@ html
 						<input type="text" data-suffix="suffix">
 					//- 
 
-				h2 Labels
+				h2
+					a.anchor(name='fieldEnhancments-labels' href='#fieldEnhancments-labels')
+					| Labels
+
 				p The <i>data-label</i> attribute adds text above any input field
 					.example: input(type='text' data-label='Some Label Text')
 					.code(data-mode='html').
 						 <input type="text" data-label="Some Label Text">
 					//- 
 
-				h2 Placeholder Text
+				h2
+					a.anchor(name='fieldEnhancments-placeholderText' href='#fieldEnhancments-placeholderText')
+					| Placeholder Text
+
 				p The <i>data-empty</i> or <i>data-placeholder</i> attribute will display placeholder text when an input field is empty
 					.example: input(type='text' data-empty='some text (empty)')
 					.example: input(type='text' data-placeholder='some text (placeholder)')
@@ -232,14 +195,20 @@ html
 						<input type="text" data-placeholder="some text (placeholder)">
 					//- 
 
-				h2 Max
+				h2
+					a.anchor(name='fieldEnhancments-max' href='#fieldEnhancments-max')
+					| Max
+
 				p the <i>data-max</i> attribute adds a maximum character requirement, enforced while typed
 					.example: input(type='text' data-label='Maxmum of 10 chars' data-max='10')
 					.code(data-mode='html').
 						<input type="text" data-label="Maxmum of 10 chars" data-max="10">
 					//- 
 				
-				h2 Input Groups
+				h2
+					a.anchor(name='fieldEnhancments-inputGroups' href='#fieldEnhancments-inputGroups')
+					| Input Groups
+
 				p Use input groups to keep inputs inline
 					.example: .input-field-group
 						input(type='text' data-label='input 1')
@@ -254,7 +223,10 @@ html
 						</div>
 					//- 
 
-				h2 Tooltip
+				h2
+					a.anchor(name='fieldEnhancments-tooltip' href='#fieldEnhancments-tooltip')
+					| Tooltip
+
 				p You can add a tooltip box <b>after a form field</b> that will display a hovering widget on-click. You need a div of class <i>tooltip</i> with an optional <i>title</i> attribute
 					.example
 						input(type='text')
@@ -280,9 +252,16 @@ html
 					//- 
 
 
-			.sect(data-title='Data Types')
 
-				h2 Input Types
+
+				h1
+					a.anchor(name='dataTypes' href='#dataTypes')
+					| Data Types
+
+				h2
+					a.anchor(name='dataTypes-inputTypes' href='#dataTypes-inputTypes')
+					| Input Types
+
 				p The <i>data-type</i> attribute can be specifed to add content checking
 					.example
 						input(type='text' data-label='no data-type')
@@ -344,7 +323,10 @@ html
 						span Autocomplete for common units. Any text can be entered, it just suggests some.
 				
 
-				h2 Codes
+				h2
+					a.anchor(name='dataTypes-codes' href='#dataTypes-codes')
+					| Codes
+
 				p The user must type a code in that matches the a value of an object in a defined <i>codeArray</i>. 
 					br 
 					| Element attributes <i>data-type='code' data-codes='[yourCodeArrayVariableName]'</i>
@@ -368,7 +350,9 @@ html
 						];
 					//- 
 				
-				h2 Select
+				h2
+					a.anchor(name='dataTypes-select' href='#dataTypes-select')
+					| Select
 				p Normal select tags will still work, but you can also use the formBuilder select input, which works in the same way as the code data-type.
 					.example: select(data-label='select default without formBuilder')
 						option(value='true') Yes
@@ -434,11 +418,17 @@ html
 					span Created with <b>booleanSelectCreator(trueLabel,falseLabel)</b>. A select created with two options where the trueLabel's value is true and the falseLabel's value is false. Can be used for localization support. With this type, 'Yes' is true and 'No' is false.
 					mark Add the localization support back to the type
 
-				h2 Textarea
+				h2
+					a.anchor(name='dataTypes-textarea' href='#dataTypes-textarea')
+					| Textarea
+
 				p No extra attributes are required. Note, pre/post-inputs will not grow with the area.
 					.example: textarea(rows='3' data-label='TextArea')
 
-				h2 Array Field
+				h2
+					a.anchor(name='dataTypes-arrayField' href='#dataTypes-arrayField')
+					| Array Field
+
 				p You can use array fields in a formBuilder form to allow variable amounts of the same input-field-group to be submitted.
 					ul
 						li Items can be added to the array with the bottom '+' addon.
@@ -483,7 +473,10 @@ html
 					</div>
 				//- 
 
-				h2 Text Submitter
+				h2
+					a.anchor(name='dataTypes-textSubmitter' href='#dataTypes-textSubmitter')
+					| Text Submitter
+
 				p Text submitter can be used for submitting multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form.
 
 				p Simple example using defaults:
@@ -499,8 +492,19 @@ html
 				#textSubmitterSubmit
 
 
-			.sect(data-title='Customization')
-				h2 Creating Simple Regex Types
+
+
+
+
+
+
+				h1
+					a.anchor(name='customization' href='#customization')
+					| Customization
+				h2
+					a.anchor(name='customization-regexTypes' href='#customization-regexTypes')
+					| Creating Simple Regex Types
+
 				p You can add your own input types using just regex very easily.
 					.example: input(type='text' data-label='Custom "swear" type' data-type='swear')
 					.example: input(type='text' data-label='Custom "theLetterF" type' data-type='theLetterF')
@@ -523,7 +527,10 @@ html
 						$('simpleCustomTypeForm').formBuilder();
 					//- 
 				
-				h2 Creating Full Custom Types
+				h2
+					a.anchor(name='customization-fullTypes' href='#customization-fullTypes')
+					| Creating Full Custom Types
+
 				p You may also create new types if you provide all the needed base type functions.
 					.example: input(type='text' data-label='Custom "SSN" type' data-type='SSN')
 
@@ -588,16 +595,36 @@ html
 						$('fullCustomTypeForm').formBuilder();
 					//- 
 
-			.sect(data-title='Unsupported')
-				h2 Checkboxes
+
+
+
+
+
+
+				h1
+					a.anchor(name='unsupported' href='#unsupported')
+					| Unsupported
+				h2
+					a.anchor(name='unsupported-checkbox' href='#unsupported-checkbox')
+					| Checkboxes
 				.example: input(type='checkbox' data-label='Checkbox Test 3')
 
-				h2 Radio Buttons
+				h2
+					a.anchor(name='unsupported-radio' href='#unsupported-radio')
+					| Radio Buttons
 				.example: input(type='radio' data-label='Radio Test 3')
 
-			.sect(data-title='Demo')
-				
-				h2 Form
+
+
+
+
+
+				h1
+					a.anchor(name='demo' href='#demo')
+					| Live Demo
+				h2
+					a.anchor(name='demo-form' href='#demo-form')
+					| Form
 				p To get a feel of how formBuilder is used, try out this simple demo.
 				form#example(action="#" style="display: none")
 					input(type="text" name="name" data-label="Name*" data-require='true')
@@ -616,7 +643,9 @@ html
 						]')
 					button(type='submit') Save
 				
-				h2 Results
+				h2
+					a.anchor(name='demo-results' href='#demo-results')
+					| Results
 				p
 					i Events
 					textarea#example-events.resultDisplay(readonly)
@@ -625,7 +654,9 @@ html
 					textarea#example-data.resultDisplay(readonly)
 
 					
-				h2 Source
+				h2
+					a.anchor(name='demo-source' href='#demo-source')
+					| Source
 				p
 					.code(data-mode='html').
 						<form id="example" action="#" style="display: none">
@@ -778,7 +809,14 @@ html
 							}
 						});
 					//- 
-			.sect(data-title='New Types')
+
+
+
+
+				h1
+					a.anchor(name='newTypes' href='#newTypes')
+					| New Types
+
 				.example
 					input(type='text' data-label='time' data-type='time')
 				.example
@@ -791,18 +829,13 @@ html
 					<div class='dateRange'></div>
 				.example
 					<div class='dateTimeRange'></div>
-				//- .example
-				//- 	input(class='dropDownPanel')
-					
+
+		//- JavaScript
 		// Bower JS Dependencies (using CDNs for demo)
-		// script(type='text/javascript' src='/bower_components/jquery/jquery.min.js')
-		// script(type='text/javascript' src='/bower_components/jquery-ui/jquery-ui.min.js')
-		// script(type='text/javascript' src='/bower_components/moment/min/moment.min.js')
-		// script(type='text/javascript' src='/bower_components/spinjs/spin.min.js')
-		script(type='text/javascript' src='http://code.jquery.com/jquery-1.11.3.min.js')
-		script(type='text/javascript' src='http://code.jquery.com/ui/1.9.2/jquery-ui.min.js')
-		script(type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js')
-		script(type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js')
+		script(type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js')
+		script(type='text/javascript' src='../bower_components/jquery-ui/ui/minified/jquery-ui.min.js')
+		script(type='text/javascript' src='../bower_components/moment/min/moment.min.js')
+		script(type='text/javascript' src='../bower_components/spinjs/spin.min.js')
 		script(type='text/javascript' src='../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')
 		script(type='text/javascript' src='../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js')
 
@@ -812,354 +845,4 @@ html
 		// Extra for displaying
 		script(type='text/javascript' src='./js/codemirror.js')
 		script(type='text/javascript' src='./js/codemirror-compressed.js')
-
-
-		// Internal Test JS
-		script.
-			//- Wrap each example in a form if not already in one
-			$('.example').each(function(){
-				if(!$(this).parents('form').length && !$(this).parents('.code').length)
-					$(this).wrap('<form id="fb" action="#" style="display:none;" data-default-required="false">');
-				});
-
-			//- Declaring test codes for data-type 'code'
-			var testCodes = [ 
-				{"value":"submitted to form", "label":"Searched Item"},
-				{"value":"true", "label":"Yes"},
-				{"value":"false", "label":"No"},
-				{"value":"5", "label":"option 1"},
-				{"value":"2", "label":"option 2"},
-				{"value":"3", "label":"option 3"},
-				{"value":"4", "label":"option 4"},
-				{"value":"5", "label":"option 5"},
-				{"value":"100",  "label":"Some label"},
-				{"value":"AAA",  "label":"123 Some St."},
-				{"value":"BBB",  "label":"Some Business Name Inc."},
-				{"value":"Hodor",  "label":"Bran"}
-			];
-
-			//- Adding simple regex types
-			$.extend($.formBuilder.inputField.types,{
-				'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
-				'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
-						toUpper: false
-					}),
-				'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
-			});
-
-			//- Adding full custom types
-			$.extend($.formBuilder.inputField.types,{
-				'SSN': {
-					setUp: function(ui) {
-						var self = this,
-							e = ui.element;
-
-						//- Set the characters a user can enter
-						e.inputFilter({
-							pattern: /[0-9]/,
-							max: 12
-						});
-
-						//- Replace the input with a formatted input
-						e.on('blur keydown', function(){
-							e.val(self.format(e.val()));
-						});
-					},
-					converter: {
-						toField: function(value, ui) {
-							return this.format(value);
-						},
-						fromField: function(value, ui) {
-							return this.format(value);
-						}
-					},
-					validate: function(ui) {
-						if(!this.format(ui.element.val()).match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{4}$/))
-							return {
-								message: 'invalid'
-							};
-					},
-
-					//- This is an extra function specifically for this type
-					format: function(text) {
-						if(!text)
-							return '';
-
-						//- Remove non-digits
-						text = text.replace(/[^0-9]/g,'');
-						text = text.substring(0, 10);
-
-						//- add correct dashes
-						if(text.length <= 4)
-							return text;
-						else if(text.length <= 6)
-							return text.substring(0,4) + '-' + text.substring(4);
-						else
-							return  text.substring(0,4) + '-' + text.substring(4,6) + '-' + text.substring(6);
-					}
-				} 
-			});
-
-
-
-			var f = $('form#fb').formBuilder();
-			f.find('button[type="submit"]').submitButton({
-				beforesubmit: function(ev) {
-					console.log('before');
-				},
-				submit: function(ev, finish) {
-					console.log('submit');
-
-					var pForm = $(this).closest('form');
-
-					pForm.formBuilder('validate');
-					console.log('Form dirty? ' + pForm.formBuilder('isDirty'));
-					console.log(pForm.formBuilder('conflicts'));
-					//- console.log(f.formBuilder('get'));
-
-					finish();
-				},
-				aftersubmit: function(ev) {
-					console.log('after');
-				}
-				});
-
-			//- Example form
-			var events = $('#example-events');
-			var data = $('#example-data');
-			var eventNum = 1;
-			var logEvent = function(str) {
-				events.val(events.val()+'\n['+(eventNum++)+']  '+str);
-				events.scrollTop(events[0].scrollHeight);
-			};
-
-			events.val('[0]  Start');
-
-			var formExample = $('form#example:first').formBuilder({
-				beforeset: function(ev) {
-					logEvent('beforeset called on formBuilder');
-				},
-				afterset: function(ev) {
-					logEvent('afterset called on formBuilder');
-				}
-			});
-
-			logEvent('Initialized');
-
-			var saveForm = function(data, finish) {
-				// Save data to server (setTimeout is just used in the example to simulate the lag time, use $.ajax instead)
-				setTimeout(function(){
-					// If the server-side save was good, set it back to clean
-					logEvent('server save complete');
-					finish()
-				}, 2000);
-				
-				/* Example server call
-				$.ajax({
-					url: 'someserver.com',
-					type: 'POST',
-					data: data,
-					success: function(result) {
-						//handle your server result
-						finish();
-					},
-					error: function() {
-						//connection error
-						finish();
-					}
-				});
-				*/
-			};
-
-			/**
-			 * SettableSelect Handling
-			 */
-			var optionSetChanged = false;
-			var sOptionsOne = [
-				{value:"true",	label:"Yes"},
-				{value:"false",	label:"No"},
-				{value:"5",		label:"option 1"},
-				{value:"2",		label:"option 2"},
-				{value:"3",		label:"option 3"},
-				{value:"4",		label:"option 4"},
-				{value:"5",		label:"option 5"},
-				{value:"100",	label:"Some label"},
-				{value:"AAA",	label:"123 Some St."},
-				{value:"BBB",	label:"Some Business Name Inc."},
-				{value:"Hodor",	label:"Bran"}
-			];
-
-			var sOptionsTwo = [
-				{value:"some",	label:"Different Option"},
-				{value:"value",	label:"Different Source"},
-				{value:"here",	label:"Settable with function"},
-			];
-
-			var sts = $('input#settableSelect[data-type="select"]');
-			sts.inputField('getType').setOptions(sOptionsOne);
-			$('button[name="toggleSelect"]').click(function(){
-				sts.inputField('getType')
-					.setOptions(optionSetChanged? sOptionsOne : sOptionsTwo);
-
-				optionSetChanged = !optionSetChanged;
-			});
-
-			formExample.find('button[type="submit"]').submitButton({
-				color: '#FF0000',
-				beforesubmit: function(ev) {
-					// Runs any presubmission stuff
-					logEvent('beforesubmit called');
-					data.val('');
-				},
-				
-				submit: function(ev, finish) {
-					logEvent('submit called');
-					
-
-					// Run validation
-					if(!formExample.formBuilder('validate')) {
-						// The form is invalid somewhere
-						logEvent('has invalid');
-						finish();
-						return;
-					}
-
-					logEvent('all valid');
-
-					var currData = formExample.formBuilder('get');
-					data.val(JSON.stringify(currData,null,2));
-
-					saveForm(currData, finish);
-				},
-				
-				aftersubmit: function(ev) {
-					// Run any post-submission stuff
-					logEvent('aftersubmit called');
-				}
-			});
-
-			$('.aClass').hide();
-
-
-			/**
-			 * testSubmitter setup
-			 */
-			$('#textSubmitterStandalone').textSubmitter();
-			$('#textSubmitterDefault').textSubmitter();
-
-			var messages = $('#textSubmitterSubmitBox .messages');
-			$('#textSubmitterSubmit').textSubmitter({
-				width: messages.outerWidth() + 15,
-				rows: 1,
-				placeholder: 'Type a message!',
-				ignoreEmptySubmit: true,
-				submit: function(ev, data){
-					setTimeout(function(){
-						data.text = data.text.trim();
-						if(data.text) {
-							messages.append('<div class="message"><span class="submitTime">['+moment().format('HH:mm:ss')+']</span><span class="submitText">"'+data.text+'"</span></div>');
-							messages.scrollTop(messages[0].scrollHeight);
-							data.onComplete(true);
-						} else {
-							data.onComplete(false);
-						}
-					}, 200);
-					
-				}
-			});
-			$('#textSubmitterOptions').textSubmitter({
-				width: '600px',
-				placeholder: 'Some placeholder',
-				sendInstruction: 'Some sendInstruction',
-				rows: 2
-			});
-
-			// ================= DEMO DISPLAY CODE BELOW ===================
-
-			//- Handle code snippets
-			$('.code').each(function(){
-				//- get code snippet
-				var snippet =  $(this).html().substring(1);
-				
-				//get initial spacing char amount
-				var initialSpacing = 0;
-				for(var i = 0; i < snippet.length && (snippet[i].match(/[\s\t]/)); ++i)
-					++initialSpacing;
-
-				//removes initial spacing chars in line
-				removeSpacing = function(lineStart) {
-					var stopIndex = lineStart;
-					for(var i = lineStart; i < snippet.length && (stopIndex - lineStart) < initialSpacing && snippet[i].match(/\s/); ++i)
-						++stopIndex;
-
-					//- console.log('Blocked by "' + snippet[i] + '" and cut "' + snippet.substring(lineStart, stopIndex) + '"');
-
-					snippet = snippet.substring(0,lineStart) + snippet.substring(stopIndex);
-				};
-
-				//remove for all lines
-				removeSpacing(0);
-				for(var i = 0; i < snippet.length; ++i)
-					if(snippet[i].match(/[\n\r]/) && (i+1) < snippet.length)
-						removeSpacing(i+1);
-
-				//- Fix special html chars
-				snippet = snippet.replace(/&quot;/g, "'");
-				snippet = snippet.replace(/&amp;/g, "&");
-
-				//- Add codemirror obj
-				$(this).empty(); 
-				var cm = {
-					value: snippet,
-					mode: $(this).data('mode'),
-					indentWithTabs: false,
-					lineNumbers: true,
-					theme: 'monokai',
-					readOnly: true
-				};
-				if(cm.mode === 'html') {
-					cm.mode = 'xml';
-					cm.htmlMode = true;
-				}
-				var newCodeMirror = CodeMirror(this, cm);
-
-
-				//- Add toggle button
-				$(this).prepend('<button class="codeToggle">Toggle Source</button>');
-				$(this).prepend('<div class="codeTitle">'+($(this).data('title') || $(this).data('mode').toUpperCase())+'</div>');
-
-				if($(this).data('hidden')) {
-					$(this).find('.CodeMirror:first').hide();
-				}
-			});
-			
-			$('.codeToggle').click(function(ev){
-				$(this).next().slideToggle(100);
-			});
-
-
-
-			//- Setup demo sections
-			var sections = $('.sect');
-			sections.wrap('<div class="sect-container"></div>');
-			sections.each(function(i, section){
-				$(section).parent().prepend('<div class="sect-title">'+$(this).data('title')+'<div>');
-			});
-
-			$('.sect-title').click(function(){
-				$(this).next().slideToggle(100);
-				$(this).toggleClass('selected');
-			});
-
-			$('.sect').toggle(false);
-
-			$('.dateRange').dateRangePicker();
-
-			$('.dateTimeRange').dateTimeRangePicker();
-
-
-			//- var input = $('.dropDownPanel input');
-
-			//- input.dropDownPanel({
-			//- 	appendTo: input.inputField('getField')
-			//- });
+		script(type='text/javascript' src='./js/docs.js')

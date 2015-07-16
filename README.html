@@ -1196,7 +1196,7 @@ The data-type should be set in order for the input to be validated as correct.<b
     - validate (&lt; object &gt; ui) checks to determine if the input matches the regex pattern associated with the current type.<br />
     -  If they do not match the message &lsquo;invalid&rsquo; is printed in the form field. <br />
     -  type.setUp (&lt; object &gt; ui) Only performed if there is a filter or a max parameter passed into createRegexType<br />
-        +  Checks that input meets filter and max limits </em> It is possible to create a new type that can be entered as input. A new type extension must created by extending $.add123.inputField.types and defining a new type using a regular expression.  </p>
+        +  Checks that input meets filter and max limits </em> It is possible to create a new type that can be entered as input. A new type extension must created by extending $.formBuilder.inputField.types and defining a new type using a regular expression.  </p>
 <h2 id="handling-form-submissions"><a name="user-content-handling-form-submissions" href="#handling-form-submissions" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Handling Form Submissions</h2>
 <p>In order to correctly handle the storage of input fields, you must use a submitButton widget inside of the form and add event listeners. A loading spinner is displayed inside of the submitButton while it is submitting. See <a href="#example-usage">Usage</a> below.</p>
 <h3 id="required-fields"><a name="user-content-required-fields" href="#required-fields" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Required Fields</h3>
@@ -1427,9 +1427,21 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 </ul>
 </li>
 </ul>
+<h3 id="daterangepicker"><a name="user-content-daterangepicker" href="#daterangepicker" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>dateRangePicker</h3>
+<p>Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type. <br />
+* Methods <br />
+    - <strong>setRange(string)</strong> Sets the range of the date field to either &lsquo;custom&rsquo;, &lsquo;day&rsquo;, &lsquo;week&rsquo;, &lsquo;month&rsquo;, or &lsquo;year&rsquo;. Will modify the input fields so that the date range reflects this selection.<br />
+    - <strong>serialize(moment)</strong> Takes a passed-in moment and returns YYYY-MM-DD format<br />
+    - <strong>deserialize(string)</strong> Takes a passed-in string and returns a moment in the YYYY-MM-DD format<br />
+    - <strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. <br />
+    - <strong>set(Object)</strong> Sets the input fields of the dateRangePicker to the value of the object that is passed into the method<br />
+    - <strong>isDirty()</strong> Returns the dirty value of the current calling object<br />
+    - <strong>clearDirty()</strong> Resets the current object&rsquo;s dirty value to false.<br />
+    - <strong>clear()</strong> Sets the values inside of the dateRangePicker&rsquo;s inputfields to &lsquo;&rsquo; and sets the range value to &lsquo;custom&rsquo;<br />
+    - <strong>validate()</strong> Validates that the input matches the date-format that it should be. Uses the formBuilder widget&rsquo;s validate function</p>
 <h2 id="customization"><a name="user-content-customization" href="#customization" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Customization</h2>
 <h3 id="custom-type"><a name="user-content-custom-type" href="#custom-type" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Custom type</h3>
-<p>To add a type, you must extend the <code>$.add123.inputField.types</code> object with a new type object.</p>
+<p>To add a type, you must extend the <code>$.formBuilder.inputField.types</code> object with a new type object.</p>
 <p>Default Type Object</p>
 <ul>
 <li><strong>setUp(<em>object</em> ui)</strong> <em>Required.</em> Called initially to setup the field. Use this to add any events or elements. A jQuery object is passed in.</li>
@@ -1443,7 +1455,7 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 </ul>
 <h4 id="creating-simple-regex-types"><a name="user-content-creating-simple-regex-types" href="#creating-simple-regex-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Creating Simple Regex Types</h4>
 <p>You can use the createRegexType function to make new types based on regular expressions. It will automatically create the needed type functions.</p>
-<p><code>$.add123.inputField.createRegexType(pattern[,filter[,flags[, max]]])</code></p>
+<p><code>$.formBuilder.inputField.createRegexType(pattern[,filter[,flags[, max]]])</code></p>
 <ul>
 <li><strong>pattern *(RegEx)</strong>* The regular expression used to match the full input for validation.</li>
 <li><strong>filter *(RegEx)</strong>* The regular expression used to match each key input. Those that do not match will be ignored and not placed inside of the field.</li>
@@ -1461,12 +1473,12 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 &lt;/form&gt;
 </code></pre><br />
 JavaScript<br />
-<pre><code class="javascript">$.extend($.add123.inputField.types,{
-    'swear': $.add123.inputField.createRegexType(/^[\!@#\$%\&amp;*]*$/, /[\!@#\$%\&amp;*]/),
-    'theLetterF': $.add123.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
+<pre><code class="javascript">$.extend($.formBuilder.inputField.types,{
+    'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&amp;*]*$/, /[\!@#\$%\&amp;*]/),
+    'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
             toUpper: false
         }),
-    'luckySeven': $.add123.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
+    'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
 });
 $('simpleCustomTypeForm').formBuilder();
 </code></pre></p>
@@ -1478,7 +1490,7 @@ $('simpleCustomTypeForm').formBuilder();
 &lt;/form&gt;
 </code></pre><br />
 JavaScript<br />
-<pre><code class="javascript">$.extend($.add123.inputField.types,{
+<pre><code class="javascript">$.extend($.formBuilder.inputField.types,{
     'SSN': {
         setUp: function(ui) {
             var self = this,

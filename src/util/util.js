@@ -164,7 +164,7 @@
 				if(i === a.length - 1) {
 
 					/*
-					 * clean this logic up, use this test case : https://secure.add123.com/apps/web/res/js/_test/qunit.html
+					 * clean this logic up
 					 */
 					if(key.match(/^[0-9]{1,3}$/)) {
 

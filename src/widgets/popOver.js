@@ -1,5 +1,5 @@
 /**
- * add123.popOver widget
+ * formBuilder.popOver widget
  */
 
 (function($){
@@ -9,7 +9,7 @@
 		win = $(window),
 		body = $('body');
 
-	$.widget("add123.popOver", {
+	$.widget("formBuilder.popOver", {
 
 		options: {
 			target: '',

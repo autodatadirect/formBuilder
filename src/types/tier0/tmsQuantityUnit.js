@@ -7,7 +7,7 @@
 (function($){
 	'use strict';
 	
-	var types = $.add123.inputField.types;
+	var types = $.formBuilder.inputField.types;
 
 	var units = ['MI', 'KM', 'HR', 'MIN', 'DAYS', 'PKGS'];
 	types.tmsQuantityUnit = {

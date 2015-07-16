@@ -13,7 +13,7 @@
 (function($){
 	'use strict';
 
-	var types = $.add123.inputField.types;
+	var types = $.formBuilder.inputField.types;
 
 	types.time = {
 		attributes: ['step', 'military','storeUtc'],

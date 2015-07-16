@@ -12,7 +12,7 @@ describe('An inputField', function(){
 	it('can be created', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
 
-		expect(input.is(':add123-inputField')).toBe(true);
+		expect(input.is(':formBuilder-inputField')).toBe(true);
 	});
 
 	describe('always constructs', function(){
@@ -37,7 +37,7 @@ describe('An inputField', function(){
 
 	it('can get its field', function() {
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var field = ifw.getField();
 
 		expect(field[0]).toEqual(input.parent().parent().parent('.input-field')[0]);
@@ -52,7 +52,7 @@ describe('An inputField', function(){
 		testContainer.empty();
 
 		input.appendTo(testContainer).inputField();
-		ifw = input.data('add123InputField');
+		ifw = input.data('formBuilderInputField');
 		
 		// Setup the test layer
 		someLayer.appendTo(ifw.getField());
@@ -74,7 +74,7 @@ describe('An inputField', function(){
 	describe('is redrawn', function(){
 		it('to show only valid layers', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			spyOn(ifw, '_showLayer');
 			
@@ -85,7 +85,7 @@ describe('An inputField', function(){
 
 		it('after a set',function(done){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			
 			//wait for _init
 			pause(triggerWaitTime)
@@ -104,7 +104,7 @@ describe('An inputField', function(){
 
 		it('after a status change',function(done){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			
 			pause(triggerWaitTime)
 			.then(function(){
@@ -121,7 +121,7 @@ describe('An inputField', function(){
 
 		it('after a keyup', function(done){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			
 			pause(triggerWaitTime)
 			.then(function(){
@@ -142,7 +142,7 @@ describe('An inputField', function(){
 
 	it('can set its value', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		expect(input.val()).toBe('');
 		ifw.set('some value');
@@ -152,7 +152,7 @@ describe('An inputField', function(){
 	describe('can have a label', function(){
 		it('that can be set with a function', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			ifw.setLabel('some label');
 			expect(input.parent().parent().siblings('label').length).toBe(1);
@@ -171,7 +171,7 @@ describe('An inputField', function(){
 	describe('can have a suffix', function() {
 		it('that can be set with a function', function() {
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			ifw.setSuffix('some suffix');
 			var overlay = input.parent().siblings('.suffix-overlay');
@@ -203,7 +203,7 @@ describe('An inputField', function(){
 
 			input.appendTo(testContainer).inputField();
 			
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 			container = ifw.getField();
 
 			ifw.setSuffix('some suffix');
@@ -223,7 +223,7 @@ describe('An inputField', function(){
 			testContainer.empty();
 
 			input.appendTo(testContainer).inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 			container = ifw.getField();
 
 			ifw.setSuffix('some suffix');
@@ -248,7 +248,7 @@ describe('An inputField', function(){
 			testContainer.empty();
 
 			input.appendTo(testContainer).inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 			container = ifw.getField();
 
 			ifw.setSuffix('some suffix');
@@ -277,7 +277,7 @@ describe('An inputField', function(){
 	describe('can have a prefix', function() {
 		it('that can be set with a function', function() {
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			ifw.setPrefix('some prefix');
 			var overlay = input.parent().siblings('.prefix-overlay');
@@ -305,7 +305,7 @@ describe('An inputField', function(){
 
 			input.appendTo(testContainer).inputField();
 			
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 			container = ifw.getField();
 
 			ifw.setPrefix('some prefix');
@@ -325,7 +325,7 @@ describe('An inputField', function(){
 			testContainer.empty();
 
 			input.appendTo(testContainer).inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 			container = ifw.getField();
 
 			ifw.setPrefix('some prefix');
@@ -350,7 +350,7 @@ describe('An inputField', function(){
 			testContainer.empty();
 
 			input.appendTo(testContainer).inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 			container = ifw.getField();
 
 			ifw.setPrefix('some prefix');
@@ -379,7 +379,7 @@ describe('An inputField', function(){
 	describe('can have a max', function() {		// Uses inputFilter widget
 		it('that can be set with a function', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			ifw.setMax(5);
 			ifw.set('123456');
@@ -390,7 +390,7 @@ describe('An inputField', function(){
 
 		it('that can be set with an attribute', function(){
 			var input = $('<input type="text" data-max="5"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			ifw.set('123456');
 			expect(input.val()).toBe('12345');
@@ -404,7 +404,7 @@ describe('An inputField', function(){
 
 		it('that can be added with a function', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var addon;
 
 			expect(input.parent().siblings('.addon').length).toBe(0);
@@ -420,7 +420,7 @@ describe('An inputField', function(){
 
 		it('that can be added on the left of the input with negative weight', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var addon;
 
 			ifw.addOn(-1,addonHtml);
@@ -433,7 +433,7 @@ describe('An inputField', function(){
 
 		it('that can be added on the right of the input with positive weight', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var addon;
 
 			ifw.addOn(1,addonHtml);
@@ -445,7 +445,7 @@ describe('An inputField', function(){
 
 		it('that can have multiple side-by-side with different weights', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var items, addon;
 
 			ifw.addOn(-10,'left [0]');
@@ -478,7 +478,7 @@ describe('An inputField', function(){
 
 		it('that can have a custom class name', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var addon;
 			var customClass = 'customClassName';
 
@@ -490,7 +490,7 @@ describe('An inputField', function(){
 
 		it('that can be made up of html, rather than just text', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var addon;
 			var customHtml = 'some text <i>with italics</i>';
 
@@ -505,7 +505,7 @@ describe('An inputField', function(){
 
 		it('that can be added with attribute data-preinput', function(){
 			var input = $('<input type="text" data-preinput="pre"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var addon;
 
 			addon = input.parent().siblings('.addon');
@@ -518,7 +518,7 @@ describe('An inputField', function(){
 
 		it('that can be added with attribute data-postinput', function(){
 			var input = $('<input type="text" data-postinput="post"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var addon;
 
 			addon = input.parent().siblings('.addon');
@@ -536,7 +536,7 @@ describe('An inputField', function(){
 
 		it('that can be set with a function', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var placeholder;
 			
 			placeholder = input.siblings('.placeholder');
@@ -551,7 +551,7 @@ describe('An inputField', function(){
 
 		it('that can be set with an attribute', function(){
 			var input = $('<input type="text" data-placeholder="'+placeholderText+'"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var placeholder;
 
 			placeholder = input.siblings('.placeholder');
@@ -561,7 +561,7 @@ describe('An inputField', function(){
 
 		it('that can be set and then set again', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var placeholder;
 			
 			ifw.placeholder(placeholderText);
@@ -581,7 +581,7 @@ describe('An inputField', function(){
 			testContainer.append(input);
 
 			input.inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			ifw.placeholder(placeholderText);
 			ifw.redraw();
@@ -601,7 +601,7 @@ describe('An inputField', function(){
 			testContainer.append(input);
 
 			input.inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			ifw.placeholder(placeholderText);
 			ifw.redraw();
@@ -623,7 +623,7 @@ describe('An inputField', function(){
 			testContainer.append(input);
 
 			input.inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			ifw.placeholder(placeholderText);
 			ifw.redraw();
@@ -647,7 +647,7 @@ describe('An inputField', function(){
 			testContainer.append(input);
 
 			input.inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			ifw.placeholder(placeholderText);
 			ifw.redraw();
@@ -671,7 +671,7 @@ describe('An inputField', function(){
 			testContainer.append(input);
 
 			input.inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			ifw.placeholder(placeholderText);
 			ifw.redraw();
@@ -700,7 +700,7 @@ describe('An inputField', function(){
 
 	it('can clear its value', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		ifw.set('some value');
 		expect(input.val()).toBe('some value');
@@ -710,7 +710,7 @@ describe('An inputField', function(){
 
 	it('can get its value', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var val = 'some value';
 		
 		ifw.set(val);
@@ -720,7 +720,7 @@ describe('An inputField', function(){
 
 	it('can flash its input box', function(done){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var field = ifw.getField();
 
 		spyOn(ifw.field, 'addClass').and.callThrough();
@@ -749,7 +749,7 @@ describe('An inputField', function(){
 			testContainer.append(input);
 
 			input.inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			overlay = input.siblings('.error-overlay');
 			expect(overlay.length).toBe(0);
@@ -773,7 +773,7 @@ describe('An inputField', function(){
 			testContainer.append(input);
 
 			input.inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			ifw.setError({
 				message: 'some error'
@@ -791,7 +791,7 @@ describe('An inputField', function(){
 
 	describe('can format a value', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		var testType = {
 			converter: {
 				toField: function(val, ui){return val + ' to';},
@@ -832,7 +832,7 @@ describe('An inputField', function(){
 
 		it('that it can get', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			var type;
 
 			ifw.type = testType;
@@ -842,27 +842,27 @@ describe('An inputField', function(){
 
 		it('that can bet set with a function (if the type exists)', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			ifw.setType(testType);
 			expect(util.equals(ifw.getType(), testType)).toBe(false);
 			
 			ifw.setType('utext');
-			expect(util.equals(ifw.getType(), $.add123.inputField.types.utext)).toBe(true);
+			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.utext)).toBe(true);
 		});
 
 		it('that be set with an attribute', function(){
 			var input = $('<input type="text" data-type="utext"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
-			expect(util.equals(ifw.getType(), $.add123.inputField.types.utext)).toBe(true);
+			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.utext)).toBe(true);
 		});
 
 		it('that is "text" by default', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
-			expect(util.equals(ifw.getType(), $.add123.inputField.types.text)).toBe(true);
+			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.text)).toBe(true);
 		});
 		
 	});
@@ -870,7 +870,7 @@ describe('An inputField', function(){
 	describe('can validate its value', function(){
 		it('to be valid (text)', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			expect(ifw.validate()).toBe(true);
 			ifw.set('asdasd');
@@ -881,7 +881,7 @@ describe('An inputField', function(){
 
 		it('to be invalid when empty and required', function(){
 			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			expect(ifw.validate()).toBe(false);
 			ifw.set('some value');
@@ -890,7 +890,7 @@ describe('An inputField', function(){
 
 		it('and sets an error message when found invalid', function(){
 			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			
 			spyOn(ifw, 'setError');
 
@@ -903,7 +903,7 @@ describe('An inputField', function(){
 
 		it('and clears an error message when found valid', function(){
 			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 			
 			spyOn(ifw, 'clearError');
 
@@ -920,7 +920,7 @@ describe('An inputField', function(){
 			testContainer.append(input);
 
 			input.inputField();
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			expect(ifw.validate()).toBe(false);
 
@@ -957,7 +957,7 @@ describe('An inputField', function(){
 		testContainer.append(input);
 
 		input.inputField();
-		ifw = input.data('add123InputField');
+		ifw = input.data('formBuilderInputField');
 		field = ifw.getField();
 
 		expect(field.is(':visible')).toBe(true);
@@ -974,7 +974,7 @@ describe('An inputField', function(){
 		testContainer.append(input);
 
 		input.inputField();
-		ifw = input.data('add123InputField');
+		ifw = input.data('formBuilderInputField');
 		field = ifw.getField();
 
 		expect(field.is(':visible')).toBe(true);
@@ -989,14 +989,14 @@ describe('An inputField', function(){
 	describe('can have statuses', function(){
 		it('that can be checked', function(){
 			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			expect(ifw.hasStatus('require')).toBe(true);
 		});
 
 		it('that can be updated', function(){
 			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			expect(ifw.hasStatus('require')).toBe(true);
 			ifw.status('require', false);
@@ -1005,7 +1005,7 @@ describe('An inputField', function(){
 
 		it('that can be updated (legacy)', function(){
 			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('add123InputField');
+			var ifw = input.data('formBuilderInputField');
 
 			expect(ifw.hasStatus('require')).toBe(true);
 			ifw.updateStatus('require', false);
@@ -1026,7 +1026,7 @@ describe('An inputField', function(){
 				}
 			});
 			
-			ifw = input.data('add123InputField');
+			ifw = input.data('formBuilderInputField');
 
 			expect(ifw.hasStatus('require')).toBe(true);
 
@@ -1046,7 +1046,7 @@ describe('An inputField', function(){
 		describe('including a "disable" status', function(){
 			it('that can be checked', function(){
 				var input = $('<input type="text">').wrap('<div/>').inputField();
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 
 				ifw.status('disable', true);
 				expect(ifw.hasStatus('disable')).toBe(ifw.isDisabled());
@@ -1054,7 +1054,7 @@ describe('An inputField', function(){
 
 			it('that can be set', function(){
 				var input = $('<input type="text">').wrap('<div/>').inputField();
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 
 				ifw.status('disable', false);
 				ifw.disable();
@@ -1063,7 +1063,7 @@ describe('An inputField', function(){
 
 			it('that can be unset', function(){
 				var input = $('<input type="text">').wrap('<div/>').inputField();
-				var ifw = input.data('add123InputField');
+				var ifw = input.data('formBuilderInputField');
 
 				ifw.status('disable', true);
 				ifw.enable();
@@ -1076,7 +1076,7 @@ describe('An inputField', function(){
 
 				testContainer.append(input);
 				input.inputField();
-				ifw = input.data('add123InputField');
+				ifw = input.data('formBuilderInputField');
 
 				overlay = input.parent().siblings('.disable-overlay');
 				expect(overlay.length).toBe(0);

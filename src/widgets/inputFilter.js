@@ -6,7 +6,7 @@
 (function($) {
 	'use strict';
 
-	$.widget('add123.inputFilter', {
+	$.widget('formBuilder.inputFilter', {
 
 		options: {
 			toUpper: false,

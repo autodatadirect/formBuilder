@@ -10,8 +10,8 @@
 
 	it('should not have filter support', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
-		var filter = input.data('add123InputFilter'); 
+		var ifw = input.data('formBuilderInputField');
+		var filter = input.data('formBuilderInputFilter'); 
 
 		var typeNewString = function(str) {
 			input.val('');

@@ -13,9 +13,9 @@ describe('A popOver', function(){
 
 	it('can be created', function(){
 		var pop = $('<div>'+baseHtml+'</div>').popOver(); 	//popover dom element
-		var pow = pop.data('add123PopOver');				//popOver widget instance
+		var pow = pop.data('formBuilderPopOver');				//popOver widget instance
 		
-		expect(pop.is(':add123-popOver')).toBe(true);
+		expect(pop.is(':formBuilder-popOver')).toBe(true);
 		expect(pow).toBeDefined();
 		expect(pop.is('.tooltip-wrapper')).toBe(true);
 		expect(pop.parent().is('body')).toBe(true);
@@ -37,7 +37,7 @@ describe('A popOver', function(){
 
 		it('that can be set and changed with a function call', function(){
 			var pop = $('<div>'+baseHtml+'</div>').popOver();
-			var pow = pop.data('add123PopOver');
+			var pow = pop.data('formBuilderPopOver');
 
 			expect(pop.parent().is('body')).toBe(true);
 			expect(pop.parent().is(testContainer)).toBe(false);
@@ -93,7 +93,7 @@ describe('A popOver', function(){
 
 	it('is hidden by default', function(){
 		var pop = $('<div>'+baseHtml+'</div>').popOver();
-		var pow = pop.data('add123PopOver');
+		var pow = pop.data('formBuilderPopOver');
 
 		expect(pop.is(':visible')).toBe(false);
 		expect(pow.showing).toBe(false);
@@ -103,7 +103,7 @@ describe('A popOver', function(){
 
 	it('can show itself', function(done){
 		var pop = $('<div>'+baseHtml+'</div>').popOver();
-		var pow = pop.data('add123PopOver');
+		var pow = pop.data('formBuilderPopOver');
 
 		spyOn(pow, '_trigger');
 		spyOn(pow, 'position');
@@ -134,7 +134,7 @@ describe('A popOver', function(){
 
 	it('can hide itself', function(done){
 		var pop = $('<div>'+baseHtml+'</div>').popOver();
-		var pow = pop.data('add123PopOver');
+		var pow = pop.data('formBuilderPopOver');
 
 		pow.show();
 
@@ -160,7 +160,7 @@ describe('A popOver', function(){
 	describe('can be toggled', function(){
 		it('from shown to hidden', function(done){
 			var pop = $('<div>'+baseHtml+'</div>').popOver();
-			var pow = pop.data('add123PopOver');
+			var pow = pop.data('formBuilderPopOver');
 
 			pow.show();
 
@@ -181,7 +181,7 @@ describe('A popOver', function(){
 
 		it('from hidden to shown', function(){
 			var pop = $('<div>'+baseHtml+'</div>').popOver();
-			var pow = pop.data('add123PopOver');
+			var pow = pop.data('formBuilderPopOver');
 
 			//hidden by default
 
@@ -202,7 +202,7 @@ describe('A popOver', function(){
 		var pop = $('<div>'+baseHtml+'</div>').popOver({
 			target: target
 		});
-		var pow = pop.data('add123PopOver');
+		var pow = pop.data('formBuilderPopOver');
 
 		spyOn(pow, 'hide');
 
@@ -246,7 +246,7 @@ describe('A popOver', function(){
 			collision: 'flipfit'
 		};
 		var pop = $('<div>'+baseHtml+'</div>').popOver(options);
-		var pow = pop.data('add123PopOver');
+		var pow = pop.data('formBuilderPopOver');
 
 		spyOn(pow.element, 'position'); //jquery function
 		pow.position();	//widget function
@@ -268,7 +268,7 @@ describe('A popOver', function(){
 
 	it('is positioned on window resize when showing', function(done){
 		var pop = $('<div>'+baseHtml+'</div>').popOver();
-		var pow = pop.data('add123PopOver');
+		var pow = pop.data('formBuilderPopOver');
 
 		spyOn(pow,'position');
 
@@ -292,16 +292,16 @@ describe('A popOver', function(){
 
 	it('can destroy itself', function(){
 		var pop = $('<div>'+baseHtml+'</div>').popOver();
-		var pow = pop.data('add123PopOver');
+		var pow = pop.data('formBuilderPopOver');
 
 		expect(pow).toBeDefined();
 
 		pow.destroy();
 
-		pow = pop.data('add123PopOver');
+		pow = pop.data('formBuilderPopOver');
 
 		expect(pow).toBeUndefined();
-		expect(pop.is(':add123-popOver')).toBe(false);
+		expect(pop.is(':formBuilder-popOver')).toBe(false);
 
 		pop.remove();
 	});
@@ -312,7 +312,7 @@ describe('A popOver', function(){
 
 		input.inputField();
 
-		expect(tool.is(':add123-popOver')).toBe(true);
+		expect(tool.is(':formBuilder-popOver')).toBe(true);
 
 		var toolT = $('body').find('.tooltip');
 		var wrapper = $('body').find('.tooltip.tooltip-wrapper');
@@ -337,7 +337,7 @@ describe('A popOver', function(){
 
 	it('can be added with data inside the tooltip that is entered by the user', function(){
 		var input = $('<input type="text" data-type="text"/>').wrap('<div></div>');
-		var tool = $('<div class="tooltip" <h1>Tooltip without a header</h1><p>Paragraph One</p><p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a></div>').insertAfter(input);	
+		var tool = $('<div class="tooltip" <h1>Tooltip without a header</h1><p>Paragraph One</p><p>Paragraph Two</p><a href="http://formBuilder.com">Some link somewhere cool</a></div>').insertAfter(input);	
 
 		input.inputField();
 
@@ -349,7 +349,7 @@ describe('A popOver', function(){
 
 		expect(firstP.text()).toBe('Paragraph One');
 		expect(secondP.text()).toBe('Paragraph Two');
-		expect(link).toBe('http://add123.com');
+		expect(link).toBe('http://formBuilder.com');
 
 		tool.remove();
 	});

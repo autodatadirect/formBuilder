@@ -8,7 +8,7 @@ describe('the boolean select creator type', function(){
 
 	it('will display two true/false options in its dropdown menus', function(){
 		var input = $('<input type="text" data-type="tmsYesNo"/>').appendTo(testContainer).inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 
 		var drop = $(document).find('.tms-select-dropdown-content');
 
@@ -19,9 +19,9 @@ describe('the boolean select creator type', function(){
 	});
 
 	it('can create new boolean types', function(){
-		var types = $.add123.inputField.types;
+		var types = $.formBuilder.inputField.types;
 
-		types.tmsTestThis = $.add123.inputField.booleanSelectCreator('Test', 'This');
+		types.tmsTestThis = $.formBuilder.inputField.booleanSelectCreator('Test', 'This');
 
 		var input = $('<input type="text" data-type="tmsTestThis"/>').appendTo(testContainer).inputField();
 	

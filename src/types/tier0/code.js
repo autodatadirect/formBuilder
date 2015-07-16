@@ -66,7 +66,7 @@
 		};
 	};
 
-	$.add123.inputField.types.code = {
+	$.formBuilder.inputField.types.code = {
 		setUp: function(ui) {
 			var e = ui.element,
 				o = ui.options;

@@ -31,7 +31,7 @@
 	}
 
 
-	$.widget("tms.arrayField", {
+	$.widget("formBuilder.arrayField", {
 		_arrayFieldTemplate: 
 			'<div class="array-field">' + 
 				'<div class="items"><div class="items-content"></div></div>' + 
@@ -235,7 +235,7 @@
 				valid = true;
 
 			itemsContent.find('.sub-field').each(function () {
-				valid = valid && $(this).find(':add123-inputField').inputField('validate');
+				valid = valid && $(this).find(':formBuilder-inputField').inputField('validate');
 			});
 
 			return valid;
@@ -248,7 +248,7 @@
 			self.dirty = false;
 
 			itemsContent.find('.sub-field').each(function () {
-				$(this).find(':add123-inputField').inputField('clearDirty');
+				$(this).find(':formBuilder-inputField').inputField('clearDirty');
 			});
 		},
 
@@ -262,7 +262,7 @@
 				itemsContent = self.itemsContent;
 
 			itemsContent.find('.sub-field').each(function () {
-				$(this).find(':add123-inputField').inputField('flash');
+				$(this).find(':formBuilder-inputField').inputField('flash');
 			});
 		},
 
@@ -285,7 +285,7 @@
 		},
 
 		/*
-		 * allows a different cleanup behavior for special lists (example: tms.tmsLocationTicketRoute)
+		 * allows a different cleanup behavior for special lists)
 		 */
 		_empty: function () {
 			var self = this,

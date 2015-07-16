@@ -12,11 +12,11 @@ describe('The display data-type', function(){
 	var batchTest = window.formBuilderTesting.batchTest;
 
 	var typeName = 'display';
-	var type = $.add123.inputField.types[typeName];
+	var type = $.formBuilder.inputField.types[typeName];
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('add123InputField');
+		var ifw = input.data('formBuilderInputField');
 		
 		expect(type).toBeDefined();
 

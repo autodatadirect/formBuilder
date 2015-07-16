@@ -18,7 +18,7 @@
 (function($){
 	'use strict';
 
-	var types = $.add123.inputField.types;
+	var types = $.formBuilder.inputField.types;
 
 	var cannedFormatters = {
 		trim: function(val) {
@@ -79,7 +79,7 @@
 
 		return type;
 	};
-	$.add123.inputField.createRegexType = createRegexType;
+	$.formBuilder.inputField.createRegexType = createRegexType;
 
 
 	/*

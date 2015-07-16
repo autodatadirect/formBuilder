@@ -1,9 +1,9 @@
 /**
- * tms.arrayField widget unit tests
+ * formBuilder.arrayField widget unit tests
  */
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
 'use strict';
-describe('A tms.arrayField widget', function(){
+describe('A formBuilder.arrayField widget', function(){
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 	var testContainer = window.formBuilderTesting.testContainer;
@@ -49,10 +49,10 @@ describe('A tms.arrayField widget', function(){
 
 		it('using input field items', function(){
 			var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-			var afw = arrayField.data('tms-arrayField');
+			var afw = arrayField.data('formBuilder-arrayField');
 			var e;
 
-			expect(arrayField.is(':tms-arrayField'));
+			expect(arrayField.is(':formBuilder-arrayField'));
 			expect(afw).toBeDefined();
 
 			checkStructure(arrayField.children());
@@ -67,11 +67,11 @@ describe('A tms.arrayField widget', function(){
 			var afw;
 
 			form.formBuilder();
-			afw = arrayField.data('tmsArrayField');
+			afw = arrayField.data('formBuilderArrayField');
 
 
-			expect(form.is(':add123-formBuilder')).toBe(true);
-			expect(arrayField.is(':tms-arrayField')).toBe(true);
+			expect(form.is(':formBuilder-formBuilder')).toBe(true);
+			expect(arrayField.is(':formBuilder-arrayField')).toBe(true);
 			expect(afw).toBeDefined();
 
 			checkStructure(arrayField.children());
@@ -84,11 +84,11 @@ describe('A tms.arrayField widget', function(){
 			var afw;
 
 			form.formBuilder();
-			afw = arrayField.data('tmsArrayField');
+			afw = arrayField.data('formBuilderArrayField');
 
 
-			expect(form.is(':add123-formBuilder')).toBe(true);
-			expect(arrayField.is(':tms-arrayField')).toBe(true);
+			expect(form.is(':formBuilder-formBuilder')).toBe(true);
+			expect(arrayField.is(':formBuilder-arrayField')).toBe(true);
 			expect(afw).toBeDefined();
 
 			checkStructure(arrayField.children());
@@ -105,7 +105,7 @@ describe('A tms.arrayField widget', function(){
 	describe('has an arrayField id', function(){
 		it('that it can get', function(){
 			var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-			var afw = arrayField.data('tms-arrayField');
+			var afw = arrayField.data('formBuilder-arrayField');
 
 			expect(afw.id).toBe(afw.getId());
 		});
@@ -132,7 +132,7 @@ describe('A tms.arrayField widget', function(){
 
 	describe('has a clickable addon for', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 
 		afw.addItem();
 		afw.addItem();
@@ -199,13 +199,13 @@ describe('A tms.arrayField widget', function(){
 			spyOn(afw, '_trigger');
 
 			expect(inputs.length).toBe(3); //no other tests actually adds/deletes
-			expect(inputs[0].is(':add123-inputField')).toBe(true);
+			expect(inputs[0].is(':formBuilder-inputField')).toBe(true);
 			expect(item.closest('.array-field').length).toBe(1); //exists
 
 			deleteButton.click();
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(inputs[0].is(':add123-inputField')).toBe(false);
+				expect(inputs[0].is(':formBuilder-inputField')).toBe(false);
 				expect(item.closest('.array-field').length).toBe(0); //no longer exists
 				expect(afw.getFieldInstances().length).toBe(2);
 
@@ -228,7 +228,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can get its subField', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 
 		expect(afw.subFieldMarkup()).toBe(afw.subField);
 		expect(afw.subField.trim()).toBe(testCode.inputUtext);
@@ -267,7 +267,7 @@ describe('A tms.arrayField widget', function(){
 
 		it('an internal markup item', function(){
 			var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-			var afw = arrayField.data('tms-arrayField');
+			var afw = arrayField.data('formBuilder-arrayField');
 			var itemView = $(afw._arrayFieldItemTemplate);
 			var subField, input;
 
@@ -286,7 +286,7 @@ describe('A tms.arrayField widget', function(){
 			expect(subField.children().is('.input-field')).toBe(true);
 
 			input = itemView.find('input');
-			expect(input.is(':add123-inputField')).toBe(true);
+			expect(input.is(':formBuilder-inputField')).toBe(true);
 			expect(input.inputField('isEmpty')).toBe(true);
 			expect(input.is('.array-field-input-'+afw.id)).toBe(true);
 
@@ -295,7 +295,7 @@ describe('A tms.arrayField widget', function(){
 
 		it('an internal markup item and set its initial value', function(){
 			var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-			var afw = arrayField.data('tms-arrayField');
+			var afw = arrayField.data('formBuilder-arrayField');
 			var itemView = $(afw._arrayFieldItemTemplate);
 			var val = 'SOME VAL';
 			var subField, input;
@@ -315,7 +315,7 @@ describe('A tms.arrayField widget', function(){
 			expect(subField.children().is('.input-field')).toBe(true);
 
 			input = itemView.find('input');
-			expect(input.is(':add123-inputField')).toBe(true);
+			expect(input.is(':formBuilder-inputField')).toBe(true);
 			expect(input.inputField('isEmpty')).toBe(false);
 			expect(input.inputField('get')).toBe(val);
 			expect(input.is('.array-field-input-'+afw.id)).toBe(true);
@@ -329,7 +329,7 @@ describe('A tms.arrayField widget', function(){
 
 		it('a field item as an inputField', function(){
 			var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-			var afw = arrayField.data('tms-arrayField');
+			var afw = arrayField.data('formBuilder-arrayField');
 			var itemView;
 
 			spyOn(afw, '_drawInternalMarkupItem');
@@ -348,7 +348,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can add a field item to its array', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 
 		expect(afw.itemsContent.is(':empty')).toBe(true);
 
@@ -365,14 +365,14 @@ describe('A tms.arrayField widget', function(){
 
 		afw.itemsContent.children().each(function(i, item){
 			expect($(item).is('.input-field-group.array-field-item')).toBe(true);
-			expect($(item).find('.sub-field input').is('.array-field-input-'+afw.id+':add123-inputField')).toBe(true);
+			expect($(item).find('.sub-field input').is('.array-field-input-'+afw.id+':formBuilder-inputField')).toBe(true);
 		});
 		
 	});
 
 	it('can add a field item to its array at a specified index and value', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 		var items;
 		expect(afw.itemsContent.is(':empty')).toBe(true);
 
@@ -399,7 +399,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can remove all of the field items in its array',function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 
 		expect(afw.itemsContent.is(':empty')).toBe(true);
 
@@ -417,7 +417,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('has sortable field items', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 
 		expect(afw.itemsContent.is(':ui-sortable')).toBe(true);
 	});
@@ -427,7 +427,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('get the instances of all the field items in its array', function(){
 		var arrayField = $(testCode.container).append(testCode.inputInt).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 		var fields, sum = 0;
 
 		afw.addItem(undefined, 1);
@@ -442,7 +442,7 @@ describe('A tms.arrayField widget', function(){
 		expect(fields.length).toBe(4);
 
 		$.each(fields, function(i, field){ 
-			expect(field.is(':add123-inputField')).toBe(true);
+			expect(field.is(':formBuilder-inputField')).toBe(true);
 			sum += parseInt(field.inputField('get'), 10);
 		});
 
@@ -451,7 +451,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can get an array with the values of all the field items in its array', function(){
 		var arrayField = $(testCode.container).append(testCode.inputInt).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 		var data, sum = 0;
 
 		afw.addItem(undefined, 1);
@@ -474,7 +474,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can set the values of all the field items in its array', function(){
 		var arrayField = $(testCode.container).append(testCode.inputInt).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 		var setData, getData, sum = 0;
 
 		spyOn(afw, '_empty');
@@ -501,7 +501,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can validate itself and all its field items', function(){
 		var arrayField = $(testCode.container).append(testCode.inputEmail).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 		var data = [
 			'good@mail.com',
 			'great@site.com',
@@ -533,7 +533,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can clear the values of itself and all the field items in its array', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 
 		afw.set(['A', 'B']);
 		expect(afw.get().length).toBe(2);
@@ -543,7 +543,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can get its current dirty state', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 
 		afw.dirty = false;
 		expect(afw.isDirty()).toBe(false);
@@ -553,7 +553,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can check its dirty state', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 
 		// Starts out clean after a set
 		afw.set(['A','B']);
@@ -577,7 +577,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('updates its dirty/clean state on dirty/clean events from any of the field items in the array', function(done){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 		var inputs;
 
 		// Starts out clean after a set
@@ -618,7 +618,7 @@ describe('A tms.arrayField widget', function(){
 
 	it('can clear the dirty state of itself and all the field items in its array',function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 		var inputs;
 
 		afw.set(['A','B']);
@@ -647,7 +647,7 @@ describe('A tms.arrayField widget', function(){
 			.append(testCode.inputUtext)
 			.arrayField()
 			.appendTo(testContainer); //make sure it is in the dom to test removal
-		var afw = arrayField.data('tms-arrayField');
+		var afw = arrayField.data('formBuilder-arrayField');
 		var inputs;
 
 		afw.set(['A','B']);
@@ -656,16 +656,16 @@ describe('A tms.arrayField widget', function(){
 
 		expect(afw).toBeDefined();
 		$.each(inputs, function(i, input){
-			expect(input.is(':add123-inputField')).toBe(true);
+			expect(input.is(':formBuilder-inputField')).toBe(true);
 			expect(input.closest(document.documentElement).length).toBe(1); //in dom
 		});
 
 		afw.destroy();
-		afw = arrayField.data('tms-arrayField');
+		afw = arrayField.data('formBuilder-arrayField');
 
 		expect(afw).toBeUndefined();
 		$.each(inputs, function(i, input){
-			expect(input.is(':add123-inputField')).toBe(false);
+			expect(input.is(':formBuilder-inputField')).toBe(false);
 			expect(input.closest(document.documentElement).length).toBe(0); //not in dom
 		});
 

@@ -7,7 +7,7 @@
 	'use strict';
 	
 	var doc = $(document);
-	$.add123.inputField.types.select = {
+	$.formBuilder.inputField.types.select = {
 		setUp: function(inputWidget) {
 			var self = this, // Object = {}
 				o = inputWidget.options,
@@ -749,7 +749,7 @@
 				$.each(source, function (i, item) {
 					if(item.showClass){
 						if(!form){
-							form = e.parents(':add123-formBuilder').first();
+							form = e.parents(':formBuilder-formBuilder').first();
 						}
 						sections = sections.add(form.find('.' + item.showClass));
 					}

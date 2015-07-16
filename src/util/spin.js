@@ -8,7 +8,7 @@
 (function($){
 	'use strict';
 
-	$.widget('add123.spin', {
+	$.widget('formBuilder.spin', {
 
 		options: {
 			lines: 10,
