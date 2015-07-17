@@ -52,7 +52,7 @@ html, body {
 	margin-left: 280px;
 	
 	padding: 2em;
-	padding-bottom: 20em;
+	padding-bottom: 30em;
 	
 	background-color: #FBFBFB;
 	color: #3D2B56;;
@@ -283,3 +283,13 @@ ul.navDepth-1 li.current {
  #textSubmitterSubmitBox .messages .message .submitText {
  	display: inline-block;
  }
+
+ /********************************************************
+ * dropDownPanel testing
+ */
+.dropDownPanelTarget3 {
+	background-color: #3D2B56;
+	color: #FFF;
+	margin: .2em;
+	padding: .2em;
+}

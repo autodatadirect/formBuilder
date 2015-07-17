@@ -46,7 +46,7 @@
 				return false;
 			});
 			*/
-			var panel = self.panel = $('<div class="dropdown-panel"><div class="tms-select-dropdown-content"><div class="search" style="position:relative;"/><div class="options" style="position:relative;"/></div></div>').hide();
+			var panel = self.panel = $('<div class="fb-select-panel"><div class="tms-select-dropdown-content"><div class="search" style="position:relative;"/><div class="options" style="position:relative;"/></div></div>').hide();
 			self.options = panel.find('.options');
 
 			inputWidget.layers.items.append(panel).css('position', 'relative');

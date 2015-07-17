@@ -272,6 +272,26 @@ $('.dateRange').dateRangePicker();
 $('.dateTimeRange').dateTimeRangePicker();
 
 
+var ddp = $('.dropDownPanelExample');
+var ddp2 = ddp.clone();
+var ddp3 = ddp.clone();
+
+ddp.dropDownPanel({
+	target: $('.dropDownPanelTarget')
+});
+ddp2.dropDownPanel({
+	target: $('.dropDownPanelTarget2'),
+	targetInput: false
+});
+ddp3.dropDownPanel({
+	target: $('.dropDownPanelTarget3')
+});
+window.ddpw = ddp.data('formBuilderDropDownPanel');
+
+ddp.find('form').formBuilder();
+ddp2.find('form').formBuilder();
+ddp3.find('form').formBuilder();
+
 // ================= DEMO DISPLAY CODE BELOW ===================
 
 //- Handle code snippets
@@ -358,7 +378,7 @@ var refreshNavBar = function(){
 			nextAnchor = $(anchors[index + 1]);
 		}
 
-		if(!nextAnchor || e.offset().top + (nextAnchor.offset().top - e.offset().top)*.9 > $(window).scrollTop()) {
+		if(!nextAnchor || e.offset().top + (nextAnchor.offset().top - e.offset().top)*0.9 > $(window).scrollTop()) {
 			var navCurrent = navItems.filter('[name="'+e.attr('name')+'"]');
 
 			navCurrent.addClass('current');
@@ -379,4 +399,4 @@ refreshNavBar();
 
 $(window).on('scroll resize', function(){
 	refreshNavBar();	
-})
+});

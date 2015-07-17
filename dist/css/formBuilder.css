@@ -242,7 +242,7 @@
   background-image: -webkit-linear-gradient(#ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
   background-image: linear-gradient(#ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%); }
 
-.dropdown-panel {
+.fb-select-panel {
   left: 0;
   position: absolute;
   z-index: 100;
@@ -255,18 +255,18 @@
   border-radius: 0 0 4px 4px;
   font-size: 14px;
   cursor: default; }
-  .dropdown-panel .options {
+  .fb-select-panel .options {
     cursor: pointer;
     overflow: auto;
     max-height: 250px; }
-  .dropdown-panel .filtered {
+  .fb-select-panel .filtered {
     display: none; }
-  .dropdown-panel.filtering .option {
+  .fb-select-panel.filtering .option {
     color: #eee; }
-  .dropdown-panel .option {
+  .fb-select-panel .option {
     padding: .25em;
     cursor: pointer; }
-    .dropdown-panel .option.selected {
+    .fb-select-panel .option.selected {
       background-color: #3875d7;
       filter: progid:DXImageTransform.Microsoft.gradient startColorstr=' #3875d7 ', endColorstr=' #2a62bc ', GradientType=0;
       background-image: -webkit-linear-gradient(#3875d7 20%, #2a62bc 90%);
@@ -421,5 +421,26 @@
   font-size: 0.8em;
   margin-top: -3px;
   cursor: default; }
+
+.fb-dropDownPanel {
+  left: 0;
+  position: absolute;
+  z-index: 100;
+  overflow: hidden;
+  white-space: normal;
+  background: #fff;
+  background-clip: padding-box;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  border: 1px solid #707070;
+  border-top: 1px solid #B6B6B6;
+  border-radius: 0 0 4px 4px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: default; }
+  .fb-dropDownPanel .fb-dropDownPanel-content {
+    position: relative; }
+    .fb-dropDownPanel .fb-dropDownPanel-content > :first-child {
+      padding-top: 0;
+      margin-top: 0; }
 
 /*# sourceMappingURL=formBuilder.css.map */
