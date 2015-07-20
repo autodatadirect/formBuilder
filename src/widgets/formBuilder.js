@@ -13,9 +13,9 @@
  */
 
 
-/*global util:true */
 (function($) {
 	"use strict";
+	var util = $.formBuilder.util;
 
 	$.widget("formBuilder.formBuilder", {
 

@@ -4,7 +4,7 @@
  * Regex type
  */
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
 describe('The text data-type', function(){
 	var testContainer = window.formBuilderTesting.testContainer;
@@ -13,6 +13,7 @@ describe('The text data-type', function(){
 
 	var typeName = 'text';
 	var type = $.formBuilder.inputField.types[typeName];
+	var util = $.formBuilder.util;
 
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();

@@ -16,14 +16,18 @@
 	/**
 	 * Make sure language structure is setup
 	 */
-	if(!window.util) {
-		window.util = {};
+	if(typeof($.formBuilder) === 'undefined') {
+		$.formBuilder = {};
 	}
 
-	lang = window.util.lang;
+	if(typeof($.formBuilder.util) === 'undefined') {
+		$.formBuilder.util = {};
+	}
+
+	lang = $.formBuilder.util.lang;
 
 	if(!lang) {
-		lang = window.util.lang = {};
+		lang = $.formBuilder.util.lang = {};
 	}
 	if(!lang.locales) {
 		lang.locales = {};

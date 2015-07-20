@@ -1,10 +1,11 @@
 
-/*global util:true, moment:true */
+/*global  moment:true */
 (function($) {
 	"use strict";
-
-$.widget("formBuilder.dateTimeRangePicker", {
-	_dateTimeRangePickerTemplate:
+	var util = $.formBuilder.util;
+	
+	$.widget("formBuilder.dateTimeRangePicker", {
+		_dateTimeRangePickerTemplate:
 				'<div class="date-range-picker form">' +
 					'<input type="text" name="from" data-type="dateTime" data-label="'+util.lang.dict.from+'"/>' +
 					'<input type="text" name="to" data-type="dateTime" data-label="'+util.lang.dict.to+'"/>' +

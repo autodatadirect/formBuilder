@@ -8,7 +8,7 @@
 			cursor: text;
 		}
 
-		.tms-icon-search {
+		.fb-icon-search {
 			position: absolute;
 			right: .4em;
 			font-size: $base-fontSize;
@@ -48,7 +48,7 @@
 
 }
 
-.dropdown-panel {
+.fb-select-panel {
 	left: 0;
 	position: absolute;
 	z-index: 100;
@@ -114,17 +114,3 @@
 	top: -.2em;
 	right: $select-iconPaddingRight;
 }
-
-
-
-/* Not used
-.option .tms-icon {
-	padding-right: 5px;
-	line-height: 53px;
-}
-
-.field-warning-note {
-	color: red;
-}
-*/
-

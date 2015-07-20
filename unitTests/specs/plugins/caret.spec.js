@@ -2,7 +2,7 @@
  * Testing caret plugin
  */
 
-/*global describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 describe('A caret', function(){
 	'use strict';
 

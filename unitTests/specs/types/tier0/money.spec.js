@@ -1,7 +1,7 @@
 /**
  * Testing money data-type
  */
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true */
 'use strict';
 describe('The money data-type', function(){
 	var chars = window.formBuilderTesting.chars;
@@ -9,6 +9,7 @@ describe('The money data-type', function(){
 	var testContainer = window.formBuilderTesting.testContainer;
 	var typeName = 'money';
 	var type = $.formBuilder.inputField.types[typeName];
+	var util = $.formBuilder.util;
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 

@@ -2,7 +2,7 @@
  * Testing select data type 
  */
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true, JSON:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  JSON:true*/
  describe('A select data type', function(){
  	'use strict';
 
@@ -12,6 +12,7 @@
 
 	var typeName = 'select';
 	var type = $.formBuilder.inputField.types[typeName];
+	var util = $.formBuilder.util;
 
  	describe('can be setup', function(){
  		it('is a valid data-type', function(){
@@ -28,14 +29,14 @@
  		it('to have an input field with data', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
 			var ifw = input.data('formBuilderInputField');
-			var openIcon = '.tms-icon.tms-icon-sort-up.dropdown-open-icon';
-			var closedIcon = '.tms-icon.tms-icon-sort-down.dropdown-closed-icon';
+			var openIcon = '.fb-icon.fb-icon-sort-up.dropdown-open-icon';
+			var closedIcon = '.fb-icon.fb-icon-sort-down.dropdown-closed-icon';
 
 			expect(input.parent().parent().parent().parent().is('.input-field-group')).toBe(true);
 			expect(input.parent().is('.field-item.field-item-input.first')).toBe(true);
 			expect(input.parent().parent().is('.field-items')).toBe(true);
-			expect(input.parent().children().eq(1).is('.tms-icon.tms-icon-sort-up.dropdown-open-icon')).toBe(true);
-			expect(input.parent().children().eq(2).is('.tms-icon.tms-icon-sort-down.dropdown-closed-icon')).toBe(true);
+			expect(input.parent().children().eq(1).is('.fb-icon.fb-icon-sort-up.dropdown-open-icon')).toBe(true);
+			expect(input.parent().children().eq(2).is('.fb-icon.fb-icon-sort-down.dropdown-closed-icon')).toBe(true);
 			expect(input.parent().parent().parent().is('.input-field.undefined.select-box')).toBe(true);
 			expect(input.attr('data-options')).toBe('[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]');
 
@@ -121,7 +122,7 @@
 				var dropDown = input.parent().eq(0).siblings().eq(0);
 				var dropSearch = dropDown.children().children().eq(0);  
 
-				expect(input.parent().eq(0).siblings().is('.dropdown-panel')).toBe(true);
+				expect(input.parent().eq(0).siblings().is('.fb-select-panel')).toBe(true);
 				expect(dropDown.is(':visible')).toBe(false);
 				expect(dropDown.children().children().length).toBe(2);
 				expect(dropDown.css('display')).toBe('none');
@@ -1132,7 +1133,7 @@
 			expect(spy_add).toHaveBeenCalled();	
 			expect(spy_filter).toHaveBeenCalled();	
 
-			expect(input.parent().eq(0).siblings().is('.dropdown-panel.filtering')).toBe(true);
+			expect(input.parent().eq(0).siblings().is('.fb-select-panel.filtering')).toBe(true);
 		});
 
 		it('that can filter the item selected', function(done){
@@ -1143,13 +1144,13 @@
 
 			ifw.getType().__filterOptionsWork(); 
 
-			expect(input.parent().eq(0).siblings().is('.dropdown-panel.filtering')).toBe(true);
+			expect(input.parent().eq(0).siblings().is('.fb-select-panel.filtering')).toBe(true);
 
 			expect(spy_item).toHaveBeenCalled(); 
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(input.parent().eq(0).siblings().is('.dropdown-panel')).toBe(true);
+				expect(input.parent().eq(0).siblings().is('.fb-select-panel')).toBe(true);
 
 				done();
 			});

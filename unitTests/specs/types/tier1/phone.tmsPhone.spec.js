@@ -1,7 +1,7 @@
 /** 
  * Testing the tms phone type
  */
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
  describe('The tms Phone data type',function(){
  	var testContainer = window.formBuilderTesting.testContainer;
@@ -17,7 +17,7 @@
 
 			expect(input.parent().siblings().is('.field-item.addon.clickable')).toBe(true);
 
-			expect(input.parent().siblings().children().children().is('.tms-icon')).toBe(true);
+			expect(input.parent().siblings().children().children().is('.fb-icon')).toBe(true);
 		});
 
 		it('that can be clicked on to open a popOver', function(done){
@@ -52,7 +52,7 @@
 			drop = $(document).find('.phone-type-form.tooltip-wrapper');
 
 			// Default icon is the home phone 
-			expect(input.parent().siblings().children().children().is('.tms-icon.tms-icon-home')).toBe(true);
+			expect(input.parent().siblings().children().children().is('.fb-icon.fb-icon-home')).toBe(true);
 
 			addon.click();
 			pause(triggerWaitTime)
@@ -65,7 +65,7 @@
 			})
 			.then(function(){
 				// Now the icon should be for a work phone
-				expect(input.parent().siblings().children().children().is('.tms-icon.tms-icon-office')).toBe(true);
+				expect(input.parent().siblings().children().children().is('.fb-icon.fb-icon-office')).toBe(true);
 
 				testContainer.empty(); 
 

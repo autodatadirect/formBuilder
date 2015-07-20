@@ -13,9 +13,9 @@
  *   status(statusName, bool)
  */
 
-/*global util:true */
 (function($) {
 	"use strict";
+	var util = $.formBuilder.util;
 
 	var repeat = function(work, delay, count, idx) {
 		idx = idx || 0;
@@ -168,9 +168,11 @@
 			}
 
 			/*
-			 * if this field is not part of a group, add a group class to this field for proper styling
+			 * if this field is not part of a group in its form, add a group class to this field for proper styling
 			 */
-			if(!field.parents('.input-field-group').length){
+			var parentContainer = field.closest('.input-field-group, :formBuilder-formBuilder');
+
+			if(!parentContainer.length || parentContainer.is(':formBuilder-formBuilder')) {
 				field.wrap('<div class="input-field-group"/>');
 				field.find('.field-item:first').addClass('first');
 			}

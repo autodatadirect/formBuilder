@@ -12,11 +12,12 @@
  * data-enforce-max (default false) - marks dates >endDate as invalid
  */
 
-/*global util:true, moment:true */
+/*global  moment:true */
 (function($){
 	'use strict';
 
 	var types = $.formBuilder.inputField.types;
+	var util = $.formBuilder.util;
 
 	types.text = {};
 

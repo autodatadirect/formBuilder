@@ -1,7 +1,7 @@
 /**
  * Testing popOver 
  */
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  util:true*/
+/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true */
 'use strict';
 describe('A popOver', function(){
 	var pause = window.formBuilderTesting.pause;

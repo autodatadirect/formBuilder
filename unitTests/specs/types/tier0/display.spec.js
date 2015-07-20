@@ -4,9 +4,10 @@
  * Regex type
  */
 
-/*global describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true, util:true*/
+/*global describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 describe('The display data-type', function(){
 	'use strict';
+	var util = $.formBuilder.util;
 	
 	var chars = window.formBuilderTesting.chars;
 	var batchTest = window.formBuilderTesting.batchTest;

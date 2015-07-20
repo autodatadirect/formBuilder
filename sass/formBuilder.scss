@@ -23,7 +23,7 @@
 	overflow-x: hidden;
 }
 
-@import 'partials/tmsIcons';
+@import 'partials/formBuilderIcons';
 
 /**
  * For things that shouldn't selectable with a highlight
@@ -35,5 +35,6 @@
 @import 'partials/widgets/dateRangePicker';
 @import 'partials/widgets/arrayField';
 @import 'partials/widgets/textSubmitter';
+@import 'partials/widgets/dropDownPanel';
 
 
