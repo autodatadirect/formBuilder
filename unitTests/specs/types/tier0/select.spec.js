@@ -122,7 +122,7 @@
 				var dropDown = input.parent().eq(0).siblings().eq(0);
 				var dropSearch = dropDown.children().children().eq(0);  
 
-				expect(input.parent().eq(0).siblings().is('.dropdown-panel')).toBe(true);
+				expect(input.parent().eq(0).siblings().is('.fb-select-panel')).toBe(true);
 				expect(dropDown.is(':visible')).toBe(false);
 				expect(dropDown.children().children().length).toBe(2);
 				expect(dropDown.css('display')).toBe('none');
@@ -1133,7 +1133,7 @@
 			expect(spy_add).toHaveBeenCalled();	
 			expect(spy_filter).toHaveBeenCalled();	
 
-			expect(input.parent().eq(0).siblings().is('.dropdown-panel.filtering')).toBe(true);
+			expect(input.parent().eq(0).siblings().is('.fb-select-panel.filtering')).toBe(true);
 		});
 
 		it('that can filter the item selected', function(done){
@@ -1144,13 +1144,13 @@
 
 			ifw.getType().__filterOptionsWork(); 
 
-			expect(input.parent().eq(0).siblings().is('.dropdown-panel.filtering')).toBe(true);
+			expect(input.parent().eq(0).siblings().is('.fb-select-panel.filtering')).toBe(true);
 
 			expect(spy_item).toHaveBeenCalled(); 
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(input.parent().eq(0).siblings().is('.dropdown-panel')).toBe(true);
+				expect(input.parent().eq(0).siblings().is('.fb-select-panel')).toBe(true);
 
 				done();
 			});
