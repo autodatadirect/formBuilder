@@ -24,15 +24,11 @@
 				left: 0
 			},
 
-			// The element the dropdown will be position below
-			// hoverTarget: undefined,
-
-			// Listen for focus/blur to trigger open/close on this element (optional)
-			// focusTarget: undefined,
-
 
 			// What it listens for events on and is positioned under (required)
 			target: undefined,
+
+			// Listen for focus/blur to trigger open/close on this element (default = target)
 			focusTarget: undefined,
 
 			// Automatically change target to the given target's first .field-item-input child, if it has one
@@ -49,12 +45,6 @@
 				wrapper = $('<div class="fb-dropDownPanel-wrapper" style="position: relative;"></div>'),
 				panel = $('<div class="fb-dropDownPanel"></div>').hide().appendTo(wrapper);
 
-			if(o.hideFields && Array.isArray(o.hideFields)) {
-				$.each(o.hideFields, function(i, fieldName) {
-					panel.find('[name="' + fieldName + '"]').remove();
-				});
-			}
-
 			self.wrapper = wrapper;
 			self.panel = panel;
 			self.isOpen = false;
@@ -63,6 +53,13 @@
 			o.targetInput = !!o.targetInput;
 
 			e.addClass('fb-dropDownPanel-content').appendTo(panel);
+
+			if(o.hideFields && Array.isArray(o.hideFields)) {
+				$.each(o.hideFields, function(i, fieldName) {
+					panel.find('[name="' + fieldName + '"]').remove();
+				});
+			}
+
 
 			self.closeListener = function (ev) {
 

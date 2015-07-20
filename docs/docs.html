@@ -202,7 +202,10 @@
               <div class="example">
                 <input type="text" data-label="Maxmum of 10 chars" data-max="10">
               </div>
-              <div data-mode="html" class="code"><input type="text" data-label="Maxmum of 10 chars" data-max="10"></div>
+              <div data-mode="html" class="code">
+                <input type="text" data-label="Maxmum of 10 chars" data-max="10">
+                
+              </div>
             </p>
           </div>
           <h2><a name="fieldEnhancements-inputGroups" href="#fieldEnhancements-inputGroups" class="anchor"></a>Input Groups</h2>
@@ -256,12 +259,55 @@
           </div>
           <h2><a name="fieldEnhancements-dropDownPanel" href="#fieldEnhancements-dropDownPanel" class="anchor"></a>Drop Down Panel</h2>
           <div class="section">
-            <div class="example">
-              <input style="width: 300px;" data-preinput="dasd" data-postinput="asd" data-placeholder="no dropdown">
-              <input style="width: 300px;" data-preinput="dasd" data-postinput="asd" data-placeholder="default dropdown on input" class="dropDownPanelTarget">
-              <input style="width: 300px;" data-preinput="dasd" data-postinput="asd" data-placeholder="default dropdown on input, targetInput=false" class="dropDownPanelTarget2">
-            </div><span class="dropDownPanelTarget3">This is just a span with a default dropdown (styled for demo)</span>
-            <div class="dropDownPanelExample">
+            <p>
+              Drop down panel widgets may be used to add an extra hovering container to any element. To create a drop down panel, initialize the 
+              jquery widget on your drop down jquery object by calling <b>dropDownPanel(<i>options</i>)</b>. Drop downs are shown when the user clicks 
+              on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop 
+              down and the target element or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and 
+              down the page with the element when scrolling.
+              
+              
+            </p>
+            <div id="ddpExampleBasic">
+              <p>This is a basic dropdown with just a paragraph inside.</p>
+            </div><span id="ddpBasicTarget0">This is a span with a drop down</span><br>
+            <input id="ddpBasicTarget1" value="This is a regular input with a drop down" style="width: 300px;"><br>
+            <div data-mode="html" class="code">
+              <style>
+              	#target0 {
+              		background-color: #3D2B56;
+              		color: #FFF;
+              		margin: .2em;
+              		padding: .2em;
+              	}
+              </style>
+              
+              <span id="target0">This is a span with a drop down</span>
+              <br/>
+              <input id="target1" value="This is a regular input with a drop down" style="width: 300px;"/>
+              
+              <div id="panel">
+              	<p>This is a basic dropdown with just a paragraph inside.</p>
+              </div>
+            </div>
+            <div data-mode="javascript" class="code">
+              var panel = $('#dropDownPanelBasic');
+              
+              $('#panel').dropDownPanel({
+              	target: $('#target0')
+              });
+              
+              $('<div>A drop down panel is just a normal container</div>').dropDownPanel({
+              	target: $('#target1')
+              });
+            </div>
+            <p>
+              When used on an input field, a drop down will target the first input by default, rather than all of its other field items with it. 
+              This can be disabled by setting the <b>targetInput</b> option to <b>false</b>
+              
+              
+            </p>
+            <div id="ddpInputField">
               <p>
                 This is a generic dropdown. It can be used to add supporting information to an 
                 input type by adding a nested formBuilder form and using its results to display 
@@ -276,6 +322,208 @@
                 <input data-label="Country">
               </form>
             </div>
+            <div class="example">
+              <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="no dropdown">
+              <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input" class="ddpInputFieldTarget0">
+              <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input, targetInput=false" class="ddpInputFieldTarget1">
+            </div>
+            <div data-mode="html" class="code">
+              <div id="dropDownPanelInputField">
+              	<p>
+              		This is a generic dropdown. It can be used to add supporting information to an 
+              		input type by adding a nested formBuilder form and using its results to display 
+              		the target's value in a certain format. For example, you could use it for location 
+              		information. (Note: this example does not use the form, it is only visual)
+              	</p>
+              	<form>
+              		<input data-label="Location Name"/>
+              		<input data-label="Address"/>
+              		<input data-label="City"/>
+              		<input data-label="Country"/>
+              	</form>
+              </div>
+              
+              <form id="exampleForm">
+              	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="no dropdown"/>
+              	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input" class="dropDownPanelInputFieldTarget0"/>
+              	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input, targetInput=false" class="dropDownPanelInputFieldTarget1"/>
+              </form>
+            </div>
+            <div data-mode="javascript" class="code">
+              // Must initialize the form first
+              $('form#exampleForm').formBuilder();
+              
+              var ddp = $('#dropDownPanelInputField');
+              var ddp2 = ddp.clone();
+              
+              ddp.dropDownPanel({
+              	target: $('.dropDownPanelInputFieldTarget0')
+              });
+              ddp2.dropDownPanel({
+              	target: $('.dropDownPanelInputFieldTarget1'),
+              	targetInput: false
+              });
+              
+              ddp.find('form').formBuilder();
+              ddp2.find('form').formBuilder();
+            </div>
+            <p>Here is an example using a custom type that uses a drop down in its setUp(). Each type instance will have its own dropDownPanel instance and container.</p>
+            <div class="example">
+              <input type="text" data-type="customLocation" style="width: 300px;" data-label="A customLocation type">
+              <input type="text" data-type="customLocation" style="width: 260px;" data-label="Another one" data-preinput="pre">
+            </div>
+            <div data-mode="html" class="code">
+              <form id="exampleForm">
+              	<input type="text" data-type="customLocation" style="width: 300px;" data-label="A customLocation type"/>
+              	<input type="text" data-type="customLocation" style="width: 260px;" data-label="Another one" data-preinput="pre"/>
+              </form>
+              
+            </div>
+            <div data-mode="javascript" class="code">
+              $.formBuilder.inputField.types.customLocation = {
+              	_dropDownTemplate:
+              		'<div>' +
+              			'<p>Enter the location information below. In this <i>customLocation</i> type, the input field above is only used as a visual. The actual data is retrieved from this subform as an object. However, the parent form will see still see this as a single input.</p>' +
+              			'<form data-default-required="true">' + 
+              				'<input name="name" type="text" data-type="utext" data-label="Location Name" />' +
+              				'<input name="address" type="text" data-type="utext" data-label="Address" />' +
+              				'<input name="city" type="text" data-type="utext" data-label="City" />' +
+              				'<input name="state" type="text" data-type="state" data-label="State" />' +
+              			'</form>' + 
+              			'<br/><button type="button" disabled>View on Google Maps</button>' + 
+              		'</div>',
+              
+              	setUp: function(ifw) {
+              		var self = this,
+              			e = self.e = ifw.element;
+              
+              		self.ifw = ifw;
+              
+              		self.ddp = $(self._dropDownTemplate).dropDownPanel({
+              			target: e,
+              			afterclose: function() {
+              				ifw.validate(true);
+              			}
+              		});
+              
+              		self.form = self.ddp.find('form').formBuilder();
+              		self.viewBtn = self.ddp.find('button');
+              
+              		self.form.on('change', function(ev){
+              			self._updateTarget();
+              		});
+              
+              		self.viewBtn.on('click', function(ev){
+              			var data = self.form.formBuilder('get'),
+              				query = '';
+              
+              			if(data.address) {
+              				query += data.address;
+              			}
+              			if(data.city) {
+              				query += ' ' + data.city;
+              			}
+              			if(data.state) {
+              				query += ' ' + data.state;
+              			}
+              
+              			if(query.trim()) {
+              				window.open('http://maps.google.com?q='+query);
+              			}
+              			
+              		});
+              
+              		// disable input to the source element
+              		e.inputFilter({
+              			pattern: /[]/ //accept nothing
+              		});
+              		e.on('keydown', function(ev){
+              			// ignore backspaces
+              			if(ev.keyCode === 8) {
+              				return false;
+              			}
+              		});
+              
+              		ifw.placeholder('Location name, Address');
+              
+              	},
+              
+              	_updateTarget: function() {
+              		var self = this,
+              			data = self.form.formBuilder('get');
+              		
+              		if(data.name && data.address && data.city && data.state) {
+              			self.e.val(data.name + ', ' + data.address);
+              			self.viewBtn.prop('disabled', false);
+              			self.ifw.redraw();
+              		} else {
+              			self.e.val('');
+              			self.viewBtn.prop('disabled', true);
+              			self.ifw.redraw();
+              		}
+              		
+              	},
+              
+              	converter: {
+              		toField: function(value, ifw) {
+              			var self = this;
+              
+              			self.form.formBuilder('set', value);
+              			self._updateTarget();
+              
+              			return ;
+              		},
+              		fromField: function(value, ifw) {
+              			var self = this;
+              
+              			return self.form.formBuilder('get');
+              		}
+              	},
+              	
+              	validate: function(ifw) {
+              		var self = this;
+              
+              		if(!self.form.formBuilder('validate')) {
+              			return {
+              				message: 'invalid'
+              			};
+              		}
+              
+              		self._updateTarget();
+              	},
+              
+              	isEmpty: function() {
+              		var self = this,
+              			fields = self.form.formBuilder('getFields'),
+              			empty = true;
+              
+              		fields.each(function(i, field){
+              			if(!$(field).inputField('isEmpty')) {
+              				empty = false;
+              				return false;
+              			}
+              		});
+              
+              		return empty;
+              	},
+              		
+              	tearDown: function() {
+              		var self = this;
+              
+              		self.ddp.remove();
+              	}
+              };
+              
+              // Initialze the form
+              $('form#exampleForm').formBuilder();
+            </div>
+            
+            
+            
+            
+            
+            
+            
           </div>
         </div>
         <h1><a name="dataTypes" href="#dataTypes" class="anchor"></a>Data Types</h1>

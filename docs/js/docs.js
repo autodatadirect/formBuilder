@@ -8,7 +8,7 @@
 //- Wrap each example in a form if not already in one
 $('.example').each(function(){
 	if(!$(this).parents('form').length && !$(this).parents('.code').length) {
-		$(this).wrap('<form id="fb" action="#" style="display:none;" data-default-required="false">');
+		$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
 	}
 });
 
@@ -93,9 +93,147 @@ $.extend($.formBuilder.inputField.types,{
 	} 
 });
 
+// For drop down panel
+$.formBuilder.inputField.types.customLocation = {
+	_dropDownTemplate:
+		'<div>' +
+			'<p>Enter the location information below. In this <i>customLocation</i> type, the input field above is only used as a visual. The actual data is retrieved from this subform as an object. However, the parent form will see still see this as a single input.</p>' +
+			'<form data-default-required="true">' + 
+				'<input name="name" type="text" data-type="utext" data-label="Location Name" />' +
+				'<input name="address" type="text" data-type="utext" data-label="Address" />' +
+				'<input name="city" type="text" data-type="utext" data-label="City" />' +
+				'<input name="state" type="text" data-type="state" data-label="State" />' +
+			'</form>' + 
+			'<br/><button type="button" disabled>View on Google Maps</button>' + 
+		'</div>',
+
+	setUp: function(ifw) {
+		var self = this,
+			e = self.e = ifw.element;
+
+		self.ifw = ifw;
+
+		self.ddp = $(self._dropDownTemplate).dropDownPanel({
+			target: e,
+			afterclose: function() {
+				ifw.validate(true);
+			}
+		});
+
+		self.form = self.ddp.find('form').formBuilder();
+		self.viewBtn = self.ddp.find('button');
+
+		self.form.on('change', function(ev){
+			self._updateTarget();
+		});
+
+		self.viewBtn.on('click', function(ev){
+			var data = self.form.formBuilder('get'),
+				query = '';
+
+			if(data.address) {
+				query += data.address;
+			}
+			if(data.city) {
+				query += ' ' + data.city;
+			}
+			if(data.state) {
+				query += ' ' + data.state;
+			}
+
+			if(query.trim()) {
+				window.open('http://maps.google.com?q='+query);
+			}
+			
+		});
+
+		// disable input to the source element
+		e.inputFilter({
+			pattern: /[]/ //accept nothing
+		});
+		e.on('keydown', function(ev){
+			// ignore backspaces
+			if(ev.keyCode === 8) {
+				return false;
+			}
+		});
+
+		ifw.placeholder('Location name, Address');
+
+	},
+
+	_updateTarget: function() {
+		var self = this,
+			data = self.form.formBuilder('get');
+		
+		if(data.name && data.address && data.city && data.state) {
+			self.e.val(data.name + ', ' + data.address);
+			self.viewBtn.prop('disabled', false);
+			self.ifw.redraw();
+		} else {
+			self.e.val('');
+			self.viewBtn.prop('disabled', true);
+			self.ifw.redraw();
+		}
+		
+	},
+
+	converter: {
+		toField: function(value, ifw) {
+			var self = this;
+
+			self.form.formBuilder('set', value);
+			self._updateTarget();
+
+			return ;
+		},
+		fromField: function(value, ifw) {
+			var self = this;
+
+			return self.form.formBuilder('get');
+		}
+	},
+	
+	validate: function(ifw) {
+		var self = this;
+
+		if(!self.form.formBuilder('validate')) {
+			return {
+				message: 'invalid'
+			};
+		}
+
+		self._updateTarget();
+	},
+
+	isEmpty: function() {
+		var self = this,
+			fields = self.form.formBuilder('getFields'),
+			empty = true;
+
+		fields.each(function(i, field){
+			if(!$(field).inputField('isEmpty')) {
+				empty = false;
+				return false;
+			}
+		});
+
+		return empty;
+	},
+		
+	tearDown: function() {
+		var self = this;
+
+		self.ddp.remove();
+	}
+};
 
 
-var f = $('form#fb').formBuilder();
+
+
+var f = $('form.fb').formBuilder();
+
+
 f.find('button[type="submit"]').submitButton({
 	beforesubmit: function(ev) {
 		console.log('before');
@@ -272,25 +410,50 @@ $('.dateRange').dateRangePicker();
 $('.dateTimeRange').dateTimeRangePicker();
 
 
-var ddp = $('.dropDownPanelExample');
+
+
+
+
+
+/**
+ * Drop Down Panel
+ */
+
+// Basic example
+$('#ddpExampleBasic').dropDownPanel({
+	target: $('#ddpBasicTarget0')
+});
+
+$('<div>A drop down panel is just a normal container</div>').dropDownPanel({
+	target: $('#ddpBasicTarget1')
+});
+
+
+// InputField Example
+var ddp = $('#ddpInputField');
 var ddp2 = ddp.clone();
-var ddp3 = ddp.clone();
 
 ddp.dropDownPanel({
-	target: $('.dropDownPanelTarget')
+	target: $('.ddpInputFieldTarget0')
 });
 ddp2.dropDownPanel({
-	target: $('.dropDownPanelTarget2'),
+	target: $('.ddpInputFieldTarget1'),
 	targetInput: false
 });
-ddp3.dropDownPanel({
-	target: $('.dropDownPanelTarget3')
-});
-window.ddpw = ddp.data('formBuilderDropDownPanel');
 
 ddp.find('form').formBuilder();
 ddp2.find('form').formBuilder();
-ddp3.find('form').formBuilder();
+
+
+
+
+
+
+
+
+
+
+
 
 // ================= DEMO DISPLAY CODE BELOW ===================
 
