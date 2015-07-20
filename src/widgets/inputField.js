@@ -76,6 +76,7 @@
 
 	$.widget("formBuilder.inputField", {
 		options: {
+			error: 'error',
 
 			type: 'text',
 
@@ -537,9 +538,8 @@
 			if(self.dirty){
 				return {
 					key: self.element.attr('name'),
-					vOld: self.prevValue,
-					vNew: value,
-					vDirty: self.get()
+					vOld: self.get(),
+					vNew: value
 				};
 			}
 			return null;
