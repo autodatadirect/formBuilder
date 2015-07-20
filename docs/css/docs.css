@@ -180,9 +180,11 @@ ul.navDepth-1 li.current {
 }
 
 .anchor {
-	/*display: none;*/
 	position: absolute;
-	/*top: -2em;*/
+}
+
+.content .section {
+	margin-bottom: 4em;
 }
 
 

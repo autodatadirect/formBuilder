@@ -1,0 +1,13 @@
+p Text submitter can be used for submitting multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form.
+
+p Simple example using defaults:
+#textSubmitterDefault
+
+p The width, placeholder, rows, and send instruction options may be set.
+#textSubmitterOptions
+
+p The <b>submit</b> event is fired when a the enter key is pressed. The event passes an object in the format <i>{text:'What the user types in', onComplete: (callback function)}</i>. The onComplete function will reset the textarea. This example has a 200ms submit setTimeout to simulate server lag time. 
+#textSubmitterSubmitBox
+	.title Submitted Messages
+	.messages
+#textSubmitterSubmit

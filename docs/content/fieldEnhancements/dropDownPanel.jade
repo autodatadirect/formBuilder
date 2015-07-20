@@ -1,0 +1,20 @@
+.example
+	input(style='width: 300px;'  data-preinput="dasd" data-postinput="asd" data-placeholder="no dropdown")
+	input(class='dropDownPanelTarget' style='width: 300px;'  data-preinput="dasd" data-postinput="asd" data-placeholder="default dropdown on input")
+	input(class='dropDownPanelTarget2' style='width: 300px;'  data-preinput="dasd" data-postinput="asd" data-placeholder="default dropdown on input, targetInput=false")
+
+span.dropDownPanelTarget3 This is just a span with a default dropdown (styled for demo)
+
+
+.dropDownPanelExample
+	p.
+		This is a generic dropdown. It can be used to add supporting information to an 
+		input type by adding a nested formBuilder form and using its results to display 
+		the target's value in a certain format. For example, you could use it for location 
+		information. (Note: this example does not use the form, it is only visual)
+	
+	form
+		input(data-label='Location Name')
+		input(data-label='Address')
+		input(data-label='City')
+		input(data-label='Country')
