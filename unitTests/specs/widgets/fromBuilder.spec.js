@@ -5,12 +5,9 @@
 'use strict';
 describe('A formBuilder widget',function(){
 	var testContainer = window.formBuilderTesting.testContainer;
-<<<<<<< HEAD
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
-=======
 	var util = $.formBuilder.util;
->>>>>>> e5f09b847b224fe7c946f1f4de66bcadabf860f7
 
 	var testInputs = [
 		'<input name="" type="test"/>',

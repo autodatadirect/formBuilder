@@ -31,8 +31,7 @@
 			/*
 			 * set to true to ignore fields that are not $(':visible')
 			 */
-			ignoreHidden: false, 
-			error: 'tegan'
+			ignoreHidden: false
 		},
 
 		_create: function() {
