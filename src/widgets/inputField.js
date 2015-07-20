@@ -76,7 +76,7 @@
 
 	$.widget("formBuilder.inputField", {
 		options: {
-
+			error: 'error',
 			type: 'text',
 
 			/*
@@ -539,9 +539,8 @@
 			if(self.dirty){
 				return {
 					key: self.element.attr('name'),
-					vOld: self.prevValue,
-					vNew: value,
-					vDirty: self.get()
+					vOld: self.get(),
+					vNew: value
 				};
 			}
 			return null;
@@ -920,6 +919,7 @@
 			 * if type doesn't exist set to the default of text
 			 */
 			if(!sType || !types[sType]) {
+				// console.log('setting sType to text');
 				sType = 'text';
 			}
 
@@ -927,21 +927,25 @@
 			 * setup the field type
 			 */
 			type = Object.create(types[sType]);
+			// console.log(type);
 
 			/*
 			 * run the type setup
 			 */
 			if($.isFunction(type.setUp)) {
+				// console.log('inside the second if');
 				type.setUp.call(type, self);
 			}
 
 			self.type = type;
+			// console.log(self.type);
 		},
 
 		/*
 		 * returns the type object
 		 */
 		getType: function () {
+			// console.log(this.type);
 			return this.type;
 		},
 

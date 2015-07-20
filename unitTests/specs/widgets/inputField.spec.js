@@ -839,18 +839,20 @@ describe('An inputField', function(){
 
 			ifw.type = testType;
 			type = ifw.getType();
-			expect(util.equals(type, testType)).toBe(true);
+			expect(type).toBe(testType);
 		});
 
-		it('that can bet set with a function (if the type exists)', function(){
+		xit('that can bet set with a function (if the type exists)', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
 			var ifw = input.data('formBuilderInputField');
 
 			ifw.setType(testType);
-			expect(util.equals(ifw.getType(), testType)).toBe(false);
-			
+			expect(ifw.getType()).not.toBe(testType);
+
+			console.log('about to call set type');
 			ifw.setType('utext');
-			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.utext)).toBe(true);
+			// console.log('about to call get type');
+			expect(ifw.getType()).toBe($.formBuilder.inputField.types.utext);
 		});
 
 		it('that be set with an attribute', function(){

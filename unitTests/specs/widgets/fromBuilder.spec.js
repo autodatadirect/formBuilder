@@ -5,6 +5,8 @@
 'use strict';
 describe('A formBuilder widget',function(){
 	var testContainer = window.formBuilderTesting.testContainer;
+	var pause = window.formBuilderTesting.pause;
+	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 	var util = $.formBuilder.util;
 
 	var testInputs = [
@@ -74,12 +76,39 @@ describe('A formBuilder widget',function(){
 			fbw = form.data('formBuilderFormBuilder');
 
 			expect(fbw.fields.length).toBe(3);
+			expect(fbw.fieldsWidgets.length).toBe(0);
 			expect(fbw.fields.filter('.form-builder-ignore *').length).toBe(0);
 			expect(fbw.fields.filter('input[type="submit"]').length).toBe(0);
 			expect(fbw.fields.filter(':formBuilder-inputField').length).toBe(3);
 		});
 
-		it('by checking any elements with attribute "data-load-widget-as-field"');
+		it('by checking any elements with attribute "data-load-widget-as-field"', function(){
+			var form = $('<form></form>');
+			var fbw;
+			
+			form.append('<div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField"><input type="text"/></div>');
+
+			form.formBuilder();
+			fbw = form.data('formBuilderFormBuilder');
+
+			expect(fbw.fields.length).toBe(0);
+			expect(fbw.fieldsWidgets.length).toBe(1);
+			expect(fbw.fieldsWidgets.filter(':formBuilder-arrayField').length).toBe(1);
+		});
+
+		it('will not load "data-load-widget-as-field" if there is no name value', function(){
+			var form = $('<form></form>');
+			var error = new Error('data-load-widget-as-field must have name attribute');
+			
+			form.append('<div data-load-widget-as-field="arrayField"><input type="text"/></div>');
+
+			try {
+				form.formBuilder();
+			}
+			catch(err){
+				expect(err).toEqual(error);
+			}
+		});
 	
 	});
 
@@ -96,18 +125,95 @@ describe('A formBuilder widget',function(){
 		}
 	});
 
-	it('can make a proxy command to a widget');
+	it('can make a proxy command to a widget', function(){
+		var form = $(baseFormHtml).formBuilder();
+		var	fbw = form.data('formBuilderFormBuilder');
+		var input = $('<input type="text">').inputField();
+
+		var spy = spyOn(fbw, '_proxyCommandToWidget').and.callThrough();
+
+		fbw._proxyCommandToWidget(input, 'isDirty'); 
+
+		expect(spy).toHaveBeenCalled();
+	});
+
+	it('will throw an error if an incorrect call to the proxy command is made', function(){
+		var form = $(baseFormHtml).formBuilder();
+		var	fbw = form.data('formBuilderFormBuilder');
+		var error = new Error('ERROR: widget field error NAME[inputField] METHOD[isDirty]');
+
+		var spy = spyOn(fbw, '_proxyCommandToWidget').and.callThrough();
+
+		try{
+			fbw._proxyCommandToWidget($(this), 'isDirty'); 
+		}
+		catch(err){
+			expect(err).toEqual(error);
+		}
+	});
 
 	describe('can handle clean or dirty states', function() {
-		it('and can check if a value is dirty');
-		
-		it('and is able to clear its dirty status');
+		it('and can check if a value is dirty', function(){
+			var form = $('<form></form>');
+			var input = $('<input type="text"/>').appendTo(form);
+			var input2 = $('<input type="text"/>').appendTo(form);
 
-		// it('and is able to flash its dirty element');
+			form.formBuilder();
+
+			var	fbw = form.data('formBuilderFormBuilder');
+
+			expect(fbw.isDirty()).toBe(false);
+
+			input.val('test');
+			input.trigger('change');
+			expect(fbw.isDirty()).toBe(true);
+
+			fbw.clearDirty();
+			expect(fbw.isDirty()).toBe(false);
+
+			input2.val('sdfiu');
+			input.trigger('change');
+			expect(fbw.isDirty()).toBe(true);
+
+		});
+		
+		it('and is able to clear its dirty status', function(){
+			var form = $('<form></form>');
+			var input = $('<input type="text"/>').appendTo(form);
+			var input2 = $('<input type="text"/>').appendTo(form);
+
+			form.formBuilder();
+
+			var	fbw = form.data('formBuilderFormBuilder');
+
+			expect(fbw.isDirty()).toBe(false);
+
+			input.val('test');
+			input.trigger('change');
+			expect(fbw.isDirty()).toBe(true);
+
+			fbw.clearDirty();
+			expect(fbw.isDirty()).toBe(false);
+
+		});
 
 	});
 
-	it('can flash all fields with errors');
+	it('can flash all fields with errors', function(){
+		var form = $('<input type="text" />');
+		var input = $('<input type="text" data-type="date"/>').appendTo(form);
+
+		form.formBuilder().appendTo(testContainer);
+
+		var	fbw = form.data('formBuilderFormBuilder');
+		var element = $(document).find('.input-field.undefined');
+
+		fbw.flashError(10);
+
+		expect(element.is('.flash')).toBe(true);
+
+		testContainer.empty();
+	});
 
 	it('can disable all of its fields', function(){
 		var form = $(baseFormHtml).formBuilder();
@@ -144,11 +250,62 @@ describe('A formBuilder widget',function(){
 	});
 
 	describe('can modify the DOM', function(){
+		it('by writing to it', function(){
+			var form = $('<form></form>');
+			var input = $('<input type="text"/>').appendTo(form);
 
-		it('by writing to it');
+			form.formBuilder().appendTo(testContainer);
 
-		it('be reading from it');
+			var	fbw = form.data('formBuilderFormBuilder');
+
+			fbw._writeDataToDom('test');
+
+			expect(input.val()).toBe('test');
+
+			testContainer.empty();
+		});
+
+		it('by reading from it', function(){
+			var form = $('<form></form>');
+			var input = $('<input name="first" type="text"/>').appendTo(form);
+
+			form.formBuilder().appendTo(testContainer);
+
+			var	fbw = form.data('formBuilderFormBuilder');
+
+			var data = {
+				first: 'test'
+			};
+
+			fbw._writeDataToDom(data);
+
+			var result = fbw._readDataFromDom();
+
+			expect(result).toEqual(data);
+
+			testContainer.empty();
+		});
 	});
+
+	it('can set its data, and return the value of the input field', function(){
+		var form = $('<form></form>');
+		var input = $('<input name="first" type="text"/>').appendTo(form);
+
+		form.formBuilder().appendTo(testContainer);
+
+		var	fbw = form.data('formBuilderFormBuilder');
+
+		var data = {
+			first: 'test'
+		};
+
+		fbw.set(data);
+
+		expect(input.val()).toBe('test');
+
+		testContainer.empty();
+	});
+
 
 	it('can get its data', function(){
 		var form = $(baseFormHtml).formBuilder();
@@ -209,20 +366,102 @@ describe('A formBuilder widget',function(){
 	});
 	
 	describe('can handle conflicts', function(){
-		it('first checks if given data would overwrite dirty fields');
-		
-		it('and return an array of conflicts');
+		it('first checks if given data would overwrite dirty fields', function(){
+			var form = $('<form></form>');
+			var input = $('<input name="first" type="text"/>').appendTo(form);
+			var input2 = $('<input name="second" type="text"/>').appendTo(form);
 
-		it('or returning false if there are no conflicts');
+			form.formBuilder();
+
+			var	fbw = form.data('formBuilderFormBuilder');
+
+			var data = {
+				first: 'set',
+				second: 'not set' 
+			};
+
+			var conflicts;
+
+			fbw.set(data);
+
+			conflicts = fbw.conflicts(data);
+			expect(conflicts).toBeUndefined(); // Undefined because the field is not dirty
+		});
+		
+		it('and return an array of conflicts', function(){
+			var form = $('<form></form>');
+			var input = $('<input name="first" type="text"/>').appendTo(form);
+			var input2 = $('<input name="second" type="text"/>').appendTo(form);
+
+			form.formBuilder();
+
+			var	fbw = form.data('formBuilderFormBuilder');
+
+			var data = {
+				first: 'set1',
+				second: 'second' 
+			};
+
+			var data2 = {
+				first: 'set3',
+				second: 'second3' 
+			};
+
+			var result = [{
+				key: 'first', 
+				vOld: 'set2', 
+				vNew: 'set3' 
+			}];
+
+			var conflicts;
+
+			fbw.set(data);
+
+			input.val('set2');
+			input.trigger('change');
+
+			conflicts = fbw.conflicts(data2);
+			expect(conflicts).toBeDefined(); 
+			expect(conflicts.length).toBe(1);
+			expect(conflicts).toEqual(result);
+		});
 	});
 
 	
 
 	describe('can convert form data', function(){
+		it('first will clone data object in order to not change original', function(){
+			var form = $('<form></form>');
+			var input = $('<input type="text"/>').appendTo(form);
 
-		it('first will clone data object in order to not change original');
+			form.formBuilder();
 
-		it('will call the object\'s converter function');
+			var	fbw = form.data('formBuilderFormBuilder');
+
+			var data = {
+				first: 'one',
+				second: 'two' 
+			};
+
+			var returned = fbw._convertFormData(data);
+
+			expect(returned).toEqual(data);
+		});
+
+		it('will call the object\'s converter function', function(){
+			var form = $('<form></form>');
+			var input = $('<input type="text"/>').appendTo(form);
+
+			form.formBuilder();
+
+			var	fbw = form.data('formBuilderFormBuilder');
+
+			var spy = spyOn(fbw.options.converter, 'toForm').and.callThrough();
+
+			fbw._convertFormData('data');
+
+			expect(spy).toHaveBeenCalled();
+		});
 	});
 
 	it('can run validate on each field', function(){
@@ -260,7 +499,22 @@ describe('A formBuilder widget',function(){
 		});
 	});
 
-	it('can destroy itself');
+	it('can destroy itself', function(){
+		var form = $('<form></form>');
+		var input = $('<input type="text"/>').appendTo(form);
+
+		form.append('<div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField"><input type="text"/></div>');
+
+		form.formBuilder();
+
+		var	fbw = form.data('formBuilderFormBuilder');
+
+		var spy_proxy = spyOn(fbw, '_proxyCommandToWidget').and.callThrough();
+
+		fbw._destroy(); 
+
+		expect(spy_proxy).toHaveBeenCalled();
+	});
 
 
 });

@@ -186,6 +186,7 @@
 			var self = this,
 				dirty = false;
 
+
 			self.fields.each(function() {
 				dirty = !!$(this).inputField('isDirty');
 				return !dirty;
@@ -297,7 +298,10 @@
 			util.removeEqual(aData, bData, ignoreKeys);
 
 			self.fields.each(function() {
-				var conflict = $(this).inputField('conflicts', formData);
+				var fieldElement = $(this),
+					fieldName = fieldElement.attr('name');
+
+				var conflict = fieldElement.inputField('conflicts', formData[fieldName]);
 				if(conflict){
 					conflicts.push(conflict);
 				}
@@ -317,6 +321,7 @@
 			if(conflicts.length){
 				return conflicts;
 			}else{
+				// Under what circumstances would it be false?
 				return false;
 			}
 		},
@@ -415,6 +420,7 @@
 
 			self.fields.each(function() {
 				var el = $(this);
+				// console.log('inside of each');
 				if(ignoreHidden && !el.is(':visible')){
 					return;
 				}
@@ -438,6 +444,7 @@
 				var val = self._proxyCommandToWidget(el, 'get');
 				util.insertPath(data, el.attr('name'), val);
 			});
+
 
 			return data;
 		}
