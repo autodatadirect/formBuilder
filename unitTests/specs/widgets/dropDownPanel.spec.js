@@ -297,8 +297,8 @@ describe('A dropDownPanel widget', function(){
 				var panel = $(basePanelHtml).width(100).dropDownPanel({
 					target: target,
 					offset: {
-						top: '30px',
-						left: '50px'
+						top: 30,
+						left: 50
 					}
 				});
 				var ddpw = panel.data('formBuilderDropDownPanel');

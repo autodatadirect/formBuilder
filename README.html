@@ -1019,6 +1019,7 @@ body .markdown-body
 <!-- MarkdownTOC depth=3 autolink=true bracket=round -->
 
 <ul>
+<li><a href="#about">About</a></li>
 <li><a href="#setup">Setup</a><ul>
 <li><a href="#dependencies">Dependencies</a></li>
 <li><a href="#initialization">Initialization</a></li>
@@ -1058,6 +1059,7 @@ body .markdown-body
 <li><a href="#inputfilter">inputFilter</a></li>
 <li><a href="#daterangepicker">dateRangePicker</a></li>
 <li><a href="#datetimerangepicker">dateTimeRangePicker</a></li>
+<li><a href="#dropdownpanel">dropDownPanel</a></li>
 </ul>
 </li>
 <li><a href="#customization">Customization</a><ul>
@@ -1072,6 +1074,8 @@ body .markdown-body
 </ul>
 <!-- /MarkdownTOC -->
 
+<h2 id="about"><a name="user-content-about" href="#about" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>About</h2>
+<p>TODO - describe formBuilder</p>
 <h2 id="setup"><a name="user-content-setup" href="#setup" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Setup</h2>
 <h3 id="dependencies"><a name="user-content-dependencies" href="#dependencies" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Dependencies</h3>
 <h4 id="css"><a name="user-content-css" href="#css" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CSS</h4>
@@ -1449,8 +1453,8 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 </li>
 </ul>
 <h3 id="fieldwidget"><a name="user-content-fieldwidget" href="#fieldwidget" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>fieldWidget</h3>
+<p>Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements</p>
 <ul>
-<li>Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements</li>
 <li>Methods<ul>
 <li><strong>isDirty()</strong> </li>
 <li><strong>validate()</strong> </li>
@@ -1484,29 +1488,68 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 </li>
 </ul>
 <h3 id="daterangepicker"><a name="user-content-daterangepicker" href="#daterangepicker" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>dateRangePicker</h3>
-<p>Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type. <br />
-* Methods <br />
-    - <strong>setRange(string)</strong> Sets the range of the date field to either &lsquo;custom&rsquo;, &lsquo;day&rsquo;, &lsquo;week&rsquo;, &lsquo;month&rsquo;, or &lsquo;year&rsquo;. Will modify the input fields so that the date range reflects this selection.<br />
-    - <strong>serialize(moment)</strong> Takes a passed-in moment and returns YYYY-MM-DD format<br />
-    - <strong>deserialize(string)</strong> Takes a passed-in string and returns a moment in the YYYY-MM-DD format<br />
-    - <strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. The from and to fields should be in the &lsquo;YYYY-MM-DD&rsquo; format. The range value should be a string. <br />
-    - <strong>set(Object)</strong> Sets the input fields of the dateRangePicker to the value of the object that is passed into the method<br />
-    - <strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.<br />
-    - <strong>clearDirty()</strong> Resets the current object&rsquo;s dirty value to false.Calls the formBuilder clearDirty() method.<br />
-    - <strong>clear()</strong> Sets the values inside of the dateRangePicker&rsquo;s inputfields to &lsquo;&rsquo; and sets the range value to &lsquo;custom&rsquo;<br />
-    - <strong>validate()</strong> Validates that the input matches the date-format that it should be. Uses the formBuilder widget&rsquo;s validate function</p>
+<p>Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type.</p>
+<ul>
+<li>Methods <ul>
+<li><strong>setRange(string)</strong> Sets the range of the date field to either &lsquo;custom&rsquo;, &lsquo;day&rsquo;, &lsquo;week&rsquo;, &lsquo;month&rsquo;, or &lsquo;year&rsquo;. Will modify the input fields so that the date range reflects this selection.</li>
+<li><strong>serialize(moment)</strong> Takes a passed-in moment and returns YYYY-MM-DD format</li>
+<li><strong>deserialize(string)</strong> Takes a passed-in string and returns a moment in the YYYY-MM-DD format</li>
+<li><strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. The from and to fields should be in the &lsquo;YYYY-MM-DD&rsquo; format. The range value should be a string. </li>
+<li><strong>set(Object)</strong> Sets the input fields of the dateRangePicker to the value of the object that is passed into the method</li>
+<li><strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.</li>
+<li><strong>clearDirty()</strong> Resets the current object&rsquo;s dirty value to false.Calls the formBuilder clearDirty() method.</li>
+<li><strong>clear()</strong> Sets the values inside of the dateRangePicker&rsquo;s inputfields to &lsquo;&rsquo; and sets the range value to &lsquo;custom&rsquo;</li>
+<li><strong>validate()</strong> Validates that the input matches the date-format that it should be. Uses the formBuilder widget&rsquo;s validate function</li>
+</ul>
+</li>
+</ul>
 <h3 id="datetimerangepicker"><a name="user-content-datetimerangepicker" href="#datetimerangepicker" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>dateTimeRangePicker</h3>
-<p>Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type. <br />
-* Methods <br />
-    - <strong>setRange(string)</strong>  Sets the range of the date field to either &lsquo;custom&rsquo;, &lsquo;day&rsquo;, &lsquo;week&rsquo;, &lsquo;month&rsquo;, or &lsquo;year&rsquo;. Will modify the input fields so that the date range reflects this selection. Will set the time fields to 12:00am and 11:59pm if there is nothing in those fields already, otherwise will not modify the time fields. <br />
-    - <strong>serializeDate(moment)</strong> Takes a moment input and returns that input turned into a string in the format of &lsquo;YYYY-MM-DD&rsquo;. <br />
-    - <strong>deserializeDate(string)</strong> Takes a string input and returns that input turned into a moment in the format of &lsquo;YYYY-MM-DD&rsquo;.<br />
-    - <strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateTimeRangePicker input fields. The from and to fields should be in the format &lsquo;YYYY-MM-DDTHH:MM:mmZ&rsquo;. The range value of the object should be a string. <br />
-    - <strong>set(object)</strong> Sets the input fields of the dateTimeRangePicker to the value of the object that is passed into the method.<br />
-    - <strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.<br />
-    - <strong>clearDirty()</strong> Resets the current object&rsquo;s dirty value to false.Calls the formBuilder clearDirty() method.<br />
-    - <strong>clear()</strong> Sets the values inside of the dateTimeRangePicker&rsquo;s inputfields to &lsquo;&rsquo; and sets the range value to &lsquo;custom&rsquo;<br />
-    - <strong>validate()</strong> Validates that the input matches the dateTime-format that it should be. Uses the formBuilder widget&rsquo;s validate function</p>
+<p>Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type.</p>
+<ul>
+<li>Methods <ul>
+<li><strong>setRange(string)</strong>  Sets the range of the date field to either &lsquo;custom&rsquo;, &lsquo;day&rsquo;, &lsquo;week&rsquo;, &lsquo;month&rsquo;, or &lsquo;year&rsquo;. Will modify the input fields so that the date range reflects this selection. Will set the time fields to 12:00am and 11:59pm if there is nothing in those fields already, otherwise will not modify the time fields. </li>
+<li><strong>serializeDate(moment)</strong> Takes a moment input and returns that input turned into a string in the format of &lsquo;YYYY-MM-DD&rsquo;. </li>
+<li><strong>deserializeDate(string)</strong> Takes a string input and returns that input turned into a moment in the format of &lsquo;YYYY-MM-DD&rsquo;.  </li>
+<li><strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateTimeRangePicker input fields. The from and to fields should be in the format &lsquo;YYYY-MM-DDTHH:MM:mmZ&rsquo;. The range value of the object should be a string. </li>
+<li><strong>set(object)</strong> Sets the input fields of the dateTimeRangePicker to the value of the object that is passed into the method.</li>
+<li><strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.</li>
+<li><strong>clearDirty()</strong> Resets the current object&rsquo;s dirty value to false.Calls the formBuilder clearDirty() method.</li>
+<li><strong>clear()</strong> Sets the values inside of the dateTimeRangePicker&rsquo;s inputfields to &lsquo;&rsquo; and sets the range value to &lsquo;custom&rsquo;</li>
+<li><strong>validate()</strong> Validates that the input matches the dateTime-format that it should be. Uses the formBuilder widget&rsquo;s validate function</li>
+</ul>
+</li>
+</ul>
+<h3 id="dropdownpanel"><a name="user-content-dropdownpanel" href="#dropdownpanel" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>dropDownPanel</h3>
+<p>Drop down panel widgets may be used to add an extra hovering container to any element. Drop downs are shown when a user clicks on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop down and the target element or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and down the page with the element when scrolling.</p>
+<ul>
+<li>Options<ul>
+<li><strong>target</strong> <em>(jquery object)</em> <em>Required.</em> The element the panel will be displayed underneath. If the target is an inputField <code>input</code> or <code>.input-field</code>, the target is set to the <code>.input-field</code> and the source is appended to the <code>.input-field-group</code>. Otherwise, the source is just inserted after the target in the same container. </li>
+<li><strong>focusTarget</strong> <em>(jquery object)</em> The element to listen to click and focus events from in order to open/close the dropdown. <strong>Default:</strong> same as target</li>
+<li><strong>targetInput</strong> <em>(boolean)</em> If true and the target is an <code>.input-field</code>, the target will be changed to the <code>.field-item-input</code>. This will place the panel only under the input itself, rather than the both input and any addons it might have. <strong>Default:</strong> true</li>
+<li><strong>hideFields</strong> <em>(string[])</em> An array of name attributes matching elements in the panel source to remove. This is useful when you are cloning multiple panels from the same source and don&rsquo;t need all of the elements.</li>
+<li><strong>offset</strong> <em>(object)</em><ul>
+<li><strong>top</strong> <em>(number)</em> Additional offset spacing, in px, between the bottom of the target and the top of the dropdown. <strong>Default:</strong> 0</li>
+<li><strong>left</strong> <em>(number)</em> Additional offset spacing, in px, between the left side of the target and the left side of the dropdown. <strong>Default:</strong> 0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><strong>getClassNames()</strong> Returns the class names for the target and focus elements in a object in the format <code>{target:(string), focus:(string)}</code>.</li>
+<li><strong>getId()</strong> Returns the drop down panel id integer. Each created panel will have its own unique id.</li>
+<li><strong>isOpened()</strong> Returns open status</li>
+<li><strong>detach()</strong> Disconnects the panel from the target, focusTarget, and DOM. To use the panel again it must be attached to another element.</li>
+<li><strong>attach(<em>jquery object</em> newTarget, <em>jquery object</em> newFocusTarget)</strong> Connects the panel to the newTarget as the target, newFocusTarget as the focusTarget, and inserts the wrapper into the DOM in the correct location. This is done when the panel is first created, but can be called afterwards in order to change the targets. If the panel has targets, it will be detached from those targets first. </li>
+<li><strong>open()</strong> Positions the panel and then makes it visible.</li>
+<li><strong>close()</strong> Hides the panel.</li>
+</ul>
+</li>
+<li>Events<br />
+<strong>beforeopen(null,<em>jquery object</em> panel, <em>object</em> newPositionCss)</strong> Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.<br />
+<strong>afteropen</strong> Triggered after the panel is positioned and shown.<br />
+<strong>beforeclose</strong> Triggered before the panel is closed. If the default is prevented the panel will not hidden.<br />
+<strong>afterclose</strong> Triggered after the panel is hidden.</li>
+</ul>
 <h2 id="customization"><a name="user-content-customization" href="#customization" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Customization</h2>
 <h3 id="custom-type"><a name="user-content-custom-type" href="#custom-type" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Custom type</h3>
 <p>To add a type, you must extend the <code>$.formBuilder.inputField.types</code> object with a new type object.</p>

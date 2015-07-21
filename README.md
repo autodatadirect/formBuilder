@@ -4,6 +4,7 @@ formBuilder
 
 <!-- MarkdownTOC depth=3 autolink=true bracket=round -->
 
+- [About](#about)
 - [Setup](#setup)
     - [Dependencies](#dependencies)
     - [Initialization](#initialization)
@@ -35,6 +36,7 @@ formBuilder
     - [inputFilter](#inputfilter)
     - [dateRangePicker](#daterangepicker)
     - [dateTimeRangePicker](#datetimerangepicker)
+    - [dropDownPanel](#dropdownpanel)
 - [Customization](#customization)
     - [Custom type](#custom-type)
     - [Custom inputFilter](#custom-inputfilter)
@@ -44,6 +46,9 @@ formBuilder
 - [License](#license)
 
 <!-- /MarkdownTOC -->
+
+## About
+TODO - describe formBuilder
 
 
 ## Setup
@@ -417,7 +422,8 @@ These are created dynamically and do not need to be manually handled. They are i
     - **afterset(null, [val, value])** *Optional.* Called after `set` replaces the form values **Default:** (undefined)
 
 ### fieldWidget
-* Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements
+Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements
+
 * Methods
     - **isDirty()** 
     - **validate()** 
@@ -442,7 +448,8 @@ These are created dynamically and do not need to be manually handled. They are i
     - **keytyped** *Optional* If the character entered is valid for the current type then enter it into the formfield
 
 ### dateRangePicker
-Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type. 
+Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type.
+
 * Methods 
     - **setRange(string)** Sets the range of the date field to either 'custom', 'day', 'week', 'month', or 'year'. Will modify the input fields so that the date range reflects this selection.
     - **serialize(moment)** Takes a passed-in moment and returns YYYY-MM-DD format
@@ -455,7 +462,8 @@ Creates two input fields for a beginning and ending date. Allows the user to sel
     - **validate()** Validates that the input matches the date-format that it should be. Uses the formBuilder widget's validate function
 
 ### dateTimeRangePicker
-Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type. 
+Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type.
+
 * Methods 
     - **setRange(string)**  Sets the range of the date field to either 'custom', 'day', 'week', 'month', or 'year'. Will modify the input fields so that the date range reflects this selection. Will set the time fields to 12:00am and 11:59pm if there is nothing in those fields already, otherwise will not modify the time fields. 
     - **serializeDate(moment)** Takes a moment input and returns that input turned into a string in the format of 'YYYY-MM-DD'. 
@@ -466,6 +474,31 @@ Similar to the dateRangePicker widget in that it creates two input fields for a 
     - **clearDirty()** Resets the current object's dirty value to false.Calls the formBuilder clearDirty() method.
     - **clear()** Sets the values inside of the dateTimeRangePicker's inputfields to '' and sets the range value to 'custom'
     - **validate()** Validates that the input matches the dateTime-format that it should be. Uses the formBuilder widget's validate function
+
+### dropDownPanel
+Drop down panel widgets may be used to add an extra hovering container to any element. Drop downs are shown when a user clicks on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop down and the target element or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and down the page with the element when scrolling.
+
+* Options
+    - **target** *(jquery object)* *Required.* The element the panel will be displayed underneath. If the target is an inputField `input` or `.input-field`, the target is set to the `.input-field` and the source is appended to the `.input-field-group`. Otherwise, the source is just inserted after the target in the same container. 
+    - **focusTarget** *(jquery object)* The element to listen to click and focus events from in order to open/close the dropdown. **Default:** same as target
+    - **targetInput** *(boolean)* If true and the target is an `.input-field`, the target will be changed to the `.field-item-input`. This will place the panel only under the input itself, rather than the both input and any addons it might have. **Default:** true
+    - **hideFields** *(string[])* An array of name attributes matching elements in the panel source to remove. This is useful when you are cloning multiple panels from the same source and don't need all of the elements.
+    - **offset** *(object)*
+        + **top** *(number)* Additional offset spacing, in px, between the bottom of the target and the top of the dropdown. **Default:** 0
+        + **left** *(number)* Additional offset spacing, in px, between the left side of the target and the left side of the dropdown. **Default:** 0
+* Methods
+    - **getClassNames()** Returns the class names for the target and focus elements in a object in the format `{target:(string), focus:(string)}`.
+    - **getId()** Returns the drop down panel id integer. Each created panel will have its own unique id.
+    - **isOpened()** Returns open status
+    - **detach()** Disconnects the panel from the target, focusTarget, and DOM. To use the panel again it must be attached to another element.
+    - **attach(*jquery object* newTarget, *jquery object* newFocusTarget)** Connects the panel to the newTarget as the target, newFocusTarget as the focusTarget, and inserts the wrapper into the DOM in the correct location. This is done when the panel is first created, but can be called afterwards in order to change the targets. If the panel has targets, it will be detached from those targets first. 
+    - **open()** Positions the panel and then makes it visible.
+    - **close()** Hides the panel.
+* Events
+    **beforeopen(null,*jquery object* panel, *object* newPositionCss)** Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.
+    **afteropen** Triggered after the panel is positioned and shown.
+    **beforeclose** Triggered before the panel is closed. If the default is prevented the panel will not hidden.
+    **afterclose** Triggered after the panel is hidden.
 
 ## Customization
 ### Custom type

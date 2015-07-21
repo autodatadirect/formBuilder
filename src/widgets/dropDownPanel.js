@@ -38,7 +38,7 @@
 			hideFields: undefined	
 		},
 
-		_create: function () {
+		_create: function() {
 			var self = this,
 				o = self.options,
 				e = self.element,
@@ -61,7 +61,7 @@
 			}
 
 
-			self.closeListener = function (ev) {
+			self.closeListener = function(ev) {
 
 				// Listen for Escape key
 				if(ev.which === 27) {
@@ -113,6 +113,8 @@
 		detach: function() {
 			var self = this,
 				instanceClasses = self.getClassNames();
+
+			self.close();
 
 			if(self.target) {
 				self.target.removeClass(instanceClasses.target);
@@ -193,15 +195,16 @@
 			self.focusTarget.on('click focus', self.openListener);
 		},
 
-		open: function () {
+		open: function() {
 			var self = this,
 				o = self.options,
 				panel = self.panel,
 				e = self.element;
 			
-			if(self.isOpen){
+			if(self.isOpen || !self.target){
 				return;
 			}
+
 			self.isOpen = true;
 
 			var wrapperOffset = self.wrapper.offset();
@@ -209,8 +212,8 @@
 
 
 			var css = {
-				left: (targetOffset.left - wrapperOffset.left) + parseFloat(o.offset.left,10) + 'px',
-				top: (targetOffset.top + self.target.outerHeight() - wrapperOffset.top) + parseFloat(o.offset.top,10) + 'px',
+				left: (targetOffset.left - wrapperOffset.left) + o.offset.left + 'px',
+				top: (targetOffset.top + self.target.outerHeight() - wrapperOffset.top) + o.offset.top + 'px',
 				width: self.target.outerWidth() - (self.panel.outerWidth() - self.panel.width()) + 'px'
 			};
 
@@ -233,7 +236,7 @@
 
 		},
 
-		close: function () {
+		close: function() {
 			var self = this,
 				panel = self.panel;
 
@@ -254,7 +257,7 @@
 			self._trigger('afterclose');
 		},
 
-		_destroy: function () {
+		_destroy: function() {
 			var self = this;
 			doc.off('click keyup', self.closeListener);
 			self.wrapper.remove();
