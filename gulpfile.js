@@ -18,6 +18,7 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
+var rename = require('gulp-rename');
 
 var karma = require('karma').server;
 
@@ -104,10 +105,24 @@ gulp.task('copy:assets', ['clean'], function(){
 		.pipe(gulp.dest(outDir));
 });
 
+gulp.task('copy:locales', ['clean'], function(){
+	return gulp.src(dirs.src + '/locales/**.js')
+		.pipe(uglify({
+				banner: '/*! ' + pkg.name + ' ' + pkg.version + ' ' + today + '*/\n',
+				mangle: !argv.original && argv.dist || argv.mangle,
+				compress: !argv.original && argv.dist || argv.mangle
+		}))
+		.pipe(rename(function(path){
+			path.basename = pkg.name + '_' + path.basename;
+			path.extname = '.min.js';
+		}))
+		.pipe(gulp.dest(outDir + '/locales'));
+});
+
 gulp.task('sass', ['clean'], function(){
 	return gulp.src(dirs.sass + '/**/*.scss')
 		.pipe(sourcemaps.init())
-		.pipe(sass(/*{outputStyle: 'compressed'}*/).on('error', sass.logError))
+		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(autoprefixer({
 			cascade: false
 		}))
@@ -118,9 +133,10 @@ gulp.task('sass:watch', function(){
 	gulp.watch(dirs.sass + '/**/*.scss', ['sass']);
 });
 
-gulp.task('build', ['lint', 'clean', 'copy:assets', 'sass'], function(){
+gulp.task('build', ['lint', 'clean', 'copy:assets', 'copy:locales', 'sass'], function(){
 	return gulp.src([
-			dirs.src + '/locales/_*.js', // only select locales
+			dirs.src + '/locales/english.en.js',
+			dirs.src + '/locales/spanish.es.js',
 			dirs.src + '/util/**/*.js',
 			dirs.src + '/plugins/**/*.js',
 			dirs.src + '/widgets/**/*.js',

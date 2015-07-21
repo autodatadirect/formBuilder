@@ -40,7 +40,7 @@ formBuilder
     - [Custom type](#custom-type)
     - [Custom inputFilter](#custom-inputfilter)
     - [Custom inputWidget](#custom-inputwidget)
-    - [Unit Tests](#unit-tests)
+    - [Localization](#localization)
 - [Credits](#credits)
 - [License](#license)
 
@@ -602,8 +602,11 @@ e.inputFilter({
 - If the user wishes they can design their own inputWidget that will allow them to have their own custom input field. In order to do this it is necessary to give the widget 'options' for what they want their input field to look like. This includes attributes such as color, size, or whatever else the user can think of. They can also include their own methods here to have the input field perform in a unique way. 
 - In order to ensure that the input field will perform correctly in the form field there are methods that deal with the custom inputWidget on lines 2816-3644. This way the widget is safeguarded from damaging other input fields and items that reside on the form field. These functions also ensure that the custom inputWidget perfroms in the correct manner, such as going into focus, when it is clicked on and other events of that nature. 
 
-### Unit Tests
-There are unit tests for this project. Check the `/tests/README.md` to see how to run them and add your own.
+### Localization
+English is the default language setting. To change it you must include the desired language package script from `/dist/locales/`. Then call **$.formBuilder.util.setLanguage(*string* langCode)**. English (en) and Spanish (es) language packages are precompiled into formBuilder so you do not need to include them.
+
+#### Creating new language packages
+Start with an unminified package from `/src/locales/` as a base by copying it into a new file. Go through the created object and replace the strings for each word property. Lastly, replace the bootstrap-datepicker locale support with the one for the language. You can also just include the separate locale file for bootsrap-datepicker ([all of them](https://github.com/eternicode/bootstrap-datepicker/tree/master/dist/locales)). Then switch to your language using the above method.
 
 ## Credits
 Auto Data Direct, Inc.
