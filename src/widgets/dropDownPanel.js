@@ -67,7 +67,7 @@
 				if(ev.which === 27) {
 					ev.preventDefault();
 					ev.stopPropagation();
-					self.target.focus();
+					self.focusTarget.focus();
 					setTimeout(function() {
 						self.close();
 					}, 0);
@@ -75,7 +75,7 @@
 				}
 
 				// Listen for a click outside
-				if(!$(ev.target).childOf(panel, true) && !$(ev.target).childOf(self.target, true)) {
+				if(!$(ev.target).childOf(panel, true) && !$(ev.target).childOf(self.focusTarget, true)) {
 					setTimeout(function() {
 						self.close();
 					}, 0);
@@ -84,7 +84,7 @@
 			};
 
 			self.openListener = function(ev) {
-				setTimeout(function(){
+				setTimeout(function() {
 					self.open();
 				}, 0);
 			};
@@ -93,16 +93,32 @@
 			self.attach(o.target, o.focusTarget);
 		},
 
+		getClassNames: function() {
+			var self = this;
+
+			return {
+				target: 'fb-dropDownPanel-'+self.id+'-target',
+				focus: 'fb-dropDownPanel-'+self.id+'-focusTarget'
+			};
+		},
+
+		getId: function() {
+			return this.id;
+		},
+
+		isOpened: function() {
+			return this.isOpen;
+		},
+
 		detach: function() {
 			var self = this,
-				targetClass = 'fb-dropDownPanel-'+self.id+'-target',
-				focusTargetClass = 'fb-dropDownPanel-'+self.id+'-focusTarget';
+				instanceClasses = self.getClassNames();
 
 			if(self.target) {
-				self.target.removeClass(targetClass);
+				self.target.removeClass(instanceClasses.target);
 			}
 			if(self.focusTarget) {
-				self.focusTarget.removeClass(focusTargetClass);
+				self.focusTarget.removeClass(instanceClasses.focus);
 				self.focusTarget.off('click focus', self.openListener);
 			}
 
@@ -114,12 +130,16 @@
 		attach: function(newTarget, newFocusTarget) {
 			var self = this,
 				o = self.options,
-				targetClass = 'fb-dropDownPanel-'+self.id+'-target',
-				focusTargetClass = 'fb-dropDownPanel-'+self.id+'-focusTarget';
+				instanceClasses = self.getClassNames();
 
 			if(!newTarget || !(newTarget instanceof $) || newTarget.length === 0) {
 				throw '[dropDownPanel] No target element specifed.';
 			}
+
+			if(self.target) {
+				self.detach();
+			}
+
 
 			// Determine correct targets
 
@@ -157,18 +177,18 @@
 
 			// Update targets
 			if(self.target) {
-				self.target.removeClass(targetClass);
+				self.target.removeClass(instanceClasses.target);
 			}
 			if(self.focusTarget) {
-				self.focusTarget.removeClass(focusTargetClass);
+				self.focusTarget.removeClass(instanceClasses.focus);
 				self.focusTarget.off('click focus', self.openListener);
 			}
 			
 			self.target = newTarget;
 			self.focusTarget = newFocusTarget;
 
-			self.target.addClass(targetClass);
-			self.focusTarget.addClass(focusTargetClass);
+			self.target.addClass(instanceClasses.target);
+			self.focusTarget.addClass(instanceClasses.focus);
 
 			self.focusTarget.on('click focus', self.openListener);
 		},
@@ -189,8 +209,8 @@
 
 
 			var css = {
-				left: (targetOffset.left - wrapperOffset.left) + o.offset.left + 'px',
-				top: (targetOffset.top + self.target.outerHeight() - wrapperOffset.top) + o.offset.top + 'px',
+				left: (targetOffset.left - wrapperOffset.left) + parseFloat(o.offset.left,10) + 'px',
+				top: (targetOffset.top + self.target.outerHeight() - wrapperOffset.top) + parseFloat(o.offset.top,10) + 'px',
 				width: self.target.outerWidth() - (self.panel.outerWidth() - self.panel.width()) + 'px'
 			};
 
