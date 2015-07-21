@@ -2,16 +2,64 @@ formBuilder
 ===========
 [![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master)](https://travis-ci.org/autodatadirect/formBuilder)
 
-##Setup
-###Dependencies
-####CSS
+<!-- MarkdownTOC depth=3 autolink=true bracket=round -->
+
+- [About](#about)
+- [Setup](#setup)
+    - [Dependencies](#dependencies)
+    - [Initialization](#initialization)
+- [Components](#components)
+    - [Preinput/Postinput](#preinputpostinput)
+    - [Prefix/Suffix](#prefixsuffix)
+    - [Max](#max)
+    - [Placeholder](#placeholder)
+    - [Error](#error)
+    - [Focus](#focus)
+    - [Disable](#disable)
+    - [Label](#label)
+    - [Tooltips](#tooltips)
+    - [Input Field Data Types](#input-field-data-types)
+    - [Select Input](#select-input)
+- [Array Fields](#array-fields)
+- [Text Submitter](#text-submitter)
+- [Handling Validation Errors](#handling-validation-errors)
+- [Handling Form Submissions](#handling-form-submissions)
+    - [Required Fields](#required-fields)
+- [Widgets](#widgets)
+    - [formBuilder](#formbuilder)
+    - [submitButton](#submitbutton)
+- [Example Usage](#example-usage)
+- [Other Widgets](#other-widgets)
+    - [inputField](#inputfield)
+    - [fieldWidget](#fieldwidget)
+    - [inputFilter](#inputfilter)
+    - [dateRangePicker](#daterangepicker)
+    - [dateTimeRangePicker](#datetimerangepicker)
+    - [dropDownPanel](#dropdownpanel)
+- [Customization](#customization)
+    - [Custom type](#custom-type)
+    - [Custom inputFilter](#custom-inputfilter)
+    - [Custom inputWidget](#custom-inputwidget)
+    - [Unit Tests](#unit-tests)
+- [Credits](#credits)
+- [License](#license)
+
+<!-- /MarkdownTOC -->
+
+## About
+TODO - describe formBuilder
+
+
+## Setup
+### Dependencies
+#### CSS
 * normalize.css (external)
 ####JavaScript
 * [jQuery v1.11.3](https://code.jquery.com/jquery-1.11.3.min.js) - not sure of min version
 * [jQuery ui 1.11.4](https://code.jquery.com/ui/1.11.4/jquery-ui.min.js) - not sure of min version
 * jquery.formBuilder.js
 
-###Initialization
+### Initialization
 *HTML*
 ```html
 <form style="display:none;">
@@ -23,32 +71,32 @@ formBuilder
 $('form').formBuilder();
 ```
 
-##Components
-###Preinput/Postinput
+## Components
+### Preinput/Postinput
 **data-preinput** < string >, < HTML > = "Block of text that appears before form field"
 **data-postinput** < string >, < HTML > = "Block of text that appears after form field"
     - These attributes can be defined to add a block of text or HTML directly to the left or the right of any form field 
     - Can use one, the other, or both at the same time 
 
-###Prefix/Suffix
+### Prefix/Suffix
 **data-prefix** < string> = "text at front of form field"
 **data-suffix** < string> = "text at end of form field"
 - Will add text at front/end of form field that can only be visible once the user has begun entering text into the field. Appears inside the form field box. 
     * setPrefix (< string >) sets the text of the prefix-overlay 
     * setSuffix (< string >) sets the text of the suffix-overlay 
 
-###Max
+### Max
 **data-max** < int > = "10"
     - Can be defined to set the maximum size of the input allowed in the form field
     - The max is ignored when set to 0, and is 0 by default.
 
-###Placeholder
+### Placeholder
 **data-placeholder** < string > = "some placeholder text"
     - Attribute will display placeholder text inside of the form field as long as no input has been entered.
     - Placeholder text will disappear when text is entered into the field.
     - Note: (legacy support) the attribute **data-empty** performs the same task as data-placeholder and they are set equal to each other 
 
-###Error
+### Error
 **data-error** < boolean > = "status of the object" 
 - Attribute is set to true if there is an error present, otherwise it is reset to false 
 **showError** < boolean > = "status of error-display"
@@ -57,12 +105,12 @@ $('form').formBuilder();
     * flashError (< int > numberOfTimes) Flashes error for a certain 'numberOfTimes' that is passed into the function in order to get the user's attention
     * clearError () resets the value of data-error to false 
 
-###Focus
+### Focus
 **data-focus** < boolean > = "status of the object"
 - Attribute is set to true on keydown, otherwise it is set to false. Focuses the form field when it is selected. 
 * _keyDownNavigate (< object > ev) Called when a key is pressed, sets focus and selection accordingly. 
 
-###Disable
+### Disable
 **data-disable** < boolean > = "status of the object" 
 - When set to true will make the selection dark and unable to be edited or used in any way. 
 **Default:** false 
@@ -70,22 +118,22 @@ $('form').formBuilder();
     * enable () Sets the status of the object to not disabled 
     * isDisabled () Determines the status of whether or not the object is disabled 
 
-###Label
+### Label
 **data-label** < string > = "Label text"
 **Default:** undefined 
     * setLabel (< string > label) Receives a string for a label and prepends it above the form field 
 
-###Tooltips
+### Tooltips
 - A tooltip can be added to a form field. This tooltip will display a hovering widget when it is clicked on. The div class must be set to "tooltip" and there is an optional title attribute that can be set to a string.  
 **data-title** < string > = "Title of tooltip" 
 **Default:** undefined 
     - Sets the title of the form, which is appended to the top of the tooltip
 
 
-###Input Field Data Types
+### Input Field Data Types
 On any `<input>` tag you can add a **data-type="*typeName*"** attribute to specify an input type that formBuilder will handle for input validation.
 
-####Normal Form Types:
+#### Normal Form Types:
 * **text** - *For normal text with no extra formatting or validation.* Default data-type.
 * **tmsFullname** - An extension of the utext data type. All input is converted into all-caps. Requires two or more names that are separated by a space. Allows commas, hyphens, and apostrophes but only one comma or hyphen and up to three apostrophes. Does not allow any other symbol. Does not accept integers.
 * **utext** - *For uppercase text.* If a user types in lowercase text, it is automatically converted to uppercase.
@@ -112,34 +160,10 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
 * **tmsYesNo** - A select type that is created with **booleanSelectCreator(trueLabel,falseLabel)** This select creator creates two options where the trueLabel's value is true and the falseLabel's value is false. This data type can be used for localization support. To create a new boolean type the function booleanSelectCreator should be called and set equal to a new type name. 
 * **feid** - *For entering Federal Employer Identification Number.*
 
-####Adding Custom Types
+#### Adding Custom Types
 The user can add custom types to the form by adding their desired regular expression and a new type name. In order to do this is it necessary to utilize the createRegexType function. It may also be necessary to override the setUp and validate functions in order to meet the specific needs of the type. See [Customization](customization).
 
-###Code Input
-A field with **data-type="code"** requires a user to input a *value* that has a corresponding *label*. A user may type a word and labels containing that word will be shown in a dropdown. When a dropdown label is clicked, it's code  replaces the input value.
-
-* The typed value must be valid, or the field will be marked as invalid.
-* The field *must* have a **data-codes** attribute containing a JavaScript variable name of an array of objects with a *value* and *label*. You must then declare and initialize the variable in JavaScript ***before*** formBuilder is initialized.
-
-*HTML*
-```html
-<form>
-    <input data-type="code" data-codes="testCodes">
-</form>
-```
-*JavaScript*
-```javascript
-var testCodes = [
-    {value:'what the user types', label:'what the user sees in the dropdown'},
-    {value:'100',  label:'Some label'},
-    {value:'AAA',  label:'123 Some St.'},
-    {value:'BBB',  label:'Some Business Name Inc.'},
-    {value:'Hodor',  label:'Bran'}
-];
-form.formBuilder();
-```
-
-###Select Input
+### Select Input
 Instead of using a normal select tag, you can use an *input* tag with **data-type="select"**. It has the basic functions of a select tag, but with more functionality. When clicked, a dropdown appears with sorted option labels (scrollable vertically and horizontally) for the user choose. It also has a search box the user can use to quickly find a label. 
 
 * **data-default** *Optional.* Set the default selected option by *value*. Must be an actual option value. Sets to the first option if not specified.
@@ -169,7 +193,7 @@ Instead of using a normal select tag, you can use an *input* tag with **data-typ
 ```
 
 
-##Array Fields
+## Array Fields
 Array fields can be used in formBuilder to allow variable amounts, depending on the user's decisions, of the same input-field-group to be submitted.
 * The main div must have a name attribute.
 * Extra input-field-groups are added dynamically if the user chooses to press a '+' addon at the bottom of the page that will allow them to add one. 
@@ -180,13 +204,13 @@ A message that will be displayed next to the add '+' button can also be added. T
 
 Array Fields can also have labels like other fields. 
 
-##Text Submitter
+## Text Submitter
 The text submitter is used to submit multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form. The text submitter allows several options to be set including the width, placeholder, rows and how the user wishes to send instructions. 
 
 **submit event** 
 The submit event is fired when the enter key is pressed. This event will pass in an object that is in the format of {text:'What the user types in, onComplete:(callback function'} The onComplete function will reset the text area. This behaves very similarly to something like an instant message. 
 
-##Handling Validation Errors
+## Handling Validation Errors
 Form field inputs are validated using regular expressions. 
 The data-type should be set in order for the input to be validated as correct.
 **data-type** = "input form type"
@@ -197,15 +221,15 @@ The data-type should be set in order for the input to be validated as correct.
         +  Checks that input meets filter and max limits 
 * It is possible to create a new type that can be entered as input. A new type extension must created by extending $.formBuilder.inputField.types and defining a new type using a regular expression.  
 
-##Handling Form Submissions
+## Handling Form Submissions
 In order to correctly handle the storage of input fields, you must use a submitButton widget inside of the form and add event listeners. A loading spinner is displayed inside of the submitButton while it is submitting. See [Usage](#example-usage) below.
 
-###Required Fields
+### Required Fields
 To require a input field to be filled out you can either add the **data-require="true"** attribute to the specific field. You can also add the **data-default-required="true"** attribute to a `form` tag to set the require status for all of it's fields. If the user attempts to submit the form before all required fields are filled out, the submit will fail and the fields will flash and enter the error state.
 
 
-##Widgets
-###formBuilder
+## Widgets
+### formBuilder
 * Options
     - **ignoreHidden** *(boolean)* Ignore fields that are not `$(:visible)`. **Default:** false
     - **converter** *(object)*
@@ -227,7 +251,7 @@ To require a input field to be filled out you can either add the **data-require=
     - **beforeset(formData)** *Optional.* Called before `set` replaced the form values. **Default:** undefined
     - **afterset(formData)** *Optional.* Called after `set` replaces the form values **Default:** undefined
 
-###submitButton
+### submitButton
 * Options
     - **color** *(string)* Color of loading spinner. **Default:** '#000'
     - **delay** *(int)* Delay between UI update and submission call, in milliseconds **Default:** 10
@@ -249,7 +273,7 @@ To require a input field to be filled out you can either add the **data-require=
     - **aftersubmit(ev)** *Optional.* - called after the submit returns
         + Clean up form here
 
-##Example Usage
+## Example Usage
 See `demo2.html` for a live version of this example.
 *HTML*
 ```html
@@ -324,10 +348,10 @@ formExample.find('button[type="submit"]').submitButton({
 
 
 
-##Other Widgets
+## Other Widgets
 These are created dynamically and do not need to be manually handled. They are included here for reference if needed for modifications and/or additions.
 
-###inputField
+### inputField
 * Options
     - **type** *(string)* Field type from `types`. **Default:** 'text'
     - **label** *(string)* Label to go above field. **Default:** ' '
@@ -372,8 +396,9 @@ These are created dynamically and do not need to be manually handled. They are i
         + Also triggered in the clearDirty() method
     - **afterset(null, [val, value])** *Optional.* Called after `set` replaces the form values **Default:** (undefined)
 
-###fieldWidget
-* Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements
+### fieldWidget
+Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements
+
 * Methods
     - **isDirty()** 
     - **validate()** 
@@ -383,7 +408,7 @@ These are created dynamically and do not need to be manually handled. They are i
     - **set(data)** 
     - **get()** Prints "base get method" to the console and returns null 
 
-###inputFilter
+### inputFilter
 * Options
     - **toUpper** *(boolean)* flag to determine if the type is utext. **Default:** 'false'
     - **max** *(integer)* Largest input that is allowed in the form field. **Default:** '0'
@@ -397,8 +422,9 @@ These are created dynamically and do not need to be manually handled. They are i
     - **keyignored** *Optional* Ignore the character that has been entered if it is not valid for the current type
     - **keytyped** *Optional* If the character entered is valid for the current type then enter it into the formfield
 
-###dateRangePicker
-Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type. 
+### dateRangePicker
+Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type.
+
 * Methods 
     - **setRange(string)** Sets the range of the date field to either 'custom', 'day', 'week', 'month', or 'year'. Will modify the input fields so that the date range reflects this selection.
     - **serialize(moment)** Takes a passed-in moment and returns YYYY-MM-DD format
@@ -410,8 +436,9 @@ Creates two input fields for a beginning and ending date. Allows the user to sel
     - **clear()** Sets the values inside of the dateRangePicker's inputfields to '' and sets the range value to 'custom'
     - **validate()** Validates that the input matches the date-format that it should be. Uses the formBuilder widget's validate function
 
-###dateTimeRangePicker
-Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type. 
+### dateTimeRangePicker
+Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type.
+
 * Methods 
     - **setRange(string)**  Sets the range of the date field to either 'custom', 'day', 'week', 'month', or 'year'. Will modify the input fields so that the date range reflects this selection. Will set the time fields to 12:00am and 11:59pm if there is nothing in those fields already, otherwise will not modify the time fields. 
     - **serializeDate(moment)** Takes a moment input and returns that input turned into a string in the format of 'YYYY-MM-DD'. 
@@ -423,8 +450,33 @@ Similar to the dateRangePicker widget in that it creates two input fields for a 
     - **clear()** Sets the values inside of the dateTimeRangePicker's inputfields to '' and sets the range value to 'custom'
     - **validate()** Validates that the input matches the dateTime-format that it should be. Uses the formBuilder widget's validate function
 
-##Customization
-###Custom type
+### dropDownPanel
+Drop down panel widgets may be used to add an extra hovering container to any element. Drop downs are shown when a user clicks on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop down and the target element or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and down the page with the element when scrolling.
+
+* Options
+    - **target** *(jquery object)* *Required.* The element the panel will be displayed underneath. If the target is an inputField `input` or `.input-field`, the target is set to the `.input-field` and the source is appended to the `.input-field-group`. Otherwise, the source is just inserted after the target in the same container. 
+    - **focusTarget** *(jquery object)* The element to listen to click and focus events from in order to open/close the dropdown. **Default:** same as target
+    - **targetInput** *(boolean)* If true and the target is an `.input-field`, the target will be changed to the `.field-item-input`. This will place the panel only under the input itself, rather than the both input and any addons it might have. **Default:** true
+    - **hideFields** *(string[])* An array of name attributes matching elements in the panel source to remove. This is useful when you are cloning multiple panels from the same source and don't need all of the elements.
+    - **offset** *(object)*
+        + **top** *(number)* Additional offset spacing, in px, between the bottom of the target and the top of the dropdown. **Default:** 0
+        + **left** *(number)* Additional offset spacing, in px, between the left side of the target and the left side of the dropdown. **Default:** 0
+* Methods
+    - **getClassNames()** Returns the class names for the target and focus elements in a object in the format `{target:(string), focus:(string)}`.
+    - **getId()** Returns the drop down panel id integer. Each created panel will have its own unique id.
+    - **isOpened()** Returns open status
+    - **detach()** Disconnects the panel from the target, focusTarget, and DOM. To use the panel again it must be attached to another element.
+    - **attach(*jquery object* newTarget, *jquery object* newFocusTarget)** Connects the panel to the newTarget as the target, newFocusTarget as the focusTarget, and inserts the wrapper into the DOM in the correct location. This is done when the panel is first created, but can be called afterwards in order to change the targets. If the panel has targets, it will be detached from those targets first. 
+    - **open()** Positions the panel and then makes it visible.
+    - **close()** Hides the panel.
+* Events
+    **beforeopen(null,*jquery object* panel, *object* newPositionCss)** Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.
+    **afteropen** Triggered after the panel is positioned and shown.
+    **beforeclose** Triggered before the panel is closed. If the default is prevented the panel will not hidden.
+    **afterclose** Triggered after the panel is hidden.
+
+## Customization
+### Custom type
 To add a type, you must extend the `$.formBuilder.inputField.types` object with a new type object.
 
 Default Type Object
@@ -436,7 +488,7 @@ Default Type Object
     - **fromField(*string* value, *object* ui)** *Optional.* Called to convert the field value when retrieved from the field. Returns the converted value.
 * **validate(*object* ui)** *Required.* Called to check the field for correct input. When invalid, return an object in the format `{message:'yourerror'}` and the error message will be displayed in red on the field.
 
-####Creating Simple Regex Types
+#### Creating Simple Regex Types
 You can use the createRegexType function to make new types based on regular expressions. It will automatically create the needed type functions.
 
 `$.formBuilder.inputField.createRegexType(pattern[,filter[,flags[, max]]])`
@@ -467,7 +519,7 @@ $.extend($.formBuilder.inputField.types,{
 $('simpleCustomTypeForm').formBuilder();
 ```
 
-####Creating Full Custom Types
+#### Creating Full Custom Types
 You can also manually create type objects.
 
 HTML
@@ -533,7 +585,7 @@ $('fullCustomTypeForm').formBuilder();
 
 ```
 
-###Custom inputFilter
+### Custom inputFilter
 - It is possible to create your own unique inputFilters in order to make sure that the input that is being typed into form fields is validated against the custom types that have been created. 
 - Simply call object.inputFilter and fill in the desired values for the options (toUpper < boolean >, max < int >, pattern < regex > ) and the inputFilter methods will work to validate the input based off of these parameters. 
 
@@ -546,17 +598,15 @@ e.inputFilter({
                 });
 ```
 
-###Custom inputWidget
+### Custom inputWidget
 - If the user wishes they can design their own inputWidget that will allow them to have their own custom input field. In order to do this it is necessary to give the widget 'options' for what they want their input field to look like. This includes attributes such as color, size, or whatever else the user can think of. They can also include their own methods here to have the input field perform in a unique way. 
 - In order to ensure that the input field will perform correctly in the form field there are methods that deal with the custom inputWidget on lines 2816-3644. This way the widget is safeguarded from damaging other input fields and items that reside on the form field. These functions also ensure that the custom inputWidget perfroms in the correct manner, such as going into focus, when it is clicked on and other events of that nature. 
 
-###Unit Tests
+### Unit Tests
 There are unit tests for this project. Check the `/tests/README.md` to see how to run them and add your own.
 
-##Credits
+## Credits
 Auto Data Direct, Inc.
 
-##License
+## License
 MIT
-
-

@@ -1016,6 +1016,65 @@ body .markdown-body
 }
 </style><title>README</title></head><body><article class="markdown-body"><h1 id="formbuilder"><a name="user-content-formbuilder" href="#formbuilder" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>formBuilder</h1>
 <p><a href="https://travis-ci.org/autodatadirect/formBuilder"><img alt="Build Status" src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master" /></a></p>
+<!-- MarkdownTOC depth=3 autolink=true bracket=round -->
+
+<ul>
+<li><a href="#about">About</a></li>
+<li><a href="#setup">Setup</a><ul>
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#initialization">Initialization</a></li>
+</ul>
+</li>
+<li><a href="#components">Components</a><ul>
+<li><a href="#preinputpostinput">Preinput/Postinput</a></li>
+<li><a href="#prefixsuffix">Prefix/Suffix</a></li>
+<li><a href="#max">Max</a></li>
+<li><a href="#placeholder">Placeholder</a></li>
+<li><a href="#error">Error</a></li>
+<li><a href="#focus">Focus</a></li>
+<li><a href="#disable">Disable</a></li>
+<li><a href="#label">Label</a></li>
+<li><a href="#tooltips">Tooltips</a></li>
+<li><a href="#input-field-data-types">Input Field Data Types</a></li>
+<li><a href="#select-input">Select Input</a></li>
+</ul>
+</li>
+<li><a href="#array-fields">Array Fields</a></li>
+<li><a href="#text-submitter">Text Submitter</a></li>
+<li><a href="#handling-validation-errors">Handling Validation Errors</a></li>
+<li><a href="#handling-form-submissions">Handling Form Submissions</a><ul>
+<li><a href="#required-fields">Required Fields</a></li>
+</ul>
+</li>
+<li><a href="#widgets">Widgets</a><ul>
+<li><a href="#formbuilder">formBuilder</a></li>
+<li><a href="#submitbutton">submitButton</a></li>
+</ul>
+</li>
+<li><a href="#example-usage">Example Usage</a></li>
+<li><a href="#other-widgets">Other Widgets</a><ul>
+<li><a href="#inputfield">inputField</a></li>
+<li><a href="#fieldwidget">fieldWidget</a></li>
+<li><a href="#inputfilter">inputFilter</a></li>
+<li><a href="#daterangepicker">dateRangePicker</a></li>
+<li><a href="#datetimerangepicker">dateTimeRangePicker</a></li>
+<li><a href="#dropdownpanel">dropDownPanel</a></li>
+</ul>
+</li>
+<li><a href="#customization">Customization</a><ul>
+<li><a href="#custom-type">Custom type</a></li>
+<li><a href="#custom-inputfilter">Custom inputFilter</a></li>
+<li><a href="#custom-inputwidget">Custom inputWidget</a></li>
+<li><a href="#unit-tests">Unit Tests</a></li>
+</ul>
+</li>
+<li><a href="#credits">Credits</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<!-- /MarkdownTOC -->
+
+<h2 id="about"><a name="user-content-about" href="#about" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>About</h2>
+<p>TODO - describe formBuilder</p>
 <h2 id="setup"><a name="user-content-setup" href="#setup" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Setup</h2>
 <h3 id="dependencies"><a name="user-content-dependencies" href="#dependencies" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Dependencies</h3>
 <h4 id="css"><a name="user-content-css" href="#css" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>CSS</h4>
@@ -1128,27 +1187,6 @@ body .markdown-body
 </ul>
 <h4 id="adding-custom-types"><a name="user-content-adding-custom-types" href="#adding-custom-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Adding Custom Types</h4>
 <p>The user can add custom types to the form by adding their desired regular expression and a new type name. In order to do this is it necessary to utilize the createRegexType function. It may also be necessary to override the setUp and validate functions in order to meet the specific needs of the type. See <a href="customization">Customization</a>.</p>
-<h3 id="code-input"><a name="user-content-code-input" href="#code-input" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Code Input</h3>
-<p>A field with <strong>data-type=&rdquo;code&rdquo;</strong> requires a user to input a <em>value</em> that has a corresponding <em>label</em>. A user may type a word and labels containing that word will be shown in a dropdown. When a dropdown label is clicked, it&rsquo;s code  replaces the input value.</p>
-<ul>
-<li>The typed value must be valid, or the field will be marked as invalid.</li>
-<li>The field <em>must</em> have a <strong>data-codes</strong> attribute containing a JavaScript variable name of an array of objects with a <em>value</em> and <em>label</em>. You must then declare and initialize the variable in JavaScript <strong><em>before</em></strong> formBuilder is initialized.</li>
-</ul>
-<p><em>HTML</em><br />
-<pre><code class="html">&lt;form&gt;
-    &lt;input data-type=&quot;code&quot; data-codes=&quot;testCodes&quot;&gt;
-&lt;/form&gt;
-</code></pre><br />
-<em>JavaScript</em><br />
-<pre><code class="javascript">var testCodes = [
-    {value:'what the user types', label:'what the user sees in the dropdown'},
-    {value:'100',  label:'Some label'},
-    {value:'AAA',  label:'123 Some St.'},
-    {value:'BBB',  label:'Some Business Name Inc.'},
-    {value:'Hodor',  label:'Bran'}
-];
-form.formBuilder();
-</code></pre></p>
 <h3 id="select-input"><a name="user-content-select-input" href="#select-input" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Select Input</h3>
 <p>Instead of using a normal select tag, you can use an <em>input</em> tag with <strong>data-type=&rdquo;select&rdquo;</strong>. It has the basic functions of a select tag, but with more functionality. When clicked, a dropdown appears with sorted option labels (scrollable vertically and horizontally) for the user choose. It also has a search box the user can use to quickly find a label. </p>
 <ul>
@@ -1393,8 +1431,8 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 </li>
 </ul>
 <h3 id="fieldwidget"><a name="user-content-fieldwidget" href="#fieldwidget" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>fieldWidget</h3>
+<p>Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements</p>
 <ul>
-<li>Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements</li>
 <li>Methods<ul>
 <li><strong>isDirty()</strong> </li>
 <li><strong>validate()</strong> </li>
@@ -1428,17 +1466,68 @@ formExample.find('button[type=&quot;submit&quot;]').submitButton({
 </li>
 </ul>
 <h3 id="daterangepicker"><a name="user-content-daterangepicker" href="#daterangepicker" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>dateRangePicker</h3>
-<p>Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type. <br />
-* Methods <br />
-    - <strong>setRange(string)</strong> Sets the range of the date field to either &lsquo;custom&rsquo;, &lsquo;day&rsquo;, &lsquo;week&rsquo;, &lsquo;month&rsquo;, or &lsquo;year&rsquo;. Will modify the input fields so that the date range reflects this selection.<br />
-    - <strong>serialize(moment)</strong> Takes a passed-in moment and returns YYYY-MM-DD format<br />
-    - <strong>deserialize(string)</strong> Takes a passed-in string and returns a moment in the YYYY-MM-DD format<br />
-    - <strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. <br />
-    - <strong>set(Object)</strong> Sets the input fields of the dateRangePicker to the value of the object that is passed into the method<br />
-    - <strong>isDirty()</strong> Returns the dirty value of the current calling object<br />
-    - <strong>clearDirty()</strong> Resets the current object&rsquo;s dirty value to false.<br />
-    - <strong>clear()</strong> Sets the values inside of the dateRangePicker&rsquo;s inputfields to &lsquo;&rsquo; and sets the range value to &lsquo;custom&rsquo;<br />
-    - <strong>validate()</strong> Validates that the input matches the date-format that it should be. Uses the formBuilder widget&rsquo;s validate function</p>
+<p>Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type.</p>
+<ul>
+<li>Methods <ul>
+<li><strong>setRange(string)</strong> Sets the range of the date field to either &lsquo;custom&rsquo;, &lsquo;day&rsquo;, &lsquo;week&rsquo;, &lsquo;month&rsquo;, or &lsquo;year&rsquo;. Will modify the input fields so that the date range reflects this selection.</li>
+<li><strong>serialize(moment)</strong> Takes a passed-in moment and returns YYYY-MM-DD format</li>
+<li><strong>deserialize(string)</strong> Takes a passed-in string and returns a moment in the YYYY-MM-DD format</li>
+<li><strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. The from and to fields should be in the &lsquo;YYYY-MM-DD&rsquo; format. The range value should be a string. </li>
+<li><strong>set(Object)</strong> Sets the input fields of the dateRangePicker to the value of the object that is passed into the method</li>
+<li><strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.</li>
+<li><strong>clearDirty()</strong> Resets the current object&rsquo;s dirty value to false.Calls the formBuilder clearDirty() method.</li>
+<li><strong>clear()</strong> Sets the values inside of the dateRangePicker&rsquo;s inputfields to &lsquo;&rsquo; and sets the range value to &lsquo;custom&rsquo;</li>
+<li><strong>validate()</strong> Validates that the input matches the date-format that it should be. Uses the formBuilder widget&rsquo;s validate function</li>
+</ul>
+</li>
+</ul>
+<h3 id="datetimerangepicker"><a name="user-content-datetimerangepicker" href="#datetimerangepicker" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>dateTimeRangePicker</h3>
+<p>Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type.</p>
+<ul>
+<li>Methods <ul>
+<li><strong>setRange(string)</strong>  Sets the range of the date field to either &lsquo;custom&rsquo;, &lsquo;day&rsquo;, &lsquo;week&rsquo;, &lsquo;month&rsquo;, or &lsquo;year&rsquo;. Will modify the input fields so that the date range reflects this selection. Will set the time fields to 12:00am and 11:59pm if there is nothing in those fields already, otherwise will not modify the time fields. </li>
+<li><strong>serializeDate(moment)</strong> Takes a moment input and returns that input turned into a string in the format of &lsquo;YYYY-MM-DD&rsquo;. </li>
+<li><strong>deserializeDate(string)</strong> Takes a string input and returns that input turned into a moment in the format of &lsquo;YYYY-MM-DD&rsquo;.  </li>
+<li><strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateTimeRangePicker input fields. The from and to fields should be in the format &lsquo;YYYY-MM-DDTHH:MM:mmZ&rsquo;. The range value of the object should be a string. </li>
+<li><strong>set(object)</strong> Sets the input fields of the dateTimeRangePicker to the value of the object that is passed into the method.</li>
+<li><strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.</li>
+<li><strong>clearDirty()</strong> Resets the current object&rsquo;s dirty value to false.Calls the formBuilder clearDirty() method.</li>
+<li><strong>clear()</strong> Sets the values inside of the dateTimeRangePicker&rsquo;s inputfields to &lsquo;&rsquo; and sets the range value to &lsquo;custom&rsquo;</li>
+<li><strong>validate()</strong> Validates that the input matches the dateTime-format that it should be. Uses the formBuilder widget&rsquo;s validate function</li>
+</ul>
+</li>
+</ul>
+<h3 id="dropdownpanel"><a name="user-content-dropdownpanel" href="#dropdownpanel" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>dropDownPanel</h3>
+<p>Drop down panel widgets may be used to add an extra hovering container to any element. Drop downs are shown when a user clicks on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop down and the target element or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and down the page with the element when scrolling.</p>
+<ul>
+<li>Options<ul>
+<li><strong>target</strong> <em>(jquery object)</em> <em>Required.</em> The element the panel will be displayed underneath. If the target is an inputField <code>input</code> or <code>.input-field</code>, the target is set to the <code>.input-field</code> and the source is appended to the <code>.input-field-group</code>. Otherwise, the source is just inserted after the target in the same container. </li>
+<li><strong>focusTarget</strong> <em>(jquery object)</em> The element to listen to click and focus events from in order to open/close the dropdown. <strong>Default:</strong> same as target</li>
+<li><strong>targetInput</strong> <em>(boolean)</em> If true and the target is an <code>.input-field</code>, the target will be changed to the <code>.field-item-input</code>. This will place the panel only under the input itself, rather than the both input and any addons it might have. <strong>Default:</strong> true</li>
+<li><strong>hideFields</strong> <em>(string[])</em> An array of name attributes matching elements in the panel source to remove. This is useful when you are cloning multiple panels from the same source and don&rsquo;t need all of the elements.</li>
+<li><strong>offset</strong> <em>(object)</em><ul>
+<li><strong>top</strong> <em>(number)</em> Additional offset spacing, in px, between the bottom of the target and the top of the dropdown. <strong>Default:</strong> 0</li>
+<li><strong>left</strong> <em>(number)</em> Additional offset spacing, in px, between the left side of the target and the left side of the dropdown. <strong>Default:</strong> 0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><strong>getClassNames()</strong> Returns the class names for the target and focus elements in a object in the format <code>{target:(string), focus:(string)}</code>.</li>
+<li><strong>getId()</strong> Returns the drop down panel id integer. Each created panel will have its own unique id.</li>
+<li><strong>isOpened()</strong> Returns open status</li>
+<li><strong>detach()</strong> Disconnects the panel from the target, focusTarget, and DOM. To use the panel again it must be attached to another element.</li>
+<li><strong>attach(<em>jquery object</em> newTarget, <em>jquery object</em> newFocusTarget)</strong> Connects the panel to the newTarget as the target, newFocusTarget as the focusTarget, and inserts the wrapper into the DOM in the correct location. This is done when the panel is first created, but can be called afterwards in order to change the targets. If the panel has targets, it will be detached from those targets first. </li>
+<li><strong>open()</strong> Positions the panel and then makes it visible.</li>
+<li><strong>close()</strong> Hides the panel.</li>
+</ul>
+</li>
+<li>Events<br />
+<strong>beforeopen(null,<em>jquery object</em> panel, <em>object</em> newPositionCss)</strong> Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.<br />
+<strong>afteropen</strong> Triggered after the panel is positioned and shown.<br />
+<strong>beforeclose</strong> Triggered before the panel is closed. If the default is prevented the panel will not hidden.<br />
+<strong>afterclose</strong> Triggered after the panel is hidden.</li>
+</ul>
 <h2 id="customization"><a name="user-content-customization" href="#customization" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Customization</h2>
 <h3 id="custom-type"><a name="user-content-custom-type" href="#custom-type" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Custom type</h3>
 <p>To add a type, you must extend the <code>$.formBuilder.inputField.types</code> object with a new type object.</p>

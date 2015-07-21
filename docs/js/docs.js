@@ -12,22 +12,6 @@ $('.example').each(function(){
 	}
 });
 
-//- Declaring test codes for data-type 'code'
-var testCodes = [ 
-	{"value":"submitted to form", "label":"Searched Item"},
-	{"value":"true", "label":"Yes"},
-	{"value":"false", "label":"No"},
-	{"value":"5", "label":"option 1"},
-	{"value":"2", "label":"option 2"},
-	{"value":"3", "label":"option 3"},
-	{"value":"4", "label":"option 4"},
-	{"value":"5", "label":"option 5"},
-	{"value":"100",  "label":"Some label"},
-	{"value":"AAA",  "label":"123 Some St."},
-	{"value":"BBB",  "label":"Some Business Name Inc."},
-	{"value":"Hodor",  "label":"Bran"}
-];
-
 //- Adding simple regex types
 $.extend($.formBuilder.inputField.types,{
 	'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
