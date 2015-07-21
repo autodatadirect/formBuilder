@@ -1036,7 +1036,6 @@ body .markdown-body
 <li><a href="#label">Label</a></li>
 <li><a href="#tooltips">Tooltips</a></li>
 <li><a href="#input-field-data-types">Input Field Data Types</a></li>
-<li><a href="#code-input">Code Input</a></li>
 <li><a href="#select-input">Select Input</a></li>
 </ul>
 </li>
@@ -1188,27 +1187,6 @@ body .markdown-body
 </ul>
 <h4 id="adding-custom-types"><a name="user-content-adding-custom-types" href="#adding-custom-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Adding Custom Types</h4>
 <p>The user can add custom types to the form by adding their desired regular expression and a new type name. In order to do this is it necessary to utilize the createRegexType function. It may also be necessary to override the setUp and validate functions in order to meet the specific needs of the type. See <a href="customization">Customization</a>.</p>
-<h3 id="code-input"><a name="user-content-code-input" href="#code-input" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Code Input</h3>
-<p>A field with <strong>data-type=&rdquo;code&rdquo;</strong> requires a user to input a <em>value</em> that has a corresponding <em>label</em>. A user may type a word and labels containing that word will be shown in a dropdown. When a dropdown label is clicked, it&rsquo;s code  replaces the input value.</p>
-<ul>
-<li>The typed value must be valid, or the field will be marked as invalid.</li>
-<li>The field <em>must</em> have a <strong>data-codes</strong> attribute containing a JavaScript variable name of an array of objects with a <em>value</em> and <em>label</em>. You must then declare and initialize the variable in JavaScript <strong><em>before</em></strong> formBuilder is initialized.</li>
-</ul>
-<p><em>HTML</em><br />
-<pre><code class="html">&lt;form&gt;
-    &lt;input data-type=&quot;code&quot; data-codes=&quot;testCodes&quot;&gt;
-&lt;/form&gt;
-</code></pre><br />
-<em>JavaScript</em><br />
-<pre><code class="javascript">var testCodes = [
-    {value:'what the user types', label:'what the user sees in the dropdown'},
-    {value:'100',  label:'Some label'},
-    {value:'AAA',  label:'123 Some St.'},
-    {value:'BBB',  label:'Some Business Name Inc.'},
-    {value:'Hodor',  label:'Bran'}
-];
-form.formBuilder();
-</code></pre></p>
 <h3 id="select-input"><a name="user-content-select-input" href="#select-input" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Select Input</h3>
 <p>Instead of using a normal select tag, you can use an <em>input</em> tag with <strong>data-type=&rdquo;select&rdquo;</strong>. It has the basic functions of a select tag, but with more functionality. When clicked, a dropdown appears with sorted option labels (scrollable vertically and horizontally) for the user choose. It also has a search box the user can use to quickly find a label. </p>
 <ul>

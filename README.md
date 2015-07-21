@@ -19,7 +19,6 @@ formBuilder
     - [Label](#label)
     - [Tooltips](#tooltips)
     - [Input Field Data Types](#input-field-data-types)
-    - [Code Input](#code-input)
     - [Select Input](#select-input)
 - [Array Fields](#array-fields)
 - [Text Submitter](#text-submitter)
@@ -163,30 +162,6 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
 
 #### Adding Custom Types
 The user can add custom types to the form by adding their desired regular expression and a new type name. In order to do this is it necessary to utilize the createRegexType function. It may also be necessary to override the setUp and validate functions in order to meet the specific needs of the type. See [Customization](customization).
-
-### Code Input
-A field with **data-type="code"** requires a user to input a *value* that has a corresponding *label*. A user may type a word and labels containing that word will be shown in a dropdown. When a dropdown label is clicked, it's code  replaces the input value.
-
-* The typed value must be valid, or the field will be marked as invalid.
-* The field *must* have a **data-codes** attribute containing a JavaScript variable name of an array of objects with a *value* and *label*. You must then declare and initialize the variable in JavaScript ***before*** formBuilder is initialized.
-
-*HTML*
-```html
-<form>
-    <input data-type="code" data-codes="testCodes">
-</form>
-```
-*JavaScript*
-```javascript
-var testCodes = [
-    {value:'what the user types', label:'what the user sees in the dropdown'},
-    {value:'100',  label:'Some label'},
-    {value:'AAA',  label:'123 Some St.'},
-    {value:'BBB',  label:'Some Business Name Inc.'},
-    {value:'Hodor',  label:'Bran'}
-];
-form.formBuilder();
-```
 
 ### Select Input
 Instead of using a normal select tag, you can use an *input* tag with **data-type="select"**. It has the basic functions of a select tag, but with more functionality. When clicked, a dropdown appears with sorted option labels (scrollable vertically and horizontally) for the user choose. It also has a search box the user can use to quickly find a label. 

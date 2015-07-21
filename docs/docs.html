@@ -47,7 +47,6 @@
           <li name="dataTypes"><a href="#dataTypes">Data Types</a>
             <ul class="navDepth-1">
               <li name="dataTypes-inputTypes"><a href="#dataTypes-inputTypes">Input Types</a></li>
-              <li name="dataTypes-codes"><a href="#dataTypes-codes">Codes</a></li>
               <li name="dataTypes-select"><a href="#dataTypes-select">Select</a></li>
               <li name="dataTypes-textarea"><a href="#dataTypes-textarea">Textarea</a></li>
               <li name="dataTypes-arrayField"><a href="#dataTypes-arrayField">Array Field</a></li>
@@ -589,23 +588,6 @@
             <div class="example">
               <input type="text" data-label="tmsQuantityUnit" data-type="tmsQuantityUnit"><span>Autocomplete for common units. Any text can be entered, it just suggests some.</span>
             </div>
-          </div>
-          <h2><a name="dataTypes-codes" href="#dataTypes-codes" class="anchor"></a>Codes</h2>
-          <div class="section">
-            <p>The user must type a code in that matches the a value of an object in a defined <i>codeArray</i>. <br>Element attributes <i>data-type='code' data-codes='[yourCodeArrayVariableName]'</i><br>In JS, <b>before the formBuilder is initialized</b>
-              <div class="example">
-                <input type="text" data-label="code initialized w/ js" data-type="code" data-codes="testCodes">
-              </div>
-              <div data-mode="javascript" class="code">
-                var yourCodeArrayVariableName = [
-                	{"value":"what the user types 1", "label":"what the user sees 1"},
-                	{"value":"what the user types 2", "label":"what the user sees 2"},
-                									...
-                	{"value":"what the user types n-1", "label":"what the user sees n-1"},
-                	{"value":"what the user types n", "label":"what the user sees n"}
-                ];
-              </div>
-            </p>
           </div>
           <h2><a name="dataTypes-select" href="#dataTypes-select" class="anchor"></a>Select</h2>
           <div class="section">
