@@ -45,6 +45,18 @@ describe('An inputField', function(){
 		expect(field[0]).toEqual(input.parent().parent().parent('.input-field')[0]);
 	});
 
+	it('can initialize', function(){
+		var input = $('<input type="text" value="test"/>').wrap('<div/>').inputField();
+		var ifw = input.data('formBuilderInputField');
+
+		var spy = spyOn(ifw, 'set').and.callThrough();
+
+		ifw._init();
+
+		expect(spy).toHaveBeenCalled();
+		expect(ifw.get()).toBe('test');
+	});
+
 	it('can toggle an individual layer', function(){
 
 		var input = $('<input type="text"/>');
@@ -138,7 +150,30 @@ describe('An inputField', function(){
 			});
 		});
 
-		it('after a failed dirty check');
+		it('after a failed dirty check', function(done){
+			var input = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw; 
+			ifw = input.data('formBuilderInputField');
+
+			input.val('test');
+			input.trigger('change');
+			expect(ifw.isDirty()).toBe(true);
+
+			input.prevValue = '';
+			input.val('');
+
+			spyOn(ifw, 'redraw').and.callThrough();
+
+			ifw.checkDirty();
+
+			pause(triggerWaitTime + 400)
+			.then(function(){
+				expect(ifw.redraw).toHaveBeenCalled();
+				expect(ifw.redraw.calls.count()).toBe(1);
+
+				done();
+			});
+		});
 	});
 
 
@@ -694,10 +729,54 @@ describe('An inputField', function(){
 		
 	});
 
-	xdescribe('can handle clean or dirty states', function(){
-		// Do when dirty is actually working
-		it('by setting to dirty on change');
-		it('by clearing the dirty state');
+	describe('can handle clean or dirty states', function(){
+		it('by setting to dirty on change', function(){
+			var input = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw; 
+			ifw = input.data('formBuilderInputField');
+
+			expect(ifw.isDirty()).toBe(false);
+			input.val('test');
+			input.trigger('change');
+			expect(ifw.isDirty()).toBe(true);
+
+			testContainer.empty();
+		});
+
+		it('by clearing the dirty state', function(){
+			var input = $('<input type="text"/>').appendTo(testContainer).inputField();
+			var ifw; 
+			ifw = input.data('formBuilderInputField');
+
+			expect(ifw.isDirty()).toBe(false);
+			input.val('test');
+			input.trigger('change');
+			expect(ifw.isDirty()).toBe(true);
+
+			ifw.clearDirty();
+			expect(ifw.isDirty()).toBe(false);
+
+			testContainer.empty();
+		});
+	});
+
+	it('that can validate on blur', function(done){
+		var input = $('<input type="text"/>').inputField();
+		var ifw; 
+		ifw = input.data('formBuilderInputField');
+
+		var spy = spyOn(ifw, 'validate').and.callThrough();
+
+		ifw._onBlur();
+
+		pause(triggerWaitTime)
+		.then(function(){
+			expect(spy).toHaveBeenCalled();
+			expect(ifw.validate()).toBe(true);
+
+			done();
+		});
+
 	});
 
 	it('can clear its value', function(){
@@ -741,6 +820,64 @@ describe('An inputField', function(){
 			done();
 		});
 
+	});
+
+	it('can handle conflicts', function(){
+		var input = $('<input type="text"/>').wrap('<div/>').inputField();
+		var ifw = input.data('formBuilderInputField');
+
+		var conflicts;
+
+		var result = {
+			key: undefined, 
+			vOld: 'test', 
+			vNew: 'test'
+		};
+
+		input.val('test');
+		input.trigger('change');
+		expect(ifw.isDirty()).toBe(true);
+
+		conflicts = ifw.conflicts('test');
+		expect(conflicts).toEqual(result);
+
+		ifw.clearDirty();
+
+		conflicts = ifw.conflicts('test2');
+		expect(conflicts).toEqual(null);
+
+	});
+
+	it('can return a value', function(){
+		var input = $('<input type="text"/>').wrap('<div/>').inputField();
+		var ifw = input.data('formBuilderInputField');
+
+		var spy_set = spyOn(ifw, 'set').and.callThrough();
+		var spy_get = spyOn(ifw, 'get').and.callThrough();
+
+		ifw.value('test');
+
+		expect(spy_set).toHaveBeenCalled();
+		expect(ifw.get()).toBe('test');
+
+		input.val('test2');
+
+		var result = ifw.value();
+
+		expect(result).toBe('test2');
+		expect(spy_get).toHaveBeenCalled(); 
+
+	});
+
+	it('can return if it is empty', function(){
+		var input = $('<input type="text"/>').wrap('<div/>').inputField();
+		var ifw = input.data('formBuilderInputField');
+
+		expect(ifw.isEmpty()).toBe(true);
+
+		input.val('test');
+
+		expect(ifw.isEmpty()).toBe(false);
 	});
 
 	describe('can have an error message in the input box', function(){
@@ -842,17 +979,16 @@ describe('An inputField', function(){
 			expect(type).toBe(testType);
 		});
 
-		xit('that can bet set with a function (if the type exists)', function(){
+		it('that can be set with a function (if the type exists)', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
 			var ifw = input.data('formBuilderInputField');
 
 			ifw.setType(testType);
 			expect(ifw.getType()).not.toBe(testType);
 
-			console.log('about to call set type');
 			ifw.setType('utext');
-			// console.log('about to call get type');
-			expect(ifw.getType()).toBe($.formBuilder.inputField.types.utext);
+
+			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.utext)).toBe(true);
 		});
 
 		it('that be set with an attribute', function(){
@@ -1110,8 +1246,31 @@ describe('An inputField', function(){
 		});
 	});
 
+	it('can be destroyed', function(done){
+		var input = $('<input type="text" data-type="time">').appendTo(testContainer).wrap('<div/>').inputField();
+		var ifw = input.data('formBuilderInputField');
 
-	it('can be destroyed');
+		input.trigger('focus');
 
-	
+		pause(triggerWaitTime)
+		.then(function(){
+			var element = $(document).find('.ui-timepicker-wrapper');
+
+			expect(element.length).toBe(1);
+
+			ifw.destroy();
+
+			return pause(triggerWaitTime);
+		})
+		.then(function(){
+
+			var element = $(document).find('.ui-timepicker-wrapper');
+
+			expect(element.length).toBe(0);
+
+			testContainer.empty();
+
+			done(); 
+		});
+	});	
 });
