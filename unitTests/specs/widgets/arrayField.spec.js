@@ -16,7 +16,7 @@ describe('A formBuilder.arrayField widget', function(){
 	testCode.inputUtext = '<input data-type="utext" type="text">';
 	testCode.inputInt = '<input type="text" data-type="integer">';
 	testCode.inputEmail = '<input type="text" data-type="email">';
-	// testCode.widgetContainer = '<div name="'+testCode.name+'" data-load-widget-as-field="arrayField" data-sub-widgetName="TODO"></div>'
+	testCode.widgetContainer = '<div name="'+testCode.name+'" data-load-widget-as-field="arrayField" data-sub-widgetName="date-range-picker" data-sub-widget="dateRangePicker"></div>';
 	
 
 	describe('can be created', function(){
@@ -47,7 +47,6 @@ describe('A formBuilder.arrayField widget', function(){
 			expect(e.eq(1).text()).toBe('');
 		};
 
-
 		it('using input field items', function(){
 			var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
 			var afw = arrayField.data('formBuilder-arrayField');
@@ -59,8 +58,25 @@ describe('A formBuilder.arrayField widget', function(){
 			checkStructure(arrayField.children());
 		});
 
-		it('using sub widgets');
+		it('using sub widgets', function(){
+			var arrayField = $(testCode.widgetContainer).appendTo(testContainer).arrayField();
+			var afw = arrayField.data('formBuilder-arrayField');
 
+			var plus = $(document).find('.first.field-item.addon.clickable.array-field-add.noselect');
+			expect(plus.length).toBe(1);
+
+			var sub1 = $(document).find('.sub-field');
+			expect(sub1.length).toBe(0);
+
+			plus.click();
+
+			var sub = $(document).find('.sub-field');
+			expect(sub.length).toBe(1);
+			expect(sub.children().length).toBe(1);
+			expect(sub.children().eq(0).children().eq(0).is('.date-range-picker.form')).toBe(true);
+
+			testContainer.empty();
+		});
 
 		it('in a formBuilder form', function(){
 			var form = $('<form></form>');
@@ -98,9 +114,7 @@ describe('A formBuilder.arrayField widget', function(){
 			expect(arrayField.siblings('label').text()).toBe('some label');
 			expect(arrayField.parent().is('.input-field')).toBe(true);
 			expect(arrayField.parent().parent().is('.input-field-group'));
-		});
-
-		
+		});		
 	});
 	
 	describe('has an arrayField id', function(){
@@ -212,13 +226,8 @@ describe('A formBuilder.arrayField widget', function(){
 
 				done();
 			});
-
-
 		});
-		
-		it('rearranging on each field');
 	});
-
 
 	it('can have a message next to the add field button', function(){
 		var arrayField = $('<div name="'+testCode.name+'" data-load-widget-as-field="arrayField" data-addmessage="some message"></div>')
@@ -324,9 +333,61 @@ describe('A formBuilder.arrayField widget', function(){
 			checkMarkupItemStructure(itemView);
 		});
 
-		it('a widget item');
+		it('a widget item', function(){
+			var arrayField = $(testCode.widgetContainer).append(testCode.inputUtext).arrayField();
+			var afw = arrayField.data('formBuilder-arrayField');
+			var itemView = $(afw._arrayFieldItemTemplate);	
+			var subField, input;
 
-		it('a widget item and set its value');
+			spyOn(afw, '_trigger');
+
+			expect(itemView.find('.sub-field').html().trim()).toBe('');
+ 
+			afw._drawWidgetItem('',itemView,'dateRangePicker');
+
+			expect(afw._trigger).toHaveBeenCalled();
+			expect(afw._trigger.calls.mostRecent().args[0]).toBe('beforeadd');
+
+			subField = itemView.find('.sub-field');
+			expect(subField.length).toBe(1);
+
+			input = itemView.find('.array-field-input-'+afw.id);
+			expect(input.length).toBe(1);
+			expect(input.css('display')).toBe('inline');
+
+			checkMarkupItemStructure(itemView);
+		});
+
+		it('a widget item and set its value', function(){
+			var arrayField = $(testCode.widgetContainer).append(testCode.inputUtext).arrayField();
+			var afw = arrayField.data('formBuilder-arrayField');
+			var itemView = $(afw._arrayFieldItemTemplate);
+			var val = {
+				from: '2001-05-13',
+				to: '2001-05-13',
+				range: 'custom'
+			};
+
+			var subField, input;
+
+			spyOn(afw, '_trigger');
+
+			expect(itemView.find('.sub-field').html().trim()).toBe('');
+ 
+			afw._drawWidgetItem(val,itemView,'dateRangePicker');
+
+			expect(afw._trigger).toHaveBeenCalled();
+			expect(afw._trigger.calls.mostRecent().args[0]).toBe('beforeadd');
+
+			subField = itemView.find('.sub-field');
+			expect(subField.length).toBe(1);
+
+			input = itemView.find('.array-field-input-'+afw.id);
+			expect(input.length).toBe(1);
+			expect(input.css('display')).toBe('inline');
+
+			checkMarkupItemStructure(itemView);
+		});
 
 		it('a field item as an inputField', function(){
 			var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
@@ -343,9 +404,27 @@ describe('A formBuilder.arrayField widget', function(){
 			expect(itemView.is('.input-field-group.array-field-item')).toBe(true);
 		});
 
-		xit('a field item as a sub widget');
-	});
+		it('a field item as a sub widget', function(){
+			var arrayField = $(testCode.widgetContainer).arrayField();
+			var afw = arrayField.data('formBuilder-arrayField');
+			var itemView;
 
+			spyOn(afw, '_drawInternalMarkupItem');
+			spyOn(afw, '_drawWidgetItem');
+
+			var val = {
+				from: '2001-05-13',
+				to: '2001-05-13',
+				range: 'custom'
+			};
+
+			itemView = afw.drawItem(val);
+
+			expect(afw._drawWidgetItem).toHaveBeenCalled();
+			expect(afw._drawInternalMarkupItem).not.toHaveBeenCalled();
+			expect(itemView.is('.input-field-group.array-field-item')).toBe(true);
+		});
+	});
 
 	it('can add a field item to its array', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
@@ -367,8 +446,7 @@ describe('A formBuilder.arrayField widget', function(){
 		afw.itemsContent.children().each(function(i, item){
 			expect($(item).is('.input-field-group.array-field-item')).toBe(true);
 			expect($(item).find('.sub-field input').is('.array-field-input-'+afw.id+':formBuilder-inputField')).toBe(true);
-		});
-		
+		});	
 	});
 
 	it('can add a field item to its array at a specified index and value', function(){
@@ -422,9 +500,6 @@ describe('A formBuilder.arrayField widget', function(){
 
 		expect(afw.itemsContent.is(':ui-sortable')).toBe(true);
 	});
-
-
-
 
 	it('get the instances of all the field items in its array', function(){
 		var arrayField = $(testCode.container).append(testCode.inputInt).arrayField();
@@ -529,8 +604,24 @@ describe('A formBuilder.arrayField widget', function(){
 
 	});
 
-	// Not sure how to actually test this
-	it('can flash itself and all the field items in its array');
+	it('can flash itself and all the field items in its array', function(){
+		var arrayField = $(testCode.container).appendTo(testContainer).append(testCode.inputEmail).arrayField();
+		var afw = arrayField.data('formBuilder-arrayField');
+
+		var plus = $(document).find('.first.field-item.addon.clickable.array-field-add.noselect');
+		expect(plus.length).toBe(1);
+
+		plus.click();
+		plus.click();
+
+		var element = $(document).find('.input-field.undefined');
+
+		afw.flash();
+
+		expect(element.is('.flash')).toBe(true);
+
+		testContainer.empty();
+	});
 
 	it('can clear the values of itself and all the field items in its array', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();

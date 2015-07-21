@@ -224,8 +224,6 @@ describe('An inputFilter', function(){
 		});
 	});
 
-	
-
 	describe('can manually type a char', function(){
 		// uses caret
 		
