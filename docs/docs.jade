@@ -1,0 +1,275 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		title jquery.formBuilder.js | Documentation
+
+		// ==================== External CSS Dependencies ==================== 
+		// Any jquery-ui theme
+		link(type='text/css' rel='stylesheet' href='http://code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css')
+		
+		// ==================== bower CSS Dependencies ==================== 
+		link(type='text/css' rel='stylesheet' href='../bower_components/normalize.css/normalize.css')
+		link(type='text/css' rel='stylesheet' href='../bower_components/jquery-timepicker-jt/jquery.timepicker.css')
+		link(type='text/css' rel='stylesheet' href='../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css')
+
+
+		// ==================== formBuilder CSS Dependencies ==================== 
+		link(type='text/css' rel='stylesheet' href='../dist/css/formBuilder.css')
+
+		// Display purposes
+		link(type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans')
+		link(type='text/css' rel='stylesheet' href='./css/codemirror.css')
+		link(type='text/css' rel='stylesheet' href='./css/monokai.css')
+		link(type='text/css' rel='stylesheet' href='./css/docs.css')
+
+	body
+		.header
+			.title jQuery.formBuilder
+			.links
+				a.travis(href='https://travis-ci.org/autodatadirect/formBuilder')
+					img(src='https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master')
+				a.github(href='https://github.com/autodatadirect/formBuilder')
+					img(src='./img/GitHub-Mark-Light-32px.png')
+		.container
+			.sideNav
+				ul.navDepth-0
+					li.current(name='baseForm')
+						a(href='#') Base Form
+						ul.navDepth-1
+							li.current(name='baseForm-applyingFormBuilder'): a(href='#baseForm-applyingFormBuilder') Applying the formBuilder
+							li(name='baseForm-requiredInputs'): a(href='#baseForm-requiredInputs') Required Inputs
+
+					li(name='fieldEnhancements')
+						a(href='#fieldEnhancements') Field Enhancements
+						ul.navDepth-1
+							li(name='fieldEnhancements-preinputPostinput'): a(href='#fieldEnhancements-preinputPostinput') Preinput/Postinput
+							li(name='fieldEnhancements-prefixSuffix'): a(href='#fieldEnhancements-prefixSuffix') Prefix/Suffix
+							li(name='fieldEnhancements-labels'): a(href='#fieldEnhancements-labels') Labels
+							li(name='fieldEnhancements-placeholderText'): a(href='#fieldEnhancements-placeholderText') Placeholder Text
+							li(name='fieldEnhancements-max'): a(href='#fieldEnhancements-max') Max
+							li(name='fieldEnhancements-inputGroups'): a(href='#fieldEnhancements-inputGroups') Input Groups
+							li(name='fieldEnhancements-tooltip'): a(href='#fieldEnhancements-tooltip') Tooltip
+							li(name='fieldEnhancements-dropDownPanel'): a(href='#fieldEnhancements-dropDownPanel') Drop Down Panel
+					
+					li(name='dataTypes')
+						a(href='#dataTypes') Data Types
+						ul.navDepth-1
+							li(name='dataTypes-inputTypes'): a(href='#dataTypes-inputTypes') Input Types
+							li(name='dataTypes-codes'): a(href='#dataTypes-codes') Codes
+							li(name='dataTypes-select'): a(href='#dataTypes-select') Select
+							li(name='dataTypes-textarea'): a(href='#dataTypes-textarea') Textarea
+							li(name='dataTypes-arrayField'): a(href='#dataTypes-arrayField') Array Field
+							li(name='dataTypes-textSubmitter'): a(href='#dataTypes-textSubmitter') Text Submitter
+					
+					li(name='customization')
+						a(href='#customization') Customization
+						ul.navDepth-1
+							li(name='customization-regexTypes'): a(href='#customization-regexTypes') Creating Simple Regex Types
+							li(name='customization-fullTypes'): a(href='#customization-fullTypes') Creating Full Custom Types
+					
+					li(name='unsupported')
+						a(href='#unsupported') Unsupported
+						ul.navDepth-1
+							li(name='unsupported-checkbox'): a(href='#unsupported-checkbox') Checkboxes
+							li(name='unsupported-radio'): a(href='#unsupported-radio') Radio Buttons
+
+					li(name='demo')
+						a(href='#demo') Live Demo
+						ul.navDepth-1
+							li(name='demo-form'): a(href='#demo-form') Form
+							li(name='demo-results'): a(href='#demo-results') Results
+							li(name='demo-source'): a(href='#demo-source') Source
+					
+					
+					//- TEMPORARY FOR TESTING PURPOSES
+					li(name='newTypes')
+						a(href='#newTypes') New Types
+
+			.content
+				h1
+					a.anchor(name='baseForm' href='#baseForm')
+					| Base Form 
+				.section
+					h2
+						a.anchor(name='baseForm-applyingFormBuilder' href='#baseForm-applyingFormBuilder')
+						| Applying the formBuilder
+					.section: include content/baseForm/applyingFormBuilder
+					
+					h2
+						a.anchor(name='baseForm-requiredInputs' href='#baseForm-requiredInputs')
+						| Required Inputs
+					.section: include content/baseForm/requiredInputs
+
+
+
+
+
+
+				h1
+					a.anchor(name='fieldEnhancements' href='#fieldEnhancements')
+					| Field Enhancements
+				.section
+					h2
+						a.anchor(name='fieldEnhancements-preinputPostinput' href='#fieldEnhancements-preinputPostinput')
+						| Preinput/Postinput
+					.section: include content/fieldEnhancements/preinputPostinput
+
+					h2
+						a.anchor(name='fieldEnhancements-prefixSuffix' href='#fieldEnhancements-prefixSuffix')
+						| Prefix/Suffix
+					.section: include content/fieldEnhancements/prefixSuffix
+					
+					h2
+						a.anchor(name='fieldEnhancements-labels' href='#fieldEnhancements-labels')
+						| Labels
+					.section: include content/fieldEnhancements/labels
+					
+
+					h2
+						a.anchor(name='fieldEnhancements-placeholderText' href='#fieldEnhancements-placeholderText')
+						| Placeholder Text
+					.section: include content/fieldEnhancements/placeholderText	
+
+					h2
+						a.anchor(name='fieldEnhancements-max' href='#fieldEnhancements-max')
+						| Max
+					.section: include content/fieldEnhancements/max
+					
+					h2
+						a.anchor(name='fieldEnhancements-inputGroups' href='#fieldEnhancements-inputGroups')
+						| Input Groups
+					.section: include content/fieldEnhancements/inputGroups
+					
+					h2
+						a.anchor(name='fieldEnhancements-tooltip' href='#fieldEnhancements-tooltip')
+						| Tooltip
+					.section: include content/fieldEnhancements/tooltip
+
+					h2
+						a.anchor(name='fieldEnhancements-dropDownPanel' href='#fieldEnhancements-dropDownPanel')
+						| Drop Down Panel
+					.section: include content/fieldEnhancements/dropDownPanel
+					
+
+
+
+
+
+				h1
+					a.anchor(name='dataTypes' href='#dataTypes')
+					| Data Types
+				.section
+					h2
+						a.anchor(name='dataTypes-inputTypes' href='#dataTypes-inputTypes')
+						| Input Types
+					.section: include content/dataTypes/inputTypes
+					
+					h2
+						a.anchor(name='dataTypes-codes' href='#dataTypes-codes')
+						| Codes
+					.section: include content/dataTypes/codes
+					
+					h2
+						a.anchor(name='dataTypes-select' href='#dataTypes-select')
+						| Select
+					.section: include content/dataTypes/select
+
+					h2
+						a.anchor(name='dataTypes-textarea' href='#dataTypes-textarea')
+						| Textarea
+					.section: include content/dataTypes/textarea
+					
+					h2
+						a.anchor(name='dataTypes-arrayField' href='#dataTypes-arrayField')
+						| Array Field
+					.section: include content/dataTypes/arrayField
+					
+					h2
+						a.anchor(name='dataTypes-textSubmitter' href='#dataTypes-textSubmitter')
+						| Text Submitter
+					.section: include content/dataTypes/textSubmitter
+				
+
+
+
+
+
+
+				h1
+					a.anchor(name='customization' href='#customization')
+					| Customization
+				.section
+					h2
+						a.anchor(name='customization-regexTypes' href='#customization-regexTypes')
+						| Creating Simple Regex Types
+					.section: include content/customization/regexTypes
+					
+					h2
+						a.anchor(name='customization-fullTypes' href='#customization-fullTypes')
+						| Creating Full Custom Types
+					.section: include content/customization/fullTypes
+				
+
+
+
+
+
+
+
+				h1
+					a.anchor(name='unsupported' href='#unsupported')
+					| Unsupported
+				.section
+					h2
+						a.anchor(name='unsupported-checkbox' href='#unsupported-checkbox')
+						| Checkboxes
+					.example: input(type='checkbox' data-label='Checkbox Test 3')
+
+					h2
+						a.anchor(name='unsupported-radio' href='#unsupported-radio')
+						| Radio Buttons
+					.example: input(type='radio' data-label='Radio Test 3')
+
+
+
+
+
+
+				h1
+					a.anchor(name='demo' href='#demo')
+					| Live Demo
+				.section: include content/demo
+
+
+
+
+				h1
+					a.anchor(name='newTypes' href='#newTypes')
+					| New Types
+				.section
+					.example
+						.dateRange
+					.example
+						.dateTimeRange
+				
+				
+
+
+		//- JavaScript
+		// Bower JS Dependencies (using CDNs for demo)
+		script(type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js')
+		script(type='text/javascript' src='../bower_components/jquery-ui/ui/minified/jquery-ui.min.js')
+		script(type='text/javascript' src='../bower_components/moment/min/moment.min.js')
+		script(type='text/javascript' src='../bower_components/spinjs/spin.min.js')
+		script(type='text/javascript' src='../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')
+		script(type='text/javascript' src='../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js')
+
+		// formBuilder Dependencies
+		script(type='text/javascript' src='../dist/jquery.formBuilder.min.js')
+
+		// Extra for displaying
+		script(type='text/javascript' src='./js/codemirror.js')
+		script(type='text/javascript' src='./js/codemirror-compressed.js')
+		script(type='text/javascript' src='./js/docs.js')
+

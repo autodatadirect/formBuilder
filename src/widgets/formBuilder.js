@@ -373,14 +373,14 @@
 
 			self.fields.each(function() {
 				var el = $(this);
-				if(el.is(':visible') && el.inputField('validate') === false){
+				if((!self.ignoreHidden || el.is(':visible')) && el.inputField('validate') === false){
 					valid = false;
 				}
 			});
 
 			self.fieldsWidgets.each(function() {
 				var el = $(this);
-				if(el.is(':visible') && self._proxyCommandToWidget(el, 'validate') === false){
+				if((!self.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, 'validate') === false){
 					valid = false;
 				}
 			});

@@ -6,6 +6,14 @@ a, a:hover, a:active, a:visited {
 	text-decoration: none;
 }
 
+button {
+	cursor: pointer;
+}
+button:disabled {
+	cursor: not-allowed;
+	opacity: .7;
+}
+
 
 
 /********************************************************
@@ -180,9 +188,11 @@ ul.navDepth-1 li.current {
 }
 
 .anchor {
-	/*display: none;*/
 	position: absolute;
-	/*top: -2em;*/
+}
+
+.content .section {
+	margin-bottom: 4em;
 }
 
 
@@ -287,7 +297,7 @@ ul.navDepth-1 li.current {
  /********************************************************
  * dropDownPanel testing
  */
-.dropDownPanelTarget3 {
+#ddpBasicTarget0 {
 	background-color: #3D2B56;
 	color: #FFF;
 	margin: .2em;

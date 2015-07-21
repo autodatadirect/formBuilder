@@ -1,0 +1,43 @@
+p You can use array fields in a formBuilder form to allow variable amounts of the same input-field-group to be submitted.
+	ul
+		li Items can be added to the array with the bottom '+' addon.
+		li Items can be reordered with the left '::' addon.
+		li Items can be removed from the arrray with the right addon icon.
+		li The main div must have a name attribute
+
+p This is a basic example of an arrayField of an input-field-group containing a utext input.
+.example
+	div(name='arrayFieldExampleSimple' data-load-widget-as-field='arrayField')
+		input(type='text' data-type='utext' data-placeholder='a utext input')
+.code(data-mode='html').
+	<div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField">
+		<input type="text" data-type="utext" data-placeholder="a utext input">
+	</div>
+//- 
+
+p By adding more inputs to the arrayField div, you add more inputs to the input-field-group. (this might not actually work)
+.example
+	div(name='arrayFieldExampleMultiple' data-load-widget-as-field='arrayField')
+		input(type='text' data-type='utext' data-placeholder='a utext input')
+		input(type='text' data-type='date')
+
+
+p You can add a message next to the add button using the <b>data-addmessage</b> attribute.
+.example
+	div(name='arrayFieldExampleMessage' data-load-widget-as-field='arrayField' data-addmessage='Some added message')
+		input(type='text' data-type='utext')
+.code(data-mode='html').
+	<div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
+		<input type="text" data-type="utext">
+	</div>
+//- 
+
+p ArrayFields can have labels like other fields
+.example
+	div(name='arrayFieldExampleLabel' data-load-widget-as-field='arrayField' data-label='Some label')
+		input(name='someInput', type='text' data-type='utext')
+.code(data-mode='html').
+	<div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-label="Some label">
+		<input type="text" data-type="utext">
+	</div>
+//- 
