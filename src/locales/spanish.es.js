@@ -7,11 +7,17 @@
  * This is included by default
  */
 
-(function($){
+(function($) {
 	'use strict';
 
-	var code = 'es',
-		lang;
+	// Code used by formBuilder to select the language
+	var code = 'es';
+
+	// Accepted language codes from the browser 
+	var acceptedCodes = [
+		'es',
+		'spa'
+	];
 
 	/**
 	 * Make sure language structure is setup
@@ -24,7 +30,7 @@
 		$.formBuilder.util = {};
 	}
 
-	lang = $.formBuilder.util.lang;
+	var lang = $.formBuilder.util.lang;
 
 	if(!lang) {
 		lang = $.formBuilder.util.lang = {};
@@ -34,6 +40,30 @@
 	}
 	if(!lang.locales[code]) {
 		lang.locales[code] = {};
+	}
+
+	// Check for accepted code
+	if(typeof(lang.code) === 'undefined') {
+		var browserCode; // like 'en-US'
+
+		// Chrome, Firefox, Opera, Safari, IE 11+ (desktop only)
+		browserCode = navigator.language;
+		
+		// Other IE support
+		if(!browserCode) { browserCode = navigator.userLanguage; }
+		if(!browserCode) { browserCode = navigator.browserLanguage; }
+		if(!browserCode) { browserCode = navigator.systemLanguage; }
+
+		if(browserCode) {
+			// Extract language code (optional)
+			var dashIndex = browserCode.indexOf('-');
+			browserCode = browserCode.slice(0, (dashIndex > 0)? dashIndex : undefined);
+
+			if(acceptedCodes.indexOf(browserCode) !== -1) {
+				lang.code = code;
+			}
+
+		}
 	}
 
 	/**
@@ -61,7 +91,7 @@
 	 * Extension language support
 	 */
 	// Datepicker
-	$.fn.datepicker.dates.es = {
+	$.fn.datepicker.dates[code] = {
 		days: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
 		daysShort: ['Dom', 'Lun', 'Mar', 'Mi&eacute;', 'Juv', 'Vie', 'S&aacute;b'],
 		daysMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
@@ -71,5 +101,6 @@
 		clear: "Borre",
 		rtl: false
 	};
+	
 
 })(jQuery);

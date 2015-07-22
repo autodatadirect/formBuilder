@@ -68,31 +68,19 @@
 		util.lang = {};
 	}
 
-	// TODO: Make this actually change everything in the code
-	if(typeof(util.lang.setLanguage) === 'undefined') {
-		util.lang.setLanguage = function(code) {
-			var lang = util.lang;
-
-			if(!code || !lang.locales[code]) {
-				// Default to english
-				code = 'en';
-			}
-
-			if(!lang.dict) {
-				// Initialize the dictonary
-				lang.dict = {};
-			} 
-
-			// Override and/or add the words into the dictionary
-			$.extend(true, lang.dict, lang.locales[code]);
-
-			// Update the language code
-			lang.code = code;
-		};
+	// Set the language
+	var lang = util.lang;
+	if(typeof(lang.code) === 'undefined' || !lang.locales[lang.code]) {
+		lang.code = 'en';
 	}
 
-	// Set language (english by default)
-	util.lang.setLanguage();
+	// Create dictionary, based off of english and then replacing them with new words (prevents missing words)
+	lang.dict = {};
+	$.extend(true, lang.dict, lang.locales.en);
+	if(lang.code !== 'en') {
+		$.extend(true, lang.dict, lang.locales[lang.code]);
+	}
+	
 
 	/*
 	 * Retrieve from a namespace given the dot-notated key
