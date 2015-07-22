@@ -19,6 +19,7 @@
 	'use strict';
 
 	var types = $.formBuilder.inputField.types;
+	var dict = $.formBuilder.lang.dict;
 
 	var cannedFormatters = {
 		trim: function(val) {
@@ -41,7 +42,7 @@
 			validate: function(ui) {
 				if(!ui.element.val().match(pattern)) {
 					return {
-						message: 'invalid'
+						message: dict.invalid
 					};
 				}
 			}

@@ -4,20 +4,19 @@
  * It adds a secondary addon to the right to specify number type.
  */
 
-/* global util:true */
 (function($){
 	'use strict';
 	
 	var types = $.formBuilder.inputField.types;
-	var util = $.formBuilder.util;
+	var dict = $.formBuilder.lang.dict;
 
 	types.tmsPhone = $.extend({}, types.phone, {
 		_phoneTypeTemplate:
 				'<div class="phone-type-form" style="padding: 1px;">' +
-					'<div class="phone-type clickable" data-code="mobile" ><span class="fb-icon fb-icon-iphone"> '+util.lang.dict.mobile+'</span></div>' +
-					'<div class="phone-type clickable" data-code="home"><span class="fb-icon fb-icon-home"> '+util.lang.dict.home+'</span></div>' +
-					'<div class="phone-type clickable" data-code="work"><span class="fb-icon fb-icon-office"> '+util.lang.dict.work+'</span></div>' +
-					'<div class="phone-type clickable" data-code="fax"><span class="fb-icon fb-icon-print"> '+util.lang.dict.fax+'</span></div>' +
+					'<div class="phone-type clickable" data-code="mobile" ><span class="fb-icon fb-icon-iphone"> '+dict.mobile+'</span></div>' +
+					'<div class="phone-type clickable" data-code="home"><span class="fb-icon fb-icon-home"> '+dict.home+'</span></div>' +
+					'<div class="phone-type clickable" data-code="work"><span class="fb-icon fb-icon-office"> '+dict.work+'</span></div>' +
+					'<div class="phone-type clickable" data-code="fax"><span class="fb-icon fb-icon-print"> '+dict.fax+'</span></div>' +
 				'</div>',
 
 		setUp: function(inputWidget) {
@@ -104,7 +103,7 @@
 				icon = type = 'home';
 			}
 
-			self.desc.html('<span class="fb-icon fb-icon-' + icon + '"> ' + util.lang.dict[type] + '</span>');
+			self.desc.html('<span class="fb-icon fb-icon-' + icon + '"> ' + dict[type] + '</span>');
 			self.type = type;
 		},
 

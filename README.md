@@ -135,7 +135,6 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
 
 #### Normal Form Types:
 * **text** - *For normal text with no extra formatting or validation.* Default data-type.
-* **tmsFullname** - An extension of the utext data type. All input is converted into all-caps. Requires two or more names that are separated by a space. Allows commas, hyphens, and apostrophes but only one comma or hyphen and up to three apostrophes. Does not allow any other symbol. Does not accept integers.
 * **utext** - *For uppercase text.* If a user types in lowercase text, it is automatically converted to uppercase.
 * **integer** - *For digits [0-9].* If a user types in a non-digit, the form field will flash and the input will be ignored.
 * **number** - *For integers or decimal numbers [[0-9].].* If multiple decimal points are added the field is marked as invalid. If the user types in an invalid character, the field will flash and the input will be ignored.
@@ -153,7 +152,6 @@ On any `<input>` tag you can add a **data-type="*typeName*"** attribute to speci
 * **dateTime** - *For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM* format. Combines the two data types date and time so that they are positioned next to each other on top of a hidden input field.
     - The time field in dateTime can also be modified to military time if desired. 
 * **display** - *For displaying values that are not to be edited.* Displays **value** attribute where the input field would be. If no value is specified, it is a blank area. Displayed as HTML. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25].
-* **tmsQuantityUnit** - Auto-complete for common units. Any text can be entered and if there is text in the options that matches, even partially, what has been typed then it will display that data in a drop down menu.
 * **code** - see [Code Input](#code-input) below
 * **select** - see [Select Input](#select-input) below
 * **tmsExpYear** - A select type that is created with **arraySelectCreator(arrayOfOptions)** This select creator creates an array of options where the label is equal to the value.
@@ -603,10 +601,31 @@ e.inputFilter({
 - In order to ensure that the input field will perform correctly in the form field there are methods that deal with the custom inputWidget on lines 2816-3644. This way the widget is safeguarded from damaging other input fields and items that reside on the form field. These functions also ensure that the custom inputWidget perfroms in the correct manner, such as going into focus, when it is clicked on and other events of that nature. 
 
 ### Localization
-English is the default language setting. To change it you must include the desired language package script from `/dist/locales/`. Then call **$.formBuilder.util.setLanguage(*string* langCode)**. English (en) and Spanish (es) language packages are precompiled into formBuilder so you do not need to include them.
+English is the default language setting. To change it you must include the desired language package script from `/dist/locales/` above where you include the formBuilder script. English (en) and Spanish (es) language packages are precompiled into formBuilder so you do not need to include them.
+
+FormBuilder will attempt to retrieve the preferred language from the browser automatically. The first language code match sets the language. If no match is found, it will default to English.
+
+If you want to manually choose a language, define `$.formBuilder.lang.code` above where you have included any formBuilder javascript and below jQuery. 
+
+``` html
+...
+
+<!-- jquery and other formBuilder dependencies -->
+<script type='text/javascript'>
+    // Manual language choice
+    $.formBuilder = {};
+    $.formBuilder.lang = {};
+    $.formBuilder.lang.code = 'en'; // English
+    // $.formBuilder.lang.code = 'es'; // Spanish
+</script>
+<!-- Any formBuilder language packs -->
+<script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'></script>
+
+...
+```
 
 #### Creating new language packages
-Start with an unminified package from `/src/locales/` as a base by copying it into a new file. Go through the created object and replace the strings for each word property. Lastly, replace the bootstrap-datepicker locale support with the one for the language. You can also just include the separate locale file for bootsrap-datepicker ([all of them](https://github.com/eternicode/bootstrap-datepicker/tree/master/dist/locales)). Then switch to your language using the above method.
+Start with an unminified package from `/src/locales/` as a base by copying it into a new file. Go through the created object and replace the strings for each word key. Any key not defined will be taken from the English package to prevent missing words. Lastly, replace the bootstrap-datepicker locale support with the one for the language. You can also just include the separate locale file for bootsrap-datepicker ([all of them](https://github.com/eternicode/bootstrap-datepicker/tree/master/dist/locales)). Then switch to your language using the above method.
 
 ## Credits
 Auto Data Direct, Inc.

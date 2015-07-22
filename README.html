@@ -1154,7 +1154,6 @@ body .markdown-body
 <h4 id="normal-form-types"><a name="user-content-normal-form-types" href="#normal-form-types" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Normal Form Types:</h4>
 <ul>
 <li><strong>text</strong> - <em>For normal text with no extra formatting or validation.</em> Default data-type.</li>
-<li><strong>tmsFullname</strong> - An extension of the utext data type. All input is converted into all-caps. Requires two or more names that are separated by a space. Allows commas, hyphens, and apostrophes but only one comma or hyphen and up to three apostrophes. Does not allow any other symbol. Does not accept integers.</li>
 <li><strong>utext</strong> - <em>For uppercase text.</em> If a user types in lowercase text, it is automatically converted to uppercase.</li>
 <li><strong>integer</strong> - <em>For digits [0-9].</em> If a user types in a non-digit, the form field will flash and the input will be ignored.</li>
 <li><strong>number</strong> - <em>For integers or decimal numbers [[0-9].].</em> If multiple decimal points are added the field is marked as invalid. If the user types in an invalid character, the field will flash and the input will be ignored.</li>
@@ -1178,7 +1177,6 @@ body .markdown-body
 </ul>
 </li>
 <li><strong>display</strong> - <em>For displaying values that are not to be edited.</em> Displays <strong>value</strong> attribute where the input field would be. If no value is specified, it is a blank area. Displayed as HTML. Any entered characters not in the specified format are ignored. The AM/PM section is automatically converted to uppercase. Hour can be entered as a single digit [0, 25].</li>
-<li><strong>tmsQuantityUnit</strong> - Auto-complete for common units. Any text can be entered and if there is text in the options that matches, even partially, what has been typed then it will display that data in a drop down menu.</li>
 <li><strong>code</strong> - see <a href="#code-input">Code Input</a> below</li>
 <li><strong>select</strong> - see <a href="#select-input">Select Input</a> below</li>
 <li><strong>tmsExpYear</strong> - A select type that is created with <strong>arraySelectCreator(arrayOfOptions)</strong> This select creator creates an array of options where the label is equal to the value.</li>
@@ -1651,9 +1649,27 @@ $('fullCustomTypeForm').formBuilder();
 <li>In order to ensure that the input field will perform correctly in the form field there are methods that deal with the custom inputWidget on lines 2816-3644. This way the widget is safeguarded from damaging other input fields and items that reside on the form field. These functions also ensure that the custom inputWidget perfroms in the correct manner, such as going into focus, when it is clicked on and other events of that nature. </li>
 </ul>
 <h3 id="localization"><a name="user-content-localization" href="#localization" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Localization</h3>
-<p>English is the default language setting. To change it you must include the desired language package script from <code>/dist/locales/</code>. Then call <strong>$.formBuilder.util.setLanguage(<em>string</em> langCode)</strong>. English (en) and Spanish (es) language packages are precompiled into formBuilder so you do not need to include them.</p>
+<p>English is the default language setting. To change it you must include the desired language package script from <code>/dist/locales/</code> above where you include the formBuilder script. English (en) and Spanish (es) language packages are precompiled into formBuilder so you do not need to include them.</p>
+<p>FormBuilder will attempt to retrieve the preferred language from the browser automatically. The first language code match sets the language. If no match is found, it will default to English.</p>
+<p>If you want to manually choose a language, define <code>$.formBuilder.lang.code</code> above where you have included any formBuilder javascript and below jQuery. </p>
+<pre><code class="html">...
+
+&lt;!-- jquery and other formBuilder dependencies --&gt;
+&lt;script type='text/javascript'&gt;
+    // Manual language choice
+    $.formBuilder = {};
+    $.formBuilder.lang = {};
+    $.formBuilder.lang.code = 'en'; // English
+    // $.formBuilder.lang.code = 'es'; // Spanish
+&lt;/script&gt;
+&lt;!-- Any formBuilder language packs --&gt;
+&lt;script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'&gt;&lt;/script&gt;
+
+...
+</code></pre>
+
 <h4 id="creating-new-language-packages"><a name="user-content-creating-new-language-packages" href="#creating-new-language-packages" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Creating new language packages</h4>
-<p>Start with the Spanish package as a base by copying it into a new file. The package files are named <code>formBuilder_language.langcode.js</code>. Go through the created object and replace the strings for each word property. Lastly, replace the bootstrap-datepicker locale support with the one for the language. You can also just include the separate locale file for bootsrap-datepicker (<a href="https://github.com/eternicode/bootstrap-datepicker/tree/master/dist/locales">all of them</a>).</p>
+<p>Start with an unminified package from <code>/src/locales/</code> as a base by copying it into a new file. Go through the created object and replace the strings for each word key. Any key not defined will be taken from the English package to prevent missing words. Lastly, replace the bootstrap-datepicker locale support with the one for the language. You can also just include the separate locale file for bootsrap-datepicker (<a href="https://github.com/eternicode/bootstrap-datepicker/tree/master/dist/locales">all of them</a>). Then switch to your language using the above method.</p>
 <h2 id="credits"><a name="user-content-credits" href="#credits" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Credits</h2>
 <p>Auto Data Direct, Inc.</p>
 <h2 id="license"><a name="user-content-license" href="#license" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>License</h2>

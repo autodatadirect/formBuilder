@@ -1,5 +1,9 @@
 /**
  * inputFilter widget
+ *
+ * Events:
+ * keyignored
+ * keytyped
  */
 
 
@@ -12,7 +16,15 @@
 			toUpper: false,
 			//TODO: support max, flash when at end of string, other wise just splice off the end
 			max: 0,
-			pattern: /[\w\s]/ 	// was [A-Z]
+			pattern: /[\w\s]/, 	// was [A-Z]
+
+			// If the typed character/text matches the pattern it will go through this function.
+			// This can be used for custom checks. The text returned is the
+			// one that is actually put into the input. If no text is returned, 
+			// the key is ignored like ususal
+			extraFilter: function(currentValue, inText) {
+				return inText;
+			}
 		},
 
 		_create: function() {
@@ -122,7 +134,7 @@
 				text = text.toUpperCase();
 			}
 
-			if(text.match(o.pattern)) {
+			if(text.match(o.pattern) && typeof(text = o.extraFilter(val, text)) === 'string') {
 				/*
 				 * only deal with the caret if the field is focused
 				 *

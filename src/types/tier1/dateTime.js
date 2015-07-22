@@ -22,6 +22,7 @@
 	'use strict';
 
 	var types = $.formBuilder.inputField.types;
+	var dict = $.formBuilder.lang.dict;
 
 	types.dateTime = {
 		momentStoreFormat: 'YYYY-MM-DDTHH:mm:ss[Z]',
@@ -272,7 +273,7 @@
 
 			if(!valid) {
 				return {
-					message: 'invalid'
+					message: dict.invalid
 				};
 			}
 		},

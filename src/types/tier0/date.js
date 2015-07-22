@@ -18,6 +18,7 @@
 
 	var types = $.formBuilder.inputField.types;
 	var util = $.formBuilder.util;
+	var lang = $.formBuilder.lang;
 
 	types.text = {};
 
@@ -97,7 +98,7 @@
 				format: 'mm/dd/yyyy',
 				todayBtn: true,
 				todayHighlight: true,
-				language: util.lang.code
+				language: lang.code
 			};
 
 			e.datepicker(datePickerOptions);
@@ -151,7 +152,7 @@
 				(self.enforceMin && date.isBefore(moment(self.startDate, self._dateFormat))) ||
 				(self.enforceMax && moment(self.endDate, self._dateFormat).isBefore(date))) {
 				return {
-					message: 'invalid'
+					message: lang.dict.invalid
 				};
 			}
 		}

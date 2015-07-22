@@ -1,7 +1,6 @@
 /**
  * Data type 'phone'
  *
- * 
  */
 
 
@@ -9,6 +8,7 @@
 	'use strict';
 
 	var types = $.formBuilder.inputField.types;
+	var dict = $.formBuilder.lang.dict;
 
 	types.phone = {
 		setUp: function (ui) {
@@ -97,7 +97,7 @@
 			///^([0-9]{3}-)?[0-9]{3}-[0-9]{4}(x[0-9]+)?$/ simple regex
 			if(!ui.element.val().match(/^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/)) {
 				return {
-					message: 'invalid'
+					message: dict.invalid
 				};
 			}
 		}
