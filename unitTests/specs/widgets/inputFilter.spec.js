@@ -319,7 +319,7 @@ describe('An inputFilter', function(){
 		});
 
 		it('and prevent going over the max (focused)', function(){
-			var input = $('<input type="text">').inputFilter();
+			var input = $('<input type="text">');
 			var filter, pos, isTyped;
 
 			input.appendTo(testContainer).inputFilter();
@@ -339,6 +339,70 @@ describe('An inputFilter', function(){
 			expect(util.equals(pos,input.caret())).toBe(true);
 
 			testContainer.empty();
+		});
+
+		it('and pass it through a custom extraFilter', function(){
+			var input = $('<input type="text"/>').appendTo(testContainer);
+			var filter, testChar, isTyped;
+
+			input.inputFilter({
+				pattern: /[abc]/,
+				extraFilter: function(val, inChar) {
+					expect(val).toBe(input.val());
+					expect(inChar).toBe(testChar);
+
+					if(inChar === 'a') {
+						return inChar;
+					} else if(inChar === 'c') {
+						return '[something else]';
+					}
+
+					return; //ignore all else
+				}
+			});
+
+			filter = input.data('formBuilderInputFilter');
+
+			spyOn(filter.options, 'extraFilter').and.callThrough();
+
+			input.val('start');
+			
+			testChar = 'd';
+			isTyped = filter._type(testChar);
+			expect(isTyped).toBe(false);
+			expect(filter.options.extraFilter).not.toHaveBeenCalled();
+			expect(input.val()).toBe('start');
+
+			testChar = 'a';
+			isTyped = filter._type(testChar);
+			expect(isTyped).toBe(true);
+			expect(filter.options.extraFilter).toHaveBeenCalled();
+			expect(input.val()).toBe('starta');
+			filter.options.extraFilter.calls.reset();
+
+			testChar = 'b';
+			isTyped = filter._type(testChar);
+			expect(isTyped).toBe(false);
+			expect(filter.options.extraFilter).toHaveBeenCalled();
+			expect(input.val()).toBe('starta');
+			filter.options.extraFilter.calls.reset();
+
+			testChar = 'c';
+			isTyped = filter._type(testChar);
+			expect(isTyped).toBe(true);
+			expect(filter.options.extraFilter).toHaveBeenCalled();
+			expect(input.val()).toBe('starta[something else]');
+			filter.options.extraFilter.calls.reset();
+
+			testChar = 'c';
+			input.caret(3,3);
+			isTyped = filter._type(testChar);
+			expect(isTyped).toBe(true);
+			expect(filter.options.extraFilter).toHaveBeenCalled();
+			expect(input.val()).toBe('sta[something else]rta[something else]');
+
+			testContainer.empty();
+
 		});
 	});
 

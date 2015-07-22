@@ -73,7 +73,7 @@
 	lang.dict = {};
 	$.extend(true, lang.dict, lang.locales.en);
 	if(lang.code !== 'en') {
-		$.extend(true, lang.dict, lang.locales[lang.code]);
+		$.extend(lang.dict, lang.locales[lang.code]);
 	}
 	
 
