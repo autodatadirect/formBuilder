@@ -32,7 +32,7 @@
 			 * add icon
 			 */
 
-			
+			self.desc = $('<span></span>');
 			self.setType();
 
 			self.menu = $(self._phoneTypeTemplate);
