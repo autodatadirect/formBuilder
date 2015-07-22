@@ -115,14 +115,6 @@
 		over: 'over',
 		under: 'under',
 
-		// tmsQuantityUnit
-		MI: 'MI',
-		KM: 'KM',
-		HR: 'HR',
-		MIN: 'MIN',
-		DAYS: 'DAYS',
-		PKG: 'PKG',
-
 		// tmsPhone
 		mobile: 'Mobile',
 		home: 'Home',
