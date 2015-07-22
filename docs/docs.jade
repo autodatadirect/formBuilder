@@ -218,29 +218,38 @@ html
 					h2
 						a.anchor(name='unsupported-checkbox' href='#unsupported-checkbox')
 						| Checkboxes
-					.example: input(type='checkbox' data-label='Checkbox Test 3')
+					
+					.form-group
+					.radio
+						label
+						input#optionsChecks1(type="checkbox", data-type='checkbox' name="optionsChecks", data-value="option1")
+						|  Option 1
+					.radio
+						label
+						input#optionsChecks2(type="checkbox", data-type='checkbox', name="optionsChecks", data-value="option2")
+						|  Option 2
+					.radio
+						label
+						input#optionsChecks3(type="checkbox", data-type='checkbox', name="optionsChecks", data-value="option3")
+						|  Option 3
 
 					h2
 						a.anchor(name='unsupported-radio' href='#unsupported-radio')
 						| Radio Buttons
-					input#Element1(type="radio", name="RadioGroup", checked=false) 
-					input#Element2(type="radio", name="RadioGroup", checked=false) 
-					input#Element3(type="radio", name="RadioGroup") 
 
-
-					// have the radio button return this function on submit (according to youtube https://www.youtube.com/watch?v=WR88nGbXCKY)
-					// function is_checked(){
-					//		var yes_checked = document.getElementById('id').checked;
-					//		var no_checked = document.getElementById('id').checked;
-					//
-					//		if(yes_checked === false && no_checked === false){
-					//			alert('Please select an option');
-					//			return false;
-					//		}else{
-					//			return true;
-					//		}
-					//}
-
+					.form-group
+					.radio
+						label
+						input#optionsRadios1(type="radio", data-type='radio' name="optionsRadios", value="radioButton1")
+						|  Option 1
+					.radio
+						label
+						input#optionsRadios2(type="radio", data-type='radio', name="optionsRadios", value="radioButton2")
+						|  Option 2
+					.radio
+						label
+						input#optionsRadios3(type="radio", data-type='radio', name="optionsRadios", value="radioButton2")
+						|  Option 3
 
 
 

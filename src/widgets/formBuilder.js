@@ -242,6 +242,7 @@
 		},
 
 		get: function() {
+			console.log('inside of formbuilder get');
 			var self = this,
 				o = self.options,
 				formData = self._readDataFromDom();
