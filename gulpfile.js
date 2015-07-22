@@ -75,7 +75,6 @@ var dirs = {
 	build: __dirname + '/build',
 	distribution: __dirname + '/dist',
 	src: __dirname + '/src',
-	e2eTests: __dirname + '/e2eTests',
 	unitTests: __dirname + '/unitTests',
 	sass: __dirname + '/sass'
 };
@@ -89,7 +88,6 @@ gulp.task('lint', function(done){
 	return gulp.src([
 			'gulpfile.js',
 			dirs.src + '/**/*.js',
-			// dirs.e2eTests + '/**/*.js',
 			dirs.unitTests + '/**/*.js'
 		])
 		.pipe(jshint())

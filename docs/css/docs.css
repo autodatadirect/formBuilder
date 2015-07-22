@@ -26,25 +26,30 @@ html, body {
 	padding: 0;
 	font-family: 'Open Sans';
 	background-color: #3D2B56;
-
+	font-size: 16px;
 }
 
 .header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
 	padding: 1em;
 	background-color: #2C497F;
 	color: #FFF;
 	font-size: 1.5em;
 	font-weight: bold;
+	z-index: 100000;
 }
 
-.container {
+.center-container {
 	position: relative;
 	min-height: 100%;
 	width: 100%;
 }
 .sideNav {
-	position: fixed;
-	top: 5em;
+	position: absolute;
+	top: 0;
 	left: 0;
 	width: 300px;
 	color: #FFF;
@@ -65,13 +70,33 @@ html, body {
 	background-color: #FBFBFB;
 	color: #3D2B56;;
 }
+.page-container {
+	margin-top: 81px;
+}
 
+/* Handle smaller screens */
 @media (max-width: 900px) {
+	.header {
+		font-size: 1em;
+	}
 	.sideNav {
 		display: none;
 	}
 	.content {
 		margin-left: 0;
+		padding: 1em;
+	}
+	.page-container {
+		margin-top: 54px;
+	}
+}
+
+/* Handle larger screens */
+@media (min-width: 1192px) {
+	.center-container {
+		width: 1192px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
 
@@ -80,12 +105,16 @@ html, body {
 /********************************************************
  * Header
  */
+.header .title {
+	display: inline-block;
+}
 .header .links {
+	display: inline-block;
 	position: absolute;
-	right: 0;
+	right: 2em;
 	top: 0;
 	height: 100%;
-	padding: 1em;
+	padding: 0;
 }
 .header .github {
 	margin-left: 1em;

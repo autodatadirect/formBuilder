@@ -510,7 +510,8 @@ $('.codeToggle').click(function(ev){
 
 
 // Handle nav bar highlight
-var navItems = $('.sideNav li');
+var sideNav = $('.sideNav');
+var navItems = sideNav.find('li');
 
 var refreshNavBar = function(){
 	var anchors = $('.anchor');
@@ -540,6 +541,8 @@ var refreshNavBar = function(){
 		}	
 	});
 
+	// fix scroll offset
+	sideNav.css('top', $(window).scrollTop());	
 };
 refreshNavBar();
 
