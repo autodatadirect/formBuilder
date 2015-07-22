@@ -136,6 +136,7 @@
 			/*
 			 * convert the simple input into the full field format
 			 */
+			 
 			var field = self.field = $('<div class="input-field"><div class="field-items"><span class="field-item field-item-input"></span></div></div>');
 
 			var layers = self.layers = {
