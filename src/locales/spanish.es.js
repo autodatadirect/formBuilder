@@ -26,14 +26,10 @@
 		$.formBuilder = {};
 	}
 
-	if(typeof($.formBuilder.util) === 'undefined') {
-		$.formBuilder.util = {};
-	}
-
-	var lang = $.formBuilder.util.lang;
+	var lang = $.formBuilder.lang;
 
 	if(!lang) {
-		lang = $.formBuilder.util.lang = {};
+		lang = $.formBuilder.lang = {};
 	}
 	if(!lang.locales) {
 		lang.locales = {};

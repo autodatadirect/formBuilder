@@ -7,7 +7,7 @@ describe('A formBuilder.arrayField widget', function(){
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 	var testContainer = window.formBuilderTesting.testContainer;
-	var util = $.formBuilder.util;
+	var dict = $.formBuilder.lang.dict;
 	
 	// Setup test html
 	var testCode = {};
@@ -272,7 +272,7 @@ describe('A formBuilder.arrayField widget', function(){
 			e = e.children();
 			expect(e.length).toBe(1);
 			expect(e.is('span.field-item.addon.clickable.arra-field-delete'));
-			expect(e.children().is('span.fb-icon.fb-icon-remove[title="'+util.lang.remove+'"]'));
+			expect(e.children().is('span.fb-icon.fb-icon-remove[title="'+dict.remove+'"]'));
 		};
 
 		it('an internal markup item', function(){

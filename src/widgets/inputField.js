@@ -16,6 +16,7 @@
 (function($) {
 	"use strict";
 	var util = $.formBuilder.util;
+	var dict = $.formBuilder.lang.dict;
 
 	var repeat = function(work, delay, count, idx) {
 		idx = idx || 0;
@@ -76,7 +77,6 @@
 
 	$.widget("formBuilder.inputField", {
 		options: {
-			error: 'error',
 			type: 'text',
 
 			/*
@@ -95,7 +95,10 @@
 			 * min and max, there meaning depends on the type that is loaded
 			 */
 			min: '', // min does nothing in formbuilder
-			max: ''
+			max: '',
+
+
+			error: 'error' // does nothing?
 
 			/*
 			 * values: false/undefined, 'keyup', 'blur'
@@ -638,7 +641,7 @@
 			
 			if(!skipRequired && states.require && empty) {
 				self.setError({
-					message: 'required'
+					message: dict.required
 				});
 				return false;
 			}

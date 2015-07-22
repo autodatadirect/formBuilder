@@ -10,6 +10,7 @@
 	'use strict';
 
 	var types = $.formBuilder.inputField.types;
+	var dict = $.formBuilder.lang.dict;
 
 	types.money = {
 
@@ -101,12 +102,12 @@
 
 				if(self.max && enteredAmount > self.max){
 					return {
-						message: 'over'
+						message: dict.over
 					};
 				}
 				if(self.min && enteredAmount < self.min){
 					return {
-						message: 'under'
+						message: dict.under
 					};
 				}
 				

@@ -9,7 +9,7 @@
  *
  * ======== Localization Notes ========
  * 
- * Unless $.formBuilder.util.lang.code is already defined, this will
+ * Unless $.formBuilder.lang.code is already defined, this will
  * attempt to match the browser's code with one in the acceptedCodes[].
  * If matched, it will define it as the formBuilder language code. 
  *
@@ -41,14 +41,10 @@
 		$.formBuilder = {};
 	}
 
-	if(typeof($.formBuilder.util) === 'undefined') {
-		$.formBuilder.util = {};
-	}
-
-	var lang = $.formBuilder.util.lang;
+	var lang = $.formBuilder.lang;
 
 	if(!lang) {
-		lang = $.formBuilder.util.lang = {};
+		lang = $.formBuilder.lang = {};
 	}
 	if(!lang.locales) {
 		lang.locales = {};
@@ -85,20 +81,13 @@
 	 * Define formBuilder language
 	 */
 	$.extend(true, lang.locales[code], {
+		/**
+		 * Widgets
+		 */
+		
 		// arrayField
 		remove: 'Remove',
-
-		// textSubmitter TODO
 		
-		// tmsPhone
-		mobile: 'Mobile',
-		home: 'Home',
-		work: 'Work',
-		fax: 'Fax',
-
-		// booleanSelectCreator
-		yes: 'Yes',
-		no: 'No',
 
 		// dateRangePicker
 		from :'From',
@@ -107,10 +96,48 @@
 		day : 'Day',
 		week:'Week',
 		month :'Month',
-		year :'Year'
+		year :'Year',
+
+		// inputField
+		required: 'required',
+
+		// textSubmitter
+		defaultSendInstruction: 'press enter to submit',
+
+
+		/**
+		 * Types
+		 */
+		
+		invalid: 'invalid',
+
+		// money
+		over: 'over',
+		under: 'under',
+
+		// tmsQuantityUnit
+		MI: 'MI',
+		KM: 'KM',
+		HR: 'HR',
+		MIN: 'MIN',
+		DAYS: 'DAYS',
+		PKG: 'PKG',
+
+		// tmsPhone
+		mobile: 'Mobile',
+		home: 'Home',
+		work: 'Work',
+		fax: 'Fax',
+
+		// booleanSelectCreator
+		yes: 'Yes',
+		no: 'No'
+
+		// tmsFullName TODO
+		
 	});
 
-
+	var dict = $.formBuilder.lang.dict;
 
 	/**
 	 * Extension language support

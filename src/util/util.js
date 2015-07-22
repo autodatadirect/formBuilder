@@ -63,13 +63,8 @@
 	/**
 	 * Language Support Setup
 	 */
+	var lang = $.formBuilder.lang; //should be defined in at least the english package
 	
-	if(typeof(util.lang) === 'undefined') {
-		util.lang = {};
-	}
-
-	// Set the language
-	var lang = util.lang;
 	if(typeof(lang.code) === 'undefined' || !lang.locales[lang.code]) {
 		lang.code = 'en';
 	}

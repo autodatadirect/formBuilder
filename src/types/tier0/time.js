@@ -14,6 +14,7 @@
 	'use strict';
 
 	var types = $.formBuilder.inputField.types;
+	var dict = $.formBuilder.lang.dict;
 
 	types.time = {
 		attributes: ['step', 'military','storeUtc'],
@@ -136,7 +137,7 @@
 			var self = this,
 				e = ifw.element,
 				val = e.val(),
-				invalidMessage = {message: 'invalid'},
+				invalidMessage = {message: dict.invalid},
 				valid;
 
 			valid = self.military? val.match(self._regex2400) : val.match(self._regex);

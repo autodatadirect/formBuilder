@@ -10,6 +10,8 @@
 (function($){
 	'use strict';
 	
+	var dict = $.formBuilder.lang.dict;
+
 	// Converted the lang.sendInstruction to an option with 'press enter to submit' as a default
 	// Note: this differs from the tms 'press enter to add note'
 
@@ -23,7 +25,7 @@
 		options: {
 			width: '300px',
 			placeholder: '',
-			sendInstruction: 'press enter to submit',
+			sendInstruction: dict.defaultSendInstruction,
 			rows: undefined, // default 3
 			ignoreEmptySubmit: false	// submit when empty yes/no
 		},

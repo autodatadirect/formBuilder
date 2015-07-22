@@ -10,7 +10,7 @@
 	'use strict';
 	
 	var types = $.formBuilder.inputField.types;
-	var util = $.formBuilder.util;
+	var dict = $.formBuilder.lang.dict;
 
 	$.formBuilder.inputField.arraySelectCreator = function (array) {
 		return $.extend({}, types.select, {
@@ -67,6 +67,6 @@
 	}
 	
 	types.tmsExpYear = $.formBuilder.inputField.arraySelectCreator(years);
-	types.tmsYesNo = $.formBuilder.inputField.booleanSelectCreator(util.lang.dict.yes, util.lang.dict.no);
+	types.tmsYesNo = $.formBuilder.inputField.booleanSelectCreator(dict.yes, dict.no);
 	
 })(jQuery);

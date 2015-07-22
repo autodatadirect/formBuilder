@@ -2,23 +2,23 @@
 /*global  moment:true */
 (function($) {
 	"use strict";
-	var util = $.formBuilder.util;
+	var dict = $.formBuilder.lang.dict;
 	
 	$.widget("formBuilder.dateTimeRangePicker", {
 		_dateTimeRangePickerTemplate:
 				'<div class="date-range-picker form">' +
-					'<input type="text" name="from" data-type="dateTime" data-label="'+util.lang.dict.from+'"/>' +
-					'<input type="text" name="to" data-type="dateTime" data-label="'+util.lang.dict.to+'"/>' +
+					'<input type="text" name="from" data-type="dateTime" data-label="'+dict.from+'"/>' +
+					'<input type="text" name="to" data-type="dateTime" data-label="'+dict.to+'"/>' +
 
 					'<button type="button" class="previous-range">&lt;&lt;</button>' +
 
 					'<div class="input-field-group range-select">' +
 						'<select name="range" style="width: 138px;">' +
-							'<option value="custom">'+util.lang.dict.custom+'</option>' +
-							'<option value="day">'+util.lang.dict.day+'</option>' +
-							'<option value="week">'+util.lang.dict.week+'</option>' +
-							'<option value="month">'+util.lang.dict.month+'</option>' +
-							'<option value="year">'+util.lang.dict.year+'</option>' +
+							'<option value="custom">'+dict.custom+'</option>' +
+							'<option value="day">'+dict.day+'</option>' +
+							'<option value="week">'+dict.week+'</option>' +
+							'<option value="month">'+dict.month+'</option>' +
+							'<option value="year">'+dict.year+'</option>' +
 						'</select>' +
 					'</div>' +
 

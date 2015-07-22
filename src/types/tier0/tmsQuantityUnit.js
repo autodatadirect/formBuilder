@@ -8,8 +8,18 @@
 	'use strict';
 	
 	var types = $.formBuilder.inputField.types;
+	var dict = $.formBuilder.lang.dict;
 
-	var units = ['MI', 'KM', 'HR', 'MIN', 'DAYS', 'PKGS'];
+	// manually converted them to strings b/c of a strange jqueryui error
+	var units = [
+		''+dict.MI,
+		''+dict.KM,
+		''+dict.HR,
+		''+dict.MIN,
+		''+dict.DAYS,
+		''+dict.PKGS
+	];
+
 	types.tmsQuantityUnit = {
 		setUp: function(ui) {
 			var self = this,

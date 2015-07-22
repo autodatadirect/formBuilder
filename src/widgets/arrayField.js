@@ -12,6 +12,7 @@
 (function($){
 	'use strict';
 	var util = $.formBuilder.util;
+	var dict = $.formBuilder.lang.dict;
 
 	var arrayFieldId = 0;
 	var nextArrayFieldId = function () {
@@ -41,7 +42,7 @@
 				'<div class="input-field">' +
 					'<div class="field-items">' +
 						'<span class="field-item addon clickable array-field-delete">' +
-							'<span class="fb-icon fb-icon-remove" title="'+util.lang.remove+'"></span>' +
+							'<span class="fb-icon fb-icon-remove" title="'+ dict.remoasdase+'"></span>' +
 						'</span>' +
 					'</div>' +
 				'</div>' +
