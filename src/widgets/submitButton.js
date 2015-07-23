@@ -80,6 +80,7 @@
 			}
 
 			o.label = e.html();
+
 			e.button(bOptions).on('click.submitButton', $.proxy(self.submit, self));
 
 			self.spinner = $('<div class="spinner" style="display: inline-block; position: absolute;"></div>');
