@@ -10,12 +10,11 @@ block localJS
 	//- script(type='text/javascript' src='./js/guide.js')
 
 block sideNav
-	li(name='about')
+	li
 		a(href='#about') About
 
 block content
-	h1
-		a.anchor(name='about' href='#about')
-		| About
+	h1 About
+		a.anchor(name='about')
 	.section
 		p TODO

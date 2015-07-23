@@ -10,12 +10,134 @@ block localJS
 	//- script(type='text/javascript' src='./js/guide.js')
 
 block sideNav
-	li(name='general')
-		a(href='#general') General API
+	li.current
+		a(href='#widgets') Widgets
+		ul.navDepth-1
+			li.current: a(href='#widgets-formBuilder') formBuilder
+			li: a(href='#widgets-inputField') inputField
+			li: a(href='#widgets-inputFilter') inputFilter
+			li: a(href='#widgets-submitButton') submitButton
+			li: a(href='#widgets-inputWidget') inputWidget
+			li: a(href='#widgets-arrayField') arrayField
+			li: a(href='#widgets-dropDownPanel') dropDownPanel
+			li: a(href='#widgets-dateRangePicker') dateRangePicker
+			li: a(href='#widgets-dateTimeRangePicker') dateTimeRangePicker
+			li: a(href='#widgets-popOver') popOver
+			li: a(href='#widgets-textSubmitter') textSubmitter
+			li: a(href='#widgets-spin') spin
+			
+	li
+		a(href='#types') Input Types
+		ul.navDepth-1
+			li: a(href='#types-standard') standard
+			li: a(href='#types-select') select
+			li: a(href='#types-date') date
+			li: a(href='#types-time') time
+			li: a(href='#types-dateTime') dateTime
+			li: a(href='#types-money') money
+			li: a(href='#types-phone') phone
+
+	li
+		a(href='#plugins') Plugins
+		ul.navDepth-1
+			li: a(href='#plugins-caret') caret
 
 block content
-	h1
-		a.anchor(name='general' href='#general')
-		| General API
+	h1 Widgets
+		a.anchor(name='widgets')
 	.section
-		p TODO
+
+		h2 formBuilder
+			a.anchor(name='widgets-formBuilder')
+		.section
+
+		h2 inputField
+			a.anchor(name='widgets-inputField')
+		.section
+
+		h2 inputFilter
+			a.anchor(name='widgets-inputFilter')
+		.section
+
+		h2 submitButton
+			a.anchor(name='widgets-submitButton')
+		.section
+
+		h2 inputWidget
+			a.anchor(name='widgets-inputWidget')
+		.section
+
+		h2 arrayField
+			a.anchor(name='widgets-arrayField')
+		.section
+
+		h2 dropDownPanel
+			a.anchor(name='widgets-dropDownPanel')
+		.section
+
+		h2 dateRangePicker
+			a.anchor(name='widgets-dateRangePicker')
+		.section
+
+		h2 dateRangePicker
+			a.anchor(name='widgets-dateRangePicker')
+		.section
+
+		h2 dateTimeRangePicker
+			a.anchor(name='widgets-dateTimeRangePicker')
+		.section
+
+		h2 popOver
+			a.anchor(name='widgets-popOver')
+		.section
+
+		h2 textSubmitter
+			a.anchor(name='widgets-textSubmitter')
+		.section
+
+		h2 spin
+			a.anchor(name='widgets-spin')
+		.section
+
+	h1 Input Types
+		a.anchor(name='types')
+	.section
+
+		h2 standard
+			a.anchor(name='types-standard')
+		.section
+
+		h2 select
+			a.anchor(name='types-select')
+		.section
+
+		h2 date
+			a.anchor(name='types-date')
+		.section
+
+		h2 time
+			a.anchor(name='types-time')
+		.section
+
+		h2 dateTime
+			a.anchor(name='types-dateTime')
+		.section
+
+		h2 money
+			a.anchor(name='types-money')
+		.section
+
+		h2 phone
+			a.anchor(name='types-phone')
+		.section
+
+
+
+
+	h1 Plugins
+		a.anchor(name='plugins')
+	.section
+
+		h2 caret
+			a.anchor(name='plugins-caret')
+		.section

@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "repository": "https://github.com/autodatadirect/formBuilder",
   "devDependencies": {
-    "jade": "~1.10.0",
+    "jade": "~1.11.0",
     "gulp": "~3.9.0",
     "gulp-jasmine": "~2.0.1",
     "jshint": "~2.8.0",
