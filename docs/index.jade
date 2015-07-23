@@ -10,11 +10,14 @@ block localJS
 	//- script(type='text/javascript' src='./js/guide.js')
 
 block sideNav
-	li
+	li.current
 		a(href='#about') About
+	li
+		a(href='#contribute') Contribute
+	li
+		a(href='#license') License
+	li
+		a(href='#credits') Credits
 
 block content
-	h1 About
-		a.anchor(name='about')
-	.section
-		p TODO
+	include content/index.html

@@ -6,6 +6,12 @@ a, a:hover, a:active, a:visited {
 	text-decoration: none;
 }
 
+p a, p a:hover, p a:active, p a:visited {
+	color: #63B4D1;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
 button {
 	cursor: pointer;
 }
@@ -192,6 +198,7 @@ ul.navDepth-1 li.current {
 .content h1,
 .content h2 {
 	position: relative;
+	border-bottom: 3px solid #3D2B56;
 
 }
 

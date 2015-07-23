@@ -1,0 +1,32 @@
+<h1><a name="widgets" class="anchor"></a>Widgets</h1><p>All widgets are created using jQuery UI&#39;s <a href="http://api.jqueryui.com/jQuery.widget/">Widget Factory</a> and inherit all of the options, methods, and events of the base widget.</p>
+<h2><a name="widgets-formBuilder" class="anchor"></a>formBuilder</h2><ul>
+<li>Options<ul>
+<li><strong>ignoreHidden</strong> <em>(boolean)</em> Ignore fields that are not <code>$(:visible)</code>. <strong>Default:</strong> false</li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromForm(data)</strong> Form data is passed through this function when retrieving it from the form. Just returns data by default.</li>
+<li><strong>toForm(data)</strong> Form data is passed through this function when passing it to the form. Just returns data by default. </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><strong>scanForNewFields()</strong> Checks inside of the form container for new fields and constructs them. Called once automatically when initialized. </li>
+<li><strong>isDirty()</strong> Runs dirty checks and returns boolean result.</li>
+<li><strong>clearDirty()</strong> Clears all dirty field states. Use this after saving dirty field data. </li>
+<li><strong>flashDirty(numberOfTimes)</strong> <em>Deprecated.</em> Does nothing. Use <code>flashError</code> instead.</li>
+<li><strong>flashError(<em>int</em> numberOfTimes)</strong> Filters fields and calls the <code>inputField.flash(numberOfTimes)</code> on each incorrect one.</li>
+<li><strong>get()</strong> Returns converted form data from all fields. </li>
+<li><strong>clear()</strong> Runs inputField.clear() for each field. Empties form.</li>
+<li><strong>conflicts(data, ignoreKeys)</strong> Checks to see if the given data would overwrite and dirty fields if set. Returns an array of conflict data, and false for no conflicts.</li>
+<li><strong>set(data, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>beforeset</code> and <code>afterset</code>.</li>
+<li><strong>validate()</strong> Runs all enabled field validations. Returns true/false for valid/invalid.</li>
+<li><strong>getFields()</strong> Returns all current formBuilder inputFields.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>beforeset(formData)</strong> <em>Optional.</em> Called before <code>set</code> replaced the form values. <strong>Default:</strong> undefined</li>
+<li><strong>afterset(formData)</strong> <em>Optional.</em> Called after <code>set</code> replaces the form values <strong>Default:</strong> undefined</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-inputField" class="anchor"></a>inputField</h2><h2><a name="widgets-inputFilter" class="anchor"></a>inputFilter</h2><h2><a name="widgets-submitButton" class="anchor"></a>submitButton</h2><h2><a name="widgets-inputWidget" class="anchor"></a>inputWidget</h2><h2><a name="widgets-arrayField" class="anchor"></a>arrayField</h2><h2><a name="widgets-dropDownPanel" class="anchor"></a>dropDownPanel</h2><h2><a name="widgets-dateRangePicker" class="anchor"></a>dateRangePicker</h2><h2><a name="widgets-dateTimeRangePicker" class="anchor"></a>dateTimeRangePicker</h2><h2><a name="widgets-popOver" class="anchor"></a>popOver</h2><h2><a name="widgets-textSubmitter" class="anchor"></a>textSubmitter</h2><h2><a name="widgets-spin" class="anchor"></a>spin</h2><h1><a name="inputTypes" class="anchor"></a>Input Types</h1><h2><a name="inputTypes-standard" class="anchor"></a>standard</h2><h2><a name="inputTypes-select" class="anchor"></a>select</h2><h2><a name="inputTypes-date" class="anchor"></a>date</h2><h2><a name="inputTypes-time" class="anchor"></a>time</h2><h2><a name="inputTypes-dateTime" class="anchor"></a>dateTime</h2><h2><a name="inputTypes-money" class="anchor"></a>money</h2><h2><a name="inputTypes-phone" class="anchor"></a>phone</h2><h1><a name="plugins" class="anchor"></a>Plugins</h1><h2><a name="plugins-caret" class="anchor"></a>caret</h2>
