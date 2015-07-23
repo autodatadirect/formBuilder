@@ -1,5 +1,5 @@
 /**
- * Testing popOver 
+ * Testing popOver widget
  */
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true */
 'use strict';

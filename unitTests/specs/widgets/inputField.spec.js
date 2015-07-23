@@ -1,5 +1,5 @@
 /**
- * Testing inputField ifw
+ * Testing inputField widget
  */
 
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true */

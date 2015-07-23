@@ -1,16 +1,17 @@
 /**
- * inputField Widget
+ * selectionWidget Widget
  *
- * This widget wraps the operation of a single field of a form
+ * This widget allows for the use of checkboxes and radio boxes alongside formBuilder
  *
  * Public Methods:
- *   value(value)
+ *   setLabel()
+ *   checkDirty()
+ *	 isDirty()
+ *   clear()
+ *   clearDirty()
+ *   set()
+ *   get()
  *   validate()
- *   flash()
- *   setError()
- *   clearError()
- *   redraw()
- *   status(statusName, bool)
  */
 
 (function($) {
@@ -19,6 +20,8 @@
 	var dict = $.formBuilder.lang.dict;
 
 	var statusNames = ['require'];
+
+	var selectionId = 0;
 
 	var loadDomData = function(namespace, aKey) {
 		var self = this;
@@ -32,7 +35,8 @@
 
 	$.widget("formBuilder.selectionWidget", {
 		options: {
-			require: ''
+			require: '', 
+			label: ''
 		},
 
 		_create: function() {
@@ -41,12 +45,12 @@
 				e = self.element;
 
 			self.dirty = false;
-
+			self.id = selectionId++;
 			/*
 			 * load DOM settings from field into options
 			 */
 
-			loadDomData.call(self, o, ['require']);
+			loadDomData.call(self, o, ['require', 'label']);
 
 			/*
 			 * convert the simple input into the full field format
@@ -54,19 +58,19 @@
 			var field;
 			var layers;
 
-			field = self.field = $('<div class="input-field"><div class="field-items"></div></div>');
+			field = self.field = $('<div class="input-field"></div></div>');
 			layers = self.layers = {
 				items: field.find('.field-items')
 			};
 
-			if(o.label){
-				self.setLabel(o.label);
-			}
-
 			/*
 			 * move the DOM elements around
 			 */
-			e.before(field).appendTo(layers.input);
+			e.before(field).appendTo(field);
+
+			if(e.data('label')){
+				self.setLabel();
+			}
 
 			/*
 			 * move classes
@@ -88,6 +92,16 @@
 
 			self.prevValue = e.val();
 
+		},
+
+		setLabel: function(){
+			var self = this,
+				o = self.options,
+				e = self.element;
+
+			var domId = 'fb-selectionWidget-'+self.id;
+			e.attr('id', domId);
+			e.after('<label for="'+domId+'">' + e.data('label') + '</label>');
 		},
 
 		checkDirty: function () {
@@ -171,12 +185,10 @@
 				o = self.options,
 				e = self.element;
 
+
+
 			if(e.data('require')) {
-				if(e.prop('checked') === false) {
-					return false;
-				}else{
-					return true;
-				}
+				return !!e.prop('checked');
 			}else{
 				return true;
 			}

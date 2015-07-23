@@ -1,5 +1,5 @@
 /** 
- * Testing the arraySelectCreator
+ * Testing the selectionWidget
  */
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 
@@ -10,11 +10,15 @@ describe('the checkbox and radio box types', function(){
 
 	describe('checkboxes', function(){
 		it('can be created', function(){
-			var input = $('<input type="checkbox" name="optionsChecks" value="test"/>').selectionWidget();
+			var input = $('<input type="checkbox" name="optionsChecks" value="test" data-label="This is a label"/>').appendTo(testContainer).selectionWidget();
 
-			expect(input.siblings().is('.input-field-group')).toBe(true);
-			expect(input.siblings().children().is('.input-field.undefined')).toBe(true);
-			expect(input.siblings().children().children().is('.field-items')).toBe(true);
+			expect(input.parent().is('.input-field.undefined')).toBe(true);
+			expect(input.parent().parent().is('.input-field-group')).toBe(true);
+
+			var label = $(document).find('label');
+			expect(label.text()).toBe('This is a label');
+
+			testContainer.empty();
 		});
 
 		it('can get its data', function(){
@@ -22,8 +26,8 @@ describe('the checkbox and radio box types', function(){
 			var input2 = $('<input type="checkbox" name="optionsChecks" value="test"/>').appendTo(testContainer).selectionWidget();
 			var input3 = $('<input type="checkbox" name="optionsChecks" value="test"/>').appendTo(testContainer).selectionWidget();
 
-			input.click();
-			input3.click();
+			input.prop('checked', true);
+			input3.prop('checked', true);
 
 			expect(input.selectionWidget('get')).toBe(true);
 			expect(input2.selectionWidget('get')).toBe(false);
@@ -119,11 +123,15 @@ describe('the checkbox and radio box types', function(){
 
 	describe('radio boxes', function(){
 		it('can be created', function(){
-			var input = $('<input type="radio" name="optionsradios" value="test"/>').selectionWidget();
+			var input = $('<input type="radio" name="radioChecks" value="test" data-label="This is a label"/>').appendTo(testContainer).selectionWidget();
 
-			expect(input.siblings().is('.input-field-group')).toBe(true);
-			expect(input.siblings().children().is('.input-field.undefined')).toBe(true);
-			expect(input.siblings().children().children().is('.field-items')).toBe(true);
+			expect(input.parent().is('.input-field.undefined')).toBe(true);
+			expect(input.parent().parent().is('.input-field-group')).toBe(true);
+
+			var label = $(document).find('label');
+			expect(label.text()).toBe('This is a label');
+
+			testContainer.empty();
 		});
 
 		it('can get its data', function(){
@@ -131,7 +139,7 @@ describe('the checkbox and radio box types', function(){
 			var input2 = $('<input type="radio" name="radioChecks" value="test"/>').appendTo(testContainer).selectionWidget();
 			var input3 = $('<input type="radio" name="radioChecks" value="test"/>').appendTo(testContainer).selectionWidget();
 
-			input.click();
+			input.prop('checked', true);
 
 			expect(input.selectionWidget('get')).toBe(true);
 			expect(input2.selectionWidget('get')).toBe(false);
@@ -145,8 +153,8 @@ describe('the checkbox and radio box types', function(){
 			var input2 = $('<input type="radio" name="radioChecks" value="test"/>').appendTo(testContainer).selectionWidget();
 			var input3 = $('<input type="radio" name="radioChecks" value="test"/>').appendTo(testContainer).selectionWidget();
 
-			input.click();
-			input3.click();
+			input.prop('checked', true);
+			input3.prop('checked', true);
 
 			expect(input.selectionWidget('get')).toBe(false);
 			expect(input2.selectionWidget('get')).toBe(false);

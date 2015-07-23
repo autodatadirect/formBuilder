@@ -1,5 +1,5 @@
 /**
- * General type testing
+ * General types testing
  */
 
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/

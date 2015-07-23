@@ -480,6 +480,7 @@ Built to handle checkboxes and radio boxes inside of formBuilder.
 * Options
     - **require** used to set wheter or not one of the checkboxes is a required input. If this option is set then validation will check to make sure that it has been selected.
 * Methods
+    - **setLabel** takes the data-label and sets it as the label of the box, appending it to the right side. Also creates a unique ID to accompany the label. 
     - **checkDirty()** Determines whether the data-dirty is supposed to be true or false in that moment of typing 
     - **isDirty()** returns this.dirty
     - **clear()** clears all of the selected fields

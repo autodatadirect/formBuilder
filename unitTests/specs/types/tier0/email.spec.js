@@ -1,5 +1,5 @@
 /**
- * Testing integer data-type
+ * Testing email data-type
  *
  * Regex type
  */
