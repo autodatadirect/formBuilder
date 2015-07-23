@@ -68,37 +68,13 @@ html, body {
 	padding-bottom: 30em;
 	
 	background-color: #FBFBFB;
-	color: #3D2B56;;
+	color: #3D2B56;
 }
 .page-container {
 	margin-top: 81px;
 }
 
-/* Handle smaller screens */
-@media (max-width: 900px) {
-	.header {
-		font-size: 1em;
-	}
-	.sideNav {
-		display: none;
-	}
-	.content {
-		margin-left: 0;
-		padding: 1em;
-	}
-	.page-container {
-		margin-top: 54px;
-	}
-}
 
-/* Handle larger screens */
-@media (min-width: 1192px) {
-	.center-container {
-		width: 1192px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-}
 
 
 
@@ -116,7 +92,7 @@ html, body {
 	height: 100%;
 	padding: 0;
 }
-.header .github {
+.header #github {
 	margin-left: 1em;
 }
 .header img {
@@ -125,6 +101,25 @@ html, body {
 }
 .header img:hover {
 	opacity: .8;
+}
+
+.header .topNav {
+	position: absolute;
+	left: 256px;
+	top: 0;
+	height: 100%;
+	font-size: .8em;
+}
+.topNav a {
+	margin-right: 1em;
+	padding: .5em;
+	color: #fff;
+}
+.topNav a:hover {
+	background-color: rgba(99,180,209,.3); /* 63B4D1 */
+}
+.topNav a.current {
+	background-color: #3D2B56;
 }
 
 
@@ -217,118 +212,75 @@ ul.navDepth-1 li.current {
 }
 
 .anchor {
+	display: block;
+	visibility: hidden;
 	position: absolute;
+	top: -3.5em;
 }
+
+h1 .anchor {
+	top: -113px;
+}
+
+h2 .anchor {
+	top: -97px;
+}
+
 
 .content .section {
 	margin-bottom: 4em;
 }
 
 
-/********************************************************
- * formBuilder examples
+
+
+/*********************************************************
+ * Screen size support
  */
- .example {
- 	display: block;
- 	margin-bottom: 1em;
- 	margin-left: 1em;
- }
+/* smaller screens */
+@media (max-width: 900px) {
+	.header {
+		font-size: 1em;
+	}
+	.sideNav {
+		display: none;
+	}
+	.content {
+		margin-left: 0;
+		padding: 1em;
+	}
+	.page-container {
+		margin-top: 54px;
+	}
+	h1 .anchor {
+		top: -74px;
+	}
 
-/********************************************************
- * Code Snippets
- */
- .CodeMirror {
- 	height: auto;
- 	margin-top: .5em;
- 	margin-bottom: .5em;
- }
- .CodeMirror-scroll {
- 	height: auto;
- 	overflow-y: hidden;
- 	overflow-x: hidden;
- }
- .resultDisplay {
- 	width: 100%;
- 	min-height: 15em;
- 	resize: vertical;
- }
+	h2 .anchor {
+		top: -58px;
+	}
 
- .code {
- 	display: block;
- 	position: relative;
- 	width: 100%;
- }
- .codeTitle {
- 	display: block;
- 	position: absolute;
- 	top: 0px;
- 	left: 0px;
- 	font-style: italic;
- }
- .codeToggle {
- 	display: block;
- 	position: relative;
- 	margin-left: auto;
- 	margin-right: auto;
- }
+	.header .topNav {
+		left: 174px;
+	}
 
+	.topNav a {
+		margin-right: 2em;
+	}
+}
 
+/* tiny Screens */
+@media (max-width: 563px) {
+	.header .links {
+		display: none;
+	}
+}
 
-
-/********************************************************
- * Type testing
- */
- .aClass {
- 	display: block;
- 	background-color: yellow;
- 	height: 1em;
- 	width: 1em;
- }
-
-
-/********************************************************
- * Text Submitter testing
- */
- #textSubmitterSubmitBox {
- 	position: relative;
- 	display: block;
- 	margin-bottom: 1em;
- 	padding-left: 1em;
- 	padding-top: 1.7em;
- 	font-size: .8em;
- 	width: 400px;
- }
- #textSubmitterSubmitBox .title {
- 	position: absolute;
- 	font-size: 1.2em;
- 	top: 0px;
- 	left: 1em;
- 	font-weight: bold;
- }
- #textSubmitterSubmitBox .messages {
- 	overflow-y: scroll;
- 	height: 8.2em;
- 	background-color: #E6E6E6;
- 	padding: .5em;
- }
- #textSubmitterSubmitBox .messages .message {
- 	display: block;
- }
- #textSubmitterSubmitBox .messages .message .submitTime {
- 	display: inline-block;
- 	padding-right: 5px;
- 	color: gray;
- }
- #textSubmitterSubmitBox .messages .message .submitText {
- 	display: inline-block;
- }
-
- /********************************************************
- * dropDownPanel testing
- */
-#ddpBasicTarget0 {
-	background-color: #3D2B56;
-	color: #FFF;
-	margin: .2em;
-	padding: .2em;
+/* larger screens */
+@media (min-width: 1192px) {
+	.center-container {
+		width: 1192px;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }

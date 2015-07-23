@@ -1,7 +1,7 @@
 extend ./_layout.jade
 
 block vars
-	- title = 'About'
+	- title = 'API Reference'
 
 block localCSS
 	//- link(type='text/css' rel='stylesheet' href='./css/guide.css')
@@ -10,12 +10,12 @@ block localJS
 	//- script(type='text/javascript' src='./js/guide.js')
 
 block sideNav
-	li(name='about')
-		a(href='#about') About
+	li(name='general')
+		a(href='#general') General API
 
 block content
 	h1
-		a.anchor(name='about' href='#about')
-		| About
+		a.anchor(name='general' href='#general')
+		| General API
 	.section
 		p TODO

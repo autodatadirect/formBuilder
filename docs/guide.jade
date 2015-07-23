@@ -1,0 +1,239 @@
+extend ./_layout.jade
+
+block vars
+	- title = 'User Guide'
+
+block localCSS
+	link(type='text/css' rel='stylesheet' href='./css/guide.css')
+
+block localJS
+	script(type='text/javascript' src='./js/guide.js')
+
+block sideNav
+	li.current(name='baseForm')
+		a(href='#') Base Form
+		ul.navDepth-1
+			li.current(name='baseForm-applyingFormBuilder'): a(href='#baseForm-applyingFormBuilder') Applying the formBuilder
+			li(name='baseForm-requiredInputs'): a(href='#baseForm-requiredInputs') Required Inputs
+
+	li(name='fieldEnhancements')
+		a(href='#fieldEnhancements') Field Enhancements
+		ul.navDepth-1
+			li(name='fieldEnhancements-preinputPostinput'): a(href='#fieldEnhancements-preinputPostinput') Preinput/Postinput
+			li(name='fieldEnhancements-prefixSuffix'): a(href='#fieldEnhancements-prefixSuffix') Prefix/Suffix
+			li(name='fieldEnhancements-labels'): a(href='#fieldEnhancements-labels') Labels
+			li(name='fieldEnhancements-placeholderText'): a(href='#fieldEnhancements-placeholderText') Placeholder Text
+			li(name='fieldEnhancements-max'): a(href='#fieldEnhancements-max') Max
+			li(name='fieldEnhancements-inputGroups'): a(href='#fieldEnhancements-inputGroups') Input Groups
+			li(name='fieldEnhancements-tooltip'): a(href='#fieldEnhancements-tooltip') Tooltip
+			li(name='fieldEnhancements-dropDownPanel'): a(href='#fieldEnhancements-dropDownPanel') Drop Down Panel
+	
+	li(name='dataTypes')
+		a(href='#dataTypes') Data Types
+		ul.navDepth-1
+			li(name='dataTypes-inputTypes'): a(href='#dataTypes-inputTypes') Input Types
+			li(name='dataTypes-select'): a(href='#dataTypes-select') Select
+			li(name='dataTypes-textarea'): a(href='#dataTypes-textarea') Textarea
+			li(name='dataTypes-arrayField'): a(href='#dataTypes-arrayField') Array Field
+			li(name='dataTypes-textSubmitter'): a(href='#dataTypes-textSubmitter') Text Submitter
+	
+	li(name='customization')
+		a(href='#customization') Customization
+		ul.navDepth-1
+			li(name='customization-regexTypes'): a(href='#customization-regexTypes') Creating Simple Regex Types
+			li(name='customization-fullTypes'): a(href='#customization-fullTypes') Creating Full Custom Types
+	
+	li(name='unsupported')
+		a(href='#unsupported') Unsupported
+		ul.navDepth-1
+			li(name='unsupported-checkbox'): a(href='#unsupported-checkbox') Checkboxes
+			li(name='unsupported-radio'): a(href='#unsupported-radio') Radio Buttons
+
+	li(name='demo')
+		a(href='#demo') Live Demo
+		ul.navDepth-1
+			li(name='demo-form'): a(href='#demo-form') Form
+			li(name='demo-results'): a(href='#demo-results') Results
+			li(name='demo-source'): a(href='#demo-source') Source
+	
+	
+	//- TEMPORARY FOR TESTING PURPOSES
+	li(name='newTypes')
+		a(href='#newTypes') New Types
+
+block content
+	h1
+		a.anchor(name='baseForm' href='#baseForm')
+		| Base Form 
+	.section
+		h2
+			a.anchor(name='baseForm-applyingFormBuilder' href='#baseForm-applyingFormBuilder')
+			| Applying the formBuilder
+		.section: include content/baseForm/applyingFormBuilder
+		
+		h2
+			a.anchor(name='baseForm-requiredInputs' href='#baseForm-requiredInputs')
+			| Required Inputs
+		.section: include content/baseForm/requiredInputs
+
+
+
+
+
+
+	h1
+		a.anchor(name='fieldEnhancements' href='#fieldEnhancements')
+		| Field Enhancements
+	.section
+		h2
+			a.anchor(name='fieldEnhancements-preinputPostinput' href='#fieldEnhancements-preinputPostinput')
+			| Preinput/Postinput
+		.section: include content/fieldEnhancements/preinputPostinput
+
+		h2
+			a.anchor(name='fieldEnhancements-prefixSuffix' href='#fieldEnhancements-prefixSuffix')
+			| Prefix/Suffix
+		.section: include content/fieldEnhancements/prefixSuffix
+		
+		h2
+			a.anchor(name='fieldEnhancements-labels' href='#fieldEnhancements-labels')
+			| Labels
+		.section: include content/fieldEnhancements/labels
+		
+
+		h2
+			a.anchor(name='fieldEnhancements-placeholderText' href='#fieldEnhancements-placeholderText')
+			| Placeholder Text
+		.section: include content/fieldEnhancements/placeholderText	
+
+		h2
+			a.anchor(name='fieldEnhancements-max' href='#fieldEnhancements-max')
+			| Max
+		.section: include content/fieldEnhancements/max
+		
+		h2
+			a.anchor(name='fieldEnhancements-inputGroups' href='#fieldEnhancements-inputGroups')
+			| Input Groups
+		.section: include content/fieldEnhancements/inputGroups
+		
+		h2
+			a.anchor(name='fieldEnhancements-tooltip' href='#fieldEnhancements-tooltip')
+			| Tooltip
+		.section: include content/fieldEnhancements/tooltip
+
+		h2
+			a.anchor(name='fieldEnhancements-dropDownPanel' href='#fieldEnhancements-dropDownPanel')
+			| Drop Down Panel
+		.section: include content/fieldEnhancements/dropDownPanel
+		
+
+
+
+
+
+	h1
+		a.anchor(name='dataTypes' href='#dataTypes')
+		| Data Types
+	.section
+		h2
+			a.anchor(name='dataTypes-inputTypes' href='#dataTypes-inputTypes')
+			| Input Types
+		.section: include content/dataTypes/inputTypes
+		
+		h2
+			a.anchor(name='dataTypes-select' href='#dataTypes-select')
+			| Select
+		.section: include content/dataTypes/select
+
+		h2
+			a.anchor(name='dataTypes-textarea' href='#dataTypes-textarea')
+			| Textarea
+		.section: include content/dataTypes/textarea
+		
+		h2
+			a.anchor(name='dataTypes-arrayField' href='#dataTypes-arrayField')
+			| Array Field
+		.section: include content/dataTypes/arrayField
+		
+		h2
+			a.anchor(name='dataTypes-textSubmitter' href='#dataTypes-textSubmitter')
+			| Text Submitter
+		.section: include content/dataTypes/textSubmitter
+	
+
+
+
+
+
+
+	h1
+		a.anchor(name='customization' href='#customization')
+		| Customization
+	.section
+		h2
+			a.anchor(name='customization-regexTypes' href='#customization-regexTypes')
+			| Creating Simple Regex Types
+		.section: include content/customization/regexTypes
+		
+		h2
+			a.anchor(name='customization-fullTypes' href='#customization-fullTypes')
+			| Creating Full Custom Types
+		.section: include content/customization/fullTypes
+	
+
+
+
+
+
+
+
+	h1
+		a.anchor(name='unsupported' href='#unsupported')
+		| Unsupported
+	.section
+		h2
+			a.anchor(name='unsupported-checkbox' href='#unsupported-checkbox')
+			| Checkboxes
+		.example: input(type='checkbox' data-label='Checkbox Test 3')
+
+		h2
+			a.anchor(name='unsupported-radio' href='#unsupported-radio')
+			| Radio Buttons
+		input#Element1(type="radio", name="RadioGroup", checked=false) 
+		input#Element2(type="radio", name="RadioGroup", checked=false) 
+		input#Element3(type="radio", name="RadioGroup") 
+
+
+		// have the radio button return this function on submit (according to youtube https://www.youtube.com/watch?v=WR88nGbXCKY)
+		// function is_checked(){
+		//		var yes_checked = document.getElementById('id').checked;
+		//		var no_checked = document.getElementById('id').checked;
+		//
+		//		if(yes_checked === false && no_checked === false){
+		//			alert('Please select an option');
+		//			return false;
+		//		}else{
+		//			return true;
+		//		}
+		//}
+
+
+
+
+	h1
+		a.anchor(name='demo' href='#demo')
+		| Live Demo
+	.section: include content/demo
+
+
+
+
+	h1
+		a.anchor(name='newTypes' href='#newTypes')
+		| New Types
+	.section
+		.example
+			.dateRange
+		.example
+			.dateTimeRange
+				

@@ -1,0 +1,66 @@
+doctype html
+html
+	block vars
+	head
+		meta(charset='utf-8')
+		title jquery.formBuilder.js | #{title}
+
+		// ==================== External CSS Dependencies ==================== 
+		// Any jquery-ui theme
+		link(type='text/css' rel='stylesheet' href='http://code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css')
+		
+		// ==================== bower CSS Dependencies ==================== 
+		link(type='text/css' rel='stylesheet' href='../bower_components/normalize.css/normalize.css')
+		link(type='text/css' rel='stylesheet' href='../bower_components/jquery-timepicker-jt/jquery.timepicker.css')
+		link(type='text/css' rel='stylesheet' href='../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css')
+
+
+		// ==================== formBuilder CSS Dependencies ==================== 
+		link(type='text/css' rel='stylesheet' href='../dist/css/formBuilder.css')
+
+		// Display purposes
+		link(type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans')
+		link(type='text/css' rel='stylesheet' href='./css/codemirror.css')
+		link(type='text/css' rel='stylesheet' href='./css/monokai.css')
+		link(type='text/css' rel='stylesheet' href='./css/main.css')
+
+		block localCSS
+
+	body
+		.header: .center-container
+			a.title(href='./index.html') jQuery.formBuilder
+			.topNav
+				a#Guide(href='./guide.html' class = title === 'User Guide' ? 'current' : '') User Guide
+				a#API(href='./api.html' class = title === 'API Reference' ? 'current' : '') API Reference
+			.links
+				a#travis(href='https://travis-ci.org/autodatadirect/formBuilder')
+					img(src='https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master')
+				a#github(href='https://github.com/autodatadirect/formBuilder')
+					img(src='./img/GitHub-Mark-Light-32px.png')
+		.center-container.page-container
+			.sideNav
+				ul.navDepth-0
+					block sideNav
+
+			.content
+				block content
+			
+
+		//- JavaScript
+		// Bower JS Dependencies (using CDNs for demo)
+		script(type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js')
+		script(type='text/javascript' src='../bower_components/jquery-ui/ui/minified/jquery-ui.min.js')
+		script(type='text/javascript' src='../bower_components/moment/min/moment.min.js')
+		script(type='text/javascript' src='../bower_components/spinjs/spin.min.js')
+		script(type='text/javascript' src='../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')
+		script(type='text/javascript' src='../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js')
+
+		// formBuilder Dependencies
+		script(type='text/javascript' src='../dist/jquery.formBuilder.min.js')
+
+		// Extra for displaying
+		script(type='text/javascript' src='./js/codemirror.js')
+		script(type='text/javascript' src='./js/codemirror-compressed.js')
+		script(type='text/javascript' src='./js/main.js')
+
+		block localJS
