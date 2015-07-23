@@ -32,7 +32,6 @@
 
 	$.widget("formBuilder.selectionWidget", {
 		options: {
-			label: '',
 			require: ''
 		},
 
@@ -47,7 +46,7 @@
 			 * load DOM settings from field into options
 			 */
 
-			loadDomData.call(self, o, ['require', 'label']);
+			loadDomData.call(self, o, ['require']);
 
 			/*
 			 * convert the simple input into the full field format
@@ -147,9 +146,8 @@
 			self.element.trigger('clean');
 		},
 
-		set: function(value, setOptions) {
+		set: function(value) {
 			var self = this,
-				o = self.options,
 				e = self.element;
 			var val;
 
