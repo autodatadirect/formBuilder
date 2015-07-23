@@ -138,6 +138,20 @@
 				require: typeof o.defaultRequired !== 'undefined' && o.defaultRequired === true
 			});
 			*/
+			e.find('input[type="checkbox"]').not(':formBuilder-inputField').not('.form-builder-ignore *').each(function(i, newCheckbox){
+				newCheckbox = $(newCheckbox);
+				if(newCheckbox.is('[data-load-widget-as-field]') || newCheckbox.parents('[data-load-widget-as-field]').length){
+					return;
+				}
+				newCheckbox.checkboxField({
+					require: !!o.defaultRequired
+				});
+
+				self.checkBoxFields = self.checkBoxFields.add(newCheckbox);
+			});
+
+
+
 			e.find('input[type!=submit], select, textarea').not(':formBuilder-inputField').not('.form-builder-ignore *').each(function () {
 				var newInput = $(this);
 				if(newInput.is('[data-load-widget-as-field]') || newInput.parents('[data-load-widget-as-field]').length){
@@ -201,6 +215,13 @@
 				return !dirty;
 			});
 
+			if(self.checkBoxFields){
+				self.checkBoxFields.each(function() {
+					dirty = !!$(this).selectionWidget('isDirty');
+					return !dirty;
+				});
+			}
+
 			return dirty;
 		},
 
@@ -211,6 +232,12 @@
 			self.fields.each(function() {
 				$(this).inputField('clearDirty');
 			});
+
+			if(self.checkBoxFields){
+				self.checkBoxFields.each(function() {
+					$(this).selectionWidget('clearDirty');
+				});
+			}
 
 			self.fieldsWidgets.each(function() {
 				self._proxyCommandToWidget($(this), 'clearDirty');
@@ -228,21 +255,40 @@
 		},
 
 		flashError: function(numberOfTimes) {
+			var self = this;
+
+			if(self.checkBoxFields){
+				this.checkBoxFields.filter(function() {
+					return $(this).data('checkBoxFields').options.error;
+				}).selectionWidget('flash', numberOfTimes);
+			}
+
 			this.fields.filter(function() {
 				return $(this).data('inputField').options.error;
 			}).inputField('flash', numberOfTimes);
 		},
 
 		disable: function() {
+			var self = this;
+
 			this.fields.inputField('status', 'disable', true);
+
+			if(self.checkBoxFields){
+				this.checkBoxFields.selectionWidget('status', 'disable', true);
+			}
 		},
 
 		enable: function() {
+			var self = this;
+
 			this.fields.inputField('status', 'disable', false);
+
+			if(self.checkBoxFields){
+				this.checkBoxFields.selectionWidget('status', 'disable', false);
+			}
 		},
 
 		get: function() {
-			console.log('inside of formbuilder get');
 			var self = this,
 				o = self.options,
 				formData = self._readDataFromDom();
@@ -267,6 +313,12 @@
 			self.fields.each(function() {
 				$(this).inputField('clear');
 			});
+
+			if(self.checkBoxFields){
+				self.checkBoxFields.each(function() {
+					$(this).selectionWidget('clear');
+				});
+			}
 
 			self.fieldsWidgets.each(function() {
 				self._proxyCommandToWidget($(this), 'clear');
@@ -307,6 +359,18 @@
 					conflicts.push(conflict);
 				}
 			});
+
+			if(self.checkBoxFields){
+				self.checkBoxFields.each(function() {
+					var fieldElement = $(this),
+						fieldName = fieldElement.attr('name');
+
+					var conflict = fieldElement.selectionWidget('conflicts', formData[fieldName]);
+					if(conflict){
+						conflicts.push(conflict);
+					}
+				});
+			}
 
 			self.fieldsWidgets.each(function() {
 				var conflict = self._proxyCommandToWidget($(this), 'conflicts', formData);
@@ -379,6 +443,15 @@
 				}
 			});
 
+			if(self.checkBoxFields){
+				self.checkBoxFields.each(function() {
+					var el = $(this);
+					if((!self.ignoreHidden || el.is(':visible')) && el.selectionWidget('validate') === false){
+						valid = false;
+					}
+				});
+			}
+
 			self.fieldsWidgets.each(function() {
 				var el = $(this);
 				if((!self.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, 'validate') === false){
@@ -409,6 +482,12 @@
 				$(this).inputField('set', util.selectPath(data, $(this).attr('name')), setOptions);
 			});
 
+			if(self.checkBoxFields){
+				self.checkBoxFields.each(function() {
+					$(this).selectionWidget('set', util.selectPath(data, $(this).attr('name')), setOptions);
+				});
+			}
+
 			self.fieldsWidgets.each(function() {
 				self._proxyCommandToWidget($(this), 'set', util.selectPath(data, $(this).attr('name')), setOptions);
 			});
@@ -434,6 +513,24 @@
 
 				util.insertPath(data, el.attr('name'), val);
 			});
+
+			if(self.checkBoxFields){
+				self.checkBoxFields.each(function() {
+					var el = $(this);
+					// console.log('inside of each');
+					if(ignoreHidden && !el.is(':visible')){
+						return;
+					}
+
+					var val = el.selectPath('get');
+
+					if($.isArray(val)) {
+						val = val[0];
+					}
+
+					util.insertPath(data, el.attr('name'), val);
+				});
+			}
 
 			self.fieldsWidgets.each(function() {
 				var el = $(this),
