@@ -13,6 +13,24 @@
  *   status(statusName, bool)
  */
 
+ 	// e.find('input[type="checkbox"').not(':formBuilder-inputField').not('.form-builder-ignore *').each(function(i, newCheckbox){
+		// 		newCheckbox = $(newCheckbox);
+		// 		if(newCheckbox.is('[data-load-widget-as-field]') || newCheckbox.parents('[data-load-widget-as-field]').length){
+		// 			return;
+		// 		}
+		// 		newCheckbox.checkboxField({
+		// 			require: !!o.defaultRequired
+		// 		});
+
+		// 		self.checkBoxFields = self.checkBoxFields.add(newCheckbox);
+		// 	});
+
+
+			// self.checkBoxFields.each(function() {
+			// 	dirty = !!$(this).checkboxField('isDirty');
+			// 	return !dirty;
+			// });
+
 (function($) {
 	"use strict";
 	var util = $.formBuilder.util;
@@ -139,13 +157,24 @@
 			/*
 			 * convert the simple input into the full field format
 			 */
-			 
-			var field = self.field = $('<div class="input-field"><div class="field-items"><span class="field-item field-item-input"></span></div></div>');
 
-			var layers = self.layers = {
-				items: field.find('.field-items'),
-				input: field.find('.field-item-input')
-			};
+			var field;
+			var layers;
+			
+			if(o.type !== 'checkbox' && o.type !== 'radio'){
+				field = self.field = $('<div class="input-field"><div class="field-items"><span class="field-item field-item-input"></span></div></div>');
+				layers = self.layers = {
+					items: field.find('.field-items'),
+					input: field.find('.field-item-input')
+				};
+			}else{
+				field = self.field = $('<div class="input-field"><div class="field-items"></div></div>');
+				layers = self.layers = {
+					items: field.find('.field-items')
+				};
+
+				// self.label = o.label;
+			}
 
 			if(o.label){
 				self.setLabel(o.label);
@@ -243,11 +272,14 @@
 			 */
 			/* this causes problems when extra dialogs like dropdown panels are placed inside the field container */
 			//field.on('mousedown.inputField', function() {
-			layers.input.on('mousedown.inputField', function() {
-				$('body').one('mouseup.inputField', function() {
-					e.focus();
+
+			if(o.type !== 'checkbox' && o.type !== 'radio'){
+				layers.input.on('mousedown.inputField', function() {
+					$('body').one('mouseup.inputField', function() {
+						e.focus();
+					});
 				});
-			});
+			}
 
 			self.autoValidate = 'blur';
 
@@ -289,6 +321,11 @@
 			/*
 			 * set the type of this field
 			 */
+
+			// if(o.type === 'radio'){
+			// 	console.log('this is a radio type');
+			// }
+
 			self.setType(o.type);
 
 			self.prevValue = e.val();
@@ -514,7 +551,20 @@
 
 		clear: function () {
 			var self = this,
+				o = self.options,
 				type = self.type;
+
+
+			if(o.type === 'checkbox' || o.type === 'radio'){
+				var checkboxes = document.getElementsByName("optionsChecks");
+				var checkboxesChecked = [];
+
+				for (var i=0; i<checkboxes.length; i++) {
+					if (checkboxes[i].checked) {
+						checkboxes[i].checked = false;
+					}
+				}
+			}
 
 			self.clearDirty();
 
@@ -524,6 +574,7 @@
 				self.prevValue = '';
 				self.set('');
 			}
+
 		},
 
 		clearDirty: function () {
@@ -552,8 +603,35 @@
 
 		set: function(value, setOptions) {
 			var self = this,
+				o = self.options,
 				e = self.element;
 			var val;
+
+			if(o.type === 'checkbox' || o.type === 'radio'){
+				var checkboxes = document.getElementsByName("optionsChecks");
+				var checkboxesChecked = [];
+				var i; 
+				var err = 'incorrect set value';
+				var id; 
+
+				for(i = 1; i < checkboxes.length; i++){
+					i = i.toString();
+					id = 'option' + i;
+					console.log(id);
+					if(value === id){
+						checkboxes[i - 1].checked = true;
+					}
+				}
+
+				// radios = $('input[type="radio"][name="someGroup"]');
+
+				// radios.each(function(i, radio) {
+				// 	radio = $(radio);
+
+				// });
+
+				
+			}
 
 			setOptions = $.extend({autoClean: true}, setOptions);
 
@@ -599,8 +677,25 @@
 
 		get: function() {
 			var self = this,
+				o = self.options,
 				e = self.element;
-			return self._formatFromField(e.val());
+
+			if(o.type === 'checkbox' || o.type === 'radio'){
+				var err = 'please make at least one selection';
+
+				var checkboxes = document.getElementsByName("optionsChecks");
+				var checkboxesChecked = [];
+
+				for (var i=0; i<checkboxes.length; i++) {
+					if (checkboxes[i].checked) {
+						checkboxesChecked.push(checkboxes[i].value);
+					}
+				}
+
+				return checkboxesChecked.length > 0 ? checkboxesChecked : err;
+			}else{
+				return self._formatFromField(e.val());
+			}
 		},
 
 		/*

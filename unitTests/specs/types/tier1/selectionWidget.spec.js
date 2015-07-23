@@ -3,7 +3,7 @@
  */
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 
-describe('the checkbox and radio box types', function(){
+xdescribe('the checkbox and radio box types', function(){
 'use strict';
 
 	var testContainer = window.formBuilderTesting.testContainer;
