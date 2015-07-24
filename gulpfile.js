@@ -19,6 +19,10 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
+var jade = require('gulp-jade');
+
+var gMarked = require('gulp-marked');
+var marked = require('marked');
 
 var karma = require('karma').server;
 
@@ -75,9 +79,9 @@ var dirs = {
 	build: __dirname + '/build',
 	distribution: __dirname + '/dist',
 	src: __dirname + '/src',
-	e2eTests: __dirname + '/e2eTests',
 	unitTests: __dirname + '/unitTests',
-	sass: __dirname + '/sass'
+	sass: __dirname + '/sass',
+	docs: __dirname + '/docs'
 };
 
 var date = new Date();
@@ -89,7 +93,6 @@ gulp.task('lint', function(done){
 	return gulp.src([
 			'gulpfile.js',
 			dirs.src + '/**/*.js',
-			// dirs.e2eTests + '/**/*.js',
 			dirs.unitTests + '/**/*.js'
 		])
 		.pipe(jshint())
@@ -244,7 +247,7 @@ gulp.task('default', ['build'], function(){
 	}
 });
 
-gulp.task('autoTest', ['test'], function(){
+gulp.task('test:watch', ['test'], function(){
 	console.log('Watching for changes to rebuild & test...');
 	gulp.watch([
 		dirs.src + '/**/*',
@@ -252,4 +255,65 @@ gulp.task('autoTest', ['test'], function(){
 		dirs.unitTests + '/**/*',
 		dirs.sass + '/**/**'
 	], ['test']);
+});
+
+
+
+
+
+
+
+
+
+// Render headers to fit style
+var renderer = new marked.Renderer();
+var anchorGroup;
+
+renderer.heading = function(text, level) {
+	var anchor;
+
+	if(level > 2) {
+		return '<h'+level+'>'+text+'</h'+level+'>';
+	}
+
+	anchor = text.replace(/[^\w]+/g,'');
+	anchor = anchor.charAt(0).toLowerCase() + anchor.substring(1);
+
+	if(anchorGroup && level === 2) {
+		return '<h'+level+'><a name="'+anchorGroup+anchor+'" class="anchor"></a>'+text+'</h'+level+'>';
+	}
+
+	anchorGroup = anchor + '-';
+	return '<h'+level+'><a name="'+anchor+'" class="anchor"></a>'+text+'</h'+level+'>';
+	
+};
+
+
+gulp.task('compileAPI', function() {
+	return gulp.src(dirs.docs + '/content/*.md')
+		.pipe(gMarked({
+			gfm: false,
+			renderer: renderer
+		}))
+		.pipe(gulp.dest(dirs.docs + '/content/'));
+	});
+
+gulp.task('refreshDocs', ['compileAPI'], function() {
+	return gulp.src([
+		dirs.docs + '/index.jade',
+			dirs.docs + '/guide.jade',
+			dirs.docs + '/api.jade'
+		])
+		.pipe(jade({
+			pretty: true,
+			locals: {}
+		}))
+		.pipe(gulp.dest(dirs.docs));
+});
+
+gulp.task('refreshDocs:watch', ['refreshDocs'], function() {
+	return gulp.watch([
+			dirs.docs + '/**.jade',
+			dirs.docs + '/**.md'
+		], ['refreshDocs']);
 });

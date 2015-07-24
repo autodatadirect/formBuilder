@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "repository": "https://github.com/autodatadirect/formBuilder",
   "devDependencies": {
-    "jade": "~1.10.0",
+    "jade": "~1.11.0",
     "gulp": "~3.9.0",
     "gulp-jasmine": "~2.0.1",
     "jshint": "~2.8.0",
@@ -24,7 +24,10 @@
     "karma-spec-reporter": "0.0.19",
     "gulp-sass": "~2.0.3",
     "gulp-autoprefixer": "~2.3.1",
-    "gulp-rename": "~1.2.2"
+    "gulp-rename": "~1.2.2",
+    "gulp-jade": "~1.0.1",
+    "marked": "~0.3.3",
+    "gulp-marked": "~1.0.0"
   },
   "scripts": {
     "test": "gulp test"

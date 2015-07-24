@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>jquery.formBuilder.js | Documentation</title>
+    <title>jquery.formBuilder.js | User Guide</title>
     <!-- ==================== External CSS Dependencies ==================== -->
     <!-- Any jquery-ui theme-->
     <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/redmond/jquery-ui.css">
@@ -16,69 +16,72 @@
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
     <link type="text/css" rel="stylesheet" href="./css/codemirror.css">
     <link type="text/css" rel="stylesheet" href="./css/monokai.css">
-    <link type="text/css" rel="stylesheet" href="./css/docs.css">
+    <link type="text/css" rel="stylesheet" href="./css/main.css">
+    <link type="text/css" rel="stylesheet" href="./css/guide.css">
   </head>
   <body>
     <div class="header">
-      <div class="title">jQuery.formBuilder</div>
-      <div class="links"><a href="https://travis-ci.org/autodatadirect/formBuilder" class="travis"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a href="https://github.com/autodatadirect/formBuilder" class="github"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
+      <div class="center-container"><a href="./index.html" class="title">jQuery.formBuilder</a>
+        <div class="topNav"><a id="Guide" href="./guide.html" class="current">User Guide</a><a id="API" href="./api.html">API Reference</a></div>
+        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
+      </div>
     </div>
-    <div class="container">
+    <div class="center-container page-container">
       <div class="sideNav">
         <ul class="navDepth-0">
-          <li name="baseForm" class="current"><a href="#">Base Form</a>
+          <li class="current"><a href="#baseForm">Base Form</a>
             <ul class="navDepth-1">
-              <li name="baseForm-applyingFormBuilder" class="current"><a href="#baseForm-applyingFormBuilder">Applying the formBuilder</a></li>
-              <li name="baseForm-requiredInputs"><a href="#baseForm-requiredInputs">Required Inputs</a></li>
+              <li class="current"><a href="#baseForm-applyingFormBuilder">Applying the formBuilder</a></li>
+              <li><a href="#baseForm-requiredInputs">Required Inputs</a></li>
             </ul>
           </li>
-          <li name="fieldEnhancements"><a href="#fieldEnhancements">Field Enhancements</a>
+          <li><a href="#fieldEnhancements">Field Enhancements</a>
             <ul class="navDepth-1">
-              <li name="fieldEnhancements-preinputPostinput"><a href="#fieldEnhancements-preinputPostinput">Preinput/Postinput</a></li>
-              <li name="fieldEnhancements-prefixSuffix"><a href="#fieldEnhancements-prefixSuffix">Prefix/Suffix</a></li>
-              <li name="fieldEnhancements-labels"><a href="#fieldEnhancements-labels">Labels</a></li>
-              <li name="fieldEnhancements-placeholderText"><a href="#fieldEnhancements-placeholderText">Placeholder Text</a></li>
-              <li name="fieldEnhancements-max"><a href="#fieldEnhancements-max">Max</a></li>
-              <li name="fieldEnhancements-inputGroups"><a href="#fieldEnhancements-inputGroups">Input Groups</a></li>
-              <li name="fieldEnhancements-tooltip"><a href="#fieldEnhancements-tooltip">Tooltip</a></li>
-              <li name="fieldEnhancements-dropDownPanel"><a href="#fieldEnhancements-dropDownPanel">Drop Down Panel</a></li>
+              <li><a href="#fieldEnhancements-preinputPostinput">Preinput/Postinput</a></li>
+              <li><a href="#fieldEnhancements-prefixSuffix">Prefix/Suffix</a></li>
+              <li><a href="#fieldEnhancements-labels">Labels</a></li>
+              <li><a href="#fieldEnhancements-placeholderText">Placeholder Text</a></li>
+              <li><a href="#fieldEnhancements-max">Max</a></li>
+              <li><a href="#fieldEnhancements-inputGroups">Input Groups</a></li>
+              <li><a href="#fieldEnhancements-tooltip">Tooltip</a></li>
+              <li><a href="#fieldEnhancements-dropDownPanel">Drop Down Panel</a></li>
             </ul>
           </li>
-          <li name="dataTypes"><a href="#dataTypes">Data Types</a>
+          <li><a href="#dataTypes">Data Types</a>
             <ul class="navDepth-1">
-              <li name="dataTypes-inputTypes"><a href="#dataTypes-inputTypes">Input Types</a></li>
-              <li name="dataTypes-select"><a href="#dataTypes-select">Select</a></li>
-              <li name="dataTypes-textarea"><a href="#dataTypes-textarea">Textarea</a></li>
-              <li name="dataTypes-arrayField"><a href="#dataTypes-arrayField">Array Field</a></li>
-              <li name="dataTypes-textSubmitter"><a href="#dataTypes-textSubmitter">Text Submitter</a></li>
+              <li><a href="#dataTypes-inputTypes">Input Types</a></li>
+              <li><a href="#dataTypes-select">Select</a></li>
+              <li><a href="#dataTypes-textarea">Textarea</a></li>
+              <li><a href="#dataTypes-arrayField">Array Field</a></li>
+              <li><a href="#dataTypes-textSubmitter">Text Submitter</a></li>
             </ul>
           </li>
-          <li name="customization"><a href="#customization">Customization</a>
+          <li><a href="#customization">Customization</a>
             <ul class="navDepth-1">
-              <li name="customization-regexTypes"><a href="#customization-regexTypes">Creating Simple Regex Types</a></li>
-              <li name="customization-fullTypes"><a href="#customization-fullTypes">Creating Full Custom Types</a></li>
+              <li><a href="#customization-regexTypes">Creating Simple Regex Types</a></li>
+              <li><a href="#customization-fullTypes">Creating Full Custom Types</a></li>
             </ul>
           </li>
-          <li name="unsupported"><a href="#unsupported">Unsupported</a>
+          <li><a href="#unsupported">Unsupported</a>
             <ul class="navDepth-1">
-              <li name="unsupported-checkbox"><a href="#unsupported-checkbox">Checkboxes</a></li>
-              <li name="unsupported-radio"><a href="#unsupported-radio">Radio Buttons</a></li>
+              <li><a href="#unsupported-checkbox">Checkboxes</a></li>
+              <li><a href="#unsupported-radio">Radio Buttons</a></li>
             </ul>
           </li>
-          <li name="demo"><a href="#demo">Live Demo</a>
+          <li><a href="#demo">Live Demo</a>
             <ul class="navDepth-1">
-              <li name="demo-form"><a href="#demo-form">Form</a></li>
-              <li name="demo-results"><a href="#demo-results">Results</a></li>
-              <li name="demo-source"><a href="#demo-source">Source</a></li>
+              <li><a href="#demo-form">Form</a></li>
+              <li><a href="#demo-results">Results</a></li>
+              <li><a href="#demo-source">Source</a></li>
             </ul>
           </li>
-          <li name="newTypes"><a href="#newTypes">New Types</a></li>
+          <li><a href="#newTypes">New Types</a></li>
         </ul>
       </div>
       <div class="content">
-        <h1><a name="baseForm" href="#baseForm" class="anchor"></a>Base Form </h1>
+        <h1>Base Form<a name="baseForm" class="anchor"></a></h1>
         <div class="section">
-          <h2><a name="baseForm-applyingFormBuilder" href="#baseForm-applyingFormBuilder" class="anchor"></a>Applying the formBuilder</h2>
+          <h2>Applying the formBuilder<a name="baseForm-applyingFormBuilder" class="anchor"></a></h2>
           <div class="section">
             <p>To initialize a form with formBuilder
               <div data-mode="javascript" class="code"> $('form').formBuilder();</div>
@@ -92,7 +95,7 @@
             </p>
             <p>Only elements inside of the formBuilder are effected</p>
           </div>
-          <h2><a name="baseForm-requiredInputs" href="#baseForm-requiredInputs" class="anchor"></a>Required Inputs</h2>
+          <h2>Required Inputs<a name="baseForm-requiredInputs" class="anchor"></a></h2>
           <div class="section">
             <p>The <i>data-required</i> attribute if set on an input element will prevent form submission if it is not valid
               <div class="example">
@@ -128,9 +131,9 @@
             </p>
           </div>
         </div>
-        <h1><a name="fieldEnhancements" href="#fieldEnhancements" class="anchor"></a>Field Enhancements</h1>
+        <h1>Field Enhancements<a name="fieldEnhancements" class="anchor"></a></h1>
         <div class="section">
-          <h2><a name="fieldEnhancements-preinputPostinput" href="#fieldEnhancements-preinputPostinput" class="anchor"></a>Preinput/Postinput</h2>
+          <h2>Preinput/Postinput<a name="fieldEnhancements-preinputPostinput" class="anchor"></a></h2>
           <div class="section">
             <p>The <i>data-preinput</i> attribute adds a block of text before any input
               <div class="example">
@@ -153,7 +156,7 @@
               </div>
             </p>
           </div>
-          <h2><a name="fieldEnhancements-prefixSuffix" href="#fieldEnhancements-prefixSuffix" class="anchor"></a>Prefix/Suffix</h2>
+          <h2>Prefix/Suffix<a name="fieldEnhancements-prefixSuffix" class="anchor"></a></h2>
           <div class="section">
             <p>Will add text at front/end of form field that can only be visible once the user has begun entering text into the field</p>
             <p>The <i>data-prefix</i>
@@ -171,7 +174,7 @@
               </div>
             </p>
           </div>
-          <h2><a name="fieldEnhancements-labels" href="#fieldEnhancements-labels" class="anchor"></a>Labels</h2>
+          <h2>Labels<a name="fieldEnhancements-labels" class="anchor"></a></h2>
           <div class="section">
             <p>The <i>data-label</i> attribute adds text above any input field
               <div class="example">
@@ -180,7 +183,7 @@
               <div data-mode="html" class="code"> <input type="text" data-label="Some Label Text"></div>
             </p>
           </div>
-          <h2><a name="fieldEnhancements-placeholderText" href="#fieldEnhancements-placeholderText" class="anchor"></a>Placeholder Text</h2>
+          <h2>Placeholder Text<a name="fieldEnhancements-placeholderText" class="anchor"></a></h2>
           <div class="section">
             <p>The <i>data-empty</i> or <i>data-placeholder</i> attribute will display placeholder text when an input field is empty
               <div class="example">
@@ -195,11 +198,11 @@
               </div>
             </p>
           </div>
-          <h2><a name="fieldEnhancements-max" href="#fieldEnhancements-max" class="anchor"></a>Max</h2>
+          <h2>Max<a name="fieldEnhancements-max" class="anchor"></a></h2>
           <div class="section">
             <p>the <i>data-max</i> attribute adds a maximum character requirement, enforced while typed
               <div class="example">
-                <input type="text" data-label="Maxmum of 10 chars" data-max="10">
+                <input type="text" data-label="Maximum of 10 chars" data-max="10">
               </div>
               <div data-mode="html" class="code">
                 <input type="text" data-label="Maxmum of 10 chars" data-max="10">
@@ -207,7 +210,7 @@
               </div>
             </p>
           </div>
-          <h2><a name="fieldEnhancements-inputGroups" href="#fieldEnhancements-inputGroups" class="anchor"></a>Input Groups</h2>
+          <h2>Input Groups<a name="fieldEnhancements-inputGroups" class="anchor"></a></h2>
           <div class="section">
             <p>Use input groups to keep inputs inline
               <div class="example">
@@ -227,7 +230,7 @@
               </div>
             </p>
           </div>
-          <h2><a name="fieldEnhancements-tooltip" href="#fieldEnhancements-tooltip" class="anchor"></a>Tooltip</h2>
+          <h2>Tooltip<a name="fieldEnhancements-tooltip" class="anchor"></a></h2>
           <div class="section">
             <p>You can add a tooltip box <b>after a form field</b> that will display a hovering widget on-click. You need a div of class <i>tooltip</i> with an optional <i>title</i> attribute
               <div class="example">
@@ -256,7 +259,7 @@
               </div>
             </p>
           </div>
-          <h2><a name="fieldEnhancements-dropDownPanel" href="#fieldEnhancements-dropDownPanel" class="anchor"></a>Drop Down Panel</h2>
+          <h2>Drop Down Panel<a name="fieldEnhancements-dropDownPanel" class="anchor"></a></h2>
           <div class="section">
             <p>
               Drop down panel widgets may be used to add an extra hovering container to any element. To create a drop down panel, initialize the 
@@ -525,9 +528,9 @@
             
           </div>
         </div>
-        <h1><a name="dataTypes" href="#dataTypes" class="anchor"></a>Data Types</h1>
+        <h1>Data Types<a name="dataTypes" class="anchor"></a></h1>
         <div class="section">
-          <h2><a name="dataTypes-inputTypes" href="#dataTypes-inputTypes" class="anchor"></a>Input Types</h2>
+          <h2>Input Types<a name="dataTypes-inputTypes" class="anchor"></a></h2>
           <div class="section">
             <p>The <i>data-type</i> attribute can be specifed to add content checking</p>
             <div class="example">
@@ -583,7 +586,7 @@
               <p> <span>For displaying uneditable values. Displays value attribute where the input field would be. Displayed as html. </span></p>
             </div>
           </div>
-          <h2><a name="dataTypes-select" href="#dataTypes-select" class="anchor"></a>Select</h2>
+          <h2>Select<a name="dataTypes-select" class="anchor"></a></h2>
           <div class="section">
             <p>Normal select tags will still work, but you can also use the formBuilder select input, which works in the same way as the code data-type.</p>
             <div class="example">
@@ -639,7 +642,7 @@
               <mark>Add the localization support back to the type</mark>
             </div>
           </div>
-          <h2><a name="dataTypes-textarea" href="#dataTypes-textarea" class="anchor"></a>Textarea</h2>
+          <h2>Textarea<a name="dataTypes-textarea" class="anchor"></a></h2>
           <div class="section">
             <p>No extra attributes are required. Note, pre/post-inputs will not grow with the area.
               <div class="example">
@@ -647,7 +650,7 @@
               </div>
             </p>
           </div>
-          <h2><a name="dataTypes-arrayField" href="#dataTypes-arrayField" class="anchor"></a>Array Field</h2>
+          <h2>Array Field<a name="dataTypes-arrayField" class="anchor"></a></h2>
           <div class="section">
             <p>You can use array fields in a formBuilder form to allow variable amounts of the same input-field-group to be submitted.
               <ul>
@@ -698,7 +701,7 @@
               </div>
             </div>
           </div>
-          <h2><a name="dataTypes-textSubmitter" href="#dataTypes-textSubmitter" class="anchor"></a>Text Submitter</h2>
+          <h2>Text Submitter<a name="dataTypes-textSubmitter" class="anchor"></a></h2>
           <div class="section">
             <p>Text submitter can be used for submitting multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form.</p>
             <p>Simple example using defaults:</p>
@@ -713,9 +716,9 @@
             <div id="textSubmitterSubmit"></div>
           </div>
         </div>
-        <h1><a name="customization" href="#customization" class="anchor"></a>Customization</h1>
+        <h1>Customization<a name="customization" class="anchor"></a></h1>
         <div class="section">
-          <h2><a name="customization-regexTypes" href="#customization-regexTypes" class="anchor"></a>Creating Simple Regex Types</h2>
+          <h2>Creating Simple Regex Types<a name="customization-regexTypes" class="anchor"></a></h2>
           <div class="section">
             <p>You can add your own input types using just regex very easily.</p>
             <div class="example">
@@ -745,7 +748,7 @@
               $('simpleCustomTypeForm').formBuilder();
             </div>
           </div>
-          <h2><a name="customization-fullTypes" href="#customization-fullTypes" class="anchor"></a>Creating Full Custom Types</h2>
+          <h2>Creating Full Custom Types<a name="customization-fullTypes" class="anchor"></a></h2>
           <div class="section">
             <p>You may also create new types if you provide all the needed base type functions.
               <div class="example">
@@ -813,37 +816,37 @@
             </p>
           </div>
         </div>
-        <h1><a name="unsupported" href="#unsupported" class="anchor"></a>Unsupported</h1>
+        <h1>Unsupported<a name="unsupported" class="anchor"></a></h1>
         <div class="section">
-          <h2><a name="unsupported-checkbox" href="#unsupported-checkbox" class="anchor"></a>Checkboxes</h2>
-          <div class="form-group"></div>
-          <div class="radio">
-            <input type="checkbox" data-label="Hey there">
+          <h2>Checkboxes<a name="unsupported-checkbox" class="anchor"></a></h2>
+          <div class="section">
+            <div class="example">
+              <input type="checkbox" data-label="Checkbox Test 3">
+            </div>
           </div>
-          <div class="radio">
-            <input id="optionsChecks2" type="checkbox" data-type="checkbox" name="optionsChecks" data-value="option2">
-            <label for="optionsChecks2">Option 2</label>
-          </div>
-          <div class="radio">
-            <input id="optionsChecks3" type="checkbox" data-type="checkbox" name="optionsChecks" data-value="option3">
-            <label for="optionsChecks3">Option 3</label>
-          </div>
-          <h2><a name="unsupported-radio" href="#unsupported-radio" class="anchor"></a>Radio Buttons</h2>
-          <div class="form-group"></div>
-          <div class="radio">
-            <input id="optionsRadios1" type="radio" data-type="radio" name="optionsRadios" value="radioButton1">
-            <label for="optionsRadios1">Option 1</label>
-          </div>
-          <div class="radio">
-            <input id="optionsRadios2" type="radio" data-type="radio" name="optionsRadios" value="radioButton2">
-            <label for="optionsRadios2">Option 2</label>
-          </div>
-          <div class="radio">
-            <input id="optionsRadios3" type="radio" data-type="radio" name="optionsRadios" value="radioButton2">
-            <label for="optionsRadios3">Option 3</label>
+          <h2>Radio Buttons<a name="unsupported-radio" class="anchor"></a></h2>
+          <div class="section">
+            <input id="Element1" type="radio" name="RadioGroup">
+            <input id="Element2" type="radio" name="RadioGroup">
+            <input id="Element3" type="radio" name="RadioGroup">
+            <!-- have the radio button return this function on submit (according to youtube https://www.youtube.com/watch?v=WR88nGbXCKY)-->
+            <!-- function is_checked(){-->
+            <!--		var yes_checked = document.getElementById('id').checked;-->
+            <!--		var no_checked = document.getElementById('id').checked;-->
+            <!---->
+            <!--		if(yes_checked === false && no_checked === false){-->
+            <!--			alert('Please select an option');-->
+            <!--			return false;-->
+            <!--		}else{-->
+            <!--			return true;-->
+            <!--		}-->
+            <!--}-->
+            
+            
+            
           </div>
         </div>
-        <h1><a name="demo" href="#demo" class="anchor"></a>Live Demo</h1>
+        <h1>Live Demo<a name="demo" class="anchor"></a></h1>
         <div class="section">
           <h2><a name="demo-form" href="#demo-form" class="anchor"></a>Form</h2>
           <div class="section">
@@ -1014,7 +1017,7 @@
             </div>
           </div>
         </div>
-        <h1><a name="newTypes" href="#newTypes" class="anchor"></a>New Types</h1>
+        <h1>New Types<a name="newTypes" class="anchor"></a></h1>
         <div class="section">
           <div class="example">
             <div class="dateRange"></div>
@@ -1037,6 +1040,7 @@
     <!-- Extra for displaying-->
     <script type="text/javascript" src="./js/codemirror.js"></script>
     <script type="text/javascript" src="./js/codemirror-compressed.js"></script>
-    <script type="text/javascript" src="./js/docs.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/guide.js"></script>
   </body>
 </html>

@@ -1,0 +1,23 @@
+extend ./_layout.jade
+
+block vars
+	- title = 'About'
+
+block localCSS
+	//- link(type='text/css' rel='stylesheet' href='./css/guide.css')
+
+block localJS
+	//- script(type='text/javascript' src='./js/guide.js')
+
+block sideNav
+	li.current
+		a(href='#about') About
+	li
+		a(href='#contribute') Contribute
+	li
+		a(href='#license') License
+	li
+		a(href='#credits') Credits
+
+block content
+	include content/index.html
