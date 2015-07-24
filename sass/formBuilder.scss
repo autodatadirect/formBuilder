@@ -1,7 +1,7 @@
 // Choose a theme with constants
 @import 'themes/default';
 
-@import 'partials/inputField';
+@import 'partials/widgets/inputField';
 
 .submitting {
 	color: #aaa;
@@ -36,5 +36,6 @@
 @import 'partials/widgets/arrayField';
 @import 'partials/widgets/textSubmitter';
 @import 'partials/widgets/dropDownPanel';
+@import 'partials/widgets/selectionField';
 
 

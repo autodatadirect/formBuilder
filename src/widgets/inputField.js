@@ -372,12 +372,10 @@
 
 		checkDirty: function () {
 			var self = this,
-				e = self.element,
-				val;
-
+				e = self.element;
 
 			if(!self.dirty){
-				val = self.get();
+				var val = self.get();
 
 				/*
 				 * TMS-350 Save/Cancel become greyed out on Ticket Details page even when changes are present
@@ -386,7 +384,7 @@
 					e.trigger('dirty');
 					self.dirty = true;
 				}
-			}else {
+			} else {
 				/*
 				 * clean checks can be fired many times, so debouce them with a timer
 				 */

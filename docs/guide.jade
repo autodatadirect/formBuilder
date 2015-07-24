@@ -172,30 +172,40 @@ block content
 		h2 Checkboxes
 			a.anchor(name='unsupported-checkbox')
 		.section
-			.example: input(type='checkbox' data-label='Checkbox Test 3')
+			//- .example
+
+			input(type='checkbox' data-label='Some Checkbox')
+			input(type='checkbox' data-label='Another')
+			input(type='checkbox' data-label='More')
+
+			br
+
+			.selection-field-group
+				input(type='checkbox' data-label='Group Checkbox')
+				input(type='checkbox' data-label='Another Group')
+				input(type='checkbox' data-label='More Group')
+
+			br
+
+			.selection-field-group.selection-horizontal
+				input(type='checkbox' data-label='Group Checkbox')
+				input(type='checkbox' data-label='Another Group')
+				input(type='checkbox' data-label='More Group')
 
 		h2 Radio Buttons
 			a.anchor(name='unsupported-radio')
 		.section
-			input#Element1(type="radio", name="RadioGroup", checked=false) 
-			input#Element2(type="radio", name="RadioGroup", checked=false) 
-			input#Element3(type="radio", name="RadioGroup") 
 
+			input(type="radio" name="someRadio" data-label='Radio One' value='one')
+			input(type="radio" name="someRadio" data-label='Radio Two' value='two')
+			input(type="radio" name="someRadio" data-label='Radio Three' value='three')
 
-			// have the radio button return this function on submit (according to youtube https://www.youtube.com/watch?v=WR88nGbXCKY)
-			// function is_checked(){
-			//		var yes_checked = document.getElementById('id').checked;
-			//		var no_checked = document.getElementById('id').checked;
-			//
-			//		if(yes_checked === false && no_checked === false){
-			//			alert('Please select an option');
-			//			return false;
-			//		}else{
-			//			return true;
-			//		}
-			//}
+			br
 
-
+			.selection-field-group
+				input(type="radio" name="someRadioGroup" data-label='Radio Group One' value='one')
+				input(type="radio" name="someRadioGroup" data-label='Radio Group Two' value='two')
+				input(type="radio" name="someRadioGroup" data-label='Radio Group Three' value='three')
 
 
 	h1 Live Demo
