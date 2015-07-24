@@ -29,4 +29,170 @@
 </ul>
 </li>
 </ul>
-<h2><a name="widgets-inputField" class="anchor"></a>inputField</h2><h2><a name="widgets-inputFilter" class="anchor"></a>inputFilter</h2><h2><a name="widgets-submitButton" class="anchor"></a>submitButton</h2><h2><a name="widgets-inputWidget" class="anchor"></a>inputWidget</h2><h2><a name="widgets-arrayField" class="anchor"></a>arrayField</h2><h2><a name="widgets-dropDownPanel" class="anchor"></a>dropDownPanel</h2><h2><a name="widgets-dateRangePicker" class="anchor"></a>dateRangePicker</h2><h2><a name="widgets-dateTimeRangePicker" class="anchor"></a>dateTimeRangePicker</h2><h2><a name="widgets-popOver" class="anchor"></a>popOver</h2><h2><a name="widgets-textSubmitter" class="anchor"></a>textSubmitter</h2><h2><a name="widgets-spin" class="anchor"></a>spin</h2><h1><a name="inputTypes" class="anchor"></a>Input Types</h1><h2><a name="inputTypes-standard" class="anchor"></a>standard</h2><h2><a name="inputTypes-select" class="anchor"></a>select</h2><h2><a name="inputTypes-date" class="anchor"></a>date</h2><h2><a name="inputTypes-time" class="anchor"></a>time</h2><h2><a name="inputTypes-dateTime" class="anchor"></a>dateTime</h2><h2><a name="inputTypes-money" class="anchor"></a>money</h2><h2><a name="inputTypes-phone" class="anchor"></a>phone</h2><h1><a name="plugins" class="anchor"></a>Plugins</h1><h2><a name="plugins-caret" class="anchor"></a>caret</h2>
+<h2><a name="widgets-inputField" class="anchor"></a>inputField</h2><ul>
+<li>Options<ul>
+<li><strong>type</strong> <em>(string)</em> Field type from <code>types</code>. <strong>Default:</strong> &#39;text&#39;</li>
+<li><strong>label</strong> <em>(string)</em> Label to go above field. <strong>Default:</strong> &#39; &#39;</li>
+<li><strong>require</strong> <em>(boolean)</em> Whether or not the field is required for submission. <strong>Default:</strong> false</li>
+<li><strong>placeholder</strong> <em>(string)</em> Text in empty form field. <strong>Default</strong> &#39; &#39; </li>
+<li><strong>min</strong> <em>(integer)</em> Minimum amount of input required. <strong>Default</strong> &#39; &#39;</li>
+<li><strong>max</strong> <em>(integer)</em> Maximum amount of input allowed. <strong>Default</strong> &#39; &#39;</li>
+</ul>
+</li>
+<li>Methods <ul>
+<li><strong>setLabel(label)</strong> Prepends the given label to the top of the form field</li>
+<li><strong>setSuffix(t)</strong> Sets text that will be displayed at the end of the form field once the user has started typing.</li>
+<li><strong>setPrefix(t)</strong> Sets text that will be displayed at the front of the form field once the user has started typing.</li>
+<li><strong>setMax(max)</strong> Sets the maximum size that the input can be </li>
+<li><strong>checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing </li>
+<li><strong>isDirty()</strong> returns the value of data-dirty (true/false)</li>
+<li><strong>addOn(weight, HTML, className)</strong> Appends given HTML around form field based on weight. If no input found, it will append to the items layer</li>
+<li><strong>placeholder(s)</strong> If there is no placeholder it will be hidden, otherwise it will be shown if the input field is empty. </li>
+<li><strong>clear()</strong> Runs inputField.clear() for each field. Empties form.</li>
+<li><strong>clearDirty()</strong> Resets the dirty status to false. </li>
+<li><strong>conflicts(value)</strong> Checks to see if dirty status is set to true. If it is then returns conflicting values, otherwise returns null. </li>
+<li><strong>set(value, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>afterset</code>.</li>
+<li><strong>get()</strong> Returns converted field value</li>
+<li><strong>value(value)</strong> If the value passed in is undefined then return the converted form data from all fields, otherwise set the value into the form. </li>
+<li><strong>validate(skipRequired)</strong> Validates the input matches the declared type, but only if the form field is not empty and skiRequired is true.</li>
+<li><strong>flash(numberOfTimes)</strong> Flashes an error message to the screen according to the &#39;numberOfTimes&#39; that have been passed into the function</li>
+<li><strong>setError(err)</strong> Sets the error message passed in into the error label overlay. Sets error status to true. </li>
+<li><strong>clearError()</strong> Sets autoValidate to blur. Sets error status to false. C</li>
+<li><strong>redraw()</strong> Re-enters all of the previous saved information into the form. </li>
+<li><strong>setType(sType)</strong> If the type doesn&#39;t exist, sets it to default of &#39;text&#39;. If it does exist then run the type&#39;s tear down. Then set the field type and run the type&#39;s setup. </li>
+<li><strong>getType()</strong> Returns the type object. </li>
+<li><strong>hide()</strong> Hides the field that calls this function. </li>
+<li><strong>show(displayValue)</strong> Displays the value passed into the function. </li>
+<li><strong>getField()</strong> Returns the field.</li>
+<li><strong>enable()</strong> Sets the &#39;disable&#39; status to false.</li>
+<li><strong>disable()</strong> Sets the &#39;disable&#39; status to true.</li>
+<li><strong>isDisabled()</strong> Returns the &#39;disable&#39; status&#39;s value (true/false)</li>
+<li><strong>status(statusName,bool,fireEvents)</strong> Sets the status class to the field and runs any updates to the field needed. </li>
+<li><strong>updateStatus(statusName, bool, fireEvents)</strong> legacy code that simply calls the <strong>status(statusName,bool,fireEvents)</strong> method </li>
+<li><strong>hasStatus(statusName)</strong> Returns this current object&#39;s current state for the status name that was passed into the function. </li>
+</ul>
+</li>
+<li>Events <ul>
+<li><strong>dirty</strong> <em>Optional</em> Triggered if the form has been changed but not saved</li>
+<li><strong>clean</strong> <em>Optional</em> Triggered if the form&#39;s current value equals the previous value, the form has been correctly saved. <ul>
+<li>Also triggered in the clearDirty() method</li>
+</ul>
+</li>
+<li><strong>afterset(null, [val, value])</strong> <em>Optional.</em> Called after <code>set</code> replaces the form values <strong>Default:</strong> (undefined)</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-inputFilter" class="anchor"></a>inputFilter</h2><ul>
+<li>Options<ul>
+<li><strong>toUpper</strong> <em>(boolean)</em> flag to determine if the type is utext. <strong>Default:</strong> &#39;false&#39;</li>
+<li><strong>max</strong> <em>(integer)</em> Largest input that is allowed in the form field. <strong>Default:</strong> &#39;0&#39;</li>
+<li><strong>pattern</strong> <em>(regex)</em> The pattern that the input will be checked against for validity. <strong>Default:</strong> &#39;/[A-Z]/&#39;</li>
+</ul>
+</li>
+<li>Methods <ul>
+<li><strong>setMax(max)</strong> Sets the current object&#39;s max variable to the max passed into the method.</li>
+<li><strong>setPattern(regex)</strong> Sets the pattern of the current object to the regular expression passed into the function. </li>
+<li><strong>destroy()</strong> Calls the destroy function with the current object as the parameter</li>
+<li><strong>nextArrayFieldId()</strong> Returns the arrayFieldId incremented by one. </li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>keyignored</strong> <em>Optional</em> Ignore the character that has been entered if it is not valid for the current type</li>
+<li><strong>keytyped</strong> <em>Optional</em> If the character entered is valid for the current type then enter it into the formfield</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-submitButton" class="anchor"></a>submitButton</h2><ul>
+<li>Options<ul>
+<li><strong>color</strong> <em>(string)</em> Color of loading spinner. <strong>Default:</strong> &#39;#000&#39;</li>
+<li><strong>delay</strong> <em>(int)</em> Delay between UI update and submission call, in milliseconds <strong>Default:</strong> 10</li>
+<li><strong>disabled</strong> <em>(boolean)</em> Prevents form submission. Set by user. <strong>Default:</strong> false</li>
+<li><strong>waiting</strong> <em>(boolean)</em> Prevents form submission. Set to  <strong>Default:</strong> false</li>
+<li><strong>label</strong> <em>(string)</em> Label above button. <strong>Default:</strong> undefined</li>
+<li><strong>preventDefault</strong> <em>(boolean)</em> Prevents default form submission. <strong>Default:</strong> true</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><strong>enable()</strong> Sets <code>disabled</code> to false.</li>
+<li><strong>disable()</strong> Sets <code>disabled</code> to true.</li>
+<li><strong>getButtonLabel()</strong> Returns <code>label</code>.</li>
+<li><strong>submit()</strong> Begins submission process as if the button was clicked.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>beforesubmit(ev)</strong> <em>Optional.</em> - called before a submit, if false it does not submit</li>
+<li><strong>submit(ev, finish())</strong> <em>Required.</em> - called to submit the code<ul>
+<li>Not called if in a <code>disabled</code> or <code>waiting</code> state. </li>
+<li>Write your Ajax or other form submission here</li>
+<li>Must call <code>finish()</code> after completed</li>
+</ul>
+</li>
+<li><strong>aftersubmit(ev)</strong> <em>Optional.</em> - called after the submit returns<ul>
+<li>Clean up form here</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-fieldWidget" class="anchor"></a>fieldWidget</h2><p>Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in the same was as method in inputField widget but can be overwritten by user if desired to meet specific requirements</p>
+<h2><a name="widgets-arrayField" class="anchor"></a>arrayField</h2><h2><a name="widgets-dropDownPanel" class="anchor"></a>dropDownPanel</h2><p>Drop down panel widgets may be used to add an extra hovering container to any element. Drop downs are shown when a user clicks on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop down and the target element or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and down the page with the element when scrolling.</p>
+<ul>
+<li>Options<ul>
+<li><strong>target</strong> <em>(jquery object)</em> <em>Required.</em> The element the panel will be displayed underneath. If the target is an inputField <code>input</code> or <code>.input-field</code>, the target is set to the <code>.input-field</code> and the source is appended to the <code>.input-field-group</code>. Otherwise, the source is just inserted after the target in the same container. </li>
+<li><strong>focusTarget</strong> <em>(jquery object)</em> The element to listen to click and focus events from in order to open/close the dropdown. <strong>Default:</strong> same as target</li>
+<li><strong>targetInput</strong> <em>(boolean)</em> If true and the target is an <code>.input-field</code>, the target will be changed to the <code>.field-item-input</code>. This will place the panel only under the input itself, rather than the both input and any addons it might have. <strong>Default:</strong> true</li>
+<li><strong>hideFields</strong> <em>(string[])</em> An array of name attributes matching elements in the panel source to remove. This is useful when you are cloning multiple panels from the same source and don&#39;t need all of the elements.</li>
+<li><strong>offset</strong> <em>(object)</em><ul>
+<li><strong>top</strong> <em>(number)</em> Additional offset spacing, in px, between the bottom of the target and the top of the dropdown. <strong>Default:</strong> 0</li>
+<li><strong>left</strong> <em>(number)</em> Additional offset spacing, in px, between the left side of the target and the left side of the dropdown. <strong>Default:</strong> 0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Methods<ul>
+<li><strong>getClassNames()</strong> Returns the class names for the target and focus elements in a object in the format <code>{target:(string), focus:(string)}</code>.</li>
+<li><strong>getId()</strong> Returns the drop down panel id integer. Each created panel will have its own unique id.</li>
+<li><strong>isOpened()</strong> Returns open status</li>
+<li><strong>detach()</strong> Disconnects the panel from the target, focusTarget, and DOM. To use the panel again it must be attached to another element.</li>
+<li><strong>attach(<em>jquery object</em> newTarget, <em>jquery object</em> newFocusTarget)</strong> Connects the panel to the newTarget as the target, newFocusTarget as the focusTarget, and inserts the wrapper into the DOM in the correct location. This is done when the panel is first created, but can be called afterwards in order to change the targets. If the panel has targets, it will be detached from those targets first. </li>
+<li><strong>open()</strong> Positions the panel and then makes it visible.</li>
+<li><strong>close()</strong> Hides the panel.</li>
+</ul>
+</li>
+<li>Events
+  <strong>beforeopen(null,<em>jquery object</em> panel, <em>object</em> newPositionCss)</strong> Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.
+  <strong>afteropen</strong> Triggered after the panel is positioned and shown.
+  <strong>beforeclose</strong> Triggered before the panel is closed. If the default is prevented the panel will not hidden.
+  <strong>afterclose</strong> Triggered after the panel is hidden.</li>
+</ul>
+<h2><a name="widgets-dateRangePicker" class="anchor"></a>dateRangePicker</h2><p>Creates two input fields for a beginning and ending date. Allows the user to select different ranges of time if they wish to. Based off of the date data-type.</p>
+<ul>
+<li>Methods <ul>
+<li><strong>setRange(string)</strong> Sets the range of the date field to either &#39;custom&#39;, &#39;day&#39;, &#39;week&#39;, &#39;month&#39;, or &#39;year&#39;. Will modify the input fields so that the date range reflects this selection.</li>
+<li><strong>serialize(moment)</strong> Takes a passed-in moment and returns YYYY-MM-DD format</li>
+<li><strong>deserialize(string)</strong> Takes a passed-in string and returns a moment in the YYYY-MM-DD format</li>
+<li><strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. The from and to fields should be in the &#39;YYYY-MM-DD&#39; format. The range value should be a string. </li>
+<li><strong>set(Object)</strong> Sets the input fields of the dateRangePicker to the value of the object that is passed into the method</li>
+<li><strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.</li>
+<li><strong>clearDirty()</strong> Resets the current object&#39;s dirty value to false.Calls the formBuilder clearDirty() method.</li>
+<li><strong>clear()</strong> Sets the values inside of the dateRangePicker&#39;s inputfields to &#39;&#39; and sets the range value to &#39;custom&#39;</li>
+<li><strong>validate()</strong> Validates that the input matches the date-format that it should be. Uses the formBuilder widget&#39;s validate function</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-dateTimeRangePicker" class="anchor"></a>dateTimeRangePicker</h2><p>Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well. Based off of the dateTime data-type.</p>
+<ul>
+<li>Methods <ul>
+<li><strong>setRange(string)</strong>  Sets the range of the date field to either &#39;custom&#39;, &#39;day&#39;, &#39;week&#39;, &#39;month&#39;, or &#39;year&#39;. Will modify the input fields so that the date range reflects this selection. Will set the time fields to 12:00am and 11:59pm if there is nothing in those fields already, otherwise will not modify the time fields. </li>
+<li><strong>serializeDate(moment)</strong> Takes a moment input and returns that input turned into a string in the format of &#39;YYYY-MM-DD&#39;. </li>
+<li><strong>deserializeDate(string)</strong> Takes a string input and returns that input turned into a moment in the format of &#39;YYYY-MM-DD&#39;.  </li>
+<li><strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateTimeRangePicker input fields. The from and to fields should be in the format &#39;YYYY-MM-DDTHH:MM:mmZ&#39;. The range value of the object should be a string. </li>
+<li><strong>set(object)</strong> Sets the input fields of the dateTimeRangePicker to the value of the object that is passed into the method.</li>
+<li><strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.</li>
+<li><strong>clearDirty()</strong> Resets the current object&#39;s dirty value to false.Calls the formBuilder clearDirty() method.</li>
+<li><strong>clear()</strong> Sets the values inside of the dateTimeRangePicker&#39;s inputfields to &#39;&#39; and sets the range value to &#39;custom&#39;</li>
+<li><strong>validate()</strong> Validates that the input matches the dateTime-format that it should be. Uses the formBuilder widget&#39;s validate function</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-popOver" class="anchor"></a>popOver</h2><h2><a name="widgets-textSubmitter" class="anchor"></a>textSubmitter</h2><h2><a name="widgets-spin" class="anchor"></a>spin</h2><h1><a name="inputTypes" class="anchor"></a>Input Types</h1><h2><a name="inputTypes-standard" class="anchor"></a>standard</h2><h2><a name="inputTypes-select" class="anchor"></a>select</h2><h2><a name="inputTypes-date" class="anchor"></a>date</h2><h2><a name="inputTypes-time" class="anchor"></a>time</h2><h2><a name="inputTypes-dateTime" class="anchor"></a>dateTime</h2><h2><a name="inputTypes-money" class="anchor"></a>money</h2><h2><a name="inputTypes-phone" class="anchor"></a>phone</h2><h1><a name="plugins" class="anchor"></a>Plugins</h1><h2><a name="plugins-caret" class="anchor"></a>caret</h2>
