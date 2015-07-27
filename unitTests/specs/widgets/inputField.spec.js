@@ -822,7 +822,7 @@ describe('An inputField', function(){
 
 	});
 
-	it('can handle conflicts', function(){
+	xit('can handle conflicts', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
 		var ifw = input.data('formBuilderInputField');
 

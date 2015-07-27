@@ -199,15 +199,19 @@ block content
 			input(type="radio" name="someRadio" data-label='Radio One' value='one')
 			input(type="radio" name="someRadio" data-label='Radio Two' value='two')
 			input(type="radio" name="someRadio" data-label='Radio Three' value='three')
-
+				
 			br
 
-			.selection-field-group
-				input(type="radio" name="someRadioGroup" data-label='Radio Group One' value='one')
-				input(type="radio" name="someRadioGroup" data-label='Radio Group Two' value='two')
-				input(type="radio" name="someRadioGroup" data-label='Radio Group Three' value='three')
+			.example
+				input(type="radio" name="formRadioGroup" data-label='Form Radio Group One' value='one')
+				input(type="radio" name="formRadioGroup" data-label='Form Radio Group Two' value='two')
+				input(type="radio" name="formRadioGroup" data-label='Form Radio Group Three' value='three')
 
-
+			.example
+				.selection-field-group.selection-horizontal
+					input(type="radio" name="someRadioGroup" data-label='Radio Group One' value='one')
+					input(type="radio" name="someRadioGroup" data-label='Radio Group Two' value='two')
+					input(type="radio" name="someRadioGroup" data-label='Radio Group Three' value='three')
 	h1 Live Demo
 		a.anchor(name='demo')
 	.section: include content/demo

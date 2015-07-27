@@ -34,7 +34,10 @@
 	$.widget("formBuilder.selectionField", {
 		options: {
 			require: undefined, 
-			label: ''
+			label: '',
+
+			// Radio specific
+			radioGroup: undefined
 		},
 
 		_create: function() {
@@ -71,6 +74,8 @@
 			// Checkbox or Radio?
 			self.isRadio = e.is('[type="radio"]');
 
+			
+
 			/*
 			 * if this field is not part of a group in its form, add a group class to this field for proper styling
 			 */
@@ -81,33 +86,23 @@
 				
 				if(self.isRadio) {
 					self.radioGroup = e;
-				}
-				
-			} else if(self.isRadio && parentContainer.is('.selection-field-group')) {
-				var radioGroup = parentContainer.find('input[type="radio"][name="'+e.attr('name')+'"]:formBuilder-selectionField');
-				
-				// Update radio links (this widget included)
-				radioGroup.each(function() {
-					$(this).data('formBuilderSelectionField').radioGroup = radioGroup;
-				});
-
+				}				
 			}
 
 			self.states = {};
 
 			if(self.isRadio) {
+				if(o.radioGroup) {
+					self.radioGroup = o.radioGroup;
+				} else {
+					self.radioGroup = e;
+				}
+
 				// Keep all radioGroup in sync
 				self._updatePreviousValue();
 			} else {
 				self.prevValue = e.is(':checked');
 			}
-
-			e.on('clean', function() {
-				console.log('now clean!');
-			}).on('dirty', function() {
-				console.log('now dirty!');
-			});
-
 
 			e.change(function(ev) {
 				// TODO: change this to use errors + autoValidate
@@ -147,7 +142,7 @@
 			}
 
 			var prevValue = value || self.radioGroup.filter(':checked').val();
-			self.radioGroup.each(function(){
+			self.radioGroup.filter(':formBuilder-selectionField').each(function(){
 				$(this).data('formBuilderSelectionField').prevValue = prevValue;
 			});
 
@@ -161,8 +156,17 @@
 				var val = self.get();
 
 				if(!util.equals(self.prevValue, val) && !(typeof self.prevValue === 'undefined' && !val)){
-					e.trigger('dirty');
-					self.dirty = true;
+					// is dirty
+					if(self.isRadio) {
+						self.radioGroup.each(function() {
+							var sfw = $(this).data('formBuilderSelectionField');
+							sfw.dirty = true;
+							sfw.field.addClass('dirty');
+						});
+					} else {
+						self.dirty = true;
+						self.field.addClass('dirty');
+					}
 				}
 			} else {
 				/*
@@ -175,17 +179,8 @@
 					var prev = self.prevValue,
 						val = self.get();
 
-					if(prev !== 0 && !prev) {
-						prev = '';
-					}
-
-					if(val !== 0 && !val){
-						val = '';
-					}
-
 					if(util.equals(prev,val)){
-						self.dirty = false;
-						e.trigger('clean');
+						self.clearDirty();
 					}
 				}, 300);
 			}
@@ -199,8 +194,7 @@
 		clear: function() {
 			var self = this;
 
-			self.set(false);
-			self.clearDirty();
+			self.set();
 		},
 
 		clearDirty: function() {
@@ -210,14 +204,24 @@
 				clearTimeout(self.cleanCheckTimer);
 			}
 
-			self.dirty = false;
-			self.field.removeClass('dirty');
-			self.element.trigger('clean');
+			if(self.isRadio) {
+				self.radioGroup.each(function() {
+					var sfw = $(this).data('formBuilderSelectionField');
+					sfw.dirty = false;
+					sfw.field.removeClass('dirty');
+				});
+			} else {
+				self.dirty = false;
+				self.field.removeClass('dirty');
+			}
+
+			
+			self._trigger('clean');
 		},
 
 		conflicts: function(value) {
 			var self = this;
-			if(self.dirty){
+			if(self.dirty && self.get() !== value){
 				return {
 					key: self.element.attr('name'),
 					vOld: self.get(),
@@ -227,7 +231,7 @@
 			return null;
 		},
 
-		set: function(value, setOptions) {
+		set: function(value) {
 			var self = this,
 				e = self.element;
 
@@ -237,12 +241,15 @@
 				self.radioGroup.removeAttr('checked');
 
 				// Select passed value
-				self.radioGroup.filter('[value="'+value+'"]').prop('checked', true);
-
+				if(typeof(value) !== 'undefined') {
+					self.radioGroup.filter('[value="'+value+'"]').prop('checked', true);
+				}
+				
 				self._updatePreviousValue();
 
 			} else {
-				e.prop('checked', !!value);
+				self.prevValue = !!value;
+				e.prop('checked', self.prevValue);
 			}
 
 			self.clearDirty();
@@ -284,14 +291,17 @@
 			return isValid;
 		},
 
+		
 		hide: function() {
-			var self = this;
-			self.field.hide();
+			this.field.hide();
 		},
 
 		show: function() {
-			var self = this;
-			self.field.show();
+			this.field.show();
+		},
+
+		getField: function() {
+			return this.field;
 		},
 
 		enable: function() {
@@ -367,12 +377,6 @@
 			}
 
 		},
-		/*
-		 * legacy status method
-		 */
-		updateStatus: function(statusName, bool, fireEvents) {
-			this.status(statusName, bool, fireEvents);
-		},
 
 		hasStatus: function (statusName) {
 			return !!this.states[statusName];
@@ -383,10 +387,12 @@
 			var self = this;
 
 			if(self.isRadio) {
-				// Remove the element from the radio group
+				// Remove the element from the radio group + destroy others
 				self.radioGroup = self.radioGroup.not(self.element);
+
 				self.radioGroup.each(function() {
 					$(this).data('formBuilderSelectionField').radioGroup = self.radioGroup;
+					$(this).selectionField('destroy');
 				});
 			}
 		}

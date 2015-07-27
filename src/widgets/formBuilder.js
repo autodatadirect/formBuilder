@@ -133,38 +133,64 @@
 				}
 				el.addClass('field-items').wrap('<div class="input-field-group"><div class="input-field"></div></div>').before('<label>' + label + '</label>');
 			});
-			/*
-			self.fields = e.find('input[type!=submit], select, textarea').not(':formBuilder-inputField').inputField({
-				require: typeof o.defaultRequired !== 'undefined' && o.defaultRequired === true
-			});
-			*/
-			e.find('input[type="checkbox"]').not(':formBuilder-inputField').not('.form-builder-ignore *').each(function(i, newCheckbox){
-				newCheckbox = $(newCheckbox);
-				if(newCheckbox.is('[data-load-widget-as-field]') || newCheckbox.parents('[data-load-widget-as-field]').length){
-					return;
-				}
-				newCheckbox.checkboxField({
-					require: !!o.defaultRequired
+
+			e.find('input[type="checkbox"]')
+				.not(':formBuilder-selectionField')
+				.not('.form-builder-ignore *')
+				.not('[data-load-widget-as-field]')
+				.not('[data-load-widget-as-field] *')
+				.each(function() {
+					var el = $(this);
+
+					el.selectionField({
+						require: !!o.defaultRequired
+					});
+
+					self.fieldsWidgets = self.fieldsWidgets.add(el);
 				});
 
-				self.checkBoxFields = self.checkBoxFields.add(newCheckbox);
-			});
-
-
-
-			e.find('input[type!=submit], select, textarea').not(':formBuilder-inputField').not('.form-builder-ignore *').each(function () {
-				var newInput = $(this);
-				if(newInput.is('[data-load-widget-as-field]') || newInput.parents('[data-load-widget-as-field]').length){
+			var radios = e.find('input[type="radio"]')
+				.not(':formBuilder-selectionField')
+				.not('.form-builder-ignore *')
+				.not('[data-load-widget-as-field]')
+				.not('[data-load-widget-as-field] *');
+			
+			radios.each(function() {
+				var el = $(this);
+				
+				if(el.is(':formBuilder-selectionField')) {
+					// ignore the ones already grouped
 					return;
 				}
-				newInput.inputField({
-					require: !!o.defaultRequired
+
+				var radioGroup = radios.filter('[name="'+this.name+'"]');
+
+				radioGroup.each(function() {
+					$(this).selectionField({
+						require: !!o.defaultRequired,
+						radioGroup: radioGroup
+					});
 				});
-
-				self.fields = self.fields.add(newInput);
-
-
+				
+				self.fieldsWidgets = self.fieldsWidgets.add(el);
 			});
+
+
+			e.find('input[type!=submit][type!="checkbox"][type!="radio"], select, textarea')
+				.not(':formBuilder-inputField')
+				.not(':formBuilder-selectionField')
+				.not('.form-builder-ignore *')
+				.not('[data-load-widget-as-field]')
+				.not('[data-load-widget-as-field] *')
+				.each(function () {
+					var newInput = $(this);
+				
+					newInput.inputField({
+						require: !!o.defaultRequired
+					});
+
+					self.fields = self.fields.add(newInput);
+				});
 
 
 
@@ -181,12 +207,25 @@
 			//}, 0);
 		},
 
-		_proxyCommandToWidget: function (widgetElement) {
+		_proxyCommandToWidget: function (widgetElement, ignoreInvalid) {
 			var self = this,
-				widgetName = widgetElement.data('load-widget-as-field') || 'inputField',
-				instance = widgetElement.data(widgetName),
-				method = Array.prototype.splice.call(arguments, 1, 1),
-				args = Array.prototype.slice.call(arguments, 1);
+				method = Array.prototype.splice.call(arguments, 2, 2),
+				args = Array.prototype.slice.call(arguments, 2),
+				widgetName, instance;
+				
+			if(widgetElement.is(':formBuilder-inputField')) {
+				widgetName = 'formBuilderInputField';
+			} else if(widgetElement.is(':formBuilder-selectionField')) {
+				widgetName = 'formBuilderSelectionField';
+			} else {
+				widgetName = widgetElement.data('load-widget-as-field');
+			}
+
+			instance = widgetElement.data(widgetName);
+
+			if(ignoreInvalid && (!widgetName || !instance || !instance[method])) {
+				return;
+			}
 
 			try {
 				return instance[method].apply(instance, args);
@@ -211,16 +250,9 @@
 			}
 
 			self.fieldsWidgets.each(function() {
-				dirty = !!self._proxyCommandToWidget($(this), 'isDirty');
+				dirty = !!self._proxyCommandToWidget($(this), false, 'isDirty');
 				return !dirty;
 			});
-
-			if(self.checkBoxFields){
-				self.checkBoxFields.each(function() {
-					dirty = !!$(this).selectionWidget('isDirty');
-					return !dirty;
-				});
-			}
 
 			return dirty;
 		},
@@ -233,14 +265,8 @@
 				$(this).inputField('clearDirty');
 			});
 
-			if(self.checkBoxFields){
-				self.checkBoxFields.each(function() {
-					$(this).selectionWidget('clearDirty');
-				});
-			}
-
 			self.fieldsWidgets.each(function() {
-				self._proxyCommandToWidget($(this), 'clearDirty');
+				self._proxyCommandToWidget($(this), false, 'clearDirty');
 			});
 		},
 
@@ -257,12 +283,6 @@
 		flashError: function(numberOfTimes) {
 			var self = this;
 
-			if(self.checkBoxFields){
-				this.checkBoxFields.filter(function() {
-					return $(this).data('checkBoxFields').options.error;
-				}).selectionWidget('flash', numberOfTimes);
-			}
-
 			this.fields.filter(function() {
 				return $(this).data('inputField').options.error;
 			}).inputField('flash', numberOfTimes);
@@ -273,19 +293,20 @@
 
 			this.fields.inputField('status', 'disable', true);
 
-			if(self.checkBoxFields){
-				this.checkBoxFields.selectionWidget('status', 'disable', true);
-			}
+			self.fieldsWidgets.each(function() {
+				self._proxyCommandToWidget($(this), true, 'status', 'disabled', true);
+			});
 		},
 
 		enable: function() {
 			var self = this;
 
-			this.fields.inputField('status', 'disable', false);
+			self.fields.inputField('status', 'disable', false);
 
-			if(self.checkBoxFields){
-				this.checkBoxFields.selectionWidget('status', 'disable', false);
-			}
+			self.fieldsWidgets.each(function() {
+				self._proxyCommandToWidget($(this), true, 'status', 'disabled', false);
+			});
+			
 		},
 
 		get: function() {
@@ -314,14 +335,9 @@
 				$(this).inputField('clear');
 			});
 
-			if(self.checkBoxFields){
-				self.checkBoxFields.each(function() {
-					$(this).selectionWidget('clear');
-				});
-			}
 
 			self.fieldsWidgets.each(function() {
-				self._proxyCommandToWidget($(this), 'clear');
+				self._proxyCommandToWidget($(this), false, 'clear');
 			});
 		},
 
@@ -360,20 +376,8 @@
 				}
 			});
 
-			if(self.checkBoxFields){
-				self.checkBoxFields.each(function() {
-					var fieldElement = $(this),
-						fieldName = fieldElement.attr('name');
-
-					var conflict = fieldElement.selectionWidget('conflicts', formData[fieldName]);
-					if(conflict){
-						conflicts.push(conflict);
-					}
-				});
-			}
-
 			self.fieldsWidgets.each(function() {
-				var conflict = self._proxyCommandToWidget($(this), 'conflicts', formData);
+				var conflict = self._proxyCommandToWidget($(this), false, 'conflicts', formData);
 				if(conflict){
 					if($.isArray(conflict)){
 						conflicts.concat(conflict);
@@ -443,18 +447,9 @@
 				}
 			});
 
-			if(self.checkBoxFields){
-				self.checkBoxFields.each(function() {
-					var el = $(this);
-					if((!self.ignoreHidden || el.is(':visible')) && el.selectionWidget('validate') === false){
-						valid = false;
-					}
-				});
-			}
-
 			self.fieldsWidgets.each(function() {
 				var el = $(this);
-				if((!self.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, 'validate') === false){
+				if((!self.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, false, 'validate') === false){
 					valid = false;
 				}
 			});
@@ -466,7 +461,7 @@
 			var self = this;
 			self.fields.inputField('destroy');
 			self.fieldsWidgets.each(function() {
-				self._proxyCommandToWidget($(this), 'destroy');
+				self._proxyCommandToWidget($(this), false, 'destroy');
 			});
 		},
 
@@ -482,14 +477,8 @@
 				$(this).inputField('set', util.selectPath(data, $(this).attr('name')), setOptions);
 			});
 
-			if(self.checkBoxFields){
-				self.checkBoxFields.each(function() {
-					$(this).selectionWidget('set', util.selectPath(data, $(this).attr('name')), setOptions);
-				});
-			}
-
 			self.fieldsWidgets.each(function() {
-				self._proxyCommandToWidget($(this), 'set', util.selectPath(data, $(this).attr('name')), setOptions);
+				self._proxyCommandToWidget($(this), false, 'set', util.selectPath(data, $(this).attr('name')), setOptions);
 			});
 		},
 
@@ -514,24 +503,6 @@
 				util.insertPath(data, el.attr('name'), val);
 			});
 
-			if(self.checkBoxFields){
-				self.checkBoxFields.each(function() {
-					var el = $(this);
-					// console.log('inside of each');
-					if(ignoreHidden && !el.is(':visible')){
-						return;
-					}
-
-					var val = el.selectPath('get');
-
-					if($.isArray(val)) {
-						val = val[0];
-					}
-
-					util.insertPath(data, el.attr('name'), val);
-				});
-			}
-
 			self.fieldsWidgets.each(function() {
 				var el = $(this),
 					ignoreHidden = self.options.ignoreHidden;
@@ -539,7 +510,7 @@
 				if(ignoreHidden && !el.is(':visible')){
 					return;
 				}
-				var val = self._proxyCommandToWidget(el, 'get');
+				var val = self._proxyCommandToWidget(el, false, 'get');
 				util.insertPath(data, el.attr('name'), val);
 			});
 
