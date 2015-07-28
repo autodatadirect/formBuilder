@@ -12,7 +12,7 @@ describe('The selectionField widget', function(){
 	var baseCheckbox = '<input type="checkbox">';
 	var baseRadio = '<input type="radio" name="someRadioGroup"/>';
 
-	var makeRadioGroup = function() {
+	var makeRadioGroup = function(ignoreWidget) {
 		var radioGroup = $([]);
 
 		// get to at least 3 radios
@@ -20,11 +20,13 @@ describe('The selectionField widget', function(){
 			radioGroup = radioGroup.add($('<input type="radio" name="someRadioGroup" value="'+radioGroup.length+'"/>'));
 		}
 
-		radioGroup.each(function() { 
-			$(this).selectionField({
-				radioGroup: radioGroup
+		if(!ignoreWidget) {
+			radioGroup.each(function() { 
+				$(this).selectionField({
+					radioGroup: radioGroup
+				});
 			});
-		});
+		}
 
 		return radioGroup;
 	};
@@ -77,6 +79,40 @@ describe('The selectionField widget', function(){
 			expect(radio2.is(':formBuilder-selectionField')).toBe(true);
 			expect(sfw2.isRadio).toBe(true);
 			expect(sfw2.radioGroup.length).toBe(2);
+		});
+
+		it('(radio) and keep options persistent', function() {
+			var radioGroup = makeRadioGroup(true);
+			var sfw = [];
+			var i;
+
+			// Setup
+			radioGroup.eq(0).selectionField({
+				required: true,
+				radioGroup: radioGroup
+			});
+			sfw.push(radioGroup.eq(0).data('formBuilderSelectionField'));
+
+			radioGroup.eq(1).selectionField({
+				required: false,
+				radioGroup: radioGroup
+			});
+			sfw.push(radioGroup.eq(1).data('formBuilderSelectionField'));
+
+			expect(sfw[0].options.required).toBe(true);
+			expect(sfw[1].options.required).toBe(true);
+
+			sfw[0].options.required = sfw[1].options.required = false;
+
+			radioGroup.eq(2).selectionField({
+				required: true,
+				radioGroup: radioGroup
+			});
+			sfw.push(radioGroup.eq(2).data('formBuilderSelectionField'));
+
+			expect(sfw[0].options.required).toBe(true);
+			expect(sfw[1].options.required).toBe(true);
+			expect(sfw[2].options.required).toBe(true);
 		});
 	});
 
@@ -257,7 +293,6 @@ describe('The selectionField widget', function(){
 
 		sfw.clear();
 		expect(checkbox.is(':checked')).toBe(false);
-		expect(sfw.set).toHaveBeenCalled();
 		expect(sfw.set).toHaveBeenCalledWith(); //nothing
 
 		checkbox.prop('checked', true);
@@ -279,7 +314,6 @@ describe('The selectionField widget', function(){
 
 			expect(sfw.dirty).toBe(false);
 			expect(sfw.field.is('dirty')).toBe(false);
-			expect(sfw._trigger).toHaveBeenCalled();
 			expect(sfw._trigger).toHaveBeenCalledWith('clean');
 		});
 
@@ -328,7 +362,6 @@ describe('The selectionField widget', function(){
 			expect(checkbox.is(':checked')).toBe(true);
 			expect(sfw.prevValue).toBe(true);
 			expect(sfw.clearDirty).toHaveBeenCalled();
-			expect(sfw._trigger).toHaveBeenCalled();
 			expect(sfw._trigger).toHaveBeenCalledWith('afterset', null, [true]);
 		});
 
@@ -355,7 +388,6 @@ describe('The selectionField widget', function(){
 			expect(radioGroup.eq(2).is(':checked')).toBe(true);
 			expect(sfw[0]._updatePreviousValue).toHaveBeenCalled();
 			expect(sfw[0].clearDirty).toHaveBeenCalled();
-			expect(sfw[0]._trigger).toHaveBeenCalled();
 			expect(sfw[0]._trigger).toHaveBeenCalledWith('afterset', null, ['2']);
 
 			for(i = 0; i < sfw.length; ++i) {
@@ -400,9 +432,65 @@ describe('The selectionField widget', function(){
 	});
 
 	describe('can be validated', function() {
-		it('(checkbox)');
+		it('(checkbox)', function() {
+			var checkbox = $(baseCheckbox).selectionField({
+				required: true
+			});
+			var sfw = checkbox.data('formBuilderSelectionField');
 
-		it('(radio)');
+			spyOn(sfw, 'status');
+
+			expect(checkbox.is(':checked')).toBe(false);
+			expect(sfw.validate()).toBe(false);
+			expect(sfw.status).toHaveBeenCalledWith('error', true);
+			sfw.status.calls.reset();
+
+			checkbox.prop('checked', true);
+			expect(sfw.validate()).toBe(true);
+			expect(sfw.status).toHaveBeenCalledWith('error', false);
+			sfw.status.calls.reset();
+
+			checkbox.prop('checked', false);
+			sfw.options.required = false;
+			expect(sfw.validate()).toBe(true);
+			expect(sfw.status).toHaveBeenCalledWith('error', false);
+
+		});
+
+		it('(radio)', function() {
+			var radioGroup = makeRadioGroup(true);
+			var sfw = [];
+
+			radioGroup.each(function() {
+				var radio = $(this);
+				radio.selectionField({
+					required: true,
+					radioGroup: radioGroup
+				});
+				sfw.push(radio.data('formBuilderSelectionField'));
+			});
+			
+			spyOn(sfw[0], 'status');
+
+			expect(radioGroup.filter(':checked').length).toBe(0);
+			expect(sfw[0].validate()).toBe(false);
+			expect(sfw[0].status).toHaveBeenCalledWith('error', true);
+			sfw[0].status.calls.reset();
+
+
+			radioGroup.eq(1).prop('checked', true);
+			expect(sfw[0].validate()).toBe(true);
+			expect(sfw[0].status).toHaveBeenCalledWith('error', false);
+			sfw[0].status.calls.reset();
+
+			radioGroup.each(function() {
+				$(this).data('formBuilderSelectionField').options.required = false;
+			});
+
+			radioGroup.eq(1).prop('checked', false);
+			expect(sfw[0].validate()).toBe(true);
+			expect(sfw[0].status).toHaveBeenCalledWith('error', false);
+		});
 	});
 
 	
@@ -439,12 +527,126 @@ describe('The selectionField widget', function(){
 	});
 
 	describe('can set its status', function() {
-		it('(checkbox)');
+		it('(checkbox)', function() {
+			var checkbox = $(baseCheckbox).selectionField();
+			var sfw = checkbox.data('formBuilderSelectionField');
 
-		it('(radio) and the statuses of its radio group');
+			spyOn(sfw, '_trigger');
+
+			expect(sfw.states.require).toBe(false);
+			expect(sfw.field.is('.require')).toBe(false);
+
+			sfw.status('require', true);
+			expect(sfw.states.require).toBe(true);
+			expect(sfw.field.is('.require')).toBe(true);
+			expect(sfw._trigger).toHaveBeenCalledWith('statusUpdate', null, {
+				statusName: 'require',
+				value: true
+			});
+			sfw._trigger.calls.reset();
+
+			sfw.status('require', false);
+			expect(sfw.states.require).toBe(false);
+			expect(sfw.field.is('.require')).toBe(false);
+			expect(sfw._trigger).toHaveBeenCalledWith('statusUpdate', null, {
+				statusName: 'require',
+				value: false
+			});
+			sfw._trigger.calls.reset();
+
+			sfw.status('require', false);
+			expect(sfw.states.require).toBe(false);
+			expect(sfw.field.is('.require')).toBe(false);
+			expect(sfw._trigger).not.toHaveBeenCalled();
+			
+			expect(sfw.states.disable).toBeUndefined();
+			expect(sfw.field.is('.disable')).toBe(false);
+			expect(sfw.field.css('pointer-events')).toBe('');
+
+			sfw.status('disable', true);
+			expect(sfw.states.disable).toBe(true);
+			expect(sfw.field.is('.disable')).toBe(true);
+			expect(sfw.field.css('pointer-events')).toBe('none');
+			expect(sfw._trigger).toHaveBeenCalledWith('statusUpdate', null, {
+				statusName: 'disable',
+				value: true
+			});
+
+		});
+
+		it('(radio) and the statuses of its radio group', function() {
+			var radioGroup = makeRadioGroup();
+			var sfw = [];
+			var i;
+
+			radioGroup.each(function() {
+				var radio = $(this);
+				sfw.push(radio.data('formBuilderSelectionField'));
+			});
+
+			spyOn(sfw[1], '_trigger');
+
+			for(i = 0; i < sfw.length; ++i) {
+				expect(sfw[i].states.require).toBe(false);
+				expect(sfw[i].field.is('.require')).toBe(false);
+			}
+
+			sfw[1].status('require', true);
+			for(i = 0; i < sfw.length; ++i) {
+				expect(sfw[i].states.require).toBe(true);
+				expect(sfw[i].field.is('.require')).toBe(true);
+			}
+			expect(sfw[1]._trigger).toHaveBeenCalledWith('statusUpdate', null, {
+				statusName: 'require',
+				value: true
+			});
+			sfw[1]._trigger.calls.reset();
+
+			sfw[1].status('require', false);
+			for(i = 0; i < sfw.length; ++i) {
+				expect(sfw[i].states.require).toBe(false);
+				expect(sfw[i].field.is('.require')).toBe(false);
+			}
+			expect(sfw[1]._trigger).toHaveBeenCalledWith('statusUpdate', null, {
+				statusName: 'require',
+				value: false
+			});
+			sfw[1]._trigger.calls.reset();
+
+			for(i = 0; i < sfw.length; ++i) {
+				expect(sfw[i].states.disable).toBeUndefined();
+				expect(sfw[i].field.is('.disable')).toBe(false);
+				expect(sfw[i].field.css('pointer-events')).toBe('');
+			}
+			
+			sfw[1].status('disable', true);
+			for(i = 0; i < sfw.length; ++i) {
+				expect(sfw[i].states.disable).toBe(true);
+				expect(sfw[i].field.is('.disable')).toBe(true);
+				expect(sfw[i].field.css('pointer-events')).toBe('none');
+			}
+			expect(sfw[1]._trigger).toHaveBeenCalledWith('statusUpdate', null, {
+				statusName: 'disable',
+				value: true
+			});
+
+
+		});
 	});
 
-	it('can check if it has a status');
+	it('can check if it has a status', function() {
+		var checkbox = $('<input type="checkbox" data-required="true"/>').selectionField();
+		var sfw = checkbox.data('formBuilderSelectionField');
+
+		expect(sfw.options.required).toBe(true);
+		expect(sfw.hasStatus('require')).toBe(true);
+
+		expect(sfw.hasStatus('error')).toBe(false);
+
+		sfw.status('error', true);
+
+		expect(sfw.hasStatus('error')).toBe(true);
+	});
 
 	it('can be disabled', function() {
 		var checkbox = $(baseCheckbox).selectionField();
@@ -453,7 +655,6 @@ describe('The selectionField widget', function(){
 		spyOn(sfw, 'status').and.callThrough();
 
 		sfw.disable();
-		expect(sfw.status).toHaveBeenCalled();
 		expect(sfw.status).toHaveBeenCalledWith('disable', true);
 		expect(sfw.hasStatus('disable')).toBe(true);
 		expect(sfw.field.is('.disable')).toBe(true);
@@ -468,7 +669,6 @@ describe('The selectionField widget', function(){
 		spyOn(sfw, 'status').and.callThrough();
 
 		sfw.enable();
-		expect(sfw.status).toHaveBeenCalled();
 		expect(sfw.status).toHaveBeenCalledWith('disable', false);
 		expect(sfw.hasStatus('disable')).toBe(false);
 		expect(sfw.field.is('.disable')).toBe(false);
@@ -481,13 +681,39 @@ describe('The selectionField widget', function(){
 		spyOn(sfw, 'hasStatus');
 
 		sfw.isDisabled();
-		expect(sfw.hasStatus).toHaveBeenCalled();
 		expect(sfw.hasStatus).toHaveBeenCalledWith('disable');
 	});
 
 	describe('can be destroyed', function() {
-		it('(checkbox)');
+		it('(checkbox)', function() {
+			var checkbox = $(baseCheckbox).selectionField();
+			var sfw = checkbox.data('formBuilderSelectionField');
 
-		it('(radio)');
+			expect(checkbox.is(':formBuilder-selectionField')).toBe(true);
+			expect(checkbox.data('formBuilderSelectionField')).toBeDefined();
+
+			checkbox.selectionField('destroy');
+			expect(checkbox.is(':formBuilder-selectionField')).toBe(false);
+			expect(checkbox.data('formBuilderSelectionField')).toBeUndefined();
+		});
+
+		it('(radio)', function() {
+			var radioGroup = makeRadioGroup();
+
+			radioGroup.each(function() {
+				var radio = $(this);
+				expect(radio.is(':formBuilder-selectionField')).toBe(true);
+				expect(radio.data('formBuilderSelectionField')).toBeDefined();
+			});
+
+			radioGroup.eq(1).selectionField('destroy');
+
+			radioGroup.each(function() {
+				var radio = $(this);
+				expect(radio.is(':formBuilder-selectionField')).toBe(false);
+				expect(radio.data('formBuilderSelectionField')).toBeUndefined();
+			});
+
+		});
 	});
 });

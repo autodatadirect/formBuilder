@@ -33,7 +33,7 @@
 
 	$.widget("formBuilder.selectionField", {
 		options: {
-			require: undefined, 
+			require: undefined, required: undefined, // both the same
 			label: '',
 
 			// Radio specific
@@ -45,11 +45,11 @@
 				o = self.options,
 				e = self.element;
 
-			self.dirty = false;			
+			self.dirty = false;
 			
 			// Load DOM data settings into options + clean bools
-			loadDomData.call(self, o, ['require', 'label']);
-			o.require = !!o.require;
+			loadDomData.call(self, o, ['require', 'required', 'label']);
+			o.required = o.require = !!(o.require || o.required);
 			
 			// convert input to field format
 			var field = self.field = $('<div class="selection-field"></div>');
@@ -86,7 +86,7 @@
 				
 				if(self.isRadio) {
 					self.radioGroup = e;
-				}				
+				}
 			}
 
 			self.states = {};
@@ -98,11 +98,35 @@
 					self.radioGroup = e;
 				}
 
-				// Keep all radioGroup in sync
+				// Keep prevValue in sync
 				self._updatePreviousValue();
+
+				// Keep any needed options in sync
+				var widgets = self.radioGroup.not(e).filter(':formBuilder-selectionField');
+				if(!o.required) {
+					widgets.each(function() {
+						var ops = $(this).data('formBuilderSelectionField').options;
+						if(ops.required) {
+							o.required = ops.required;
+							return false;
+						}
+					});
+				}
+				if(o.required) {
+					widgets.each(function(){
+						var sfw = $(this).data('formBuilderSelectionField');
+						sfw.options.required = o.required;
+					});
+				}
+				
+
 			} else {
 				self.prevValue = e.is(':checked');
 			}
+
+
+			// set the require option as a status
+			self.status('require', o.required, false);
 
 			e.change(function(ev) {
 				// TODO: change this to use errors + autoValidate
@@ -275,7 +299,7 @@
 				e = self.element,
 				isValid = true;
 
-			if(o.require) {
+			if(o.required) {
 				if(self.isRadio) {				
 					isValid = self.radioGroup.filter(':checked').length === 1;
 				} else {
@@ -284,9 +308,7 @@
 			}
 
 			// update error status
-			if(self.hasStatus('error') === isValid) {
-				self.status('error', !isValid);
-			}
+			self.status('error', !isValid);
 
 			return isValid;
 		},
@@ -361,9 +383,9 @@
 
 			// Sync rest of radioGroup if needed
 			if(self.isRadio && (statusName === 'disable' || statusName === 'error' || statusName === 'warn' || statusName === 'require')) {
-				self.radioGroup.not(self.element).filter(function(){
+				self.radioGroup.not(self.element).filter(':formBuilder-selectionField').filter(function(){
 					return $(this).selectionField('hasStatus', statusName) !== cleanBool;
-				}).selectionField('status', statusName, bool, fireEvents);
+				}).selectionField('status', statusName, bool, false);
 			}
 
 			/*
@@ -371,8 +393,8 @@
 			 */
 			if(fireEvents !== false) {
 				self._trigger("statusUpdate", null, {
-					'statusName': statusName,
-					'value': states[statusName]
+					statusName: statusName,
+					value: states[statusName]
 				});
 			}
 
@@ -386,13 +408,12 @@
 		_destroy: function() {
 			var self = this;
 
-			if(self.isRadio) {
-				// Remove the element from the radio group + destroy others
-				self.radioGroup = self.radioGroup.not(self.element);
-
-				self.radioGroup.each(function() {
-					$(this).data('formBuilderSelectionField').radioGroup = self.radioGroup;
-					$(this).selectionField('destroy');
+			if(self.radioGroup) {
+				// Destroy all in radioGroup
+				self.radioGroup.not(self.element).each(function() {
+					var radio = $(this);
+					radio.data('formBuilderSelectionField').radioGroup = undefined;
+					radio.selectionField('destroy');
 				});
 			}
 		}
