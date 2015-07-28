@@ -63,12 +63,12 @@
           </li>
         </ul>
       </div>
-      <div class="content"><h1><a name="widgets" class="anchor"></a>Widgets</h1><p>All widgets are created using jQuery UI&#39;s <a href="http://api.jqueryui.com/jQuery.widget/">Widget Factory</a> and they inherit all of the options, methods, and events of the base widget.</p>
-<ul>
-<li>We have attempted to define what type each parameter is to the best of our ability, however some parameters could be any number of types and have been designed to be able to accept many different inputs. For this reason some of the parameter types have been left blank. </li>
+      <div class="content"><h1><a name="importantNotes" class="anchor"></a>Important Notes</h1><ul>
+<li>We have attempted to define what type each parameter is to the best of our ability, however some parameters have been designed to be able to accept many different inputs. For this reason some of the parameter types have been left blank. Those that are clearly defined have been included in italics next to the parameter. </li>
 <li>In order to access a specific type method you must first access the type instance by calling inputField.getType() which will return the name of the type and will call the appropriate method. </li>
 <li>The ifw parameter is used to obtain access to the inputField widget. For the remainder of this documentation, any parameter entitled &#39;ifw&#39; is an instance of the inputField widget. </li>
 </ul>
+<h1><a name="widgets" class="anchor"></a>Widgets</h1><p>All widgets are created using jQuery UI&#39;s <a href="http://api.jqueryui.com/jQuery.widget/">Widget Factory</a> and they inherit all of the options, methods, and events of the base widget.</p>
 <h2><a name="widgets-formBuilder" class="anchor"></a>formBuilder</h2><p>Builds a base form object that is able to get and set data and that can be built upon using the inputField and inputFilter widgets. </p>
 <ul>
 <li>Options<ul>
@@ -84,18 +84,17 @@
 <li><strong>scanForNewFields()</strong> Checks inside of the form container for new fields and constructs them. Called once automatically when initialized. </li>
 <li><strong>isDirty()</strong> Runs dirty checks and returns boolean result.</li>
 <li><strong>clearDirty()</strong> Clears all dirty field states. Use this after saving dirty field data. </li>
-<li><strong>flashDirty(<em>integer</em> numberOfTimes)</strong> <em>Deprecated.</em> Use <code>flashError</code> instead.</li>
+<li><strong>flashDirty(<em>integer</em> numberOfTimes)</strong> <em>Deprecated.</em> Use <code>flashError(numberOfTimes)</code> instead.</li>
 <li><strong>flashError(<em>integer</em> numberOfTimes)</strong> Filters fields and calls the <code>inputField.flash(numberOfTimes)</code> on each incorrect one.</li>
 <li><strong>disable()</strong> Disables the status. Calls the <code>inputField.status(disable, true)</code> on the current calling object. </li>
 <li><strong>enable()</strong> Enables the status. Calls the <code>inputField.status(disable, true)</code> on the current calling object.</li>
+<li><strong>get()</strong> Returns converted form data from all fields. </li>
 <li><strong>clear()</strong> Runs inputField.clear() for each field. Empties the form.</li>
 <li><strong>conflicts(<em>object</em> data, <em>boolean</em> ignoreKeys)</strong> Checks to see if the given data would overwrite current dirty fields if set. Returns an array of conflict data, and false for no conflicts. Calls <code>inputField.conflicts(value)</code>.</li>
 <li><strong>set(<em>object</em> data, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>beforeset</code> and <code>afterset</code> events.</li>
-<li><strong>get()</strong> Returns converted form data from all fields. </li>
 <li><strong>val(values)</strong> Not fully implemented. Returns an empty object if the parameter is undefined, otherwise returns the calling object. </li>
 <li><strong>validate()</strong> Runs all enabled field validations. Returns true/false for valid/invalid.</li>
 <li><strong>getFields()</strong> Returns all the fields of the calling object.</li>
-<li><strong>getFields()</strong> Returns all current formBuilder inputFields.</li>
 </ul>
 </li>
 <li>Methods (private)<ul>
@@ -121,6 +120,7 @@
 <li><strong>placeholder</strong> <em>(string)</em> Text displayed inside of an empty inputField. <strong>Default</strong> &#39; &#39; </li>
 <li><strong>min</strong> <em>(integer)</em> Minimum amount of input required. <strong>Default</strong> &#39; &#39;</li>
 <li><strong>max</strong> <em>(integer)</em> Maximum amount of input allowed. <strong>Default</strong> &#39; &#39;</li>
+<li><strong>error</strong> <em>(string)</em> Error message that will be displayed if there is an error. <strong>Default</strong> &#39;error&#39;</li>
 </ul>
 </li>
 <li>Methods (public)<ul>
@@ -217,8 +217,8 @@
 <li><strong>disabled</strong> <em>(boolean)</em> Prevents form submission. <strong>Default:</strong> false</li>
 <li><strong>waiting</strong> <em>(boolean)</em> Prevents default form submission. <strong>Default:</strong> false</li>
 <li><strong>preventDefault</strong> <em>(boolean)</em> Prevents default form submission. <strong>Default:</strong> true</li>
-<li><strong>enterKeyListenerProvider()</strong> Returns <code>this.parents(&#39;form&#39;).first()</code></li>
-<li><strong>onKeyDown(<em>event</em> ev)</strong> If the correct key has been pressed in the text area then submit the event on the current calling object. </li>
+<li><strong>enterKeyListenerProvider()</strong> <em>method</em> Returns <code>this.parents(&#39;form&#39;).first()</code></li>
+<li><strong>onKeyDown(<em>event</em> ev)</strong> <em>method</em> If the correct key has been pressed in the text area then submit the event on the current calling object. </li>
 </ul>
 </li>
 <li>Methods (public)<ul>
@@ -253,13 +253,13 @@
 <h2><a name="widgets-fieldWidget" class="anchor"></a>fieldWidget</h2><p>Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in a similar way as methods in the inputField widget but they can be overwritten by user if desired to meet specific requirements. This template is stored inside of inputField widget and commented out. </p>
 <ul>
 <li>Available Methods <ul>
-<li><strong>isDirty()</strong> returns false</li>
-<li><strong>validate()</strong> returns true</li>
+<li><strong>isDirty()</strong> Returns false.</li>
+<li><strong>validate()</strong> Returns true.</li>
 <li><strong>clearDirty()</strong></li>
-<li><strong>clear()</strong> calls <code>set()</code></li>
+<li><strong>clear()</strong> Calls <code>set()</code>.</li>
 <li><strong>flash()</strong></li>
 <li><strong>set(data)</strong></li>
-<li><strong>get()</strong> returns null</li>
+<li><strong>get()</strong> Returns null.</li>
 </ul>
 </li>
 </ul>
@@ -640,6 +640,16 @@
 </li>
 </ul>
 <h1><a name="plugins" class="anchor"></a>Plugins</h1><h2><a name="plugins-caret" class="anchor"></a>caret</h2><p>Manages the display and positioning of the caret. Determines where the beginning and ending point should be if the input has been changed through filtering or formatting. Also organizes positioning when part of the input text has been highlighted. </p>
+<ul>
+<li>Method <ul>
+<li>caret(begin, end)<ul>
+<li>If begin is a number then the method will set the beginning and ending point of the caret according to the parameters that were passed into the method. </li>
+<li>If begin is not a number, then the method turns into getter mode and will return an object with the begin and end value within it. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       </div>
     </div>
