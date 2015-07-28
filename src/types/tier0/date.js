@@ -28,12 +28,12 @@
 
 		_dateFormat: 'MM/DD/YYYY', // for output + datepicker
 
-		setUp: function(ui) {
+		setUp: function(ifw) {
 			var self = this,
-				e = ui.element,
+				e = ifw.element,
 				tmp, startDate, endDate;
 
-			ui.placeholder(self._dateFormat);
+			ifw.placeholder(self._dateFormat);
 
 			self.enforceMin = !!e.data('enforceMin');
 			self.enforceMax = !!e.data('enforceMax');
@@ -120,7 +120,7 @@
 			/**
 			 * yyyy-mm-dd => mm/dd/yyyy
 			 */
-			toField: function(val, ui) {
+			toField: function(val, ifw) {
 				if(!val || !val.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
 					return '';
 				}
@@ -130,7 +130,7 @@
 			/**
 			 * mm/dd/yyyy (local) => yyyy-mm-dd (utc)
 			 */
-			fromField: function(val, ui) {
+			fromField: function(val, ifw) {
 				if(!val || !val.match(/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/)) {
 					return '';
 				}
@@ -139,13 +139,13 @@
 			}
 		},
 
-		tearDown: function(ui) {
-			ui.element.datepicker('remove');
+		tearDown: function(ifw) {
+			ifw.element.datepicker('remove');
 		},
 
-		validate: function(ui) {
+		validate: function(ifw) {
 			var self = this,
-				date = moment(ui.element.val(),self._dateFormat,true);
+				date = moment(ifw.element.val(),self._dateFormat,true);
 
 
 			if(!date.isValid() || 

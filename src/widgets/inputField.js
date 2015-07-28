@@ -94,15 +94,11 @@
 			/*
 			 * min and max, there meaning depends on the type that is loaded
 			 */
-			min: '', // min does nothing in formbuilder
+			min: '', 
 			max: '',
 
 
-			error: 'error' // does nothing?
-
-			/*
-			 * values: false/undefined, 'keyup', 'blur'
-			 */
+			error: 'error' 
 		},
 
 		_create: function() {
@@ -1082,7 +1078,7 @@
 	 *
 	 * Stored in $.formBuilder.inputField.types
 	 *
-	 * The context (this) will get set to the context of the type object, use the ui parameter to obtain access to the inputField widget
+	 * The context (this) will get set to the context of the type object, use the ifw parameter to obtain access to the inputField widget
 	 *
 	 * setUp: add any events, elements, etc.
 	 *
@@ -1105,17 +1101,17 @@
 
 	/* Basic Type Structure
 	$.formBuilder.inputField.types = {
-		setUp: function(ui) {},
-		tearDown: function(ui) {},
+		setUp: function(ifw) {},
+		tearDown: function(ifw) {},
 		converter: {
-			toField: function(value, ui) {
+			toField: function(value, ifw) {
 				return value;
 			},
-			fromField: function(value, ui) {
+			fromField: function(value, ifw) {
 				return value;
 			}
 		},
-		validate: function(ui) {
+		validate: function(ifw) {
 			return {
 				message: 'invalid'
 			};

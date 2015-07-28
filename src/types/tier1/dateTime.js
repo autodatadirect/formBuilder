@@ -28,9 +28,9 @@
 		momentStoreFormat: 'YYYY-MM-DDTHH:mm:ss[Z]',
 
 
-		setUp: function(inputFieldWidgetInstance) {
+		setUp: function(inputFieldWidget) {
 			var self = this,
-				e = inputFieldWidgetInstance.element;
+				e = inputFieldWidget.element;
 
 
 			// Get option constants
@@ -41,7 +41,7 @@
 				self.storeUtc = !!self.storeUtc;
 			}
 
-			self.ifw = inputFieldWidgetInstance;
+			self.ifw = inputFieldWidget;
 
 			self._setUpFields();
 			self._refreshFieldWidth();

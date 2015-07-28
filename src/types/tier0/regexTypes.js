@@ -39,8 +39,8 @@
 		}
 
 		var type = {
-			validate: function(ui) {
-				if(!ui.element.val().match(pattern)) {
+			validate: function(ifw) {
+				if(!ifw.element.val().match(pattern)) {
 					return {
 						message: dict.invalid
 					};
@@ -49,7 +49,7 @@
 		};
 
 		if(filter || max) {
-			type.setUp = function(ui) {
+			type.setUp = function(ifw) {
 
 				var filterData = {
 					pattern: filter || /./,
@@ -57,12 +57,12 @@
 					max: max || 0
 				};
 
-				if(ui.element.attr('data-max')){
-					filterData.max = ui.element.attr('data-max');
+				if(ifw.element.attr('data-max')){
+					filterData.max = ifw.element.attr('data-max');
 				}
 
-				//console.log('setup ', ui.element.attr('name'), filterData, max);
-				ui.element.inputFilter(filterData);
+				//console.log('setup ', ifw.element.attr('name'), filterData, max);
+				ifw.element.inputFilter(filterData);
 			};
 		}
 
@@ -72,8 +72,8 @@
 
 				// add converters
 				type.converter = {
-					toField: function (val, ui) { return type.format(val); },
-					fromField: function (val, ui) { return type.format(val); }
+					toField: function (val, ifw) { return type.format(val); },
+					fromField: function (val, ifw) { return type.format(val); }
 				};
 			}
 		}

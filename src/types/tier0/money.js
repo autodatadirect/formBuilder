@@ -16,9 +16,9 @@
 
 		attributes: ['currency-symbol', 'show-symbol', 'max-amount', 'min-amount'],
 
-		setUp: function (ui) {
+		setUp: function (ifw) {
 			var self = this,
-				e = ui.element;
+				e = ifw.element;
 
 			self.element = e;
 
@@ -38,9 +38,9 @@
 			if(self.showSymbol === undefined || !!self.showSymbol)
 			{
 				if(!self.currency) {
-					ui.addOn(-100, '$');
+					ifw.addOn(-100, '$');
 				} else {
-					ui.addOn(-100, self.currency);
+					ifw.addOn(-100, self.currency);
 				}
 			}	
 
@@ -82,10 +82,10 @@
 		},
 
 		converter: {
-			toField: function(val, ui) {
+			toField: function(val, ifw) {
 				return this.format(val);
 			},
-			fromField: function(val, ui) {
+			fromField: function(val, ifw) {
 				if($.trim(val) === ''){
 					return '';
 				}

@@ -14,7 +14,6 @@
 			delay: 10,
 			disabled: false,
 			waiting: false,
-			// label: undefined, //ignored by create
 			preventDefault: true,
 			enterKeyListenerProvider: function() {
 				return this.parents('form').first();
@@ -86,7 +85,6 @@
 			self.spinner = $('<div class="spinner" style="display: inline-block; position: absolute;"></div>');
 			e.append(this.spinner);
 
-			// This actually doesn't seem to do anything. The browser will do it automatically
 			var listenerProvider = o.enterKeyListenerProvider;
 			if($.isFunction(listenerProvider)) {
 				var listener = listenerProvider.call(e);

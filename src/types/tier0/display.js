@@ -11,19 +11,19 @@
 	var types = $.formBuilder.inputField.types;
 
 	types.display = {
-		setUp: function (ui) {
-			var e = ui.element;
+		setUp: function (ifw) {
+			var e = ifw.element;
 
 			e.parents('.field-item').hide();
 			e.parents('.field-items').append('<div class="input-display"></div>');
 		},
 
 		converter: {
-			toField: function (val, ui) {
-				ui.element.parents('.field-items').find('.input-display').html(val);
+			toField: function (val, ifw) {
+				ifw.element.parents('.field-items').find('.input-display').html(val);
 			},
-			fromField: function(value, ui) {
-				return ui.element.parents('.field-items').find('.input-display').html().trim();
+			fromField: function(value, ifw) {
+				return ifw.element.parents('.field-items').find('.input-display').html().trim();
 			}
 		}
 	};	

@@ -390,7 +390,6 @@
 			if(conflicts.length){
 				return conflicts;
 			}else{
-				// Under what circumstances would it be false?
 				return false;
 			}
 		},
