@@ -36,7 +36,7 @@
 				 * chrome hack
 				 * TMS-2049
 				 * Still need a better way to do this, chrome fails to set the scrolLeft
-				 * whem the cursor moves, still will only work it they are at the end of the text
+				 * when the cursor moves, still will only work it they are at the end of the text
 				 */
 				try{
 					if(end === input.value.length){

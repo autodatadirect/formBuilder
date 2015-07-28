@@ -13,17 +13,17 @@ Base form widget. For many applications, this is the only widget needing direct 
     - **scanForNewFields()** Checks inside of the form container for new fields and constructs them. Called once automatically when initialized. 
     - **isDirty()** Runs dirty checks and returns boolean result.
     - **clearDirty()** Clears all dirty field states. Use this after saving dirty field data. 
-    - **flashDirty(*integer* numberOfTimes)** *Deprecated.* Use `flashError` instead.
+    - **flashDirty(*integer* numberOfTimes)** *Deprecated.* Use `flashError(numberOfTimes)` instead.
     - **flashError(*integer* numberOfTimes)** Filters fields and calls the `inputField.flash(numberOfTimes)` on each incorrect one.
     - **disable()** Disables the status. Calls the `inputField.status(disable, true)` on the current calling object. 
     - **enable()** Enables the status. Calls the `inputField.status(disable, true)` on the current calling object.
+    - **get()** Returns converted form data from all fields. 
     - **clear()** Runs inputField.clear() for each field. Empties the form.
     - **conflicts(*object* data, *boolean* ignoreKeys)** TODO
     - **set(*object* data, setOptions)** Replaces the values in the DOM with the given data. Triggers `beforeset` and `afterset` events.
     - **get()** Returns converted form data from all fields. 
     - **validate()** Runs all enabled field validations. Returns true/false for valid/invalid.
     - **getFields()** Returns all the fields of the calling object.
-    - **getFields()** Returns all current formBuilder inputFields.
 * Methods (private)
     - **_create()** Creates a new formBuilder object and initializes attributes.  
     - **_convertFormData(*object* data)** Clones the data object so that the method can not change the original data and then formats the data by calling `toForm()`` and returning the converted data.
@@ -44,6 +44,7 @@ Builds a base input object that is able to get, set, and modify data based on wh
     - **placeholder** *(string)* Text displayed inside of an empty inputField. **Default** ' ' 
     - **min** *(integer)* Minimum amount of input required.
     - **max** *(integer)* Maximum amount of input allowed.
+    - **error** *(string)* Error message that will be displayed if there is an error. **Default** 'error'
 * Methods (public)
     - **setLabel(*string* label)** Prepends the given label to the top of the inputField.
     - **setSuffix(*string* t)** Sets text (t) that will be displayed at the end of the inputField once the user has started typing.
@@ -125,8 +126,8 @@ Widget that handles the creation of a submit button and the spinner that accompa
     - **disabled** *(boolean)* Prevents form submission. **Default:** false
     - **waiting** *(boolean)* Prevents default form submission. **Default:** false
     - **preventDefault** *(boolean)* Prevents default form submission. **Default:** true
-    - **enterKeyListenerProvider()** Returns `this.parents('form').first()`
-    - **onKeyDown(*event* ev)** If the correct key has been pressed in the text area then submit the event on the current calling object. 
+    - **enterKeyListenerProvider()** *method* Returns `this.parents('form').first()`
+    - **onKeyDown(*event* ev)** *method* If the correct key has been pressed in the text area then submit the event on the current calling object. 
 * Methods (public)
     - **enable()** Sets `disabled` to false.
     - **disable()** Sets `disabled` to true.
@@ -150,13 +151,13 @@ Widget that handles the creation of a submit button and the spinner that accompa
 Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in a similar way as methods in the inputField widget but they can be overwritten by user if desired to meet specific requirements. This template is stored inside of inputField widget and commented out. 
 
 * Available Methods 
-    - **isDirty()** returns false
-    - **validate()** returns true
+    - **isDirty()** Returns false.
+    - **validate()** Returns true.
     - **clearDirty()**
-    - **clear()** calls `set()`
+    - **clear()** Calls `set()`.
     - **flash()**
     - **set(data)**
-    - **get()** returns null
+    - **get()** Returns null.
 
 
 ## selectionField
@@ -533,3 +534,8 @@ Data type that allows for the input of phone numbers. Filters to ensure that inp
 
 ## caret
 Manages the display and positioning of the caret. Determines where the beginning and ending point should be if the input has been changed through filtering or formatting. Also organizes positioning when part of the input text has been highlighted. 
+
+* Method 
+    - caret(begin, end)
+        + If begin is a number then the method will set the beginning and ending point of the caret according to the parameters that were passed into the method. 
+        + If begin is not a number, then the method turns into getter mode and will return an object with the begin and end value within it. 
