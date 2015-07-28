@@ -32,6 +32,8 @@ block sideNav
 		ul.navDepth-1
 			li: a(href='#dataTypes-inputTypes') Input Types
 			li: a(href='#dataTypes-select') Select
+			li: a(href='#dataTypes-checkbox') Checkboxes
+			li: a(href='#dataTypes-radio') Radio Groups
 			li: a(href='#dataTypes-textarea') Textarea
 			li: a(href='#dataTypes-arrayField') Array Field
 	
@@ -40,12 +42,6 @@ block sideNav
 		ul.navDepth-1
 			li: a(href='#customization-regexTypes') Creating Simple Regex Types
 			li: a(href='#customization-fullTypes') Creating Full Custom Types
-	
-	li
-		a(href='#unsupported') Unsupported
-		ul.navDepth-1
-			li: a(href='#unsupported-checkbox') Checkboxes
-			li: a(href='#unsupported-radio') Radio Buttons
 
 	li
 		a(href='#demo') Live Demo
@@ -93,7 +89,7 @@ block content
 		h2 Labels
 			a.anchor(name='fieldEnhancements-labels')
 		.section: include content/fieldEnhancements/labels
-		
+
 
 		h2 Placeholder Text
 			a.anchor(name='fieldEnhancements-placeholderText')
@@ -127,6 +123,14 @@ block content
 			a.anchor(name='dataTypes-select')
 		.section: include content/dataTypes/select
 
+		h2 Checkboxes
+			a.anchor(name='dataTypes-checkbox')
+		.section: include content/dataTypes/checkbox
+
+		h2 Radio Groups
+			a.anchor(name='dataTypes-radio')
+		.section: include content/dataTypes/radio
+
 		h2 Textarea
 			a.anchor(name='dataTypes-textarea')
 		.section: include content/dataTypes/textarea
@@ -156,55 +160,7 @@ block content
 
 
 
-
-
-
-	h1 Unsupported
-		a.anchor(name='unsupported')
-	.section
-		h2 Checkboxes
-			a.anchor(name='unsupported-checkbox')
-		.section
-			//- .example
-
-			input(type='checkbox' data-label='Some Checkbox')
-			input(type='checkbox' data-label='Another')
-			input(type='checkbox' data-label='More')
-
-			br
-
-			.selection-field-group
-				input(type='checkbox' data-label='Group Checkbox')
-				input(type='checkbox' data-label='Another Group')
-				input(type='checkbox' data-label='More Group')
-
-			br
-
-			.selection-field-group.selection-horizontal
-				input(type='checkbox' data-label='Group Checkbox')
-				input(type='checkbox' data-label='Another Group')
-				input(type='checkbox' data-label='More Group')
-
-		h2 Radio Buttons
-			a.anchor(name='unsupported-radio')
-		.section
-
-			input(type="radio" name="someRadio" data-label='Radio One' value='one')
-			input(type="radio" name="someRadio" data-label='Radio Two' value='two')
-			input(type="radio" name="someRadio" data-label='Radio Three' value='three')
-				
-			br
-
-			.example
-				input(type="radio" name="formRadioGroup" data-label='Form Radio Group One' value='one')
-				input(type="radio" name="formRadioGroup" data-label='Form Radio Group Two' value='two')
-				input(type="radio" name="formRadioGroup" data-label='Form Radio Group Three' value='three')
-
-			.example
-				.selection-field-group.selection-horizontal
-					input(type="radio" name="someRadioGroup" data-label='Radio Group One' value='one')
-					input(type="radio" name="someRadioGroup" data-label='Radio Group Two' value='two')
-					input(type="radio" name="someRadioGroup" data-label='Radio Group Three' value='three')
+			
 	h1 Live Demo
 		a.anchor(name='demo')
 	.section: include content/demo
@@ -214,7 +170,7 @@ block content
 
 	h1 Stand Alone Widgets
 		a.anchor(name='standAloneWidgets')
-	.section
+			
 		h2 Date-Range Picker
 			a.anchor(name='standAloneWidgets-dateRangePicker')
 		.example

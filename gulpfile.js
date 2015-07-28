@@ -33,12 +33,27 @@ var pkg = require('./package.json');
 var argv = require('yargs')
 	.usage('Usage: $0 [command] [options]')
 
-	.command('build','(default) run')
+	.command('build','(default) runs the build process for the main code base')
+
 	.command('test', 'run karma testing')
+	.command('test:watch', 'runs test automatically on found changes')
+	
+	.command('tester', 'recompiles the testRunner.html used for manual browser testing')
+
 	.command('lint', 'run linter on test and source files')
+	
 	.command('clean','empty the build folder')
+
 	.command('copy:assets', 'copies assets into build folder')
-	.command('autoTest', 'runs test automatically on found changes')
+	.command('copy:locales', 'uglifies and copies locales into build folder')
+
+	.command('sass', 'compiles sass into the build folder')
+	.command('sass:watch', 'runs sass automatically on found changes')
+
+	.command('compileMarkdown', 'compiles the documentation markdown into formatted html partials')
+	.command('docs', 'recompiles the documentaion pages')
+	.command('docs:watch', 'runs docs automatically on found changes')
+	
 
 	.alias('h', 'help')
 	.help('h')
@@ -159,7 +174,7 @@ gulp.task('build', ['lint', 'clean', 'copy:assets', 'copy:locales', 'sass'], fun
 		.pipe(gulp.dest(outDir));
 });
 
-gulp.task('refreshTester', function(done){
+gulp.task('tester', function(done){
 	require(dirs.unitTests)(done);
 });
 
@@ -259,12 +274,6 @@ gulp.task('test:watch', ['test'], function(){
 
 
 
-
-
-
-
-
-
 // Render headers to fit style
 var renderer = new marked.Renderer();
 var anchorGroup;
@@ -289,7 +298,7 @@ renderer.heading = function(text, level) {
 };
 
 
-gulp.task('compileAPI', function() {
+gulp.task('compileMarkdown', function() {
 	return gulp.src(dirs.docs + '/content/*.md')
 		.pipe(gMarked({
 			gfm: false,
@@ -298,7 +307,7 @@ gulp.task('compileAPI', function() {
 		.pipe(gulp.dest(dirs.docs + '/content/'));
 	});
 
-gulp.task('refreshDocs', ['compileAPI'], function() {
+gulp.task('docs', ['compileMarkdown'], function() {
 	return gulp.src([
 		dirs.docs + '/index.jade',
 			dirs.docs + '/guide.jade',
@@ -311,9 +320,9 @@ gulp.task('refreshDocs', ['compileAPI'], function() {
 		.pipe(gulp.dest(dirs.docs));
 });
 
-gulp.task('refreshDocs:watch', ['refreshDocs'], function() {
+gulp.task('docs:watch', ['docs'], function() {
 	return gulp.watch([
-			dirs.docs + '/**.jade',
-			dirs.docs + '/**.md'
-		], ['refreshDocs']);
+			dirs.docs + '/**/**.jade',
+			dirs.docs + '/**/**.md'
+		], ['docs']);
 });

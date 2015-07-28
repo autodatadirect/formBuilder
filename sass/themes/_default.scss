@@ -84,7 +84,7 @@ $icons-activeColor: #68f;
 /**
  * selection-field
  */
-$selectionField-labelColor: $inputField-label-color;
+$selectionField-labelColor: inherit;
 $selectionField-labelHoverColor: inherit;
 $selectionField-labelErrorColor: $color-error;
 $selectionField-horizontalSpacing: 1em;
