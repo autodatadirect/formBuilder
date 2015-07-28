@@ -561,7 +561,7 @@ describe('The selectionField widget', function(){
 			
 			expect(sfw.states.disable).toBeUndefined();
 			expect(sfw.field.is('.disable')).toBe(false);
-			expect(sfw.field.css('pointer-events')).toBe('');
+			expect(sfw.field.css('pointer-events')).not.toBe('none');
 
 			sfw.status('disable', true);
 			expect(sfw.states.disable).toBe(true);
@@ -616,7 +616,7 @@ describe('The selectionField widget', function(){
 			for(i = 0; i < sfw.length; ++i) {
 				expect(sfw[i].states.disable).toBeUndefined();
 				expect(sfw[i].field.is('.disable')).toBe(false);
-				expect(sfw[i].field.css('pointer-events')).toBe('');
+				expect(sfw[i].field.css('pointer-events')).not.toBe('none');
 			}
 			
 			sfw[1].status('disable', true);
