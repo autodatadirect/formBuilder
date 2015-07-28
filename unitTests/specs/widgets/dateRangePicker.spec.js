@@ -1,5 +1,5 @@
 /**
- * Testing dateRangePicker
+ * Testing dateRangePicker widget
  */
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  moment:true*/
 'use strict';

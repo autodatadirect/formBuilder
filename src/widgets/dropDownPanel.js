@@ -1,11 +1,20 @@
 /**
  * formBuilder.dropDownPanel widget
  *
+ * Public Methods:
+ * 	getClassNames()
+ *	getId()
+ *	isOpened()
+ *	detach()
+ *	attach()
+ *	open()
+ *
+ *
  * Events:
- * beforeopen
- * afteropen
- * beforeclose
- * afterclose
+ *	beforeopen
+ *	afteropen
+ *	beforeclose
+ *	afterclose
  */
 
 (function($){

@@ -1,5 +1,5 @@
 /**
- * Testing formBuilder
+ * Testing formBuilder widget
  */
 /*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
@@ -96,7 +96,7 @@ describe('A formBuilder widget',function(){
 			expect(fbw.fieldsWidgets.filter(':formBuilder-arrayField').length).toBe(1);
 		});
 
-		it('will not load "data-load-widget-as-field" if there is no name value', function(){
+		it('and will not load "data-load-widget-as-field" if there is no name value', function(){
 			var form = $('<form></form>');
 			var error = new Error('data-load-widget-as-field must have name attribute');
 			
@@ -109,7 +109,25 @@ describe('A formBuilder widget',function(){
 				expect(err).toEqual(error);
 			}
 		});
-	
+		
+		it('including checkbox and radio inputs', function() {
+			var form = $('<form></form>');
+			var checkbox = $('<input type="checkbox"/>').appendTo(form);
+			var radio1 = $('<input type="radio" name="testRadio"/>').appendTo(form);
+			var radio2 = $('<input type="radio" name="testRadio"/>').appendTo(form);
+			var fbw;
+
+			form.formBuilder();
+			fbw = form.data('formBuilderFormBuilder');
+
+			expect(checkbox.is(':formBuilder-selectionField')).toBe(true);
+			expect(radio1.is(':formBuilder-selectionField')).toBe(true);
+			expect(radio2.is(':formBuilder-selectionField')).toBe(true); //not included in fieldWidgets
+
+			expect(fbw.fieldsWidgets.length).toBe(2);
+			expect(fbw.fieldsWidgets.filter(':formBuilder-selectionField').length).toBe(2);
+		});
+
 	});
 
 	it('can get its fields', function(){
@@ -126,30 +144,51 @@ describe('A formBuilder widget',function(){
 	});
 
 	it('can make a proxy command to a widget', function(){
-		var form = $(baseFormHtml).formBuilder();
-		var	fbw = form.data('formBuilderFormBuilder');
-		var input = $('<input type="text">').inputField();
+		var form = $('<form></form>');
+		var input = $('<input type="text"/>').appendTo(form);
+		var fbw, ifw;
 
-		var spy = spyOn(fbw, '_proxyCommandToWidget').and.callThrough();
+		form.formBuilder();
+		fbw = form.data('formBuilderFormBuilder');
+		ifw = input.data('formBuilderInputField');
 
-		fbw._proxyCommandToWidget(input, 'isDirty'); 
+		spyOn(ifw, 'isDirty');
 
-		expect(spy).toHaveBeenCalled();
+		fbw._proxyCommandToWidget(input, false, 'isDirty'); 
+
+		expect(ifw.isDirty).toHaveBeenCalled();
 	});
 
 	it('will throw an error if an incorrect call to the proxy command is made', function(){
-		var form = $(baseFormHtml).formBuilder();
+		var form = $('<form></form>').formBuilder();
 		var	fbw = form.data('formBuilderFormBuilder');
-		var error = new Error('ERROR: widget field error NAME[inputField] METHOD[isDirty]');
+		var error = new Error('ERROR: widget field error NAME[badName] METHOD[isDirty]');
+		var caught = false;
 
-		var spy = spyOn(fbw, '_proxyCommandToWidget').and.callThrough();
-
-		try{
-			fbw._proxyCommandToWidget($(this), 'isDirty'); 
+		try {
+			fbw._proxyCommandToWidget($('<div data-load-widget-as-field="badName"></div>'), false, 'isDirty'); 
 		}
 		catch(err){
+			caught = true;
 			expect(err).toEqual(error);
 		}
+
+		expect(caught).toBe(true);
+	});
+
+	it('will not throw an error if an incorrect call to the proxy command is made and is ignored', function() {
+		var form = $('<form></form>').formBuilder();
+		var	fbw = form.data('formBuilderFormBuilder');
+		var caught = false;
+
+		try {
+			fbw._proxyCommandToWidget($('<div></div>'), true, 'isDirty'); 
+		}
+		catch(err) {
+			caught = true;
+		}
+
+		expect(caught).toBe(false);
 	});
 
 	describe('can handle clean or dirty states', function() {
@@ -502,18 +541,28 @@ describe('A formBuilder widget',function(){
 	it('can destroy itself', function(){
 		var form = $('<form></form>');
 		var input = $('<input type="text"/>').appendTo(form);
-
-		form.append('<div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField"><input type="text"/></div>');
+		var arrayField = $('<div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField"><input type="text"/></div>').appendTo(form);
+		var checkbox = $('<input type="checkbox"/>').appendTo(form);
+		var radio1 = $('<input type="radio" name="testRadio"/>').appendTo(form);
+		var radio2 = $('<input type="radio" name="testRadio"/>').appendTo(form);
 
 		form.formBuilder();
 
-		var	fbw = form.data('formBuilderFormBuilder');
+		expect(form.is(':formBuilder-formBuilder')).toBe(true);
+		expect(input.is(':formBuilder-inputField')).toBe(true);
+		expect(arrayField.is(':formBuilder-arrayField')).toBe(true);
+		expect(checkbox.is(':formBuilder-selectionField')).toBe(true);
+		expect(radio1.is(':formBuilder-selectionField')).toBe(true);
+		expect(radio2.is(':formBuilder-selectionField')).toBe(true);
+		
+		form.formBuilder('destroy');
 
-		var spy_proxy = spyOn(fbw, '_proxyCommandToWidget').and.callThrough();
-
-		fbw._destroy(); 
-
-		expect(spy_proxy).toHaveBeenCalled();
+		expect(form.is(':formBuilder-formBuilder')).toBe(false);
+		expect(input.is(':formBuilder-inputField')).toBe(false);
+		expect(arrayField.is(':formBuilder-arrayField')).toBe(false);
+		expect(checkbox.is(':formBuilder-selectionField')).toBe(false);
+		expect(radio1.is(':formBuilder-selectionField')).toBe(false);
+		expect(radio2.is(':formBuilder-selectionField')).toBe(false);
 	});
 
 

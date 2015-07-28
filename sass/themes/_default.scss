@@ -81,3 +81,13 @@ $select-dropdown-maxHeight: 250px;
 $icons-hoverColor: #46e;
 $icons-activeColor: #68f;
 
+/**
+ * selection-field
+ */
+$selectionField-labelColor: $inputField-label-color;
+$selectionField-labelHoverColor: inherit;
+$selectionField-labelErrorColor: $color-error;
+$selectionField-horizontalSpacing: 1em;
+$selectionField-disabledOpacity: 0.7;
+
+

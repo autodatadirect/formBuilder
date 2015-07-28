@@ -133,24 +133,64 @@
 				}
 				el.addClass('field-items').wrap('<div class="input-field-group"><div class="input-field"></div></div>').before('<label>' + label + '</label>');
 			});
-			/*
-			self.fields = e.find('input[type!=submit], select, textarea').not(':formBuilder-inputField').inputField({
-				require: typeof o.defaultRequired !== 'undefined' && o.defaultRequired === true
-			});
-			*/
-			e.find('input[type!=submit], select, textarea').not(':formBuilder-inputField').not('.form-builder-ignore *').each(function () {
-				var newInput = $(this);
-				if(newInput.is('[data-load-widget-as-field]') || newInput.parents('[data-load-widget-as-field]').length){
-					return;
-				}
-				newInput.inputField({
-					require: !!o.defaultRequired
+
+			e.find('input[type="checkbox"]')
+				.not(':formBuilder-selectionField')
+				.not('.form-builder-ignore *')
+				.not('[data-load-widget-as-field]')
+				.not('[data-load-widget-as-field] *')
+				.each(function() {
+					var el = $(this);
+
+					el.selectionField({
+						require: !!o.defaultRequired
+					});
+
+					self.fieldsWidgets = self.fieldsWidgets.add(el);
 				});
 
-				self.fields = self.fields.add(newInput);
+			var radios = e.find('input[type="radio"]')
+				.not(':formBuilder-selectionField')
+				.not('.form-builder-ignore *')
+				.not('[data-load-widget-as-field]')
+				.not('[data-load-widget-as-field] *');
+			
+			radios.each(function() {
+				var el = $(this);
+				
+				if(el.is(':formBuilder-selectionField')) {
+					// ignore the ones already grouped
+					return;
+				}
 
+				var radioGroup = radios.filter('[name="'+this.name+'"]');
 
+				radioGroup.each(function() {
+					$(this).selectionField({
+						require: !!o.defaultRequired,
+						radioGroup: radioGroup
+					});
+				});
+				
+				self.fieldsWidgets = self.fieldsWidgets.add(el);
 			});
+
+
+			e.find('input[type!=submit][type!="checkbox"][type!="radio"], select, textarea')
+				.not(':formBuilder-inputField')
+				.not(':formBuilder-selectionField')
+				.not('.form-builder-ignore *')
+				.not('[data-load-widget-as-field]')
+				.not('[data-load-widget-as-field] *')
+				.each(function () {
+					var newInput = $(this);
+				
+					newInput.inputField({
+						require: !!o.defaultRequired
+					});
+
+					self.fields = self.fields.add(newInput);
+				});
 
 
 
@@ -167,12 +207,25 @@
 			//}, 0);
 		},
 
-		_proxyCommandToWidget: function (widgetElement) {
+		_proxyCommandToWidget: function (widgetElement, ignoreInvalid) {
 			var self = this,
-				widgetName = widgetElement.data('load-widget-as-field') || 'inputField',
-				instance = widgetElement.data(widgetName),
-				method = Array.prototype.splice.call(arguments, 1, 1),
-				args = Array.prototype.slice.call(arguments, 1);
+				method = Array.prototype.splice.call(arguments, 2, 2),
+				args = Array.prototype.slice.call(arguments, 2),
+				widgetName, instance;
+				
+			if(widgetElement.is(':formBuilder-inputField')) {
+				widgetName = 'formBuilderInputField';
+			} else if(widgetElement.is(':formBuilder-selectionField')) {
+				widgetName = 'formBuilderSelectionField';
+			} else {
+				widgetName = widgetElement.data('load-widget-as-field');
+			}
+
+			instance = widgetElement.data(widgetName);
+
+			if(ignoreInvalid && (!widgetName || !instance || !instance[method])) {
+				return;
+			}
 
 			try {
 				return instance[method].apply(instance, args);
@@ -197,7 +250,7 @@
 			}
 
 			self.fieldsWidgets.each(function() {
-				dirty = !!self._proxyCommandToWidget($(this), 'isDirty');
+				dirty = !!self._proxyCommandToWidget($(this), false, 'isDirty');
 				return !dirty;
 			});
 
@@ -213,7 +266,7 @@
 			});
 
 			self.fieldsWidgets.each(function() {
-				self._proxyCommandToWidget($(this), 'clearDirty');
+				self._proxyCommandToWidget($(this), false, 'clearDirty');
 			});
 		},
 
@@ -228,21 +281,35 @@
 		},
 
 		flashError: function(numberOfTimes) {
+			var self = this;
+
 			this.fields.filter(function() {
 				return $(this).data('inputField').options.error;
 			}).inputField('flash', numberOfTimes);
 		},
 
 		disable: function() {
+			var self = this;
+
 			this.fields.inputField('status', 'disable', true);
+
+			self.fieldsWidgets.each(function() {
+				self._proxyCommandToWidget($(this), true, 'status', 'disabled', true);
+			});
 		},
 
 		enable: function() {
-			this.fields.inputField('status', 'disable', false);
+			var self = this;
+
+			self.fields.inputField('status', 'disable', false);
+
+			self.fieldsWidgets.each(function() {
+				self._proxyCommandToWidget($(this), true, 'status', 'disabled', false);
+			});
+			
 		},
 
 		get: function() {
-			console.log('inside of formbuilder get');
 			var self = this,
 				o = self.options,
 				formData = self._readDataFromDom();
@@ -268,8 +335,9 @@
 				$(this).inputField('clear');
 			});
 
+
 			self.fieldsWidgets.each(function() {
-				self._proxyCommandToWidget($(this), 'clear');
+				self._proxyCommandToWidget($(this), false, 'clear');
 			});
 		},
 
@@ -309,7 +377,7 @@
 			});
 
 			self.fieldsWidgets.each(function() {
-				var conflict = self._proxyCommandToWidget($(this), 'conflicts', formData);
+				var conflict = self._proxyCommandToWidget($(this), false, 'conflicts', formData);
 				if(conflict){
 					if($.isArray(conflict)){
 						conflicts.concat(conflict);
@@ -380,7 +448,7 @@
 
 			self.fieldsWidgets.each(function() {
 				var el = $(this);
-				if((!self.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, 'validate') === false){
+				if((!self.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, false, 'validate') === false){
 					valid = false;
 				}
 			});
@@ -392,7 +460,7 @@
 			var self = this;
 			self.fields.inputField('destroy');
 			self.fieldsWidgets.each(function() {
-				self._proxyCommandToWidget($(this), 'destroy');
+				self._proxyCommandToWidget($(this), false, 'destroy');
 			});
 		},
 
@@ -409,7 +477,7 @@
 			});
 
 			self.fieldsWidgets.each(function() {
-				self._proxyCommandToWidget($(this), 'set', util.selectPath(data, $(this).attr('name')), setOptions);
+				self._proxyCommandToWidget($(this), false, 'set', util.selectPath(data, $(this).attr('name')), setOptions);
 			});
 		},
 
@@ -441,7 +509,7 @@
 				if(ignoreHidden && !el.is(':visible')){
 					return;
 				}
-				var val = self._proxyCommandToWidget(el, 'get');
+				var val = self._proxyCommandToWidget(el, false, 'get');
 				util.insertPath(data, el.attr('name'), val);
 			});
 

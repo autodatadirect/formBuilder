@@ -431,10 +431,9 @@ ddp2.find('form').formBuilder();
 
 
 
-
-
-
-
+// Selection Widget
+$('input[type="checkbox"]').selectionField();
+$('input[type="radio"]').selectionField();
 
 
 

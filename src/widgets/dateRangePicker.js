@@ -1,3 +1,21 @@
+/**
+ * dateRangePicker Widget
+ *
+ * This widget allows for the use of checkboxes and radio boxes alongside formBuilder
+ *
+ * Public Methods:
+ *   setRange()
+ *   serialize()
+ *	 deserialize()
+ *   get()
+ *   set()
+ *   isDirty()
+ *   clearDirty()
+ *   clear()
+ *   validate()
+ */
+
+
 
 /*global  moment:true */
 (function($) {

@@ -84,7 +84,7 @@
 			 */
 			label: '',
 
-			require: '',
+			require: '', required: '', //same
 
 			/*
 			 * text to show when the field is empty, this uses the suggest layer
@@ -115,7 +115,9 @@
 			/*
 			 * load DOM settings from field into options
 			 */
-			loadDomData.call(self, o, ['require', 'empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+			loadDomData.call(self, o, ['require', 'required', 'empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+			o.require = !!(o.require || o.required);
+
 
 			/*
 			 * legacy support
@@ -252,7 +254,7 @@
 			/*
 			 * set the require option as a status
 			 */
-			self.updateStatus('require', o.require, false);
+			self.status('require', o.require, false);
 
 			/*
 			 * activate focus classes and suggestion layer
@@ -368,12 +370,10 @@
 
 		checkDirty: function () {
 			var self = this,
-				e = self.element,
-				val;
-
+				e = self.element;
 
 			if(!self.dirty){
-				val = self.get();
+				var val = self.get();
 
 				/*
 				 * TMS-350 Save/Cancel become greyed out on Ticket Details page even when changes are present
@@ -382,7 +382,7 @@
 					e.trigger('dirty');
 					self.dirty = true;
 				}
-			}else {
+			} else {
 				/*
 				 * clean checks can be fired many times, so debouce them with a timer
 				 */

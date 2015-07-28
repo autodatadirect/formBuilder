@@ -473,6 +473,23 @@ Drop down panel widgets may be used to add an extra hovering container to any el
     **beforeclose** Triggered before the panel is closed. If the default is prevented the panel will not hidden.
     **afterclose** Triggered after the panel is hidden.
 
+
+## selectionWidget
+Built to handle checkboxes and radio boxes inside of formBuilder. 
+
+* Options
+    - **require** used to set wheter or not one of the checkboxes is a required input. If this option is set then validation will check to make sure that it has been selected.
+* Methods
+    - **setLabel** takes the data-label and sets it as the label of the box, appending it to the right side. Also creates a unique ID to accompany the label. 
+    - **checkDirty()** Determines whether the data-dirty is supposed to be true or false in that moment of typing 
+    - **isDirty()** returns this.dirty
+    - **clear()** clears all of the selected fields
+    - **clearDirty()** clears the data-dirty status
+    - **set(value)** sets the checkbox it is called upon to the boolean value passed into the method. If the value is true then the box will be checked, if false it will be cleared. 
+    - **get()** returns a boolean value representing the status of the checkbox. True if the box is checked, false if it is not. 
+    - **validate()** If the data-require option is not set it will return true. If the data-require option set to true then it will validate that the box has been selected and will return true if it has, will return false otherwise. 
+
+
 ## Customization
 ### Custom type
 To add a type, you must extend the `$.formBuilder.inputField.types` object with a new type object.
