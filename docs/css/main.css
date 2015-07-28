@@ -6,6 +6,7 @@ a, a:hover, a:active, a:visited {
 	text-decoration: none;
 }
 
+.content li a, .content li a:hover, .content li a:active, .content li a:visited
 p a, p a:hover, p a:active, p a:visited {
 	color: #63B4D1;
 	text-decoration: underline;
@@ -139,11 +140,6 @@ html, body {
 	padding-left: 0;
 }
 
-/*.sideNav li {
-	padding: 0px;
-	
-}*/
-
 .sideNav li a {
 	display: block;
 	line-height: 2em;
@@ -164,11 +160,9 @@ ul.navDepth-1 {
 	padding-top: .5em;
 	padding-bottom: .5em;
 }
-ul.navDepth-1 > li a {
-	padding-left: 2em;
+ul.navDepth-1 > li {
 	font-size: .9em;
 }
-
 
 ul.navDepth-0 li ul {
 	display: none;

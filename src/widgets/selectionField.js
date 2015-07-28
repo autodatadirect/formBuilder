@@ -191,6 +191,8 @@
 						self.dirty = true;
 						self.field.addClass('dirty');
 					}
+
+					self._trigger('dirty');
 				}
 			} else {
 				/*
@@ -272,7 +274,8 @@
 				self._updatePreviousValue();
 
 			} else {
-				self.prevValue = !!value;
+				value = !!value;
+				self.prevValue = value;
 				e.prop('checked', self.prevValue);
 			}
 

@@ -1,12 +1,8 @@
 # Widgets
 All widgets are created using jQuery UI's [Widget Factory](http://api.jqueryui.com/jQuery.widget/) and they inherit all of the options, methods, and events of the base widget.
 
-* We have attempted to define what type each parameter is to the best of our ability, however some parameters could be any number of types and have been designed to be able to accept many different inputs. For this reason some of the parameter types have been left blank. 
-* In order to access a specific type method you must first access the type instance by calling inputField.getType() which will return the name of the type and will call the appropriate method. 
-* The ifw parameter is used to obtain access to the inputField widget. For the remainder of this documentation, any parameter entitled 'ifw' is an instance of the inputField widget. 
-
 ## formBuilder
-Builds a base form object that is able to get and set data and that can be built upon using the inputField and inputFilter widgets. 
+Base form widget. For many applications, this is the only widget needing direct use. Other field widgets are created automatically and handled inside of this widget.
 
 * Options
     - **ignoreHidden** *(boolean)* Ignore fields that are not `$(:visible)`. **Default:** false
@@ -22,10 +18,9 @@ Builds a base form object that is able to get and set data and that can be built
     - **disable()** Disables the status. Calls the `inputField.status(disable, true)` on the current calling object. 
     - **enable()** Enables the status. Calls the `inputField.status(disable, true)` on the current calling object.
     - **clear()** Runs inputField.clear() for each field. Empties the form.
-    - **conflicts(*object* data, *boolean* ignoreKeys)** Checks to see if the given data would overwrite current dirty fields if set. Returns an array of conflict data, and false for no conflicts. Calls `inputField.conflicts(value)`.
+    - **conflicts(*object* data, *boolean* ignoreKeys)** TODO
     - **set(*object* data, setOptions)** Replaces the values in the DOM with the given data. Triggers `beforeset` and `afterset` events.
     - **get()** Returns converted form data from all fields. 
-    - **val(values)** Not fully implemented. Returns an empty object if the parameter is undefined, otherwise returns the calling object. 
     - **validate()** Runs all enabled field validations. Returns true/false for valid/invalid.
     - **getFields()** Returns all the fields of the calling object.
     - **getFields()** Returns all current formBuilder inputFields.
@@ -43,12 +38,12 @@ Builds a base form object that is able to get and set data and that can be built
 Builds a base input object that is able to get, set, and modify data based on what the type of the input is.
 
 * Options
-    - **type** *(string)* Field type from `types[]`. **Default:** 'text'
-    - **label** *(string)* Label that will go above the inputField. **Default:** ' '
-    - **require** *(boolean)* Whether or not the field is required for submission. **Default:** ' '
+    - **type** *(string)* Field type from `types[]`. **Default:** `'text'`
+    - **label** *(string)* Label that will go above the inputField.
+    - **require**, **required** *(boolean)* Whether or not the field is required for submission. **Default:** `false`
     - **placeholder** *(string)* Text displayed inside of an empty inputField. **Default** ' ' 
-    - **min** *(integer)* Minimum amount of input required. **Default** ' '
-    - **max** *(integer)* Maximum amount of input allowed. **Default** ' '
+    - **min** *(integer)* Minimum amount of input required.
+    - **max** *(integer)* Maximum amount of input allowed.
 * Methods (public)
     - **setLabel(*string* label)** Prepends the given label to the top of the inputField.
     - **setSuffix(*string* t)** Sets text (t) that will be displayed at the end of the inputField once the user has started typing.
@@ -60,7 +55,7 @@ Builds a base input object that is able to get, set, and modify data based on wh
     - **placeholder(*string* s)** If there is no placeholder it will be hidden, otherwise it will dispaly the given text (s) while the inputField is empty. 
     - **clear()** Calls `clearDirty()`. Clears all input. 
     - **clearDirty()** Resets the dirty status to false. 
-    - **conflicts(*string* value)** Checks to see if dirty status is set to true. If it is then returns conflicting values, otherwise returns null. 
+    - **conflicts(*string* value)** TODO 
     - **set(*string* value, setOptions)** Replaces the values in the DOM with the given data. Triggers `afterset` event.
     - **get()** Returns converted inputField value.
     - **value(*string* value)** If the value passed in is undefined then return the converted form data from all fields, otherwise set the value into the form. 
@@ -72,12 +67,12 @@ Builds a base input object that is able to get, set, and modify data based on wh
     - **redraw()** Re-enters all of the previous saved information into the form. 
     - **setType(*string* sType)** If the type doesn't exist, sets it to default of 'text'. If it does exist then run the type's teardown() method. Then set the inputField type and run the type's setup. 
     - **getType()** Returns the type object. 
-    - **hide()** Hides the inputField that calls this method. 
-    - **show(displayValue)** Displays the value that is passed into the method. 
-    - **getField()** Returns the field.
-    - **enable()** Sets the 'disable' status to false.
-    - **disable()** Sets the 'disable' status to true.
-    - **isDisabled()** Returns the 'disable' status's value (true/false).
+    - **hide()** Hides the field
+    - **show(displayValue)** Displays the value that is passed into the method, or just shows the field.
+    - **getField()** Returns the `.input-field` container element.
+    - **enable()** Removes the field from the disable status.
+    - **disable()** Puts the field in the disable status. The option will become unselectable.
+    - **isDisabled()** Returns true/false for if the field is in/out of the disabled state.
     - **status(*string* statusName, *boolean* bool, *boolean* fireEvents)** Sets the status class to the field and runs any updates to the field needed. 
     - **updateStatus(*string* statusName, *boolean* bool, *boolean* fireEvents)** legacy code that calls the **status(statusName,bool,fireEvents)** method.
     - **hasStatus(*string* statusName)** Returns the current object's state for the status name that was passed into the method. 
@@ -162,6 +157,43 @@ Available to be modified in order to accept new types that the user wishes to de
     - **flash()**
     - **set(data)**
     - **get()** returns null
+
+
+## selectionField
+Handles checkboxes and radio buttons, allowing them to be used like inputFields with formBuilder features. Only radio buttons will have a radioGroup attatched to .
+
+* Options
+    - **require** || **required** *(boolean)* Whether or not the field is required for submission. **Default:** `false`
+    - **label** *(htmlString)* The label to be displayed for the checkbox or radio button. Not required, but recommended.
+    - **radioGroup** *(jqueryObject[])* An array of radio inputs jquery objects that have the same name. Only radio buttons need a radioGroup and must contain the widget element. If there no radioGroup is given, a new one will be created soley of the widget element. All other elements in the radioGroup must be initialized as selectionFields either before or after the initialization of the widget element.
+* Methods (public)
+    - **setLabel(*string* newLabel)** Sets the label html. Creates a new label if one does not exist.
+    - **checkDirty()** Updates the dirty/clean status based upon the previous set value. Fires dirty/clean events when the status is changed and updates other selectionFields in the radioGroup if necessary.
+    - **isDirty()** Returns current dirty state as a boolean.
+    - **clear()** Unchecks the option, clears the dirty state, and resets the previous set value. Applies to all options in the radioGroup.
+    - **clearDirty()** Sets the dirty state to false and triggers a `clean` event. Applies to all options in the radioGroup.
+    - **conflicts(value)** TODO
+    - **set(value)** Unchecks or checks checkboxes based on `!!value`. Unchecks all radios in the radioGroup and then checks the option that has the matching value. If no matching option is found, no option is checked.  The prevous value is then set to the passed value and the `afterset` event triggered.
+    - **get()** Returns the true/false for checked/unchecked checkboxes. Returns the value of the checked option in a radioGroup, or undefined if no option is selected.
+    - **validate()** Validates the field and returns true/false for valid/invalid. When invalid, the field will enter the error status.
+    - **hide()** Hides the field
+    - **show()** Shows the field
+    - **getField()** Returns the `.selection-field` container element.
+    - **enable()** Removes the field from the disable status.
+    - **disable()** Puts the field in the disable status. The option will become unselectable.
+    - **isDisabled()** Returns true/false for if the field is in/out of the disabled state.
+    - **status(*string* statusName, *boolean* newValue, *boolean* fireEvents)** Sets the status with statusName to newValue and update the field if needed. All fields in the radioGroup will be updated. The `statusUpdate` event will be triggered if fireEvents is set to true.
+    - **hasStatus(*string* statusName)** Returns whether or not the field has the status with statusName.
+* Methods (private)
+    - **_create()** Widget constructor.
+    - **_updatePreviousValue** Syncs the prevValue with the radioGroup.
+    - **_destroy** Widget destructor. Will also destroy any other selectionWidgets in the radioGroup.
+* Events
+    - **dirty** Triggered when the field enters the dirty state.
+    - **clean** Triggered when the field leaves the dirty state.
+    - **afterset(null,value)** Triggered after a new value has been set. 
+    - **statusUpdate(null,{statusName:*string*, value:*boolean*})** Triggered after a status has been changed.
+
 
 ## arrayField
 Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. 
@@ -330,17 +362,37 @@ Creates a spinner that will be displayed when the submit button has been clicked
 
 
 # Input Types
+In order to access a specific type method outside of inputField, you must first access the type instance by calling inputField('getType') on the inputField widget element.
+
+Note: The `ifw` parameter is an instance of the inputField widget a type is attached to.
 
 ## standard
 There are a general set of methods that every type must contain in order to function properly as a type. They can be modified to suit that type's needs and there can be additional methods, but these ones below are the minimum required.
 
-* Methods (required)
-    - **setUp(ifw)**
-    - **tearDown(ifw)**
+* Base Type Methods
+    - **setUp(ifw)** Used as a type construtor
+    - **tearDown(ifw)** Used as a type destructor
     - **converter** *(object)*
-        + **toField(value, ifw)**  return value
-        + **fromField(value, ifw)**  return value
-    - **validate(ifw)** return {message: 'invalid'}
+        + **toField(value, ifw)**  Used to format values from memory to the display. The passed value is the stored value in memory format. Types may return a value in the desired display format to be set in the source input widget. Types that do not return a value are assumed to have updated it manually in this function. The latter is useful for complex types that do not relay solely on the souce input widget. 
+        + **fromField(value, ifw)**  Used to format values from the display to memory. The passed value is the val() of the source input. Types must return a value in the desired memory format.
+    - **validate(ifw)** Used to run checks against the type to determine if it is invalid or not. To display an error message, return an object with a message property. For example: `{message: 'invalid'}`.
+
+* All inputField types usable with the `data-type` attribute of input elements.
+    - **text** raw text, no validation
+    - **utext** auto-capitalization, no validation
+    - **integer** integers only, no validation
+    - **number** numbers only checking the first decimal, no validat
+    - **state** for state abbreviations (two capital letters), validation checks for two letters
+    - **zip** for zip codes, validation checks for valid zip code format
+    - **email** for emails, validation checks for valid email format
+    - **display** for displaying uneditable values. The source input is hidden and a span with the value is in its place.
+    - **money** for money format (see [money](#inputTypes-money))
+    - **phone** for phone number format (see [phone](#inputTypes-phone))
+    - **tmsPhone** for phone number format with a phone type dropdown (see [tmsPhone](#inputTypes-tmsPhone))
+    - **date** for date format with a picker dropdown (see [date](#inputTypes-date))
+    - **time**for time format with a picker dropdown (see [time](#inputTypes-time))
+    - **dateTime** a combination of date and time types (see [dateTime](#inputTypes-dateTime))
+    - **select** replacment for `<select>` elements (see [select](#inputTypes-select))
 
 
 

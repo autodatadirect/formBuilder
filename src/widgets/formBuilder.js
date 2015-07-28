@@ -419,21 +419,6 @@
 			return formData;
 		},
 
-		val: function(values) {
-			//TODO: forgot to implement this, there is logic taking its place in efsfl.js
-			if(values === undefined) {
-				/*
-				 * getter
-				 */
-				return {};
-			} else {
-				/*
-				 * setter
-				 */
-				return this;
-			}
-		},
-
 		validate: function() {
 			var self = this,
 				o = self.options,
