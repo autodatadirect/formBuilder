@@ -51,6 +51,8 @@
             <ul class="navDepth-1">
               <li><a href="#dataTypes-inputTypes">Input Types</a></li>
               <li><a href="#dataTypes-select">Select</a></li>
+              <li><a href="#dataTypes-checkbox">Checkboxes</a></li>
+              <li><a href="#dataTypes-radio">Radio Groups</a></li>
               <li><a href="#dataTypes-textarea">Textarea</a></li>
               <li><a href="#dataTypes-arrayField">Array Field</a></li>
               <li><a href="#dataTypes-textSubmitter">Text Submitter</a></li>
@@ -60,12 +62,6 @@
             <ul class="navDepth-1">
               <li><a href="#customization-regexTypes">Creating Simple Regex Types</a></li>
               <li><a href="#customization-fullTypes">Creating Full Custom Types</a></li>
-            </ul>
-          </li>
-          <li><a href="#unsupported">Unsupported</a>
-            <ul class="navDepth-1">
-              <li><a href="#unsupported-checkbox">Checkboxes</a></li>
-              <li><a href="#unsupported-radio">Radio Buttons</a></li>
             </ul>
           </li>
           <li><a href="#demo">Live Demo</a>
@@ -639,12 +635,106 @@
             </div>
             <div class="example">
               <input type="text" data-label="tmsYesNo" data-type="tmsYesNo"><span>Created with <b>booleanSelectCreator(trueLabel,falseLabel)</b>. A select created with two options where the trueLabel's value is true and the falseLabel's value is false. Can be used for localization support. With this type, 'Yes' is true and 'No' is false.</span>
-              <mark>Add the localization support back to the type</mark>
+            </div>
+          </div>
+          <h2>Checkboxes<a name="dataTypes-checkbox" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              FormBuilder checkboxes are very similar to normal HTML checkboxes, minus the need for an extra label tag. 
+              To add a label, add the <b>data-label</b> attribute. Labels can be made of html or just raw text. They may can 
+              also be marked as required with the <b>data-required</b> attribute. 
+            </p>
+            <p>
+              Checkboxes are made using the selectionField widget and inherits many of the same functions as the inputField widget. 
+              This does not include the other input types or most field enhancements. Checkboxes have validation, states, and 
+              can be set/get. When used in a formBuilder form, they are seen as inputs with a boolean value.
+              
+            </p>
+            <div class="example">
+              <input type="checkbox" data-label="Some Checkbox">
+              <input type="checkbox" data-label="A &lt;i&gt;fancy&lt;/i&gt; one!">
+              <input type="checkbox" data-label="A required one" data-required="true">
+            </div>
+            <div data-mode="html" class="code">
+              <input type="checkbox" data-label="Some Checkbox"/>
+              <input type="checkbox" data-label="A <i>fancy</i> one!"/>
+              <input type="checkbox" data-label="A required one" data-required="true"/>
+            </div>
+            <p>
+              They can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
+              checkboxes can be aligned horizontally with the <b>selection-horizontal</b> class.
+              
+            </p>
+            <div class="example">
+              <div class="selection-field-group selection-horizontal">
+                <input type="checkbox" data-label="Some Checkbox">
+                <input type="checkbox" data-label="A &lt;i&gt;fancy&lt;/i&gt; one!">
+                <input type="checkbox" data-label="A required one" data-required="true">
+              </div>
+            </div>
+            <div data-mode="html" class="code">
+              <div class="selection-field-group selection-horizontal">
+              	<input type="checkbox" data-label="Some Checkbox"/>
+              	<input type="checkbox" data-label="A <i>fancy</i> one!"/>
+              	<input type="checkbox" data-label="A required one" data-required="true"/>
+              </div>
+            </div>
+          </div>
+          <h2>Radio Groups<a name="dataTypes-radio" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              FormBuilder radio groups are very similar to normal HTML radio groups, minus the need for an extra label tag. 
+              To add a label, add the <b>data-label</b> attribute. Labels can be made of html or just raw text. They may can 
+              also be marked as required with the <b>data-required</b> attribute. A radio group is seen as required if at 
+              least one of its options is marked required.
+            </p>
+            <p>
+              Radio groups are made using the selectionField widget and inherits many of the same functions as the inputField widget. 
+              This does not include the other input types or most field enhancements. Radio groups have validation, states, and 
+              can be set/get. When used in a formBuilder form, the entire group is seen as one input whose value is determined by 
+              the checked radio button.
+              
+            </p>
+            <div class="example">
+              <input type="radio" name="radioExample1" data-label="Option one" value="one">
+              <input type="radio" name="radioExample1" data-label="Option two" value="two">
+              <input type="radio" name="radioExample1" data-label="Option three" value="three"><br>
+              <input type="radio" name="radioExample2" data-label="Required Option one" data-required="true" value="one">
+              <input type="radio" name="radioExample2" data-label="Required Option two" value="two">
+              <input type="radio" name="radioExample2" data-label="Required Option three" value="three">
+            </div>
+            <div data-mode="html" class="code">
+              <input type="radio" name="radioExample1" data-label="Option one" value="one"/>
+              <input type="radio" name="radioExample1" data-label="Option two" value="two"/>
+              <input type="radio" name="radioExample1" data-label="Option three" value="three"/>
+              <br/>
+              <input type="radio" name="radioExample2" data-label="Required Option one" data-required="true" value="one"/>
+              <input type="radio" name="radioExample2" data-label="Required Option two" value="two"/>
+              <input type="radio" name="radioExample2" data-label="Required Option three" value="three"/>
+            </div>
+            <p>
+              They can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
+              checkboxes can be aligned horizontally with the <b>selection-horizontal</b> class.
+              
+            </p>
+            <div class="example">
+              <div class="selection-field-group selection-horizontal">
+                <input type="radio" name="radioExample3" data-label="Option one" value="one">
+                <input type="radio" name="radioExample3" data-label="Option two" value="two">
+                <input type="radio" name="radioExample3" data-label="Option three" value="three">
+              </div>
+            </div>
+            <div data-mode="html" class="code">
+              <div class="selection-field-group selection-horizontal">
+              	<input type="radio" name="radioExample3" data-label="Option one" value="one"/>
+              	<input type="radio" name="radioExample3" data-label="Option two" value="two"/>
+              	<input type="radio" name="radioExample3" data-label="Option three" value="three"/>
+              </div>
             </div>
           </div>
           <h2>Textarea<a name="dataTypes-textarea" class="anchor"></a></h2>
           <div class="section">
-            <p>No extra attributes are required. Note, pre/post-inputs will not grow with the area.
+            <p>No extra attributes are required. Note: pre/post-inputs will not grow with the area.
               <div class="example">
                 <textarea rows="3" data-label="TextArea"></textarea>
               </div>
@@ -814,43 +904,6 @@
                 $('fullCustomTypeForm').formBuilder();
               </div>
             </p>
-          </div>
-        </div>
-        <h1>Unsupported<a name="unsupported" class="anchor"></a></h1>
-        <div class="section">
-          <h2>Checkboxes<a name="unsupported-checkbox" class="anchor"></a></h2>
-          <div class="section">
-            <input type="checkbox" data-label="Some Checkbox">
-            <input type="checkbox" data-label="Another">
-            <input type="checkbox" data-label="More"><br>
-            <div class="selection-field-group">
-              <input type="checkbox" data-label="Group Checkbox">
-              <input type="checkbox" data-label="Another Group">
-              <input type="checkbox" data-label="More Group">
-            </div><br>
-            <div class="selection-field-group selection-horizontal">
-              <input type="checkbox" data-label="Group Checkbox">
-              <input type="checkbox" data-label="Another Group">
-              <input type="checkbox" data-label="More Group">
-            </div>
-          </div>
-          <h2>Radio Buttons<a name="unsupported-radio" class="anchor"></a></h2>
-          <div class="section">
-            <input type="radio" name="someRadio" data-label="Radio One" value="one">
-            <input type="radio" name="someRadio" data-label="Radio Two" value="two">
-            <input type="radio" name="someRadio" data-label="Radio Three" value="three"><br>
-            <div class="example">
-              <input type="radio" name="formRadioGroup" data-label="Form Radio Group One" value="one">
-              <input type="radio" name="formRadioGroup" data-label="Form Radio Group Two" value="two">
-              <input type="radio" name="formRadioGroup" data-label="Form Radio Group Three" value="three">
-            </div>
-            <div class="example">
-              <div class="selection-field-group selection-horizontal">
-                <input type="radio" name="someRadioGroup" data-label="Radio Group One" value="one">
-                <input type="radio" name="someRadioGroup" data-label="Radio Group Two" value="two">
-                <input type="radio" name="someRadioGroup" data-label="Radio Group Three" value="three">
-              </div>
-            </div>
           </div>
         </div>
         <h1>Live Demo<a name="demo" class="anchor"></a></h1>

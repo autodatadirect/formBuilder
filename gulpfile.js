@@ -322,7 +322,7 @@ gulp.task('docs', ['compileMarkdown'], function() {
 
 gulp.task('docs:watch', ['docs'], function() {
 	return gulp.watch([
-			dirs.docs + '/**.jade',
-			dirs.docs + '/**.md'
-		], ['refreshDocs']);
+			dirs.docs + '/**/**.jade',
+			dirs.docs + '/**/**.md'
+		], ['docs']);
 });
