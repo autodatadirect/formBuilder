@@ -8,16 +8,16 @@
 	
 	var doc = $(document);
 	$.formBuilder.inputField.types.select = {
-		setUp: function(inputWidget) {
+		setUp: function(inputFieldWidget) {
 			var self = this, // Object = {}
-				o = inputWidget.options,
-				e = inputWidget.element;
+				o = inputFieldWidget.options,
+				e = inputFieldWidget.element;
 
 			self.element = e;
 			self.source = [];
-			self.inputWidget = inputWidget;
+			self.inputWidget = inputFieldWidget;
 
-			var fieldGroup = self.fieldGroup = inputWidget.field.parents('.input-field-group');
+			var fieldGroup = self.fieldGroup = inputFieldWidget.field.parents('.input-field-group');
 
 			if(e.is('select')){
 				console.log('** ERROR: deprecated use of <select> in the select type **');
@@ -30,7 +30,7 @@
 			 */
 			var shim = self.shim = $('<div class="shim"></div>').insertAfter(e);
 
-			inputWidget.field.addClass('select-box');
+			inputFieldWidget.field.addClass('select-box');
 
 			self.iconClosed = $('<span class="fb-icon fb-icon-sort-down dropdown-closed-icon"></span>').insertAfter(e);
 			self.iconOpen = $('<span class="fb-icon fb-icon-sort-up dropdown-open-icon"></span>').insertAfter(e).hide();
@@ -49,7 +49,7 @@
 			var panel = self.panel = $('<div class="fb-select-panel"><div class="tms-select-dropdown-content"><div class="search" style="position:relative;"/><div class="options" style="position:relative;"/></div></div>').hide();
 			self.options = panel.find('.options');
 
-			inputWidget.layers.items.append(panel).css('position', 'relative');
+			inputFieldWidget.layers.items.append(panel).css('position', 'relative');
 
 			var selectionClass = self.sectionClass =  'selected';
 
@@ -62,8 +62,8 @@
 				$(this).removeClass(selectionClass);
 			});
 
-			inputWidget.layers.items.on('click', function (ev) {
-				if (inputWidget.states.disable) {
+			inputFieldWidget.layers.items.on('click', function (ev) {
+				if (inputFieldWidget.states.disable) {
 					return;
 				}
 				var target = $(ev.target);
@@ -761,7 +761,7 @@
 			return self.loaded;
 		},
 
-		removeInvalid: function (ev, ui) {
+		removeInvalid: function (ev, ifw) {
 			var self = this,
 				e = self.element, 
 				val = e.val(),
@@ -773,7 +773,7 @@
 			 * if ui.item is set, the autocomplete just set this
 			 * and it does not need to be checked
 			 */
-			if(ui && ui.item){
+			if(ifw && ifw.item){
 				return;
 			}
 

@@ -26,7 +26,7 @@
 			width: '300px',
 			placeholder: '',
 			sendInstruction: dict.defaultSendInstruction,
-			rows: undefined, // default 3
+			rows: undefined, 
 			ignoreEmptySubmit: false	// submit when empty yes/no
 		},
 

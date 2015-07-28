@@ -1,8 +1,8 @@
 (function(){
 	types.multiselect = {
-		setUp: function(ui) {
-			var e = ui.element,
-				o = ui.options,
+		setUp: function(ifw) {
+			var e = ifw.element,
+				o = ifw.options,
 				field = o._field;
 
 
@@ -25,8 +25,8 @@
 
 			e.autocomplete({
 				source: codeListFilter(o._codeTable),
-				select: function(ev, ui) {
-					selectionsLayer.append('<div class="selection">' + ui.item.label + '</div>');
+				select: function(ev, ifw) {
+					selectionsLayer.append('<div class="selection">' + ifw.item.label + '</div>');
 
 					/*
 					 * return false here so that the value of the input is not changed by jquery UI autocomplete
@@ -40,15 +40,15 @@
 
 
 		},
-		tearDown: function(ui) {
-			var o = ui.options,
-				e = ui.element;
+		tearDown: function(ifw) {
+			var o = ifw.options,
+				e = ifw.element;
 			e.html('').off('.type-code').autocomplete('destroy');
 			delete o.codeTable;
 		},
-		validate: function(ui) {
-			var e = ui.element;
-			if(binarySearch(e.val(), ui.options._codeTable) < 0) {
+		validate: function(ifw) {
+			var e = ifw.element;
+			if(binarySearch(e.val(), ifw.options._codeTable) < 0) {
 				return {
 					message: 'invalid'
 				};
