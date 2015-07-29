@@ -242,7 +242,7 @@ $.formBuilder.inputField.types.customLocation = {
 $('.example').each(function(){
 	if(!$(this).parents('form').length && 
 	!$(this).parents('.code').length && 
-	!$(this).children('form.fb').length) {
+	!$(this).children('form').length) {
 		$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
 	}
 });
