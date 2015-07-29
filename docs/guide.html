@@ -631,15 +631,100 @@
         </div>
         <h1>Live Demo<a name="demo" class="anchor"></a></h1>
         <div class="section">
-          <h2><a name="demo-form" href="#demo-form" class="anchor"></a>Form</h2>
+          <h2><a name="demo-form" href="#demo-form" class="anchor"></a>Drivers License Application</h2>
           <div class="section">
             <p>To get a feel of how formBuilder is used, try out this simple demo.</p>
             <form id="example" action="#" style="display: none">
-              <input type="text" name="name" data-label="Name*" data-require="true">
-              <input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number">
-              <input type="text" name="email" data-type="email" data-label="Email*" data-require="true">
-              <input type="text" name="bestColor" data-type="select" data-label="Which is the best color?" data-default="#0000FF" data-options="[				{&quot;value&quot;:&quot;#FF0000&quot;, &quot;label&quot;:&quot;red&quot;},				{&quot;value&quot;:&quot;#0000FF&quot;, &quot;label&quot;:&quot;blue&quot;},				{&quot;value&quot;:&quot;#00FF00&quot;, &quot;label&quot;:&quot;green&quot;},				{&quot;value&quot;:&quot;#FF9900&quot;, &quot;label&quot;:&quot;orange&quot;},				{&quot;value&quot;:&quot;#FFFF00&quot;, &quot;label&quot;:&quot;yellow&quot;},				{&quot;value&quot;:&quot;#000000&quot;, &quot;label&quot;:&quot;black&quot;},				{&quot;value&quot;:&quot;#FFFFFF&quot;, &quot;label&quot;:&quot;white&quot;},				{&quot;value&quot;:&quot;#CC66CC&quot;, &quot;label&quot;:&quot;purple&quot;},				{&quot;value&quot;:&quot;#808080&quot;, &quot;label&quot;:&quot;gray&quot;}			]">
-              <button type="submit">Save</button>
+              <h4>Application Type (Select One)</h4>
+              <p>
+                <div class="example">
+                  <input type="radio" name="radioExample1" data-label="Driver's License">
+                  <input type="radio" name="radioExample1" data-label="Learner's Permit &lt;i&gt;and&lt;/i&gt; Driver's License">
+                  <input type="radio" name="radioExample1" data-label="Motorcycle Learner's Permit">
+                  <input type="radio" name="radioExample1" data-label="Motorcycle License">
+                  <input type="radio" name="radioExample1" data-label="Driver's License with School Bus Endorsement">
+                  <input type="radio" name="radioExample1" data-label="Identification Card (ID)"><br>
+                </div>
+              </p>
+              <h4>Applicant Information</h4>
+              <p>* Represents Required Fields
+                <div class="example">
+                  <input type="text" name="name" data-label="Full Legal Name*" data-require="true">
+                  <input type="text" name="social" data-label="Social Security Number" data-type="SSN">
+                  <input type="text" name="birthday" data-label="Birthdate*" data-type="date" data-require="true">
+                  <input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number">
+                  <input type="text" name="email" data-type="email" data-label="Email">
+                  <div title="Why Do We Need This?" name="tool" class="tooltip">
+                    <h1>Not for spam!</h1>
+                    <p>This email will be used to let you </p>
+                    <p>know when we have mailed </p>
+                    <p>your driver's licence and will </p>
+                    <p>send you updates on its delivery status</p>
+                  </div>
+                </div>
+                <div class="example">
+                  <div class="input-field-group">
+                    <input type="text" name="address" data-label="Street Address*" data-require="true" style="width:300px">
+                    <input type="text" name="apartment" data-type="number" data-label="Apt" style="width:50px">
+                    <input type="text" name="city" data-label="City*" data-require="true">
+                    <input type="text" name="state" data-type="state" data-label="State*" data-require="true" style="width:50px">
+                    <input type="text" name="zip" data-type="zip" data-label="Zip Code*" data-require="true" style="width:75px">
+                  </div>
+                </div>
+              </p>
+              <p>Gender
+                <div class="example">
+                  <input type="radio" name="radioExample2" data-label="Male">
+                  <input type="radio" name="radioExample2" data-label="Female">
+                </div>
+              </p>
+              <p>Physical Characteristics
+                <div class="example">
+                  <input type="text" name="EyeColor" data-type="select" data-label="Eye Color" data-default="#0000FF" data-options="[					{&quot;value&quot;:&quot;#0000FF&quot;, &quot;label&quot;:&quot;Blue&quot;},					{&quot;value&quot;:&quot;#00FF00&quot;, &quot;label&quot;:&quot;Green&quot;},					{&quot;value&quot;:&quot;#A67B5B&quot;, &quot;label&quot;:&quot;Hazel&quot;},					{&quot;value&quot;:&quot;#8B4513&quot;, &quot;label&quot;:&quot;Brown&quot;}				]">
+                  <input type="text" name="HairColor" data-type="select" data-label="Hair Color" data-default="#0000FF" data-options="[					{&quot;value&quot;:&quot;Yellow&quot;, &quot;label&quot;:&quot;Blonde&quot;},					{&quot;value&quot;:&quot;Red&quot;, &quot;label&quot;:&quot;Red&quot;},					{&quot;value&quot;:&quot;Black&quot;, &quot;label&quot;:&quot;Black&quot;},					{&quot;value&quot;:&quot;#8B4513&quot;, &quot;label&quot;:&quot;Brown&quot;}				]">
+                </div>
+                <div class="example">
+                  <input type="text" name="weight" data-type="integer" data-label="Weight" data-postinput="lbs" style="width:30px">
+                </div>
+                <div class="example">
+                  <div class="input-field-group">
+                    <input type="text" name="feet" data-type="integer" data-label="Height" data-postinput="ft" style="width:30px">
+                    <input type="text" name="inches" data-type="integer" data-postinput="in" style="width:30px">
+                  </div>
+                </div>
+              </p>
+              <p>Check all that apply to you 
+                <div class="example">
+                  <input type="checkbox" name="check1" data-label="Do you wear glasses or contact lenses?">
+                  <input type="checkbox" name="check2" data-label="Do you have a physical or mental condition which requires that you take medication?">
+                  <input type="checkbox" name="check3" data-label="Have you ever had a seizure, blackout, or loss of consciousness?">
+                  <input type="checkbox" name="check4" data-label="Do you have a physical condition which requires you to use special equipment in order to drive?">
+                  <input type="checkbox" name="check5" data-label="Has your license or privilege to drive ever been suspended?">
+                </div>
+              </p>
+              <p>If you checked any of the above please provide an explanation here (max 250 characters)
+                <div class="example">
+                  <textarea rows="5" name="text" style="width:500px" data-max="250"></textarea>
+                </div>
+                <div class="example">
+                  <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField" data-label="Please provide names of all family members to be listed as next of kin">
+                    <input type="text" name="family" data-placeholder="Family Member">
+                  </div>
+                </div>
+              </p>
+              <p>If this is not your first drivers license please fill out the following information
+                <div class="example"> </div>
+                <h5>Issue Date to Expiration Date</h5>
+                <p>
+                  <div class="dateRange"></div>
+                </p>
+                <input type="text" name="state" data-type="state" data-label="State License Was Issued In" style="width:50px">
+                <p></p>
+                <div class="example">
+                  <input type="checkbox" name="check6" data-label="Agree to terms" data-require="true">
+                  <button type="submit">Submit Application</button>
+                </div>
+              </p>
             </form>
           </div>
           <h2><a name="demo-results" href="#demo-results" class="anchor"></a>Results</h2>
@@ -649,23 +734,68 @@
           </div>
           <h2><a name="demo-source" href="#demo-source" class="anchor"></a>Source</h2>
           <div class="section">
+            <div data-mode="html" class="code"><form id="example" action="#" style="display: none"></div>
+            <h4>Application Type (Select One)</h4>
+            <p></p>
             <div data-mode="html" class="code">
-              <form id="example" action="#" style="display: none">
-              	<input type="text" name="name" data-label="Name*" data-require="true">
-              	<input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number")>
-              	<input type="text" name="email" data-type="email" data-label="Email*" data-require="true">
-              	<input type="text" name="bestColor" data-type="select" data-label="Which is the best color?" data-default="#0000FF" data-options='[
-              			{"value":"#FF0000", "label":"red"},
-              			{"value":"#0000FF", "label":"blue"},
-              			{"value":"#00FF00", "label":"green"},
-              			{"value":"#FF9900", "label":"orange"},
-              			{"value":"#FFFF00", "label":"yellow"},
-              			{"value":"#000000", "label":"black"},
-              			{"value":"#FFFFFF", "label":"white"},
-              			{"value":"#CC66CC", "label":"purple"},
-              			{"value":"#808080", "label":"gray"}
-              		]'>
-              	<button type="submit">Save</button>
+              <input type="radio" name="radioExample1" data-label="Driver\'s License">
+              <input type="radio" name="radioExample1" data-label="Learner\'s Permit <i>and</i> Driver\'s License">
+              <input type="radio" name="radioExample1" data-label="Motorcycle License">
+              <br/>
+            </div>
+            <h4>Applicant Information</h4>
+            <p></p>
+            <div data-mode="html" class="code">
+              <input type="text" name="name" data-label="Name*" data-require="true">
+              <input type="text" name="social" data-label="Social Security Number" data-type="SSN">
+              <input type="text" name="birthday" data-label="Birthdate*" data-type="date" data-require="true">
+              <input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number">
+              <input type="text" name="email" data-type="email" data-label="Eye Color" data-require="true">
+            </div>
+            <div data-mode="html" class="code">
+              <div class="input-field-group">
+              	<input type="text" name="address" data-label="Street Address*" data-require="true">
+              	<input type="text" name="city" data-label="City" data-require="true">
+              	<input type="text" name="state" data-type="state" data-label="State" data-require="true">
+              	<input type="text" name="zip" data-type="zip" data-label="Zip Code" data-require="true">
+            </div>
+            <p>Gender</p>
+            <div data-mode="html" class="code">
+              <input type="radio" name="radioExample2" data-label="Male">
+              <input type="radio" name="radioExample2" data-label="Female">
+            </div>
+            <p>Physical Characteristics</p>
+            <div data-mode="html" class="code">
+              <input type="text" name="EyeColor" data-type="select" data-label="Eye Color" data-default="#0000FF" data-options='[
+              		{"value":"#0000FF", "label":"Blue"},
+              		{"value":"#00FF00", "label":"Green"},
+              		{"value":"#A67B5B", "label":"Hazel"},
+              		{"value":"#8B4513", "label":"Brown"}
+              	]'>
+              <input type="text" name="HairColor" data-type="select" data-label="Hair Color" data-default="#0000FF" data-options='[\
+              		{"value":"Yellow", "label":"Blonde"},
+              		{"value":"Red", "label":"Red"},
+              		{"value":"Black", "label":"Black"},
+              		{"value":"#8B4513", "label":"Brown"}
+              	]'>
+            </div>
+            <div data-mode="html" class="code"><input type="text" name="weight" data-type="integer" data-label="Weight" data-postinput="lbs"></div>
+            <div data-mode="html" class="code">
+              <div class="input-field-group">
+              	<input type="text" name="feet" data-type="integer" data-label="Height" data-postinput="ft">
+              	<input type="text" name="inches" data-type="integer" data-postinput="in">
+            </div>
+            <p>Check all that apply to you </p>
+            <div data-mode="html" class="code">
+              <input type="checkbox" name="check1" data-label="Do you wear glasses or contact lenses?">
+              <input type="checkbox" name="check2" data-label="Do you have a physical or mental condition which requires that you take medication?">
+              <input type="checkbox" name="check3" data-label="Have you ever had a seizure, blackout, or loss of consciousness?">
+              <input type="checkbox" name="check4" data-label="Do you have a physical condition which requires you to use special equipment in order to drive?">
+              <input type="checkbox" name="check5" data-label="Has your license or privilege to drive ever been suspended?">
+            </div>
+            <div data-mode="html" class="code">
+              <input type="checkbox" name="check6" data-label="Agree to terms" data-require="true">
+              <button type="submit">Submit Application</button>
               </form>
             </div>
             <div data-title="JAVASCRIPT (without result logging)" data-mode="javascript" class="code">
