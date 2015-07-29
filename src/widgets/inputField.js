@@ -143,7 +143,7 @@
 			/*
 			 * move classes
 			 */
-			field.attr('class', $.trim(field.attr('class') + ' ' + e.attr('class')));
+			field.attr('class', $.trim(field.attr('class')) + ' ' + $.trim(e.attr('class')));
 			e.removeAttr('class');
 
 			if(e.is('textarea')) {

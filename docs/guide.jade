@@ -13,7 +13,7 @@ block sideNav
 	li.current
 		a(href='#baseForm') Base Form
 		ul.navDepth-1
-			li.current: a(href='#baseForm-applyingFormBuilder') Applying the formBuilder
+			li.current: a(href='#baseForm-applyingFormBuilder') Applying formBuilder
 			li: a(href='#baseForm-requiredInputs') Required Inputs
 
 	li
@@ -37,12 +37,12 @@ block sideNav
 			li: a(href='#dataTypes-textarea') Textarea
 			li: a(href='#dataTypes-arrayField') Array Field
 	li
-		a(href='#standAloneWidgets') Stand Alone Widgets
+		a(href='#standaloneWidgets') Standalone Widgets
 		ul.navDepth-1
-			li: a(href='#standAloneWidgets-dateRangePicker') Date Range Picker 
-			li: a(href='#standAloneWidgets-dateTimeRangePicker') Date Time Range Picker
-			li: a(href='#standAloneWidgets-dropDownPanel') Drop Down Panel
-			li: a(href='#standAloneWidgets-textSubmitter') Text Submitter
+			li: a(href='#standaloneWidgets-dateRangePicker') Date Range Picker 
+			li: a(href='#standaloneWidgets-dateTimeRangePicker') Date Time Range Picker
+			li: a(href='#standaloneWidgets-dropDownPanel') Drop Down Panel
+			li: a(href='#standaloneWidgets-textSubmitter') Text Submitter
 
 	li
 		a(href='#customization') Customization
@@ -63,7 +63,7 @@ block content
 	h1 Base Form
 		a.anchor(name='baseForm')
 	.section
-		h2 Applying the formBuilder
+		h2 Applying formBuilder
 			a.anchor(name='baseForm-applyingFormBuilder')
 		.section: include content/baseForm/applyingFormBuilder
 		
@@ -142,28 +142,28 @@ block content
 		
 
 
-	h1 Stand Alone Widgets
-		a.anchor(name='standAloneWidgets')
+	h1 Standalone Widgets
+		a.anchor(name='standaloneWidgets')
 			
 		h2 Date Range Picker
-			a.anchor(name='standAloneWidgets-dateRangePicker')
+			a.anchor(name='standaloneWidgets-dateRangePicker')
 		.example
 			p The Date-Range Picker creates two input fields for a beginning and ending date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and follows its rules for validation.
 			.dateRange
 
 		h2 Date Time Range Picker
-			a.anchor(name='standAloneWidgets-dateTimeRangePicker')
+			a.anchor(name='standaloneWidgets-dateTimeRangePicker')
 		.example
 			p The Date-Time-Range Picker creates two input fields for a beginning and ending date and also inclues time fields for each date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and the time-data type and follows their rules for validation. If no time is selected, then the time fields will default to 12:00am and 11:59pm.
 			.dateTimeRange
 		
 		h2  Drop Down Panel
-			a.anchor(name='standAloneWidgets-dropDownPanel')
-		.section: include content/standAloneWidgets/dropDownPanel
+			a.anchor(name='standaloneWidgets-dropDownPanel')
+		.section: include content/standaloneWidgets/dropDownPanel
 
 		h2  Text Submitter
-			a.anchor(name='standAloneWidgets-textSubmitter')
-		.section: include content/standAloneWidgets/textSubmitter
+			a.anchor(name='standaloneWidgets-textSubmitter')
+		.section: include content/standaloneWidgets/textSubmitter
 				
 
 

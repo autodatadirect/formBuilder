@@ -1,13 +1,74 @@
-p To initialize a form with formBuilder
-	.code(data-mode='javascript').
-		 $('form').formBuilder();
-	//- 
+p.
+	Forms are made formBuilder forms by initializing them as formBuilder widgets. FormBuilder 
+	will search for form fields and construct them automatically. 
 
-p To keep the form hidden until it is constructed or if it is unsupported, style the form with
-	.code(data-mode='html').
-		<form style="display:none;">
-			....
-		</form>
-	//- 
+.example
+	form(class='fb')
+		input(type='text' data-type='utext' data-label='Name')
+		input(type='text' data-type='email' data-label='Email')
 
-p Only elements inside of the formBuilder are effected
+.code(data-mode='html' data-title='HTML (before initialization)').
+	<form>
+		<input type="text" data-type="utext" data-label="Name"/>
+		<input type="text" data-type="email" data-label="Email"/>
+	</form>
+//- 
+.code(data-mode='javascript').
+	$('form').formBuilder();
+//- 
+.code(data-mode='html' data-title='HTML (after initialization)').
+	<form style="display: block;">
+		
+		<div class="input-field-group">
+			<div class="input-field">
+				<label>Name</label>
+				<div class="field-items">
+					<span class="field-item field-item-input first">
+						<input type="text" data-type="utext" data-label="Name">
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="input-field-group">
+			<div class="input-field">
+				<label>Email</label>
+				<div class="field-items">
+					<span class="field-item field-item-input first">
+						<input type="text" data-type="email" data-label="Email">
+					</span>
+				</div>
+			</div>
+		</div>
+
+	</form>
+//- 
+
+p.
+	Form element attributes may be added to specify different widget options. 
+ul 
+	li.
+		The <b>data-required</b> attribute or <b>dataRequired</b> option sets 
+		the default require statuses for all fields in the form.
+	li.
+		The <b>data-ignore-hidden</b> attribute or <b>ignoreHidden</b> option when 
+		set will ignore fields that are not visible. They will not be validated 
+		nor will any data be retrieved from them.
+	li.
+		The <b>data-load-hidden</b> attribute or <b>loadHidden</b> option when 
+		set will hide the form while it is being constructed. Once complete, it 
+		will show the form.
+
+.code(data-mode='html' data-title='HTML (using attributes)').
+	<form data-required="false" data-ignore-hidden="false" data-load-hidden="true">
+		....
+	</form>
+//- 
+.code(data-mode='javascript' data-title='JAVASCRIPT (using initialization)').
+	$('form').formBuilder({
+		dataRequired: false,
+		ignoreHidden: false,
+		loadHidden: true
+	});
+//- 
+

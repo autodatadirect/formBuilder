@@ -529,7 +529,7 @@ $('.code').each(function(){
 		mode: $(this).data('mode'),
 		indentWithTabs: false,
 		lineNumbers: true,
-		theme: 'monokai',
+		theme: 'default',
 		readOnly: true
 	};
 	if(cm.mode === 'html') {

@@ -15,7 +15,6 @@
     <!-- Display purposes-->
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
     <link type="text/css" rel="stylesheet" href="./css/codemirror.css">
-    <link type="text/css" rel="stylesheet" href="./css/monokai.css">
     <link type="text/css" rel="stylesheet" href="./css/main.css">
     <link type="text/css" rel="stylesheet" href="./css/guide.css">
   </head>
@@ -31,7 +30,7 @@
         <ul class="navDepth-0">
           <li class="current"><a href="#baseForm">Base Form</a>
             <ul class="navDepth-1">
-              <li class="current"><a href="#baseForm-applyingFormBuilder">Applying the formBuilder</a></li>
+              <li class="current"><a href="#baseForm-applyingFormBuilder">Applying formBuilder</a></li>
               <li><a href="#baseForm-requiredInputs">Required Inputs</a></li>
             </ul>
           </li>
@@ -56,12 +55,12 @@
               <li><a href="#dataTypes-arrayField">Array Field</a></li>
             </ul>
           </li>
-          <li><a href="#standAloneWidgets">Stand Alone Widgets</a>
+          <li><a href="#standaloneWidgets">Standalone Widgets</a>
             <ul class="navDepth-1">
-              <li><a href="#standAloneWidgets-dateRangePicker">Date Range Picker </a></li>
-              <li><a href="#standAloneWidgets-dateTimeRangePicker">Date Time Range Picker</a></li>
-              <li><a href="#standAloneWidgets-dropDownPanel">Drop Down Panel</a></li>
-              <li><a href="#standAloneWidgets-textSubmitter">Text Submitter</a></li>
+              <li><a href="#standaloneWidgets-dateRangePicker">Date Range Picker </a></li>
+              <li><a href="#standaloneWidgets-dateTimeRangePicker">Date Time Range Picker</a></li>
+              <li><a href="#standaloneWidgets-dropDownPanel">Drop Down Panel</a></li>
+              <li><a href="#standaloneWidgets-textSubmitter">Text Submitter</a></li>
             </ul>
           </li>
           <li><a href="#customization">Customization</a>
@@ -82,19 +81,83 @@
       <div class="content">
         <h1>Base Form<a name="baseForm" class="anchor"></a></h1>
         <div class="section">
-          <h2>Applying the formBuilder<a name="baseForm-applyingFormBuilder" class="anchor"></a></h2>
+          <h2>Applying formBuilder<a name="baseForm-applyingFormBuilder" class="anchor"></a></h2>
           <div class="section">
-            <p>To initialize a form with formBuilder
-              <div data-mode="javascript" class="code"> $('form').formBuilder();</div>
+            <p>
+              Forms are made formBuilder forms by initializing them as formBuilder widgets. FormBuilder 
+              will search for form fields and construct them automatically. 
+              
             </p>
-            <p>To keep the form hidden until it is constructed or if it is unsupported, style the form with
-              <div data-mode="html" class="code">
-                <form style="display:none;">
-                	....
-                </form>
-              </div>
-            </p>
-            <p>Only elements inside of the formBuilder are effected</p>
+            <div class="example">
+              <form class="fb">
+                <input type="text" data-type="utext" data-label="Name">
+                <input type="text" data-type="email" data-label="Email">
+              </form>
+            </div>
+            <div data-mode="html" data-title="HTML (before initialization)" class="code">
+              <form>
+              	<input type="text" data-type="utext" data-label="Name"/>
+              	<input type="text" data-type="email" data-label="Email"/>
+              </form>
+            </div>
+            <div data-mode="javascript" class="code">$('form').formBuilder();</div>
+            <div data-mode="html" data-title="HTML (after initialization)" class="code">
+              <form style="display: block;">
+              	
+              	<div class="input-field-group">
+              		<div class="input-field">
+              			<label>Name</label>
+              			<div class="field-items">
+              				<span class="field-item field-item-input first">
+              					<input type="text" data-type="utext" data-label="Name">
+              				</span>
+              			</div>
+              		</div>
+              	</div>
+              	
+              	<div class="input-field-group">
+              		<div class="input-field">
+              			<label>Email</label>
+              			<div class="field-items">
+              				<span class="field-item field-item-input first">
+              					<input type="text" data-type="email" data-label="Email">
+              				</span>
+              			</div>
+              		</div>
+              	</div>
+              
+              </form>
+            </div>
+            <p>Form element attributes may be added to specify different widget options. </p>
+            <ul> 
+              <li>
+                The <b>data-required</b> attribute or <b>dataRequired</b> option sets 
+                the default require statuses for all fields in the form.
+              </li>
+              <li>
+                The <b>data-ignore-hidden</b> attribute or <b>ignoreHidden</b> option when 
+                set will ignore fields that are not visible. They will not be validated 
+                nor will any data be retrieved from them.
+              </li>
+              <li>
+                The <b>data-load-hidden</b> attribute or <b>loadHidden</b> option when 
+                set will hide the form while it is being constructed. Once complete, it 
+                will show the form.
+                
+              </li>
+            </ul>
+            <div data-mode="html" data-title="HTML (using attributes)" class="code">
+              <form data-required="false" data-ignore-hidden="false" data-load-hidden="true">
+              	....
+              </form>
+            </div>
+            <div data-mode="javascript" data-title="JAVASCRIPT (using initialization)" class="code">
+              $('form').formBuilder({
+              	dataRequired: false,
+              	ignoreHidden: false,
+              	loadHidden: true
+              });
+            </div>
           </div>
           <h2>Required Inputs<a name="baseForm-requiredInputs" class="anchor"></a></h2>
           <div class="section">
@@ -529,18 +592,18 @@
             </div>
           </div>
         </div>
-        <h1>Stand Alone Widgets<a name="standAloneWidgets" class="anchor"></a>
-          <h2>Date Range Picker<a name="standAloneWidgets-dateRangePicker" class="anchor"></a></h2>
+        <h1>Standalone Widgets<a name="standaloneWidgets" class="anchor"></a>
+          <h2>Date Range Picker<a name="standaloneWidgets-dateRangePicker" class="anchor"></a></h2>
           <div class="example">
             <p>The Date-Range Picker creates two input fields for a beginning and ending date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and follows its rules for validation.</p>
             <div class="dateRange"></div>
           </div>
-          <h2>Date Time Range Picker<a name="standAloneWidgets-dateTimeRangePicker" class="anchor"></a></h2>
+          <h2>Date Time Range Picker<a name="standaloneWidgets-dateTimeRangePicker" class="anchor"></a></h2>
           <div class="example">
             <p>The Date-Time-Range Picker creates two input fields for a beginning and ending date and also inclues time fields for each date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and the time-data type and follows their rules for validation. If no time is selected, then the time fields will default to 12:00am and 11:59pm.</p>
             <div class="dateTimeRange"></div>
           </div>
-          <h2> Drop Down Panel<a name="standAloneWidgets-dropDownPanel" class="anchor"></a></h2>
+          <h2> Drop Down Panel<a name="standaloneWidgets-dropDownPanel" class="anchor"></a></h2>
           <div class="section">
             <p>
               Drop down panel widgets may be used to add an extra hovering container to any element. To create a drop down panel, initialize the 
@@ -808,7 +871,7 @@
             
             
           </div>
-          <h2> Text Submitter<a name="standAloneWidgets-textSubmitter" class="anchor"></a></h2>
+          <h2> Text Submitter<a name="standaloneWidgets-textSubmitter" class="anchor"></a></h2>
           <div class="section">
             <p>Text submitter can be used for submitting multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form.</p>
             <p>Simple example using defaults:</p>
