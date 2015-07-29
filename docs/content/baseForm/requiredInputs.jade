@@ -1,24 +1,26 @@
 p The <i>data-required</i> attribute if set on an input element will prevent form submission if it is not valid
-	.example: form(id='fb' action='#' style='display:none;')
+	.example: form(class='fb' action='#')
 		input(type='text' data-label='Not Required')
-		input(type='text' data-label='Required' data-require='true')
-		button(type='submit') Submit Test
+		input(type='text' data-label='Required' data-required='true')
+		br
+		button(type='submit') Check Inputs
 	.code(data-mode='html').
-		<form action='#' style='display:none;'>
+		<form action='#'>
 			<input type="text" data-label="Not Required">
-			<input type="text" data-label="Required" data-require="true">
+			<input type="text" data-label="Required" data-required="true">
 		</form>
 	//-
 
 p The <i>data-default-required</i> attribute <b>applied to the form</b> element will set the default data-required state of all nested inputs
-	.example: form(id='fb' action='#' style='display:none;' data-default-required="true")
-		input(type='text' data-label='Required' data-require='true')
+	.example: form(class='fb' action='#' data-default-required="true")
+		input(type='text' data-label='Required' data-required='true')
 		input(type='text' data-label='Still Required')
-		button(type='submit') Submit Test
+		br
+		button(type='submit') Check Inputs
 p In order to set the default data-require state for all nested input the attibute 'data-default-required' must be set to true in the parent attribute
 	.code(data-mode='html').
-		<form action="#" style="display:none;" data-default-required="true">
-			<input type="text" data-label="Required" data-require="true">
+		<form action="#" data-default-required="true">
+			<input type="text" data-label="Required" data-required="true">
 			<input type="text" data-label="Still Required">
 		</form>
 	//- 

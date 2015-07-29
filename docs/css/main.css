@@ -118,8 +118,7 @@ html, body {
 	font-size: .8em;
 }
 .topNav a {
-	margin-right: 1em;
-	padding: .5em;
+	padding: .5em 1em;
 	color: #fff;
 }
 .topNav a:hover {
@@ -262,18 +261,28 @@ h2 .anchor {
 	}
 
 	.header .topNav {
-		left: 174px;
+		left: 160px;
 	}
 
 	.topNav a {
-		margin-right: 2em;
+		/*margin-right: 2em;*/
 	}
 }
 
 /* tiny Screens */
-@media (max-width: 563px) {
+@media (max-width: 611px) {
 	.header .links {
 		display: none;
+	}
+}
+
+/* tiny tiny screens */
+@media (max-width: 468px) {
+	.header .title {
+		visibility: hidden;
+	}
+	.header .topNav {
+		left: 50px;
 	}
 }
 

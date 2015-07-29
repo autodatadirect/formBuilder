@@ -1,8 +1,6 @@
 /**
  * formBuilder Widget
  *
- * TODO: improve codes type
- *
  * TODO: handle submission, bind to buttons somehow, and on-submit event
  *
  * TODO: maintain a model, take in the model, link to the fields and make is
@@ -28,10 +26,16 @@
 					return data;
 				}
 			},
-			/*
-			 * set to true to ignore fields that are not $(':visible')
-			 */
-			ignoreHidden: false
+			
+			// ignore fields that are not $(':visible')
+			ignoreHidden: false,
+
+			// default required option for fields
+			defaultRequired: false,
+
+			// Hide the form while it is being setup, then show it
+			loadHidden: true
+
 		},
 
 		_create: function() {
@@ -39,9 +43,18 @@
 				o = self.options,
 				e = self.element;
 
-			self.baseData = {};
+			// Get options + clean them
+			util.loadDomData.call(self, o, ['ignoreHidden', 'defaultRequired', 'loadHidden']);
+			o.ignoreHidden = !!o.ignoreHidden;
+			o.defaultRequired = !!o.defaultRequired;
+			o.loadHidden = !!o.loadHidden;
 
-			o.defaultRequired = e.data('default-required');
+
+			if(o.loadHidden) {
+				e.hide();
+			}
+
+			self.baseData = {};
 
 			self.fieldsWidgets = $([]);
 			self.fields = $([]);
@@ -82,7 +95,9 @@
 				}
 			});
 
-			e.show();
+			if(o.loadHidden) {
+				e.show();
+			}
 		},
 
 		scanForNewFields: function() {
@@ -128,7 +143,7 @@
 				 */
 				var label = el.attr('data-label');
 
-				if(!label){
+				if(!label) {
 					return;
 				}
 				el.addClass('field-items').wrap('<div class="input-field-group"><div class="input-field"></div></div>').before('<label>' + label + '</label>');
@@ -143,7 +158,7 @@
 					var el = $(this);
 
 					el.selectionField({
-						require: !!o.defaultRequired
+						required: o.defaultRequired
 					});
 
 					self.fieldsWidgets = self.fieldsWidgets.add(el);
@@ -167,7 +182,7 @@
 
 				radioGroup.each(function() {
 					$(this).selectionField({
-						require: !!o.defaultRequired,
+						required: o.defaultRequired,
 						radioGroup: radioGroup
 					});
 				});
@@ -186,13 +201,11 @@
 					var newInput = $(this);
 				
 					newInput.inputField({
-						require: !!o.defaultRequired
+						required: o.defaultRequired
 					});
 
 					self.fields = self.fields.add(newInput);
 				});
-
-
 
 			/*
 			 * set the first class on the first fields for proper styling
@@ -473,7 +486,6 @@
 
 			self.fields.each(function() {
 				var el = $(this);
-				// console.log('inside of each');
 				if(ignoreHidden && !el.is(':visible')){
 					return;
 				}

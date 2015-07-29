@@ -22,7 +22,7 @@
   <body>
     <div class="header">
       <div class="center-container"><a href="./index.html" class="title">jQuery.formBuilder</a>
-        <div class="topNav"><a id="Guide" href="./guide.html" class="current">User Guide</a><a id="API" href="./api.html">API Reference</a></div>
+        <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html" class="current">User Guide</a><a id="API" href="./api.html">API Reference</a></div>
         <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
       </div>
     </div>
@@ -56,6 +56,14 @@
               <li><a href="#dataTypes-arrayField">Array Field</a></li>
             </ul>
           </li>
+          <li><a href="#standAloneWidgets">Stand Alone Widgets</a>
+            <ul class="navDepth-1">
+              <li><a href="#standAloneWidgets-dateRangePicker">Date Range Picker </a></li>
+              <li><a href="#standAloneWidgets-dateTimeRangePicker">Date Time Range Picker</a></li>
+              <li><a href="#standAloneWidgets-dropDownPanel">Drop Down Panel</a></li>
+              <li><a href="#standAloneWidgets-textSubmitter">Text Submitter</a></li>
+            </ul>
+          </li>
           <li><a href="#customization">Customization</a>
             <ul class="navDepth-1">
               <li><a href="#customization-regexTypes">Creating Simple Regex Types</a></li>
@@ -67,14 +75,6 @@
               <li><a href="#demo-form">Form</a></li>
               <li><a href="#demo-results">Results</a></li>
               <li><a href="#demo-source">Source</a></li>
-            </ul>
-          </li>
-          <li><a href="#standAloneWidgets">Stand Alone Widgets</a>
-            <ul class="navDepth-1">
-              <li><a href="#standAloneWidgets-dateRangePicker">Date-Range Picker </a></li>
-              <li><a href="#standAloneWidgets-dateTimeRangePicker">Date-Time-Range Picker</a></li>
-              <li><a href="#standAloneWidgets-dropDownPanel">Drop Down Panel</a></li>
-              <li><a href="#standAloneWidgets-textSubmitter">Text Submitter</a></li>
             </ul>
           </li>
         </ul>
@@ -100,32 +100,32 @@
           <div class="section">
             <p>The <i>data-required</i> attribute if set on an input element will prevent form submission if it is not valid
               <div class="example">
-                <form id="fb" action="#" style="display:none;">
+                <form action="#" class="fb">
                   <input type="text" data-label="Not Required">
-                  <input type="text" data-label="Required" data-require="true">
-                  <button type="submit">Submit Test</button>
+                  <input type="text" data-label="Required" data-required="true"><br>
+                  <button type="submit">Check Inputs</button>
                 </form>
               </div>
               <div data-mode="html" class="code">
-                <form action='#' style='display:none;'>
+                <form action='#'>
                 	<input type="text" data-label="Not Required">
-                	<input type="text" data-label="Required" data-require="true">
+                	<input type="text" data-label="Required" data-required="true">
                 </form>
               </div>
             </p>
             <p>The <i>data-default-required</i> attribute <b>applied to the form</b> element will set the default data-required state of all nested inputs
               <div class="example">
-                <form id="fb" action="#" style="display:none;" data-default-required="true">
-                  <input type="text" data-label="Required" data-require="true">
-                  <input type="text" data-label="Still Required">
-                  <button type="submit">Submit Test</button>
+                <form action="#" data-default-required="true" class="fb">
+                  <input type="text" data-label="Required" data-required="true">
+                  <input type="text" data-label="Still Required"><br>
+                  <button type="submit">Check Inputs</button>
                 </form>
               </div>
             </p>
             <p>In order to set the default data-require state for all nested input the attibute 'data-default-required' must be set to true in the parent attribute
               <div data-mode="html" class="code">
-                <form action="#" style="display:none;" data-default-required="true">
-                	<input type="text" data-label="Required" data-require="true">
+                <form action="#" data-default-required="true">
+                	<input type="text" data-label="Required" data-required="true">
                 	<input type="text" data-label="Still Required">
                 </form>
               </div>
@@ -529,284 +529,13 @@
             </div>
           </div>
         </div>
-        <h1>Customization<a name="customization" class="anchor"></a></h1>
-        <div class="section">
-          <h2>Creating Simple Regex Types<a name="customization-regexTypes" class="anchor"></a></h2>
-          <div class="section">
-            <p>You can add your own input types using just regex very easily.</p>
-            <div class="example">
-              <input type="text" data-label="Custom &quot;swear&quot; type" data-type="swear">
-            </div>
-            <div class="example">
-              <input type="text" data-label="Custom &quot;theLetterF&quot; type" data-type="theLetterF">
-            </div>
-            <div class="example">
-              <input type="text" data-label="Custom &quot;luckySeven&quot; type" data-type="luckySeven">
-            </div>
-            <div data-mode="html" class="code">
-              <form id='simpleCustomTypeForm' action='#'>
-              	<input type='text' data-label='Custom "swear" type' data-type='swear'>
-              	<input type='text' data-label='Custom "theLetterF" type' data-type='theLetterF'>
-              	<input type='text' data-label='Custom "luckySeven" type' data-type='luckySeven'>
-              </form>
-            </div>
-            <div data-mode="javascript" class="code">
-              $.extend($.formBuilder.inputField.types,{
-              	'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
-              	'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
-              			toUpper: false
-              		}),
-              	'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
-              });
-              $('simpleCustomTypeForm').formBuilder();
-            </div>
-          </div>
-          <h2>Creating Full Custom Types<a name="customization-fullTypes" class="anchor"></a></h2>
-          <div class="section">
-            <p>You may also create new types if you provide all the needed base type functions.
-              <div class="example">
-                <input type="text" data-label="Custom &quot;SSN&quot; type" data-type="SSN">
-              </div>
-              <div data-mode="html" class="code">
-                <form id='fullCustomTypeForm' action='#'>
-                	<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
-                </form>
-              </div>
-              <div data-mode="javascript" class="code">
-                $.extend($.formBuilder.inputField.types,{
-                	'SSN': {
-                		setUp: function(ui) {
-                			var self = this,
-                				e = ui.element;
-                
-                			//- Set the characters a user can enter
-                			e.inputFilter({
-                				pattern: /[0-9]/,
-                				max: 12
-                			});
-                
-                			//- Replace the input with a formatted input
-                			e.on('blur keydown', function(){
-                				e.val(self.format(e.val()));
-                			});
-                		},
-                		converter: {
-                			toField: function(value, ui) {
-                				return this.format(value);
-                			},
-                			fromField: function(value, ui) {
-                				return this.format(value);
-                			}
-                		},
-                		validate: function(ui) {
-                			if(!this.format(ui.element.val()).match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{4}$/))
-                				return {
-                					message: 'invalid'
-                				};
-                		},
-                
-                		//- This is an extra function specifically for this type
-                		format: function(text) {
-                			if(!text)
-                				return '';
-                
-                			//- Remove non-digits
-                			text = text.replace(/[^0-9]/g,'');
-                			text = text.substring(0, 10);
-                
-                			//- add correct dashes
-                			if(text.length <= 4)
-                				return text;
-                			else if(text.length <= 6)
-                				return text.substring(0,4) + '-' + text.substring(4);
-                			else
-                				return  text.substring(0,4) + '-' + text.substring(4,6) + '-' + text.substring(6);
-                		}
-                	} 
-                });
-                $('fullCustomTypeForm').formBuilder();
-              </div>
-            </p>
-          </div>
-        </div>
-        <h1>Live Demo<a name="demo" class="anchor"></a></h1>
-        <div class="section">
-          <h2><a name="demo-form" href="#demo-form" class="anchor"></a>Form</h2>
-          <div class="section">
-            <p>To get a feel of how formBuilder is used, try out this simple demo.</p>
-            <form id="example" action="#" style="display: none">
-              <input type="text" name="name" data-label="Name*" data-require="true">
-              <input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number">
-              <input type="text" name="email" data-type="email" data-label="Email*" data-require="true">
-              <input type="text" name="bestColor" data-type="select" data-label="Which is the best color?" data-default="#0000FF" data-options="[				{&quot;value&quot;:&quot;#FF0000&quot;, &quot;label&quot;:&quot;red&quot;},				{&quot;value&quot;:&quot;#0000FF&quot;, &quot;label&quot;:&quot;blue&quot;},				{&quot;value&quot;:&quot;#00FF00&quot;, &quot;label&quot;:&quot;green&quot;},				{&quot;value&quot;:&quot;#FF9900&quot;, &quot;label&quot;:&quot;orange&quot;},				{&quot;value&quot;:&quot;#FFFF00&quot;, &quot;label&quot;:&quot;yellow&quot;},				{&quot;value&quot;:&quot;#000000&quot;, &quot;label&quot;:&quot;black&quot;},				{&quot;value&quot;:&quot;#FFFFFF&quot;, &quot;label&quot;:&quot;white&quot;},				{&quot;value&quot;:&quot;#CC66CC&quot;, &quot;label&quot;:&quot;purple&quot;},				{&quot;value&quot;:&quot;#808080&quot;, &quot;label&quot;:&quot;gray&quot;}			]">
-              <button type="submit">Save</button>
-            </form>
-          </div>
-          <h2><a name="demo-results" href="#demo-results" class="anchor"></a>Results</h2>
-          <div class="section"><i>Events</i>
-            <textarea id="example-events" readonly class="resultDisplay"></textarea><i>Data</i>
-            <textarea id="example-data" readonly class="resultDisplay"></textarea>
-          </div>
-          <h2><a name="demo-source" href="#demo-source" class="anchor"></a>Source</h2>
-          <div class="section">
-            <div data-mode="html" class="code">
-              <form id="example" action="#" style="display: none">
-              	<input type="text" name="name" data-label="Name*" data-require="true">
-              	<input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number")>
-              	<input type="text" name="email" data-type="email" data-label="Email*" data-require="true">
-              	<input type="text" name="bestColor" data-type="select" data-label="Which is the best color?" data-default="#0000FF" data-options='[
-              			{"value":"#FF0000", "label":"red"},
-              			{"value":"#0000FF", "label":"blue"},
-              			{"value":"#00FF00", "label":"green"},
-              			{"value":"#FF9900", "label":"orange"},
-              			{"value":"#FFFF00", "label":"yellow"},
-              			{"value":"#000000", "label":"black"},
-              			{"value":"#FFFFFF", "label":"white"},
-              			{"value":"#CC66CC", "label":"purple"},
-              			{"value":"#808080", "label":"gray"}
-              		]'>
-              	<button type="submit">Save</button>
-              </form>
-            </div>
-            <div data-title="JAVASCRIPT (without result logging)" data-mode="javascript" class="code">
-              var formExample = $('form#example:first').formBuilder({
-              	beforeset: function(ev) {
-              
-              	},
-              	afterset: function(ev) {
-              
-              	}
-              });
-              
-              var saveForm = function(data, finish) {
-              	// Save data to server
-              	$.ajax({
-              		url: 'someserver.com',
-              		type: 'POST',
-              		data: data,
-              		success: function(result) {
-              			//handle your server result
-              			finish();
-              		},
-              		error: function() {
-              			//connection error
-              			finish();
-              		}
-              	});
-              };
-              
-              formExample.find('button[type="submit"]').submitButton({
-              	color: '#FF0000',
-              	beforesubmit: function(ev) {
-              		// Runs any presubmission stuff
-              	},
-              	
-              	submit: function(ev, finish) {								
-              		// Run validation
-              		if(!formExample.formBuilder('validate')) {
-              			// The form is invalid somewhere
-              			finish();
-              			return;
-              		}
-              
-              		saveForm(formExample.formBuilder('get'), finish);
-              	},
-              	
-              	aftersubmit: function(ev) {
-              		// Run any post-submission stuff
-              	}
-              });
-            </div>
-            <div data-title="JAVASCRIPT (with result logging)" data-mode="javascript" data-hidden="true" class="code">
-              var events = $('#example-events');
-              var data = $('#example-data');
-              var eventNum = 1;
-              var logEvent = function(str) {
-              	events.val(events.val()+'\n['+(eventNum++)+']  '+str);
-              	events.scrollTop(events[0].scrollHeight);
-              };
-              
-              events.val('[0]  Start');
-              
-              var formExample = $('form#example:first').formBuilder({
-              	beforeset: function(ev) {
-              		logEvent('beforeset called on formBuilder');
-              	},
-              	afterset: function(ev) {
-              		logEvent('afterset called on formBuilder');
-              	}
-              });
-              
-              logEvent('Initialized');
-              
-              var saveForm = function(data, finish) {
-              	// Save data to server (setTimeout is just used in the example to simulate the lag time, use $.ajax instead)
-              	setTimeout(function(){
-              		// If the server-side save was good, set it back to clean
-              		logEvent('server save complete');
-              		finish()
-              	}, 2000);
-              	
-              	/* Example server call
-              	$.ajax({
-              		url: 'someserver.com',
-              		type: 'POST',
-              		data: data,
-              		success: function(result) {
-              			//handle your server result
-              			finish();
-              		},
-              		error: function() {
-              			//connection error
-              			finish();
-              		}
-              	});
-              	*/
-              };
-              
-              formExample.find('button[type="submit"]').submitButton({
-              	color: '#FF0000',
-              	beforesubmit: function(ev) {
-              		// Runs any presubmission stuff
-              		logEvent('beforesubmit called');
-              		data.val('');
-              	},
-              	
-              	submit: function(ev, finish) {
-              		logEvent('submit called');
-              		
-              
-              		// Run validation
-              		if(!formExample.formBuilder('validate')) {
-              			// The form is invalid somewhere
-              			logEvent('has invalid');
-              			finish();
-              			return;
-              		}
-              
-              		logEvent('all valid');
-              
-              		var currData = formExample.formBuilder('get');
-              		data.val(JSON.stringify(currData,null,2));
-              
-              		saveForm(currData, finish);
-              	},
-              	
-              	aftersubmit: function(ev) {
-              		// Run any post-submission stuff
-              		logEvent('aftersubmit called');
-              	}
-              });
-            </div>
-          </div>
-        </div>
         <h1>Stand Alone Widgets<a name="standAloneWidgets" class="anchor"></a>
-          <h2>Date-Range Picker<a name="standAloneWidgets-dateRangePicker" class="anchor"></a></h2>
+          <h2>Date Range Picker<a name="standAloneWidgets-dateRangePicker" class="anchor"></a></h2>
           <div class="example">
             <p>The Date-Range Picker creates two input fields for a beginning and ending date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and follows its rules for validation.</p>
             <div class="dateRange"></div>
           </div>
-          <h2>Date-Time-Range Picker<a name="standAloneWidgets-dateTimeRangePicker" class="anchor"></a></h2>
+          <h2>Date Time Range Picker<a name="standAloneWidgets-dateTimeRangePicker" class="anchor"></a></h2>
           <div class="example">
             <p>The Date-Time-Range Picker creates two input fields for a beginning and ending date and also inclues time fields for each date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and the time-data type and follows their rules for validation. If no time is selected, then the time fields will default to 12:00am and 11:59pm.</p>
             <div class="dateTimeRange"></div>
@@ -1094,6 +823,277 @@
             <div id="textSubmitterSubmit"></div>
           </div>
         </h1>
+        <h1>Customization<a name="customization" class="anchor"></a></h1>
+        <div class="section">
+          <h2>Creating Simple Regex Types<a name="customization-regexTypes" class="anchor"></a></h2>
+          <div class="section">
+            <p>You can add your own input types using just regex very easily.</p>
+            <div class="example">
+              <input type="text" data-label="Custom &quot;swear&quot; type" data-type="swear">
+            </div>
+            <div class="example">
+              <input type="text" data-label="Custom &quot;theLetterF&quot; type" data-type="theLetterF">
+            </div>
+            <div class="example">
+              <input type="text" data-label="Custom &quot;luckySeven&quot; type" data-type="luckySeven">
+            </div>
+            <div data-mode="html" class="code">
+              <form id='simpleCustomTypeForm' action='#'>
+              	<input type='text' data-label='Custom "swear" type' data-type='swear'>
+              	<input type='text' data-label='Custom "theLetterF" type' data-type='theLetterF'>
+              	<input type='text' data-label='Custom "luckySeven" type' data-type='luckySeven'>
+              </form>
+            </div>
+            <div data-mode="javascript" class="code">
+              $.extend($.formBuilder.inputField.types,{
+              	'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
+              	'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
+              			toUpper: false
+              		}),
+              	'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
+              });
+              $('simpleCustomTypeForm').formBuilder();
+            </div>
+          </div>
+          <h2>Creating Full Custom Types<a name="customization-fullTypes" class="anchor"></a></h2>
+          <div class="section">
+            <p>You may also create new types if you provide all the needed base type functions.
+              <div class="example">
+                <input type="text" data-label="Custom &quot;SSN&quot; type" data-type="SSN">
+              </div>
+              <div data-mode="html" class="code">
+                <form id='fullCustomTypeForm' action='#'>
+                	<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
+                </form>
+              </div>
+              <div data-mode="javascript" class="code">
+                $.extend($.formBuilder.inputField.types,{
+                	'SSN': {
+                		setUp: function(ui) {
+                			var self = this,
+                				e = ui.element;
+                
+                			//- Set the characters a user can enter
+                			e.inputFilter({
+                				pattern: /[0-9]/,
+                				max: 12
+                			});
+                
+                			//- Replace the input with a formatted input
+                			e.on('blur keydown', function(){
+                				e.val(self.format(e.val()));
+                			});
+                		},
+                		converter: {
+                			toField: function(value, ui) {
+                				return this.format(value);
+                			},
+                			fromField: function(value, ui) {
+                				return this.format(value);
+                			}
+                		},
+                		validate: function(ui) {
+                			if(!this.format(ui.element.val()).match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{4}$/))
+                				return {
+                					message: 'invalid'
+                				};
+                		},
+                
+                		//- This is an extra function specifically for this type
+                		format: function(text) {
+                			if(!text)
+                				return '';
+                
+                			//- Remove non-digits
+                			text = text.replace(/[^0-9]/g,'');
+                			text = text.substring(0, 10);
+                
+                			//- add correct dashes
+                			if(text.length <= 4)
+                				return text;
+                			else if(text.length <= 6)
+                				return text.substring(0,4) + '-' + text.substring(4);
+                			else
+                				return  text.substring(0,4) + '-' + text.substring(4,6) + '-' + text.substring(6);
+                		}
+                	} 
+                });
+                $('fullCustomTypeForm').formBuilder();
+              </div>
+            </p>
+          </div>
+        </div>
+        <h1>Live Demo<a name="demo" class="anchor"></a></h1>
+        <div class="section">
+          <h2><a name="demo-form" href="#demo-form" class="anchor"></a>Form</h2>
+          <div class="section">
+            <p>To get a feel of how formBuilder is used, try out this simple demo.</p>
+            <form id="example" action="#" style="display: none">
+              <input type="text" name="name" data-label="Name*" data-require="true">
+              <input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number">
+              <input type="text" name="email" data-type="email" data-label="Email*" data-require="true">
+              <input type="text" name="bestColor" data-type="select" data-label="Which is the best color?" data-default="#0000FF" data-options="[				{&quot;value&quot;:&quot;#FF0000&quot;, &quot;label&quot;:&quot;red&quot;},				{&quot;value&quot;:&quot;#0000FF&quot;, &quot;label&quot;:&quot;blue&quot;},				{&quot;value&quot;:&quot;#00FF00&quot;, &quot;label&quot;:&quot;green&quot;},				{&quot;value&quot;:&quot;#FF9900&quot;, &quot;label&quot;:&quot;orange&quot;},				{&quot;value&quot;:&quot;#FFFF00&quot;, &quot;label&quot;:&quot;yellow&quot;},				{&quot;value&quot;:&quot;#000000&quot;, &quot;label&quot;:&quot;black&quot;},				{&quot;value&quot;:&quot;#FFFFFF&quot;, &quot;label&quot;:&quot;white&quot;},				{&quot;value&quot;:&quot;#CC66CC&quot;, &quot;label&quot;:&quot;purple&quot;},				{&quot;value&quot;:&quot;#808080&quot;, &quot;label&quot;:&quot;gray&quot;}			]">
+              <button type="submit">Save</button>
+            </form>
+          </div>
+          <h2><a name="demo-results" href="#demo-results" class="anchor"></a>Results</h2>
+          <div class="section"><i>Events</i>
+            <textarea id="example-events" readonly class="resultDisplay"></textarea><i>Data</i>
+            <textarea id="example-data" readonly class="resultDisplay"></textarea>
+          </div>
+          <h2><a name="demo-source" href="#demo-source" class="anchor"></a>Source</h2>
+          <div class="section">
+            <div data-mode="html" class="code">
+              <form id="example" action="#" style="display: none">
+              	<input type="text" name="name" data-label="Name*" data-require="true">
+              	<input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number")>
+              	<input type="text" name="email" data-type="email" data-label="Email*" data-require="true">
+              	<input type="text" name="bestColor" data-type="select" data-label="Which is the best color?" data-default="#0000FF" data-options='[
+              			{"value":"#FF0000", "label":"red"},
+              			{"value":"#0000FF", "label":"blue"},
+              			{"value":"#00FF00", "label":"green"},
+              			{"value":"#FF9900", "label":"orange"},
+              			{"value":"#FFFF00", "label":"yellow"},
+              			{"value":"#000000", "label":"black"},
+              			{"value":"#FFFFFF", "label":"white"},
+              			{"value":"#CC66CC", "label":"purple"},
+              			{"value":"#808080", "label":"gray"}
+              		]'>
+              	<button type="submit">Save</button>
+              </form>
+            </div>
+            <div data-title="JAVASCRIPT (without result logging)" data-mode="javascript" class="code">
+              var formExample = $('form#example:first').formBuilder({
+              	beforeset: function(ev) {
+              
+              	},
+              	afterset: function(ev) {
+              
+              	}
+              });
+              
+              var saveForm = function(data, done) {
+              	// Save data to server
+              	$.ajax({
+              		url: 'someserver.com',
+              		type: 'POST',
+              		data: data,
+              		success: function(result) {
+              			//handle your server result
+              			done();
+              		},
+              		error: function() {
+              			//connection error
+              			done();
+              		}
+              	});
+              };
+              
+              formExample.find('button[type="submit"]').submitButton({
+              	color: '#FF0000',
+              	beforesubmit: function(ev) {
+              		// Runs any presubmission stuff
+              	},
+              	
+              	submit: function(ev, done) {								
+              		// Run validation
+              		if(!formExample.formBuilder('validate')) {
+              			// The form is invalid somewhere
+              			done();
+              			return;
+              		}
+              
+              		saveForm(formExample.formBuilder('get'), done);
+              	},
+              	
+              	aftersubmit: function(ev) {
+              		// Run any post-submission stuff
+              	}
+              });
+            </div>
+            <div data-title="JAVASCRIPT (with result logging)" data-mode="javascript" data-hidden="true" class="code">
+              var events = $('#example-events');
+              var data = $('#example-data');
+              var eventNum = 1;
+              var logEvent = function(str) {
+              	events.val(events.val()+'\n['+(eventNum++)+']  '+str);
+              	events.scrollTop(events[0].scrollHeight);
+              };
+              
+              events.val('[0]  Start');
+              
+              var formExample = $('form#example:first').formBuilder({
+              	beforeset: function(ev) {
+              		logEvent('beforeset called on formBuilder');
+              	},
+              	afterset: function(ev) {
+              		logEvent('afterset called on formBuilder');
+              	}
+              });
+              
+              logEvent('Initialized');
+              
+              var saveForm = function(data, done) {
+              	// Save data to server (setTimeout is just used in the example to simulate the lag time, use $.ajax instead)
+              	setTimeout(function(){
+              		// If the server-side save was good, set it back to clean
+              		logEvent('server save complete');
+              		done()
+              	}, 2000);
+              	
+              	/* Example server call
+              	$.ajax({
+              		url: 'someserver.com',
+              		type: 'POST',
+              		data: data,
+              		success: function(result) {
+              			//handle your server result
+              			done();
+              		},
+              		error: function() {
+              			//connection error
+              			done();
+              		}
+              	});
+              	*/
+              };
+              
+              formExample.find('button[type="submit"]').submitButton({
+              	color: '#FF0000',
+              	beforesubmit: function(ev) {
+              		// Runs any presubmission stuff
+              		logEvent('beforesubmit called');
+              		data.val('');
+              	},
+              	
+              	submit: function(ev, done) {
+              		logEvent('submit called');
+              		
+              
+              		// Run validation
+              		if(!formExample.formBuilder('validate')) {
+              			// The form is invalid somewhere
+              			logEvent('has invalid');
+              			done();
+              			return;
+              		}
+              
+              		logEvent('all valid');
+              
+              		var currData = formExample.formBuilder('get');
+              		data.val(JSON.stringify(currData,null,2));
+              
+              		saveForm(currData, done);
+              	},
+              	
+              	aftersubmit: function(ev) {
+              		// Run any post-submission stuff
+              		logEvent('aftersubmit called');
+              	}
+              });
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Bower JS Dependencies (using CDNs for demo)-->

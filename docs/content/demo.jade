@@ -71,7 +71,7 @@ h2
 			}
 		});
 
-		var saveForm = function(data, finish) {
+		var saveForm = function(data, done) {
 			// Save data to server
 			$.ajax({
 				url: 'someserver.com',
@@ -79,11 +79,11 @@ h2
 				data: data,
 				success: function(result) {
 					//handle your server result
-					finish();
+					done();
 				},
 				error: function() {
 					//connection error
-					finish();
+					done();
 				}
 			});
 		};
@@ -94,15 +94,15 @@ h2
 				// Runs any presubmission stuff
 			},
 			
-			submit: function(ev, finish) {								
+			submit: function(ev, done) {								
 				// Run validation
 				if(!formExample.formBuilder('validate')) {
 					// The form is invalid somewhere
-					finish();
+					done();
 					return;
 				}
 
-				saveForm(formExample.formBuilder('get'), finish);
+				saveForm(formExample.formBuilder('get'), done);
 			},
 			
 			aftersubmit: function(ev) {
@@ -133,12 +133,12 @@ h2
 
 		logEvent('Initialized');
 
-		var saveForm = function(data, finish) {
+		var saveForm = function(data, done) {
 			// Save data to server (setTimeout is just used in the example to simulate the lag time, use $.ajax instead)
 			setTimeout(function(){
 				// If the server-side save was good, set it back to clean
 				logEvent('server save complete');
-				finish()
+				done()
 			}, 2000);
 			
 			/* Example server call
@@ -148,11 +148,11 @@ h2
 				data: data,
 				success: function(result) {
 					//handle your server result
-					finish();
+					done();
 				},
 				error: function() {
 					//connection error
-					finish();
+					done();
 				}
 			});
 			*/
@@ -166,7 +166,7 @@ h2
 				data.val('');
 			},
 			
-			submit: function(ev, finish) {
+			submit: function(ev, done) {
 				logEvent('submit called');
 				
 
@@ -174,7 +174,7 @@ h2
 				if(!formExample.formBuilder('validate')) {
 					// The form is invalid somewhere
 					logEvent('has invalid');
-					finish();
+					done();
 					return;
 				}
 
@@ -183,7 +183,7 @@ h2
 				var currData = formExample.formBuilder('get');
 				data.val(JSON.stringify(currData,null,2));
 
-				saveForm(currData, finish);
+				saveForm(currData, done);
 			},
 			
 			aftersubmit: function(ev) {

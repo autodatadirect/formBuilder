@@ -22,7 +22,7 @@
   <body>
     <div class="header">
       <div class="center-container"><a href="./index.html" class="title">jQuery.formBuilder</a>
-        <div class="topNav"><a id="Guide" href="./guide.html">User Guide</a><a id="API" href="./api.html" class="current">API Reference</a></div>
+        <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html">User Guide</a><a id="API" href="./api.html" class="current">API Reference</a></div>
         <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
       </div>
     </div>
@@ -68,7 +68,9 @@
 <h2><a name="widgets-formBuilder" class="anchor"></a>formBuilder</h2><p>Base form widget. For many applications, this is the only widget needing direct use. Other field widgets are created automatically and handled inside of this widget.</p>
 <ul>
 <li>Options<ul>
-<li><strong>ignoreHidden</strong> <em>(boolean)</em> Ignore fields that are not <code>$(:visible)</code>. <strong>Default:</strong> false</li>
+<li><strong>ignoreHidden</strong> <em>(boolean)</em> Ignore fields that are not <code>$(:visible)</code>. They will not be validated nor will any data be retrieved from them. <strong>Default:</strong> <code>false</code></li>
+<li><strong>defaultRequired</strong> <em>(boolean)</em> Sets the default required option for all fields. Does not override field required statuses set with the data-required attribute.<strong>Default:</strong> <code>false</code></li>
+<li><strong>loadHidden</strong> <em>(boolean)</em> Hides the form while it is being setup, then shows it. <strong>Default:</strong> <code>true</code></li>
 <li><strong>converter</strong> <em>(object)</em><ul>
 <li><strong>fromForm(<em>object</em> data)</strong> Form data is passed through this method when retrieving it from the form. Returns data by default.</li>
 <li><strong>toForm(<em>object</em> data)</strong> Form data is passed through this method when passing it to the form. Returns data by default. </li>

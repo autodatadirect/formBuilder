@@ -30,20 +30,6 @@
 
 	var statusNames = ['require', 'disable', 'error', 'hover', 'warn', 'focus'];
 
-	var loadDomData = function(namespace, aKey) {
-		var self = this;
-		$.each(aKey, function(i, key) {
-			/*
-			if(namespace){
-				return;
-			}*/
-			var data = self.element.data(key);
-			if(data !== undefined && data !== null) {
-				namespace[key] = data;
-			}
-		});
-	};
-
 	$.widget('formBuilder.fieldWidget', {
 
 		isDirty: function () {
@@ -115,13 +101,13 @@
 			/*
 			 * load DOM settings from field into options
 			 */
-			loadDomData.call(self, o, ['require', 'required', 'empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
-			o.require = !!(o.require || o.required);
-
+			
+			util.loadDomData.call(self, o, ['require', 'required', 'empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
 
 			/*
 			 * legacy support
 			 */
+			o.require = !!(o.require || o.required);
 			if(!o.placeholder && o.empty) {
 				o.placeholder = o.empty;
 			}
@@ -635,7 +621,6 @@
 			/*
 			 * check required, compare against the actual value in the field
 			 */
-			
 			if(!skipRequired && states.require && empty) {
 				self.setError({
 					message: dict.required

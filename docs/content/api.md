@@ -5,7 +5,9 @@ All widgets are created using jQuery UI's [Widget Factory](http://api.jqueryui.c
 Base form widget. For many applications, this is the only widget needing direct use. Other field widgets are created automatically and handled inside of this widget.
 
 * Options
-    - **ignoreHidden** *(boolean)* Ignore fields that are not `$(:visible)`. **Default:** false
+    - **ignoreHidden** *(boolean)* Ignore fields that are not `$(:visible)`. They will not be validated nor will any data be retrieved from them. **Default:** `false`
+    - **defaultRequired** *(boolean)* Sets the default required option for all fields. Does not override field required statuses set with the data-required attribute.**Default:** `false`
+    - **loadHidden** *(boolean)* Hides the form while it is being setup, then shows it. **Default:** `true`
     - **converter** *(object)*
         + **fromForm(*object* data)** Form data is passed through this method when retrieving it from the form. Returns data by default.
         + **toForm(*object* data)** Form data is passed through this method when passing it to the form. Returns data by default. 
