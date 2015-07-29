@@ -1,3 +1,7 @@
 code {
-	background-color: #ADD8E6;
+	background-color: #D8D8D8;
+	padding-left: 2px;
+	padding-right: 2px;
+	font-size: .85em;
+	border-radius: 4px;
 }

@@ -22,7 +22,7 @@
   <body>
     <div class="header">
       <div class="center-container"><a href="./index.html" class="title">jQuery.formBuilder</a>
-        <div class="topNav"><a id="Guide" href="./guide.html">User Guide</a><a id="API" href="./api.html" class="current">API Reference</a></div>
+        <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html">User Guide</a><a id="API" href="./api.html" class="current">API Reference</a></div>
         <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
       </div>
     </div>
@@ -36,6 +36,7 @@
               <li><a href="#widgets-inputFilter">inputFilter</a></li>
               <li><a href="#widgets-submitButton">submitButton</a></li>
               <li><a href="#widgets-fieldWidget">fieldWidget</a></li>
+              <li><a href="#widgets-selectionField">selectionField</a></li>
               <li><a href="#widgets-arrayField">arrayField</a></li>
               <li><a href="#widgets-dropDownPanel">dropDownPanel</a></li>
               <li><a href="#widgets-dateRangePicker">dateRangePicker</a></li>
@@ -63,16 +64,13 @@
           </li>
         </ul>
       </div>
-      <div class="content"><h1><a name="importantNotes" class="anchor"></a>Important Notes</h1><ul>
-<li>We have attempted to define what type each parameter is to the best of our ability, however some parameters have been designed to be able to accept many different inputs. For this reason some of the parameter types have been left blank. Those that are clearly defined have been included in italics next to the parameter. </li>
-<li>In order to access a specific type method you must first access the type instance by calling inputField.getType() which will return the name of the type and will call the appropriate method. </li>
-<li>The ifw parameter is used to obtain access to the inputField widget. For the remainder of this documentation, any parameter entitled &#39;ifw&#39; is an instance of the inputField widget. </li>
-</ul>
-<h1><a name="widgets" class="anchor"></a>Widgets</h1><p>All widgets are created using jQuery UI&#39;s <a href="http://api.jqueryui.com/jQuery.widget/">Widget Factory</a> and they inherit all of the options, methods, and events of the base widget.</p>
-<h2><a name="widgets-formBuilder" class="anchor"></a>formBuilder</h2><p>Builds a base form object that is able to get and set data and that can be built upon using the inputField and inputFilter widgets. </p>
+      <div class="content"><h1><a name="widgets" class="anchor"></a>Widgets</h1><p>All widgets are created using jQuery UI&#39;s <a href="http://api.jqueryui.com/jQuery.widget/">Widget Factory</a> and they inherit all of the options, methods, and events of the base widget.</p>
+<h2><a name="widgets-formBuilder" class="anchor"></a>formBuilder</h2><p>Base form widget. For many applications, this is the only widget needing direct use. Other field widgets are created automatically and handled inside of this widget.</p>
 <ul>
 <li>Options<ul>
-<li><strong>ignoreHidden</strong> <em>(boolean)</em> Ignore fields that are not <code>$(:visible)</code>. <strong>Default:</strong> false</li>
+<li><strong>ignoreHidden</strong> <em>(boolean)</em> Ignore fields that are not <code>$(:visible)</code>. They will not be validated nor will any data be retrieved from them. <strong>Default:</strong> <code>false</code></li>
+<li><strong>defaultRequired</strong> <em>(boolean)</em> Sets the default required option for all fields. Does not override field required statuses set with the data-required attribute.<strong>Default:</strong> <code>false</code></li>
+<li><strong>loadHidden</strong> <em>(boolean)</em> Hides the form while it is being setup, then shows it. <strong>Default:</strong> <code>true</code></li>
 <li><strong>converter</strong> <em>(object)</em><ul>
 <li><strong>fromForm(<em>object</em> data)</strong> Form data is passed through this method when retrieving it from the form. Returns data by default.</li>
 <li><strong>toForm(<em>object</em> data)</strong> Form data is passed through this method when passing it to the form. Returns data by default. </li>
@@ -90,9 +88,9 @@
 <li><strong>enable()</strong> Enables the status. Calls the <code>inputField.status(disable, true)</code> on the current calling object.</li>
 <li><strong>get()</strong> Returns converted form data from all fields. </li>
 <li><strong>clear()</strong> Runs inputField.clear() for each field. Empties the form.</li>
-<li><strong>conflicts(<em>object</em> data, <em>boolean</em> ignoreKeys)</strong> Checks to see if the given data would overwrite current dirty fields if set. Returns an array of conflict data, and false for no conflicts. Calls <code>inputField.conflicts(value)</code>.</li>
+<li><strong>conflicts(<em>object</em> data, <em>boolean</em> ignoreKeys)</strong> TODO</li>
 <li><strong>set(<em>object</em> data, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>beforeset</code> and <code>afterset</code> events.</li>
-<li><strong>val(values)</strong> Not fully implemented. Returns an empty object if the parameter is undefined, otherwise returns the calling object. </li>
+<li><strong>get()</strong> Returns converted form data from all fields. </li>
 <li><strong>validate()</strong> Runs all enabled field validations. Returns true/false for valid/invalid.</li>
 <li><strong>getFields()</strong> Returns all the fields of the calling object.</li>
 </ul>
@@ -114,12 +112,12 @@
 <h2><a name="widgets-inputField" class="anchor"></a>inputField</h2><p>Builds a base input object that is able to get, set, and modify data based on what the type of the input is.</p>
 <ul>
 <li>Options<ul>
-<li><strong>type</strong> <em>(string)</em> Field type from <code>types[]</code>. <strong>Default:</strong> &#39;text&#39;</li>
-<li><strong>label</strong> <em>(string)</em> Label that will go above the inputField. <strong>Default:</strong> &#39; &#39;</li>
-<li><strong>require</strong> <em>(boolean)</em> Whether or not the field is required for submission. <strong>Default:</strong> &#39; &#39;</li>
+<li><strong>type</strong> <em>(string)</em> Field type from <code>types[]</code>. <strong>Default:</strong> <code>&#39;text&#39;</code></li>
+<li><strong>label</strong> <em>(string)</em> Label that will go above the inputField.</li>
+<li><strong>require</strong>, <strong>required</strong> <em>(boolean)</em> Whether or not the field is required for submission. <strong>Default:</strong> <code>false</code></li>
 <li><strong>placeholder</strong> <em>(string)</em> Text displayed inside of an empty inputField. <strong>Default</strong> &#39; &#39; </li>
-<li><strong>min</strong> <em>(integer)</em> Minimum amount of input required. <strong>Default</strong> &#39; &#39;</li>
-<li><strong>max</strong> <em>(integer)</em> Maximum amount of input allowed. <strong>Default</strong> &#39; &#39;</li>
+<li><strong>min</strong> <em>(integer)</em> Minimum amount of input required.</li>
+<li><strong>max</strong> <em>(integer)</em> Maximum amount of input allowed.</li>
 <li><strong>error</strong> <em>(string)</em> Error message that will be displayed if there is an error. <strong>Default</strong> &#39;error&#39;</li>
 </ul>
 </li>
@@ -134,7 +132,7 @@
 <li><strong>placeholder(<em>string</em> s)</strong> If there is no placeholder it will be hidden, otherwise it will dispaly the given text (s) while the inputField is empty. </li>
 <li><strong>clear()</strong> Calls <code>clearDirty()</code>. Clears all input. </li>
 <li><strong>clearDirty()</strong> Resets the dirty status to false. </li>
-<li><strong>conflicts(<em>string</em> value)</strong> Checks to see if dirty status is set to true. If it is then returns conflicting values, otherwise returns null. </li>
+<li><strong>conflicts(<em>string</em> value)</strong> TODO </li>
 <li><strong>set(<em>string</em> value, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>afterset</code> event.</li>
 <li><strong>get()</strong> Returns converted inputField value.</li>
 <li><strong>value(<em>string</em> value)</strong> If the value passed in is undefined then return the converted form data from all fields, otherwise set the value into the form. </li>
@@ -146,12 +144,12 @@
 <li><strong>redraw()</strong> Re-enters all of the previous saved information into the form. </li>
 <li><strong>setType(<em>string</em> sType)</strong> If the type doesn&#39;t exist, sets it to default of &#39;text&#39;. If it does exist then run the type&#39;s teardown() method. Then set the inputField type and run the type&#39;s setup. </li>
 <li><strong>getType()</strong> Returns the type object. </li>
-<li><strong>hide()</strong> Hides the inputField that calls this method. </li>
-<li><strong>show(displayValue)</strong> Displays the value that is passed into the method. </li>
-<li><strong>getField()</strong> Returns the field.</li>
-<li><strong>enable()</strong> Sets the &#39;disable&#39; status to false.</li>
-<li><strong>disable()</strong> Sets the &#39;disable&#39; status to true.</li>
-<li><strong>isDisabled()</strong> Returns the &#39;disable&#39; status&#39;s value (true/false).</li>
+<li><strong>hide()</strong> Hides the field</li>
+<li><strong>show(displayValue)</strong> Displays the value that is passed into the method, or just shows the field.</li>
+<li><strong>getField()</strong> Returns the <code>.input-field</code> container element.</li>
+<li><strong>enable()</strong> Removes the field from the disable status.</li>
+<li><strong>disable()</strong> Puts the field in the disable status. The option will become unselectable.</li>
+<li><strong>isDisabled()</strong> Returns true/false for if the field is in/out of the disabled state.</li>
 <li><strong>status(<em>string</em> statusName, <em>boolean</em> bool, <em>boolean</em> fireEvents)</strong> Sets the status class to the field and runs any updates to the field needed. </li>
 <li><strong>updateStatus(<em>string</em> statusName, <em>boolean</em> bool, <em>boolean</em> fireEvents)</strong> legacy code that calls the <strong>status(statusName,bool,fireEvents)</strong> method.</li>
 <li><strong>hasStatus(<em>string</em> statusName)</strong> Returns the current object&#39;s state for the status name that was passed into the method. </li>
@@ -264,6 +262,49 @@
 </li>
 </ul>
 <h2><a name="widgets-arrayField" class="anchor"></a>arrayField</h2><p>Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. The array field should contain one type of input field and can have as many or as few inputs as the user desires. The arrayField widget will create an array of the data that is contained within each of the inputFields within it.</p>
+<h2><a name="widgets-selectionField" class="anchor"></a>selectionField</h2><p>Handles checkboxes and radio buttons, allowing them to be used like inputFields with formBuilder features. Only radio buttons will have a radioGroup attatched to .</p>
+<ul>
+<li>Options<ul>
+<li><strong>require</strong> || <strong>required</strong> <em>(boolean)</em> Whether or not the field is required for submission. <strong>Default:</strong> <code>false</code></li>
+<li><strong>label</strong> <em>(htmlString)</em> The label to be displayed for the checkbox or radio button. Not required, but recommended.</li>
+<li><strong>radioGroup</strong> <em>(jqueryObject[])</em> An array of radio inputs jquery objects that have the same name. Only radio buttons need a radioGroup and must contain the widget element. If there no radioGroup is given, a new one will be created soley of the widget element. All other elements in the radioGroup must be initialized as selectionFields either before or after the initialization of the widget element.</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>setLabel(<em>string</em> newLabel)</strong> Sets the label html. Creates a new label if one does not exist.</li>
+<li><strong>checkDirty()</strong> Updates the dirty/clean status based upon the previous set value. Fires dirty/clean events when the status is changed and updates other selectionFields in the radioGroup if necessary.</li>
+<li><strong>isDirty()</strong> Returns current dirty state as a boolean.</li>
+<li><strong>clear()</strong> Unchecks the option, clears the dirty state, and resets the previous set value. Applies to all options in the radioGroup.</li>
+<li><strong>clearDirty()</strong> Sets the dirty state to false and triggers a <code>clean</code> event. Applies to all options in the radioGroup.</li>
+<li><strong>conflicts(value)</strong> TODO</li>
+<li><strong>set(value)</strong> Unchecks or checks checkboxes based on <code>!!value</code>. Unchecks all radios in the radioGroup and then checks the option that has the matching value. If no matching option is found, no option is checked.  The prevous value is then set to the passed value and the <code>afterset</code> event triggered.</li>
+<li><strong>get()</strong> Returns the true/false for checked/unchecked checkboxes. Returns the value of the checked option in a radioGroup, or undefined if no option is selected.</li>
+<li><strong>validate()</strong> Validates the field and returns true/false for valid/invalid. When invalid, the field will enter the error status.</li>
+<li><strong>hide()</strong> Hides the field</li>
+<li><strong>show()</strong> Shows the field</li>
+<li><strong>getField()</strong> Returns the <code>.selection-field</code> container element.</li>
+<li><strong>enable()</strong> Removes the field from the disable status.</li>
+<li><strong>disable()</strong> Puts the field in the disable status. The option will become unselectable.</li>
+<li><strong>isDisabled()</strong> Returns true/false for if the field is in/out of the disabled state.</li>
+<li><strong>status(<em>string</em> statusName, <em>boolean</em> newValue, <em>boolean</em> fireEvents)</strong> Sets the status with statusName to newValue and update the field if needed. All fields in the radioGroup will be updated. The <code>statusUpdate</code> event will be triggered if fireEvents is set to true.</li>
+<li><strong>hasStatus(<em>string</em> statusName)</strong> Returns whether or not the field has the status with statusName.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Widget constructor.</li>
+<li><strong>_updatePreviousValue</strong> Syncs the prevValue with the radioGroup.</li>
+<li><strong>_destroy</strong> Widget destructor. Will also destroy any other selectionWidgets in the radioGroup.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>dirty</strong> Triggered when the field enters the dirty state.</li>
+<li><strong>clean</strong> Triggered when the field leaves the dirty state.</li>
+<li><strong>afterset(null,value)</strong> Triggered after a new value has been set. </li>
+<li><strong>statusUpdate(null,{statusName:<em>string</em>, value:<em>boolean</em>})</strong> Triggered after a status has been changed.</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-arrayField" class="anchor"></a>arrayField</h2><p>Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. </p>
 <ul>
 <li>Methods (public)<ul>
 <li><strong>getId()</strong> Return the id of the current calling object.</li>
@@ -462,17 +503,39 @@
 </ul>
 </li>
 </ul>
-<h1><a name="inputTypes" class="anchor"></a>Input Types</h1><h2><a name="inputTypes-standard" class="anchor"></a>standard</h2><p>There are a general set of methods that every type must contain in order to function properly as a type. They can be modified to suit that type&#39;s needs and there can be additional methods, but these ones below are the minimum required.</p>
+<h1><a name="inputTypes" class="anchor"></a>Input Types</h1><p>In order to access a specific type method outside of inputField, you must first access the type instance by calling inputField(&#39;getType&#39;) on the inputField widget element.</p>
+<p>Note: The <code>ifw</code> parameter is an instance of the inputField widget a type is attached to.</p>
+<h2><a name="inputTypes-standard" class="anchor"></a>standard</h2><p>There are a general set of methods that every type must contain in order to function properly as a type. They can be modified to suit that type&#39;s needs and there can be additional methods, but these ones below are the minimum required.</p>
 <ul>
-<li>Methods (required)<ul>
-<li><strong>setUp(ifw)</strong></li>
-<li><strong>tearDown(ifw)</strong></li>
+<li><p>Base Type Methods</p>
+<ul>
+<li><strong>setUp(ifw)</strong> Used as a type construtor</li>
+<li><strong>tearDown(ifw)</strong> Used as a type destructor</li>
 <li><strong>converter</strong> <em>(object)</em><ul>
-<li><strong>toField(value, ifw)</strong>  return value</li>
-<li><strong>fromField(value, ifw)</strong>  return value</li>
+<li><strong>toField(value, ifw)</strong>  Used to format values from memory to the display. The passed value is the stored value in memory format. Types may return a value in the desired display format to be set in the source input widget. Types that do not return a value are assumed to have updated it manually in this function. The latter is useful for complex types that do not relay solely on the souce input widget. </li>
+<li><strong>fromField(value, ifw)</strong>  Used to format values from the display to memory. The passed value is the val() of the source input. Types must return a value in the desired memory format.</li>
 </ul>
 </li>
-<li><strong>validate(ifw)</strong> return {message: &#39;invalid&#39;}</li>
+<li><strong>validate(ifw)</strong> Used to run checks against the type to determine if it is invalid or not. To display an error message, return an object with a message property. For example: <code>{message: &#39;invalid&#39;}</code>.</li>
+</ul>
+</li>
+<li><p>All inputField types usable with the <code>data-type</code> attribute of input elements.</p>
+<ul>
+<li><strong>text</strong> raw text, no validation</li>
+<li><strong>utext</strong> auto-capitalization, no validation</li>
+<li><strong>integer</strong> integers only, no validation</li>
+<li><strong>number</strong> numbers only checking the first decimal, no validat</li>
+<li><strong>state</strong> for state abbreviations (two capital letters), validation checks for two letters</li>
+<li><strong>zip</strong> for zip codes, validation checks for valid zip code format</li>
+<li><strong>email</strong> for emails, validation checks for valid email format</li>
+<li><strong>display</strong> for displaying uneditable values. The source input is hidden and a span with the value is in its place.</li>
+<li><strong>money</strong> for money format (see <a href="#inputTypes-money">money</a>)</li>
+<li><strong>phone</strong> for phone number format (see <a href="#inputTypes-phone">phone</a>)</li>
+<li><strong>tmsPhone</strong> for phone number format with a phone type dropdown (see <a href="#inputTypes-tmsPhone">tmsPhone</a>)</li>
+<li><strong>date</strong> for date format with a picker dropdown (see <a href="#inputTypes-date">date</a>)</li>
+<li><strong>time</strong>for time format with a picker dropdown (see <a href="#inputTypes-time">time</a>)</li>
+<li><strong>dateTime</strong> a combination of date and time types (see <a href="#inputTypes-dateTime">dateTime</a>)</li>
+<li><strong>select</strong> replacment for <code>&lt;select&gt;</code> elements (see <a href="#inputTypes-select">select</a>)</li>
 </ul>
 </li>
 </ul>

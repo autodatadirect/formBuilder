@@ -21,16 +21,6 @@
 
 	var statusNames = ['require', 'disable', 'error', 'hover', 'warn'];
 
-	var loadDomData = function(namespace, aKey) {
-		var self = this;
-		$.each(aKey, function(i, key) {
-			var data = self.element.data(key);
-			if(data !== undefined && data !== null) {
-				namespace[key] = data;
-			}
-		});
-	};
-
 	$.widget("formBuilder.selectionField", {
 		options: {
 			require: undefined, required: undefined, // both the same
@@ -48,7 +38,7 @@
 			self.dirty = false;
 			
 			// Load DOM data settings into options + clean bools
-			loadDomData.call(self, o, ['require', 'required', 'label']);
+			util.loadDomData.call(self, o, ['require', 'required', 'label']);
 			o.required = o.require = !!(o.require || o.required);
 			
 			// convert input to field format
@@ -191,6 +181,8 @@
 						self.dirty = true;
 						self.field.addClass('dirty');
 					}
+
+					self._trigger('dirty');
 				}
 			} else {
 				/*
@@ -272,7 +264,8 @@
 				self._updatePreviousValue();
 
 			} else {
-				self.prevValue = !!value;
+				value = !!value;
+				self.prevValue = value;
 				e.prop('checked', self.prevValue);
 			}
 

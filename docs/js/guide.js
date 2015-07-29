@@ -5,14 +5,21 @@
 /* globals JSON:true, moment:true, CodeMirror:true */
 'use strict';
 
-//- Wrap each example in a form if not already in one
-$('.example').each(function(){
-	if(!$(this).parents('form').length && !$(this).parents('.code').length) {
-		$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
-	}
-});
 
-//- Adding simple regex types
+
+
+
+
+
+
+
+
+
+/**
+ * Customization Examples
+ */
+
+// Adding simple regex types
 $.extend($.formBuilder.inputField.types,{
 	'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
 	'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
@@ -21,7 +28,7 @@ $.extend($.formBuilder.inputField.types,{
 	'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
 });
 
-//- Adding full custom types
+// Adding full custom types
 $.extend($.formBuilder.inputField.types,{
 	'SSN': {
 		setUp: function(ui) {
@@ -76,6 +83,12 @@ $.extend($.formBuilder.inputField.types,{
 		}
 	} 
 });
+
+
+
+
+
+
 
 // For drop down panel
 $.formBuilder.inputField.types.customLocation = {
@@ -215,31 +228,50 @@ $.formBuilder.inputField.types.customLocation = {
 
 
 
+
+
+
+
+
+/**
+ * Create examples
+ */
+
+
+// Wrap each example in a form if not already in one
+$('.example').each(function(){
+	if(!$(this).parents('form').length && 
+	!$(this).parents('.code').length && 
+	!$(this).children('form.fb').length) {
+		$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
+	}
+});
+
 var f = $('form.fb').formBuilder();
 
+window.sf = f.filter('.example form').eq(0);
+window.sfw = window.sf.data('formBuilderFormBuilder');
 
 f.find('button[type="submit"]').submitButton({
-	beforesubmit: function(ev) {
-		console.log('before');
-	},
-	submit: function(ev, finish) {
-		console.log('submit');
-
-		var pForm = $(this).closest('form');
-
-		pForm.formBuilder('validate');
-		console.log('Form dirty? ' + pForm.formBuilder('isDirty'));
-		console.log(pForm.formBuilder('conflicts'));
-		//- console.log(f.formBuilder('get'));
-
-		finish();
-	},
-	aftersubmit: function(ev) {
-		console.log('after');
+	submit: function(ev, done) {
+		$(this).closest('form').formBuilder('validate');
+		done();
 	}
-	});
+});
 
-//- Example form
+
+
+
+
+
+
+
+
+
+
+/**
+ * Live Demo
+ */
 var events = $('#example-events');
 var data = $('#example-data');
 var eventNum = 1;
@@ -261,12 +293,12 @@ var formExample = $('form#example:first').formBuilder({
 
 logEvent('Initialized');
 
-var saveForm = function(data, finish) {
+var saveForm = function(data, done) {
 	// Save data to server (setTimeout is just used in the example to simulate the lag time, use $.ajax instead)
 	setTimeout(function(){
 		// If the server-side save was good, set it back to clean
 		logEvent('server save complete');
-		finish();
+		done();
 	}, 2000);
 	
 	/* Example server call
@@ -276,15 +308,63 @@ var saveForm = function(data, finish) {
 		data: data,
 		success: function(result) {
 			//handle your server result
-			finish();
+			done();
 		},
 		error: function() {
 			//connection error
-			finish();
+			done();
 		}
 	});
 	*/
 };
+
+formExample.find('button[type="submit"]').submitButton({
+	color: '#FF0000',
+	beforesubmit: function(ev) {
+		// Runs any presubmission stuff
+		logEvent('beforesubmit called');
+		data.val('');
+	},
+	
+	submit: function(ev, done) {
+		logEvent('submit called');
+		
+
+		// Run validation
+		if(!formExample.formBuilder('validate')) {
+			// The form is invalid somewhere
+			logEvent('has invalid');
+			done();
+			return;
+		}
+
+		logEvent('all valid');
+
+		var currData = formExample.formBuilder('get');
+		data.val(JSON.stringify(currData,null,2));
+
+		saveForm(currData, done);
+	},
+	
+	aftersubmit: function(ev) {
+		// Run any post-submission stuff
+		logEvent('aftersubmit called');
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * SettableSelect Handling
@@ -319,41 +399,13 @@ $('button[name="toggleSelect"]').click(function(){
 	optionSetChanged = !optionSetChanged;
 });
 
-formExample.find('button[type="submit"]').submitButton({
-	color: '#FF0000',
-	beforesubmit: function(ev) {
-		// Runs any presubmission stuff
-		logEvent('beforesubmit called');
-		data.val('');
-	},
-	
-	submit: function(ev, finish) {
-		logEvent('submit called');
-		
-
-		// Run validation
-		if(!formExample.formBuilder('validate')) {
-			// The form is invalid somewhere
-			logEvent('has invalid');
-			finish();
-			return;
-		}
-
-		logEvent('all valid');
-
-		var currData = formExample.formBuilder('get');
-		data.val(JSON.stringify(currData,null,2));
-
-		saveForm(currData, finish);
-	},
-	
-	aftersubmit: function(ev) {
-		// Run any post-submission stuff
-		logEvent('aftersubmit called');
-	}
-});
 
 $('.aClass').hide();
+
+
+
+
+
 
 
 /**

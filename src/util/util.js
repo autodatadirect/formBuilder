@@ -365,4 +365,17 @@
 			}
 		};
 	}
+
+
+
+	util.loadDomData = function(namespace, aKey) {
+		var self = this;
+		$.each(aKey, function(i, key) {
+			var data = self.element.data(key);
+			if(data !== undefined && data !== null) {
+				namespace[key] = data;
+			}
+		});
+	};
+
 })(jQuery);
