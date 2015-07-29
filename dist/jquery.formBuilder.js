@@ -2034,7 +2034,7 @@
 
 		_proxyCommandToWidget: function (widgetElement, ignoreInvalid) {
 			var self = this,
-				method = Array.prototype.splice.call(arguments, 2, 2),
+				method = Array.prototype.splice.call(arguments, 2, 1),
 				args = Array.prototype.slice.call(arguments, 2),
 				widgetName, instance;
 				
