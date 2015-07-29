@@ -105,7 +105,7 @@ describe('A dateRangePicker widget',function(){
 			var values = select.children().children().children().children().children();
 
 			expect(select.length).toBe(1);
-			expect(select.children().is('.input-field.undefined.select-fix')).toBe(true);
+			expect(select.children().is('.input-field.select-fix')).toBe(true);
 			expect(values.length).toBe(5);
 			expect(values.eq(0).text()).toBe('Custom');
 			expect(values.eq(1).text()).toBe('Day');

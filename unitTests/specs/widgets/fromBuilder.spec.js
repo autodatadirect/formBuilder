@@ -245,7 +245,7 @@ describe('A formBuilder widget',function(){
 		form.formBuilder().appendTo(testContainer);
 
 		var	fbw = form.data('formBuilderFormBuilder');
-		var element = $(document).find('.input-field.undefined');
+		var element = $(document).find('.input-field');
 
 		fbw.flashError(10);
 

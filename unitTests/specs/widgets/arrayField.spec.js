@@ -614,7 +614,7 @@ describe('A formBuilder.arrayField widget', function(){
 		plus.click();
 		plus.click();
 
-		var element = $(document).find('.input-field.undefined');
+		var element = $(document).find('.input-field');
 
 		afw.flash();
 

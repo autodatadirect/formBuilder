@@ -37,7 +37,7 @@
 			expect(input.parent().parent().is('.field-items')).toBe(true);
 			expect(input.parent().children().eq(1).is('.fb-icon.fb-icon-sort-up.dropdown-open-icon')).toBe(true);
 			expect(input.parent().children().eq(2).is('.fb-icon.fb-icon-sort-down.dropdown-closed-icon')).toBe(true);
-			expect(input.parent().parent().parent().is('.input-field.undefined.select-box')).toBe(true);
+			expect(input.parent().parent().parent().is('.input-field.select-box')).toBe(true);
 			expect(input.attr('data-options')).toBe('[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]');
 
 			expect(input.siblings().length).toBe(3);
