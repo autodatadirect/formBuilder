@@ -199,7 +199,7 @@ Handles checkboxes and radio buttons, allowing them to be used like inputFields 
 
 
 ## arrayField
-Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. 
+Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. The array field should contain one type of input field and can have as many or as few inputs as the user desires. The arrayField widget will create an array of the data that is contained within each of the inputFields within it.
 
 * Methods (public)
     - **getId()** Return the id of the current calling object.

@@ -1,0 +1,188 @@
+
+<h2><a name="demo-form" href="#demo-form" class="anchor"></a>Form</h2>
+<div class="section">
+  <p>To get a feel of how formBuilder is used, try out this simple demo.</p>
+  <form id="example" action="#" style="display: none">
+    <input type="text" name="name" data-label="Name*" data-require="true"/>
+    <input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number"/>
+    <input type="text" name="email" data-type="email" data-label="Email*" data-require="true"/>
+    <input type="text" name="bestColor" data-type="select" data-label="Eye Color" data-default="#0000FF" data-options="[				{&quot;value&quot;:&quot;#0000FF&quot;, &quot;label&quot;:&quot;Blue&quot;},				{&quot;value&quot;:&quot;#00FF00&quot;, &quot;label&quot;:&quot;Green&quot;},				{&quot;value&quot;:&quot;#A67B5B&quot;, &quot;label&quot;:&quot;Hazel&quot;},				{&quot;value&quot;:&quot;#8B4513&quot;, &quot;label&quot;:&quot;Brown&quot;}			]"/>
+    <input type="text" data-type="money" name="price" data-label="Name your price" data-max-amount="1000.00" data-placeholder="But don't go too high!"/>
+  </form>
+  <p>Pick your age group 
+    <div class="example">
+      <input type="radio" name="radioExample1" data-label="18-29 years old" value="one"/>
+      <input type="radio" name="radioExample1" data-label="30-39 years old" value="two"/>
+      <input type="radio" name="radioExample1" data-label="40-49 years old" value="three"/>
+      <input type="radio" name="radioExample1" data-label="50-100 years old" value="three"/><br/>
+      <input type="checkbox" name="check" data-label="Agree to terms"/>
+      <input type="checkbox" name="check2" data-label="You are required to agree to terms" data-require="true"/>
+      <button type="submit">Save</button>
+    </div>
+  </p>
+</div>
+<h2><a name="demo-results" href="#demo-results" class="anchor"></a>Results</h2>
+<div class="section"><i>Events</i>
+  <textarea id="example-events" readonly="readonly" class="resultDisplay"></textarea><i>Data</i>
+  <textarea id="example-data" readonly="readonly" class="resultDisplay"></textarea>
+</div>
+<h2><a name="demo-source" href="#demo-source" class="anchor"></a>Source</h2>
+<div class="section">
+  <div data-mode="html" class="code">
+    <form id="example" action="#" style="display: none">
+    	<input type="text" name="name" data-label="Name*" data-require="true">
+    	<input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number">
+    	<input type="text" name="email" data-type="email" data-label="Email*" data-require="true">
+    	<input type="text" name="bestColor" data-type="select" data-label="Which is the best color?" data-default="#0000FF" data-options='[
+    			{"value":"#0000FF", "label":"Blue"},
+    			{"value":"#00FF00", "label":"Green"},
+    			{"value":"#A67B5B", "label":"Hazel"},
+    			{"value":"#8B4513", "label":"Brown"}
+    		]'>
+    
+    	<input type="text" data-type="money" name="price" data-label="Name your price" data-max-amount="1000.00" data-placeholder="But don\'t go too high!">
+  </div>
+  <p>Pick your age group 
+    <div data-mode="html" class="code">
+      <input type="radio" name="radioExample1" data-label="18-29 years old" value="one"/>
+      <input type="radio" name="radioExample1" data-label="30-39 years old" value="two"/>
+      <input type="radio" name="radioExample1" data-label="40-49 years old" value="three"/>
+      <input type="radio" name="radioExample1" data-label="50-100 years old" value="three"/>
+      <br/>
+      <input type="checkbox" name="check" data-label="Agree to terms">
+      <input type="checkbox" name="check2" data-label="You are required to agree to terms" data-require="true">
+      <button type="submit">Save</button>
+      </form>
+    </div>
+  </p>
+  <div data-title="JAVASCRIPT (without result logging)" data-mode="javascript" class="code">
+    var formExample = $('form#example:first').formBuilder({
+    	beforeset: function(ev) {
+    
+    	},
+    	afterset: function(ev) {
+    
+    	}
+    });
+    
+    var saveForm = function(data, finish) {
+    	// Save data to server
+    	$.ajax({
+    		url: 'someserver.com',
+    		type: 'POST',
+    		data: data,
+    		success: function(result) {
+    			//handle your server result
+    			finish();
+    		},
+    		error: function() {
+    			//connection error
+    			finish();
+    		}
+    	});
+    };
+    
+    formExample.find('button[type="submit"]').submitButton({
+    	color: '#FF0000',
+    	beforesubmit: function(ev) {
+    		// Runs any presubmission stuff
+    	},
+    	
+    	submit: function(ev, finish) {								
+    		// Run validation
+    		if(!formExample.formBuilder('validate')) {
+    			// The form is invalid somewhere
+    			finish();
+    			return;
+    		}
+    
+    		saveForm(formExample.formBuilder('get'), finish);
+    	},
+    	
+    	aftersubmit: function(ev) {
+    		// Run any post-submission stuff
+    	}
+    });
+  </div>
+  <div data-title="JAVASCRIPT (with result logging)" data-mode="javascript" data-hidden="true" class="code">
+    var events = $('#example-events');
+    var data = $('#example-data');
+    var eventNum = 1;
+    var logEvent = function(str) {
+    	events.val(events.val()+'\n['+(eventNum++)+']  '+str);
+    	events.scrollTop(events[0].scrollHeight);
+    };
+    
+    events.val('[0]  Start');
+    
+    var formExample = $('form#example:first').formBuilder({
+    	beforeset: function(ev) {
+    		logEvent('beforeset called on formBuilder');
+    	},
+    	afterset: function(ev) {
+    		logEvent('afterset called on formBuilder');
+    	}
+    });
+    
+    logEvent('Initialized');
+    
+    var saveForm = function(data, finish) {
+    	// Save data to server (setTimeout is just used in the example to simulate the lag time, use $.ajax instead)
+    	setTimeout(function(){
+    		// If the server-side save was good, set it back to clean
+    		logEvent('server save complete');
+    		finish()
+    	}, 2000);
+    	
+    	/* Example server call
+    	$.ajax({
+    		url: 'someserver.com',
+    		type: 'POST',
+    		data: data,
+    		success: function(result) {
+    			//handle your server result
+    			finish();
+    		},
+    		error: function() {
+    			//connection error
+    			finish();
+    		}
+    	});
+    	*/
+    };
+    
+    formExample.find('button[type="submit"]').submitButton({
+    	color: '#FF0000',
+    	beforesubmit: function(ev) {
+    		// Runs any presubmission stuff
+    		logEvent('beforesubmit called');
+    		data.val('');
+    	},
+    	
+    	submit: function(ev, finish) {
+    		logEvent('submit called');
+    		
+    
+    		// Run validation
+    		if(!formExample.formBuilder('validate')) {
+    			// The form is invalid somewhere
+    			logEvent('has invalid');
+    			finish();
+    			return;
+    		}
+    
+    		logEvent('all valid');
+    
+    		var currData = formExample.formBuilder('get');
+    		data.val(JSON.stringify(currData,null,2));
+    
+    		saveForm(currData, finish);
+    	},
+    	
+    	aftersubmit: function(ev) {
+    		// Run any post-submission stuff
+    		logEvent('aftersubmit called');
+    	}
+    });
+  </div>
+</div>
