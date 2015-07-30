@@ -20,6 +20,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
 var jade = require('gulp-jade');
+var header = require('gulp-header');
 
 var gMarked = require('gulp-marked');
 var marked = require('marked');
@@ -88,6 +89,15 @@ var argv = require('yargs')
 
 	.argv;
 
+
+var banner = 
+	'/** \n' +
+	' * <%= pkg.name %> - <%= pkg.description %>\n' +
+	' * @version v<%= pkg.version %>\n' +
+	' * @link <%= pkg.homepage %>\n' +
+	' * @repository <%= pkg.repository %>\n' +
+	' * @license <%= pkg.license %>\n' +
+	' */\n\n';
 
 var dirs = {
 	assets: __dirname + '/assets',
@@ -161,12 +171,18 @@ gulp.task('build', ['lint', 'clean', 'copy:assets', 'copy:locales', 'sass'], fun
 			dirs.src + '/types/**/*.js'
 		])
 		.pipe(sourcemaps.init())
-			.pipe(concat(pkg.name + '.min.js'))
+			.pipe(concat(pkg.name + '.js'))
+			.pipe(header(banner, {pkg : pkg}))
+			.pipe(gulp.dest(outDir))
+			.pipe(rename(function(path){
+				path.extname = '.min.js';
+			}))
 			.pipe(uglify({
 				banner: '/*! ' + pkg.name + ' ' + pkg.version + ' ' + today + '*/\n',
 				mangle: !argv.original && argv.dist || argv.mangle,
 				compress: !argv.original && argv.dist || argv.mangle
 			}))
+			.pipe(header(banner, {pkg : pkg})) //uglify removes it, add it back
 		.pipe(sourcemaps.write('./',{
 			addComment: true,
 			includeContent: true
