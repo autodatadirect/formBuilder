@@ -60,7 +60,7 @@ html, body {
 	left: 0;
 	width: 300px;
 	color: #FFF;
-	padding-top: 1em;
+	padding-top: 6em;
 }
 
 .content {
@@ -78,7 +78,7 @@ html, body {
 	color: #3D2B56;
 }
 .page-container {
-	margin-top: 81px;
+	padding-top: 81px;
 }
 
 
@@ -250,7 +250,7 @@ h2 .anchor {
 		padding: 1em;
 	}
 	.page-container {
-		margin-top: 54px;
+		padding-top: 54px;
 	}
 	h1 .anchor {
 		top: -74px;
