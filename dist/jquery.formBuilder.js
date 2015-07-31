@@ -420,7 +420,7 @@
 
 	if(typeof(util.selectPath) === 'undefined') {
 		util.selectPath = function(namespace, domKey) {
-			
+
 			if(namespace === undefined){
 				return;
 			}
@@ -477,15 +477,7 @@
 
 				if(i === a.length - 1) {
 
-					/*
-					 * clean this logic up
-					 */
 					if(key.match(/^[0-9]{1,3}$/)) {
-
-						types[types.length - 1] = {
-							k: types[types.length - 1].k,
-							v: []
-						};
 
 						types.push({
 							k: parseInt(key, 10),
@@ -500,11 +492,6 @@
 					}
 
 				} else if(key.match(/^[0-9]{1,3}$/)) {
-
-					types[types.length - 1] = {
-						k: types[types.length - 1].k,
-						v: []
-					};
 
 					types.push({
 						k: parseInt(key, 10),

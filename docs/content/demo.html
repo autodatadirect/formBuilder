@@ -2,7 +2,7 @@
 <p>To get a feel of how formBuilder is used, try out this example.</p>
 <h2><a name="demo-form" href="#demo-form" class="anchor"></a>Form</h2>
 <div class="section">
-  <div class="example">
+  <form id="example" action="#" style="display: none">
     <p>* Represents Required Fields</p>
     <h4>Applicant Information</h4>
     <input type="text" name="personal.name" data-label="Full Legal Name*" data-require="true"/>
@@ -46,24 +46,22 @@
     <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField" data-label="Please provide names of all family members to be listed as next of kin">
       <input type="text" name="family" data-placeholder="Family Member"/>
     </div><br/>
-    <input type="text" data-label="Application Type" data-type="select" data-options="[			{&quot;value&quot;:&quot;license&quot;, &quot;label&quot;:&quot;Driver's License&quot;, &quot;showClass&quot;:&quot;License&quot;},			{&quot;value&quot;:&quot;permit&quot;, &quot;label&quot;:&quot;Learner's Permit&quot;, &quot;showClass&quot;:&quot;Learner&quot;},			{&quot;value&quot;:&quot;motorcycle&quot;, &quot;label&quot;:&quot;Motorcycle License&quot;, &quot;showClass&quot;:&quot;Motorcycle&quot;}		]"/><br/>
+    <input type="text" name="appType" data-label="Application Type" data-type="select" data-options="[			{&quot;value&quot;:&quot;license&quot;, &quot;label&quot;:&quot;Driver's License&quot;, &quot;showClass&quot;:&quot;License&quot;},			{&quot;value&quot;:&quot;permit&quot;, &quot;label&quot;:&quot;Learner's Permit&quot;, &quot;showClass&quot;:&quot;Learner&quot;},			{&quot;value&quot;:&quot;motorcycle&quot;, &quot;label&quot;:&quot;Motorcycle License&quot;, &quot;showClass&quot;:&quot;Motorcycle&quot;}		]"/><br/>
     <div class="License"> 
-      <input type="checkbox" name="minor" data-label="Is this not your first license?"/>
+      <input type="checkbox" name="first" data-label="Is this not your first license?"/>
       <p>If you selected the above box please fill out the information below </p>
-      <input type="text" name="stateOld" data-type="state" data-label="In what state was your last license issued?"/>
-      <p>What were the dates that you had your last license?</p>
-      <div class="dateRange"></div>
+      <input type="text" name="stateOld1" data-type="state" data-label="In what state was your last license issued?"/>
       <p>Why are you obtaining a replacement license?</p>
       <input type="radio" name="replacement" data-label="Expired License" value="expired"/>
       <input type="radio" name="replacement" data-label="Lost License" value="lost"/>
       <input type="radio" name="replacement" data-label="Stolen License" value="stolen"/>
-      <input type="radio" name="replacement" data-label="Damaged License" value="damaged"/>
+      <input type="radio" name="replacement" data-label="Damaged License" value="damaged"/><br/>
     </div>
     <div class="Learner">
       <input type="checkbox" name="minor" data-label="Are you under the age of 18?"/>
       <p>If you selected the above box please provide parental information below </p>
       <input type="text" name="parents.name" data-label="Guardian Name"/>
-      <input type="text" data-type="phone" name="parents.phone" data-label="Guardian Phone Number"/>
+      <input type="text" name="parents.phone" data-type="phone" data-label="Guardian Phone Number"/>
       <div class="input-field-group">
         <input type="text" name="parents.location.address" data-label="Street Address" style="width:300px"/>
         <input type="text" name="parents.location.apartment" data-type="number" data-label="Apt" style="width:50px"/>
@@ -73,10 +71,23 @@
       </div>
       <input type="checkbox" name="certify" data-label="Has this guardian given you permission to apply for a permit?"/>
     </div>
-    <div class="Motorcycle"></div>
-    <input type="checkbox" name="learner-accept" data-label="Agree to terms" data-require="true"/>
+    <div class="Motorcycle">
+      <input type="checkbox" name="donor" data-label="Do you wish to be listed as an organ donor?"/>
+      <h4>If this is your first motorcycle license please fill out the following information</h4>
+      <input type="checkbox" name="test" data-label="Have you taken a motorcycle-driver certification course and passed?"/><br/>
+      <input type="text" name="company" data-label="What company did you take your motorcycle-driver certification course with?"/><br/>
+      <input type="checkbox" name="twentyone" data-label="Are you over the age of 21?"/><br/>
+      <h4>If this is NOT your first motorcycle license please fill out the following information</h4>
+      <input type="text" name="stateOld2" data-type="state" data-label="In what state was your last license issued?"/>
+      <p>Why are you obtaining a replacement motorcycle license?</p>
+      <input type="radio" name="replacement2" data-label="Expired Motorcycle License" value="expired"/>
+      <input type="radio" name="replacement2" data-label="Lost Motorcycle License" value="lost"/>
+      <input type="radio" name="replacement2" data-label="Stolen Motorcycle License" value="stolen"/>
+      <input type="radio" name="replacement2" data-label="Damaged Motorcycle License" value="damaged"/><br/>
+    </div>
+    <input type="checkbox" name="accept" data-label="Agree to terms" data-require="true"/>
     <button type="submit">Submit Form</button>
-  </div>
+  </form>
 </div>
 <h2><a name="demo-results" href="#demo-results" class="anchor"></a>Results</h2>
 <div class="section"><i>Events</i>
@@ -87,67 +98,107 @@
 <div class="section">
   <div data-mode="html" class="code">
     <form id="example" action="#" style="display: none">
-    	<h4>Application Type (Select One)</h4>
-    		<input type="radio" name="radioExample1" data-label="Driver's License"/>
-    		<input type="radio" name="radioExample1" data-label="Learner's Permit &lt;i&gt;and&lt;/i&gt; Driver's License"/>
-    		<input type="radio" name="radioExample1" data-label="Motorcycle Learner's Permit"/>
-    		<input type="radio" name="radioExample1" data-label="Motorcycle License"/>
-    		<input type="radio" name="radioExample1" data-label="Driver's License with School Bus Endorsement"/>
-    		<input type="radio" name="radioExample1" data-label="Identification Card (ID)"/><br/>
-    
-    	<h4>Applicant Information</h4>
     	<p>* Represents Required Fields</p>
-    		<input type="text" name="name" data-label="Full Legal Name*" data-require="true"/>
-    		<input type="text" name="social" data-label="Social Security Number" data-type="SSN"/>
-    		<input type="text" name="birthday" data-label="Birthdate*" data-type="date" data-require="true"/>
-    		<input type="text" name="phoneNumber" data-type="phone" data-label="Phone Number"/>
-    		<input type="text" name="email" data-type="email" data-label="Email"/>
-    			<div title="Why Do We Need This?" name="tool" class="tooltip">
-    				<h1>Not for spam!</h1>
-    				<p>This email will be used to let you </p>
-    				<p>know when we have mailed </p>
-    				<p>your driver's licence and will </p>
-    				<p>send you updates on its delivery status</p>
+    	<h4>Applicant Information</h4>
+    		<input type="text" name="personal.name" data-label="Full Legal Name*" data-require="true"/>
+    		<input type="text" name="personal.social" data-label="Social Security Number" data-type="SSN"/>
+    		<input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-require="true"/>
+    		<input type="text" name="personal.phoneNumber" data-type="phone" data-label="Phone Number"/>
+    		<input type="text" name="personal.email" data-type="email" data-label="Email"/>
+    		<div title="Why Do We Need This?" name="tool" class="tooltip">
+    			<h1>Not for spam!</h1>
+    			<p>This email will be used to let you </p>
+    			<p>know when we have mailed </p>
+    			<p>your driver's licence and will </p>
+    			<p>send you updates on its delivery status</p>
+    		</div>
+    
+    		<div class="input-field-group">
+    			<input type="text" name="personal.location.address" data-label="Street Address*" data-require="true" style="width:300px"/>
+    			<input type="text" name="personal.location.apartment" data-type="number" data-label="Apt" style="width:50px"/>
+    			<input type="text" name="personal.location.city" data-label="City*" data-require="true"/>
+    			<input type="text" name="personal.location.state" data-type="state" data-label="State*" data-require="true" style="width:50px"/>
+    			<input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-require="true" style="width:75px"/>
+    		</div>
+    
+    		<p>Gender</p>
+    			<input type="radio" name="personal.physical.gender" data-label="Male" value="male"/>
+    			<input type="radio" name="personal.physical.gender" data-label="Female" value="female"/>
+    
+    		<p>Physical Characteristics</p>
+    			<input type="text" name="personal.physical.eyecolor" data-type="select" data-label="Eye Color" data-default="#0000FF" data-options="[			{&quot;value&quot;:&quot;blue&quot;, &quot;label&quot;:&quot;Blue&quot;},			{&quot;value&quot;:&quot;green&quot;, &quot;label&quot;:&quot;Green&quot;},			{&quot;value&quot;:&quot;hazel&quot;, &quot;label&quot;:&quot;Hazel&quot;},			{&quot;value&quot;:&quot;brown&quot;, &quot;label&quot;:&quot;Brown&quot;}		]"/>
+    			<input type="text" name="personal.physical.haircolor" data-type="select" data-label="Hair Color" data-default="#0000FF" data-options="[			{&quot;value&quot;:&quot;blone&quot;, &quot;label&quot;:&quot;Blonde&quot;},			{&quot;value&quot;:&quot;Red&quot;, &quot;label&quot;:&quot;Red&quot;},			{&quot;value&quot;:&quot;Black&quot;, &quot;label&quot;:&quot;Black&quot;},			{&quot;value&quot;:&quot;brown&quot;, &quot;label&quot;:&quot;Brown&quot;}		]"/>
+    			<input type="text" name="personal.physical.weight" data-type="integer" data-label="Weight" data-postinput="lbs" style="width:30px" data-max="3"/>
+    			<div class="input-field-group">
+    				<input type="text" name="personal.physical.feet" data-type="integer" data-label="Height" data-postinput="ft" style="width:30px" data-max="1"/>
+    				<input type="text" name="personal.physical.inches" data-type="integer" data-postinput="in" style="width:30px" data-max="2"/>
     			</div>
     
-    		<div class="input-field-group">
-    			<input type="text" name="address" data-label="Street Address*" data-require="true" style="width:300px"/>
-    			<input type="text" name="apartment" data-type="number" data-label="Apt" style="width:50px"/>
-    			<input type="text" name="city" data-label="City*" data-require="true"/>
-    			<input type="text" name="state" data-type="state" data-label="State*" data-require="true" style="width:50px"/>
-    			<input type="text" name="zip" data-type="zip" data-label="Zip Code*" data-require="true" style="width:75px"/>
-    		</div>
+    		<p>Check all that apply to you </p>
+    			<input type="checkbox" name="issue.vision" data-label="Do you wear glasses or contact lenses?"/>
+    			<input type="checkbox" name="issue.medicine" data-label="Do you have a physical or mental condition which requires that you take medication?"/>
+    			<input type="checkbox" name="issue.seizure" data-label="Have you ever had a seizure, blackout, or loss of consciousness?"/>
+    			<input type="checkbox" name="issue.special" data-label="Do you have a physical condition which requires you to use special equipment in order to drive?"/>
+    			<input type="checkbox" name="issue.suspended" data-label="Has your license or privilege to drive ever been suspended?"/>
     
-    	<p>Gender</p>
-    		<input type="radio" name="radioExample2" data-label="Male"/>
-    		<input type="radio" name="radioExample2" data-label="Female"/>
+    		<p>If you checked any of the above please provide an explanation here (max 250 characters)</p>
+    			<textarea rows="5" name="issue.text" style="width:500px" data-max="250"></textarea><br/>
+    			<div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField" data-label="Please provide names of all family members to be listed as next of kin">
+    				<input type="text" name="family" data-placeholder="Family Member"/>
+    			</div><br/>
+    			<input type="text" data-label="Application Type" data-type="select" data-options="[			{&quot;value&quot;:&quot;license&quot;, &quot;label&quot;:&quot;Driver's License&quot;, &quot;showClass&quot;:&quot;License&quot;},			{&quot;value&quot;:&quot;permit&quot;, &quot;label&quot;:&quot;Learner's Permit&quot;, &quot;showClass&quot;:&quot;Learner&quot;},			{&quot;value&quot;:&quot;motorcycle&quot;, &quot;label&quot;:&quot;Motorcycle License&quot;, &quot;showClass&quot;:&quot;Motorcycle&quot;}		]"/><br/>
+    			
+    			<div class="License"> 
+    				<input type="checkbox" name="first" data-label="Is this not your first license?"/>
+    				<p>If you selected the above box please fill out the information below </p>
+    					<input type="text" name="stateOld" data-type="state" data-label="In what state was your last license issued?"/>
+    				<p>What were the dates that you had posession of your last license?</p>
+    					<div class="dateRange"></div>
+    				<p>Why are you obtaining a replacement license?</p>
+    					<input type="radio" name="replacement" data-label="Expired License" value="expired"/>
+    					<input type="radio" name="replacement" data-label="Lost License" value="lost"/>
+    					<input type="radio" name="replacement" data-label="Stolen License" value="stolen"/>
+    					<input type="radio" name="replacement" data-label="Damaged License" value="damaged"/><br/>
+    			</div>
     
-    	<p>Physical Characteristics</p>
-    		<input type="text" name="EyeColor" data-type="select" data-label="Eye Color" data-default="#0000FF" data-options="[			{&quot;value&quot;:&quot;#0000FF&quot;, &quot;label&quot;:&quot;Blue&quot;},			{&quot;value&quot;:&quot;#00FF00&quot;, &quot;label&quot;:&quot;Green&quot;},			{&quot;value&quot;:&quot;#A67B5B&quot;, &quot;label&quot;:&quot;Hazel&quot;},			{&quot;value&quot;:&quot;#8B4513&quot;, &quot;label&quot;:&quot;Brown&quot;}		]"/>
-    		<input type="text" name="HairColor" data-type="select" data-label="Hair Color" data-default="#0000FF" data-options="[			{&quot;value&quot;:&quot;Yellow&quot;, &quot;label&quot;:&quot;Blonde&quot;},			{&quot;value&quot;:&quot;Red&quot;, &quot;label&quot;:&quot;Red&quot;},			{&quot;value&quot;:&quot;Black&quot;, &quot;label&quot;:&quot;Black&quot;},			{&quot;value&quot;:&quot;#8B4513&quot;, &quot;label&quot;:&quot;Brown&quot;}		]"/>
-    		<input type="text" name="weight" data-type="integer" data-label="Weight" data-postinput="lbs" style="width:30px" data-max="3"/>
-    		<div class="input-field-group">
-    			<input type="text" name="feet" data-type="integer" data-label="Height" data-postinput="ft" style="width:30px" data-max="3"/>
-    			<input type="text" name="inches" data-type="integer" data-postinput="in" style="width:30px" data-max="3"/>
-    		</div>
+    			<div class="Learner">
+    				<input type="checkbox" name="minor" data-label="Are you under the age of 18?"/>
+    			<p>If you selected the above box please provide parental information below </p>
+    				<input type="text" name="parents.name" data-label="Guardian Name"/>
+    				<input type="text" data-type="phone" name="parents.phone" data-label="Guardian Phone Number"/>
+    				<div class="input-field-group">
+    					<input type="text" name="parents.location.address" data-label="Street Address" style="width:300px"/>
+    					<input type="text" name="parents.location.apartment" data-type="number" data-label="Apt" style="width:50px"/>
+    					<input type="text" name="parents.location.city" data-label="City"/>
+    					<input type="text" name="parents.location.state" data-type="state" data-label="State" style="width:50px"/>
+    					<input type="text" name="parents.location.zip" data-type="zip" data-label="Zip Code" style="width:75px"/><br/>
+    				</div>
+    				<input type="checkbox" name="certify" data-label="Has this guardian given you permission to apply for a permit?"/>
+    			</div>
     
-    	<p>Check all that apply to you </p>
-    		<input type="checkbox" name="check1" data-label="Do you wear glasses or contact lenses?"/>
-    		<input type="checkbox" name="check2" data-label="Do you have a physical or mental condition which requires that you take medication?"/>
-    		<input type="checkbox" name="check3" data-label="Have you ever had a seizure, blackout, or loss of consciousness?"/>
-    		<input type="checkbox" name="check4" data-label="Do you have a physical condition which requires you to use special equipment in order to drive?"/>
-    		<input type="checkbox" name="check5" data-label="Has your license or privilege to drive ever been suspended?"/>
+    			<div class="Motorcycle">
+    				<input type="checkbox" name="donor" data-label="Do you wish to be listed as an organ donor?"/>
+    			<p>If this is your first motorcycle license please fill out the following information</p>
+    				<input type="checkbox" name="test" data-label="Have you taken a motorcycle-driver certification course and passed?"/><br/>
+    				<input type="text" name="company" data-label="What company did you take your motorcycle-driver certification course with?"/><br/>
+    				<input type="checkbox" name="twentyone" data-label="Are you over the age of 21?"/><br/>
+    			<p>If this is NOT your first motorcycle license please fill out the following information</p>
+    				<input type="text" name="stateOld" data-type="state" data-label="In what state was your last license issued?"/>
+    			<p>What were the dates that you had posession of your last motorcycle license?</p>
+    				<div class="dateRange"></div>
+    			<p>Why are you obtaining a replacement motorcycle license?</p>
+    				<input type="radio" name="replacement" data-label="Expired Motorcycle License" value="expired"/>
+    				<input type="radio" name="replacement" data-label="Lost Motorcycle License" value="lost"/>
+    				<input type="radio" name="replacement" data-label="Stolen Motorcycle License" value="stolen"/>
+    				<input type="radio" name="replacement" data-label="Damaged Motorcycle License" value="damaged"/><br/>
+    			</div>
     
-    	<p>If you checked any of the above please provide an explanation here (max 250 characters)</p>
-    		<textarea rows="5" name="text" style="width:500px" data-max="250"></textarea><br/>
-    		<div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField" data-label="Please provide names of all family members to be listed as next of kin">
-    			<input type="text" name="family" data-placeholder="Family Member"/>
-    		</div><br/>
-    		<input type="checkbox" name="check6" data-label="Agree to terms" data-require="true"/><br/>
+    		<input type="checkbox" name="accept" data-label="Agree to terms" data-require="true"/>
     
     		<button type="submit">Submit Form</button>
-    </form>
-  </div>
+    	</div>
+    </div>
+  </div></form>
   <div data-title="JAVASCRIPT (without result logging)" data-mode="javascript" class="code">
     var formExample = $('form#example:first').formBuilder({
     	beforeset: function(ev) {
