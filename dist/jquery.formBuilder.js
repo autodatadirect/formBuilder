@@ -4287,7 +4287,7 @@
 
 			e.button(bOptions).on('click.submitButton', $.proxy(self.submit, self));
 
-			self.spinner = $('<div class="spinner" style="display: inline-block; position: absolute; margin-left: -.10cm; margin-top: -.40cm;"></div>');
+			self.spinner = $('<div class="spinner" style="display: inline-block; position: absolute; margin-left: -.10cm; margin-top: -.4cm;"></div>');
 			(self.spinner).appendTo(e);
 
 			var listenerProvider = o.enterKeyListenerProvider;
