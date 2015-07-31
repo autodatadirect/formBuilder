@@ -15,6 +15,7 @@
 
 	var types = $.formBuilder.inputField.types;
 	var dict = $.formBuilder.lang.dict;
+	var util = $.formBuilder.util;
 
 	types.time = {
 		attributes: ['step', 'military','storeUtc'],
@@ -27,17 +28,14 @@
 			var self = this,
 				e = ifw.element;
 
-			self.military = !!e.data('military');
-			self.step = e.data('step');
-			self.storeUtc = e.data('storeUtc');
+			// Setup options
+			var o = self.typeOptions = {
+				storeUtc: true
+			};
+			util.loadDomToggleData(e, o, ['military', 'storeUtc']);
+			util.loadDomData(e, o, ['step', 'storeUtc']);
 
-			if(self.storeUtc === undefined) {
-				self.storeUtc = true;
-			} else {
-				self.storeUtc = !!self.storeUtc;
-			}
-
-			if(!self.military)
+			if(!self.typeOptions.military)
 			{
 				ifw.placeholder('H:MMam/pm');
 
@@ -60,8 +58,8 @@
 			e.timepicker({
 				appendTo: ifw.getField(),
 				selectOnBlur: false,
-				step: self.step, //default is 30 and will be set if undefined
-				timeFormat: self.military?'H:i':'g:ia'
+				step: o.step, //default is 30 and will be set if undefined
+				timeFormat: o.military?'H:i':'g:ia'
 			});
 
 			// Make sure the timepicker width matches the field width
@@ -93,12 +91,12 @@
 					return '';
 				}
 
-				if(self.storeUtc) {
+				if(self.typeOptions.storeUtc) {
 					// Convert utc back to local for display
 					time.local();
 				}
 
-				return time.format(self.military? 'H:mm' : 'h:mma');
+				return time.format(self.typeOptions.military? 'H:mm' : 'h:mma');
 			},
 
 			/**
@@ -108,18 +106,18 @@
 				var self = this,
 					time;
 				
-				if(!val || !val.match(self.military? self._regex2400 : self._regex)) {
+				if(!val || !val.match(self.typeOptions.military? self._regex2400 : self._regex)) {
 					return '';
 				}
 
 
-				time = moment(val, self.military? 'H:mm' : 'h:mma').milliseconds(0);
+				time = moment(val, self.typeOptions.military? 'H:mm' : 'h:mma').milliseconds(0);
 
 				if(!time.isValid()) {
 					return '';
 				}
 
-				if(self.storeUtc) {
+				if(self.typeOptions.storeUtc) {
 					// Convert to utc for storage
 					time.utc();
 				}
@@ -140,7 +138,7 @@
 				invalidMessage = {message: dict.invalid},
 				valid;
 
-			valid = self.military? val.match(self._regex2400) : val.match(self._regex);
+			valid = self.typeOptions.military? val.match(self._regex2400) : val.match(self._regex);
 
 			if(!valid) {
 				return invalidMessage;

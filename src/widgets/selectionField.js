@@ -38,8 +38,10 @@
 			self.dirty = false;
 			
 			// Load DOM data settings into options + clean bools
-			util.loadDomData.call(self, o, ['require', 'required', 'label']);
-			o.required = o.require = !!(o.require || o.required);
+			util.loadDomData(e, o, ['label']);
+			util.loadDomToggleData(e, o, ['require', 'required']);
+
+			o.required = o.require || o.required;
 			
 			// convert input to field format
 			var field = self.field = $('<div class="selection-field"></div>');

@@ -24,7 +24,7 @@ describe('The time data-type', function(){
 		
 		// Should have these
 		typeInstance = ifw.getType();
-		expect(typeInstance.military).toBeDefined();
+		expect(typeInstance.typeOptions.military).toBeDefined();
 	});
 
 	it('is created with a placeholder (regular by default)', function(){

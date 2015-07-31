@@ -102,12 +102,13 @@
 			 * load DOM settings from field into options
 			 */
 			
-			util.loadDomData.call(self, o, ['require', 'required', 'empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+			util.loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+			util.loadDomToggleData(e, o, ['require', 'required']);
 
 			/*
 			 * legacy support
 			 */
-			o.require = !!(o.require || o.required);
+			o.require = o.require || o.required;
 			if(!o.placeholder && o.empty) {
 				o.placeholder = o.empty;
 			}

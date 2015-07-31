@@ -527,7 +527,7 @@ describe('A formBuilder widget',function(){
 	});
 
 	it('can have a default require status for its fields', function(){
-		var form = $(baseFormHtml.replace('<form>','<form data-default-required="true">')).formBuilder();
+		var form = $(baseFormHtml.replace('<form>','<form data-default-required>')).formBuilder();
 		var	fbw = form.data('formBuilderFormBuilder');
 		var fields = fbw.getFields();
 
