@@ -290,7 +290,7 @@
 			// The z-index (defaults to 2000000000)
 			top: '0',
 			// Top position relative to parent in px
-			left: '0' // Left position relative to parent in px
+			left: '1000' // Left position relative to parent in px
 		},
 
 		_spinner: undefined,
@@ -420,7 +420,7 @@
 
 	if(typeof(util.selectPath) === 'undefined') {
 		util.selectPath = function(namespace, domKey) {
-			
+
 			if(namespace === undefined){
 				return;
 			}
@@ -477,15 +477,7 @@
 
 				if(i === a.length - 1) {
 
-					/*
-					 * clean this logic up
-					 */
 					if(key.match(/^[0-9]{1,3}$/)) {
-
-						types[types.length - 1] = {
-							k: types[types.length - 1].k,
-							v: []
-						};
 
 						types.push({
 							k: parseInt(key, 10),
@@ -500,11 +492,6 @@
 					}
 
 				} else if(key.match(/^[0-9]{1,3}$/)) {
-
-					types[types.length - 1] = {
-						k: types[types.length - 1].k,
-						v: []
-					};
 
 					types.push({
 						k: parseInt(key, 10),
@@ -4312,8 +4299,8 @@
 
 			e.button(bOptions).on('click.submitButton', $.proxy(self.submit, self));
 
-			self.spinner = $('<div class="spinner" style="display: inline-block; position: absolute;"></div>');
-			e.append(this.spinner);
+			self.spinner = $('<div class="spinner" style="display: inline-block; position: absolute; margin-left: -.10cm; margin-top: -.40cm;"></div>');
+			(self.spinner).appendTo(e);
 
 			var listenerProvider = o.enterKeyListenerProvider;
 			if($.isFunction(listenerProvider)) {

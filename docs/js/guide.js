@@ -263,12 +263,6 @@ f.find('button[type="submit"]').submitButton({
 
 
 
-
-
-
-
-
-
 /**
  * Live Demo
  */
