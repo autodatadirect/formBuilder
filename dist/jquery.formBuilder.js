@@ -290,7 +290,7 @@
 			// The z-index (defaults to 2000000000)
 			top: '0',
 			// Top position relative to parent in px
-			left: '0' // Left position relative to parent in px
+			left: '1000' // Left position relative to parent in px
 		},
 
 		_spinner: undefined,
@@ -4287,8 +4287,8 @@
 
 			e.button(bOptions).on('click.submitButton', $.proxy(self.submit, self));
 
-			self.spinner = $('<div class="spinner" style="display: inline-block; position: absolute;"></div>');
-			e.append(this.spinner);
+			self.spinner = $('<div class="spinner" style="display: inline-block; position: absolute; margin-left: -.10cm; margin-top: -.40cm;"></div>');
+			(self.spinner).appendTo(e);
 
 			var listenerProvider = o.enterKeyListenerProvider;
 			if($.isFunction(listenerProvider)) {

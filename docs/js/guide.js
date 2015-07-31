@@ -254,7 +254,6 @@ window.sfw = window.sf.data('formBuilderFormBuilder');
 
 f.find('button[type="submit"]').submitButton({
 	submit: function(ev, done) {
-		console.log('first submit');
 		$(this).closest('form').formBuilder('validate');
 		done();
 	}
@@ -322,7 +321,6 @@ formExample.find('button[type="submit"]').submitButton({
 	},
 	
 	submit: function(ev, done) {
-		console.log('second submit');
 		logEvent('submit called');
 		
 

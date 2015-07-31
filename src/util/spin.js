@@ -37,7 +37,7 @@
 			// The z-index (defaults to 2000000000)
 			top: '0',
 			// Top position relative to parent in px
-			left: '0' // Left position relative to parent in px
+			left: '1000' // Left position relative to parent in px
 		},
 
 		_spinner: undefined,
