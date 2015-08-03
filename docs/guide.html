@@ -85,7 +85,7 @@
           <h2>Applying formBuilder<a name="baseForm-applyingFormBuilder" class="anchor"></a></h2>
           <div class="section">
             <p>
-              Forms are made formBuilder forms by initializing them as formBuilder widgets. FormBuilder 
+              Forms are made into formBuilder forms by initializing them as formBuilder widgets. FormBuilder 
               will search for form fields and construct them automatically. 
               
             </p>
@@ -162,7 +162,7 @@
           </div>
           <h2>Required Inputs<a name="baseForm-requiredInputs" class="anchor"></a></h2>
           <div class="section">
-            <p>The <i>data-required</i> attribute if set on an input element will prevent form submission if it is not valid
+            <p>The <i>data-required</i> attribute if <b>applied to the input element</b> will prevent form submission if it is not valid
               <div class="example">
                 <form action="#" class="fb">
                   <input type="text" data-label="Not Required">
@@ -200,29 +200,25 @@
               group your inputFields together using a common name, and then use dot notation to give each item its own unique identifier.
               
             </p>
-            <h2><a name="baseForm-nameObjects" href="#baseForm-nameObjects" class="anchor"></a>Dot Notation</h2>
-            <div class="section">
-              <div class="example">
-                <form class="fb">
-                  <input type="text" name="example.one" data-type="text" data-label="Input One">
-                  <input type="text" name="example.two" data-type="text" data-label="Input Two">
-                  <input type="text" name="example.three" data-type="text" data-label="Input Three">
-                  <input type="text" name="example.four" data-type="text" data-label="Input Four">
-                  <div data-mode="html" class="code">
-                    <input type="text" name="example.one" data-type="text" data-label="Input One"/>
-                    <input type="text" name="example.two" data-type="text" data-label="Input Two"/>
-                    <input type="text" name="example.three" data-type="text" data-label="Input Three"/>
-                    <input type="text" name="example.four" data-type="text" data-label="Input Four"/>
-                    
-                  </div>
-                </form>
-              </div>
+            <div class="example">
+              <form class="fb">
+                <input type="text" name="example.one" data-type="text" data-label="Input One">
+                <input type="text" name="example.two" data-type="text" data-label="Input Two">
+                <input type="text" name="example.three" data-type="text" data-label="Input Three">
+                <input type="text" name="example.four" data-type="text" data-label="Input Four">
+              </form>
+            </div>
+            <div data-mode="html" class="code">
+              <input type="text" name="example.one" data-type="text" data-label="Input One"/>
+              <input type="text" name="example.two" data-type="text" data-label="Input Two"/>
+              <input type="text" name="example.three" data-type="text" data-label="Input Three"/>
+              <input type="text" name="example.four" data-type="text" data-label="Input Four"/>
+              
             </div>
             <p>
               These objects can also be nested in order to create more specific groupings if desired. Say for example you wanted to 
-              store information about a group of students, like their grade and their age. And you wanted to group this information 
-              together by grade and age.
-              
+              store two sets of information about a group of students, like their grade and their age. You could do it by having them all share 
+              one name to be one big group, and then divide them up into two smaller groups using dot notation. 
             </p>
             <div class="example">
               <form class="fb">
@@ -234,16 +230,21 @@
                 <input type="text" name="students.age.bob" data-type="integer" data-label="Bob's Age">
                 <input type="text" name="students.age.caitlin" data-type="integer" data-label="Caitlin's Age">
                 <input type="text" name="students.age.david" data-type="integer" data-label="David's Age">
-                <div data-mode="html" class="code">
-                  <input type="text" name="example.one" data-type="text" data-label="Input One"/>
-                  <input type="text" name="example.two" data-type="text" data-label="Input Two"/>
-                  <input type="text" name="example.three" data-type="text" data-label="Input Three"/>
-                  <input type="text" name="example.four" data-type="text" data-label="Input Four"/>
-                  
-                </div>
               </form>
             </div>
-            <p>For further insight on to how these objects store their data, look ahead to the Live Demo</p>
+            <div data-mode="html" class="code">
+              <input type="text" name="students.grade.amy" data-type="integer" data-label="Amy's Grade"/>
+              <input type="text" name="students.grade.bob" data-type="integer" data-label="Bob's Grade"/>
+              <input type="text" name="students.grade.caitlin" data-type="integer" data-label="Caitlin's Grade"/>
+              <input type="text" name="students.grade.david" data-type="integer" data-label="David's Grade"/><br/>
+              
+              <input type="text" name="students.age.amy" data-type="integer" data-label="Amy's Age"/>
+              <input type="text" name="students.age.bob" data-type="integer" data-label="Bob's Age"/>
+              <input type="text" name="students.age.caitlin" data-type="integer" data-label="Caitlin's Age"/>
+              <input type="text" name="students.age.david" data-type="integer" data-label="David's Age"/>
+              
+            </div>
+            <p>For further insight on to how these objects store their data, look ahead to the data output in the Live Demo</p>
           </div>
         </div>
         <h1>Field Enhancements<a name="fieldEnhancements" class="anchor"></a></h1>
@@ -496,13 +497,14 @@
           <div class="section">
             <p>
               FormBuilder checkboxes are very similar to normal HTML checkboxes, minus the need for an extra label tag. 
-              To add a label, add the <b>data-label</b> attribute. Labels can be made of html or just raw text. They may can 
-              also be marked as required with the <b>data-required</b> attribute. 
+              To add a label, add the <b>data-label</b> attribute. Labels can be made of html or just raw text. Checkboxes may can 
+              also be marked as required with the <b>data-required</b> attribute. If a checkbox is marked as required and it is unchecked
+              then it will turn red to alert the user that it is a required field. 
             </p>
             <p>
-              Checkboxes are made using the selectionField widget and inherits many of the same functions as the inputField widget. 
-              This does not include the other input types or most field enhancements. Checkboxes have validation, states, and 
-              can be set/get. When used in a formBuilder form, they are seen as inputs with a boolean value.
+              Checkboxes are made using the selectionField widget and they inherit many of the same functions as the inputField widget. 
+              This does not include the other input types or most field enhancements. Checkboxes have validation methods, different states, and 
+              they can be set/get. When used in a formBuilder form, they are seen as inputs with a boolean value.
               
             </p>
             <div class="example">
@@ -516,7 +518,7 @@
               <input type="checkbox" data-label="A required one" data-required="true"/>
             </div>
             <p>
-              They can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
+              Checkboxes can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
               checkboxes can be aligned horizontally with the <b>selection-horizontal</b> class.
               
             </p>
@@ -568,8 +570,8 @@
               <input type="radio" name="radioExample2" data-label="Required Option three" value="three"/>
             </div>
             <p>
-              They can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
-              checkboxes can be aligned horizontally with the <b>selection-horizontal</b> class.
+              Radio boxes can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
+              radio boxes can be aligned horizontally with the <b>selection-horizontal</b> class.
               
             </p>
             <div class="example">
@@ -589,7 +591,7 @@
           </div>
           <h2>Textarea<a name="dataTypes-textarea" class="anchor"></a></h2>
           <div class="section">
-            <p>No extra attributes are required. Note: pre/post-inputs will not grow with the area.
+            <p>No extra attributes are required. Note: pre/post-inputs will be placed on the outside of this area.
               <div class="example">
                 <textarea rows="3" data-label="TextArea"></textarea>
               </div>
