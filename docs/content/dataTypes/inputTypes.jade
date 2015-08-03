@@ -1,4 +1,18 @@
-p The <i>data-type</i> attribute can be specifed to add content checking
+p.
+	The <b>data-type</b> attribute on input elements is used by formBuilder to construct each 
+	type of field. FormBuilder comes with many types that do not require any extra coding. Custom 
+	types may also be created (see <a href='#customization'>Customization</a>).
+p.
+	FormBuilder types are recommended to be used on input elements of type "text" or "password". 
+	They cannot be used with "checkbox", "radio", or "submit" types, which each have their own
+	setups. Other HTML5 types may still work but are not suggested.
+
+p.
+	To use a type, initialize the input's parent form as a formBuilder widget. The widget will 
+	automatically create the necessary inputField() widget on the input and manage its status. 
+	Alternatively, the inputField widget may be manually applied to an input outside of a 
+	formBuilder form (see <a href='./api.html#widgets-inputField'>inputField API Reference</a>).
+
 .example
 	input(type='text' data-label='no data-type')
 	span No specified data type, will not throw errors for any input. 

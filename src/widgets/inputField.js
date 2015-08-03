@@ -637,9 +637,10 @@
 				return true;
 			}
 
-			if($.isFunction(self.format)) {
-				self.format.call(self);
-			}
+			// This functionality should be handled in toField()
+			// if($.isFunction(self.format)) {
+			// 	self.format.call(self);
+			// }
 
 			/*
 			 * check the type validation
@@ -1072,14 +1073,11 @@
 	 *
 	 * converter: used to convert data between "human" and transport formats (e.g. mm/dd/yyyy <-> yyyymmdd)
 	 *
-	 * format: attempt to format the human readable value (e.g. mm/ dd/yyyy -> mm/dd/yyyy, '  foo ' -> 'foo')
-	 *    format is called on before validate
-	 *
 	 * validate: returns an error object on error or undefined on success
 	 * err: {
 	 *   message: '',
-	 *   code: '',
-	 *   description: ''
+	 *   code: '', // not used
+	 *   description: '' // not used
 	 * }
 	 *
 	 */

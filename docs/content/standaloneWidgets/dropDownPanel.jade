@@ -14,7 +14,7 @@ br
 input#ddpBasicTarget1(value='This is a regular input with a drop down' style='width: 300px;')
 
 br
-.code(data-mode='html').
+code(data-mode='html').
 	<style>
 		#target0 {
 			background-color: #3D2B56;
@@ -33,7 +33,7 @@ br
 	</div>
 //- 
 
-.code(data-mode='javascript').
+code(data-mode='javascript').
 	var panel = $('#dropDownPanelBasic');
 
 	$('#panel').dropDownPanel({
@@ -68,7 +68,7 @@ p.
 	input(class='ddpInputFieldTarget0' style='width: 300px;'  data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input")
 	input(class='ddpInputFieldTarget1' style='width: 300px;'  data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input, targetInput=false")
 
-.code(data-mode='html').
+code(data-mode='html').
 	<div id="dropDownPanelInputField">
 		<p>
 			This is a generic dropdown. It can be used to add supporting information to an 
@@ -90,7 +90,7 @@ p.
 		<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input, targetInput=false" class="dropDownPanelInputFieldTarget1"/>
 	</form>
 //- 
-.code(data-mode='javascript').
+code(data-mode='javascript').
 	// Must initialize the form first
 	$('form#exampleForm').formBuilder();
 
@@ -115,13 +115,13 @@ p Here is an example using a custom type that uses a drop down in its setUp(). E
 	input(type='text' data-type='customLocation' style='width: 300px;' data-label='A customLocation type')
 	input(type='text' data-type='customLocation' style='width: 260px;' data-label='Another one' data-preinput="pre")
 
-.code(data-mode='html').
+code(data-mode='html').
 	<form id="exampleForm">
 		<input type="text" data-type="customLocation" style="width: 300px;" data-label="A customLocation type"/>
 		<input type="text" data-type="customLocation" style="width: 260px;" data-label="Another one" data-preinput="pre"/>
 	</form>
 
-.code(data-mode='javascript').
+code(data-mode='javascript').
 	$.formBuilder.inputField.types.customLocation = {
 		_dropDownTemplate:
 			'<div>' +

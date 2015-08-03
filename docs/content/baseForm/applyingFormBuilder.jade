@@ -7,16 +7,16 @@ p.
 		input(type='text' data-type='utext' data-label='Name')
 		input(type='text' data-type='email' data-label='Email')
 
-.code(data-mode='html' data-title='HTML (before initialization)').
+code(data-mode='html' data-title='HTML (before initialization)').
 	<form>
 		<input type="text" data-type="utext" data-label="Name"/>
 		<input type="text" data-type="email" data-label="Email"/>
 	</form>
 //- 
-.code(data-mode='javascript').
-	$('form').formBuilder();
+code(data-mode='javascript').
+	 $('form').formBuilder();
 //- 
-.code(data-mode='html' data-title='HTML (after initialization)').
+code(data-mode='html' data-title='HTML (after initialization)').
 	<form style="display: block;">
 		
 		<div class="input-field-group">
@@ -59,12 +59,12 @@ ul
 		set will hide the form while it is being constructed. Once complete, it 
 		will show the form.
 
-.code(data-mode='html' data-title='HTML (using attributes)').
+code(data-mode='html' data-title='HTML (using attributes)').
 	<form data-required="false" data-ignore-hidden="false" data-load-hidden="true">
 		....
 	</form>
 //- 
-.code(data-mode='javascript' data-title='JAVASCRIPT (using initialization)').
+code(data-mode='javascript' data-title='JAVASCRIPT (using initialization)').
 	$('form').formBuilder({
 		dataRequired: false,
 		ignoreHidden: false,

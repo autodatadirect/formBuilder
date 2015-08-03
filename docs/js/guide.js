@@ -480,7 +480,7 @@ ddp2.find('form').formBuilder();
 // ================= DEMO DISPLAY CODE BELOW ===================
 
 //- Handle code snippets
-$('.code').each(function(){
+$('code[data-mode]').each(function(){
 	var i;
 
 	//- get code snippet
@@ -512,9 +512,14 @@ $('.code').each(function(){
 		}
 	}
 
-	//- Fix special html chars
-	snippet = snippet.replace(/&quot;/g, "'");
-	snippet = snippet.replace(/&amp;/g, "&");
+	//- Un-escape special html chars
+	snippet = snippet
+				.replace(/&#39;/g, '\'')
+				.replace(/&quot;/g, '\"')
+				.replace(/&amp;/g, '&')
+				.replace(/&lt;/g, '<')
+				.replace(/&gt;/g, '>')
+				.replace('/&#35;/g', '#');
 
 	// Fix attributes with no value becoming =""
 	snippet = snippet.replace(/data\-((required)|(no\-sort)|(no\-filter)|(store\-utc)|(military)|(load\-hidden)|(ignore\-hidden)|(default\-required))=""/g, function(match) {

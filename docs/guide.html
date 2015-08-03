@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8">
     <title>jquery.formBuilder.js | User Guide</title>
-    <!-- ==================== External CSS Dependencies ==================== -->
+    <!-- ==================== External CSS Dependencies ====================-->
     <!-- Any jquery-ui theme-->
     <link type="text/css" rel="stylesheet" href="./css/Aristo.css">
-    <!-- ==================== bower CSS Dependencies ==================== -->
+    <!-- ===================== bower CSS Dependencies ======================-->
     <link type="text/css" rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
     <link type="text/css" rel="stylesheet" href="../bower_components/jquery-timepicker-jt/jquery.timepicker.css">
     <link type="text/css" rel="stylesheet" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css">
-    <!-- ==================== formBuilder CSS Dependencies ==================== -->
+    <!-- =================== formBuilder CSS Dependencies ==================-->
     <link type="text/css" rel="stylesheet" href="../dist/css/formBuilder.css">
-    <!-- Display purposes-->
+    <!-- ======================== Display purposes =========================-->
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
     <link type="text/css" rel="stylesheet" href="./css/codemirror.css">
     <link type="text/css" rel="stylesheet" href="./css/main.css">
@@ -67,8 +67,11 @@
           </li>
           <li><a href="#customization">Customization</a>
             <ul class="navDepth-1">
-              <li><a href="#customization-regexTypes">Creating Simple Regex Types</a></li>
-              <li><a href="#customization-fullTypes">Creating Full Custom Types</a></li>
+              <li><a href="#customization-creatingTypes">Creating Types</a></li>
+              <li><a href="#customization-creatingRegexTypes">Creating Regex Types</a></li>
+              <li><a href="#customization-creatingFieldWidgets">Creating Field Widgets</a></li>
+              <li><a href="#customization-addingLocaleSupport">Adding Locale Support</a></li>
+              <li><a href="#customization-customThemes">Custom Themes</a></li>
             </ul>
           </li>
           <li><a href="#demo">Live Demo</a>
@@ -95,15 +98,11 @@
                 <input type="text" data-type="utext" data-label="Name">
                 <input type="text" data-type="email" data-label="Email">
               </form>
-            </div>
-            <div data-mode="html" data-title="HTML (before initialization)" class="code">
+            </div><code data-mode="html" data-title="HTML (before initialization)">
               <form>
               	<input type="text" data-type="utext" data-label="Name"/>
               	<input type="text" data-type="email" data-label="Email"/>
-              </form>
-            </div>
-            <div data-mode="javascript" class="code">$('form').formBuilder();</div>
-            <div data-mode="html" data-title="HTML (after initialization)" class="code">
+              </form></code><code data-mode="javascript"> $('form').formBuilder();</code><code data-mode="html" data-title="HTML (after initialization)">
               <form style="display: block;">
               	
               	<div class="input-field-group">
@@ -128,8 +127,7 @@
               		</div>
               	</div>
               
-              </form>
-            </div>
+              </form></code>
             <p>Form element attributes may be added to specify different widget options. </p>
             <ul> 
               <li>
@@ -147,52 +145,42 @@
                 will show the form.
                 
               </li>
-            </ul>
-            <div data-mode="html" data-title="HTML (using attributes)" class="code">
+            </ul><code data-mode="html" data-title="HTML (using attributes)">
               <form data-required="false" data-ignore-hidden="false" data-load-hidden="true">
               	....
-              </form>
-            </div>
-            <div data-mode="javascript" data-title="JAVASCRIPT (using initialization)" class="code">
+              </form></code><code data-mode="javascript" data-title="JAVASCRIPT (using initialization)">
               $('form').formBuilder({
               	dataRequired: false,
               	ignoreHidden: false,
               	loadHidden: true
-              });
-            </div>
+              });</code>
           </div>
           <h2>Required Inputs<a name="baseForm-requiredInputs" class="anchor"></a></h2>
           <div class="section">
-            <p>The <i>data-required</i> attribute if <b>applied to the input element</b> will prevent form submission if it is not valid
-              <div class="example">
-                <form action="#" class="fb">
-                  <input type="text" data-label="Not Required">
-                  <input type="text" data-label="Required" data-required><br>
-                  <button type="submit">Check Inputs</button>
-                </form>
-              </div>
-              <div data-mode="html" class="code">
-                <form action='#'>
-                	<input type="text" data-label="Not Required">
-                	<input type="text" data-label="Required" data-required>
-                </form>
-              </div>
-            </p>
-            <p>The <i>data-default-required</i> attribute <b>applied to the form</b> element will set the default data-required state of all nested inputs
-              <div class="example">
-                <form action="#" data-default-required class="fb">
-                  <input type="text" data-label="Required" data-required>
-                  <input type="text" data-label="Still Required"><br>
-                  <button type="submit">Check Inputs</button>
-                </form>
-              </div>
-              <div data-mode="html" class="code">
-                <form action="#" data-default-required>
-                	<input type="text" data-label="Required" data-required>
-                	<input type="text" data-label="Still Required">
-                </form>
-              </div>
-            </p>
+            <p>The <i>data-required</i> attribute if <b>applied to the input element</b> will prevent form submission if it is not valid</p>
+            <div class="example">
+              <form action="#" class="fb">
+                <input type="text" data-label="Not Required">
+                <input type="text" data-label="Required" data-required><br>
+                <button type="submit">Check Inputs</button>
+              </form>
+            </div><code data-mode="html">
+              <form action='#'>
+              	<input type="text" data-label="Not Required">
+              	<input type="text" data-label="Required" data-required>
+              </form></code>
+            <p>The <i>data-default-required</i> attribute <b>applied to the form</b> element will set the default data-required state of all nested inputs</p>
+            <div class="example">
+              <form action="#" data-default-required class="fb">
+                <input type="text" data-label="Required" data-required>
+                <input type="text" data-label="Still Required"><br>
+                <button type="submit">Check Inputs</button>
+              </form>
+            </div><code data-mode="html">
+              <form action="#" data-default-required>
+              	<input type="text" data-label="Required" data-required>
+              	<input type="text" data-label="Still Required">
+              </form></code>
           </div>
           <h2>Using Namespace <a name="baseForm-usingNamespace" class="anchor"></a></h2>
           <div class="section">
@@ -200,21 +188,18 @@
               Objects that contain data from the form can be created and saved using formbuilder. In order to store an object with the data
               group your inputFields together using a common name, and then use dot notation to give each item its own unique identifier.
               
-            </p>
-            <div data-mode="html" class="code">
+            </p><code data-mode="html">
               <input type="text" name="example.one" data-type="text" data-label="Input One"/>
               <input type="text" name="example.two" data-type="text" data-label="Input Two"/>
               <input type="text" name="example.three" data-type="text" data-label="Input Three"/>
               <input type="text" name="example.four" data-type="text" data-label="Input Four"/>
-              
-            </div>
+              </code>
             <p>
               These objects can also be nested in order to create more specific groupings if desired. Say for example you wanted to 
               store two sets of information about a group of students, like their grade and their age. You could do it by having them all share 
               one name to be one big group, and then divide them up into two smaller groups using dot notation. 
               
-            </p>
-            <div data-mode="html" class="code">
+            </p><code data-mode="html">
               <input type="text" name="students.grade.amy" data-type="integer" data-label="Amy's Grade"/>
               <input type="text" name="students.grade.bob" data-type="integer" data-label="Bob's Grade"/>
               <input type="text" name="students.grade.caitlin" data-type="integer" data-label="Caitlin's Grade"/>
@@ -224,8 +209,7 @@
               <input type="text" name="students.age.bob" data-type="integer" data-label="Bob's Age"/>
               <input type="text" name="students.age.caitlin" data-type="integer" data-label="Caitlin's Age"/>
               <input type="text" name="students.age.david" data-type="integer" data-label="David's Age"/>
-              
-            </div>
+              </code>
             <p>For further insight on to how these objects store their data, look ahead to the data output in the <a href='#demo'>Live Demo</a>.</p>
           </div>
         </div>
@@ -233,136 +217,130 @@
         <div class="section">
           <h2>Preinput/Postinput<a name="fieldEnhancements-preinputPostinput" class="anchor"></a></h2>
           <div class="section">
-            <p>The <i>data-preinput</i> attribute adds a block of text before any input
-              <div class="example">
-                <input type="text" data-preinput="pre">
-              </div>
-            </p>
-            <p>The <i>data-postinput</i> attribute adds a block of text after any input
-              <div class="example">
-                <input type="text" data-postinput="post">
-              </div>
-            </p>
-            <p>Both can be used at the same time
-              <div class="example">
-                <input type="text" data-preinput="pre" data-postinput="post">
-              </div>
-              <div data-mode="html" class="code">
-                <input type="text" data-preinput="pre">
-                <input type="text" data-postinput="post">
-                <input type="text" data-preinput="pre" data-postinput="post">
-              </div>
-            </p>
+            <p>The <i>data-preinput</i> attribute adds a block of text before any input</p>
+            <div class="example">
+              <input type="text" data-preinput="pre">
+            </div>
+            <p>The <i>data-postinput</i> attribute adds a block of text after any input</p>
+            <div class="example">
+              <input type="text" data-postinput="post">
+            </div>
+            <p>Both can be used at the same time</p>
+            <div class="example">
+              <input type="text" data-preinput="pre" data-postinput="post">
+            </div><code data-mode="html">
+              <input type="text" data-preinput="pre">
+              <input type="text" data-postinput="post">
+              <input type="text" data-preinput="pre" data-postinput="post"></code>
           </div>
           <h2>Prefix/Suffix<a name="fieldEnhancements-prefixSuffix" class="anchor"></a></h2>
           <div class="section">
             <p>Will add text at front/end of form field that can only be visible once the user has begun entering text into the field</p>
-            <p>The <i>data-prefix</i>
-              <div class="example">
-                <input type="text" data-prefix="prefix">
-              </div>
-            </p>
-            <p>The <i>data-suffix</i>
-              <div class="example">
-                <input type="text" data-suffix="suffix">
-              </div>
-              <div data-mode="html" class="code">
-                <input type="text" data-prefix="prefix">
-                <input type="text" data-suffix="suffix">
-              </div>
-            </p>
+            <p>The <i>data-prefix</i></p>
+            <div class="example">
+              <input type="text" data-prefix="prefix">
+            </div>
+            <p>The <i>data-suffix</i></p>
+            <div class="example">
+              <input type="text" data-suffix="suffix">
+            </div><code data-mode="html">
+              <input type="text" data-prefix="prefix">
+              <input type="text" data-suffix="suffix"></code>
           </div>
           <h2>Labels<a name="fieldEnhancements-labels" class="anchor"></a></h2>
           <div class="section">
-            <p>The <i>data-label</i> attribute adds text above any input field
-              <div class="example">
-                <input type="text" data-label="Some Label Text">
-              </div>
-              <div data-mode="html" class="code"> <input type="text" data-label="Some Label Text"></div>
-            </p>
+            <p>The <i>data-label</i> attribute adds text above any input field</p>
+            <div class="example">
+              <input type="text" data-label="Some Label Text">
+            </div><code data-mode="html"> <input type="text" data-label="Some Label Text"></code>
           </div>
           <h2>Placeholder Text<a name="fieldEnhancements-placeholderText" class="anchor"></a></h2>
           <div class="section">
-            <p>The <i>data-empty</i> or <i>data-placeholder</i> attribute will display placeholder text when an input field is empty
-              <div class="example">
-                <input type="text" data-empty="some text (empty)">
-              </div>
-              <div class="example">
-                <input type="text" data-placeholder="some text (placeholder)">
-              </div>
-              <div data-mode="html" class="code">
-                <input type="text" data-empty="some text (empty)">
-                <input type="text" data-placeholder="some text (placeholder)">
-              </div>
-            </p>
+            <p>The <i>data-empty</i> or <i>data-placeholder</i> attribute will display placeholder text when an input field is empty</p>
+            <div class="example">
+              <input type="text" data-empty="some text (empty)">
+            </div>
+            <div class="example">
+              <input type="text" data-placeholder="some text (placeholder)">
+            </div><code data-mode="html">
+              <input type="text" data-empty="some text (empty)">
+              <input type="text" data-placeholder="some text (placeholder)"></code>
           </div>
           <h2>Max<a name="fieldEnhancements-max" class="anchor"></a></h2>
           <div class="section">
-            <p>the <i>data-max</i> attribute adds a maximum character requirement, enforced while typed
-              <div class="example">
-                <input type="text" data-label="Maximum of 10 chars" data-max="10">
-              </div>
-              <div data-mode="html" class="code">
-                <input type="text" data-label="Maxmum of 10 chars" data-max="10">
-                
-              </div>
-            </p>
+            <p>the <i>data-max</i> attribute adds a maximum character requirement, enforced while typed</p>
+            <div class="example">
+              <input type="text" data-label="Maximum of 10 chars" data-max="10">
+            </div><code data-mode="html">
+              <input type="text" data-label="Maxmum of 10 chars" data-max="10">
+              </code>
           </div>
           <h2>Input Groups<a name="fieldEnhancements-inputGroups" class="anchor"></a></h2>
           <div class="section">
-            <p>Use input groups to keep inputs inline
-              <div class="example">
-                <div class="input-field-group">
-                  <input type="text" data-label="input 1">
-                  <input type="text" data-label="input 2">
-                  <input type="text" data-label="input 3 w/ pre" data-preinput="pre">
-                  <p>This is done by simply coding each desired input directly after the one before it</p>
-                </div>
+            <p>Use input groups to keep inputs inline</p>
+            <div class="example">
+              <div class="input-field-group">
+                <input type="text" data-label="input 1">
+                <input type="text" data-label="input 2">
+                <input type="text" data-label="input 3 w/ pre" data-preinput="pre">
+                <p>This is done by simply coding each desired input directly after the one before it</p>
               </div>
-              <div data-mode="html" class="code">
-                <div class='input-field-group'>
-                	<input type="text" data-label="input 1">
-                	<input type="text" data-label="input 2">
-                	<input type="text" data-label="input 3 w/ pre" data-preinput="pre">
-                </div>
-              </div>
-            </p>
+            </div><code data-mode="html">
+              <div class='input-field-group'>
+              	<input type="text" data-label="input 1">
+              	<input type="text" data-label="input 2">
+              	<input type="text" data-label="input 3 w/ pre" data-preinput="pre">
+              </div></code>
           </div>
           <h2>Tooltip<a name="fieldEnhancements-tooltip" class="anchor"></a></h2>
           <div class="section">
-            <p>You can add a tooltip box <b>after a form field</b> that will display a hovering widget on-click. You need a div of class <i>tooltip</i> with an optional <i>title</i> attribute
-              <div class="example">
-                <input type="text">
-                <div title="Tooltip Example" class="tooltip">
-                  <h1>This is a tooltip</h1>
-                  <p>Paragraph One</p>
-                  <p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a>
-                </div>
+            <p>You can add a tooltip box <b>after a form field</b> that will display a hovering widget on-click. You need a div of class <i>tooltip</i> with an optional <i>title</i> attribute</p>
+            <div class="example">
+              <input type="text">
+              <div title="Tooltip Example" class="tooltip">
+                <h1>This is a tooltip</h1>
+                <p>Paragraph One</p>
+                <p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a>
               </div>
-              <div class="example">
-                <input type="text">
-                <div class="tooltip">
-                  <h1>This is a tooltip without a title</h1>
-                  <p>Paragraph One</p>
-                  <p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a>
-                </div>
+            </div>
+            <div class="example">
+              <input type="text">
+              <div class="tooltip">
+                <h1>This is a tooltip without a title</h1>
+                <p>Paragraph One</p>
+                <p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a>
               </div>
-              <div data-mode="html" class="code">
-                <input type="text">
-                <div title="Tooltip Title" class="tooltip">
-                	<h1>Tooltip Header</h1>
-                	<p>Paragraph One</p>
-                	<p>Paragraph Two</p><a href="http://add123.com">Link</a>
-                </div>
-              </div>
-            </p>
+            </div><code data-mode="html">
+              <input type="text">
+              <div title="Tooltip Title" class="tooltip">
+              	<h1>Tooltip Header</h1>
+              	<p>Paragraph One</p>
+              	<p>Paragraph Two</p><a href="http://add123.com">Link</a>
+              </div></code>
           </div>
         </div>
         <h1>Data Types<a name="dataTypes" class="anchor"></a></h1>
         <div class="section">
           <h2>Input Types<a name="dataTypes-inputTypes" class="anchor"></a></h2>
           <div class="section">
-            <p>The <i>data-type</i> attribute can be specifed to add content checking</p>
+            <p>
+              The <b>data-type</b> attribute on input elements is used by formBuilder to construct each 
+              type of field. FormBuilder comes with many types that do not require any extra coding. Custom 
+              types may also be created (see <a href='#customization'>Customization</a>).
+            </p>
+            <p>
+              FormBuilder types are recommended to be used on input elements of type "text" or "password". 
+              They cannot be used with "checkbox", "radio", or "submit" types, which each have their own
+              setups. Other HTML5 types may still work but are not suggested.
+              
+            </p>
+            <p>
+              To use a type, initialize the input's parent form as a formBuilder widget. The widget will 
+              automatically create the necessary inputField() widget on the input and manage its status. 
+              Alternatively, the inputField widget may be manually applied to an input outside of a 
+              formBuilder form (see <a href='./api.html#widgets-inputField'>inputField API Reference</a>).
+              
+            </p>
             <div class="example">
               <input type="text" data-label="no data-type"><span>No specified data type, will not throw errors for any input. </span>
             </div>
@@ -444,9 +422,8 @@
               <input type="text" data-label="formBuilder select" data-type="select" data-no-filter data-options="[		{&quot;value&quot;:&quot;submitted to form&quot;, &quot;label&quot;:&quot;Searched Item&quot;, &quot;showClass&quot;:&quot;aClass&quot;},		{&quot;value&quot;:&quot;true&quot;, &quot;label&quot;:&quot;Yes&quot;},		{&quot;value&quot;:&quot;false&quot;, &quot;label&quot;:&quot;No&quot;},		{&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 1&quot;},		{&quot;value&quot;:&quot;2&quot;, &quot;label&quot;:&quot;option 2&quot;},		{&quot;value&quot;:&quot;3&quot;, &quot;label&quot;:&quot;option 3&quot;},		{&quot;value&quot;:&quot;4&quot;, &quot;label&quot;:&quot;option 4&quot;},		{&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 5&quot;},		{&quot;value&quot;:&quot;100&quot;,  &quot;label&quot;:&quot;Some label&quot;},		{&quot;value&quot;:&quot;AAA&quot;,  &quot;label&quot;:&quot;123 Some St.&quot;},		{&quot;value&quot;:&quot;BBB&quot;,  &quot;label&quot;:&quot;Some Business Name Inc.&quot;},		{&quot;value&quot;:&quot;Hodor&quot;,  &quot;label&quot;:&quot;Bran&quot;}	]">
               <div class="aClass"></div>
             </div>
-            <p>The value is what is submitted to the form while the label is what the user can search for. <b>Note:</b> In this example the single quotes should be escaped double quotes.
-              <div data-mode="html" class="code">
-                <input type='text' data-label='formBuilder select' data-type='select' data-options='[
+            <p>The value is what is submitted to the form while the label is what the user can search for. <b>Note:</b> The data-options must be valid JSON with double quotes.<code data-mode="html">
+                &lt;input type='text' data-label='formBuilder select' data-type='select' data-options=&#39;[
                 		{"value":"submitted to form", "label":"Searched Item"},
                 		{"value":"true", "label":"Yes"},
                 		{"value":"false", "label":"No"},
@@ -459,8 +436,7 @@
                 		{"value":"AAA",  "label":"123 Some St."},
                 		{"value":"BBB",  "label":"Some Business Name Inc."},
                 		{"value":"Hodor",  "label":"Bran"}
-                	]'>
-              </div>
+                	]&#39;&gt;</code>
             </p>
             <p>The options in the select may be set with a function</p>
             <div class="example">
@@ -493,12 +469,10 @@
               <input type="checkbox" data-label="Some Checkbox">
               <input type="checkbox" data-label="A &lt;i&gt;fancy&lt;/i&gt; one!">
               <input type="checkbox" data-label="A required one" data-required="true">
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <input type="checkbox" data-label="Some Checkbox"/>
               <input type="checkbox" data-label="A <i>fancy</i> one!"/>
-              <input type="checkbox" data-label="A required one" data-required="true"/>
-            </div>
+              <input type="checkbox" data-label="A required one" data-required="true"/></code>
             <p>
               Checkboxes can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
               checkboxes can be aligned horizontally with the <b>selection-horizontal</b> class.
@@ -510,14 +484,12 @@
                 <input type="checkbox" data-label="A &lt;i&gt;fancy&lt;/i&gt; one!">
                 <input type="checkbox" data-label="A required one" data-required="true">
               </div>
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <div class="selection-field-group selection-horizontal">
               	<input type="checkbox" data-label="Some Checkbox"/>
               	<input type="checkbox" data-label="A <i>fancy</i> one!"/>
               	<input type="checkbox" data-label="A required one" data-required="true"/>
-              </div>
-            </div>
+              </div></code>
           </div>
           <h2>Radio Groups<a name="dataTypes-radio" class="anchor"></a></h2>
           <div class="section">
@@ -541,16 +513,14 @@
               <input type="radio" name="radioExample2" data-label="Required Option one" data-required="true" value="one">
               <input type="radio" name="radioExample2" data-label="Required Option two" value="two">
               <input type="radio" name="radioExample2" data-label="Required Option three" value="three">
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <input type="radio" name="radioExample1" data-label="Option one" value="one"/>
               <input type="radio" name="radioExample1" data-label="Option two" value="two"/>
               <input type="radio" name="radioExample1" data-label="Option three" value="three"/>
               <br/>
               <input type="radio" name="radioExample2" data-label="Required Option one" data-required="true" value="one"/>
               <input type="radio" name="radioExample2" data-label="Required Option two" value="two"/>
-              <input type="radio" name="radioExample2" data-label="Required Option three" value="three"/>
-            </div>
+              <input type="radio" name="radioExample2" data-label="Required Option three" value="three"/></code>
             <p>
               Radio boxes can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
               radio boxes can be aligned horizontally with the <b>selection-horizontal</b> class.
@@ -562,22 +532,19 @@
                 <input type="radio" name="radioExample3" data-label="Option two" value="two">
                 <input type="radio" name="radioExample3" data-label="Option three" value="three">
               </div>
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <div class="selection-field-group selection-horizontal">
               	<input type="radio" name="radioExample3" data-label="Option one" value="one"/>
               	<input type="radio" name="radioExample3" data-label="Option two" value="two"/>
               	<input type="radio" name="radioExample3" data-label="Option three" value="three"/>
-              </div>
-            </div>
+              </div></code>
           </div>
           <h2>Textarea<a name="dataTypes-textarea" class="anchor"></a></h2>
           <div class="section">
-            <p>No extra attributes are required. Note: pre/post-inputs will be placed on the outside of this area.
-              <div class="example">
-                <textarea rows="3" data-label="TextArea"></textarea>
-              </div>
-            </p>
+            <p>No extra attributes are required. Note: pre/post-inputs will be placed on the outside of this area.</p>
+            <div class="example">
+              <textarea rows="3" data-label="TextArea"></textarea>
+            </div>
           </div>
           <h2>Array Field<a name="dataTypes-arrayField" class="anchor"></a></h2>
           <div class="section">
@@ -594,13 +561,13 @@
               <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField">
                 <input type="text" data-type="utext" data-placeholder="a utext input">
               </div>
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField">
               	<input type="text" data-type="utext" data-placeholder="a utext input">
               </div>
             </div>
             <p>By adding more inputs to the arrayField div, you add more inputs to the input-field-group.</p>
+            </p>
             <div class="example">
               <div name="arrayFieldExampleMultiple" data-load-widget-as-field="arrayField">
                 <input type="text" data-type="utext" data-placeholder="a utext input">
@@ -620,23 +587,19 @@
               <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
                 <input type="text" data-type="utext">
               </div>
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
               	<input type="text" data-type="utext">
-              </div>
-            </div>
+              </div></code>
             <p>ArrayFields can have labels like other fields</p>
             <div class="example">
               <div name="arrayFieldExampleLabel" data-load-widget-as-field="arrayField" data-label="Some label">
                 <input name="someInput" type="text" data-type="utext">
               </div>
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-label="Some label">
               	<input type="text" data-type="utext">
-              </div>
-            </div>
+              </div></code>
           </div>
         </div>
         <h1>Standalone Widgets<a name="standaloneWidgets" class="anchor"></a></h1>
@@ -681,8 +644,7 @@
             <div id="ddpExampleBasic">
               <p>This is a basic dropdown with just a paragraph inside.</p>
             </div><span id="ddpBasicTarget0">This is a span with a drop down</span><br>
-            <input id="ddpBasicTarget1" value="This is a regular input with a drop down" style="width: 300px;"><br>
-            <div data-mode="html" class="code">
+            <input id="ddpBasicTarget1" value="This is a regular input with a drop down" style="width: 300px;"><br><code data-mode="html">
               <style>
               	#target0 {
               		background-color: #3D2B56;
@@ -698,9 +660,7 @@
               
               <div id="panel">
               	<p>This is a basic dropdown with just a paragraph inside.</p>
-              </div>
-            </div>
-            <div data-mode="javascript" class="code">
+              </div></code><code data-mode="javascript">
               var panel = $('#dropDownPanelBasic');
               
               $('#panel').dropDownPanel({
@@ -709,8 +669,7 @@
               
               $('<div>A drop down panel is just a normal container</div>').dropDownPanel({
               	target: $('#target1')
-              });
-            </div>
+              });</code>
             <p>
               When used on an input field, a drop down will target the first input by default, rather than all of its other field items with it. 
               This can be disabled by setting the <b>targetInput</b> option to <b>false</b>
@@ -736,8 +695,7 @@
               <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="no dropdown">
               <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input" class="ddpInputFieldTarget0">
               <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input, targetInput=false" class="ddpInputFieldTarget1">
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <div id="dropDownPanelInputField">
               	<p>
               		This is a generic dropdown. It can be used to add supporting information to an 
@@ -757,9 +715,7 @@
               	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="no dropdown"/>
               	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input" class="dropDownPanelInputFieldTarget0"/>
               	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input, targetInput=false" class="dropDownPanelInputFieldTarget1"/>
-              </form>
-            </div>
-            <div data-mode="javascript" class="code">
+              </form></code><code data-mode="javascript">
               // Must initialize the form first
               $('form#exampleForm').formBuilder();
               
@@ -775,21 +731,17 @@
               });
               
               ddp.find('form').formBuilder();
-              ddp2.find('form').formBuilder();
-            </div>
+              ddp2.find('form').formBuilder();</code>
             <p>Here is an example using a custom type that uses a drop down in its setUp(). Each type instance will have its own dropDownPanel instance and container.</p>
             <div class="example">
               <input type="text" data-type="customLocation" style="width: 300px;" data-label="A customLocation type">
               <input type="text" data-type="customLocation" style="width: 260px;" data-label="Another one" data-preinput="pre">
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <form id="exampleForm">
               	<input type="text" data-type="customLocation" style="width: 300px;" data-label="A customLocation type"/>
               	<input type="text" data-type="customLocation" style="width: 260px;" data-label="Another one" data-preinput="pre"/>
               </form>
-              
-            </div>
-            <div data-mode="javascript" class="code">
+              </code><code data-mode="javascript">
               $.formBuilder.inputField.types.customLocation = {
               	_dropDownTemplate:
               		'<div>' +
@@ -925,8 +877,7 @@
               };
               
               // Initialze the form
-              $('form#exampleForm').formBuilder();
-            </div>
+              $('form#exampleForm').formBuilder();</code>
             
             
             
@@ -966,7 +917,84 @@
         </div>
         <h1>Customization<a name="customization" class="anchor"></a></h1>
         <div class="section">
-          <h2>Creating Simple Regex Types<a name="customization-regexTypes" class="anchor"></a></h2>
+          <h2>Creating Types<a name="customization-creatingTypes" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              FormBuilder input types are stored as normal objects, and new types may be added to formBuilder in 
+              order to specialize forms for fit your needs. All custom type objects must be added to the 
+              <b>$.formBuilder.inputField.types</b> object. The properties of the type objects are used as 
+              prototypes when creating instances of each type. The type must be defined in the types object before 
+              the inputField is initialized on the input element or it will default to type "text".
+              
+            </p>
+            <p>
+              In order to work correctly with formBuilder, each type must have a set of base methods. These are 
+              listed <a href='./api.html#inputTypes-standard' target='_blank'>here</a> in the API Reference. Below 
+              is an example a full custom type. This is a very simple type to represent and format U.S. Social Security Numbers. 
+              <b>Note:</b> If you were to make your own SSN type it is suggested to make it more complex.
+              
+              
+            </p>
+            <div class="example"> 
+              <input type="text" data-label="Custom &quot;SSN&quot; type" data-type="SSN">
+            </div><code data-mode="html">
+              <form id='fullCustomTypeForm' action='#'>
+              	<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
+              </form></code><code data-mode="javascript">
+              $.extend($.formBuilder.inputField.types,{
+              	'SSN': {
+              		setUp: function(ifw) {
+              			var self = this,
+              				e = ifw.element;
+              
+              			//- Set the characters a user can enter
+              			e.inputFilter({
+              				pattern: /[0-9]/,
+              				max: 12
+              			});
+              
+              			//- Replace the input with a formatted input
+              			e.on('blur keydown', function(){
+              				e.val(self.format(e.val()));
+              			});
+              		},
+              		converter: {
+              			toField: function(value, ifw) {
+              				return this.format(value);
+              			},
+              			fromField: function(value, ifw) {
+              				return this.format(value);
+              			}
+              		},
+              		validate: function(ifw) {
+              			if(!this.format(ifw.element.val()).match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{4}$/))
+              				return {
+              					message: 'invalid'
+              				};
+              		},
+              
+              		//- This is an extra function specifically for this type
+              		format: function(text) {
+              			if(!text)
+              				return '';
+              
+              			//- Remove non-digits
+              			text = text.replace(/[^0-9]/g,'');
+              			text = text.substring(0, 10);
+              
+              			//- add correct dashes
+              			if(text.length &lt;= 4)
+              				return text;
+              			else if(text.length &lt;= 6)
+              				return text.substring(0,4) + '-' + text.substring(4);
+              			else
+              				return  text.substring(0,4) + '-' + text.substring(4,6) + '-' + text.substring(6);
+              		}
+              	} 
+              });
+              $('fullCustomTypeForm').formBuilder();</code>
+          </div>
+          <h2>Creating Regex Types<a name="customization-creatingRegexTypes" class="anchor"></a></h2>
           <div class="section">
             <p>You can add your own input types using just regex very easily.</p>
             <div class="example">
@@ -977,15 +1005,12 @@
             </div>
             <div class="example">
               <input type="text" data-label="Custom &quot;luckySeven&quot; type" data-type="luckySeven">
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <form id='simpleCustomTypeForm' action='#'>
               	<input type='text' data-label='Custom "swear" type' data-type='swear'>
               	<input type='text' data-label='Custom "theLetterF" type' data-type='theLetterF'>
               	<input type='text' data-label='Custom "luckySeven" type' data-type='luckySeven'>
-              </form>
-            </div>
-            <div data-mode="javascript" class="code">
+              </form></code><code data-mode="javascript">
               $.extend($.formBuilder.inputField.types,{
               	'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
               	'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
@@ -993,76 +1018,14 @@
               		}),
               	'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
               });
-              $('simpleCustomTypeForm').formBuilder();
-            </div>
+              $('simpleCustomTypeForm').formBuilder();</code>
           </div>
-          <h2>Creating Full Custom Types<a name="customization-fullTypes" class="anchor"></a></h2>
-          <div class="section">
-            <p>You may also create new types if you provide all the needed base type functions.
-              <div class="example">
-                <input type="text" data-label="Custom &quot;SSN&quot; type" data-type="SSN">
-              </div>
-              <div data-mode="html" class="code">
-                <form id='fullCustomTypeForm' action='#'>
-                	<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
-                </form>
-              </div>
-              <div data-mode="javascript" class="code">
-                $.extend($.formBuilder.inputField.types,{
-                	'SSN': {
-                		setUp: function(ui) {
-                			var self = this,
-                				e = ui.element;
-                
-                			//- Set the characters a user can enter
-                			e.inputFilter({
-                				pattern: /[0-9]/,
-                				max: 12
-                			});
-                
-                			//- Replace the input with a formatted input
-                			e.on('blur keydown', function(){
-                				e.val(self.format(e.val()));
-                			});
-                		},
-                		converter: {
-                			toField: function(value, ui) {
-                				return this.format(value);
-                			},
-                			fromField: function(value, ui) {
-                				return this.format(value);
-                			}
-                		},
-                		validate: function(ui) {
-                			if(!this.format(ui.element.val()).match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{4}$/))
-                				return {
-                					message: 'invalid'
-                				};
-                		},
-                
-                		//- This is an extra function specifically for this type
-                		format: function(text) {
-                			if(!text)
-                				return '';
-                
-                			//- Remove non-digits
-                			text = text.replace(/[^0-9]/g,'');
-                			text = text.substring(0, 10);
-                
-                			//- add correct dashes
-                			if(text.length <= 4)
-                				return text;
-                			else if(text.length <= 6)
-                				return text.substring(0,4) + '-' + text.substring(4);
-                			else
-                				return  text.substring(0,4) + '-' + text.substring(4,6) + '-' + text.substring(6);
-                		}
-                	} 
-                });
-                $('fullCustomTypeForm').formBuilder();
-              </div>
-            </p>
-          </div>
+          <h2>Creating Field Widgets<a name="customization-creatingFieldWidgets" class="anchor"></a></h2>
+          <div class="section"></div>
+          <h2>Adding Locale Support<a name="customization-addingLocaleSupport" class="anchor"></a></h2>
+          <div class="section"></div>
+          <h2>Custom Themes<a name="customization-customThemes" class="anchor"></a></h2>
+          <div class="section"></div>
         </div>
         <h1>Live Demo<a name="demo" class="anchor"></a></h1>
         <div class="section">
@@ -1399,16 +1362,16 @@
         </div>
       </div>
     </div>
-    <!-- Bower JS Dependencies (using CDNs for demo)-->
+    <!-- =========== Bower JS Dependencies (using CDNs for demo) ===========-->
     <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="../bower_components/spinjs/spin.min.js"></script>
     <script type="text/javascript" src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js"></script>
-    <!-- formBuilder Dependencies-->
+    <!-- ===================== formBuilder Dependencies ====================-->
     <script type="text/javascript" src="../dist/jquery.formBuilder.min.js"></script>
-    <!-- Extra for displaying-->
+    <!-- ====================== Extra for displaying =======================-->
     <script type="text/javascript" src="./js/codemirror.js"></script>
     <script type="text/javascript" src="./js/codemirror-compressed.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
