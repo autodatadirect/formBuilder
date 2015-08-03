@@ -2,6 +2,12 @@ p.
 	Objects that contain data from the form can be created and saved using formbuilder. In order to store an object with the data
 	group your inputFields together using a common name, and then use dot notation to give each item its own unique identifier.
 
+code(data-mode='html').
+	<input type="text" name="example.one" data-type="text" data-label="Input One"/>
+	<input type="text" name="example.two" data-type="text" data-label="Input Two"/>
+	<input type="text" name="example.three" data-type="text" data-label="Input Three"/>
+	<input type="text" name="example.four" data-type="text" data-label="Input Four"/>
+
 p.
 	These objects can also be nested in order to create more specific groupings if desired. Say for example you wanted to 
 	store two sets of information about a group of students, like their grade and their age. You could do it by having them all share 
