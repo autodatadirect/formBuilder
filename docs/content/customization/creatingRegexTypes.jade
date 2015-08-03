@@ -1,7 +1,11 @@
-p You can add your own input types using just regex very easily.
+p.
+	Custom types that only need regex validation and key input filtering can be easily 
+	generated using the <code>$.formBuilder.inputField.createRegexType</code> function. 
+
 .example: input(type='text' data-label='Custom "swear" type' data-type='swear')
 .example: input(type='text' data-label='Custom "theLetterF" type' data-type='theLetterF')
 .example: input(type='text' data-label='Custom "luckySeven" type' data-type='luckySeven')
+
 code(data-mode='html').
 	<form id='simpleCustomTypeForm' action='#'>
 		<input type='text' data-label='Custom "swear" type' data-type='swear'>
@@ -9,6 +13,7 @@ code(data-mode='html').
 		<input type='text' data-label='Custom "luckySeven" type' data-type='luckySeven'>
 	</form>
 //- 
+
 code(data-mode='javascript').
 	$.extend($.formBuilder.inputField.types,{
 		'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),

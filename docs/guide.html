@@ -128,31 +128,36 @@
               	</div>
               
               </form></code>
-            <p>Form element attributes may be added to specify different widget options. </p>
+            <p>Form element attributes/options may be added to specify different widget options. </p>
             <ul> 
               <li>
-                The <b>data-required</b> attribute or <b>dataRequired</b> option sets 
+                The <code>data-required</code> attribute or <code>dataRequired</code> option sets 
                 the default require statuses for all fields in the form.
               </li>
               <li>
-                The <b>data-ignore-hidden</b> attribute or <b>ignoreHidden</b> option when 
+                The <code>data-ignore-hidden</code> attribute or <code>ignoreHidden</code> option when 
                 set will ignore fields that are not visible. They will not be validated 
                 nor will any data be retrieved from them.
               </li>
               <li>
-                The <b>data-load-hidden</b> attribute or <b>loadHidden</b> option when 
+                The <code>data-load-hidden</code> attribute or <code>loadHidden</code> option when 
                 set will hide the form while it is being constructed. Once complete, it 
                 will show the form.
                 
               </li>
             </ul><code data-mode="html" data-title="HTML (using attributes)">
-              <form data-required="false" data-ignore-hidden="false" data-load-hidden="true">
+              <form id="formExampleDefaults">
+              	....
+              </form>
+              <form id="formExampleChanged" data-required data-ignore-hidden data-load-hidden="false">
               	....
               </form></code><code data-mode="javascript" data-title="JAVASCRIPT (using initialization)">
-              $('form').formBuilder({
-              	dataRequired: false,
-              	ignoreHidden: false,
-              	loadHidden: true
+              $('form#formExampleDefaults').formBuilder();
+              
+              $('form#formExampleChanged').formBuilder({
+              	dataRequired: true, // Default = false
+              	ignoreHidden: true, // Default = false
+              	loadHidden: false // Default = true
               });</code>
           </div>
           <h2>Required Inputs<a name="baseForm-requiredInputs" class="anchor"></a></h2>
@@ -986,7 +991,11 @@
           </div>
           <h2>Creating Regex Types<a name="customization-creatingRegexTypes" class="anchor"></a></h2>
           <div class="section">
-            <p>You can add your own input types using just regex very easily.</p>
+            <p>
+              Custom types that only need regex validation and key input filtering can be easily 
+              generated using the <code>$.formBuilder.inputField.createRegexType</code> function. 
+              
+            </p>
             <div class="example">
               <input type="text" data-label="Custom &quot;swear&quot; type" data-type="swear">
             </div>

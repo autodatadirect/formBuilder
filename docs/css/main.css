@@ -23,6 +23,14 @@ button:disabled {
 }
 
 
+code:not([data-mode]) {
+	background-color: #D8D8D8;
+	padding-left: 2px;
+	padding-right: 2px;
+	font-size: .85em;
+	border-radius: 4px;
+}
+
 
 /********************************************************
  * Page Layout
