@@ -21,16 +21,16 @@ p The <i>data-type</i> attribute can be specifed to add content checking
 	input(type='text' data-label='email' data-type='email')
 	span For email inputs. The correct format is a username, then a single '@', then an alphanumeric domain name, then a single '.', then a alphabetic domain extension 2-4 characters in length. 
 .example
-	input(type='text' data-label='money: default' data-type='money')
+	input(type='text' data-label='money' data-type='money')
 	span For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur.
 .example
-	input(type='text' data-label='money: custom currency symbol' data-type='money' data-currency-symbol ='&pound;')
-	input(type='text' data-type='money' data-show-symbol='false')
-	span In addition, a box with a '$' (by default) is prepended to the left of the field with a weight of -100. To change the currency symbol, set it with the <b>data-currency-symbol</b> attribute. To not show any currency symbol, set the <b>data-show-symbol</b> attribute to false.
+	input(type='text' data-label='money (custom currency symbol)' data-type='money' data-currency-symbol ='&pound;')
+	input(type='text' data-label='money (no symbol)' data-type='money' data-hide-symbol)
+	span In addition, an addon with a '$' (by default) is prepended to the left of the field with a weight of -100. To change the currency symbol, set it with the <b>data-currency-symbol</b> attribute. To not show any currency symbol, add the <b>data-hide-symbol</b> attribute.
 .example
-	input(type='text' data-label='money: max and min attributes' data-type='money' data-max-amount="10.00")
-	input(type='text' data-type='money' data-min-amount="10.00")
-	input(type='text' data-type='money' data-min-amount="10.00" data-max-amount='100.00')
+	input(type='text' data-label='money ($10.00 max)' data-type='money' data-max-amount="10.00")
+	input(type='text' data-label='money ($10.00 min)' data-type='money' data-min-amount="10.00")
+	input(type='text' data-label='money ($10.00 min, $100.00 max)' data-type='money' data-min-amount="10.00" data-max-amount='100.00')
 	span Max and min amounts for money can be set using the <b>data-max-amount</b> and/or the <b>data-min-amount</b>. An error message will be displayed if too large or too small an amount is entered.
 .example
 	input(type='text' data-label='phone' data-type='phone')
@@ -42,10 +42,14 @@ p The <i>data-type</i> attribute can be specifed to add content checking
 	input(type='text' data-label='date' data-type='date')
 	span For entering dates in the 'MM/DD/YYYY' format. A user may manually type the date or click the calendar icon to reveal a jquery ui popup calendar. This icon is inside appended to the right of the field with a weight of 0. 
 .example
+	input(type='text' data-label='time' data-type='time')
+	input(type='text' data-label='time (military)' data-type='time' data-military)
+	span For entering times. The <b>data-military</b> attribute may be set to display times in military time.
+.example
 	input(type='text' data-label='dateTime' data-type='dateTime')
 	span For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM format. Works the same way as date, but also checks for a valid time. The calendar picker will set the time to noon.
 .example
-	input(type='text' data-label='dateTime' data-type='dateTime' data-military='true')
+	input(type='text' data-label='dateTime' data-type='dateTime' data-military)
 	span For entering military times, performs in the same way as dateTime except time is 24 hours and does not include AM/PM
 .example
 	input(type='text' data-label='display' data-type='display' value='Some value')

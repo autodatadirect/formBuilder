@@ -66,7 +66,7 @@ describe('The money data-type', function(){
 		});
 
 		it('that can be set to not be displayed', function(){
-			var input = $('<input type="text" data-type="'+typeName+'" data-show-symbol="true/>').wrap('<div/>').inputField();
+			var input = $('<input type="text" data-type="'+typeName+'" data-hide-symbol />').wrap('<div/>').inputField();
 			
 			expect(input.parent().siblings().length).toBe(0);
 		});

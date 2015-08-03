@@ -724,8 +724,11 @@
 				e = self.element;
 
 			// Reload settings
-			self.typeOptions = {};
-			util.loadDomToggleData(e, self.typeOptions, ['noSort', 'noFilter']);
+			var o = self.typeOptions = {
+				filterMin: 5
+			};
+			util.loadDomToggleData(e, o, ['noSort']);
+			util.loadDomData(e, o, ['filterMin']);
 
 			// Clear any selected option 
 			self.clear(true);
@@ -747,7 +750,7 @@
 				 * hide the filter if less then five items are returned
 				 */
 				if (self.filter && self.filter.data('inputField')) {
-					if(self.typeOptions.noFilter || source.length < 5) {
+					if(source.length < o.filterMin) {
 						self.filter.inputField('hide');
 					}else{
 						self.filter.inputField('show');

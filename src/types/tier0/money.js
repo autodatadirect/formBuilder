@@ -2,8 +2,10 @@
  * Data type 'money'
  *
  * Attribute Settings:
- * data-currency-symbol (default=$) - Can modify currency symbol to any other symbol
- * data-show-symbol (default=true) - Choose whether or not to show currency symbol 
+ * data-currency-symbol (default='$') - Can modify currency symbol to any other symbol
+ * data-hide-symbol (default=false) - Choose whether or not to show currency symbol 
+ * data-max-amount
+ * data-min-amount
  */
 
 (function($){
@@ -11,10 +13,11 @@
 
 	var types = $.formBuilder.inputField.types;
 	var dict = $.formBuilder.lang.dict;
+	var util = $.formBuilder.util;
 
 	types.money = {
 
-		attributes: ['currency-symbol', 'show-symbol', 'max-amount', 'min-amount'],
+		attributes: ['currency-symbol', 'hide-symbol', 'max-amount', 'min-amount'],
 
 		setUp: function (ifw) {
 			var self = this,
@@ -22,10 +25,11 @@
 
 			self.element = e;
 
-			self.currency = e.data('currency-symbol');
-			self.showSymbol = e.data('show-symbol');
-			self.max = e.data('max-amount');
-			self.min = e.data('min-amount');
+			var o = self.typeOptions = {
+				currencySymbol: '$'
+			};
+			util.loadDomData(e, o, ['currencySymbol', 'maxAmount', 'minAmount']);
+			util.loadDomToggleData(e, o, ['hideSymbol']);
 
 			e.inputFilter({
 				pattern: /[0-9\.]/
@@ -35,14 +39,9 @@
 				e.val(self.format(e.val()));
 			});
 
-			if(self.showSymbol === undefined || !!self.showSymbol)
-			{
-				if(!self.currency) {
-					ifw.addOn(-100, '$');
-				} else {
-					ifw.addOn(-100, self.currency);
-				}
-			}	
+			if(!o.hideSymbol) {
+				ifw.addOn(-100, o.currencySymbol);
+			}
 
 		},
 		_onChange: function () {
@@ -94,18 +93,19 @@
 		},
 
 		validate: function(ifw){
-			var self = this; 
+			var self = this,
+				o = self.typeOptions;
 
-			if(self.max || self.min){
+			if(o.maxAmount || o.minAmount){
 				var e = ifw.element,
 					enteredAmount = +ifw.get();
 
-				if(self.max && enteredAmount > self.max){
+				if(o.maxAmount && enteredAmount > o.maxAmount){
 					return {
 						message: dict.over
 					};
 				}
-				if(self.min && enteredAmount < self.min){
+				if(o.minAmount && enteredAmount < o.minAmount){
 					return {
 						message: dict.under
 					};

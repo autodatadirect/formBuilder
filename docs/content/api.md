@@ -406,8 +406,13 @@ Instead of using the normal select tag, you can use an *input* tag with **data-t
     - **data-default** *Optional* Can be used to set what the default selection will be in the case that no selection is made. This is available as an alternative to the first non-empty option being selected. 
     - **data-empty-label** *Optional* Can be used to create an option with a label but no value. Will set the label of an option to the value that the user sets the data-empty label to and will set the value to ''
     - **data-no-sort** *Optional* Can be set to true, or 1, by the user to prevent the options from being sorted alphabetically. 
-    - **showClass** *Optional* Set the showClass equal to a class that you wish to be able to show or hide based on the user's click on the item where showClass is set. In order for this functionality to work the showClass must be placed inside of the same formbuilder form that the select input is. *Do not apply this option directly to inputFields, you must wrap all fields that you wish to be hidden in a div and then apply the showClass option to the outer div*
+    - **data-filter-min** The minimum amount of options required until the search filter in the dropdown is shown. **Default:** `5`.
     - **data-options** *Required.* String representation of a JSON array of objects each containing a "value" and a "label".
+        + Select Option Properties
+            * **value** *Required.* The value of the option
+            * **label** *Required.* The label of the option which a user will see.
+            * **showClass** *(string) Optional* Set the showClass equal to a class that you wish to be able to show or hide based on the user's click on the item where showClass is set. In order for this functionality to work the class must be placed inside of the same formbuilder form that the select input is. *Do not use classes directly on inputFields. Instead, wrap all fields that you wish to be hidden in a div and then apply the showClass option to the outer div*
+    
 * Methods (public)
     - **setUp(*widget* inputWidget)** Sets up the select type by wrapping it in the appropriate containers and html and appending it to the form. Also handles events such as 'click', 'mouseenter', 'mouseleave', 'keydown', and 'keyup'. Also writes a closeListener method that can handle certain key presses and closing the panel. 
     - **showHideCommand()** If there are no sections, or no showClass, then return. Otherwise hide the sections and show the class. 
@@ -510,11 +515,11 @@ dateTime is a data type that is a combination of the two inputfields, date and t
 ## money
 Data type used to allow for the input of monetary amounts into an inputfield. Allows the user to type amount into the inputfield but if they type an incorrect value it will not allow anything to be entered. 
 
-* Options 
-    - **currency-symbol** User can set this value to equal any symbol they want. Will be used to change the symbol that appears in the prefix of the input field. Can be used to change the money symbol and allow for international currency. **Default** undefined (will be set to $ when undefined)
-    - **show-symbol** User can set this value to true or false depending on whether or not they wish to show a currency symbol in  the prefix of the inputfield **Default** undefined (will show a symbol)
-    - **max-amount** User can set the max amount that will be allowed to be entered in the field. If more than this amount is entered into the field then an error message will be displayed. 
-    - **min-amount** User can set the min amount that will be allowed to be entered in the field. If less than this amount is entered into the field then an error message will be displayed. 
+* Attribute Options 
+    - **data-currency-symbol** User can set this value to equal any symbol they want. Will be used to change the symbol that appears in the prefix of the input field. Can be used to change the money symbol and allow for international currency. **Default** undefined (will be set to $ when undefined)
+    - **data-hide-symbol** When set, the currency symbol attribute will not be displayed.
+    - **data-max-amount** User can set the max amount that will be allowed to be entered in the field. If more than this amount is entered into the field then an error message will be displayed. 
+    - **data-min-amount** User can set the min amount that will be allowed to be entered in the field. If less than this amount is entered into the field then an error message will be displayed. 
 * Methods (public)
     - **setUp(ifw)** Sets all of the options to their values, determines if the currency symbol should be displayed or not. Also sets up the inputFilter. 
     - **format(money)** Ensures that what the user is typing in is in the correct format with only one decimal. If an incorrect format is entered then the method will return ''.
