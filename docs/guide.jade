@@ -15,7 +15,7 @@ block sideNav
 		ul.navDepth-1
 			li.current: a(href='#baseForm-applyingFormBuilder') Applying formBuilder
 			li: a(href='#baseForm-requiredInputs') Required Inputs
-			li: a(href='#baseForm-nameObjects') Name Objects 
+			li: a(href='#baseForm-usingNamespace') Using Namespace
 
 	li
 		a(href='#fieldEnhancements') Field Enhancements
@@ -44,6 +44,7 @@ block sideNav
 			li: a(href='#standaloneWidgets-dateTimeRangePicker') Date Time Range Picker
 			li: a(href='#standaloneWidgets-dropDownPanel') Drop Down Panel
 			li: a(href='#standaloneWidgets-textSubmitter') Text Submitter
+			li: a(href='#standaloneWidgets-submitButton') Submit Button
 
 	li
 		a(href='#customization') Customization
@@ -72,9 +73,9 @@ block content
 			a.anchor(name='baseForm-requiredInputs')
 		.section: include content/baseForm/requiredInputs
 
-		h2 Name Objects 
-			a.anchor(name='baseForm-nameObjects')
-		.section: include content/baseForm/nameObjects 
+		h2 Using Namespace 
+			a.anchor(name='baseForm-usingNamespace')
+		.section: include content/baseForm/usingNamespace
 
 
 
@@ -149,18 +150,14 @@ block content
 
 	h1 Standalone Widgets
 		a.anchor(name='standaloneWidgets')
-			
+	.section
 		h2 Date Range Picker
 			a.anchor(name='standaloneWidgets-dateRangePicker')
-		.example
-			p The Date-Range Picker creates two input fields for a beginning and ending date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and follows its rules for validation.
-			.dateRange
+		.section: include content/standaloneWidgets/dateRangePicker
 
 		h2 Date Time Range Picker
 			a.anchor(name='standaloneWidgets-dateTimeRangePicker')
-		.example
-			p The Date-Time-Range Picker creates two input fields for a beginning and ending date and also inclues time fields for each date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and the time-data type and follows their rules for validation. If no time is selected, then the time fields will default to 12:00am and 11:59pm.
-			.dateTimeRange
+		.section: include content/standaloneWidgets/dateTimeRangePicker
 		
 		h2  Drop Down Panel
 			a.anchor(name='standaloneWidgets-dropDownPanel')
@@ -169,6 +166,10 @@ block content
 		h2  Text Submitter
 			a.anchor(name='standaloneWidgets-textSubmitter')
 		.section: include content/standaloneWidgets/textSubmitter
+
+		h2  Submit Button
+			a.anchor(name='standaloneWidgets-submitButton')
+		.section: include content/standaloneWidgets/submitButton
 				
 
 

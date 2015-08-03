@@ -6,8 +6,9 @@ a, a:hover, a:active, a:visited {
 	text-decoration: none;
 }
 
-.content li a, .content li a:hover, .content li a:active, .content li a:visited
-p a, p a:hover, p a:active, p a:visited {
+.content li a, .content li a:hover, .content li a:active, .content li a:visited,
+p a, p a:hover, p a:active, p a:visited,
+span a, span a:hover, span a:active, span a:visited {
 	color: #63B4D1;
 	text-decoration: underline;
 	font-weight: bold;

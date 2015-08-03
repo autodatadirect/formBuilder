@@ -2,13 +2,6 @@ p.
 	Objects that contain data from the form can be created and saved using formbuilder. In order to store an object with the data
 	group your inputFields together using a common name, and then use dot notation to give each item its own unique identifier.
 
-.example
-	form(class='fb')
-		input(type='text' name="example.one" data-type='text' data-label='Input One')
-		input(type='text' name="example.two" data-type='text' data-label='Input Two')
-		input(type='text' name="example.three" data-type='text' data-label='Input Three')
-		input(type='text' name="example.four" data-type='text' data-label='Input Four')
-
 .code(data-mode='html').
 	<input type="text" name="example.one" data-type="text" data-label="Input One"/>
 	<input type="text" name="example.two" data-type="text" data-label="Input Two"/>
@@ -19,17 +12,6 @@ p.
 	These objects can also be nested in order to create more specific groupings if desired. Say for example you wanted to 
 	store two sets of information about a group of students, like their grade and their age. You could do it by having them all share 
 	one name to be one big group, and then divide them up into two smaller groups using dot notation. 
-.example
-	form(class='fb')
-		input(type='text' name="students.grade.amy" data-type='integer' data-label='Amy\'s Grade')
-		input(type='text' name="students.grade.bob" data-type='integer' data-label='Bob\'s Grade')
-		input(type='text' name="students.grade.caitlin" data-type='integer' data-label='Caitlin\'s Grade')
-		input(type='text' name="students.grade.david" data-type='integer' data-label='David\'s Grade')
-		br
-		input(type='text' name="students.age.amy" data-type='integer' data-label='Amy\'s Age')
-		input(type='text' name="students.age.bob" data-type='integer' data-label='Bob\'s Age')
-		input(type='text' name="students.age.caitlin" data-type='integer' data-label='Caitlin\'s Age')
-		input(type='text' name="students.age.david" data-type='integer' data-label='David\'s Age')
 
 .code(data-mode='html').
 	<input type="text" name="students.grade.amy" data-type="integer" data-label="Amy's Grade"/>
@@ -43,4 +25,4 @@ p.
 	<input type="text" name="students.age.david" data-type="integer" data-label="David's Age"/>
 
 p.
-	For further insight on to how these objects store their data, look ahead to the data output in the Live Demo
+	For further insight on to how these objects store their data, look ahead to the data output in the <a href='#demo'>Live Demo</a>.
