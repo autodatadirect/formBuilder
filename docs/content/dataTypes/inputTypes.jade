@@ -13,7 +13,7 @@ p The <i>data-type</i> attribute can be specifed to add content checking
 	span For integers or decimal numbers [[0-9].]. 
 .example
 	input(type='text' data-label='state' data-type='state')
-	span For state abbreviations [A-Z].
+	span For state abbreviations [A-Z]. With a data-max of two. 
 .example
 	input(type='text' data-label='zip' data-type='zip')
 	span For entering 5 digit or 9 digit (with or without '-') zip codes.
@@ -40,14 +40,14 @@ p The <i>data-type</i> attribute can be specifed to add content checking
 	span Extension of <b>phone</b>. Allows user to choose phone type. Will save the phone type and the number in an object. For more insight into how this data is stored look ahead to the <a href='#demo'>Live Demo</a>
 .example
 	input(type='text' data-label='date' data-type='date')
-	span For entering dates in the 'MM/DD/YYYY' format. A user may manually type the date or click the calendar icon to reveal a jquery ui popup calendar. This icon is inside appended to the right of the field with a weight of 0. 
+	span For entering dates in the 'MM/DD/YYYY' format. A user may manually type the date or click the input field to open a datepicker and select a date. 
 .example
 	input(type='text' data-label='time' data-type='time')
 	input(type='text' data-label='time (military)' data-type='time' data-military)
 	span For entering times. The <b>data-military</b> attribute may be set to display times in military time.
 .example
 	input(type='text' data-label='dateTime' data-type='dateTime')
-	span For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM format. Works the same way as date, but also checks for a valid time. The calendar picker will set the time to noon.
+	span For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM format. Combines the date and time data types.
 .example
 	input(type='text' data-label='dateTime' data-type='dateTime' data-military)
 	span For entering military times, performs in the same way as dateTime except time is 24 hours and does not include AM/PM

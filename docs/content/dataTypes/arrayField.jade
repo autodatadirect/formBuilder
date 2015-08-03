@@ -15,11 +15,16 @@ p This is a basic example of an arrayField of an input-field-group containing a 
 	</div>
 //- 
 
-p By adding more inputs to the arrayField div, you add more inputs to the input-field-group. (this might not actually work)
+p By adding more inputs to the arrayField div, you add more inputs to the input-field-group.
 .example
 	div(name='arrayFieldExampleMultiple' data-load-widget-as-field='arrayField')
 		input(type='text' data-type='utext' data-placeholder='a utext input')
 		input(type='text' data-type='date')
+.code(data-mode='html').
+	<div name="arrayFieldExampleMultiple" data-load-widget-as-field="arrayField">
+		<input type="text" data-type="utext" data-placeholder="a utext input">
+		<input type="text" data-type="date">
+	</div>
 
 
 p You can add a message next to the add button using the <b>data-addmessage</b> attribute.
