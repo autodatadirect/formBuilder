@@ -48,9 +48,12 @@ block sideNav
 	li
 		a(href='#customization') Customization
 		ul.navDepth-1
-			li: a(href='#customization-regexTypes') Creating Simple Regex Types
-			li: a(href='#customization-fullTypes') Creating Full Custom Types
-
+			li: a(href='#customization-creatingTypes') Creating Types
+			li: a(href='#customization-creatingRegexTypes') Creating Regex Types
+			li: a(href='#customization-creatingFieldWidgets') Creating Field Widgets
+			li: a(href='#customization-addingLocaleSupport') Adding Locale Support
+			li: a(href='#customization-customThemes') Custom Themes
+			
 	li
 		a(href='#demo') Live Demo
 		ul.navDepth-1
@@ -176,24 +179,28 @@ block content
 	h1 Customization
 		a.anchor(name='customization')
 	.section
-		h2 Creating Simple Regex Types
-			a.anchor(name='customization-regexTypes')
-		.section: include content/customization/regexTypes
-		
-		h2 Creating Full Custom Types
-			a.anchor(name='customization-fullTypes')
-		.section: include content/customization/fullTypes
-	
 
+		h2 Creating Types
+			a.anchor(name='customization-creatingTypes')
+		.section: include content/customization/creatingTypes
 
+		h2 Creating Regex Types
+			a.anchor(name='customization-creatingRegexTypes')
+		.section: include content/customization/creatingRegexTypes
 
+		h2 Creating Field Widgets
+			a.anchor(name='customization-creatingFieldWidgets')
+		.section: include content/customization/creatingFieldWidgets
 
+		h2 Adding Locale Support
+			a.anchor(name='customization-addingLocaleSupport')
+		.section: include content/customization/addingLocaleSupport
+
+		h2 Custom Themes
+			a.anchor(name='customization-customThemes')
+		.section: include content/customization/customThemes
 			
 	h1 Live Demo
 		a.anchor(name='demo')
 	.section: include content/demo
 
-
-
-
-	
