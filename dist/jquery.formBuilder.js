@@ -678,13 +678,26 @@
 
 
 
-	util.loadDomData = function(namespace, aKey) {
-		var self = this;
+	util.loadDomData = function(element, namespace, aKey) {
 		$.each(aKey, function(i, key) {
-			var data = self.element.data(key);
-			if(data !== undefined && data !== null) {
+			var data = element.data(key);
+			if(typeof data !== 'undefined' && data !== null) {
 				namespace[key] = data;
 			}
+		});
+	};
+
+	/**
+	 * For reading boolean values from dom attributes.
+	 * When the the attribute does not exist, the key retains its !!value. (therefore undefined -> false and true -> true)
+	 * Allows for 'data-some-key' and 'data-some-key="true"' to both be true.
+	 * 
+	 * Note: 'data-some-key="false"' is still false.
+	 */
+	util.loadDomToggleData = function(element, namespace, aKey) {
+		$.each(aKey, function(i, key) {
+			var data = element.data(key);
+			namespace[key] = (typeof data === 'undefined' || data === null)? !!namespace[key] : (data !== false);
 		});
 	};
 
@@ -1842,12 +1855,8 @@
 				o = self.options,
 				e = self.element;
 
-			// Get options + clean them
-			util.loadDomData.call(self, o, ['ignoreHidden', 'defaultRequired', 'loadHidden']);
-			o.ignoreHidden = !!o.ignoreHidden;
-			o.defaultRequired = !!o.defaultRequired;
-			o.loadHidden = !!o.loadHidden;
-
+			// Get options 
+			util.loadDomToggleData(e, o, ['ignoreHidden','defaultRequired','loadHidden']);
 
 			if(o.loadHidden) {
 				e.hide();
@@ -2421,12 +2430,13 @@
 			 * load DOM settings from field into options
 			 */
 			
-			util.loadDomData.call(self, o, ['require', 'required', 'empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+			util.loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+			util.loadDomToggleData(e, o, ['require', 'required']);
 
 			/*
 			 * legacy support
 			 */
-			o.require = !!(o.require || o.required);
+			o.require = o.require || o.required;
 			if(!o.placeholder && o.empty) {
 				o.placeholder = o.empty;
 			}
@@ -3827,8 +3837,10 @@
 			self.dirty = false;
 			
 			// Load DOM data settings into options + clean bools
-			util.loadDomData.call(self, o, ['require', 'required', 'label']);
-			o.required = o.require = !!(o.require || o.required);
+			util.loadDomData(e, o, ['label']);
+			util.loadDomToggleData(e, o, ['require', 'required']);
+
+			o.required = o.require || o.required;
 			
 			// convert input to field format
 			var field = self.field = $('<div class="selection-field"></div>');
@@ -5036,12 +5048,21 @@
 /**
  * Datatype 'select'
  * 
+ * 
+ * Attribute Options:
+ * data-empty-label
+ * data-no-sort
+ * data-options
+ * data-no-filter 
+ * 
  */
 
 (function($) {
 	'use strict';
 	
 	var doc = $(document);
+	var util = $.formBuilder.util;
+
 	$.formBuilder.inputField.types.select = {
 		setUp: function(inputFieldWidget) {
 			var self = this, // Object = {}
@@ -5220,7 +5241,7 @@
 			/*
 			 * special handling for tab, does not perform any function (keeping for legacy)
 			 */
-			if(which === 9){
+			if(which === 9) {
 				self.element.next('input').focus();
 				return;
 			}
@@ -5621,7 +5642,7 @@
 
 			var optionsbuffer = $('<div/>');
 
-			if (!e.data('noSort')) {
+			if (!self.typeOptions.noSort) {
 				self._sort(self.source);
 			}
 
@@ -5749,6 +5770,10 @@
 			var self = this,
 				e = self.element;
 
+			// Reload settings
+			self.typeOptions = {};
+			util.loadDomToggleData(e, self.typeOptions, ['noSort', 'noFilter']);
+
 			// Clear any selected option 
 			self.clear(true);
 
@@ -5769,7 +5794,7 @@
 				 * hide the filter if less then five items are returned
 				 */
 				if (self.filter && self.filter.data('inputField')) {
-					if(source.length < 5){
+					if(self.typeOptions.noFilter || source.length < 5) {
 						self.filter.inputField('hide');
 					}else{
 						self.filter.inputField('show');
@@ -5961,6 +5986,7 @@
 
 	var types = $.formBuilder.inputField.types;
 	var dict = $.formBuilder.lang.dict;
+	var util = $.formBuilder.util;
 
 	types.time = {
 		attributes: ['step', 'military','storeUtc'],
@@ -5973,17 +5999,14 @@
 			var self = this,
 				e = ifw.element;
 
-			self.military = !!e.data('military');
-			self.step = e.data('step');
-			self.storeUtc = e.data('storeUtc');
+			// Setup options
+			var o = self.typeOptions = {
+				storeUtc: true
+			};
+			util.loadDomToggleData(e, o, ['military', 'storeUtc']);
+			util.loadDomData(e, o, ['step', 'storeUtc']);
 
-			if(self.storeUtc === undefined) {
-				self.storeUtc = true;
-			} else {
-				self.storeUtc = !!self.storeUtc;
-			}
-
-			if(!self.military)
+			if(!self.typeOptions.military)
 			{
 				ifw.placeholder('H:MMam/pm');
 
@@ -6006,8 +6029,8 @@
 			e.timepicker({
 				appendTo: ifw.getField(),
 				selectOnBlur: false,
-				step: self.step, //default is 30 and will be set if undefined
-				timeFormat: self.military?'H:i':'g:ia'
+				step: o.step, //default is 30 and will be set if undefined
+				timeFormat: o.military?'H:i':'g:ia'
 			});
 
 			// Make sure the timepicker width matches the field width
@@ -6039,12 +6062,12 @@
 					return '';
 				}
 
-				if(self.storeUtc) {
+				if(self.typeOptions.storeUtc) {
 					// Convert utc back to local for display
 					time.local();
 				}
 
-				return time.format(self.military? 'H:mm' : 'h:mma');
+				return time.format(self.typeOptions.military? 'H:mm' : 'h:mma');
 			},
 
 			/**
@@ -6054,18 +6077,18 @@
 				var self = this,
 					time;
 				
-				if(!val || !val.match(self.military? self._regex2400 : self._regex)) {
+				if(!val || !val.match(self.typeOptions.military? self._regex2400 : self._regex)) {
 					return '';
 				}
 
 
-				time = moment(val, self.military? 'H:mm' : 'h:mma').milliseconds(0);
+				time = moment(val, self.typeOptions.military? 'H:mm' : 'h:mma').milliseconds(0);
 
 				if(!time.isValid()) {
 					return '';
 				}
 
-				if(self.storeUtc) {
+				if(self.typeOptions.storeUtc) {
 					// Convert to utc for storage
 					time.utc();
 				}
@@ -6086,7 +6109,7 @@
 				invalidMessage = {message: dict.invalid},
 				valid;
 
-			valid = self.military? val.match(self._regex2400) : val.match(self._regex);
+			valid = self.typeOptions.military? val.match(self._regex2400) : val.match(self._regex);
 
 			if(!valid) {
 				return invalidMessage;

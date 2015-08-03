@@ -516,6 +516,11 @@ $('.code').each(function(){
 	snippet = snippet.replace(/&quot;/g, "'");
 	snippet = snippet.replace(/&amp;/g, "&");
 
+	// Fix attributes with no value becoming =""
+	snippet = snippet.replace(/data\-((required)|(no\-sort)|(no\-filter)|(store\-utc)|(military)|(load\-hidden)|(ignore\-hidden)|(default\-required))=""/g, function(match) {
+		return match.replace('=""','');
+	});
+
 	//- Add codemirror obj
 	$(this).empty(); 
 	var cm = {

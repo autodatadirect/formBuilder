@@ -1,12 +1,21 @@
 /**
  * Datatype 'select'
  * 
+ * 
+ * Attribute Options:
+ * data-empty-label
+ * data-no-sort
+ * data-options
+ * data-no-filter 
+ * 
  */
 
 (function($) {
 	'use strict';
 	
 	var doc = $(document);
+	var util = $.formBuilder.util;
+
 	$.formBuilder.inputField.types.select = {
 		setUp: function(inputFieldWidget) {
 			var self = this, // Object = {}
@@ -185,7 +194,7 @@
 			/*
 			 * special handling for tab, does not perform any function (keeping for legacy)
 			 */
-			if(which === 9){
+			if(which === 9) {
 				self.element.next('input').focus();
 				return;
 			}
@@ -586,7 +595,7 @@
 
 			var optionsbuffer = $('<div/>');
 
-			if (!e.data('noSort')) {
+			if (!self.typeOptions.noSort) {
 				self._sort(self.source);
 			}
 
@@ -714,6 +723,10 @@
 			var self = this,
 				e = self.element;
 
+			// Reload settings
+			self.typeOptions = {};
+			util.loadDomToggleData(e, self.typeOptions, ['noSort', 'noFilter']);
+
 			// Clear any selected option 
 			self.clear(true);
 
@@ -734,7 +747,7 @@
 				 * hide the filter if less then five items are returned
 				 */
 				if (self.filter && self.filter.data('inputField')) {
-					if(source.length < 5){
+					if(self.typeOptions.noFilter || source.length < 5) {
 						self.filter.inputField('hide');
 					}else{
 						self.filter.inputField('show');

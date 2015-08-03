@@ -43,12 +43,8 @@
 				o = self.options,
 				e = self.element;
 
-			// Get options + clean them
-			util.loadDomData.call(self, o, ['ignoreHidden', 'defaultRequired', 'loadHidden']);
-			o.ignoreHidden = !!o.ignoreHidden;
-			o.defaultRequired = !!o.defaultRequired;
-			o.loadHidden = !!o.loadHidden;
-
+			// Get options 
+			util.loadDomToggleData(e, o, ['ignoreHidden','defaultRequired','loadHidden']);
 
 			if(o.loadHidden) {
 				e.hide();
