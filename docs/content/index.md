@@ -8,7 +8,7 @@
 
 * **How can formBuilder be used?**
 
-    FormBuilder can be used by creating base forms using the formBuilder library, and then building upon those forms by adding as many different kinds of input as are desired. In order to use this library you must be able to program in javascript and understand how to build webpages using html. 
+    FormBuilder is used by creating base forms with the formBuilder library, and then building upon those forms by adding as many different kinds of input as are desired. In order to use this library you must be able to program in javascript and write html. 
 
     For a more in-depth understanding of how to use and manipulate each different available resource in the formBuilder library, please feel free to look ahead to our <a href='./api.html#widgets'>API Reference</a>
 

@@ -28,11 +28,11 @@
     <div class="center-container page-container">
       <div class="sideNav">
         <ul class="navDepth-0">
-          <li class="current"><a href="#baseForm">Base Form</a>
+          <li class="current"><a href="#basics">Basics</a>
             <ul class="navDepth-1">
-              <li class="current"><a href="#baseForm-applyingFormBuilder">Applying formBuilder</a></li>
-              <li><a href="#baseForm-requiredInputs">Required Inputs</a></li>
-              <li><a href="#baseForm-usingNamespace">Using Namespace</a></li>
+              <li class="current"><a href="#basics-applyingFormBuilder">Applying formBuilder</a></li>
+              <li><a href="#basics-requiredInputs">Required Inputs</a></li>
+              <li><a href="#basics-usingNamespace">Using Namespaces</a></li>
             </ul>
           </li>
           <li><a href="#fieldEnhancements">Field Enhancements</a>
@@ -84,9 +84,9 @@
         </ul>
       </div>
       <div class="content">
-        <h1>Base Form<a name="baseForm" class="anchor"></a></h1>
+        <h1>Basics<a name="basics" class="anchor"></a></h1>
         <div class="section">
-          <h2>Applying formBuilder<a name="baseForm-applyingFormBuilder" class="anchor"></a></h2>
+          <h2>Applying formBuilder<a name="basics-applyingFormBuilder" class="anchor"></a></h2>
           <div class="section">
             <p>
               Forms are made into formBuilder forms by initializing them as formBuilder widgets. FormBuilder 
@@ -128,34 +128,39 @@
               	</div>
               
               </form></code>
-            <p>Form element attributes may be added to specify different widget options. </p>
+            <p>Form element attributes/options may be added to specify different widget options. </p>
             <ul> 
               <li>
-                The <b>data-required</b> attribute or <b>dataRequired</b> option sets 
+                The <code>data-required</code> attribute or <code>dataRequired</code> option sets 
                 the default require statuses for all fields in the form.
               </li>
               <li>
-                The <b>data-ignore-hidden</b> attribute or <b>ignoreHidden</b> option when 
+                The <code>data-ignore-hidden</code> attribute or <code>ignoreHidden</code> option when 
                 set will ignore fields that are not visible. They will not be validated 
                 nor will any data be retrieved from them.
               </li>
               <li>
-                The <b>data-load-hidden</b> attribute or <b>loadHidden</b> option when 
+                The <code>data-load-hidden</code> attribute or <code>loadHidden</code> option when 
                 set will hide the form while it is being constructed. Once complete, it 
                 will show the form.
                 
               </li>
             </ul><code data-mode="html" data-title="HTML (using attributes)">
-              <form data-required="false" data-ignore-hidden="false" data-load-hidden="true">
+              <form id="formExampleDefaults">
+              	....
+              </form>
+              <form id="formExampleChanged" data-required data-ignore-hidden data-load-hidden="false">
               	....
               </form></code><code data-mode="javascript" data-title="JAVASCRIPT (using initialization)">
-              $('form').formBuilder({
-              	dataRequired: false,
-              	ignoreHidden: false,
-              	loadHidden: true
+              $('form#formExampleDefaults').formBuilder();
+              
+              $('form#formExampleChanged').formBuilder({
+              	dataRequired: true, // Default = false
+              	ignoreHidden: true, // Default = false
+              	loadHidden: false // Default = true
               });</code>
           </div>
-          <h2>Required Inputs<a name="baseForm-requiredInputs" class="anchor"></a></h2>
+          <h2>Required Inputs<a name="basics-requiredInputs" class="anchor"></a></h2>
           <div class="section">
             <p>The <i>data-required</i> attribute if <b>applied to the input element</b> will prevent form submission if it is not valid</p>
             <div class="example">
@@ -182,7 +187,7 @@
               	<input type="text" data-label="Still Required">
               </form></code>
           </div>
-          <h2>Using Namespace <a name="baseForm-usingNamespace" class="anchor"></a></h2>
+          <h2>Using Namespaces<a name="basics-usingNamespace" class="anchor"></a></h2>
           <div class="section">
             <p>
               Objects that contain data from the form can be created and saved using formbuilder. In order to store an object with the data
@@ -571,15 +576,13 @@
                 <input type="text" data-type="utext" data-placeholder="a utext input">
                 <input type="text" data-type="date">
               </div>
-            </div>
-            <div data-mode="html" class="code">
+            </div><code data-mode="html">
               <div name="arrayFieldExampleMultiple" data-load-widget-as-field="arrayField">
               	<input type="text" data-type="utext" data-placeholder="a utext input">
               	<input type="text" data-type="date">
               </div>
               
-              
-            </div>
+              </code>
             <p>You can add a message next to the add button using the <b>data-addmessage</b> attribute.</p>
             <div class="example">
               <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
@@ -604,29 +607,35 @@
         <div class="section">
           <h2>Date Range Picker<a name="standaloneWidgets-dateRangePicker" class="anchor"></a></h2>
           <div class="section">
-            <div class="example">
-              <p>The Date-Range Picker creates two input fields for a beginning and ending date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and follows its rules for validation.</p>
-              <div class="dateRange"></div>
-              <p>A div must be created and then the dateRange widget can be called upon that div </p>
-              <div data-mode="html" class="code">
-                <div id="dateRangeExample"></div>
-                
-                $(#dateRangeExample).dateRange(); 
-              </div>
-            </div>
+            <p>
+              The Date-Range Picker creates two input fields for a beginning and ending date. Different 
+              ranges can be selected using the drop down panel. Arrow buttons can be used to move date 
+              ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type 
+              and follows its rules for validation.
+              
+            </p>
+            <div class="dateRange"></div>
+            <p>
+              To create a date-range picker, initialize the dateRange widget on an empty div element.
+              
+            </p><code data-mode="html"><div id="dateRangeExample"></div></code><code data-mode="javascript">$('#dateRangeExample').dateRange(); </code>
           </div>
           <h2>Date Time Range Picker<a name="standaloneWidgets-dateTimeRangePicker" class="anchor"></a></h2>
           <div class="section">
-            <div class="example">
-              <p>The Date-Time-Range Picker creates two input fields for a beginning and ending date and also inclues time fields for each date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and the time-data type and follows their rules for validation. If no time is selected, then the time fields will default to 12:00am and 11:59pm.</p>
-              <div class="dateTimeRange"></div>
-              <p>A div must be created and then the dateTimeRange widget can be called upon that div </p>
-              <div data-mode="html" class="code">
-                <div id="dateTimeRangeExample"></div>
-                
-                $(#dateTimeRangeExample).dateTimeRange(); 
-              </div>
-            </div>
+            <p>
+              The Date-Time-Range Picker creates two input fields for a beginning and ending date and 
+              also inclues time fields for each date. Different ranges can be selected using the drop 
+              down panel. Arrow buttons can be used to move date ranges forwards or backwards by the 
+              allotted amount of time. This widget uses the date data-type and the time-data type and 
+              follows their rules for validation. If no time is selected, then the time fields will 
+              default to 12:00am and 11:59pm.
+              
+            </p>
+            <div class="dateTimeRange"></div>
+            <p>
+              To create a date-time-range picker, initialize the dateRange widget on an empty div element.
+              
+            </p><code data-mode="html"><div id="dateTimeRangeExample"></div></code><code data-mode="javascript">$('#dateTimeRangeExample').dateTimeRange();</code>
           </div>
           <h2> Drop Down Panel<a name="standaloneWidgets-dropDownPanel" class="anchor"></a></h2>
           <div class="section">
@@ -910,6 +919,17 @@
               	<button type="submit">Submit Example</button>
               </form>
             </div>
+            <p>
+              The submitButton widget can be used to handle form submission. It is styled by the jQuery UI 
+              theme and has a spinner animation during the submission process. This widget is not required 
+              when using formBuilder, but it does make the process very easy to handle. 
+              
+            </p>
+            <button id="submitButtonExample" type="submit">Submit Button </button>
+            <p>
+              A complete example of using the submitButton widget can be found in the <a href='#demo'>Live Demo</a> 
+              and complete documentaion on the <a href='./api.html#widgets-submitButton'>API Reference</a> page.
+            </p>
           </div>
         </div>
         <h1>Customization<a name="customization" class="anchor"></a></h1>
@@ -993,7 +1013,11 @@
           </div>
           <h2>Creating Regex Types<a name="customization-creatingRegexTypes" class="anchor"></a></h2>
           <div class="section">
-            <p>You can add your own input types using just regex very easily.</p>
+            <p>
+              Custom types that only need regex validation and key input filtering can be easily 
+              generated using the <code>$.formBuilder.inputField.createRegexType</code> function. 
+              
+            </p>
             <div class="example">
               <input type="text" data-label="Custom &quot;swear&quot; type" data-type="swear">
             </div>
@@ -1020,9 +1044,83 @@
           <h2>Creating Field Widgets<a name="customization-creatingFieldWidgets" class="anchor"></a></h2>
           <div class="section"></div>
           <h2>Adding Locale Support<a name="customization-addingLocaleSupport" class="anchor"></a></h2>
-          <div class="section"></div>
+          <div class="section">
+            <p>
+              English is the default language setting. To change it you must include the desired 
+              language package script from <code>/dist/locales/</code> above where you include the formBuilder 
+              script. English (en) and Spanish (es) language packages are precompiled into formBuilder 
+              so you do not need to include them.
+              
+            </p>
+            <p>
+              FormBuilder will attempt to retrieve the preferred language from the browser automatically. 
+              The first language code match sets the language. If no match is found, it will default to 
+              English.
+              
+              
+            </p><code data-mode="html">
+              <!-- jquery and other formBuilder dependencies go here -->
+              
+              <!-- Any extra formBuilder language packs go here -->
+              
+              <script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'></script>
+              
+              </code>
+            <p>
+              If you want to manually choose a language, define <code>$.formBuilder.lang.code</code> above where 
+              you have included any formBuilder javascript and below jQuery. 
+              
+            </p><code data-mode="html">
+              <!-- jquery and other formBuilder dependencies go here -->
+              
+              <script type='text/javascript'>
+                  // Manual language choice
+                  $.formBuilder = {};
+                  $.formBuilder.lang = {};
+                  $.formBuilder.lang.code = 'en'; // English
+                  // $.formBuilder.lang.code = 'es'; // Spanish
+              </script>
+              
+              <!-- Any extra formBuilder language packs go here -->
+              
+              <script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'></script>
+              </code>
+            <p>
+              If you do not see a language pack for what you are looking for, creating one is very simple.
+              
+            </p>
+            <ol>
+              <li>Make a copy of the unminified English pack from <code>/dist/locales/</code>.</li>
+              <li>
+                Update the language code string and acceptedCodes string array to match the new 
+                language. The former is the code used by formBuilder and the latter is the codes it 
+                looks for from the browser when detecting the language. You can find a list of standard 
+                codes <a href='http://www.loc.gov/standards/iso639-2/php/code_list.php'>here</a>.
+              </li>
+              <li>Replace all defined strings at the bottom of the file with new language equivalents.</li>
+              <li>Use this new pack like any other pack, loading it before the main formBuilder script.</li>
+            </ol>
+          </div>
           <h2>Custom Themes<a name="customization-customThemes" class="anchor"></a></h2>
-          <div class="section"></div>
+          <div class="section">
+            <p>
+              FormBuilder allows for the creation of custom themes by rebuilding the Sass files. 
+              The themes are located under <code>/sass/themes</code>. To make your own custom 
+              theme, follow these steps:
+              
+            </p>
+            <ul>
+              <li>Clone or fork the <a href='https://github.com/autodatadirect/formBuilder'>github repository</a></li>
+              <li>Copy <code>/sass/themes/_default.scss</code> into a new file</li>
+              <li>Tweak the constants to make your new theme and change any other sass files needed</li>
+              <li>
+                Change the @import in the main <code>/sass/formBuilder.scss</code> from the 
+                default theme file to your own theme file
+              </li>
+              <li>Compile the new sass theme (see <a href="./index.html#contributing-building">Building</a>)</li>
+              <li>Find your theme under <code>/dist/css/formBuilder.css</code></li>
+            </ul>
+          </div>
         </div>
         <h1>Live Demo<a name="demo" class="anchor"></a></h1>
         <div class="section">
@@ -1032,23 +1130,24 @@
             <form id="example" action="#" style="display: none" data-ignore-hidden>
               <p>* Represents Required Fields</p>
               <h4>Applicant Information</h4>
-              <input type="text" name="personal.name" data-label="Full Legal Name*" data-require="true">
-              <input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-require="true">
+              <input type="text" name="personal.name" data-label="Full Legal Name*" data-required>
+              <input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-required>
               <input type="text" name="personal.phoneNumber" data-type="tmsPhone" data-label="Phone Number">
               <input type="text" name="personal.email" data-type="email" data-label="Email">
               <div title="Why Do We Need This?" name="tool" class="tooltip">
                 <h1>Not for spam!</h1>
-                <p>This email will be used to let you </p>
-                <p>know when we have mailed </p>
-                <p>your driver's licence and will </p>
-                <p>send you updates on its delivery status</p>
+                <p>
+                  This email will be used to let you know when we have mailed your driver's licence and will send 
+                  you updates on its delivery status
+                  
+                </p>
               </div>
               <div class="input-field-group">
-                <input type="text" name="personal.location.address" data-label="Street Address*" data-require="true" style="width:300px">
+                <input type="text" name="personal.location.address" data-label="Street Address*" data-required style="width:300px">
                 <input type="text" name="personal.location.apartment" data-type="number" data-label="Apt" style="width:50px">
-                <input type="text" name="personal.location.city" data-label="City*" data-require="true">
-                <input type="text" name="personal.location.state" data-type="state" data-label="State*" data-require="true" style="width:50px">
-                <input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-require="true" style="width:75px">
+                <input type="text" name="personal.location.city" data-label="City*" data-required>
+                <input type="text" name="personal.location.state" data-type="state" data-label="State*" data-required style="width:50px">
+                <input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-required style="width:75px">
               </div>
               <p>Gender</p>
               <input type="radio" name="personal.physical.gender" data-label="Male" value="male">
@@ -1111,7 +1210,7 @@
                 <input type="radio" name="motorcycle.replacement" data-label="Stolen Motorcycle License" value="stolen">
                 <input type="radio" name="motorcycle.replacement" data-label="Damaged Motorcycle License" value="damaged"><br>
               </div>
-              <input type="checkbox" name="accept" data-label="Agree to terms" data-require="true">
+              <input type="checkbox" name="accept" data-label="Agree to terms *" data-required>
               <button type="submit">Submit Form</button>
             </form>
           </div>
@@ -1121,28 +1220,27 @@
             <textarea id="example-data" readonly class="resultDisplay"></textarea>
           </div>
           <h2><a name="demo-source" href="#demo-source" class="anchor"></a>Source</h2>
-          <div class="section">
-            <div data-mode="html" class="code">
+          <div class="section"><code data-mode="html">
               <form id="example" action="#" style="display: none">
               	<p>* Represents Required Fields</p>
               		<h4>Applicant Information</h4>
-              			<input type="text" name="personal.name" data-label="Full Legal Name*" data-require="true"/>
-              			<input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-require="true"/>
+              			<input type="text" name="personal.name" data-label="Full Legal Name*" data-required/>
+              			<input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-required/>
               			<input type="text" name="personal.phoneNumber" data-type="tmsPhone" data-label="Phone Number"/>
               			<input type="text" name="personal.email" data-type="email" data-label="Email"/>
               			<div title="Why Do We Need This?" name="tool" class="tooltip">
               				<h1>Not for spam!</h1>
-              				<p>This email will be used to let you </p>
-              				<p>know when we have mailed </p>
-              				<p>your driver's licence and will </p>
-              				<p>send you updates on its delivery status</p>
+              				<p>
+              					This email will be used to let you know when we have mailed your 
+              					driver's licence and will send you updates on its delivery status
+              				</p>
               			</div>
               			<div class="input-field-group">
-              				<input type="text" name="personal.location.address" data-label="Street Address*" data-require="true" style="width:300px"/>
+              				<input type="text" name="personal.location.address" data-label="Street Address*" data-required style="width:300px"/>
               				<input type="text" name="personal.location.apartment" data-type="number" data-label="Apt" style="width:50px"/>
-              				<input type="text" name="personal.location.city" data-label="City*" data-require="true"/>
-              				<input type="text" name="personal.location.state" data-type="state" data-label="State*" data-require="true" style="width:50px"/>
-              				<input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-require="true" style="width:75px"/>
+              				<input type="text" name="personal.location.city" data-label="City*" data-required/>
+              				<input type="text" name="personal.location.state" data-type="state" data-label="State*" data-required style="width:50px"/>
+              				<input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-required style="width:75px"/>
               			</div>
               
               		<p>Gender</p>
@@ -1220,12 +1318,10 @@
               				<input type="radio" name="motorcycle.replacement" data-label="Damaged Motorcycle License" value="damaged"/><br/>
               		</div>
               
-              	<input type="checkbox" name="accept" data-label="Agree to terms" data-require="true"/>
+              	<input type="checkbox" name="accept" data-label="Agree to terms *" data-required/>
               
               	<button type="submit">Submit Form</button>
-              </form>
-            </div></div>
-            <div data-title="JAVASCRIPT (without result logging)" data-mode="javascript" class="code">
+              </form></code><code data-title="JAVASCRIPT (without result logging)" data-mode="javascript">
               var formExample = $('form#example:first').formBuilder({
               	beforeset: function(ev) {
               
@@ -1272,9 +1368,7 @@
               	aftersubmit: function(ev) {
               		// Run any post-submission stuff
               	}
-              });
-            </div>
-            <div data-title="JAVASCRIPT (with result logging)" data-mode="javascript" class="code">
+              });</code><code data-title="JAVASCRIPT (with result logging)" data-mode="javascript">
               var events = $('#example-events');
               var data = $('#example-data');
               var eventNum = 1;
@@ -1353,8 +1447,7 @@
               		// Run any post-submission stuff
               		logEvent('aftersubmit called');
               	}
-              });
-            </div>
+              });</code>
           </div>
         </div>
       </div>

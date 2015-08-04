@@ -5,16 +5,6 @@
 /* globals JSON:true, moment:true, CodeMirror:true */
 'use strict';
 
-
-
-
-
-
-
-
-
-
-
 /**
  * Customization Examples
  */
@@ -263,6 +253,22 @@ f.find('button[type="submit"]').submitButton({
 
 
 
+
+
+/**
+ * Submit Button example
+ */
+$('#submitButtonExample').submitButton({
+	submit: function(ev, done) {
+		setTimeout(function(){
+			done();
+		}, 1000);
+	}
+});
+
+
+
+
 /**
  * Live Demo
  */
@@ -289,7 +295,7 @@ logEvent('Initialized');
 
 var saveForm = function(data, done) {
 	// Save data to server (setTimeout is just used in the example to simulate the lag time, use $.ajax instead)
-	setTimeout(function(){
+	setTimeout(function() {
 		// If the server-side save was good, set it back to clean
 		logEvent('server save complete');
 		done();

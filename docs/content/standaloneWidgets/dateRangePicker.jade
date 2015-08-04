@@ -1,10 +1,17 @@
-.example
-	p The Date-Range Picker creates two input fields for a beginning and ending date. Different ranges can be selected using the drop down panel. Arrow buttons can be used to move date ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type and follows its rules for validation.
-	.dateRange
+p.
+	The Date-Range Picker creates two input fields for a beginning and ending date. Different 
+	ranges can be selected using the drop down panel. Arrow buttons can be used to move date 
+	ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type 
+	and follows its rules for validation.
 
-	p A div must be created and then the dateRange widget can be called upon that div 
-	.code(data-mode='html').
-		<div id="dateRangeExample"></div>
+.dateRange
 
-		$(#dateRangeExample).dateRange(); 
-	//- 
+p.
+	To create a date-range picker, initialize the dateRange widget on an empty div element.
+
+code(data-mode='html').
+	<div id="dateRangeExample"></div>
+//- 
+code(data-mode='javascript').
+	$('#dateRangeExample').dateRange(); 
+//- 
