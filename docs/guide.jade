@@ -11,11 +11,11 @@ block localJS
 
 block sideNav
 	li.current
-		a(href='#baseForm') Base Form
+		a(href='#basics') Basics
 		ul.navDepth-1
-			li.current: a(href='#baseForm-applyingFormBuilder') Applying formBuilder
-			li: a(href='#baseForm-requiredInputs') Required Inputs
-			li: a(href='#baseForm-usingNamespace') Using Namespace
+			li.current: a(href='#basics-applyingFormBuilder') Applying formBuilder
+			li: a(href='#basics-requiredInputs') Required Inputs
+			li: a(href='#basics-usingNamespace') Using Namespaces
 
 	li
 		a(href='#fieldEnhancements') Field Enhancements
@@ -65,24 +65,20 @@ block sideNav
 	
 
 block content
-	h1 Base Form
-		a.anchor(name='baseForm')
+	h1 Basics
+		a.anchor(name='basics')
 	.section
 		h2 Applying formBuilder
-			a.anchor(name='baseForm-applyingFormBuilder')
-		.section: include content/baseForm/applyingFormBuilder
+			a.anchor(name='basics-applyingFormBuilder')
+		.section: include content/basics/applyingFormBuilder
 		
 		h2 Required Inputs
-			a.anchor(name='baseForm-requiredInputs')
-		.section: include content/baseForm/requiredInputs
+			a.anchor(name='basics-requiredInputs')
+		.section: include content/basics/requiredInputs
 
-		h2 Using Namespace 
-			a.anchor(name='baseForm-usingNamespace')
-		.section: include content/baseForm/usingNamespace
-
-
-
-
+		h2 Using Namespaces
+			a.anchor(name='basics-usingNamespace')
+		.section: include content/basics/usingNamespace
 
 
 	h1 Field Enhancements

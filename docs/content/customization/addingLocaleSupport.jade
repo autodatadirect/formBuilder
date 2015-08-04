@@ -1,0 +1,53 @@
+p.
+	English is the default language setting. To change it you must include the desired 
+	language package script from <code>/dist/locales/</code> above where you include the formBuilder 
+	script. English (en) and Spanish (es) language packages are precompiled into formBuilder 
+	so you do not need to include them.
+
+p.
+	FormBuilder will attempt to retrieve the preferred language from the browser automatically. 
+	The first language code match sets the language. If no match is found, it will default to 
+	English.
+
+
+code(data-mode='html').
+	<!-- jquery and other formBuilder dependencies go here -->
+
+	<!-- Any extra formBuilder language packs go here -->
+
+	<script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'></script>
+
+
+p.
+	If you want to manually choose a language, define <code>$.formBuilder.lang.code</code> above where 
+	you have included any formBuilder javascript and below jQuery. 
+
+code(data-mode='html').
+	<!-- jquery and other formBuilder dependencies go here -->
+
+	<script type='text/javascript'>
+	    // Manual language choice
+	    $.formBuilder = {};
+	    $.formBuilder.lang = {};
+	    $.formBuilder.lang.code = 'en'; // English
+	    // $.formBuilder.lang.code = 'es'; // Spanish
+	</script>
+
+	<!-- Any extra formBuilder language packs go here -->
+
+	<script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'></script>
+
+p.
+	If you do not see a language pack for what you are looking for, creating one is very simple.
+
+ol
+	li Make a copy of the unminified English pack from <code>/dist/locales/</code>.
+	li.
+		Update the language code string and acceptedCodes string array to match the new 
+		language. The former is the code used by formBuilder and the latter is the codes it 
+		looks for from the browser when detecting the language. You can find a list of standard 
+		codes <a href='http://www.loc.gov/standards/iso639-2/php/code_list.php'>here</a>.
+	li Replace all defined strings at the bottom of the file with new language equivalents.
+	li Use this new pack like any other pack, loading it before the main formBuilder script.
+
+	

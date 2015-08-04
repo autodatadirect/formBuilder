@@ -6,23 +6,22 @@ h2
 	form#example(action="#" style="display: none" data-ignore-hidden)
 		p * Represents Required Fields
 		h4 Applicant Information
-		input(type="text" name="personal.name" data-label="Full Legal Name*" data-require="true")
-		input(type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-require="true")
+		input(type="text" name="personal.name" data-label="Full Legal Name*" data-required)
+		input(type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-required)
 		input(type="text" name="personal.phoneNumber" data-type="tmsPhone" data-label="Phone Number")
 		input(type="text" name="personal.email" data-type="email" data-label="Email")
 		.tooltip(title='Why Do We Need This?' name="tool")
 			h1 Not for spam!
-			p This email will be used to let you 
-			p know when we have mailed 
-			p your driver's licence and will 
-			p send you updates on its delivery status
+			p.
+				This email will be used to let you know when we have mailed your driver's licence and will send 
+				you updates on its delivery status
 		
 		.input-field-group
-			input(type="text" name="personal.location.address" data-label="Street Address*" data-require="true" style="width:300px")
+			input(type="text" name="personal.location.address" data-label="Street Address*" data-required style="width:300px")
 			input(type="text" name="personal.location.apartment" data-type="number" data-label="Apt" style="width:50px")
-			input(type="text" name="personal.location.city" data-label="City*" data-require="true")
-			input(type="text" name="personal.location.state" data-type="state" data-label="State*" data-require="true" style="width:50px")
-			input(type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-require="true" style="width:75px")
+			input(type="text" name="personal.location.city" data-label="City*" data-required)
+			input(type="text" name="personal.location.state" data-type="state" data-label="State*" data-required style="width:50px")
+			input(type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-required style="width:75px")
 		
 		p Gender
 		input(type="radio" name="personal.physical.gender" data-label="Male" value="male")
@@ -120,7 +119,7 @@ h2
 			br
 
 
-		input(type="checkbox" name="accept" data-label="Agree to terms" data-require="true")
+		input(type="checkbox" name="accept" data-label="Agree to terms *" data-required)
 
 		button(type="submit") Submit Form
 
@@ -144,27 +143,27 @@ h2
 	a.anchor(name="demo-source" href="#demo-source")
 	| Source
 .section
-	.code(data-mode="html").
+	code(data-mode="html").
 		<form id="example" action="#" style="display: none">
 			<p>* Represents Required Fields</p>
 				<h4>Applicant Information</h4>
-					<input type="text" name="personal.name" data-label="Full Legal Name*" data-require="true"/>
-					<input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-require="true"/>
+					<input type="text" name="personal.name" data-label="Full Legal Name*" data-required/>
+					<input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-required/>
 					<input type="text" name="personal.phoneNumber" data-type="tmsPhone" data-label="Phone Number"/>
 					<input type="text" name="personal.email" data-type="email" data-label="Email"/>
 					<div title="Why Do We Need This?" name="tool" class="tooltip">
 						<h1>Not for spam!</h1>
-						<p>This email will be used to let you </p>
-						<p>know when we have mailed </p>
-						<p>your driver's licence and will </p>
-						<p>send you updates on its delivery status</p>
+						<p>
+							This email will be used to let you know when we have mailed your 
+							driver's licence and will send you updates on its delivery status
+						</p>
 					</div>
 					<div class="input-field-group">
-						<input type="text" name="personal.location.address" data-label="Street Address*" data-require="true" style="width:300px"/>
+						<input type="text" name="personal.location.address" data-label="Street Address*" data-required style="width:300px"/>
 						<input type="text" name="personal.location.apartment" data-type="number" data-label="Apt" style="width:50px"/>
-						<input type="text" name="personal.location.city" data-label="City*" data-require="true"/>
-						<input type="text" name="personal.location.state" data-type="state" data-label="State*" data-require="true" style="width:50px"/>
-						<input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-require="true" style="width:75px"/>
+						<input type="text" name="personal.location.city" data-label="City*" data-required/>
+						<input type="text" name="personal.location.state" data-type="state" data-label="State*" data-required style="width:50px"/>
+						<input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-required style="width:75px"/>
 					</div>
 
 				<p>Gender</p>
@@ -242,11 +241,10 @@ h2
 						<input type="radio" name="motorcycle.replacement" data-label="Damaged Motorcycle License" value="damaged"/><br/>
 				</div>
 
-			<input type="checkbox" name="accept" data-label="Agree to terms" data-require="true"/>
+			<input type="checkbox" name="accept" data-label="Agree to terms *" data-required/>
 
 			<button type="submit">Submit Form</button>
 		</form>
-	</div>
 	//- 
 
 	code(data-title="JAVASCRIPT (without result logging)" data-mode='javascript').

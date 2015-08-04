@@ -135,13 +135,16 @@ gulp.task('copy:assets', ['clean'], function(){
 
 gulp.task('copy:locales', ['clean'], function(){
 	return gulp.src(dirs.src + '/locales/**.js')
+		.pipe(rename(function(path){
+			path.basename = pkg.name + '_' + path.basename;
+		}))
+		.pipe(gulp.dest(outDir + '/locales'))
 		.pipe(uglify({
 				banner: '/*! ' + pkg.name + ' ' + pkg.version + ' ' + today + '*/\n',
 				mangle: !argv.original && argv.dist || argv.mangle,
 				compress: !argv.original && argv.dist || argv.mangle
 		}))
 		.pipe(rename(function(path){
-			path.basename = pkg.name + '_' + path.basename;
 			path.extname = '.min.js';
 		}))
 		.pipe(gulp.dest(outDir + '/locales'));
