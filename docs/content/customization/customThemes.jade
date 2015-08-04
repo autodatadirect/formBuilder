@@ -1,0 +1,14 @@
+p.
+	FormBuilder allows for the creation of custom themes by rebuilding the Sass files. 
+	The themes are located under <code>/sass/themes</code>. To make your own custom 
+	theme, follow these steps:
+
+ul
+	li Clone or fork the <a href='https://github.com/autodatadirect/formBuilder'>github repository</a>
+	li Copy <code>/sass/themes/_default.scss</code> into a new file
+	li Tweak the constants to make your new theme and change any other sass files needed
+	li.
+		Change the @import in the main <code>/sass/formBuilder.scss</code> from the 
+		default theme file to your own theme file
+	li Compile the new sass theme (see <a href="./index.html#contributing-building">Building</a>)
+	li Find your theme under <code>/dist/css/formBuilder.css</code>

@@ -1092,7 +1092,25 @@
             </ol>
           </div>
           <h2>Custom Themes<a name="customization-customThemes" class="anchor"></a></h2>
-          <div class="section"></div>
+          <div class="section">
+            <p>
+              FormBuilder allows for the creation of custom themes by rebuilding the Sass files. 
+              The themes are located under <code>/sass/themes</code>. To make your own custom 
+              theme, follow these steps:
+              
+            </p>
+            <ul>
+              <li>Clone or fork the <a href='https://github.com/autodatadirect/formBuilder'>github repository</a></li>
+              <li>Copy <code>/sass/themes/_default.scss</code> into a new file</li>
+              <li>Tweak the constants to make your new theme and change any other sass files needed</li>
+              <li>
+                Change the @import in the main <code>/sass/formBuilder.scss</code> from the 
+                default theme file to your own theme file
+              </li>
+              <li>Compile the new sass theme (see <a href="./index.html#contributing-building">Building</a>)</li>
+              <li>Find your theme under <code>/dist/css/formBuilder.css</code></li>
+            </ul>
+          </div>
         </div>
         <h1>Live Demo<a name="demo" class="anchor"></a></h1>
         <div class="section">
