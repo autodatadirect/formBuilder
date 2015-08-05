@@ -118,6 +118,7 @@
 			 */
 			e.find('[data-load-widget-as-field]').each(function () {
 				var el = $(this);
+
 				if(!el.attr('name')){
 					throw new Error('data-load-widget-as-field must have name attribute');
 				}
@@ -126,7 +127,12 @@
 					return;
 				}
 
-				el[el.attr('data-load-widget-as-field')]();
+				var widgetName = el.attr('data-load-widget-as-field');
+				if(!widgetName || !$.isFunction(el[widgetName])) {
+					throw new Error('Cannot load widget "'+widgetName+'" as field, it does not exist');
+				}
+
+				el[widgetName]();
 
 				/*
 				 * check if the widget extends the base FieldWidget widget

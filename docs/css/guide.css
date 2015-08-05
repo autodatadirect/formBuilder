@@ -105,3 +105,20 @@ code[data-mode] {
 	margin: .2em;
 	padding: .2em;
 }
+
+
+/*********************************************************
+ * Color picker field widget
+ */
+.picker-wrapper {
+	position: relative;
+	z-index: 0;
+}
+.input-field.picker-field {
+	position: absolute;
+	z-index: 10;
+}
+.picker-canvas {
+	display: block;
+	z-index: 5;
+}

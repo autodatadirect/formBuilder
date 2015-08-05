@@ -44,11 +44,20 @@ html
 
 			.content
 				block content
-			
+		
 
 		//- JavaScript
 		// =========== Bower JS Dependencies (using CDNs for demo) ===========
 		script(type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js')
+		script(type='text/javascript').
+			// Wrap each example in a form if not already in one (for documentation only)
+			$('.example').each(function(){
+				if(!$(this).parents('form').length && 
+				!$(this).parents('.code').length && 
+				!$(this).children('form').length) {
+					$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
+				}
+			});
 		script(type='text/javascript' src='../bower_components/jquery-ui/ui/minified/jquery-ui.min.js')
 		script(type='text/javascript' src='../bower_components/moment/min/moment.min.js')
 		script(type='text/javascript' src='../bower_components/spinjs/spin.min.js')
