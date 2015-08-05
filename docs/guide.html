@@ -618,7 +618,7 @@
             <p>
               To create a date-range picker, initialize the dateRange widget on an empty div element.
               
-            </p><code data-mode="html"><div id="dateRangeExample"></div></code><code data-mode="javascript">$('#dateRangeExample').dateRange(); </code>
+            </p><code data-mode="html"> <div id="dateRangeExample"></div></code><code data-mode="javascript"> $('#dateRangeExample').dateRange(); </code>
           </div>
           <h2>Date Time Range Picker<a name="standaloneWidgets-dateTimeRangePicker" class="anchor"></a></h2>
           <div class="section">
@@ -635,7 +635,7 @@
             <p>
               To create a date-time-range picker, initialize the dateRange widget on an empty div element.
               
-            </p><code data-mode="html"><div id="dateTimeRangeExample"></div></code><code data-mode="javascript">$('#dateTimeRangeExample').dateTimeRange();</code>
+            </p><code data-mode="html"> <div id="dateTimeRangeExample"></div></code><code data-mode="javascript"> $('#dateTimeRangeExample').dateTimeRange();</code>
           </div>
           <h2> Drop Down Panel<a name="standaloneWidgets-dropDownPanel" class="anchor"></a></h2>
           <div class="section">
@@ -1032,7 +1032,15 @@
               $('simpleCustomTypeForm').formBuilder();</code>
           </div>
           <h2>Creating Field Widgets<a name="customization-creatingFieldWidgets" class="anchor"></a></h2>
-          <div class="section"></div>
+          <div class="section">
+            <p>
+              [Incomplete example]
+              
+            </p>
+            <div class="example">
+              <div name="cpicker" data-load-widget-as-field="customColorPicker"></div>
+            </div>
+          </div>
           <h2>Adding Locale Support<a name="customization-addingLocaleSupport" class="anchor"></a></h2>
           <div class="section">
             <p>
@@ -1053,7 +1061,7 @@
               
               <!-- Any extra formBuilder language packs go here -->
               
-              <script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'></script>
+              &lt;script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'&gt;&lt;/script&gt;
               
               </code>
             <p>
@@ -1063,17 +1071,17 @@
             </p><code data-mode="html">
               <!-- jquery and other formBuilder dependencies go here -->
               
-              <script type='text/javascript'>
+              &lt;script type='text/javascript'&gt;
                   // Manual language choice
                   $.formBuilder = {};
                   $.formBuilder.lang = {};
                   $.formBuilder.lang.code = 'en'; // English
                   // $.formBuilder.lang.code = 'es'; // Spanish
-              </script>
+              &lt;/script&gt;
               
               <!-- Any extra formBuilder language packs go here -->
               
-              <script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'></script>
+              &lt;script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'&gt;&lt;/script&gt;
               </code>
             <p>
               If you do not see a language pack for what you are looking for, creating one is very simple.
@@ -1099,17 +1107,18 @@
               theme, follow these steps:
               
             </p>
-            <ul>
-              <li>Clone or fork the <a href='https://github.com/autodatadirect/formBuilder'>github repository</a></li>
+            <ol>
+              <li>Clone or fork the <a href='https://github.com/autodatadirect/formBuilder'>GitHub repository</a></li>
               <li>Copy <code>/sass/themes/_default.scss</code> into a new file</li>
               <li>Tweak the constants to make your new theme and change any other sass files needed</li>
               <li>
                 Change the @import in the main <code>/sass/formBuilder.scss</code> from the 
                 default theme file to your own theme file
               </li>
-              <li>Compile the new sass theme (see <a href="./index.html#contributing-building">Building</a>)</li>
+              <li>Compile the new sass theme for distribution (see <a href="./index.html#contributing-building">Building</a>)</li>
               <li>Find your theme under <code>/dist/css/formBuilder.css</code></li>
-            </ul>
+              <li>Use this new file in place of the original formBuilder.css file in your project</li>
+            </ol>
           </div>
         </div>
         <h1>Live Demo<a name="demo" class="anchor"></a></h1>
@@ -1444,6 +1453,16 @@
     </div>
     <!-- =========== Bower JS Dependencies (using CDNs for demo) ===========-->
     <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+      // Wrap each example in a form if not already in one (for documentation only)
+      $('.example').each(function(){
+      	if(!$(this).parents('form').length && 
+      	!$(this).parents('.code').length && 
+      	!$(this).children('form').length) {
+      		$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
+      	}
+      });
+    </script>
     <script type="text/javascript" src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="../bower_components/spinjs/spin.min.js"></script>

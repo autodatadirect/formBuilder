@@ -2,7 +2,7 @@
  * Handles documentation page
  */
 
-/* globals JSON:true, moment:true, CodeMirror:true */
+/* globals JSON:true, moment:true, CodeMirror:true, Path2D:true*/
 'use strict';
 
 /**
@@ -218,6 +218,212 @@ $.formBuilder.inputField.types.customLocation = {
 
 
 
+/**
+ * Create Custom Field Widget
+ */
+// You can use the formBuilder utility functions if needed
+var util = $.formBuilder.util;
+
+$.widget('examples.customColorPicker', {
+	/**
+	 * Any options needed
+	 * Optional.
+	 */
+	options: {
+		randomColors: false,
+		outerDiameter: '200',
+		innerDiameter: '100'
+	},
+
+	/**
+	 * jQuery widget constructor
+	 * Required.
+	 */
+	_create: function() {
+		var self = this,
+			e = self.element,
+			o = self.options;
+
+		// Load any options from DOM (overrides any passed options if set)
+		util.loadDomData(e, o, ['outerDiameter','innerDiameter']);
+		util.loadDomToggleData(e, o, ['randomColors']);
+
+		self.wrapper = $('<div class="picker-wrapper input-field-group"></div>').appendTo(e);
+		self.canvas = $('<canvas class="picker-canvas" width="'+o.outerDiameter+'" height="'+o.outerDiameter+'">Unable to render picker, upgrade your browser!</canvas>').appendTo(self.wrapper)[0];
+		self.field = $('<input type="text" data-type="utext" class="picker-field" data-max="7" style="width:60px"/>').appendTo(self.wrapper).inputField();
+
+		// Convert strings to floats
+		o.outerDiameter = parseFloat(o.outerDiameter);
+		o.innerDiameter = parseFloat(o.innerDiameter);
+
+		self._setColors();
+		self._drawPicker();
+
+		var fieldWrapper = self.field.inputField('getField');
+		setTimeout(function() {
+			fieldWrapper.css({
+				left: o.outerDiameter/2 - fieldWrapper.outerWidth()/2.0,
+				top: o.outerDiameter/2 - fieldWrapper.outerHeight()/2.0
+			});
+		}, 100); 
+		
+	},
+
+	/**
+	 * jQuery widget destructor
+	 * Optional, suggested.
+	 */
+	_destroy: function() {
+		var self = this,
+			e = self.element;
+
+		self.canvas.remove();
+		e.empty();
+	},
+
+
+	/**
+	 * Used to set field.
+	 * @param {any} Any data needed by the widget to set its value
+	 * Required.
+	 */
+	set: function(data) {
+
+	},
+
+	/**
+	 * Used to retrieve the data from the field.
+	 * @return {any} Data from field. Must match set() data format
+	 * Required.
+	 */
+	get: function() {
+		return '#FFF';
+	},
+
+	/**
+	 * Checks for dirty state. A value is dirty when 
+	 * what is entered is differs from the last set()
+	 * @return {Boolean} clean/dirty
+	 * Required.
+	 */
+	isDirty: function() {
+		return false;
+	},
+
+	/**
+	 * Removes the dirty state and calls any needed events.
+	 * Note: This should not change the value of the widget, 
+	 * that is what clear() is for.
+	 * Required.
+	 */
+	clearDirty: function() {
+
+	},
+
+	/**
+	 * Empties all entered inputs.
+	 * Required.
+	 */
+	clear: function() {
+
+	},
+
+	/**
+	 * Preforms a visual effect to bring the user's attention
+	 * to the widget. Can be used for errors or simply left
+	 * empty.
+	 * Required.
+	 */
+	flash: function() {
+
+	},
+
+
+	_defaultColors: ['#FF0000','#FF7F00','#FFFF00','#00FF00','#00FFFF','#0000FF','#8B00FF', '#000000'],
+	_setColors: function() {
+		var self = this,
+			o = self.options;
+		
+		if(o.randomColors) {
+			self.colors = [];
+
+			var color = function() {
+				var str = (Math.random()*256).toString(16);
+				while(str.length < 3) {
+					str = '0'+str;
+				}
+				return str;
+			};
+
+			for(var i = 0; i < 7; ++i) {
+				self.colors[i] = '#'+color()+color()+color();
+			}
+		} else {
+			self.colors = self._defaultColors;
+		}
+
+	},
+
+	_drawPicker: function() {
+		var self = this,
+			c = self.colors,
+			o = self.options;
+
+		self.isSupported = !!self.canvas.getContext;
+
+		if(self.isSupported) {
+			var ctx = self.canvas.getContext('2d'),
+				r = 0.0,
+				origin = o.outerDiameter/2.0,
+				iRadius = o.innerDiameter/2.0,
+				oRadius = origin,
+				sliceRadians = 2*Math.PI/c.length;
+
+			// Draw color slices
+			self.slicePaths = [];
+			for(var i = 0; i < c.length; ++i) {
+				var path = new Path2D();
+				path.moveTo(
+					origin+iRadius*Math.cos(r),
+					origin+iRadius*Math.sin(r)
+				);
+				path.lineTo(
+					origin+oRadius*Math.cos(r),
+					origin+oRadius*Math.sin(r)
+				);
+				path.arc(
+					origin, origin, oRadius, r, r-sliceRadians, true
+				);
+				r -= sliceRadians;
+				path.lineTo(
+					origin+iRadius*Math.cos(r),
+					origin+iRadius*Math.sin(r)
+				);
+				path.arc(
+					origin, origin, iRadius, r, r+sliceRadians, false
+				);
+
+
+				ctx.fillStyle = self.colors[i];
+				ctx.fill(path);
+				ctx.strokeStyle = '#FFF';
+				ctx.lineWidth = 5;
+				ctx.stroke(path);
+				
+				self.slicePaths.push(path);
+			}
+
+
+			// Draw circles
+			
+
+			// Create center field
+			
+		} else {
+			console.log('Canvas not supported by browser, exiting');
+		}
+	}
+});
 
 
 
@@ -227,15 +433,6 @@ $.formBuilder.inputField.types.customLocation = {
  * Create examples
  */
 
-
-// Wrap each example in a form if not already in one
-$('.example').each(function(){
-	if(!$(this).parents('form').length && 
-	!$(this).parents('.code').length && 
-	!$(this).children('form').length) {
-		$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
-	}
-});
 
 var f = $('form.fb').formBuilder();
 
@@ -533,6 +730,7 @@ $('code[data-mode]').each(function(){
 	});
 
 	//- Add codemirror obj
+	$(this).children().remove();
 	$(this).empty(); 
 	var cm = {
 		value: snippet,
