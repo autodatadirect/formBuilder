@@ -48,7 +48,7 @@ p.
 	Form element attributes/options may be added to specify different widget options. 
 ul 
 	li.
-		The <code>data-required</code> attribute or <code>dataRequired</code> option sets 
+		The <code>data--default-required</code> attribute or <code>dataDefaultRequired</code> option sets 
 		the default require statuses for all fields in the form.
 	li.
 		The <code>data-ignore-hidden</code> attribute or <code>ignoreHidden</code> option when 
@@ -57,7 +57,8 @@ ul
 	li.
 		The <code>data-load-hidden</code> attribute or <code>loadHidden</code> option when 
 		set will hide the form while it is being constructed. Once complete, it 
-		will show the form.
+		will show the form. It is suggested that if you wish to use this that you should also 
+		include "style= display:none"
 
 code(data-mode='html' data-title='HTML (using attributes)').
 	<form id="formExampleDefaults">
