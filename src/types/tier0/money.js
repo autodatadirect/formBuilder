@@ -28,8 +28,8 @@
 			var o = self.typeOptions = {
 				currencySymbol: '$'
 			};
-			util.loadDomData(e, o, ['currencySymbol', 'maxAmount', 'minAmount', 'allowNegative']);
-			util.loadDomToggleData(e, o, ['hideSymbol']);
+			util.loadDomData(e, o, ['currencySymbol', 'maxAmount', 'minAmount']);
+			util.loadDomToggleData(e, o, ['hideSymbol', 'allowNegative']);
 
 			if(!o.allowNegative){
 				e.inputFilter({
@@ -39,16 +39,17 @@
 				}).blur(function() {
 					e.val(self.format(e.val()));
 				});
-			}else{
-				console.log('inside the right thing');
+			} else{
 				e.inputFilter({
-					pattern: /-?[0-9\.]/
+					pattern: /[0-9\.-]/
 				}).change(function () {
 					self._onChange();
 				}).blur(function() {
 					e.val(self.format(e.val()));
 				});
+
 			}
+			
 			
 
 			if(!o.hideSymbol) {
