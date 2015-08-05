@@ -17,7 +17,7 @@
 
 	types.money = {
 
-		attributes: ['currency-symbol', 'hide-symbol', 'max-amount', 'min-amount'],
+		attributes: ['currency-symbol', 'hide-symbol', 'max-amount', 'min-amount', 'allowNegative'],
 
 		setUp: function (ifw) {
 			var self = this,
@@ -28,16 +28,28 @@
 			var o = self.typeOptions = {
 				currencySymbol: '$'
 			};
-			util.loadDomData(e, o, ['currencySymbol', 'maxAmount', 'minAmount']);
+			util.loadDomData(e, o, ['currencySymbol', 'maxAmount', 'minAmount', 'allowNegative']);
 			util.loadDomToggleData(e, o, ['hideSymbol']);
 
-			e.inputFilter({
-				pattern: /[0-9\.]/
-			}).change(function () {
-				self._onChange();
-			}).blur(function() {
-				e.val(self.format(e.val()));
-			});
+			if(!o.allowNegative){
+				e.inputFilter({
+					pattern: /[0-9\.]/
+				}).change(function () {
+					self._onChange();
+				}).blur(function() {
+					e.val(self.format(e.val()));
+				});
+			}else{
+				console.log('inside the right thing');
+				e.inputFilter({
+					pattern: /-?[0-9\.]/
+				}).change(function () {
+					self._onChange();
+				}).blur(function() {
+					e.val(self.format(e.val()));
+				});
+			}
+			
 
 			if(!o.hideSymbol) {
 				ifw.addOn(-100, o.currencySymbol);

@@ -21,10 +21,10 @@ p.
 	span For uppercase text. If a user types in lowercase text, it is automatically converted to uppercase.
 .example
 	input(type='text' data-label='integer' data-type='integer')
-	span For digits [0-9].
+	span For integers and negative numbers.
 .example
 	input(type='text' data-label='number' data-type='number')
-	span For integers or decimal numbers [[0-9].]. 
+	span For integers, negatives, and decimal numbers.
 .example
 	input(type='text' data-label='state' data-type='state')
 	span For state abbreviations [A-Z]. With a data-max of two. 
@@ -35,7 +35,7 @@ p.
 	input(type='text' data-label='email' data-type='email')
 	span For email inputs. The correct format is a username, then a single '@', then an alphanumeric domain name, then a single '.', then a alphabetic domain extension 2-4 characters in length. 
 .example
-	input(type='text' data-label='money' data-type='money')
+	input(type='text' data-label='money' data-type='money' data-allow-negative)
 	span For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur.
 .example
 	input(type='text' data-label='money (custom currency symbol)' data-type='money' data-currency-symbol ='&pound;')

@@ -4732,7 +4732,7 @@
 
 	types.money = {
 
-		attributes: ['currency-symbol', 'hide-symbol', 'max-amount', 'min-amount'],
+		attributes: ['currency-symbol', 'hide-symbol', 'max-amount', 'min-amount', 'allowNegative'],
 
 		setUp: function (ifw) {
 			var self = this,
@@ -4743,16 +4743,28 @@
 			var o = self.typeOptions = {
 				currencySymbol: '$'
 			};
-			util.loadDomData(e, o, ['currencySymbol', 'maxAmount', 'minAmount']);
+			util.loadDomData(e, o, ['currencySymbol', 'maxAmount', 'minAmount', 'allowNegative']);
 			util.loadDomToggleData(e, o, ['hideSymbol']);
 
-			e.inputFilter({
-				pattern: /[0-9\.]/
-			}).change(function () {
-				self._onChange();
-			}).blur(function() {
-				e.val(self.format(e.val()));
-			});
+			if(!o.allowNegative){
+				e.inputFilter({
+					pattern: /[0-9\.]/
+				}).change(function () {
+					self._onChange();
+				}).blur(function() {
+					e.val(self.format(e.val()));
+				});
+			}else{
+				console.log('inside the right thing');
+				e.inputFilter({
+					pattern: /-?[0-9\.]/
+				}).change(function () {
+					self._onChange();
+				}).blur(function() {
+					e.val(self.format(e.val()));
+				});
+			}
+			
 
 			if(!o.hideSymbol) {
 				ifw.addOn(-100, o.currencySymbol);
@@ -5030,7 +5042,7 @@
 		'utext': createRegexType(/.*/, /.*/, {
 			toUpper: true
 		}),
-		'integer': createRegexType(/^[0-9]*$/, /[0-9]/),
+		'integer': createRegexType(/^-?[0-9]*$/, /[-0-9]/),
 		'number': createRegexType(/^-?[0-9]+\.?[0-9]*$/, /[-0-9.]/),
 		'state': createRegexType(/^[A-Z]{2}$/, /[A-Z]/, {}, 2),
 		'feid': createRegexType(/^[0-9]{2}\-?[0-9]{7}$/, /[0-9\-]/, {}, 10),
