@@ -986,57 +986,68 @@
               <form id='fullCustomTypeForm' action='#'>
               	<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
               </form></code><code data-mode="javascript">
-              $.extend($.formBuilder.inputField.types,{
-              	'SSN': {
-              		setUp: function(ifw) {
-              			var self = this,
-              				e = ifw.element;
+              $.formBuilder.inputField.types.SSN = {
+              	setUp: function(ifw) {
+              		var self = this,
+              			e = ifw.element;
               
-              			//- Set the characters a user can enter
-              			e.inputFilter({
-              				pattern: /[0-9]/,
-              				max: 12
-              			});
+              		// Add a placeholder
+              		ifw.placeholder('XXX-XX-XXXX');
               
-              			//- Replace the input with a formatted input
-              			e.on('blur keydown', function(){
-              				e.val(self.format(e.val()));
-              			});
-              		},
-              		converter: {
-              			toField: function(value, ifw) {
-              				return this.format(value);
-              			},
-              			fromField: function(value, ifw) {
-              				return this.format(value);
+              		// Set the characters a user can enter
+              		e.inputFilter({
+              			pattern: /[0-9]/,
+              			max: 11,
+              			extraFilter: function(val, inText) {
+              				// A special character maximimum
+              				if(val.replace(/[^0-9]/g,'').length < 9) {
+              					return inText;
+              				}
               			}
+              		});
+              
+              		// Replace the input with a formatted input
+              		e.on('blur', function(){
+              			e.val(self.format(e.val()));
+              		});
+              	},
+              	converter: {
+              		toField: function(value, ifw) {
+              			return this.format(value);
               		},
-              		validate: function(ifw) {
-              			if(!this.format(ifw.element.val()).match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{4}$/))
-              				return {
-              					message: 'invalid'
-              				};
-              		},
-              
-              		//- This is an extra function specifically for this type
-              		format: function(text) {
-              			if(!text)
-              				return '';
-              
-              			//- Remove non-digits
-              			text = text.replace(/[^0-9]/g,'');
-              			text = text.substring(0, 10);
-              
-              			//- add correct dashes
-              			if(text.length &lt;= 4)
-              				return text;
-              			else if(text.length &lt;= 6)
-              				return text.substring(0,4) + '-' + text.substring(4);
-              			else
-              				return  text.substring(0,4) + '-' + text.substring(4,6) + '-' + text.substring(6);
+              		fromField: function(value, ifw) {
+              			return parseInt(this.format(value).replace(/\-/g,''),10);
               		}
-              	} 
-              });
+              	},
+              	validate: function(ifw) {
+              		if(!this.format(ifw.element.val()).match(/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/)) {
+              			return {
+              				message: 'invalid'
+              			};
+              		}
+              	},
+              
+              	//- This is an extra function specifically for this type
+              	format: function(text) {
+              		if(!text) {
+              			return '';
+              		}
+              
+              		//- Remove non-digits
+              		text = text.replace(/[^0-9]/g,'');
+              		text = text.substring(0, 10);
+              
+              		//- add correct dashes
+              		if(text.length <= 3) {
+              			return text;
+              		} else if(text.length <= 5) {
+              			return text.substring(0,3) + '-' + text.substring(3);
+              		} else {
+              			return  text.substring(0,3) + '-' + text.substring(3,5) + '-' + text.substring(5);
+              		}
+              	}
+              };
+              
               $('fullCustomTypeForm').formBuilder();</code>
           </div>
           <h2>Creating Regex Types<a name="customization-creatingRegexTypes" class="anchor"></a></h2>
@@ -1083,7 +1094,8 @@
               attribute. The element must be inside of a form element. When the form element is initialized 
               as a formBuilder widget, it will automatically initialize the widget with "widgetName" on the 
               element. This element <i>must</i> have a name attribute. Labels may also be applied to field 
-              widgets.
+              widgets. The form <code>data-default-required</code> attribute will be passed into the widget 
+              initialization as the <code>required</code> option.
             </p>
             <p>
               Here is an example of a HTML5 canvas color picker as a custom field widget. Both the custom 
@@ -1200,7 +1212,7 @@
               
               		// Load any options from DOM (overrides any passed options if set)
               		util.loadDomData(e, o, ['outerDiameter','innerDiameter', 'padding','divider', 'background', 'randomCount']);
-              		util.loadDomToggleData(e, o, ['randomColors']);
+              		util.loadDomToggleData(e, o, ['required','randomColors']);
               
               		self.sideLength = o.outerDiameter + o.padding;
               
@@ -1346,6 +1358,15 @@
               	 */
               	flash: function() {
               
+              	},
+              
+              	/**
+              	 * Runs input validation on the widget's inputs. This can 
+              	 * be anything specific to the widget.
+              	 * @return {Boolean} valid/invalid
+              	 */
+              	validate: function() {
+              		return this.field.inputField('validate');
               	},
               
               	/**

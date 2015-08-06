@@ -9,7 +9,8 @@ p.
 	attribute. The element must be inside of a form element. When the form element is initialized 
 	as a formBuilder widget, it will automatically initialize the widget with "widgetName" on the 
 	element. This element <i>must</i> have a name attribute. Labels may also be applied to field 
-	widgets.
+	widgets. The form <code>data-default-required</code> attribute will be passed into the widget 
+	initialization as the <code>required</code> option.
 p.
 	Here is an example of a HTML5 canvas color picker as a custom field widget. Both the custom 
 	type <code>colorHex</code> and widget <code>customColorPicker</code> were made for this 
@@ -131,7 +132,7 @@ code(data-mode='javascript').
 
 			// Load any options from DOM (overrides any passed options if set)
 			util.loadDomData(e, o, ['outerDiameter','innerDiameter', 'padding','divider', 'background', 'randomCount']);
-			util.loadDomToggleData(e, o, ['randomColors']);
+			util.loadDomToggleData(e, o, ['required','randomColors']);
 
 			self.sideLength = o.outerDiameter + o.padding;
 
@@ -277,6 +278,15 @@ code(data-mode='javascript').
 		 */
 		flash: function() {
 
+		},
+
+		/**
+		 * Runs input validation on the widget's inputs. This can 
+		 * be anything specific to the widget.
+		 * @return {Boolean} valid/invalid
+		 */
+		validate: function() {
+			return this.field.inputField('validate');
 		},
 
 		/**

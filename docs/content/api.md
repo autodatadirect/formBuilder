@@ -103,6 +103,7 @@ Filters through the input in the inputField and, based on the type of the input,
     - **toUpper** *(boolean)* Flag to determine if the type is utext and only uppercase will be displayed. **Default:** 'false'
     - **max** *(integer)* Largest input that is allowed in the form field. **Default:** '0'
     - **pattern** *(regex)* The pattern that the input will be checked against for validity. **Default:** '/[\w\s]/'
+    - **extraFilter(*string* currentValue, *string* inText)** *Optional.* Entered text will pass through this function as to allow for any special checks. It most cases the inText is just a single character, but may be longer if a string is being pasted into the input. Returns a string to be inserted. The inText will be ignored if no string is returned. By default, this function will simply return inText.
 * Methods (public)
     - **setMax(*integer* max)** Sets the current object's max variable to the integer that is passed into the method.
     - **setPattern(*regular expression* regex)** Sets the pattern of the current object to the regular expression passed into the method. 
@@ -150,16 +151,17 @@ Widget that handles the creation of a submit button and the spinner that accompa
         + Clean up form here.
 
 ## fieldWidget
-Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in a similar way as methods in the inputField widget but they can be overwritten by user if desired to meet specific requirements. This template is stored inside of inputField widget and commented out. 
+Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in a similar way as methods in the inputField widget but they can be overwritten by user if desired to meet specific requirements. This template is stored inside of inputField widget and commented out. See <a href="./guide.html#customization-creatingFieldWidgets">example</a>.
 
-* Available Methods 
-    - **isDirty()** Returns false.
+* Required Methods 
+    - **set(data)**  Used to set field. Any data needed by the widget to set its value is passed as data.
+    - **get()** Used to retrieve the data from the field. Data returned must match data format
+    - **isDirty()** Checks for dirty state. A value is dirty when what is entered is differs from the last set(). Returns boolean.
     - **validate()** Returns true.
-    - **clearDirty()**
-    - **clear()** Calls `set()`.
-    - **flash()**
-    - **set(data)**
-    - **get()** Returns null.
+    - **clearDirty()** Removes the dirty state and calls any needed events. Note: This should not change the value of the widget, that is what clear() is for.
+    - **clear()** Empties all inputs.
+    - **flash()** Preforms a visual effect to bring the user's attention to the widget. Can be used for errors or simply left empty.
+    - **validate()** Runs input validation on the widget's inputs. This can be anything specific to the widget. Returns true/false for valid/invalid.
 
 
 ## selectionField
@@ -379,6 +381,7 @@ There are a general set of methods that every type must contain in order to func
         + **toField(value, ifw)**  Used to format values from memory to the display. The passed value is the stored value in memory format. Types may return a value in the desired display format to be set in the source input widget. Types that do not return a value are assumed to have updated it manually in this function. The latter is useful for complex types that do not relay solely on the souce input widget. 
         + **fromField(value, ifw)**  Used to format values from the display to memory. The passed value is the val() of the source input. Types must return a value in the desired memory format.
     - **validate(ifw)** Used to run checks against the type to determine if it is invalid or not. To display an error message, return an object with a message property. For example: `{message: 'invalid'}`.
+    - **isEmpty()** *Optional.* Returns true/false for if the field is empty. To be used by complex types that may have non-standard input forms. When this function is not defined the empty status will be checked with `e.val().length` on the widget element. Empty fields are not checked for validation unless they are required.
 
 * All inputField types usable with the `data-type` attribute of input elements.
     - **text** raw text, no validation
