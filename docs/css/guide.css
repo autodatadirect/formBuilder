@@ -110,6 +110,9 @@ code[data-mode] {
 /*********************************************************
  * Color picker field widget
  */
+.picker {
+	display: inline-block;
+}
 .picker-wrapper {
 	position: relative;
 	z-index: 0;

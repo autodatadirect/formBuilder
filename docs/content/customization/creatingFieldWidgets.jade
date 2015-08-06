@@ -1,5 +1,433 @@
 p.
-	[Incomplete example]
-
+	Using custom field widgets with formBuilder allows you to make new input methods beyond simple 
+	input fields. Like input types, they require a set of functions to work with formBuilder (see 
+	<a href="./api.html#widgets-fieldWidget">fieldWidget</a>). Any widget that handles data can be 
+	made a field widget with these functions. Widgets with nested formBuilder forms can be used to 
+	make form section templates as well. 
+p.
+	To load an element as a field widget add the <code>data-load-widget-as-field="widgetName"</code> 
+	attribute. The element must be inside of a form element. When the form element is initialized 
+	as a formBuilder widget, it will automatically initialize the widget with "widgetName" on the 
+	element. This element <i>must</i> have a name attribute. Labels may also be applied to field 
+	widgets.
+p.
+	Here is an example of a HTML5 canvas color picker as a custom field widget. Both the custom 
+	type <code>colorHex</code> and widget <code>customColorPicker</code> were made for this 
+	example. As a type, the colorHex could be used outside of this picker. The picker uses the 
+	inputField to handle the typed input, while also drawing color slices around it for a quick 
+	selection. This widget can be reused easily with formBuilder, with options avaliable for 
+	instance specific needs. <i>If you cannot see the color picker, upgrade your browser.</i>
 .example
 	div(name='cpicker' data-load-widget-as-field='customColorPicker')
+	div(name='cpicker2' data-load-widget-as-field='customColorPicker' data-random-colors)
+	div(name='cpicker3' data-load-widget-as-field='customColorPicker' data-random-colors data-random-count="4" data-divider='15' data-padding='20')
+
+
+code(data-mode='html').
+	<div name="cpicker" data-load-widget-as-field="customColorPicker" style="display:inline-block"></div>
+	<div name="cpicker2" data-load-widget-as-field="customColorPicker" data-random-colors="data-random-colors" style="display:inline-block"></div>
+	<div name="cpicker3" data-load-widget-as-field="customColorPicker" data-random-colors="data-random-colors" data-random-count="4" style="display:inline-block" data-divider="15" data-padding="20"></div>
+//- 
+code(data-mode='css').
+	.picker {
+		display: inline-block;
+	}
+	.picker-wrapper {
+		position: relative;
+		z-index: 0;
+	}
+	.input-field.picker-field {
+		position: absolute;
+		z-index: 10;
+	}
+	.picker-canvas {
+		display: block;
+		z-index: 5;
+	}
+//- 
+
+code(data-mode='javascript').
+	/**
+	 * Create Custom Field Widget
+	 */
+	// You can use the formBuilder utility functions if needed
+	var util = $.formBuilder.util;
+
+	$.formBuilder.inputField.types.colorHex = {
+		_validRegex: /^[ABCDEF0-9]{6}$/,
+		setUp: function(ifw) {
+			var self = this,
+				e = ifw.element;
+
+			e.inputFilter({
+				pattern: /[ABCDEFabcdef0-9]/,
+				max: 6,
+				toUpper: true
+			});
+			e.css('font-family', 'monospace');
+
+			e.blur(function(){
+				if(!e.val().match(self._validRegex)) {
+					ifw.clear();
+				}
+			});
+
+			ifw.placeholder('Color Hex');
+		},
+		
+		converter: {
+			toField: function(value, ifw) {
+				var self = this;
+
+				// Make sure is string
+				value = (''+value).toUpperCase();
+
+				// Remove '#' if added
+				if(value.length > 1 && value[0] === '#') {
+					value = value.substring(1);
+				}
+
+				return value.match(self._validRegex)? value : '';
+			},
+			fromField: function(value, ifw) {
+				var self = this;
+				return value.match(self._validRegex)? '#' + value.toUpperCase() : '';
+			}
+		},
+
+		validate: function(ifw) {
+			var self = this;
+			return ifw.get().match(self._validRegex)? undefined : {
+				message: ''
+			};
+		}
+	};
+
+	$.widget('examples.customColorPicker', {
+		/**
+		 * Any options needed
+		 * Optional.
+		 */
+		options: {
+			required: false, // passed by formBuilder
+
+			randomColors: false,
+			randomCount: 10,
+			outerDiameter: 250.0,
+			innerDiameter: 80.0,
+			padding: 10.0,
+			divider: 8.0,
+			background: '#FBFBFB'
+		},
+
+		/**
+		 * jQuery widget constructor
+		 * Required.
+		 */
+		_create: function() {
+			var self = this,
+				e = self.element,
+				o = self.options;
+
+			// Load any options from DOM (overrides any passed options if set)
+			util.loadDomData(e, o, ['outerDiameter','innerDiameter', 'padding','divider', 'background', 'randomCount']);
+			util.loadDomToggleData(e, o, ['randomColors']);
+
+			self.sideLength = o.outerDiameter + o.padding;
+
+			self.wrapper = $('<div class="picker-wrapper input-field-group"></div>').appendTo(e);
+			self.canvas = $('<canvas class="picker-canvas" width="'+self.sideLength+'" height="'+self.sideLength+'"></canvas>').appendTo(self.wrapper);
+			self.field = $('<input type="text" data-type="colorHex" class="picker-field" data-prefix="#" style="width:60px"/>').appendTo(self.wrapper).inputField({
+				required: o.required
+			});
+
+			self.isSupported = !!self.canvas[0].getContext;
+
+			if(self.isSupported) {
+				e.addClass('picker');
+
+				// Convert strings to floats
+				o.outerDiameter = parseFloat(o.outerDiameter);
+				o.innerDiameter = parseFloat(o.innerDiameter);
+			
+				self._setColors();
+			
+				var fieldWrapper = self.field.inputField('getField');
+				setTimeout(function() {
+					self.fieldColor = -1;
+					self._drawPicker();
+					fieldWrapper.css({
+						left: self.sideLength/2 - fieldWrapper.outerWidth()/2.0,
+						top: self.sideLength/2 - fieldWrapper.outerHeight()/2.0
+					});
+				}, 10); 
+
+				// Check for hover + check events events
+				self.canvas.on('mousemove', function(ev) {
+					for(var i = 0; i < self.colors.length; ++i) {
+						if(self._pointInSlice(ev.offsetX, ev.offsetY, i)) {
+							self.hoverColor = i;
+							self._drawPicker();
+							self.canvas.css('cursor','pointer');
+							return;
+						}
+
+						self.hoverColor = -1;
+						self._drawPicker();
+						self.canvas.css('cursor','default');
+					}
+				}).on('click', function(ev) {
+					for(var i = 0; i < self.colors.length; ++i) {
+						if(self._pointInSlice(ev.offsetX, ev.offsetY, i)) {					
+							self.field.focus().val(self.colors[i].substring(1)).keydown().blur();
+							self.fieldColor = self.get();
+							self._drawPicker();
+							return;
+						}
+					}
+				}).on('mouseleave', function() {
+					if(self.hoverColor >= 0) {
+						self.hoverColor = -1;
+						self._drawPicker();
+						self.canvas.css('cursor','default');
+					}
+				});
+
+				self.field.on('change keydown', function() {
+					self.fieldColor = self.get();
+					self._drawPicker();
+				});
+
+			} else {
+				console.log('Canvas is unsupported, only the inputField will be used for the customColorPicker');
+				self.canvas.remove();
+				self.canvas = undefined;
+			}
+		},
+
+		/**
+		 * jQuery widget destructor
+		 * Optional, suggested.
+		 */
+		_destroy: function() {
+			var self = this,
+				e = self.element;
+
+			self.canvas.remove();
+			self.field.remove();
+			e.empty();
+		},
+
+
+		/**
+		 * Used to set field.
+		 * @param {any} Any data needed by the widget to set its value
+		 * Required.
+		 */
+		set: function(data) {
+			var self = this;
+
+			self.field.inputField('set', data);
+			self.fieldColor = self.get();
+			self._drawPicker();
+		},
+
+		/**
+		 * Used to retrieve the data from the field.
+		 * @return {any} Data from field. Must match set() data format
+		 * Required.
+		 */
+		get: function() {
+			return this.field.inputField('get');
+		},
+
+		/**
+		 * Checks for dirty state. A value is dirty when 
+		 * what is entered is differs from the last set()
+		 * @return {Boolean} clean/dirty
+		 * Required.
+		 */
+		isDirty: function() {
+			return this.field.inputField('isDirty');
+		},
+
+		/**
+		 * Removes the dirty state and calls any needed events.
+		 * Note: This should not change the value of the widget, 
+		 * that is what clear() is for.
+		 * Required.
+		 */
+		clearDirty: function() {
+			this.field.inputField('clearDirty');
+		},
+
+		/**
+		 * Empties all entered inputs.
+		 * Required.
+		 */
+		clear: function() {
+			this.field.inputField('clear');
+		},
+
+		/**
+		 * Preforms a visual effect to bring the user's attention
+		 * to the widget. Can be used for errors or simply left
+		 * empty.
+		 * Required.
+		 */
+		flash: function() {
+
+		},
+
+		/**
+		 * Custom functions to handle canvas
+		 */
+
+		_defaultColors: ['#FF0000','#FF7F00','#FFFF00','#00FF00','#00FFFF','#0000FF','#8B00FF', '#000000'],
+		_setColors: function() {
+			var self = this,
+				o = self.options,
+				i;
+			
+			self.colors = [];
+			if(o.randomColors) {
+
+				if(o.randomCount < 2) {
+					o.randomCount = 2;
+				}
+
+				for(i = 0; i < o.randomCount; ++i) {
+					self.colors[i] = '#' + Math.floor((Math.random() * 0xFFFFFF)).toString(16).toUpperCase();
+				}
+			} else {
+				for(i = 0; i < self._defaultColors.length; ++i) {
+					self.colors[i] = self._defaultColors[i];
+				}			
+			}
+
+		},
+
+		_drawPicker: function() {
+			var self = this,
+				c = self.colors,
+				o = self.options,
+				ctx = self.canvas[0].getContext('2d'),
+				origin = self.sideLength/2.0,
+				sliceRadians = 2*Math.PI/c.length,
+				iRadius = o.innerDiameter/2.0,
+				oRadius = o.outerDiameter/2.0,
+				i;
+
+			// Reset canvas
+			ctx.clearRect(0,0,self.canvas.width, self.canvas.height);
+
+			// Draw color slices
+			var drawSlice = function(color, i, isHover) {
+				var r = i*sliceRadians,
+					path = new Path2D();
+					
+				path.moveTo(
+					origin+iRadius*Math.cos(r),
+					origin+iRadius*Math.sin(r)
+				);
+				path.lineTo(
+					origin+oRadius*Math.cos(r),
+					origin+oRadius*Math.sin(r)
+				);
+				path.arc(
+					origin, origin, oRadius, r, r+sliceRadians, false
+				);
+				r += sliceRadians;
+				path.lineTo(
+					origin+iRadius*Math.cos(r),
+					origin+iRadius*Math.sin(r)
+				);
+				path.arc(
+					origin, origin, iRadius, r, r-sliceRadians, true
+				);
+				path.lineTo(
+					origin+oRadius*Math.cos(r-sliceRadians),
+					origin+oRadius*Math.sin(r-sliceRadians)
+				);
+
+				ctx.fillStyle = color;
+				ctx.fill(path);
+				
+				ctx.strokeStyle = isHover? color : o.background;
+				
+				ctx.lineWidth = o.divider;
+				ctx.stroke(path);
+				
+			};
+
+
+			// Draw normal slices
+			for(i = 0; i < c.length; ++i) {
+				if(self.hoverColor !== i) {
+					drawSlice(c[i], i, false);
+				}
+			}
+
+			// Draw hover slice
+			if(self.hoverColor >= 0) {
+				drawSlice(c[self.hoverColor], self.hoverColor, true);
+			}
+
+			// Draw center
+			var circle = new Path2D();
+
+			circle.moveTo(origin, iRadius);
+			circle.arc(origin, origin, iRadius + o.divider, 0, 2*Math.PI, false);
+
+			ctx.fillStyle = (self.fieldColor.length === 7)? self.fieldColor : o.background;
+			ctx.fill(circle);		
+		},
+
+		// Check point against a simple trapazoid around a slice (curves ignored)
+		_pointInSlice: function(x, y, i) {
+			var self = this,
+				o = self.options,
+				c = self.colors,
+				sliceRadians = 2*Math.PI/c.length,
+				origin = self.sideLength/2.0,
+				r1 = sliceRadians*i,
+				r2, piDeg, pRadius, theta;
+
+			// point radius
+			pRadius = Math.sqrt(Math.pow(origin - x, 2) + Math.pow(origin - y, 2)); //distance formula
+
+			/**
+			 * 1. farthest perpendicular edge to centerline
+			 * 2. closest perpendicular edge to centerline
+			 */
+			if((o.outerDiameter/2.0 < pRadius) || (pRadius < o.innerDiameter/2.0*Math.cos(sliceRadians/2))) {
+				return false;
+			}
+
+			r2 = r1 + sliceRadians;
+
+			// adjust pt + theta to quadrant
+			x -= origin;
+			y -= origin;
+			theta = Math.atan(y/x);
+
+			if(x < 0) {
+				theta += Math.PI;
+			} else if(x >= 0 && y < 0) {
+				theta += 2*Math.PI;
+			}
+
+			/**
+			 * 1. radians to right edge
+			 * 2. radians to left edge
+			 */
+			if(theta < r1 || r2 < theta) {
+				return false;
+			}
+
+			// Inside all boundary checks
+			return true;
+		}
+
+	});
+//- 

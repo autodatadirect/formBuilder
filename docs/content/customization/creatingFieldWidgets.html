@@ -1,0 +1,27 @@
+
+<p>
+  Using custom field widgets with formBuilder allows you to make new input methods beyond simple 
+  input fields. Like input types, they require a set of functions to work with formBuilder (see 
+  <a href="./api.html#widgets-fieldWidget">fieldWidget</a>). Any widget that handles data can be 
+  made a field widget with these functions. Widgets with nested formBuilder forms can be used to 
+  make form section templates as well. 
+</p>
+<p>
+  To load an element as a field widget add the <code>data-load-widget-as-field="widgetName"</code> 
+  attribute. The element must be inside of a form element. When the form element is initialized 
+  as a formBuilder widget, it will automatically initialize the widget with "widgetName" on the 
+  element. This element <i>must</i> have a name attribute. 
+</p>
+<p>
+  Here is an example of a HTML5 canvas color picker as a custom field widget. Both the custom 
+  type <code>colorHex</code> and widget <code>customColorPicker</code> were made for this 
+  example. As a type, the colorHex could be used outside of this picker. The picker uses the 
+  inputField to handle the typed input, while also drawing color slices around it for a quick 
+  selection. This widget can be reused easily with formBuilder, with options avaliable for 
+  instance specific needs. <i>If you cannot see the color picker, upgrade your browser.</i>
+</p>
+<div class="example">
+  <div name="cpicker" data-load-widget-as-field="customColorPicker" style="display:inline-block"></div>
+  <div name="cpicker2" data-load-widget-as-field="customColorPicker" data-random-colors="data-random-colors" style="display:inline-block"></div>
+  <div name="cpicker3" data-load-widget-as-field="customColorPicker" data-random-colors="data-random-colors" data-random-count="4" style="display:inline-block" data-divider="15" data-padding="20"></div>
+</div><code data-mode="html"></code>
