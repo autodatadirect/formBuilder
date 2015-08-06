@@ -302,7 +302,6 @@
 			if(!layers.suffix){
 				layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value noselect">' + t + '</span></div>').prependTo(layers.items);
 				self.suffixShim = layers.suffix.find('.shim');
-				
 			} else {
 				layers.suffix.find('.value').text(t);
 			}

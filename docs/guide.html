@@ -252,6 +252,10 @@
             </div><code data-mode="html">
               <input type="text" data-prefix="prefix">
               <input type="text" data-suffix="suffix"></code>
+            <p>Both</p>
+            <div class="example">
+              <input type="text" data-prefix="prefix" data-suffix="suffix">
+            </div>
           </div>
           <h2>Labels<a name="fieldEnhancements-labels" class="anchor"></a></h2>
           <div class="section">
@@ -354,10 +358,10 @@
               <input type="text" data-label="utext" data-type="utext"><span>For uppercase text. If a user types in lowercase text, it is automatically converted to uppercase.</span>
             </div>
             <div class="example">
-              <input type="text" data-label="integer" data-type="integer"><span>For digits [0-9].</span>
+              <input type="text" data-label="integer" data-type="integer"><span>For integers and negative numbers.</span>
             </div>
             <div class="example">
-              <input type="text" data-label="number" data-type="number"><span>For integers or decimal numbers [[0-9].]. </span>
+              <input type="text" data-label="number" data-type="number"><span>For integers, negatives, and decimal numbers.</span>
             </div>
             <div class="example">
               <input type="text" data-label="state" data-type="state"><span>For state abbreviations [A-Z]. With a data-max of two. </span>
@@ -370,6 +374,9 @@
             </div>
             <div class="example">
               <input type="text" data-label="money" data-type="money"><span>For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="money" data-type="money" data-allow-negative><span>For currency inputs, allows negatives. Include <b>data-allow-negative</b> to enable this. </span>
             </div>
             <div class="example">
               <input type="text" data-label="money (custom currency symbol)" data-type="money" data-currency-symbol="&amp;pound;">
@@ -474,11 +481,11 @@
             <div class="example">
               <input type="checkbox" data-label="Some Checkbox">
               <input type="checkbox" data-label="A &lt;i&gt;fancy&lt;/i&gt; one!">
-              <input type="checkbox" data-label="A required one" data-required="true">
+              <input type="checkbox" data-label="A required one" data-required>
             </div><code data-mode="html">
               <input type="checkbox" data-label="Some Checkbox"/>
               <input type="checkbox" data-label="A <i>fancy</i> one!"/>
-              <input type="checkbox" data-label="A required one" data-required="true"/></code>
+              <input type="checkbox" data-label="A required one" data-required/></code>
             <p>
               Checkboxes can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
               checkboxes can be aligned horizontally with the <b>selection-horizontal</b> class.
@@ -488,13 +495,13 @@
               <div class="selection-field-group selection-horizontal">
                 <input type="checkbox" data-label="Some Checkbox">
                 <input type="checkbox" data-label="A &lt;i&gt;fancy&lt;/i&gt; one!">
-                <input type="checkbox" data-label="A required one" data-required="true">
+                <input type="checkbox" data-label="A required one" data-required>
               </div>
             </div><code data-mode="html">
               <div class="selection-field-group selection-horizontal">
               	<input type="checkbox" data-label="Some Checkbox"/>
               	<input type="checkbox" data-label="A <i>fancy</i> one!"/>
-              	<input type="checkbox" data-label="A required one" data-required="true"/>
+              	<input type="checkbox" data-label="A required one" data-required/>
               </div></code>
           </div>
           <h2>Radio Groups<a name="dataTypes-radio" class="anchor"></a></h2>
@@ -516,7 +523,7 @@
               <input type="radio" name="radioExample1" data-label="Option one" value="one">
               <input type="radio" name="radioExample1" data-label="Option two" value="two">
               <input type="radio" name="radioExample1" data-label="Option three" value="three"><br>
-              <input type="radio" name="radioExample2" data-label="Required Option one" data-required="true" value="one">
+              <input type="radio" name="radioExample2" data-label="Required Option one" data-required value="one">
               <input type="radio" name="radioExample2" data-label="Required Option two" value="two">
               <input type="radio" name="radioExample2" data-label="Required Option three" value="three">
             </div><code data-mode="html">
@@ -524,7 +531,7 @@
               <input type="radio" name="radioExample1" data-label="Option two" value="two"/>
               <input type="radio" name="radioExample1" data-label="Option three" value="three"/>
               <br/>
-              <input type="radio" name="radioExample2" data-label="Required Option one" data-required="true" value="one"/>
+              <input type="radio" name="radioExample2" data-label="Required Option one" data-required value="one"/>
               <input type="radio" name="radioExample2" data-label="Required Option two" value="two"/>
               <input type="radio" name="radioExample2" data-label="Required Option three" value="three"/></code>
             <p>
@@ -550,7 +557,10 @@
             <p>No extra attributes are required. Note: pre/post-inputs will be placed on the outside of this area.</p>
             <div class="example">
               <textarea rows="3" data-label="TextArea"></textarea>
-            </div>
+            </div><code data-mode="html">
+              <textarea rows="3" data-label="TextArea">
+              
+              </textarea></code>
           </div>
           <h2>Array Field<a name="dataTypes-arrayField" class="anchor"></a></h2>
           <div class="section">
@@ -571,19 +581,7 @@
               <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField">
               	<input type="text" data-type="utext" data-placeholder="a utext input">
               </div></code>
-            <p>By adding more inputs to the arrayField div, you add more inputs to the input-field-group.</p>
-            <div class="example">
-              <div name="arrayFieldExampleMultiple" data-load-widget-as-field="arrayField">
-                <input type="text" data-type="utext" data-placeholder="a utext input">
-                <input type="text" data-type="date">
-              </div>
-            </div><code data-mode="html">
-              <div name="arrayFieldExampleMultiple" data-load-widget-as-field="arrayField">
-              	<input type="text" data-type="utext" data-placeholder="a utext input">
-              	<input type="text" data-type="date">
-              </div>
-              
-              </code>
+            
             <p>You can add a message next to the add button using the <b>data-addmessage</b> attribute.</p>
             <div class="example">
               <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
@@ -754,7 +752,7 @@
               	_dropDownTemplate:
               		'<div>' +
               			'<p>Enter the location information below. In this <i>customLocation</i> type, the input field above is only used as a visual. The actual data is retrieved from this subform as an object. However, the parent form will see still see this as a single input.</p>' +
-              			'<form data-default-required="true">' + 
+              			'<form data-default-required>' + 
               				'<input name="name" type="text" data-type="utext" data-label="Location Name" />' +
               				'<input name="address" type="text" data-type="utext" data-label="Address" />' +
               				'<input name="city" type="text" data-type="utext" data-label="City" />' +
@@ -898,15 +896,54 @@
           <div class="section">
             <p>Text submitter can be used for submitting multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form.</p>
             <p>Simple example using defaults:</p>
-            <div id="textSubmitterDefault"></div>
+            <div id="textSubmitterDefault"></div><code data-mode="html">
+              <div id="textSubmitterDefault">
+              </div></code><code data-mode="javascript">$('#textSubmitterDefault').textSubmitter();</code>
+            
             <p>The width, placeholder, rows, and send instruction options may be set.</p>
-            <div id="textSubmitterOptions"></div>
+            <div id="textSubmitterOptions"></div><code data-mode="html">
+              <div id="textSubmitterOptions">
+              </div></code>
+            <code data-mode="javascript">
+              $('#textSubmitterOptions').textSubmitter({
+              	width: '400px',
+              	placeholder: 'Some placeholder',
+              	sendInstruction: 'Some sendInstruction',
+              	rows: 2
+              });</code>
+            
             <p>The <b>submit</b> event is fired when a the enter key is pressed. The event passes an object in the format <i>{text:'What the user types in', onComplete: (callback function)}</i>. The onComplete function will reset the textarea. This example has a 200ms submit setTimeout to simulate server lag time. </p>
             <div id="textSubmitterSubmitBox">
               <div class="title">Submitted Messages</div>
               <div class="messages"></div>
             </div>
-            <div id="textSubmitterSubmit"></div>
+            <div id="textSubmitterSubmit"></div><code data-mode="html">
+              <div id="textSubmitterSubmitBox">
+              <div class="title">Submitted Messages</div>
+              <div class="messages"></div>
+              </div>
+              <div id="textSubmitterSubmit"></div></code>
+            <code data-mode="javascript">
+              var messages = $('#textSubmitterSubmitBox .messages');
+              $('#textSubmitterSubmit').textSubmitter({
+              	width: messages.outerWidth() + 15,
+              	rows: 1,
+              	placeholder: 'Type a message!',
+              	ignoreEmptySubmit: true,
+              	submit: function(ev, data){
+              		setTimeout(function(){
+              			data.text = data.text.trim();
+              			if(data.text) {
+              				messages.append('<div class="message"><span class="submitTime">['+moment().format('HH:mm:ss')+']</span><span class="submitText">"'+data.text+'"</span></div>');
+              				messages.scrollTop(messages[0].scrollHeight);
+              				data.onComplete(true);
+              			} else {
+              				data.onComplete(false);
+              			}
+              		}, 200);
+              	
+              	}
+              });</code>
           </div>
           <h2> Submit Button<a name="standaloneWidgets-submitButton" class="anchor"></a></h2>
           <div class="section">

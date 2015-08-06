@@ -2636,7 +2636,6 @@
 			if(!layers.suffix){
 				layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value noselect">' + t + '</span></div>').prependTo(layers.items);
 				self.suffixShim = layers.suffix.find('.shim');
-				
 			} else {
 				layers.suffix.find('.value').text(t);
 			}
@@ -4738,7 +4737,7 @@
 
 	types.money = {
 
-		attributes: ['currency-symbol', 'hide-symbol', 'max-amount', 'min-amount'],
+		attributes: ['currency-symbol', 'hide-symbol', 'max-amount', 'min-amount', 'allowNegative'],
 
 		setUp: function (ifw) {
 			var self = this,
@@ -4750,15 +4749,28 @@
 				currencySymbol: '$'
 			};
 			util.loadDomData(e, o, ['currencySymbol', 'maxAmount', 'minAmount']);
-			util.loadDomToggleData(e, o, ['hideSymbol']);
+			util.loadDomToggleData(e, o, ['hideSymbol', 'allowNegative']);
 
-			e.inputFilter({
-				pattern: /[0-9\.]/
-			}).change(function () {
-				self._onChange();
-			}).blur(function() {
-				e.val(self.format(e.val()));
-			});
+			if(!o.allowNegative){
+				e.inputFilter({
+					pattern: /[0-9\.]/
+				}).change(function () {
+					self._onChange();
+				}).blur(function() {
+					e.val(self.format(e.val()));
+				});
+			} else{
+				e.inputFilter({
+					pattern: /[0-9\.-]/
+				}).change(function () {
+					self._onChange();
+				}).blur(function() {
+					e.val(self.format(e.val()));
+				});
+
+			}
+			
+			
 
 			if(!o.hideSymbol) {
 				ifw.addOn(-100, o.currencySymbol);
@@ -5036,7 +5048,7 @@
 		'utext': createRegexType(/.*/, /.*/, {
 			toUpper: true
 		}),
-		'integer': createRegexType(/^[0-9]*$/, /[0-9]/),
+		'integer': createRegexType(/^-?[0-9]*$/, /[-0-9]/),
 		'number': createRegexType(/^-?[0-9]+\.?[0-9]*$/, /[-0-9.]/),
 		'state': createRegexType(/^[A-Z]{2}$/, /[A-Z]/, {}, 2),
 		'feid': createRegexType(/^[0-9]{2}\-?[0-9]{7}$/, /[0-9\-]/, {}, 10),

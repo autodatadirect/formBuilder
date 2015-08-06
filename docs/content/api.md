@@ -517,9 +517,10 @@ Data type used to allow for the input of monetary amounts into an inputfield. Al
 
 * Attribute Options 
     - **data-currency-symbol** User can set this value to equal any symbol they want. Will be used to change the symbol that appears in the prefix of the input field. Can be used to change the money symbol and allow for international currency. **Default** undefined (will be set to $ when undefined)
-    - **data-hide-symbol** When set, the currency symbol attribute will not be displayed.
+    - **data-hide-symbol** When included, the currency symbol attribute will not be displayed.
     - **data-max-amount** User can set the max amount that will be allowed to be entered in the field. If more than this amount is entered into the field then an error message will be displayed. 
     - **data-min-amount** User can set the min amount that will be allowed to be entered in the field. If less than this amount is entered into the field then an error message will be displayed. 
+    - **data-allow-negative** User can include this attribute to allow negative currency amounts to be entered. This attribute does not have to be set to true.
 * Methods (public)
     - **setUp(ifw)** Sets all of the options to their values, determines if the currency symbol should be displayed or not. Also sets up the inputFilter. 
     - **format(money)** Ensures that what the user is typing in is in the correct format with only one decimal. If an incorrect format is entered then the method will return ''.

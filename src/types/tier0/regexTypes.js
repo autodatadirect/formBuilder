@@ -90,7 +90,7 @@
 		'utext': createRegexType(/.*/, /.*/, {
 			toUpper: true
 		}),
-		'integer': createRegexType(/^[0-9]*$/, /[0-9]/),
+		'integer': createRegexType(/^-?[0-9]*$/, /[-0-9]/),
 		'number': createRegexType(/^-?[0-9]+\.?[0-9]*$/, /[-0-9.]/),
 		'state': createRegexType(/^[A-Z]{2}$/, /[A-Z]/, {}, 2),
 		'feid': createRegexType(/^[0-9]{2}\-?[0-9]{7}$/, /[0-9\-]/, {}, 10),

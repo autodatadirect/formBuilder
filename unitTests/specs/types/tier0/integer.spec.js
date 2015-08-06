@@ -41,8 +41,8 @@ describe('The integer data-type', function(){
 		expect(typeNewString(chars.alphas)).toEqual('');
 		expect(typeNewString(chars.ALPHAS)).toEqual('');
 		expect(typeNewString(chars.digits)).toEqual(chars.digits);
-		expect(typeNewString(chars.symbols)).toEqual('');
-		expect(typeNewString(chars.all)).toEqual(chars.digits);
+		expect(typeNewString(chars.symbols)).toEqual('-');
+		expect(typeNewString(chars.all)).toEqual('1234567890-');
 	});
 
 	describe('has simple regex validation', function(){
