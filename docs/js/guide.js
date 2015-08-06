@@ -2,7 +2,7 @@
  * Handles documentation page
  */
 
-/* globals JSON:true, moment:true, CodeMirror:true, Path2D:true*/
+/* globals JSON:true, moment:true, CodeMirror:true, Path2D:true */
 'use strict';
 
 /**
@@ -224,15 +224,71 @@ $.formBuilder.inputField.types.customLocation = {
 // You can use the formBuilder utility functions if needed
 var util = $.formBuilder.util;
 
+$.formBuilder.inputField.types.colorHex = {
+	_validRegex: /^[ABCDEF0-9]{6}$/,
+	setUp: function(ifw) {
+		var self = this,
+			e = ifw.element;
+
+		e.inputFilter({
+			pattern: /[ABCDEFabcdef0-9]/,
+			max: 6,
+			toUpper: true
+		});
+		e.css('font-family', 'monospace');
+
+		e.blur(function(){
+			if(!e.val().match(self._validRegex)) {
+				ifw.clear();
+			}
+		});
+
+		ifw.placeholder('Color Hex');
+	},
+	
+	converter: {
+		toField: function(value, ifw) {
+			var self = this;
+
+			// Make sure is string
+			value = (''+value).toUpperCase();
+
+			// Remove '#' if added
+			if(value.length > 1 && value[0] === '#') {
+				value = value.substring(1);
+			}
+
+			return value.match(self._validRegex)? value : '';
+		},
+		fromField: function(value, ifw) {
+			var self = this;
+			return value.match(self._validRegex)? '#' + value.toUpperCase() : '';
+		}
+	},
+
+	validate: function(ifw) {
+		var self = this;
+		return ifw.get().match(self._validRegex)? undefined : {
+			message: ''
+		};
+	}
+};
+
 $.widget('examples.customColorPicker', {
 	/**
 	 * Any options needed
 	 * Optional.
 	 */
 	options: {
+		required: false, // passed by formBuilder
+
 		randomColors: false,
-		outerDiameter: '200',
-		innerDiameter: '100'
+		randomCount: 10,
+		outerDiameter: 250.0,
+		innerDiameter: 80.0,
+		padding: 10.0,
+		divider: 8.0,
+		background: '#FBFBFB'
 	},
 
 	/**
@@ -245,28 +301,79 @@ $.widget('examples.customColorPicker', {
 			o = self.options;
 
 		// Load any options from DOM (overrides any passed options if set)
-		util.loadDomData(e, o, ['outerDiameter','innerDiameter']);
+		util.loadDomData(e, o, ['outerDiameter','innerDiameter', 'padding','divider', 'background', 'randomCount']);
 		util.loadDomToggleData(e, o, ['randomColors']);
 
+		self.sideLength = o.outerDiameter + o.padding;
+
 		self.wrapper = $('<div class="picker-wrapper input-field-group"></div>').appendTo(e);
-		self.canvas = $('<canvas class="picker-canvas" width="'+o.outerDiameter+'" height="'+o.outerDiameter+'">Unable to render picker, upgrade your browser!</canvas>').appendTo(self.wrapper)[0];
-		self.field = $('<input type="text" data-type="utext" class="picker-field" data-max="7" style="width:60px"/>').appendTo(self.wrapper).inputField();
+		self.canvas = $('<canvas class="picker-canvas" width="'+self.sideLength+'" height="'+self.sideLength+'"></canvas>').appendTo(self.wrapper);
+		self.field = $('<input type="text" data-type="colorHex" class="picker-field" data-prefix="#" style="width:60px"/>').appendTo(self.wrapper).inputField({
+			required: o.required
+		});
 
-		// Convert strings to floats
-		o.outerDiameter = parseFloat(o.outerDiameter);
-		o.innerDiameter = parseFloat(o.innerDiameter);
+		self.isSupported = !!self.canvas[0].getContext;
 
-		self._setColors();
-		self._drawPicker();
+		if(self.isSupported) {
+			e.addClass('picker');
 
-		var fieldWrapper = self.field.inputField('getField');
-		setTimeout(function() {
-			fieldWrapper.css({
-				left: o.outerDiameter/2 - fieldWrapper.outerWidth()/2.0,
-				top: o.outerDiameter/2 - fieldWrapper.outerHeight()/2.0
-			});
-		}, 100); 
+			// Convert strings to floats
+			o.outerDiameter = parseFloat(o.outerDiameter);
+			o.innerDiameter = parseFloat(o.innerDiameter);
 		
+			self._setColors();
+		
+			var fieldWrapper = self.field.inputField('getField');
+			setTimeout(function() {
+				self.fieldColor = -1;
+				self._drawPicker();
+				fieldWrapper.css({
+					left: self.sideLength/2 - fieldWrapper.outerWidth()/2.0,
+					top: self.sideLength/2 - fieldWrapper.outerHeight()/2.0
+				});
+			}, 10); 
+
+			// Check for hover + check events events
+			self.canvas.on('mousemove', function(ev) {
+				for(var i = 0; i < self.colors.length; ++i) {
+					if(self._pointInSlice(ev.offsetX, ev.offsetY, i)) {
+						self.hoverColor = i;
+						self._drawPicker();
+						self.canvas.css('cursor','pointer');
+						return;
+					}
+
+					self.hoverColor = -1;
+					self._drawPicker();
+					self.canvas.css('cursor','default');
+				}
+			}).on('click', function(ev) {
+				for(var i = 0; i < self.colors.length; ++i) {
+					if(self._pointInSlice(ev.offsetX, ev.offsetY, i)) {					
+						self.field.focus().val(self.colors[i].substring(1)).keydown().blur();
+						self.fieldColor = self.get();
+						self._drawPicker();
+						return;
+					}
+				}
+			}).on('mouseleave', function() {
+				if(self.hoverColor >= 0) {
+					self.hoverColor = -1;
+					self._drawPicker();
+					self.canvas.css('cursor','default');
+				}
+			});
+
+			self.field.on('change keydown', function() {
+				self.fieldColor = self.get();
+				self._drawPicker();
+			});
+
+		} else {
+			console.log('Canvas is unsupported, only the inputField will be used for the customColorPicker');
+			self.canvas.remove();
+			self.canvas = undefined;
+		}
 	},
 
 	/**
@@ -278,6 +385,7 @@ $.widget('examples.customColorPicker', {
 			e = self.element;
 
 		self.canvas.remove();
+		self.field.remove();
 		e.empty();
 	},
 
@@ -288,7 +396,11 @@ $.widget('examples.customColorPicker', {
 	 * Required.
 	 */
 	set: function(data) {
+		var self = this;
 
+		self.field.inputField('set', data);
+		self.fieldColor = self.get();
+		self._drawPicker();
 	},
 
 	/**
@@ -297,7 +409,7 @@ $.widget('examples.customColorPicker', {
 	 * Required.
 	 */
 	get: function() {
-		return '#FFF';
+		return this.field.inputField('get');
 	},
 
 	/**
@@ -307,7 +419,7 @@ $.widget('examples.customColorPicker', {
 	 * Required.
 	 */
 	isDirty: function() {
-		return false;
+		return this.field.inputField('isDirty');
 	},
 
 	/**
@@ -317,7 +429,7 @@ $.widget('examples.customColorPicker', {
 	 * Required.
 	 */
 	clearDirty: function() {
-
+		this.field.inputField('clearDirty');
 	},
 
 	/**
@@ -325,7 +437,7 @@ $.widget('examples.customColorPicker', {
 	 * Required.
 	 */
 	clear: function() {
-
+		this.field.inputField('clear');
 	},
 
 	/**
@@ -338,28 +450,30 @@ $.widget('examples.customColorPicker', {
 
 	},
 
+	/**
+	 * Custom functions to handle canvas
+	 */
 
 	_defaultColors: ['#FF0000','#FF7F00','#FFFF00','#00FF00','#00FFFF','#0000FF','#8B00FF', '#000000'],
 	_setColors: function() {
 		var self = this,
-			o = self.options;
+			o = self.options,
+			i;
 		
+		self.colors = [];
 		if(o.randomColors) {
-			self.colors = [];
 
-			var color = function() {
-				var str = (Math.random()*256).toString(16);
-				while(str.length < 3) {
-					str = '0'+str;
-				}
-				return str;
-			};
+			if(o.randomCount < 2) {
+				o.randomCount = 2;
+			}
 
-			for(var i = 0; i < 7; ++i) {
-				self.colors[i] = '#'+color()+color()+color();
+			for(i = 0; i < o.randomCount; ++i) {
+				self.colors[i] = '#' + Math.floor((Math.random() * 0xFFFFFF)).toString(16).toUpperCase();
 			}
 		} else {
-			self.colors = self._defaultColors;
+			for(i = 0; i < self._defaultColors.length; ++i) {
+				self.colors[i] = self._defaultColors[i];
+			}			
 		}
 
 	},
@@ -367,62 +481,125 @@ $.widget('examples.customColorPicker', {
 	_drawPicker: function() {
 		var self = this,
 			c = self.colors,
-			o = self.options;
+			o = self.options,
+			ctx = self.canvas[0].getContext('2d'),
+			origin = self.sideLength/2.0,
+			sliceRadians = 2*Math.PI/c.length,
+			iRadius = o.innerDiameter/2.0,
+			oRadius = o.outerDiameter/2.0,
+			i;
 
-		self.isSupported = !!self.canvas.getContext;
+		// Reset canvas
+		ctx.clearRect(0,0,self.canvas.width, self.canvas.height);
 
-		if(self.isSupported) {
-			var ctx = self.canvas.getContext('2d'),
-				r = 0.0,
-				origin = o.outerDiameter/2.0,
-				iRadius = o.innerDiameter/2.0,
-				oRadius = origin,
-				sliceRadians = 2*Math.PI/c.length;
-
-			// Draw color slices
-			self.slicePaths = [];
-			for(var i = 0; i < c.length; ++i) {
-				var path = new Path2D();
-				path.moveTo(
-					origin+iRadius*Math.cos(r),
-					origin+iRadius*Math.sin(r)
-				);
-				path.lineTo(
-					origin+oRadius*Math.cos(r),
-					origin+oRadius*Math.sin(r)
-				);
-				path.arc(
-					origin, origin, oRadius, r, r-sliceRadians, true
-				);
-				r -= sliceRadians;
-				path.lineTo(
-					origin+iRadius*Math.cos(r),
-					origin+iRadius*Math.sin(r)
-				);
-				path.arc(
-					origin, origin, iRadius, r, r+sliceRadians, false
-				);
-
-
-				ctx.fillStyle = self.colors[i];
-				ctx.fill(path);
-				ctx.strokeStyle = '#FFF';
-				ctx.lineWidth = 5;
-				ctx.stroke(path);
+		// Draw color slices
+		var drawSlice = function(color, i, isHover) {
+			var r = i*sliceRadians,
+				path = new Path2D();
 				
-				self.slicePaths.push(path);
+			path.moveTo(
+				origin+iRadius*Math.cos(r),
+				origin+iRadius*Math.sin(r)
+			);
+			path.lineTo(
+				origin+oRadius*Math.cos(r),
+				origin+oRadius*Math.sin(r)
+			);
+			path.arc(
+				origin, origin, oRadius, r, r+sliceRadians, false
+			);
+			r += sliceRadians;
+			path.lineTo(
+				origin+iRadius*Math.cos(r),
+				origin+iRadius*Math.sin(r)
+			);
+			path.arc(
+				origin, origin, iRadius, r, r-sliceRadians, true
+			);
+			path.lineTo(
+				origin+oRadius*Math.cos(r-sliceRadians),
+				origin+oRadius*Math.sin(r-sliceRadians)
+			);
+
+			ctx.fillStyle = color;
+			ctx.fill(path);
+			
+			ctx.strokeStyle = isHover? color : o.background;
+			
+			ctx.lineWidth = o.divider;
+			ctx.stroke(path);
+			
+		};
+
+
+		// Draw normal slices
+		for(i = 0; i < c.length; ++i) {
+			if(self.hoverColor !== i) {
+				drawSlice(c[i], i, false);
 			}
-
-
-			// Draw circles
-			
-
-			// Create center field
-			
-		} else {
-			console.log('Canvas not supported by browser, exiting');
 		}
+
+		// Draw hover slice
+		if(self.hoverColor >= 0) {
+			drawSlice(c[self.hoverColor], self.hoverColor, true);
+		}
+
+		// Draw center
+		var circle = new Path2D();
+
+		circle.moveTo(origin, iRadius);
+		circle.arc(origin, origin, iRadius + o.divider, 0, 2*Math.PI, false);
+
+		ctx.fillStyle = (self.fieldColor.length === 7)? self.fieldColor : o.background;
+		ctx.fill(circle);		
+	},
+
+	// Check point against a simple trapazoid around a slice (curves ignored)
+	_pointInSlice: function(x, y, i) {
+		var self = this,
+			o = self.options,
+			c = self.colors,
+			sliceRadians = 2*Math.PI/c.length,
+			origin = self.sideLength/2.0,
+			r1 = sliceRadians*i,
+			r2, piDeg, pRadius, theta;
+
+		// point radius
+		pRadius = Math.sqrt(Math.pow(origin - x, 2) + Math.pow(origin - y, 2)); //distance formula
+
+		/**
+		 * 1. farthest perpendicular edge to centerline
+		 * 2. closest perpendicular edge to centerline
+		 */
+		if((o.outerDiameter/2.0 < pRadius) || (pRadius < o.innerDiameter/2.0*Math.cos(sliceRadians/2))) {
+			return false;
+		}
+
+		r2 = r1 + sliceRadians;
+
+		// adjust pt + theta to quadrant
+		x -= origin;
+		y -= origin;
+		theta = Math.atan(y/x);
+
+		if(x < 0) {
+			theta += Math.PI;
+		} else if(x >= 0 && y < 0) {
+			theta += 2*Math.PI;
+		}
+
+		/**
+		 * 1. radians to right edge
+		 * 2. radians to left edge
+		 */
+		if(theta < r1 || r2 < theta) {
+			return false;
+		}
+
+		// Inside all boundary checks
+		return true;
 	}
+
 });
 
 
@@ -738,7 +915,8 @@ $('code[data-mode]').each(function(){
 		indentWithTabs: false,
 		lineNumbers: true,
 		theme: 'default',
-		readOnly: true
+		readOnly: true,
+		tabSize: 3
 	};
 	if(cm.mode === 'html') {
 		cm.mode = 'xml';
