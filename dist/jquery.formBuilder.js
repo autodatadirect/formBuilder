@@ -2636,7 +2636,6 @@
 			if(!layers.suffix){
 				layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value noselect">' + t + '</span></div>').prependTo(layers.items);
 				self.suffixShim = layers.suffix.find('.shim');
-				
 			} else {
 				layers.suffix.find('.value').text(t);
 			}
@@ -4753,7 +4752,6 @@
 			util.loadDomToggleData(e, o, ['hideSymbol', 'allowNegative']);
 
 			if(!o.allowNegative){
-				console.log('inside if');
 				e.inputFilter({
 					pattern: /[0-9\.]/
 				}).change(function () {
@@ -4762,7 +4760,6 @@
 					e.val(self.format(e.val()));
 				});
 			} else{
-				console.log('inside else');
 				e.inputFilter({
 					pattern: /[0-9\.-]/
 				}).change(function () {
