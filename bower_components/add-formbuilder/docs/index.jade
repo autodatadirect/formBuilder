@@ -1,0 +1,54 @@
+extend ./_layout.jade
+
+block vars
+	- title = 'About'
+
+block localCSS
+	style(type='text/css' rel='stylesheet').
+		/* Directory bullet format */
+		.content > ul:first-of-type,
+		.content > ul:first-of-type ul,
+		.content > ul:first-of-type li {
+			list-style: none;
+			margin-left: 0;
+			padding-left: .75em;
+		}
+		.content > ul:first-of-type li:before {
+			content: '├';
+			margin-right: 2px;
+		}
+		.content > ul:first-of-type li:last-child:before {
+			content: '└';
+			
+		}
+		.content > ul:first-of-type > li:first-child:before {
+			content: '┌';
+		}
+	//- 
+
+block localJS
+	//- script(type='text/javascript' src='./js/guide.js')
+
+block sideNav
+	li.current
+		a(href='#about') About
+		ul.navDepth-1
+			li: a(href='#about-whatisformBuilder') What is formBuilder?
+			li: a(href='#about-howisformBuilderused') How is formBuilder used?
+			li: a(href='#about-whyshouldIuseformBuilder') Why should I use formBuilder?
+	li
+		a(href='#contributing') Contributing
+		ul.navDepth-1
+			li: a(href='#contributing-projectStructure') Project Structure
+			li: a(href='#contributing-branches') Branches
+			li: a(href='#contributing-setup') Setup
+			li: a(href='#contributing-building') Building
+			li: a(href='#contributing-unitTests') Unit Tests
+			li: a(href='#contributing-documentation') Documentation
+	li
+		a(href='#license') License
+	li
+		a(href='#credits') Credits
+
+block content
+	include content/index.html

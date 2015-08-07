@@ -1,0 +1,23 @@
+p You can add a tooltip box <b>after a form field</b> that will display a hovering widget on-click. You need a div of class <i>tooltip</i> with an optional <i>title</i> attribute
+.example
+	input(type='text')
+	.tooltip(title='Tooltip Example')
+		h1 This is a tooltip
+		p Paragraph One
+		p Paragraph Two
+		a(href='http://add123.com') Some link somewhere cool
+.example
+	input(type='text')
+	.tooltip
+		h1 This is a tooltip without a title
+		p Paragraph One
+		p Paragraph Two
+		a(href='http://add123.com') Some link somewhere cool
+code(data-mode='html').
+	<input type="text">
+	<div title="Tooltip Title" class="tooltip">
+		<h1>Tooltip Header</h1>
+		<p>Paragraph One</p>
+		<p>Paragraph Two</p><a href="http://add123.com">Link</a>
+	</div>
+//- 

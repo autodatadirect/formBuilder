@@ -1,0 +1,89 @@
+
+/********************************************************
+ * formBuilder examples
+ */
+ .example {
+ 	display: block;
+ 	margin-bottom: 1em;
+ 	margin-left: 1em;
+ }
+
+
+
+/********************************************************
+ * Type testing
+ */
+ .aClass {
+ 	display: block;
+ 	background-color: yellow;
+ 	height: 1em;
+ 	width: 1em;
+ }
+
+
+/********************************************************
+ * Text Submitter testing
+ */
+ #textSubmitterSubmitBox {
+ 	position: relative;
+ 	display: block;
+ 	margin-bottom: 1em;
+ 	padding-left: 1em;
+ 	padding-top: 1.7em;
+ 	font-size: .8em;
+ 	width: 400px;
+ }
+ #textSubmitterSubmitBox .title {
+ 	position: absolute;
+ 	font-size: 1.2em;
+ 	top: 0px;
+ 	left: 1em;
+ 	font-weight: bold;
+ }
+ #textSubmitterSubmitBox .messages {
+ 	overflow-y: scroll;
+ 	height: 8.2em;
+ 	background-color: #E6E6E6;
+ 	padding: .5em;
+ }
+ #textSubmitterSubmitBox .messages .message {
+ 	display: block;
+ }
+ #textSubmitterSubmitBox .messages .message .submitTime {
+ 	display: inline-block;
+ 	padding-right: 5px;
+ 	color: gray;
+ }
+ #textSubmitterSubmitBox .messages .message .submitText {
+ 	display: inline-block;
+ }
+
+ /********************************************************
+ * dropDownPanel testing
+ */
+#ddpBasicTarget0 {
+	background-color: #3D2B56;
+	color: #FFF;
+	margin: .2em;
+	padding: .2em;
+}
+
+
+/*********************************************************
+ * Color picker field widget
+ */
+.picker {
+	display: inline-block;
+}
+.picker-wrapper {
+	position: relative;
+	z-index: 0;
+}
+.input-field.picker-field {
+	position: absolute;
+	z-index: 10;
+}
+.picker-canvas {
+	display: block;
+	z-index: 5;
+}

@@ -1,0 +1,26 @@
+p.
+	Custom types that only need regex validation and key input filtering can be easily 
+	generated using the <code>$.formBuilder.inputField.createRegexType</code> function. 
+
+.example: input(type='text' data-label='Custom "swear" type' data-type='swear')
+.example: input(type='text' data-label='Custom "theLetterF" type' data-type='theLetterF')
+.example: input(type='text' data-label='Custom "luckySeven" type' data-type='luckySeven')
+
+code(data-mode='html').
+	<form id='simpleCustomTypeForm' action='#'>
+		<input type='text' data-label='Custom "swear" type' data-type='swear'>
+		<input type='text' data-label='Custom "theLetterF" type' data-type='theLetterF'>
+		<input type='text' data-label='Custom "luckySeven" type' data-type='luckySeven'>
+	</form>
+//- 
+
+code(data-mode='javascript').
+	$.extend($.formBuilder.inputField.types,{
+		'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
+		'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
+				toUpper: false
+			}),
+		'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
+	});
+	$('simpleCustomTypeForm').formBuilder();
+//- 

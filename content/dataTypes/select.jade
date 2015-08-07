@@ -1,0 +1,63 @@
+p Normal select tags will still work, but you can also use the formBuilder select input, which works in the same way as the code data-type.
+.example: select(data-label='select default without formBuilder')
+	option(value='true') Yes
+	option(value='false') No
+	option(value='1') option 1
+	option(value='2') option 2
+	option(value='3') option 3
+	option(value='4') option 4
+	option(value='5') option 5
+	option(value='6') option 6
+	option(value='7') option 7
+	option(value='100') Some label
+	option(value='AAA') 123 Some St.
+	option(value='BBB') Some Business Name Inc.
+	option(value='Hodor') Bran
+
+.example
+	input(type='text' data-label='formBuilder select' data-type='select' data-no-filter data-options='[\
+		{"value":"submitted to form", "label":"Searched Item", "showClass":"aClass"},\
+		{"value":"true", "label":"Yes"},\
+		{"value":"false", "label":"No"},\
+		{"value":"5", "label":"option 1"},\
+		{"value":"2", "label":"option 2"},\
+		{"value":"3", "label":"option 3"},\
+		{"value":"4", "label":"option 4"},\
+		{"value":"5", "label":"option 5"},\
+		{"value":"100",  "label":"Some label"},\
+		{"value":"AAA",  "label":"123 Some St."},\
+		{"value":"BBB",  "label":"Some Business Name Inc."},\
+		{"value":"Hodor",  "label":"Bran"}\
+	]')
+	.aClass
+p The value is what is submitted to the form while the label is what the user can search for. <b>Note:</b> The data-options must be valid JSON with double quotes.
+	code(data-mode='html').
+		&lt;input type='text' data-label='formBuilder select' data-type='select' data-options=&#39;[
+				{"value":"submitted to form", "label":"Searched Item"},
+				{"value":"true", "label":"Yes"},
+				{"value":"false", "label":"No"},
+				{"value":"1", "label":"option 1"},
+				{"value":"2", "label":"option 2"},
+				{"value":"3", "label":"option 3"},
+				{"value":"4", "label":"option 4"},
+				{"value":"5", "label":"option 5"},
+				{"value":"100",  "label":"Some label"},
+				{"value":"AAA",  "label":"123 Some St."},
+				{"value":"BBB",  "label":"Some Business Name Inc."},
+				{"value":"Hodor",  "label":"Bran"}
+			]&#39;&gt;
+	//- 
+
+p The options in the select may be set with a function
+.example
+	input#settableSelect(type='text' data-type='select')
+	span Click on the button to cycle the select options.
+		button(type='button' name='toggleSelect') Change Options
+
+h3 Other Select-Based Types
+.example
+	input(type='text' data-label='tmsExpYear' data-type='tmsExpYear')
+	span Created with <b>arraySelectCreator(arrayOfOptions)</b>. A select created with an array of options where label == value. This type uses the next 10 years.
+.example
+	input(type='text' data-label='tmsYesNo' data-type='tmsYesNo')
+	span Created with <b>booleanSelectCreator(trueLabel,falseLabel)</b>. A select created with two options where the trueLabel's value is true and the falseLabel's value is false. Can be used for localization support. With this type, 'Yes' is true and 'No' is false.

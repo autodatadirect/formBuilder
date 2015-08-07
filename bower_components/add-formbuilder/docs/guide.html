@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>formBuilder.js | User Guide</title>
+    <!-- ==================== External CSS Dependencies ====================-->
+    <!-- Any jquery-ui theme-->
+    <link type="text/css" rel="stylesheet" href="./css/Aristo.css">
+    <!-- ===================== bower CSS Dependencies ======================-->
+    <link type="text/css" rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="../bower_components/jquery-timepicker-jt/jquery.timepicker.css">
+    <link type="text/css" rel="stylesheet" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css">
+    <!-- =================== formBuilder CSS Dependencies ==================-->
+    <link type="text/css" rel="stylesheet" href="../dist/css/formBuilder.css">
+    <!-- ======================== Display purposes =========================-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link type="text/css" rel="stylesheet" href="./css/codemirror.css">
+    <link type="text/css" rel="stylesheet" href="./css/main.css">
+    <link type="text/css" rel="stylesheet" href="./css/guide.css">
+  </head>
+  <body>
+    <div class="header">
+      <div class="center-container"><a href="./index.html" class="title">formBuilder</a>
+        <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html" class="current">User Guide</a><a id="API" href="./api.html">API Reference</a></div>
+        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
+      </div>
+    </div>
+    <div class="center-container page-container">
+      <div class="sideNav">
+        <ul class="navDepth-0">
+          <li class="current"><a href="#basics">Basics</a>
+            <ul class="navDepth-1">
+              <li class="current"><a href="#basics-applyingFormBuilder">Applying formBuilder</a></li>
+              <li><a href="#basics-requiredInputs">Required Inputs</a></li>
+              <li><a href="#basics-usingNamespace">Using Namespaces</a></li>
+            </ul>
+          </li>
+          <li><a href="#fieldEnhancements">Field Enhancements</a>
+            <ul class="navDepth-1">
+              <li><a href="#fieldEnhancements-preinputPostinput">Preinput/Postinput</a></li>
+              <li><a href="#fieldEnhancements-prefixSuffix">Prefix/Suffix</a></li>
+              <li><a href="#fieldEnhancements-labels">Labels</a></li>
+              <li><a href="#fieldEnhancements-placeholderText">Placeholder Text</a></li>
+              <li><a href="#fieldEnhancements-max">Max</a></li>
+              <li><a href="#fieldEnhancements-inputGroups">Input Groups</a></li>
+              <li><a href="#fieldEnhancements-tooltip">Tooltip</a></li>
+            </ul>
+          </li>
+          <li><a href="#dataTypes">Data Types</a>
+            <ul class="navDepth-1">
+              <li><a href="#dataTypes-inputTypes">Input Types</a></li>
+              <li><a href="#dataTypes-select">Select</a></li>
+              <li><a href="#dataTypes-checkbox">Checkboxes</a></li>
+              <li><a href="#dataTypes-radio">Radio Groups</a></li>
+              <li><a href="#dataTypes-textarea">Textarea</a></li>
+              <li><a href="#dataTypes-arrayField">Array Field</a></li>
+            </ul>
+          </li>
+          <li><a href="#standaloneWidgets">Standalone Widgets</a>
+            <ul class="navDepth-1">
+              <li><a href="#standaloneWidgets-dateRangePicker">Date Range Picker </a></li>
+              <li><a href="#standaloneWidgets-dateTimeRangePicker">Date Time Range Picker</a></li>
+              <li><a href="#standaloneWidgets-dropDownPanel">Drop Down Panel</a></li>
+              <li><a href="#standaloneWidgets-textSubmitter">Text Submitter</a></li>
+              <li><a href="#standaloneWidgets-submitButton">Submit Button</a></li>
+            </ul>
+          </li>
+          <li><a href="#customization">Customization</a>
+            <ul class="navDepth-1">
+              <li><a href="#customization-creatingTypes">Creating Types</a></li>
+              <li><a href="#customization-creatingRegexTypes">Creating Regex Types</a></li>
+              <li><a href="#customization-creatingFieldWidgets">Creating Field Widgets</a></li>
+              <li><a href="#customization-addingLocaleSupport">Adding Locale Support</a></li>
+              <li><a href="#customization-customThemes">Custom Themes</a></li>
+            </ul>
+          </li>
+          <li><a href="#demo">Live Demo</a>
+            <ul class="navDepth-1">
+              <li><a href="#demo-form">Form</a></li>
+              <li><a href="#demo-results">Results</a></li>
+              <li><a href="#demo-source">Source</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="content">
+        <h1>Basics<a name="basics" class="anchor"></a></h1>
+        <div class="section">
+          <h2>Applying formBuilder<a name="basics-applyingFormBuilder" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              Forms are made into formBuilder forms by initializing them as formBuilder widgets. FormBuilder 
+              will search for form fields and construct them automatically. 
+              
+            </p>
+            <div class="example">
+              <form class="fb">
+                <input type="text" data-type="utext" data-label="Name">
+                <input type="text" data-type="email" data-label="Email">
+              </form>
+            </div><code data-mode="html" data-title="HTML (before initialization)">
+              <form>
+              	<input type="text" data-type="utext" data-label="Name"/>
+              	<input type="text" data-type="email" data-label="Email"/>
+              </form></code><code data-mode="javascript"> $('form').formBuilder();</code><code data-mode="html" data-title="HTML (after initialization)">
+              <form style="display: block;">
+              	
+              	<div class="input-field-group">
+              		<div class="input-field">
+              			<label>Name</label>
+              			<div class="field-items">
+              				<span class="field-item field-item-input first">
+              					<input type="text" data-type="utext" data-label="Name">
+              				</span>
+              			</div>
+              		</div>
+              	</div>
+              	
+              	<div class="input-field-group">
+              		<div class="input-field">
+              			<label>Email</label>
+              			<div class="field-items">
+              				<span class="field-item field-item-input first">
+              					<input type="text" data-type="email" data-label="Email">
+              				</span>
+              			</div>
+              		</div>
+              	</div>
+              
+              </form></code>
+            <p>Form element attributes/options may be added to specify different widget options. </p>
+            <ul> 
+              <li>
+                The <code>data--default-required</code> attribute or <code>dataDefaultRequired</code> option sets 
+                the default require statuses for all fields in the form.
+              </li>
+              <li>
+                The <code>data-ignore-hidden</code> attribute or <code>ignoreHidden</code> option when 
+                set will ignore fields that are not visible. They will not be validated 
+                nor will any data be retrieved from them.
+              </li>
+              <li>
+                The <code>data-load-hidden</code> attribute or <code>loadHidden</code> option when 
+                set will hide the form while it is being constructed. Once complete, it 
+                will show the form. It is suggested that if you wish to use this that you should also 
+                include "style= display:none"
+                
+              </li>
+            </ul><code data-mode="html" data-title="HTML (using attributes)">
+              <form id="formExampleDefaults">
+              	....
+              </form>
+              <form id="formExampleChanged" data-required data-ignore-hidden data-load-hidden="false">
+              	....
+              </form></code><code data-mode="javascript" data-title="JAVASCRIPT (using initialization)">
+              $('form#formExampleDefaults').formBuilder();
+              
+              $('form#formExampleChanged').formBuilder({
+              	dataRequired: true, // Default = false
+              	ignoreHidden: true, // Default = false
+              	loadHidden: false // Default = true
+              });</code>
+          </div>
+          <h2>Required Inputs<a name="basics-requiredInputs" class="anchor"></a></h2>
+          <div class="section">
+            <p>The <i>data-required</i> attribute if <b>applied to the input element</b> will prevent form submission if it is not valid</p>
+            <div class="example">
+              <form action="#" class="fb">
+                <input type="text" data-label="Not Required">
+                <input type="text" data-label="Required" data-required><br>
+                <button type="submit">Check Inputs</button>
+              </form>
+            </div><code data-mode="html">
+              <form action='#'>
+              	<input type="text" data-label="Not Required">
+              	<input type="text" data-label="Required" data-required>
+              </form></code>
+            <p>The <i>data-default-required</i> attribute <b>applied to the form</b> element will set the default data-required state of all nested inputs</p>
+            <div class="example">
+              <form action="#" data-default-required class="fb">
+                <input type="text" data-label="Required" data-required>
+                <input type="text" data-label="Still Required"><br>
+                <button type="submit">Check Inputs</button>
+              </form>
+            </div><code data-mode="html">
+              <form action="#" data-default-required>
+              	<input type="text" data-label="Required" data-required>
+              	<input type="text" data-label="Still Required">
+              </form></code>
+          </div>
+          <h2>Using Namespaces<a name="basics-usingNamespace" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              Objects that contain data from the form can be created and saved using formbuilder. In order to store an object with the data
+              group your inputFields together using a common name, and then use dot notation to give each item its own unique identifier.
+              
+            </p><code data-mode="html">
+              <input type="text" name="example.one" data-type="text" data-label="Input One"/>
+              <input type="text" name="example.two" data-type="text" data-label="Input Two"/>
+              <input type="text" name="example.three" data-type="text" data-label="Input Three"/>
+              <input type="text" name="example.four" data-type="text" data-label="Input Four"/>
+              </code>
+            <p>
+              These objects can also be nested in order to create more specific groupings if desired. Say for example you wanted to 
+              store two sets of information about a group of students, like their grade and their age. You could do it by having them all share 
+              one name to be one big group, and then divide them up into two smaller groups using dot notation. 
+              
+            </p><code data-mode="html">
+              <input type="text" name="students.grade.amy" data-type="integer" data-label="Amy's Grade"/>
+              <input type="text" name="students.grade.bob" data-type="integer" data-label="Bob's Grade"/>
+              <input type="text" name="students.grade.caitlin" data-type="integer" data-label="Caitlin's Grade"/>
+              <input type="text" name="students.grade.david" data-type="integer" data-label="David's Grade"/><br/>
+              
+              <input type="text" name="students.age.amy" data-type="integer" data-label="Amy's Age"/>
+              <input type="text" name="students.age.bob" data-type="integer" data-label="Bob's Age"/>
+              <input type="text" name="students.age.caitlin" data-type="integer" data-label="Caitlin's Age"/>
+              <input type="text" name="students.age.david" data-type="integer" data-label="David's Age"/>
+              </code>
+            <p>For further insight on to how these objects store their data, look ahead to the data output in the <a href='#demo'>Live Demo</a>.</p>
+          </div>
+        </div>
+        <h1>Field Enhancements<a name="fieldEnhancements" class="anchor"></a></h1>
+        <div class="section">
+          <h2>Preinput/Postinput<a name="fieldEnhancements-preinputPostinput" class="anchor"></a></h2>
+          <div class="section">
+            <p>The <i>data-preinput</i> attribute adds a block of text before any input</p>
+            <div class="example">
+              <input type="text" data-preinput="pre">
+            </div>
+            <p>The <i>data-postinput</i> attribute adds a block of text after any input</p>
+            <div class="example">
+              <input type="text" data-postinput="post">
+            </div>
+            <p>Both can be used at the same time</p>
+            <div class="example">
+              <input type="text" data-preinput="pre" data-postinput="post">
+            </div><code data-mode="html">
+              <input type="text" data-preinput="pre">
+              <input type="text" data-postinput="post">
+              <input type="text" data-preinput="pre" data-postinput="post"></code>
+          </div>
+          <h2>Prefix/Suffix<a name="fieldEnhancements-prefixSuffix" class="anchor"></a></h2>
+          <div class="section">
+            <p>Will add text at front/end of form field that can only be visible once the user has begun entering text into the field</p>
+            <p>The <i>data-prefix</i></p>
+            <div class="example">
+              <input type="text" data-prefix="prefix">
+            </div>
+            <p>The <i>data-suffix</i></p>
+            <div class="example">
+              <input type="text" data-suffix="suffix">
+            </div><code data-mode="html">
+              <input type="text" data-prefix="prefix">
+              <input type="text" data-suffix="suffix"></code>
+          </div>
+          <h2>Labels<a name="fieldEnhancements-labels" class="anchor"></a></h2>
+          <div class="section">
+            <p>The <i>data-label</i> attribute adds text above any input field</p>
+            <div class="example">
+              <input type="text" data-label="Some Label Text">
+            </div><code data-mode="html"> <input type="text" data-label="Some Label Text"></code>
+          </div>
+          <h2>Placeholder Text<a name="fieldEnhancements-placeholderText" class="anchor"></a></h2>
+          <div class="section">
+            <p>The <i>data-empty</i> or <i>data-placeholder</i> attribute will display placeholder text when an input field is empty</p>
+            <div class="example">
+              <input type="text" data-empty="some text (empty)">
+            </div>
+            <div class="example">
+              <input type="text" data-placeholder="some text (placeholder)">
+            </div><code data-mode="html">
+              <input type="text" data-empty="some text (empty)">
+              <input type="text" data-placeholder="some text (placeholder)"></code>
+          </div>
+          <h2>Max<a name="fieldEnhancements-max" class="anchor"></a></h2>
+          <div class="section">
+            <p>the <i>data-max</i> attribute adds a maximum character requirement, enforced while typed</p>
+            <div class="example">
+              <input type="text" data-label="Maximum of 10 chars" data-max="10">
+            </div><code data-mode="html">
+              <input type="text" data-label="Maxmum of 10 chars" data-max="10">
+              </code>
+          </div>
+          <h2>Input Groups<a name="fieldEnhancements-inputGroups" class="anchor"></a></h2>
+          <div class="section">
+            <p>Use input groups to keep inputs inline</p>
+            <div class="example">
+              <div class="input-field-group">
+                <input type="text" data-label="input 1">
+                <input type="text" data-label="input 2">
+                <input type="text" data-label="input 3 w/ pre" data-preinput="pre">
+                <p>This is done by simply coding each desired input directly after the one before it</p>
+              </div>
+            </div><code data-mode="html">
+              <div class='input-field-group'>
+              	<input type="text" data-label="input 1">
+              	<input type="text" data-label="input 2">
+              	<input type="text" data-label="input 3 w/ pre" data-preinput="pre">
+              </div></code>
+          </div>
+          <h2>Tooltip<a name="fieldEnhancements-tooltip" class="anchor"></a></h2>
+          <div class="section">
+            <p>You can add a tooltip box <b>after a form field</b> that will display a hovering widget on-click. You need a div of class <i>tooltip</i> with an optional <i>title</i> attribute</p>
+            <div class="example">
+              <input type="text">
+              <div title="Tooltip Example" class="tooltip">
+                <h1>This is a tooltip</h1>
+                <p>Paragraph One</p>
+                <p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a>
+              </div>
+            </div>
+            <div class="example">
+              <input type="text">
+              <div class="tooltip">
+                <h1>This is a tooltip without a title</h1>
+                <p>Paragraph One</p>
+                <p>Paragraph Two</p><a href="http://add123.com">Some link somewhere cool</a>
+              </div>
+            </div><code data-mode="html">
+              <input type="text">
+              <div title="Tooltip Title" class="tooltip">
+              	<h1>Tooltip Header</h1>
+              	<p>Paragraph One</p>
+              	<p>Paragraph Two</p><a href="http://add123.com">Link</a>
+              </div></code>
+          </div>
+        </div>
+        <h1>Data Types<a name="dataTypes" class="anchor"></a></h1>
+        <div class="section">
+          <h2>Input Types<a name="dataTypes-inputTypes" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              The <b>data-type</b> attribute on input elements is used by formBuilder to construct each 
+              type of field. FormBuilder comes with many types that do not require any extra coding. Custom 
+              types may also be created (see <a href='#customization'>Customization</a>).
+            </p>
+            <p>
+              FormBuilder types are recommended to be used on input elements of type "text" or "password". 
+              They cannot be used with "checkbox", "radio", or "submit" types, which each have their own
+              setups. Other HTML5 types may still work but are not suggested.
+              
+            </p>
+            <p>
+              To use a type, initialize the input's parent form as a formBuilder widget. The widget will 
+              automatically create the necessary inputField() widget on the input and manage its status. 
+              Alternatively, the inputField widget may be manually applied to an input outside of a 
+              formBuilder form (see <a href='./api.html#widgets-inputField'>inputField API Reference</a>).
+              
+            </p>
+            <div class="example">
+              <input type="text" data-label="no data-type"><span>No specified data type, will not throw errors for any input. </span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="utext" data-type="utext"><span>For uppercase text. If a user types in lowercase text, it is automatically converted to uppercase.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="integer" data-type="integer"><span>For integers and negative numbers.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="number" data-type="number"><span>For integers, negatives, and decimal numbers.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="state" data-type="state"><span>For state abbreviations [A-Z]. With a data-max of two. </span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="zip" data-type="zip"><span>For entering 5 digit or 9 digit (with or without '-') zip codes.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="email" data-type="email"><span>For email inputs. The correct format is a username, then a single '@', then an alphanumeric domain name, then a single '.', then a alphabetic domain extension 2-4 characters in length. </span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="money" data-type="money"><span>For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="money" data-type="money" data-allow-negative><span>For currency inputs, allows negatives. Include <b>data-allow-negative</b> to enable this. </span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="money (custom currency symbol)" data-type="money" data-currency-symbol="&amp;pound;">
+              <input type="text" data-label="money (no symbol)" data-type="money" data-hide-symbol><span>In addition, an addon with a '$' (by default) is prepended to the left of the field with a weight of -100. To change the currency symbol, set it with the <b>data-currency-symbol</b> attribute. To not show any currency symbol, add the <b>data-hide-symbol</b> attribute.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="money ($10.00 max)" data-type="money" data-max-amount="10.00">
+              <input type="text" data-label="money ($10.00 min)" data-type="money" data-min-amount="10.00">
+              <input type="text" data-label="money ($10.00 min, $100.00 max)" data-type="money" data-min-amount="10.00" data-max-amount="100.00"><span>Max and min amounts for money can be set using the <b>data-max-amount</b> and/or the <b>data-min-amount</b>. An error message will be displayed if too large or too small an amount is entered.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="phone" data-type="phone"><span>For entering US phone numbers.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="tmsPhone" data-type="tmsPhone"><span>Extension of <b>phone</b>. Allows user to choose phone type. Will save the phone type and the number in an object. For more insight into how this data is stored look ahead to the <a href='#demo'>Live Demo</a></span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="date" data-type="date"><span>For entering dates in the 'MM/DD/YYYY' format. A user may manually type the date or click the input field to open a datepicker and select a date. </span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="time" data-type="time">
+              <input type="text" data-label="time (military)" data-type="time" data-military><span>For entering times. The <b>data-military</b> attribute may be set to display times in military time.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="dateTime" data-type="dateTime"><span>For entering dates and times in the 'MM/DD/YYYY h:MM AM/PM format. Combines the date and time data types.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="dateTime" data-type="dateTime" data-military><span>For entering military times, performs in the same way as dateTime except time is 24 hours and does not include AM/PM</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="display" data-type="display" value="Some value">
+              <p> <span>For displaying uneditable values. Displays value attribute where the input field would be. Displayed as html. </span></p>
+            </div>
+          </div>
+          <h2>Select<a name="dataTypes-select" class="anchor"></a></h2>
+          <div class="section">
+            <p>Normal select tags will still work, but you can also use the formBuilder select input, which works in the same way as the code data-type.</p>
+            <div class="example">
+              <select data-label="select default without formBuilder">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+                <option value="1">option 1</option>
+                <option value="2">option 2</option>
+                <option value="3">option 3</option>
+                <option value="4">option 4</option>
+                <option value="5">option 5</option>
+                <option value="6">option 6</option>
+                <option value="7">option 7</option>
+                <option value="100">Some label</option>
+                <option value="AAA">123 Some St.</option>
+                <option value="BBB">Some Business Name Inc.</option>
+                <option value="Hodor">Bran</option>
+              </select>
+            </div>
+            <div class="example">
+              <input type="text" data-label="formBuilder select" data-type="select" data-no-filter data-options="[		{&quot;value&quot;:&quot;submitted to form&quot;, &quot;label&quot;:&quot;Searched Item&quot;, &quot;showClass&quot;:&quot;aClass&quot;},		{&quot;value&quot;:&quot;true&quot;, &quot;label&quot;:&quot;Yes&quot;},		{&quot;value&quot;:&quot;false&quot;, &quot;label&quot;:&quot;No&quot;},		{&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 1&quot;},		{&quot;value&quot;:&quot;2&quot;, &quot;label&quot;:&quot;option 2&quot;},		{&quot;value&quot;:&quot;3&quot;, &quot;label&quot;:&quot;option 3&quot;},		{&quot;value&quot;:&quot;4&quot;, &quot;label&quot;:&quot;option 4&quot;},		{&quot;value&quot;:&quot;5&quot;, &quot;label&quot;:&quot;option 5&quot;},		{&quot;value&quot;:&quot;100&quot;,  &quot;label&quot;:&quot;Some label&quot;},		{&quot;value&quot;:&quot;AAA&quot;,  &quot;label&quot;:&quot;123 Some St.&quot;},		{&quot;value&quot;:&quot;BBB&quot;,  &quot;label&quot;:&quot;Some Business Name Inc.&quot;},		{&quot;value&quot;:&quot;Hodor&quot;,  &quot;label&quot;:&quot;Bran&quot;}	]">
+              <div class="aClass"></div>
+            </div>
+            <p>The value is what is submitted to the form while the label is what the user can search for. <b>Note:</b> The data-options must be valid JSON with double quotes.<code data-mode="html">
+                &lt;input type='text' data-label='formBuilder select' data-type='select' data-options=&#39;[
+                		{"value":"submitted to form", "label":"Searched Item"},
+                		{"value":"true", "label":"Yes"},
+                		{"value":"false", "label":"No"},
+                		{"value":"1", "label":"option 1"},
+                		{"value":"2", "label":"option 2"},
+                		{"value":"3", "label":"option 3"},
+                		{"value":"4", "label":"option 4"},
+                		{"value":"5", "label":"option 5"},
+                		{"value":"100",  "label":"Some label"},
+                		{"value":"AAA",  "label":"123 Some St."},
+                		{"value":"BBB",  "label":"Some Business Name Inc."},
+                		{"value":"Hodor",  "label":"Bran"}
+                	]&#39;&gt;</code>
+            </p>
+            <p>The options in the select may be set with a function</p>
+            <div class="example">
+              <input id="settableSelect" type="text" data-type="select"><span>Click on the button to cycle the select options.
+                <button type="button" name="toggleSelect">Change Options</button></span>
+            </div>
+            <h3>Other Select-Based Types</h3>
+            <div class="example">
+              <input type="text" data-label="tmsExpYear" data-type="tmsExpYear"><span>Created with <b>arraySelectCreator(arrayOfOptions)</b>. A select created with an array of options where label == value. This type uses the next 10 years.</span>
+            </div>
+            <div class="example">
+              <input type="text" data-label="tmsYesNo" data-type="tmsYesNo"><span>Created with <b>booleanSelectCreator(trueLabel,falseLabel)</b>. A select created with two options where the trueLabel's value is true and the falseLabel's value is false. Can be used for localization support. With this type, 'Yes' is true and 'No' is false.</span>
+            </div>
+          </div>
+          <h2>Checkboxes<a name="dataTypes-checkbox" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              FormBuilder checkboxes are very similar to normal HTML checkboxes, minus the need for an extra label tag. 
+              To add a label, add the <b>data-label</b> attribute. Labels can be made of html or just raw text. Checkboxes may can 
+              also be marked as required with the <b>data-required</b> attribute. If a checkbox is marked as required and it is unchecked
+              then it will turn red to alert the user that it is a required field. 
+            </p>
+            <p>
+              Checkboxes are made using the selectionField widget and they inherit many of the same functions as the inputField widget. 
+              This does not include the other input types or most field enhancements. Checkboxes have validation methods, different states, and 
+              they can be set/get. When used in a formBuilder form, they are seen as inputs with a boolean value.
+              
+            </p>
+            <div class="example">
+              <input type="checkbox" data-label="Some Checkbox">
+              <input type="checkbox" data-label="A &lt;i&gt;fancy&lt;/i&gt; one!">
+              <input type="checkbox" data-label="A required one" data-required>
+            </div><code data-mode="html">
+              <input type="checkbox" data-label="Some Checkbox"/>
+              <input type="checkbox" data-label="A <i>fancy</i> one!"/>
+              <input type="checkbox" data-label="A required one" data-required/></code>
+            <p>
+              Checkboxes can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
+              checkboxes can be aligned horizontally with the <b>selection-horizontal</b> class.
+              
+            </p>
+            <div class="example">
+              <div class="selection-field-group selection-horizontal">
+                <input type="checkbox" data-label="Some Checkbox">
+                <input type="checkbox" data-label="A &lt;i&gt;fancy&lt;/i&gt; one!">
+                <input type="checkbox" data-label="A required one" data-required>
+              </div>
+            </div><code data-mode="html">
+              <div class="selection-field-group selection-horizontal">
+              	<input type="checkbox" data-label="Some Checkbox"/>
+              	<input type="checkbox" data-label="A <i>fancy</i> one!"/>
+              	<input type="checkbox" data-label="A required one" data-required/>
+              </div></code>
+          </div>
+          <h2>Radio Groups<a name="dataTypes-radio" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              FormBuilder radio groups are very similar to normal HTML radio groups, minus the need for an extra label tag. 
+              To add a label, add the <b>data-label</b> attribute. Labels can be made of html or just raw text. They may can 
+              also be marked as required with the <b>data-required</b> attribute. A radio group is seen as required if at 
+              least one of its options is marked required.
+            </p>
+            <p>
+              Radio groups are made using the selectionField widget and inherits many of the same functions as the inputField widget. 
+              This does not include the other input types or most field enhancements. Radio groups have validation, states, and 
+              can be set/get. When used in a formBuilder form, the entire group is seen as one input whose value is determined by 
+              the checked radio button.
+              
+            </p>
+            <div class="example">
+              <input type="radio" name="radioExample1" data-label="Option one" value="one">
+              <input type="radio" name="radioExample1" data-label="Option two" value="two">
+              <input type="radio" name="radioExample1" data-label="Option three" value="three"><br>
+              <input type="radio" name="radioExample2" data-label="Required Option one" data-required value="one">
+              <input type="radio" name="radioExample2" data-label="Required Option two" value="two">
+              <input type="radio" name="radioExample2" data-label="Required Option three" value="three">
+            </div><code data-mode="html">
+              <input type="radio" name="radioExample1" data-label="Option one" value="one"/>
+              <input type="radio" name="radioExample1" data-label="Option two" value="two"/>
+              <input type="radio" name="radioExample1" data-label="Option three" value="three"/>
+              <br/>
+              <input type="radio" name="radioExample2" data-label="Required Option one" data-required value="one"/>
+              <input type="radio" name="radioExample2" data-label="Required Option two" value="two"/>
+              <input type="radio" name="radioExample2" data-label="Required Option three" value="three"/></code>
+            <p>
+              Radio boxes can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
+              radio boxes can be aligned horizontally with the <b>selection-horizontal</b> class.
+              
+            </p>
+            <div class="example">
+              <div class="selection-field-group selection-horizontal">
+                <input type="radio" name="radioExample3" data-label="Option one" value="one">
+                <input type="radio" name="radioExample3" data-label="Option two" value="two">
+                <input type="radio" name="radioExample3" data-label="Option three" value="three">
+              </div>
+            </div><code data-mode="html">
+              <div class="selection-field-group selection-horizontal">
+              	<input type="radio" name="radioExample3" data-label="Option one" value="one"/>
+              	<input type="radio" name="radioExample3" data-label="Option two" value="two"/>
+              	<input type="radio" name="radioExample3" data-label="Option three" value="three"/>
+              </div></code>
+          </div>
+          <h2>Textarea<a name="dataTypes-textarea" class="anchor"></a></h2>
+          <div class="section">
+            <p>No extra attributes are required. Note: pre/post-inputs will be placed on the outside of this area.</p>
+            <div class="example">
+              <textarea rows="3" data-label="TextArea"></textarea>
+            </div><code data-mode="html">
+              <textarea rows="3" data-label="TextArea">
+              
+              </textarea></code>
+          </div>
+          <h2>Array Field<a name="dataTypes-arrayField" class="anchor"></a></h2>
+          <div class="section">
+            <p>You can use array fields in a formBuilder form to allow variable amounts of the same input-field-group to be submitted.
+              <ul>
+                <li>Items can be added to the array with the bottom '+' addon.</li>
+                <li>Items can be reordered with the left '::' addon.</li>
+                <li>Items can be removed from the arrray with the right addon icon.</li>
+                <li>The main div must have a name attribute</li>
+              </ul>
+            </p>
+            <p>This is a basic example of an arrayField of an input-field-group containing a utext input.</p>
+            <div class="example">
+              <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField">
+                <input type="text" data-type="utext" data-placeholder="a utext input">
+              </div>
+            </div><code data-mode="html">
+              <div name="arrayFieldExampleSimple" data-load-widget-as-field="arrayField">
+              	<input type="text" data-type="utext" data-placeholder="a utext input">
+              </div></code>
+            
+            <p>You can add a message next to the add button using the <b>data-addmessage</b> attribute.</p>
+            <div class="example">
+              <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
+                <input type="text" data-type="utext">
+              </div>
+            </div><code data-mode="html">
+              <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-addmessage="Some added message">
+              	<input type="text" data-type="utext">
+              </div></code>
+            <p>ArrayFields can have labels like other fields</p>
+            <div class="example">
+              <div name="arrayFieldExampleLabel" data-load-widget-as-field="arrayField" data-label="Some label">
+                <input name="someInput" type="text" data-type="utext">
+              </div>
+            </div><code data-mode="html">
+              <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-label="Some label">
+              	<input type="text" data-type="utext">
+              </div></code>
+          </div>
+        </div>
+        <h1>Standalone Widgets<a name="standaloneWidgets" class="anchor"></a></h1>
+        <div class="section">
+          <h2>Date Range Picker<a name="standaloneWidgets-dateRangePicker" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              The Date-Range Picker creates two input fields for a beginning and ending date. Different 
+              ranges can be selected using the drop down panel. Arrow buttons can be used to move date 
+              ranges forwards or backwards by the allotted amount of time. This widget uses the date data-type 
+              and follows its rules for validation.
+              
+            </p>
+            <div class="dateRange"></div>
+            <p>
+              To create a date-range picker, initialize the dateRange widget on an empty div element.
+              
+            </p><code data-mode="html"> <div id="dateRangeExample"></div></code><code data-mode="javascript"> $('#dateRangeExample').dateRange(); </code>
+          </div>
+          <h2>Date Time Range Picker<a name="standaloneWidgets-dateTimeRangePicker" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              The Date-Time-Range Picker creates two input fields for a beginning and ending date and 
+              also inclues time fields for each date. Different ranges can be selected using the drop 
+              down panel. Arrow buttons can be used to move date ranges forwards or backwards by the 
+              allotted amount of time. This widget uses the date data-type and the time-data type and 
+              follows their rules for validation. If no time is selected, then the time fields will 
+              default to 12:00am and 11:59pm.
+              
+            </p>
+            <div class="dateTimeRange"></div>
+            <p>
+              To create a date-time-range picker, initialize the dateRange widget on an empty div element.
+              
+            </p><code data-mode="html"> <div id="dateTimeRangeExample"></div></code><code data-mode="javascript"> $('#dateTimeRangeExample').dateTimeRange();</code>
+          </div>
+          <h2> Drop Down Panel<a name="standaloneWidgets-dropDownPanel" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              Drop down panel widgets may be used to add an extra hovering container to any element. To create a drop down panel, initialize the 
+              jquery widget on your drop down jquery object by calling <b>dropDownPanel(<i>options</i>)</b>. Drop downs are shown when the user clicks 
+              on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop 
+              down and the target element or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and 
+              down the page with the element when scrolling.
+              
+              
+            </p>
+            <div id="ddpExampleBasic">
+              <p>This is a basic dropdown with just a paragraph inside.</p>
+            </div><span id="ddpBasicTarget0">This is a span with a drop down</span><br>
+            <input id="ddpBasicTarget1" value="This is a regular input with a drop down" style="width: 300px;"><br><code data-mode="html">
+              <style>
+              	#target0 {
+              		background-color: #3D2B56;
+              		color: #FFF;
+              		margin: .2em;
+              		padding: .2em;
+              	}
+              </style>
+              
+              <span id="target0">This is a span with a drop down</span>
+              <br/>
+              <input id="target1" value="This is a regular input with a drop down" style="width: 300px;"/>
+              
+              <div id="panel">
+              	<p>This is a basic dropdown with just a paragraph inside.</p>
+              </div></code><code data-mode="javascript">
+              var panel = $('#dropDownPanelBasic');
+              
+              $('#panel').dropDownPanel({
+              	target: $('#target0')
+              });
+              
+              $('<div>A drop down panel is just a normal container</div>').dropDownPanel({
+              	target: $('#target1')
+              });</code>
+            <p>
+              When used on an input field, a drop down will target the first input by default, rather than all of its other field items with it. 
+              This can be disabled by setting the <b>targetInput</b> option to <b>false</b>
+              
+              
+            </p>
+            <div id="ddpInputField">
+              <p>
+                This is a generic dropdown. It can be used to add supporting information to an 
+                input type by adding a nested formBuilder form and using its results to display 
+                the target's value in a certain format. For example, you could use it for location 
+                information. (Note: this example does not use the form, it is only visual)
+                
+              </p>
+              <form>
+                <input data-label="Location Name">
+                <input data-label="Address">
+                <input data-label="City">
+                <input data-label="Country">
+              </form>
+            </div>
+            <div class="example">
+              <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="no dropdown">
+              <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input" class="ddpInputFieldTarget0">
+              <input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input, targetInput=false" class="ddpInputFieldTarget1">
+            </div><code data-mode="html">
+              <div id="dropDownPanelInputField">
+              	<p>
+              		This is a generic dropdown. It can be used to add supporting information to an 
+              		input type by adding a nested formBuilder form and using its results to display 
+              		the target's value in a certain format. For example, you could use it for location 
+              		information. (Note: this example does not use the form, it is only visual)
+              	</p>
+              	<form>
+              		<input data-label="Location Name"/>
+              		<input data-label="Address"/>
+              		<input data-label="City"/>
+              		<input data-label="Country"/>
+              	</form>
+              </div>
+              
+              <form id="exampleForm">
+              	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="no dropdown"/>
+              	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input" class="dropDownPanelInputFieldTarget0"/>
+              	<input style="width: 300px;" data-preinput="pre" data-postinput="post" data-placeholder="default dropdown on input, targetInput=false" class="dropDownPanelInputFieldTarget1"/>
+              </form></code><code data-mode="javascript">
+              // Must initialize the form first
+              $('form#exampleForm').formBuilder();
+              
+              var ddp = $('#dropDownPanelInputField');
+              var ddp2 = ddp.clone();
+              
+              ddp.dropDownPanel({
+              	target: $('.dropDownPanelInputFieldTarget0')
+              });
+              ddp2.dropDownPanel({
+              	target: $('.dropDownPanelInputFieldTarget1'),
+              	targetInput: false
+              });
+              
+              ddp.find('form').formBuilder();
+              ddp2.find('form').formBuilder();</code>
+            <p>Here is an example using a custom type that uses a drop down in its setUp(). Each type instance will have its own dropDownPanel instance and container.</p>
+            <div class="example">
+              <input type="text" data-type="customLocation" style="width: 300px;" data-label="A customLocation type">
+              <input type="text" data-type="customLocation" style="width: 260px;" data-label="Another one" data-preinput="pre">
+            </div><code data-mode="html">
+              <form id="exampleForm">
+              	<input type="text" data-type="customLocation" style="width: 300px;" data-label="A customLocation type"/>
+              	<input type="text" data-type="customLocation" style="width: 260px;" data-label="Another one" data-preinput="pre"/>
+              </form>
+              </code><code data-mode="javascript">
+              $.formBuilder.inputField.types.customLocation = {
+              	_dropDownTemplate:
+              		'<div>' +
+              			'<p>Enter the location information below. In this <i>customLocation</i> type, the input field above is only used as a visual. The actual data is retrieved from this subform as an object. However, the parent form will see still see this as a single input.</p>' +
+              			'<form data-default-required>' + 
+              				'<input name="name" type="text" data-type="utext" data-label="Location Name" />' +
+              				'<input name="address" type="text" data-type="utext" data-label="Address" />' +
+              				'<input name="city" type="text" data-type="utext" data-label="City" />' +
+              				'<input name="state" type="text" data-type="state" data-label="State" />' +
+              			'</form>' + 
+              			'<br/><button type="button" disabled>View on Google Maps</button>' + 
+              		'</div>',
+              
+              	setUp: function(ifw) {
+              		var self = this,
+              			e = self.e = ifw.element;
+              
+              		self.ifw = ifw;
+              
+              		self.ddp = $(self._dropDownTemplate).dropDownPanel({
+              			target: e,
+              			afterclose: function() {
+              				ifw.validate(true);
+              			}
+              		});
+              
+              		self.form = self.ddp.find('form').formBuilder();
+              		self.viewBtn = self.ddp.find('button');
+              
+              		self.form.on('change', function(ev){
+              			self._updateTarget();
+              		});
+              
+              		self.viewBtn.on('click', function(ev){
+              			var data = self.form.formBuilder('get'),
+              				query = '';
+              
+              			if(data.address) {
+              				query += data.address;
+              			}
+              			if(data.city) {
+              				query += ' ' + data.city;
+              			}
+              			if(data.state) {
+              				query += ' ' + data.state;
+              			}
+              
+              			if(query.trim()) {
+              				window.open('http://maps.google.com?q='+query);
+              			}
+              			
+              		});
+              
+              		// disable input to the source element
+              		e.inputFilter({
+              			pattern: /[]/ //accept nothing
+              		});
+              		e.on('keydown', function(ev){
+              			// ignore backspaces
+              			if(ev.keyCode === 8) {
+              				return false;
+              			}
+              		});
+              
+              		ifw.placeholder('Location name, Address');
+              
+              	},
+              
+              	_updateTarget: function() {
+              		var self = this,
+              			data = self.form.formBuilder('get');
+              		
+              		if(data.name && data.address && data.city && data.state) {
+              			self.e.val(data.name + ', ' + data.address);
+              			self.viewBtn.prop('disabled', false);
+              			self.ifw.redraw();
+              		} else {
+              			self.e.val('');
+              			self.viewBtn.prop('disabled', true);
+              			self.ifw.redraw();
+              		}
+              		
+              	},
+              
+              	converter: {
+              		toField: function(value, ifw) {
+              			var self = this;
+              
+              			self.form.formBuilder('set', value);
+              			self._updateTarget();
+              
+              			return ;
+              		},
+              		fromField: function(value, ifw) {
+              			var self = this;
+              
+              			return self.form.formBuilder('get');
+              		}
+              	},
+              	
+              	validate: function(ifw) {
+              		var self = this;
+              
+              		if(!self.form.formBuilder('validate')) {
+              			return {
+              				message: 'invalid'
+              			};
+              		}
+              
+              		self._updateTarget();
+              	},
+              
+              	isEmpty: function() {
+              		var self = this,
+              			fields = self.form.formBuilder('getFields'),
+              			empty = true;
+              
+              		fields.each(function(i, field){
+              			if(!$(field).inputField('isEmpty')) {
+              				empty = false;
+              				return false;
+              			}
+              		});
+              
+              		return empty;
+              	},
+              		
+              	tearDown: function() {
+              		var self = this;
+              
+              		self.ddp.remove();
+              	}
+              };
+              
+              // Initialze the form
+              $('form#exampleForm').formBuilder();</code>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+          <h2> Text Submitter<a name="standaloneWidgets-textSubmitter" class="anchor"></a></h2>
+          <div class="section">
+            <p>Text submitter can be used for submitting multiple text messages from the same text area. The textSubmitter widget must be applied manually and does not need to be inside of a form.</p>
+            <p>Simple example using defaults:</p>
+            <div id="textSubmitterDefault"></div><code data-mode="html"> <div id="textSubmitterDefault"></div></code><code data-mode="javascript"> $('#textSubmitterDefault').textSubmitter();</code>
+            
+            <p>The width, placeholder, rows, and send instruction options may be set.</p>
+            <div id="textSubmitterOptions"></div><code data-mode="html"> <div id="textSubmitterOptions"></div></code>
+            <code data-mode="javascript">
+              $('#textSubmitterOptions').textSubmitter({
+              	width: '400px',
+              	placeholder: 'Some placeholder',
+              	sendInstruction: 'Some sendInstruction',
+              	rows: 2
+              });</code>
+            
+            <p>The <b>submit</b> event is fired when a the enter key is pressed. The event passes an object in the format <i>{text:'What the user types in', onComplete: (callback function)}</i>. The onComplete function will reset the textarea. This example has a 200ms submit setTimeout to simulate server lag time. </p>
+            <div id="textSubmitterSubmitBox">
+              <div class="title">Submitted Messages</div>
+              <div class="messages"></div>
+            </div>
+            <div id="textSubmitterSubmit"></div><code data-mode="html">
+              <div id="textSubmitterSubmitBox">
+              <div class="title">Submitted Messages</div>
+              <div class="messages"></div>
+              </div>
+              <div id="textSubmitterSubmit"></div></code>
+            <code data-mode="javascript">
+              var messages = $('#textSubmitterSubmitBox .messages');
+              $('#textSubmitterSubmit').textSubmitter({
+              	width: messages.outerWidth() + 15,
+              	rows: 1,
+              	placeholder: 'Type a message!',
+              	ignoreEmptySubmit: true,
+              	submit: function(ev, data){
+              		setTimeout(function(){
+              			data.text = data.text.trim();
+              			if(data.text) {
+              				messages.append('<div class="message"><span class="submitTime">['+moment().format('HH:mm:ss')+']</span><span class="submitText">"'+data.text+'"</span></div>');
+              				messages.scrollTop(messages[0].scrollHeight);
+              				data.onComplete(true);
+              			} else {
+              				data.onComplete(false);
+              			}
+              		}, 200);
+              	
+              	}
+              });</code>
+          </div>
+          <h2> Submit Button<a name="standaloneWidgets-submitButton" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              The submitButton widget can be used to handle form submission. It is styled by the jQuery UI 
+              theme and has a spinner animation during the submission process. This widget is not required 
+              when using formBuilder, but it does make the process very easy to handle. 
+              
+            </p>
+            <button id="submitButtonExample" type="submit">Submit Button </button>
+            <p>
+              A complete example of using the submitButton widget can be found in the <a href='#demo'>Live Demo</a> 
+              and complete documentaion on the <a href='./api.html#widgets-submitButton'>API Reference</a> page.
+            </p>
+          </div>
+        </div>
+        <h1>Customization<a name="customization" class="anchor"></a></h1>
+        <div class="section">
+          <h2>Creating Types<a name="customization-creatingTypes" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              FormBuilder input types are stored as normal objects, and new types may be added to formBuilder in 
+              order to specialize forms for fit your needs. All custom type objects must be added to the 
+              <b>$.formBuilder.inputField.types</b> object. The properties of the type objects are used as 
+              prototypes when creating instances of each type. The type must be defined in the types object before 
+              the inputField is initialized on the input element or it will default to type "text".
+              
+            </p>
+            <p>
+              In order to work correctly with formBuilder, each type must have a set of base methods. These are 
+              listed <a href='./api.html#inputTypes-standard' target='_blank'>here</a> in the API Reference. Below 
+              is an example a full custom type. This is a very simple type to represent and format U.S. Social Security Numbers. 
+              <b>Note:</b> If you were to make your own SSN type it is suggested to make it more complex.
+              
+              
+            </p>
+            <div class="example"> 
+              <input type="text" data-label="Custom &quot;SSN&quot; type" data-type="SSN">
+            </div><code data-mode="html">
+              <form id='fullCustomTypeForm' action='#'>
+              	<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
+              </form></code><code data-mode="javascript">
+              $.formBuilder.inputField.types.SSN = {
+              	setUp: function(ifw) {
+              		var self = this,
+              			e = ifw.element;
+              
+              		// Add a placeholder
+              		ifw.placeholder('XXX-XX-XXXX');
+              
+              		// Set the characters a user can enter
+              		e.inputFilter({
+              			pattern: /[0-9]/,
+              			max: 11,
+              			extraFilter: function(val, inText) {
+              				// A special character maximimum
+              				if(val.replace(/[^0-9]/g,'').length < 9) {
+              					return inText;
+              				}
+              			}
+              		});
+              
+              		// Replace the input with a formatted input
+              		e.on('blur', function(){
+              			e.val(self.format(e.val()));
+              		});
+              	},
+              	converter: {
+              		toField: function(value, ifw) {
+              			return this.format(value);
+              		},
+              		fromField: function(value, ifw) {
+              			return parseInt(this.format(value).replace(/\-/g,''),10);
+              		}
+              	},
+              	validate: function(ifw) {
+              		if(!this.format(ifw.element.val()).match(/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/)) {
+              			return {
+              				message: 'invalid'
+              			};
+              		}
+              	},
+              
+              	//- This is an extra function specifically for this type
+              	format: function(text) {
+              		if(!text) {
+              			return '';
+              		}
+              
+              		//- Remove non-digits
+              		text = text.replace(/[^0-9]/g,'');
+              		text = text.substring(0, 10);
+              
+              		//- add correct dashes
+              		if(text.length <= 3) {
+              			return text;
+              		} else if(text.length <= 5) {
+              			return text.substring(0,3) + '-' + text.substring(3);
+              		} else {
+              			return  text.substring(0,3) + '-' + text.substring(3,5) + '-' + text.substring(5);
+              		}
+              	}
+              };
+              
+              $('fullCustomTypeForm').formBuilder();</code>
+          </div>
+          <h2>Creating Regex Types<a name="customization-creatingRegexTypes" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              Custom types that only need regex validation and key input filtering can be easily 
+              generated using the <code>$.formBuilder.inputField.createRegexType</code> function. 
+              
+            </p>
+            <div class="example">
+              <input type="text" data-label="Custom &quot;swear&quot; type" data-type="swear">
+            </div>
+            <div class="example">
+              <input type="text" data-label="Custom &quot;theLetterF&quot; type" data-type="theLetterF">
+            </div>
+            <div class="example">
+              <input type="text" data-label="Custom &quot;luckySeven&quot; type" data-type="luckySeven">
+            </div><code data-mode="html">
+              <form id='simpleCustomTypeForm' action='#'>
+              	<input type='text' data-label='Custom "swear" type' data-type='swear'>
+              	<input type='text' data-label='Custom "theLetterF" type' data-type='theLetterF'>
+              	<input type='text' data-label='Custom "luckySeven" type' data-type='luckySeven'>
+              </form></code><code data-mode="javascript">
+              $.extend($.formBuilder.inputField.types,{
+              	'swear': $.formBuilder.inputField.createRegexType(/^[\!@#\$%\&*]*$/, /[\!@#\$%\&*]/),
+              	'theLetterF': $.formBuilder.inputField.createRegexType(/^[fF]*$/, /[fF]/,{
+              			toUpper: false
+              		}),
+              	'luckySeven': $.formBuilder.inputField.createRegexType(/^[7]*$/, /[7]/,{},3)
+              });
+              $('simpleCustomTypeForm').formBuilder();</code>
+          </div>
+          <h2>Creating Field Widgets<a name="customization-creatingFieldWidgets" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              Using custom field widgets with formBuilder allows you to make new input methods beyond simple 
+              input fields. Like input types, they require a set of functions to work with formBuilder (see 
+              <a href="./api.html#widgets-fieldWidget">fieldWidget</a>). Any widget that handles data can be 
+              made a field widget with these functions. Widgets with nested formBuilder forms can be used to 
+              make form section templates as well. 
+            </p>
+            <p>
+              To load an element as a field widget add the <code>data-load-widget-as-field="widgetName"</code> 
+              attribute. The element must be inside of a form element. When the form element is initialized 
+              as a formBuilder widget, it will automatically initialize the widget with "widgetName" on the 
+              element. This element <i>must</i> have a name attribute. Labels may also be applied to field 
+              widgets. The form <code>data-default-required</code> attribute will be passed into the widget 
+              initialization as the <code>required</code> option.
+            </p>
+            <p>
+              Here is an example of a HTML5 canvas color picker as a custom field widget. Both the custom 
+              type <code>colorHex</code> and widget <code>customColorPicker</code> were made for this 
+              example. As a type, the colorHex could be used outside of this picker. The picker uses the 
+              inputField to handle the typed input, while also drawing color slices around it for a quick 
+              selection. This widget can be reused easily with formBuilder, with options avaliable for 
+              instance specific needs. <i>If you cannot see the color picker, upgrade your browser.</i>
+            </p>
+            <div class="example">
+              <div name="cpicker" data-load-widget-as-field="customColorPicker"></div>
+              <div name="cpicker2" data-load-widget-as-field="customColorPicker" data-random-colors></div>
+              <div name="cpicker3" data-load-widget-as-field="customColorPicker" data-random-colors data-random-count="4" data-divider="15" data-padding="20"></div>
+            </div><code data-mode="html">
+              <div name="cpicker" data-load-widget-as-field="customColorPicker" style="display:inline-block"></div>
+              <div name="cpicker2" data-load-widget-as-field="customColorPicker" data-random-colors="data-random-colors" style="display:inline-block"></div>
+              <div name="cpicker3" data-load-widget-as-field="customColorPicker" data-random-colors="data-random-colors" data-random-count="4" style="display:inline-block" data-divider="15" data-padding="20"></div></code><code data-mode="css">
+              .picker {
+              	display: inline-block;
+              }
+              .picker-wrapper {
+              	position: relative;
+              	z-index: 0;
+              }
+              .input-field.picker-field {
+              	position: absolute;
+              	z-index: 10;
+              }
+              .picker-canvas {
+              	display: block;
+              	z-index: 5;
+              }</code><code data-mode="javascript">
+              /**
+               * Create Custom Field Widget
+               */
+              // You can use the formBuilder utility functions if needed
+              var util = $.formBuilder.util;
+              
+              $.formBuilder.inputField.types.colorHex = {
+              	_validRegex: /^[ABCDEF0-9]{6}$/,
+              	setUp: function(ifw) {
+              		var self = this,
+              			e = ifw.element;
+              
+              		e.inputFilter({
+              			pattern: /[ABCDEFabcdef0-9]/,
+              			max: 6,
+              			toUpper: true
+              		});
+              		e.css('font-family', 'monospace');
+              
+              		e.blur(function(){
+              			if(!e.val().match(self._validRegex)) {
+              				ifw.clear();
+              			}
+              		});
+              
+              		ifw.placeholder('Color Hex');
+              	},
+              	
+              	converter: {
+              		toField: function(value, ifw) {
+              			var self = this;
+              
+              			// Make sure is string
+              			value = (''+value).toUpperCase();
+              
+              			// Remove '#' if added
+              			if(value.length > 1 && value[0] === '#') {
+              				value = value.substring(1);
+              			}
+              
+              			return value.match(self._validRegex)? value : '';
+              		},
+              		fromField: function(value, ifw) {
+              			var self = this;
+              			return value.match(self._validRegex)? '#' + value.toUpperCase() : '';
+              		}
+              	},
+              
+              	validate: function(ifw) {
+              		var self = this;
+              		return ifw.get().match(self._validRegex)? undefined : {
+              			message: ''
+              		};
+              	}
+              };
+              
+              $.widget('examples.customColorPicker', {
+              	/**
+              	 * Any options needed
+              	 * Optional.
+              	 */
+              	options: {
+              		required: false, // passed by formBuilder
+              
+              		randomColors: false,
+              		randomCount: 10,
+              		outerDiameter: 250.0,
+              		innerDiameter: 80.0,
+              		padding: 10.0,
+              		divider: 8.0,
+              		background: '#FBFBFB'
+              	},
+              
+              	/**
+              	 * jQuery widget constructor
+              	 * Required.
+              	 */
+              	_create: function() {
+              		var self = this,
+              			e = self.element,
+              			o = self.options;
+              
+              		// Load any options from DOM (overrides any passed options if set)
+              		util.loadDomData(e, o, ['outerDiameter','innerDiameter', 'padding','divider', 'background', 'randomCount']);
+              		util.loadDomToggleData(e, o, ['required','randomColors']);
+              
+              		self.sideLength = o.outerDiameter + o.padding;
+              
+              		self.wrapper = $('<div class="picker-wrapper input-field-group"></div>').appendTo(e);
+              		self.canvas = $('<canvas class="picker-canvas" width="'+self.sideLength+'" height="'+self.sideLength+'"></canvas>').appendTo(self.wrapper);
+              		self.field = $('<input type="text" data-type="colorHex" class="picker-field" data-prefix="#" style="width:60px"/>').appendTo(self.wrapper).inputField({
+              			required: o.required
+              		});
+              
+              		self.isSupported = !!self.canvas[0].getContext;
+              
+              		if(self.isSupported) {
+              			e.addClass('picker');
+              
+              			// Convert strings to floats
+              			o.outerDiameter = parseFloat(o.outerDiameter);
+              			o.innerDiameter = parseFloat(o.innerDiameter);
+              		
+              			self._setColors();
+              		
+              			var fieldWrapper = self.field.inputField('getField');
+              			setTimeout(function() {
+              				self.fieldColor = -1;
+              				self._drawPicker();
+              				fieldWrapper.css({
+              					left: self.sideLength/2 - fieldWrapper.outerWidth()/2.0,
+              					top: self.sideLength/2 - fieldWrapper.outerHeight()/2.0
+              				});
+              			}, 10); 
+              
+              			// Check for hover + check events events
+              			self.canvas.on('mousemove', function(ev) {
+              				for(var i = 0; i < self.colors.length; ++i) {
+              					if(self._pointInSlice(ev.offsetX, ev.offsetY, i)) {
+              						self.hoverColor = i;
+              						self._drawPicker();
+              						self.canvas.css('cursor','pointer');
+              						return;
+              					}
+              
+              					self.hoverColor = -1;
+              					self._drawPicker();
+              					self.canvas.css('cursor','default');
+              				}
+              			}).on('click', function(ev) {
+              				for(var i = 0; i < self.colors.length; ++i) {
+              					if(self._pointInSlice(ev.offsetX, ev.offsetY, i)) {					
+              						self.field.focus().val(self.colors[i].substring(1)).keydown().blur();
+              						self.fieldColor = self.get();
+              						self._drawPicker();
+              						return;
+              					}
+              				}
+              			}).on('mouseleave', function() {
+              				if(self.hoverColor >= 0) {
+              					self.hoverColor = -1;
+              					self._drawPicker();
+              					self.canvas.css('cursor','default');
+              				}
+              			});
+              
+              			self.field.on('change keydown', function() {
+              				self.fieldColor = self.get();
+              				self._drawPicker();
+              			});
+              
+              		} else {
+              			console.log('Canvas is unsupported, only the inputField will be used for the customColorPicker');
+              			self.canvas.remove();
+              			self.canvas = undefined;
+              		}
+              	},
+              
+              	/**
+              	 * jQuery widget destructor
+              	 * Optional, suggested.
+              	 */
+              	_destroy: function() {
+              		var self = this,
+              			e = self.element;
+              
+              		self.canvas.remove();
+              		self.field.remove();
+              		e.empty();
+              	},
+              
+              
+              	/**
+              	 * Used to set field.
+              	 * @param {any} Any data needed by the widget to set its value
+              	 * Required.
+              	 */
+              	set: function(data) {
+              		var self = this;
+              
+              		self.field.inputField('set', data);
+              		self.fieldColor = self.get();
+              		self._drawPicker();
+              	},
+              
+              	/**
+              	 * Used to retrieve the data from the field.
+              	 * @return {any} Data from field. Must match set() data format
+              	 * Required.
+              	 */
+              	get: function() {
+              		return this.field.inputField('get');
+              	},
+              
+              	/**
+              	 * Checks for dirty state. A value is dirty when 
+              	 * what is entered is differs from the last set()
+              	 * @return {Boolean} clean/dirty
+              	 * Required.
+              	 */
+              	isDirty: function() {
+              		return this.field.inputField('isDirty');
+              	},
+              
+              	/**
+              	 * Removes the dirty state and calls any needed events.
+              	 * Note: This should not change the value of the widget, 
+              	 * that is what clear() is for.
+              	 * Required.
+              	 */
+              	clearDirty: function() {
+              		this.field.inputField('clearDirty');
+              	},
+              
+              	/**
+              	 * Empties all entered inputs.
+              	 * Required.
+              	 */
+              	clear: function() {
+              		this.field.inputField('clear');
+              	},
+              
+              	/**
+              	 * Preforms a visual effect to bring the user's attention
+              	 * to the widget. Can be used for errors or simply left
+              	 * empty.
+              	 * Required.
+              	 */
+              	flash: function() {
+              
+              	},
+              
+              	/**
+              	 * Runs input validation on the widget's inputs. This can 
+              	 * be anything specific to the widget.
+              	 * @return {Boolean} valid/invalid
+              	 */
+              	validate: function() {
+              		return this.field.inputField('validate');
+              	},
+              
+              	/**
+              	 * Custom functions to handle canvas
+              	 */
+              
+              	_defaultColors: ['#FF0000','#FF7F00','#FFFF00','#00FF00','#00FFFF','#0000FF','#8B00FF', '#000000'],
+              	_setColors: function() {
+              		var self = this,
+              			o = self.options,
+              			i;
+              		
+              		self.colors = [];
+              		if(o.randomColors) {
+              
+              			if(o.randomCount < 2) {
+              				o.randomCount = 2;
+              			}
+              
+              			for(i = 0; i < o.randomCount; ++i) {
+              				self.colors[i] = '#' + Math.floor((Math.random() * 0xFFFFFF)).toString(16).toUpperCase();
+              			}
+              		} else {
+              			for(i = 0; i < self._defaultColors.length; ++i) {
+              				self.colors[i] = self._defaultColors[i];
+              			}			
+              		}
+              
+              	},
+              
+              	_drawPicker: function() {
+              		var self = this,
+              			c = self.colors,
+              			o = self.options,
+              			ctx = self.canvas[0].getContext('2d'),
+              			origin = self.sideLength/2.0,
+              			sliceRadians = 2*Math.PI/c.length,
+              			iRadius = o.innerDiameter/2.0,
+              			oRadius = o.outerDiameter/2.0,
+              			i;
+              
+              		// Reset canvas
+              		ctx.clearRect(0,0,self.canvas.width, self.canvas.height);
+              
+              		// Draw color slices
+              		var drawSlice = function(color, i, isHover) {
+              			var r = i*sliceRadians,
+              				path = new Path2D();
+              				
+              			path.moveTo(
+              				origin+iRadius*Math.cos(r),
+              				origin+iRadius*Math.sin(r)
+              			);
+              			path.lineTo(
+              				origin+oRadius*Math.cos(r),
+              				origin+oRadius*Math.sin(r)
+              			);
+              			path.arc(
+              				origin, origin, oRadius, r, r+sliceRadians, false
+              			);
+              			r += sliceRadians;
+              			path.lineTo(
+              				origin+iRadius*Math.cos(r),
+              				origin+iRadius*Math.sin(r)
+              			);
+              			path.arc(
+              				origin, origin, iRadius, r, r-sliceRadians, true
+              			);
+              			path.lineTo(
+              				origin+oRadius*Math.cos(r-sliceRadians),
+              				origin+oRadius*Math.sin(r-sliceRadians)
+              			);
+              
+              			ctx.fillStyle = color;
+              			ctx.fill(path);
+              			
+              			ctx.strokeStyle = isHover? color : o.background;
+              			
+              			ctx.lineWidth = o.divider;
+              			ctx.stroke(path);
+              			
+              		};
+              
+              
+              		// Draw normal slices
+              		for(i = 0; i < c.length; ++i) {
+              			if(self.hoverColor !== i) {
+              				drawSlice(c[i], i, false);
+              			}
+              		}
+              
+              		// Draw hover slice
+              		if(self.hoverColor >= 0) {
+              			drawSlice(c[self.hoverColor], self.hoverColor, true);
+              		}
+              
+              		// Draw center
+              		var circle = new Path2D();
+              
+              		circle.moveTo(origin, iRadius);
+              		circle.arc(origin, origin, iRadius + o.divider, 0, 2*Math.PI, false);
+              
+              		ctx.fillStyle = (self.fieldColor.length === 7)? self.fieldColor : o.background;
+              		ctx.fill(circle);		
+              	},
+              
+              	// Check point against a simple trapazoid around a slice (curves ignored)
+              	_pointInSlice: function(x, y, i) {
+              		var self = this,
+              			o = self.options,
+              			c = self.colors,
+              			sliceRadians = 2*Math.PI/c.length,
+              			origin = self.sideLength/2.0,
+              			r1 = sliceRadians*i,
+              			r2, piDeg, pRadius, theta;
+              
+              		// point radius
+              		pRadius = Math.sqrt(Math.pow(origin - x, 2) + Math.pow(origin - y, 2)); //distance formula
+              
+              		/**
+              		 * 1. farthest perpendicular edge to centerline
+              		 * 2. closest perpendicular edge to centerline
+              		 */
+              		if((o.outerDiameter/2.0 < pRadius) || (pRadius < o.innerDiameter/2.0*Math.cos(sliceRadians/2))) {
+              			return false;
+              		}
+              
+              		r2 = r1 + sliceRadians;
+              
+              		// adjust pt + theta to quadrant
+              		x -= origin;
+              		y -= origin;
+              		theta = Math.atan(y/x);
+              
+              		if(x < 0) {
+              			theta += Math.PI;
+              		} else if(x >= 0 && y < 0) {
+              			theta += 2*Math.PI;
+              		}
+              
+              		/**
+              		 * 1. radians to right edge
+              		 * 2. radians to left edge
+              		 */
+              		if(theta < r1 || r2 < theta) {
+              			return false;
+              		}
+              
+              		// Inside all boundary checks
+              		return true;
+              	}
+              
+              });</code>
+          </div>
+          <h2>Adding Locale Support<a name="customization-addingLocaleSupport" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              English is the default language setting. To change it you must include the desired 
+              language package script from <code>/dist/locales/</code> above where you include the formBuilder 
+              script. English (en) and Spanish (es) language packages are precompiled into formBuilder 
+              so you do not need to include them.
+              
+            </p>
+            <p>
+              FormBuilder will attempt to retrieve the preferred language from the browser automatically. 
+              The first language code match sets the language. If no match is found, it will default to 
+              English.
+              
+              
+            </p><code data-mode="html">
+              <!-- jquery and other formBuilder dependencies go here -->
+              
+              <!-- Any extra formBuilder language packs go here -->
+              
+              &lt;script type='text/javascript' src='/bower_componenets/formBuilder.min.js'&gt;&lt;/script&gt;
+              
+              </code>
+            <p>
+              If you want to manually choose a language, define <code>$.formBuilder.lang.code</code> above where 
+              you have included any formBuilder javascript and below jQuery. 
+              
+            </p><code data-mode="html">
+              <!-- jquery and other formBuilder dependencies go here -->
+              
+              &lt;script type='text/javascript'&gt;
+                  // Manual language choice
+                  $.formBuilder = {};
+                  $.formBuilder.lang = {};
+                  $.formBuilder.lang.code = 'en'; // English
+                  // $.formBuilder.lang.code = 'es'; // Spanish
+              &lt;/script&gt;
+              
+              <!-- Any extra formBuilder language packs go here -->
+              
+              &lt;script type='text/javascript' src='/bower_componenets/formBuilder.min.js'&gt;&lt;/script&gt;
+              </code>
+            <p>
+              If you do not see a language pack for what you are looking for, creating one is very simple.
+              
+            </p>
+            <ol>
+              <li>Make a copy of the unminified English pack from <code>/dist/locales/</code>.</li>
+              <li>
+                Update the language code string and acceptedCodes string array to match the new 
+                language. The former is the code used by formBuilder and the latter is the codes it 
+                looks for from the browser when detecting the language. You can find a list of standard 
+                codes <a href='http://www.loc.gov/standards/iso639-2/php/code_list.php'>here</a>.
+              </li>
+              <li>Replace all defined strings at the bottom of the file with new language equivalents.</li>
+              <li>Use this new pack like any other pack, loading it before the main formBuilder script.</li>
+            </ol>
+          </div>
+          <h2>Custom Themes<a name="customization-customThemes" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              FormBuilder allows for the creation of custom themes by rebuilding the Sass files. 
+              The themes are located under <code>/sass/themes</code>. To make your own custom 
+              theme, follow these steps:
+              
+            </p>
+            <ol>
+              <li>Clone or fork the <a href='https://github.com/autodatadirect/formBuilder'>GitHub repository</a></li>
+              <li>Copy <code>/sass/themes/_default.scss</code> into a new file</li>
+              <li>Tweak the constants to make your new theme and change any other sass files needed</li>
+              <li>
+                Change the @import in the main <code>/sass/formBuilder.scss</code> from the 
+                default theme file to your own theme file
+              </li>
+              <li>Compile the new sass theme for distribution (see <a href="./index.html#contributing-building">Building</a>)</li>
+              <li>Find your theme under <code>/dist/css/formBuilder.css</code></li>
+              <li>Use this new file in place of the original formBuilder.css file in your project</li>
+            </ol>
+          </div>
+        </div>
+        <h1>Live Demo<a name="demo" class="anchor"></a></h1>
+        <div class="section">
+          <p>To get a feel of how formBuilder is used, try out this example.</p>
+          <h2><a name="demo-form" href="#demo-form" class="anchor"></a>Form</h2>
+          <div class="section">
+            <form id="example" action="#" style="display: none" data-ignore-hidden>
+              <p>* Represents Required Fields</p>
+              <h4>Applicant Information</h4>
+              <input type="text" name="personal.name" data-label="Full Legal Name*" data-required>
+              <input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-required>
+              <input type="text" name="personal.phoneNumber" data-type="tmsPhone" data-label="Phone Number">
+              <input type="text" name="personal.email" data-type="email" data-label="Email">
+              <div title="Why Do We Need This?" name="tool" class="tooltip">
+                <h1>Not for spam!</h1>
+                <p>
+                  This email will be used to let you know when we have mailed your driver's licence and will send 
+                  you updates on its delivery status
+                  
+                </p>
+              </div>
+              <div class="input-field-group">
+                <input type="text" name="personal.location.address" data-label="Street Address*" data-required style="width:300px">
+                <input type="text" name="personal.location.apartment" data-type="number" data-label="Apt" style="width:50px">
+                <input type="text" name="personal.location.city" data-label="City*" data-required>
+                <input type="text" name="personal.location.state" data-type="state" data-label="State*" data-required style="width:50px">
+                <input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-required style="width:75px">
+              </div>
+              <p>Gender</p>
+              <input type="radio" name="personal.physical.gender" data-label="Male" value="male">
+              <input type="radio" name="personal.physical.gender" data-label="Female" value="female">
+              <p>Physical Characteristics</p>
+              <input type="text" name="personal.physical.eyecolor" data-type="select" data-label="Eye Color" data-default="#0000FF" data-options="[			{&quot;value&quot;:&quot;blue&quot;, &quot;label&quot;:&quot;Blue&quot;},			{&quot;value&quot;:&quot;green&quot;, &quot;label&quot;:&quot;Green&quot;},			{&quot;value&quot;:&quot;hazel&quot;, &quot;label&quot;:&quot;Hazel&quot;},			{&quot;value&quot;:&quot;brown&quot;, &quot;label&quot;:&quot;Brown&quot;}		]">
+              <input type="text" name="personal.physical.haircolor" data-type="select" data-label="Hair Color" data-default="#0000FF" data-options="[			{&quot;value&quot;:&quot;blonde&quot;, &quot;label&quot;:&quot;Blonde&quot;},			{&quot;value&quot;:&quot;Red&quot;, &quot;label&quot;:&quot;Red&quot;},			{&quot;value&quot;:&quot;black&quot;, &quot;label&quot;:&quot;Black&quot;},			{&quot;value&quot;:&quot;brown&quot;, &quot;label&quot;:&quot;Brown&quot;}		]">
+              <input type="text" name="personal.physical.weight" data-type="integer" data-label="Weight" data-postinput="lbs" style="width:30px" data-max="3">
+              <div class="input-field-group">
+                <input type="text" name="personal.physical.feet" data-type="integer" data-label="Height" data-postinput="ft" style="width:30px" data-max="1">
+                <input type="text" name="personal.physical.inches" data-type="integer" data-postinput="in" style="width:30px" data-max="2">
+              </div>
+              <p>Check all that apply to you </p>
+              <input type="checkbox" name="personal.issue.vision" data-label="Do you wear glasses or contact lenses?">
+              <input type="checkbox" name="personal.issue.medicine" data-label="Do you have a physical or mental condition which requires that you take medication?">
+              <input type="checkbox" name="personal.issue.seizure" data-label="Have you ever had a seizure, blackout, or loss of consciousness?">
+              <input type="checkbox" name="personal.issue.special" data-label="Do you have a physical condition which requires you to use special equipment in order to drive?">
+              <input type="checkbox" name="personal.issue.suspended" data-label="Has your license or privilege to drive ever been suspended?">
+              <p>If you checked any of the above please provide an explanation here (max 250 characters)</p>
+              <textarea rows="5" name="personal.issue.text" style="width:500px" data-max="250"></textarea><br>
+              <div name="personal.family" data-load-widget-as-field="arrayField" data-label="Please provide names of all family members to be listed as next of kin">
+                <input type="text" name="personal.family" data-placeholder="Family Member">
+              </div><br>
+              <input type="text" name="personal.appType" data-label="Application Type" data-type="select" data-options="[			{&quot;value&quot;:&quot;license&quot;, &quot;label&quot;:&quot;Driver's License&quot;, &quot;showClass&quot;:&quot;License&quot;},			{&quot;value&quot;:&quot;permit&quot;, &quot;label&quot;:&quot;Learner's Permit&quot;, &quot;showClass&quot;:&quot;Permit&quot;},			{&quot;value&quot;:&quot;motorcycle&quot;, &quot;label&quot;:&quot;Motorcycle License&quot;, &quot;showClass&quot;:&quot;Motorcycle&quot;}		]"><br>
+              <div class="License"> 
+                <input type="checkbox" name="license.first" data-label="Is this not your first license?">
+                <p>If you selected the above box please fill out the information below </p>
+                <input type="text" name="license.stateOld1" data-type="state" data-label="In what state was your last license issued?">
+                <p>Why are you obtaining a replacement license?</p>
+                <input type="radio" name="license.replacement" data-label="Expired License" value="expired">
+                <input type="radio" name="license.replacement" data-label="Lost License" value="lost">
+                <input type="radio" name="license.replacement" data-label="Stolen License" value="stolen">
+                <input type="radio" name="license.replacement" data-label="Damaged License" value="damaged"><br>
+              </div>
+              <div class="Permit">
+                <input type="checkbox" name="learner.minor" data-label="Are you under the age of 18?">
+                <p>If you selected the above box please provide parental information below </p>
+                <input type="text" name="learner.parents.name" data-label="Guardian Name">
+                <input type="text" name="learner.parents.phone" data-type="tmsPhone" data-label="Guardian Phone Number">
+                <div class="input-field-group">
+                  <input type="text" name="learner.parents.location.address" data-label="Street Address" style="width:300px">
+                  <input type="text" name="learner.parents.location.apartment" data-type="number" data-label="Apt" style="width:50px">
+                  <input type="text" name="learner.parents.location.city" data-label="City">
+                  <input type="text" name="learner.parents.location.state" data-type="state" data-label="State" style="width:50px">
+                  <input type="text" name="learner.parents.location.zip" data-type="zip" data-label="Zip Code" style="width:75px"><br>
+                </div>
+                <input type="checkbox" name="learner.certify" data-label="Has this guardian given you permission to apply for a permit?">
+              </div>
+              <div class="Motorcycle">
+                <input type="checkbox" name="motorcycle.donor" data-label="Do you wish to be listed as an organ donor?">
+                <h4>If this is your first motorcycle license please fill out the following information</h4>
+                <input type="checkbox" name="motorcycle.test" data-label="Have you taken a motorcycle-driver certification course and passed?"><br>
+                <input type="text" name="motorcycle.company" data-label="What company did you take your motorcycle-driver certification course with?"><br>
+                <input type="checkbox" name="motorcycle.twentyone" data-label="Are you over the age of 21?"><br>
+                <h4>If this is NOT your first motorcycle license please fill out the following information</h4>
+                <input type="text" name="motorcycle.stateOld" data-type="state" data-label="In what state was your last license issued?">
+                <p>Why are you obtaining a replacement motorcycle license?</p>
+                <input type="radio" name="motorcycle.replacement" data-label="Expired Motorcycle License" value="expired">
+                <input type="radio" name="motorcycle.replacement" data-label="Lost Motorcycle License" value="lost">
+                <input type="radio" name="motorcycle.replacement" data-label="Stolen Motorcycle License" value="stolen">
+                <input type="radio" name="motorcycle.replacement" data-label="Damaged Motorcycle License" value="damaged"><br>
+              </div>
+              <input type="checkbox" name="accept" data-label="Agree to terms *" data-required>
+              <button type="submit">Submit Form</button>
+            </form>
+          </div>
+          <h2><a name="demo-results" href="#demo-results" class="anchor"></a>Results</h2>
+          <div class="section"><i>Events</i>
+            <textarea id="example-events" readonly class="resultDisplay"></textarea><i>Data</i>
+            <textarea id="example-data" readonly class="resultDisplay"></textarea>
+          </div>
+          <h2><a name="demo-source" href="#demo-source" class="anchor"></a>Source</h2>
+          <div class="section"><code data-mode="html">
+              <form id="example" action="#" style="display: none">
+              	<p>* Represents Required Fields</p>
+              		<h4>Applicant Information</h4>
+              			<input type="text" name="personal.name" data-label="Full Legal Name*" data-required/>
+              			<input type="text" name="personal.birthday" data-label="Birthdate*" data-type="date" data-required/>
+              			<input type="text" name="personal.phoneNumber" data-type="tmsPhone" data-label="Phone Number"/>
+              			<input type="text" name="personal.email" data-type="email" data-label="Email"/>
+              			<div title="Why Do We Need This?" name="tool" class="tooltip">
+              				<h1>Not for spam!</h1>
+              				<p>
+              					This email will be used to let you know when we have mailed your 
+              					driver's licence and will send you updates on its delivery status
+              				</p>
+              			</div>
+              			<div class="input-field-group">
+              				<input type="text" name="personal.location.address" data-label="Street Address*" data-required style="width:300px"/>
+              				<input type="text" name="personal.location.apartment" data-type="number" data-label="Apt" style="width:50px"/>
+              				<input type="text" name="personal.location.city" data-label="City*" data-required/>
+              				<input type="text" name="personal.location.state" data-type="state" data-label="State*" data-required style="width:50px"/>
+              				<input type="text" name="personal.location.zip" data-type="zip" data-label="Zip Code*" data-required style="width:75px"/>
+              			</div>
+              
+              		<p>Gender</p>
+              			<input type="radio" name="personal.physical.gender" data-label="Male" value="male"/>
+              			<input type="radio" name="personal.physical.gender" data-label="Female" value="female"/>
+              
+              		<p>Physical Characteristics</p>
+              			<input type="text" name="personal.physical.eyecolor" data-type="select" data-label="Eye Color" data-default="#0000FF" data-options="[			{&quot;value&quot;:&quot;blue&quot;, &quot;label&quot;:&quot;Blue&quot;},			{&quot;value&quot;:&quot;green&quot;, &quot;label&quot;:&quot;Green&quot;},			{&quot;value&quot;:&quot;hazel&quot;, &quot;label&quot;:&quot;Hazel&quot;},			{&quot;value&quot;:&quot;brown&quot;, &quot;label&quot;:&quot;Brown&quot;}		]"/>
+              			<input type="text" name="personal.physical.haircolor" data-type="select" data-label="Hair Color" data-default="#0000FF" data-options="[			{&quot;value&quot;:&quot;blonde&quot;, &quot;label&quot;:&quot;Blonde&quot;},			{&quot;value&quot;:&quot;Red&quot;, &quot;label&quot;:&quot;Red&quot;},			{&quot;value&quot;:&quot;black&quot;, &quot;label&quot;:&quot;Black&quot;},			{&quot;value&quot;:&quot;brown&quot;, &quot;label&quot;:&quot;Brown&quot;}		]"/>
+              			<input type="text" name="personal.physical.weight" data-type="integer" data-label="Weight" data-postinput="lbs" style="width:30px" data-max="3"/>
+              			<div class="input-field-group">
+              				<input type="text" name="personal.physical.feet" data-type="integer" data-label="Height" data-postinput="ft" style="width:30px" data-max="1"/>
+              				<input type="text" name="personal.physical.inches" data-type="integer" data-postinput="in" style="width:30px" data-max="2"/>
+              			</div>
+              
+              		<p>Check all that apply to you </p>
+              			<input type="checkbox" name="personal.issue.vision" data-label="Do you wear glasses or contact lenses?"/>
+              			<input type="checkbox" name="personal.issue.medicine" data-label="Do you have a physical or mental condition which requires that you take medication?"/>
+              			<input type="checkbox" name="personal.issue.seizure" data-label="Have you ever had a seizure, blackout, or loss of consciousness?"/>
+              			<input type="checkbox" name="personal.issue.special" data-label="Do you have a physical condition which requires you to use special equipment in order to drive?"/>
+              			<input type="checkbox" name="personal.issue.suspended" data-label="Has your license or privilege to drive ever been suspended?"/>
+              
+              		<p>If you checked any of the above please provide an explanation here (max 250 characters)</p>
+              			<textarea rows="5" name="personal.issue.text" style="width:500px" data-max="250"></textarea><br/>
+              			<div name="personal.family" data-load-widget-as-field="arrayField" data-label="Please provide names of all family members to be listed as next of kin">
+              				<input type="text" name="personal.family" data-placeholder="Family Member"/>
+              			</div><br/>
+              			<input type="text" name="personal.appType" data-label="Application Type" data-type="select" data-options="[			{&quot;value&quot;:&quot;license&quot;, &quot;label&quot;:&quot;Driver's License&quot;, &quot;showClass&quot;:&quot;License&quot;},			{&quot;value&quot;:&quot;permit&quot;, &quot;label&quot;:&quot;Learner's Permit&quot;, &quot;showClass&quot;:&quot;Permit&quot;},			{&quot;value&quot;:&quot;motorcycle&quot;, &quot;label&quot;:&quot;Motorcycle License&quot;, &quot;showClass&quot;:&quot;Motorcycle&quot;}		]"/><br/>
+              			
+              
+              		<div class="License"> 
+              			<input type="checkbox" name="license.first" data-label="Is this not your first license?"/>
+              
+              			<p>If you selected the above box please fill out the information below </p>
+              				<input type="text" name="license.stateOld1" data-type="state" data-label="In what state was your last license issued?"/>
+              
+              			<p>Why are you obtaining a replacement license?</p>
+              				<input type="radio" name="license.replacement" data-label="Expired License" value="expired"/>
+              				<input type="radio" name="license.replacement" data-label="Lost License" value="lost"/>
+              				<input type="radio" name="license.replacement" data-label="Stolen License" value="stolen"/>
+              				<input type="radio" name="license.replacement" data-label="Damaged License" value="damaged"/><br/>
+              		</div>
+              
+              
+              		<div class="Learner">
+              			<input type="checkbox" name="learner.minor" data-label="Are you under the age of 18?"/>
+              
+              			<p>If you selected the above box please provide parental information below </p>
+              				<input type="text" name="learner.parents.name" data-label="Guardian Name"/>
+              				<input type="text" name="learner.parents.phone" data-type="tmsPhone" data-label="Guardian Phone Number"/>
+              				<div class="input-field-group">
+              					<input type="text" name="learner.parents.location.address" data-label="Street Address" style="width:300px"/>
+              					<input type="text" name="learner.parents.location.apartment" data-type="number" data-label="Apt" style="width:50px"/>
+              					<input type="text" name="learner.parents.location.city" data-label="City"/>
+              					<input type="text" name="learner.parents.location.state" data-type="state" data-label="State" style="width:50px"/>
+              					<input type="text" name="learner.parents.location.zip" data-type="zip" data-label="Zip Code" style="width:75px"/><br/>
+              				</div>
+              
+              				<input type="checkbox" name="learner.certify" data-label="Has this guardian given you permission to apply for a permit?"/>
+              		</div>
+              
+              		<div class="Motorcycle">
+              			<input type="checkbox" name="motorcycle.donor" data-label="Do you wish to be listed as an organ donor?"/>
+              
+              			<h4>If this is your first motorcycle license please fill out the following information</h4>
+              				<input type="checkbox" name="motorcycle.test" data-label="Have you taken a motorcycle-driver certification course and passed?"/><br/>
+              				<input type="text" name="motorcycle.company" data-label="What company did you take your motorcycle-driver certification course with?"/><br/>
+              				<input type="checkbox" name="motorcycle.twentyone" data-label="Are you over the age of 21?"/><br/>
+              			<h4>If this is NOT your first motorcycle license please fill out the following information</h4>
+              				<input type="text" name="motorcycle.stateOld" data-type="state" data-label="In what state was your last license issued?"/>
+              			<p>Why are you obtaining a replacement motorcycle license?</p>
+              				<input type="radio" name="motorcycle.replacement" data-label="Expired Motorcycle License" value="expired"/>
+              				<input type="radio" name="motorcycle.replacement" data-label="Lost Motorcycle License" value="lost"/>
+              				<input type="radio" name="motorcycle.replacement" data-label="Stolen Motorcycle License" value="stolen"/>
+              				<input type="radio" name="motorcycle.replacement" data-label="Damaged Motorcycle License" value="damaged"/><br/>
+              		</div>
+              
+              	<input type="checkbox" name="accept" data-label="Agree to terms *" data-required/>
+              
+              	<button type="submit">Submit Form</button>
+              </form></code><code data-title="JAVASCRIPT (without result logging)" data-mode="javascript">
+              var formExample = $('form#example:first').formBuilder({
+              	beforeset: function(ev) {
+              
+              	},
+              	afterset: function(ev) {
+              
+              	}
+              });
+              
+              var saveForm = function(data, done) {
+              	// Save data to server
+              	$.ajax({
+              		url: 'someserver.com',
+              		type: 'POST',
+              		data: data,
+              		success: function(result) {
+              			//handle your server result
+              			done();
+              		},
+              		error: function() {
+              			//connection error
+              			done();
+              		}
+              	});
+              };
+              
+              formExample.find('button[type="submit"]').submitButton({
+              	color: '#FF0000',
+              	beforesubmit: function(ev) {
+              		// Runs any presubmission stuff
+              	},
+              	
+              	submit: function(ev, done) {								
+              		// Run validation
+              		if(!formExample.formBuilder('validate')) {
+              			// The form is invalid somewhere
+              			done();
+              			return;
+              		}
+              
+              		saveForm(formExample.formBuilder('get'), done);
+              	},
+              	
+              	aftersubmit: function(ev) {
+              		// Run any post-submission stuff
+              	}
+              });</code><code data-title="JAVASCRIPT (with result logging)" data-mode="javascript">
+              var events = $('#example-events');
+              var data = $('#example-data');
+              var eventNum = 1;
+              var logEvent = function(str) {
+              	events.val(events.val()+'\n['+(eventNum++)+']  '+str);
+              	events.scrollTop(events[0].scrollHeight);
+              };
+              
+              events.val('[0]  Start');
+              
+              var formExample = $('form#example:first').formBuilder({
+              	beforeset: function(ev) {
+              		logEvent('beforeset called on formBuilder');
+              	},
+              	afterset: function(ev) {
+              		logEvent('afterset called on formBuilder');
+              	}
+              });
+              
+              logEvent('Initialized');
+              
+              var saveForm = function(data, done) {
+              	// Save data to server (setTimeout is just used in the example to simulate the lag time, use $.ajax instead)
+              	setTimeout(function(){
+              		// If the server-side save was good, set it back to clean
+              		logEvent('server save complete');
+              		done()
+              	}, 2000);
+              	
+              	/* Example server call
+              	$.ajax({
+              		url: 'someserver.com',
+              		type: 'POST',
+              		data: data,
+              		success: function(result) {
+              			//handle your server result
+              			done();
+              		},
+              		error: function() {
+              			//connection error
+              			done();
+              		}
+              	});
+              	*/
+              };
+              
+              formExample.find('button[type="submit"]').submitButton({
+              	color: '#FF0000',
+              	beforesubmit: function(ev) {
+              		// Runs any presubmission stuff
+              		logEvent('beforesubmit called');
+              		data.val('');
+              	},
+              	
+              	submit: function(ev, done) {
+              		logEvent('submit called');
+              		
+              
+              		// Run validation
+              		if(!formExample.formBuilder('validate')) {
+              			// The form is invalid somewhere
+              			logEvent('has invalid');
+              			done();
+              			return;
+              		}
+              
+              		logEvent('all valid');
+              
+              		var currData = formExample.formBuilder('get');
+              		data.val(JSON.stringify(currData,null,2));
+              
+              		saveForm(currData, done);
+              	},
+              	
+              	aftersubmit: function(ev) {
+              		// Run any post-submission stuff
+              		logEvent('aftersubmit called');
+              	}
+              });</code>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- =========== Bower JS Dependencies (using CDNs for demo) ===========-->
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+      // Wrap each example in a form if not already in one (for documentation only)
+      $('.example').each(function(){
+      	if(!$(this).parents('form').length && 
+      	!$(this).parents('.code').length && 
+      	!$(this).children('form').length) {
+      		$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
+      	}
+      });
+    </script>
+    <script type="text/javascript" src="../bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../bower_components/spinjs/spin.min.js"></script>
+    <script type="text/javascript" src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js"></script>
+    <!-- ===================== formBuilder Dependencies ====================-->
+    <script type="text/javascript" src="../dist/formBuilder.min.js"></script>
+    <!-- ====================== Extra for displaying =======================-->
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/guide.js"></script>
+    <script type="text/javascript" src="./js/codemirror-compressed.js"></script>
+    <script type="text/javascript" src="./js/codemirrorSetup.js"></script>
+  </body>
+</html>

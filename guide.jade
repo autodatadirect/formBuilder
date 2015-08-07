@@ -1,0 +1,208 @@
+extend ./_layout.jade
+
+block vars
+	- title = 'User Guide'
+
+block localCSS
+	link(type='text/css' rel='stylesheet' href='./css/guide.css')
+
+block localJS
+	script(type='text/javascript' src='./js/guide.js')
+
+block sideNav
+	li.current
+		a(href='#basics') Basics
+		ul.navDepth-1
+			li.current: a(href='#basics-setup') Download
+			li: a(href='#basics-applyingFormBuilder') Applying formBuilder
+			li: a(href='#basics-requiredInputs') Required Inputs
+			li: a(href='#basics-usingNamespace') Using Namespaces
+
+	li
+		a(href='#fieldEnhancements') Field Enhancements
+		ul.navDepth-1
+			li: a(href='#fieldEnhancements-preinputPostinput') Preinput/Postinput
+			li: a(href='#fieldEnhancements-prefixSuffix') Prefix/Suffix
+			li: a(href='#fieldEnhancements-labels') Labels
+			li: a(href='#fieldEnhancements-placeholderText') Placeholder Text
+			li: a(href='#fieldEnhancements-max') Max
+			li: a(href='#fieldEnhancements-inputGroups') Input Groups
+			li: a(href='#fieldEnhancements-tooltip') Tooltip
+	
+	li
+		a(href='#dataTypes') Data Types
+		ul.navDepth-1
+			li: a(href='#dataTypes-inputTypes') Input Types
+			li: a(href='#dataTypes-select') Select
+			li: a(href='#dataTypes-checkbox') Checkboxes
+			li: a(href='#dataTypes-radio') Radio Groups
+			li: a(href='#dataTypes-textarea') Textarea
+			li: a(href='#dataTypes-arrayField') Array Field
+	li
+		a(href='#standaloneWidgets') Standalone Widgets
+		ul.navDepth-1
+			li: a(href='#standaloneWidgets-dateRangePicker') Date Range Picker 
+			li: a(href='#standaloneWidgets-dateTimeRangePicker') Date Time Range Picker
+			li: a(href='#standaloneWidgets-dropDownPanel') Drop Down Panel
+			li: a(href='#standaloneWidgets-textSubmitter') Text Submitter
+			li: a(href='#standaloneWidgets-submitButton') Submit Button
+
+	li
+		a(href='#customization') Customization
+		ul.navDepth-1
+			li: a(href='#customization-creatingTypes') Creating Types
+			li: a(href='#customization-creatingRegexTypes') Creating Regex Types
+			li: a(href='#customization-creatingFieldWidgets') Creating Field Widgets
+			li: a(href='#customization-addingLocaleSupport') Adding Locale Support
+			li: a(href='#customization-customThemes') Custom Themes
+			
+	li
+		a(href='#demo') Live Demo
+		ul.navDepth-1
+			li: a(href='#demo-form') Form
+			li: a(href='#demo-results') Results
+			li: a(href='#demo-source') Source
+	
+	
+
+block content
+	h1 Basics
+		a.anchor(name='basics')
+	.section
+		h2 Setup
+			a.anchor(name='basics-download')
+		.section: include content/basics/download
+
+		h2 Applying formBuilder
+			a.anchor(name='basics-applyingFormBuilder')
+		.section: include content/basics/applyingFormBuilder
+		
+		h2 Required Inputs
+			a.anchor(name='basics-requiredInputs')
+		.section: include content/basics/requiredInputs
+
+		h2 Using Namespaces
+			a.anchor(name='basics-usingNamespace')
+		.section: include content/basics/usingNamespace
+
+
+	h1 Field Enhancements
+		a.anchor(name='fieldEnhancements')
+	.section
+		h2 Preinput/Postinput
+			a.anchor(name='fieldEnhancements-preinputPostinput')
+		.section: include content/fieldEnhancements/preinputPostinput
+
+		h2 Prefix/Suffix
+			a.anchor(name='fieldEnhancements-prefixSuffix')
+		.section: include content/fieldEnhancements/prefixSuffix
+		
+		h2 Labels
+			a.anchor(name='fieldEnhancements-labels')
+		.section: include content/fieldEnhancements/labels
+
+
+		h2 Placeholder Text
+			a.anchor(name='fieldEnhancements-placeholderText')
+		.section: include content/fieldEnhancements/placeholderText	
+
+		h2 Max
+			a.anchor(name='fieldEnhancements-max')
+		.section: include content/fieldEnhancements/max
+		
+		h2 Input Groups
+			a.anchor(name='fieldEnhancements-inputGroups')
+		.section: include content/fieldEnhancements/inputGroups
+		
+		h2 Tooltip
+			a.anchor(name='fieldEnhancements-tooltip')
+		.section: include content/fieldEnhancements/tooltip
+		
+
+
+
+
+
+	h1 Data Types
+		a.anchor(name='dataTypes')
+	.section
+		h2 Input Types
+			a.anchor(name='dataTypes-inputTypes')
+		.section: include content/dataTypes/inputTypes
+		
+		h2 Select
+			a.anchor(name='dataTypes-select')
+		.section: include content/dataTypes/select
+
+		h2 Checkboxes
+			a.anchor(name='dataTypes-checkbox')
+		.section: include content/dataTypes/checkbox
+
+		h2 Radio Groups
+			a.anchor(name='dataTypes-radio')
+		.section: include content/dataTypes/radio
+
+		h2 Textarea
+			a.anchor(name='dataTypes-textarea')
+		.section: include content/dataTypes/textarea
+		
+		h2 Array Field
+			a.anchor(name='dataTypes-arrayField')
+		.section: include content/dataTypes/arrayField
+		
+
+
+	h1 Standalone Widgets
+		a.anchor(name='standaloneWidgets')
+	.section
+		h2 Date Range Picker
+			a.anchor(name='standaloneWidgets-dateRangePicker')
+		.section: include content/standaloneWidgets/dateRangePicker
+
+		h2 Date Time Range Picker
+			a.anchor(name='standaloneWidgets-dateTimeRangePicker')
+		.section: include content/standaloneWidgets/dateTimeRangePicker
+		
+		h2  Drop Down Panel
+			a.anchor(name='standaloneWidgets-dropDownPanel')
+		.section: include content/standaloneWidgets/dropDownPanel
+
+		h2  Text Submitter
+			a.anchor(name='standaloneWidgets-textSubmitter')
+		.section: include content/standaloneWidgets/textSubmitter
+
+		h2  Submit Button
+			a.anchor(name='standaloneWidgets-submitButton')
+		.section: include content/standaloneWidgets/submitButton
+				
+
+
+
+	h1 Customization
+		a.anchor(name='customization')
+	.section
+
+		h2 Creating Types
+			a.anchor(name='customization-creatingTypes')
+		.section: include content/customization/creatingTypes
+
+		h2 Creating Regex Types
+			a.anchor(name='customization-creatingRegexTypes')
+		.section: include content/customization/creatingRegexTypes
+
+		h2 Creating Field Widgets
+			a.anchor(name='customization-creatingFieldWidgets')
+		.section: include content/customization/creatingFieldWidgets
+
+		h2 Adding Locale Support
+			a.anchor(name='customization-addingLocaleSupport')
+		.section: include content/customization/addingLocaleSupport
+
+		h2 Custom Themes
+			a.anchor(name='customization-customThemes')
+		.section: include content/customization/customThemes
+			
+	h1 Live Demo
+		a.anchor(name='demo')
+	.section: include content/demo
+

@@ -1,0 +1,47 @@
+p.
+	FormBuilder radio groups are very similar to normal HTML radio groups, minus the need for an extra label tag. 
+	To add a label, add the <b>data-label</b> attribute. Labels can be made of html or just raw text. They may can 
+	also be marked as required with the <b>data-required</b> attribute. A radio group is seen as required if at 
+	least one of its options is marked required.
+p.
+	Radio groups are made using the selectionField widget and inherits many of the same functions as the inputField widget. 
+	This does not include the other input types or most field enhancements. Radio groups have validation, states, and 
+	can be set/get. When used in a formBuilder form, the entire group is seen as one input whose value is determined by 
+	the checked radio button.
+
+.example
+	input(type="radio" name="radioExample1" data-label='Option one' value='one')
+	input(type="radio" name="radioExample1" data-label='Option two' value='two')
+	input(type="radio" name="radioExample1" data-label='Option three' value='three')
+	br
+	input(type="radio" name="radioExample2" data-label='Required Option one' data-required value='one')
+	input(type="radio" name="radioExample2" data-label='Required Option two' value='two')
+	input(type="radio" name="radioExample2" data-label='Required Option three' value='three')
+
+code(data-mode='html').
+	<input type="radio" name="radioExample1" data-label="Option one" value="one"/>
+	<input type="radio" name="radioExample1" data-label="Option two" value="two"/>
+	<input type="radio" name="radioExample1" data-label="Option three" value="three"/>
+	<br/>
+	<input type="radio" name="radioExample2" data-label="Required Option one" data-required value="one"/>
+	<input type="radio" name="radioExample2" data-label="Required Option two" value="two"/>
+	<input type="radio" name="radioExample2" data-label="Required Option three" value="three"/>
+//- 
+
+p.
+	Radio boxes can be grouped using the <b>selection-field-group</b> class, but it is not necessary. A group of 
+	radio boxes can be aligned horizontally with the <b>selection-horizontal</b> class.
+
+.example
+	.selection-field-group.selection-horizontal
+		input(type="radio" name="radioExample3" data-label='Option one' value='one')
+		input(type="radio" name="radioExample3" data-label='Option two' value='two')
+		input(type="radio" name="radioExample3" data-label='Option three' value='three')
+
+code(data-mode='html').
+	<div class="selection-field-group selection-horizontal">
+		<input type="radio" name="radioExample3" data-label="Option one" value="one"/>
+		<input type="radio" name="radioExample3" data-label="Option two" value="two"/>
+		<input type="radio" name="radioExample3" data-label="Option three" value="three"/>
+	</div>
+//- 

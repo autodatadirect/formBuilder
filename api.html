@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>formBuilder.js | API Reference</title>
+    <!-- ==================== External CSS Dependencies ====================-->
+    <!-- Any jquery-ui theme-->
+    <link type="text/css" rel="stylesheet" href="./css/Aristo.css">
+    <!-- ===================== bower CSS Dependencies ======================-->
+    <link type="text/css" rel="stylesheet" href="./bower_components/normalize.css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="./bower_components/jquery-timepicker-jt/jquery.timepicker.css">
+    <link type="text/css" rel="stylesheet" href="./bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css">
+    <!-- =================== formBuilder CSS Dependencies ==================-->
+    <link type="text/css" rel="stylesheet" href="./bower_components/add-formbuilder/dist/css/formBuilder.css">
+    <!-- ======================== Display purposes =========================-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link type="text/css" rel="stylesheet" href="./css/codemirror.css">
+    <link type="text/css" rel="stylesheet" href="./css/main.css">
+  </head>
+  <body>
+    <div class="header">
+      <div class="center-container"><a href="./index.html" class="title">formBuilder</a>
+        <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html">User Guide</a><a id="API" href="./api.html" class="current">API Reference</a></div>
+        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
+      </div>
+    </div>
+    <div class="center-container page-container">
+      <div class="sideNav">
+        <ul class="navDepth-0">
+          <li class="current"><a href="#widgets">Widgets</a>
+            <ul class="navDepth-1">
+              <li class="current"><a href="#widgets-formBuilder">formBuilder</a></li>
+              <li><a href="#widgets-inputField">inputField</a></li>
+              <li><a href="#widgets-inputFilter">inputFilter</a></li>
+              <li><a href="#widgets-submitButton">submitButton</a></li>
+              <li><a href="#widgets-fieldWidget">fieldWidget</a></li>
+              <li><a href="#widgets-selectionField">selectionField</a></li>
+              <li><a href="#widgets-arrayField">arrayField</a></li>
+              <li><a href="#widgets-dropDownPanel">dropDownPanel</a></li>
+              <li><a href="#widgets-dateRangePicker">dateRangePicker</a></li>
+              <li><a href="#widgets-dateTimeRangePicker">dateTimeRangePicker</a></li>
+              <li><a href="#widgets-popOver">popOver</a></li>
+              <li><a href="#widgets-textSubmitter">textSubmitter</a></li>
+              <li><a href="#widgets-spin">spin</a></li>
+            </ul>
+          </li>
+          <li><a href="#inputTypes">Input Types</a>
+            <ul class="navDepth-1">
+              <li><a href="#inputTypes-standard">standard</a></li>
+              <li><a href="#inputTypes-select">select</a></li>
+              <li><a href="#inputTypes-date">date</a></li>
+              <li><a href="#inputTypes-time">time</a></li>
+              <li><a href="#inputTypes-dateTime">dateTime</a></li>
+              <li><a href="#inputTypes-money">money</a></li>
+              <li><a href="#inputTypes-phone">phone</a></li>
+            </ul>
+          </li>
+          <li><a href="#plugins">Plugins</a>
+            <ul class="navDepth-1">
+              <li><a href="#plugins-caret">caret</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="content"><h1><a name="widgets" class="anchor"></a>Widgets</h1><p>All widgets are created using jQuery UI&#39;s <a href="http://api.jqueryui.com/jQuery.widget/">Widget Factory</a> and they inherit all of the options, methods, and events of the base widget.</p>
+<h2><a name="widgets-formBuilder" class="anchor"></a>formBuilder</h2><p>Base form widget. For many applications, this is the only widget needing direct use. Other field widgets are created automatically and handled inside of this widget.</p>
+<ul>
+<li>Options<ul>
+<li><strong>ignoreHidden</strong> <em>(boolean)</em> Ignore fields that are not <code>$(:visible)</code>. They will not be validated nor will any data be retrieved from them. <strong>Default:</strong> <code>false</code></li>
+<li><strong>defaultRequired</strong> <em>(boolean)</em> Sets the default required option for all fields. Does not override field required statuses set with the data-required attribute.<strong>Default:</strong> <code>false</code></li>
+<li><strong>loadHidden</strong> <em>(boolean)</em> Hides the form while it is being setup, then shows it. <strong>Default:</strong> <code>true</code></li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromForm(<em>object</em> data)</strong> Form data is passed through this method when retrieving it from the form. Returns data by default.</li>
+<li><strong>toForm(<em>object</em> data)</strong> Form data is passed through this method when passing it to the form. Returns data by default. </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>scanForNewFields()</strong> Checks inside of the form container for new fields and constructs them. Called once automatically when initialized. </li>
+<li><strong>isDirty()</strong> Runs dirty checks and returns boolean result.</li>
+<li><strong>clearDirty()</strong> Clears all dirty field states. Use this after saving dirty field data. </li>
+<li><strong>flashDirty(<em>integer</em> numberOfTimes)</strong> <em>Deprecated.</em> Use <code>flashError(numberOfTimes)</code> instead.</li>
+<li><strong>flashError(<em>integer</em> numberOfTimes)</strong> Filters fields and calls the <code>inputField.flash(numberOfTimes)</code> on each incorrect one.</li>
+<li><strong>disable()</strong> Disables the status. Calls the <code>inputField.status(disable, true)</code> on the current calling object. </li>
+<li><strong>enable()</strong> Enables the status. Calls the <code>inputField.status(disable, true)</code> on the current calling object.</li>
+<li><strong>get()</strong> Returns converted form data from all fields. </li>
+<li><strong>clear()</strong> Runs inputField.clear() for each field. Empties the form.</li>
+<li><strong>conflicts(<em>object</em> data, <em>boolean</em> ignoreKeys)</strong> TODO</li>
+<li><strong>set(<em>object</em> data, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>beforeset</code> and <code>afterset</code> events.</li>
+<li><strong>get()</strong> Returns converted form data from all fields. </li>
+<li><strong>validate()</strong> Runs all enabled field validations. Returns true/false for valid/invalid.</li>
+<li><strong>getFields()</strong> Returns all the fields of the calling object.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates a new formBuilder object and initializes attributes.  </li>
+<li><strong>_convertFormData(<em>object</em> data)</strong> Clones the data object so that the method can not change the original data and then formats the data by calling `toForm()`` and returning the converted data.</li>
+<li><strong>_destroy()</strong> Breaks down the fields by either calling <code>inputField.destroy()</code> method or <code>_proxyCommandToWidget($(this), destroy)</code> depending on whether the current object is an inputField or a widget.</li>
+<li><strong>_writeDataToDom(<em>object</em> data, setOptions)</strong> Writes data to the Dom by either calling <code>inputField.set(util.selectPath(data, $(this).attr(&#39;name&#39;)), setOptions)</code> method or <code>_proxyCommandToWidget($(this), &#39;set&#39;, util.selectPath(data, $(this).attr(&#39;name&#39;)), setOptions)</code>.</li>
+<li><strong>_readDataFromDom()</strong> Reads data from the Dom and returns it.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>beforeset(<em>object</em> formData)</strong> <em>Optional</em> Called before <code>set(data, setOptions)</code> replaced the form values. <strong>Default:</strong> undefined</li>
+<li><strong>afterset(<em>object</em> formData)</strong> <em>Optional</em> Called after <code>set(data, setOptions)</code> replaces the form values. <strong>Default:</strong> undefined</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-inputField" class="anchor"></a>inputField</h2><p>Builds a base input object that is able to get, set, and modify data based on what the type of the input is.</p>
+<ul>
+<li>Options<ul>
+<li><strong>type</strong> <em>(string)</em> Field type from <code>types[]</code>. <strong>Default:</strong> <code>&#39;text&#39;</code></li>
+<li><strong>label</strong> <em>(string)</em> Label that will go above the inputField.</li>
+<li><strong>require</strong>, <strong>required</strong> <em>(boolean)</em> Whether or not the field is required for submission. <strong>Default:</strong> <code>false</code></li>
+<li><strong>placeholder</strong> <em>(string)</em> Text displayed inside of an empty inputField. <strong>Default</strong> &#39; &#39; </li>
+<li><strong>min</strong> <em>(integer)</em> Minimum amount of input required.</li>
+<li><strong>max</strong> <em>(integer)</em> Maximum amount of input allowed.</li>
+<li><strong>error</strong> <em>(string)</em> Error message that will be displayed if there is an error. <strong>Default</strong> &#39;error&#39;</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>setLabel(<em>string</em> label)</strong> Prepends the given label to the top of the inputField.</li>
+<li><strong>setSuffix(<em>string</em> t)</strong> Sets text (t) that will be displayed at the end of the inputField once the user has started typing.</li>
+<li><strong>setPrefix(<em>string</em> t)</strong> Sets text (t) that will be displayed at the front of the inputField once the user has started typing.</li>
+<li><strong>setMax(<em>integer</em> max)</strong> Sets the maximum size that the input can be.</li>
+<li><strong>checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing.</li>
+<li><strong>isDirty()</strong> Returns the value of data-dirty (true/false).</li>
+<li><strong>addOn(<em>integer</em> weight, <em>html</em> HTML, <em>string</em> className)</strong> Appends given HTML around form field based on weight. If no input is found, it will be appended to the items layer.</li>
+<li><strong>placeholder(<em>string</em> s)</strong> If there is no placeholder it will be hidden, otherwise it will dispaly the given text (s) while the inputField is empty. </li>
+<li><strong>clear()</strong> Calls <code>clearDirty()</code>. Clears all input. </li>
+<li><strong>clearDirty()</strong> Resets the dirty status to false. </li>
+<li><strong>conflicts(<em>string</em> value)</strong> TODO </li>
+<li><strong>set(<em>string</em> value, setOptions)</strong> Replaces the values in the DOM with the given data. Triggers <code>afterset</code> event.</li>
+<li><strong>get()</strong> Returns converted inputField value.</li>
+<li><strong>value(<em>string</em> value)</strong> If the value passed in is undefined then return the converted form data from all fields, otherwise set the value into the form. </li>
+<li><strong>isEmpty()</strong> If the type declares an isEmpty method then return the result of that method. Otherwise return <code>$.trim(self.element.val()) === &#39;&#39;</code>. Determines if the inputField contains any data. </li>
+<li><strong>validate(<em>boolean</em> skipRequired)</strong> Validates that the input matches the declared type, but only if the inputField is not empty and skipRequired is true.</li>
+<li><strong>flash(<em>integer</em> numberOfTimes)</strong> Flashes an error message to the screen according to the &#39;numberOfTimes&#39; that have been passed into the method.</li>
+<li><strong>setError(<em>string</em> err)</strong> Sets the error message passed in into the error label overlay. Sets error status to true. </li>
+<li><strong>clearError()</strong> Sets autoValidate to blur. Sets error status to false. </li>
+<li><strong>redraw()</strong> Re-enters all of the previous saved information into the form. </li>
+<li><strong>setType(<em>string</em> sType)</strong> If the type doesn&#39;t exist, sets it to default of &#39;text&#39;. If it does exist then run the type&#39;s teardown() method. Then set the inputField type and run the type&#39;s setup. </li>
+<li><strong>getType()</strong> Returns the type object. </li>
+<li><strong>hide()</strong> Hides the field</li>
+<li><strong>show(displayValue)</strong> Displays the value that is passed into the method, or just shows the field.</li>
+<li><strong>getField()</strong> Returns the <code>.input-field</code> container element.</li>
+<li><strong>enable()</strong> Removes the field from the disable status.</li>
+<li><strong>disable()</strong> Puts the field in the disable status. The option will become unselectable.</li>
+<li><strong>isDisabled()</strong> Returns true/false for if the field is in/out of the disabled state.</li>
+<li><strong>status(<em>string</em> statusName, <em>boolean</em> bool, <em>boolean</em> fireEvents)</strong> Sets the status class to the field and runs any updates to the field needed. </li>
+<li><strong>updateStatus(<em>string</em> statusName, <em>boolean</em> bool, <em>boolean</em> fireEvents)</strong> legacy code that calls the <strong>status(statusName,bool,fireEvents)</strong> method.</li>
+<li><strong>hasStatus(<em>string</em> statusName)</strong> Returns the current object&#39;s state for the status name that was passed into the method. </li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates a new inputField object and initializes attributes. Loads data to the Dom, creates a tooltip if it has been given. Can convert the simple input into the full field format by wrapping it in the appropriate divs. Initializes the different statuses to their appropriate values.   </li>
+<li><strong>_onKeydown(<em>event</em> ev)</strong> When the keydown event occurs calls <code>_showLayer(&#39;placeholder&#39;, false)</code>.</li>
+<li><strong>_onKeyup(<em>event</em> ev)</strong>  When the keyup event occurs, will validate if self.autoValidate is equal to &#39;keyup&#39;. Then calls <code>checkDirty()</code> and <code>redraw()</code>.</li>
+<li><strong>_onBlur(<em>event</em> ev)</strong> When the blur event occurs, will validate if self.autoValidate is equal to &#39;blur&#39;.</li>
+<li><strong>_init()</strong> Automatically called when inputField is created. Sets the current element&#39;s value attribute. </li>
+<li><strong>_formatToField(<em>string</em> value)</strong> If the value is null or undefined, returns the value. If there is no type, no type converter, and no converter method for the type, then returns the value. Otherwise, returns <code>type.converter.toField.call(type, value, self)</code>.</li>
+<li><strong>_formatFromField(<em>string</em> value)</strong> If there is no type, no type converter, and no converter method for the type, then returns the value. Otherwise, returns <code>type.converter.fromField.call(type, value, self)</code>.</li>
+<li><strong>_showLayer(<em>string</em> layer, <em>boolean</em> show)</strong> Makes the layer that has been passed in visible. </li>
+<li><strong>_destroy()</strong> If the current type has a tearDown method then call it. </li>
+</ul>
+</li>
+<li>Events <ul>
+<li><strong>dirty</strong> <em>Optional</em> Triggered if the form has been changed but not saved.</li>
+<li><strong>clean</strong> <em>Optional</em> Triggered if the form&#39;s current value equals the previous value, and the form has been correctly saved. <ul>
+<li>Also triggered in the clearDirty() method.</li>
+</ul>
+</li>
+<li><strong>afterset(null, [val, value])</strong> <em>Optional.</em> Called after <code>set()</code> replaces the form values <strong>Default:</strong> (undefined).</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-inputFilter" class="anchor"></a>inputFilter</h2><p>Filters through the input in the inputField and, based on the type of the input, validates that it has been entered correctly. If incorrect input is typed it will not allow the input to be entered or displayed. </p>
+<ul>
+<li>Options<ul>
+<li><strong>toUpper</strong> <em>(boolean)</em> Flag to determine if the type is utext and only uppercase will be displayed. <strong>Default:</strong> &#39;false&#39;</li>
+<li><strong>max</strong> <em>(integer)</em> Largest input that is allowed in the form field. <strong>Default:</strong> &#39;0&#39;</li>
+<li><strong>pattern</strong> <em>(regex)</em> The pattern that the input will be checked against for validity. <strong>Default:</strong> &#39;/[\w\s]/&#39;</li>
+<li><strong>extraFilter(<em>string</em> currentValue, <em>string</em> inText)</strong> <em>Optional.</em> Entered text will pass through this function as to allow for any special checks. It most cases the inText is just a single character, but may be longer if a string is being pasted into the input. Returns a string to be inserted. The inText will be ignored if no string is returned. By default, this function will simply return inText.</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>setMax(<em>integer</em> max)</strong> Sets the current object&#39;s max variable to the integer that is passed into the method.</li>
+<li><strong>setPattern(<em>regular expression</em> regex)</strong> Sets the pattern of the current object to the regular expression passed into the method. </li>
+<li><strong>nextArrayFieldId()</strong> Returns the arrayField Id incremented by one. </li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates an inputFilter and initializes events and statuses.</li>
+<li><strong>_onPaste(<em>event</em> ev)</strong> Calls <code>$.proxy(this._clean, this)</code> with setTimeout.</li>
+<li><strong>_onKeyDown(<em>event</em> ev)</strong> Detects when the native change event will be fired.</li>
+<li><strong>_onKeyPress(<em>event</em> ev)</strong> Bypasses command keys, returns false if the correct key is not pressed.</li>
+<li><strong>_clean()</strong> Retypes all the characters in the field so that they are passed through the filter.</li>
+<li><strong>_type(<em>string</em> text)</strong> Manually enters the given text into the input field obeying the regular expression and triggering events when characters are ignored.</li>
+<li><strong>_destroy()</strong> removes the inputFilter from the current element</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>keyignored</strong> <em>Optional</em> Ignore the character that has been entered if it is not valid for the current type</li>
+<li><strong>keytyped</strong> <em>Optional</em> If the character entered is valid for the current type then enter it into the formfield</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-submitButton" class="anchor"></a>submitButton</h2><p>Widget that handles the creation of a submit button and the spinner that accompanies it. The submit button can be clicked and the spinner will be displayed while the data is being submitted. </p>
+<ul>
+<li>Options<ul>
+<li><strong>color</strong> <em>(string)</em> Color of loading spinner. <strong>Default:</strong> &#39;#000&#39;</li>
+<li><strong>delay</strong> <em>(int)</em> Delay between UI update and submission call, in milliseconds. <strong>Default:</strong> 10</li>
+<li><strong>disabled</strong> <em>(boolean)</em> Prevents form submission. <strong>Default:</strong> false</li>
+<li><strong>waiting</strong> <em>(boolean)</em> Prevents default form submission. <strong>Default:</strong> false</li>
+<li><strong>preventDefault</strong> <em>(boolean)</em> Prevents default form submission. <strong>Default:</strong> true</li>
+<li><strong>enterKeyListenerProvider()</strong> <em>method</em> Returns <code>this.parents(&#39;form&#39;).first()</code></li>
+<li><strong>onKeyDown(<em>event</em> ev)</strong> <em>method</em> If the correct key has been pressed in the text area then submit the event on the current calling object. </li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>enable()</strong> Sets <code>disabled</code> to false.</li>
+<li><strong>disable()</strong> Sets <code>disabled</code> to true.</li>
+<li><strong>getButtonLabel()</strong> Returns the label of the button.</li>
+<li><strong>submit()</strong> Begins submission process as if the button was clicked.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_showLoading()</strong> Shows the spinner while the data is submitting.</li>
+<li><strong>_hideLoading()</strong> Hides the spinner after the data has completed its submission.</li>
+<li><strong>_create()</strong> creates the spinner, appends it to the correct location on the form, and wraps it in the appropriate html.</li>
+<li><strong>_destroy()</strong> Removes the submitButton from the current element.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>beforesubmit(<em>event</em> ev)</strong> <em>Optional</em> Called before a submit, if false it does not submit.</li>
+<li><strong>submit(<em>event</em> ev)</strong> <em>Required</em> Called to submit the code.<ul>
+<li>Not called if in a <code>disabled</code> or <code>waiting</code> state. </li>
+<li>Write your Ajax or other form submission here.</li>
+<li>Must call <code>finish()</code> after completed.</li>
+</ul>
+</li>
+<li><strong>aftersubmit(<em>event</em> ev)</strong> <em>Optional</em> Called after the submit returns.<ul>
+<li>Clean up form here.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-fieldWidget" class="anchor"></a>fieldWidget</h2><p>Available to be modified in order to accept new types that the user wishes to develop. Many of these methods are intended to perform in a similar way as methods in the inputField widget but they can be overwritten by user if desired to meet specific requirements. This template is stored inside of inputField widget and commented out. See <a href="./guide.html#customization-creatingFieldWidgets">example</a>.</p>
+<ul>
+<li>Required Methods <ul>
+<li><strong>set(data)</strong>  Used to set field. Any data needed by the widget to set its value is passed as data.</li>
+<li><strong>get()</strong> Used to retrieve the data from the field. Data returned must match data format</li>
+<li><strong>isDirty()</strong> Checks for dirty state. A value is dirty when what is entered is differs from the last set(). Returns boolean.</li>
+<li><strong>validate()</strong> Returns true.</li>
+<li><strong>clearDirty()</strong> Removes the dirty state and calls any needed events. Note: This should not change the value of the widget, that is what clear() is for.</li>
+<li><strong>clear()</strong> Empties all inputs.</li>
+<li><strong>flash()</strong> Preforms a visual effect to bring the user&#39;s attention to the widget. Can be used for errors or simply left empty.</li>
+<li><strong>validate()</strong> Runs input validation on the widget&#39;s inputs. This can be anything specific to the widget. Returns true/false for valid/invalid.</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-selectionField" class="anchor"></a>selectionField</h2><p>Handles checkboxes and radio buttons, allowing them to be used like inputFields with formBuilder features. Only radio buttons will have a radioGroup attatched to .</p>
+<ul>
+<li>Options<ul>
+<li><strong>require</strong> || <strong>required</strong> <em>(boolean)</em> Whether or not the field is required for submission. <strong>Default:</strong> <code>false</code></li>
+<li><strong>label</strong> <em>(htmlString)</em> The label to be displayed for the checkbox or radio button. Not required, but recommended.</li>
+<li><strong>radioGroup</strong> <em>(jqueryObject[])</em> An array of radio inputs jquery objects that have the same name. Only radio buttons need a radioGroup and must contain the widget element. If there no radioGroup is given, a new one will be created soley of the widget element. All other elements in the radioGroup must be initialized as selectionFields either before or after the initialization of the widget element.</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>setLabel(<em>string</em> newLabel)</strong> Sets the label html. Creates a new label if one does not exist.</li>
+<li><strong>checkDirty()</strong> Updates the dirty/clean status based upon the previous set value. Fires dirty/clean events when the status is changed and updates other selectionFields in the radioGroup if necessary.</li>
+<li><strong>isDirty()</strong> Returns current dirty state as a boolean.</li>
+<li><strong>clear()</strong> Unchecks the option, clears the dirty state, and resets the previous set value. Applies to all options in the radioGroup.</li>
+<li><strong>clearDirty()</strong> Sets the dirty state to false and triggers a <code>clean</code> event. Applies to all options in the radioGroup.</li>
+<li><strong>conflicts(value)</strong> TODO</li>
+<li><strong>set(value)</strong> Unchecks or checks checkboxes based on <code>!!value</code>. Unchecks all radios in the radioGroup and then checks the option that has the matching value. If no matching option is found, no option is checked.  The prevous value is then set to the passed value and the <code>afterset</code> event triggered.</li>
+<li><strong>get()</strong> Returns the true/false for checked/unchecked checkboxes. Returns the value of the checked option in a radioGroup, or undefined if no option is selected.</li>
+<li><strong>validate()</strong> Validates the field and returns true/false for valid/invalid. When invalid, the field will enter the error status.</li>
+<li><strong>hide()</strong> Hides the field</li>
+<li><strong>show()</strong> Shows the field</li>
+<li><strong>getField()</strong> Returns the <code>.selection-field</code> container element.</li>
+<li><strong>enable()</strong> Removes the field from the disable status.</li>
+<li><strong>disable()</strong> Puts the field in the disable status. The option will become unselectable.</li>
+<li><strong>isDisabled()</strong> Returns true/false for if the field is in/out of the disabled state.</li>
+<li><strong>status(<em>string</em> statusName, <em>boolean</em> newValue, <em>boolean</em> fireEvents)</strong> Sets the status with statusName to newValue and update the field if needed. All fields in the radioGroup will be updated. The <code>statusUpdate</code> event will be triggered if fireEvents is set to true.</li>
+<li><strong>hasStatus(<em>string</em> statusName)</strong> Returns whether or not the field has the status with statusName.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Widget constructor.</li>
+<li><strong>_updatePreviousValue</strong> Syncs the prevValue with the radioGroup.</li>
+<li><strong>_destroy</strong> Widget destructor. Will also destroy any other selectionWidgets in the radioGroup.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>dirty</strong> Triggered when the field enters the dirty state.</li>
+<li><strong>clean</strong> Triggered when the field leaves the dirty state.</li>
+<li><strong>afterset(null,value)</strong> Triggered after a new value has been set. </li>
+<li><strong>statusUpdate(null,{statusName:<em>string</em>, value:<em>boolean</em>})</strong> Triggered after a status has been changed.</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-arrayField" class="anchor"></a>arrayField</h2><p>Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. The array field should contain one type of input field and can have as many or as few inputs as the user desires. The arrayField widget will create an array of the data that is contained within each of the inputFields within it.</p>
+<ul>
+<li>Methods (public)<ul>
+<li><strong>getId()</strong> Return the id of the current calling object.</li>
+<li><strong>isDirty()</strong> Returns current dirty value (true/false).</li>
+<li><strong>getFieldInstances()</strong> Returns an array of field instances.</li>
+<li><strong>get()</strong> Returns an array of the data in the current arrayField.</li>
+<li><strong>validate()</strong> Calls <code>inputField.validate()</code> to validate the input in the array field, returns true/false if arrayField is valid or not.</li>
+<li><strong>clearDirty()</strong> Resets the current dirty status to false.</li>
+<li><strong>clear()</strong> Resets the calling object to an empty array.</li>
+<li><strong>flash()</strong> Calls the <code>inputField.flash()</code> to flash the error message to the screen. </li>
+<li><strong>set(data)</strong> Appends a new item, set with the data that is passed into the method, to end of the array.</li>
+<li><strong>addItem(<em>integer</em> index, item)</strong> Adds a new item to the location of the index passed into the method, if no index is defined then append to the end of the array.</li>
+<li><strong>drawItem(item)</strong> Draws the item based on its template and whether or not it is a subwidget.</li>
+<li><strong>subFieldMarkup()</strong> Returns the subField.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates the arrayField based off of the template that the user wishes to apply and fills out the appropriate elements.</li>
+<li><strong>_handleAddButtonClick()</strong> If the &#39;beforeaddnewitem&#39; event has been triggered then call <code>addItem()</code>.</li>
+<li><strong>_checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing. </li>
+<li><strong>_onDirty()</strong> Will return if dirty, otherwise will call <code>_checkDirty()</code>.</li>
+<li><strong>_onClean()</strong> Performs the same function as _onDirty().</li>
+<li><strong>_empty()</strong> Clears the array and calls the children&#39;s destroy methods.</li>
+<li><strong>_drawInternalMarkupItem(item, <em>template</em> itemView)</strong> Called when the item is not a subwidget. Triggers &#39;beforeadd&#39; event. Draws it and wraps it with the appropriate html and parents.</li>
+<li><strong>_drawWidgetItem(item, <em>template</em> itemView, <em>widget</em> subWidget)</strong> Called when the item is a subwidget. Triggers &#39;beforeadd&#39;. Draws the subwidget inside of the relevant widget.</li>
+<li><strong>_destroy()</strong> Removes everything from the array and returns it to its original state. </li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>beforeadd</strong> <em>Optional</em> Triggered before adding an item that is not a new item.</li>
+<li><strong>beforeaddnewitem</strong> <em>Optional</em> Triggered before a new item is added to the array, prepares the array for a new item.</li>
+<li><strong>afteradd</strong> <em>Optional</em> Triggered after adding an item to the array to ensure that the array has handled adding the item correctly.</li>
+<li><strong>afterdelete</strong> <em>Optional</em> Triggered after deleting an item from array to make sure that array has handled deletion correctly.</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-dropDownPanel" class="anchor"></a>dropDownPanel</h2><p>Drop down panel widgets may be used to add an extra hovering container to any element. Drop downs are shown when a user clicks on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop down, or the target element, or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and down the page with the element when scrolling.</p>
+<ul>
+<li>Options<ul>
+<li><strong>target</strong> <em>(jquery object)</em> <em>Required</em> The element that the panel will be displayed underneath. If the target is an inputField <code>input</code> or <code>.input-field</code>, the target is set to the <code>.input-field</code> and the source is appended to the <code>.input-field-group</code>. Otherwise, the source is just inserted after the target in the same container. <strong>Default:</strong> undefined </li>
+<li><strong>focusTarget</strong> <em>(jquery object)</em> The element to listen to for clicks and focus events from in order to open/close the dropdown. <strong>Default:</strong> undefined</li>
+<li><strong>targetInput</strong> <em>(boolean)</em> If true and the target is an <code>.input-field</code>, the target will be changed to the <code>.field-item-input</code>. This will place the panel only under the input itself, rather than under both the input and any addons it might have. <strong>Default:</strong> true</li>
+<li><strong>hideFields</strong> <em>(string[])</em> An array of name attributes matching elements in the panel source to remove. This is useful when you are cloning multiple panels from the same source and don&#39;t need all of the elements. <strong>Default:</strong> undefined </li>
+<li><strong>offset</strong> <em>(object)</em><ul>
+<li><strong>top</strong> <em>(number)</em> Additional offset spacing, in px, between the bottom of the target and the top of the dropdown. <strong>Default:</strong> 0</li>
+<li><strong>left</strong> <em>(number)</em> Additional offset spacing, in px, between the left side of the target and the left side of the dropdown. <strong>Default:</strong> 0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>getClassNames()</strong> Returns the class names for the target and focus elements in a object in the format <code>{target:(string), focus:(string)}</code>.</li>
+<li><strong>getId()</strong> Returns the drop down panel id integer. Each created panel will have its own unique id.</li>
+<li><strong>isOpened()</strong> Returns open status (boolean).</li>
+<li><strong>detach()</strong> Disconnects the panel from the target, focusTarget, and DOM. To use the panel again it must be attached to another element.</li>
+<li><strong>attach(<em>jquery object</em> newTarget, <em>jquery object</em> newFocusTarget)</strong> Connects the panel to the newTarget, and inserts the wrapper into the DOM in the correct location. newTarget is the target and newFocusTarget is the focusTarget. This is done when the panel is first created, but can be called afterwards in order to change the targets. If the panel already has targets, it will be detached from those targets first. </li>
+<li><strong>open()</strong> Positions the panel and then makes it visible.</li>
+<li><strong>close()</strong> Hides the panel.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates the dropDownPanel and its&#39; content. Also includes closeListener and openListener methods to handle the opening and closing of the panel. </li>
+<li><strong>_destroy()</strong> Removes the wrapper and destroys the element.</li>
+</ul>
+</li>
+<li>Events
+  <strong>beforeopen(null, [<em>jquery object</em> panel, <em>object</em> css])</strong> <em>Optional</em> Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.
+  <strong>afteropen</strong> <em>Optional</em> Triggered after the panel is positioned and shown.
+  <strong>beforeclose</strong> <em>Optional</em> Triggered before the panel is closed. If the default is prevented the panel will not hidden.
+  <strong>afterclose</strong> <em>Optional</em> Triggered after the panel is hidden.</li>
+</ul>
+<h2><a name="widgets-dateRangePicker" class="anchor"></a>dateRangePicker</h2><p>Creates two input fields for a beginning and ending date. Allows the user to select different ranges of dates if they wish to. Based off of the date data-type.</p>
+<ul>
+<li>Methods (public)<ul>
+<li><strong>setRange(<em>string</em> range)</strong> Sets the range of the date field to either &#39;custom&#39;, &#39;day&#39;, &#39;week&#39;, &#39;month&#39;, or &#39;year&#39;. The relevant string will be passed into the method. Will modify the input fields so that the date range reflects this selection.</li>
+<li><strong>serialize(<em>moment</em> momentDate)</strong> Takes a passed-in moment and returns YYYY-MM-DD string format.</li>
+<li><strong>deserialize(<em>string</em> sDate)</strong> Takes a passed-in string and returns a moment in the YYYY-MM-DD format.</li>
+<li><strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateRangePicker input fields. The from and to fields should be in the &#39;YYYY-MM-DD&#39; format. The range value should be a string. Calls <code>formBuilder.get()</code>.</li>
+<li><strong>set(<em>object</em> Object)</strong> Sets the input fields of the dateRangePicker to the value of the object that is passed into the method. Calls <code>formBuilder.set(data)</code>.</li>
+<li><strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the <code>formBuilderisDirty()</code> method.</li>
+<li><strong>clearDirty()</strong> Resets the current object&#39;s dirty value to false. Calls the <code>formBuilder.clearDirty()</code> method.</li>
+<li><strong>clear()</strong> Sets the values inside of the dateRangePicker&#39;s inputfields to &#39;&#39; and sets the range value to &#39;custom&#39;, effectively clearing the status.</li>
+<li><strong>validate()</strong> Validates that the input matches the date-format that it should be. Uses the <code>formBuilder.validate()</code> method.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates all the relevant fields and buttons and appends them to the form. Handles on &#39;click&#39; for the buttons.</li>
+<li><strong>_moveRange(<em>integer</em> number, <em>string</em> unit)</strong> Modifies the dates to match the range that has been selected.</li>
+<li><strong>_setFromAndTo(<em>moment</em> from, <em>moment</em> to)</strong> Sets the to and from fields, and will serialize them first if they are not already strings. </li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-dateTimeRangePicker" class="anchor"></a>dateTimeRangePicker</h2><p>Similar to the dateRangePicker widget in that it creates two input fields for a beginning and ending date, but also has a field for each input that allows the user to include a time range as well which is based off of the dateTime data-type.</p>
+<ul>
+<li>Methods (public)<ul>
+<li><strong>setRange(<em>string</em> range)</strong>  Sets the range of the date field to either &#39;custom&#39;, &#39;day&#39;, &#39;week&#39;, &#39;month&#39;, or &#39;year&#39;. Will modify the input fields so that the date range reflects this selection. Will set the time fields to 12:00am and 11:59pm if there is nothing in those fields already, otherwise will not modify the time fields. </li>
+<li><strong>serializeDate(<em>moment</em> momentDate)</strong> Takes a moment input and returns that input turned into a string in the format of &#39;YYYY-MM-DD&#39;. </li>
+<li><strong>deserializeDate(<em>string</em> stringDate)</strong> Takes a string input and returns that input turned into a moment in the format of &#39;YYYY-MM-DD&#39;.  </li>
+<li><strong>get()</strong> Returns the value, that is an object, that is currently inside of the dateTimeRangePicker input fields. The from and to fields should be in the format &#39;YYYY-MM-DDTHH:MM:mmZ&#39;. The range value of the object should be a string. </li>
+<li><strong>set(<em>object</em> data)</strong> Sets the input fields of the dateTimeRangePicker to the value of the object that is passed into the method.</li>
+<li><strong>isDirty()</strong> Returns the dirty value of the current calling object. Calls the formBuilder isDirty() method.</li>
+<li><strong>clearDirty()</strong> Resets the current object&#39;s dirty value to false. Calls the formBuilder clearDirty() method.</li>
+<li><strong>clear()</strong> Sets the values inside of the dateTimeRangePicker&#39;s inputfields to &#39;&#39; and sets the range value to &#39;custom&#39;, effectively resetting the data.</li>
+<li><strong>validate()</strong> Validates that the input matches the dateTime-format that it should be. Calls <code>formBuilder(&#39;validate&#39;)</code>.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates all the relevant fields and buttons and appends them to the form. Handles on &#39;click&#39; for the buttons.</li>
+<li><strong>_moveRange(<em>integer</em> number, <em>string</em> unit)</strong> Modifies the dates to match the range that has been selected.</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-popOver" class="anchor"></a>popOver</h2><p>Creates a popOver that can be appended to the inputField and can have data and links inside of it. Uses the tooltip class and expands upon it. The user can set the title and data of the popOver and it will open on focus.</p>
+<ul>
+<li>Options<ul>
+<li><strong>target</strong> The element that the panel will be displayed underneath. <strong>Default:</strong> undefined</li>
+<li><strong>top</strong> <em>(number)</em> Additional offset spacing, in px, between the bottom of the target and the top of the dropdown. <strong>Default:</strong> 0</li>
+<li><strong>left</strong> <em>(number)</em> Additional offset spacing, in px, between the left side of the target and the left side of the dropdown. <strong>Default:</strong> 0</li>
+<li><strong>appendTo</strong> The target that the popOver will be appended to. <strong>Default:</strong> &#39;body&#39;</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>setAppendTo(el)</strong> Appends the popOver to the element that is passed into the method.</li>
+<li><strong>toggle()</strong> If the popOver is showing then it will hide it by calling <code>hide()</code>. If it is hidden then it will show it by calling <code>show()</code>.</li>
+<li><strong>show()</strong> Sets self.showing to true and triggers the &#39;onShow&#39; event so that the popOver will be visible.</li>
+<li><strong>hide()</strong> Sets self.showing to false and triggers the &#39;onHide&#39; event so that the popOver will not be visible.</li>
+<li><strong>position()</strong> Sets the position of the popover using the options &#39;top&#39; and &#39;left&#39;.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates the popOver. Handles onClick and onResize events.</li>
+<li><strong>_init()</strong> Called automatically after the popOver is created. Sets the title attribute of the popOver.</li>
+<li><strong>_destroy()</strong> Removes the event handlers for &#39;mousedown&#39; and &#39;resize&#39; events. </li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>onShow</strong> Called inside of the &#39;show()&#39; method and causes the addon (in this case the popOver) to be opened.</li>
+<li><strong>onHide</strong> Called inside of the &#39;hide()&#39; method and causes the addon (in this case the popOver) to be closed.</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-textSubmitter" class="anchor"></a>textSubmitter</h2><p>Similar to an instant messager box. The user can type text and then hit enter to trigger a submit event with the data and a callback. Once submitted the textbox is cleared and ready for new input. A send instruction message appears when focused.</p>
+<ul>
+<li>Options <ul>
+<li><strong>width</strong> Sets the width of the textEntry box. <strong>Default</strong> 300px</li>
+<li><strong>placeholder</strong> Placeholder that will be displayed within the textEntry box but will only be visible if the textEntry box is empty. <strong>Default</strong> &#39;&#39;</li>
+<li><strong>sendInstruction</strong> Will display instruction to the user. Converted lang.sendInstruction to an option. <strong>Default</strong> dict.defaultSendInstruction (&#39;press enter to submit&#39;)</li>
+<li><strong>rows</strong> Sets the number of rows in the textEntry box. <strong>Default</strong> undefined</li>
+<li><strong>ignoreEmptySubmit</strong> Determines if the textEntry box will allow the user to submit their entry whether or not there is data within it. <strong>Default</strong> false</li>
+</ul>
+</li>
+<li>Methods(public)<ul>
+<li><strong>set(<em>string</em> text)</strong> Sets the data in the textEntry box. Calls <code>inputField.set(text)</code>.</li>
+<li><strong>setInstruction(<em>string</em> text)</strong> Sets the text (sendInstruction) that will be given as an instruction to the user.</li>
+<li><strong>get()</strong> Returns the data within the textEntry box. Calls <code>inputField.get()</code>.</li>
+<li><strong>clear()</strong> Clears the data that has been entered in the textEntry box. Calls <code>inputField.clear()</code>.</li>
+<li><strong>disable()</strong> Disables the textEntry box. Calls <code>inputField.disable()</code>.</li>
+<li><strong>enable()</strong> Enables the textEntry box. Calls <code>inputField.enable()</code>.</li>
+</ul>
+</li>
+<li>Methods(private)<ul>
+<li><strong>_create()</strong> Creates the textSubmitter and sets all of its default values. Handles events such as &#39;focus&#39;, &#39;blur&#39;, and &#39;keydown&#39;.</li>
+<li><strong>_submit()</strong> Submits the data inside of the textEntry box. Triggers the &#39;submit&#39; event.</li>
+<li><strong>_destroy()</strong> Removes the container from the calling object. Called automatically.</li>
+</ul>
+</li>
+</ul>
+<h2><a name="widgets-spin" class="anchor"></a>spin</h2><p>Creates a spinner that will be displayed when the submit button has been clicked and will spin until the data is properly submitted.</p>
+<ul>
+<li>Options <ul>
+<li><strong>lines</strong> The number of lines to draw. <strong>Default</strong> 10</li>
+<li><strong>length</strong> The length of each line. <strong>Default</strong> 4</li>
+<li><strong>width</strong> The line thickness. <strong>Default</strong> 2</li>
+<li><strong>radius</strong> The radius of the inner circle. <strong>Default</strong> 3</li>
+<li><strong>rotate</strong> The rotation offset. <strong>Default</strong> 0</li>
+<li><strong>color</strong> The color of the spinner. <strong>Default</strong> #000</li>
+<li><strong>speed</strong> Rounds per second. <strong>Default</strong> 1.5</li>
+<li><strong>trail</strong> Afterglow percentage. <strong>Default</strong> 60</li>
+<li><strong>shadow</strong> Whether to render a shadow. <strong>Default</strong> false</li>
+<li><strong>hwaccel</strong> Whether to use hardware acceleration. <strong>Default</strong> false</li>
+<li><strong>className</strong> The CSS class to assign to the spinner. <strong>Default</strong> &#39;spinner&#39;</li>
+<li><strong>zIndex</strong> The z-index (defaults to 2000000000). <strong>Default</strong> 0</li>
+<li><strong>top</strong> Top position relative to parent in px. <strong>Default</strong> &#39;0&#39;</li>
+<li><strong>left</strong> Left position relative to parent in px. <strong>Default</strong> &#39;0&#39;</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>start()</strong> Starts the spinner spinning.</li>
+<li><strong>stop()</strong> Stops the spinner from spinning.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_create()</strong> Creates the spinner and sets its options.</li>
+<li><strong>_init()</strong> Initializes the spinner, is called automatically when the spinner is created. </li>
+<li><strong>_destroy()</strong> Stops the spinnner and deletes it.</li>
+</ul>
+</li>
+</ul>
+<h1><a name="inputTypes" class="anchor"></a>Input Types</h1><p>In order to access a specific type method outside of inputField, you must first access the type instance by calling inputField(&#39;getType&#39;) on the inputField widget element.</p>
+<p>Note: The <code>ifw</code> parameter is an instance of the inputField widget a type is attached to.</p>
+<h2><a name="inputTypes-standard" class="anchor"></a>standard</h2><p>There are a general set of methods that every type must contain in order to function properly as a type. They can be modified to suit that type&#39;s needs and there can be additional methods, but these ones below are the minimum required.</p>
+<ul>
+<li><p>Base Type Methods</p>
+<ul>
+<li><strong>setUp(ifw)</strong> Used as a type construtor</li>
+<li><strong>tearDown(ifw)</strong> Used as a type destructor</li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>toField(value, ifw)</strong>  Used to format values from memory to the display. The passed value is the stored value in memory format. Types may return a value in the desired display format to be set in the source input widget. Types that do not return a value are assumed to have updated it manually in this function. The latter is useful for complex types that do not relay solely on the souce input widget. </li>
+<li><strong>fromField(value, ifw)</strong>  Used to format values from the display to memory. The passed value is the val() of the source input. Types must return a value in the desired memory format.</li>
+</ul>
+</li>
+<li><strong>validate(ifw)</strong> Used to run checks against the type to determine if it is invalid or not. To display an error message, return an object with a message property. For example: <code>{message: &#39;invalid&#39;}</code>.</li>
+<li><strong>isEmpty()</strong> <em>Optional.</em> Returns true/false for if the field is empty. To be used by complex types that may have non-standard input forms. When this function is not defined the empty status will be checked with <code>e.val().length</code> on the widget element. Empty fields are not checked for validation unless they are required.</li>
+</ul>
+</li>
+<li><p>All inputField types usable with the <code>data-type</code> attribute of input elements.</p>
+<ul>
+<li><strong>text</strong> raw text, no validation</li>
+<li><strong>utext</strong> auto-capitalization, no validation</li>
+<li><strong>integer</strong> integers only, no validation</li>
+<li><strong>number</strong> numbers only checking the first decimal, no validat</li>
+<li><strong>state</strong> for state abbreviations (two capital letters), validation checks for two letters</li>
+<li><strong>zip</strong> for zip codes, validation checks for valid zip code format</li>
+<li><strong>email</strong> for emails, validation checks for valid email format</li>
+<li><strong>display</strong> for displaying uneditable values. The source input is hidden and a span with the value is in its place.</li>
+<li><strong>money</strong> for money format (see <a href="#inputTypes-money">money</a>)</li>
+<li><strong>phone</strong> for phone number format (see <a href="#inputTypes-phone">phone</a>)</li>
+<li><strong>tmsPhone</strong> for phone number format with a phone type dropdown (see <a href="#inputTypes-tmsPhone">tmsPhone</a>)</li>
+<li><strong>date</strong> for date format with a picker dropdown (see <a href="#inputTypes-date">date</a>)</li>
+<li><strong>time</strong>for time format with a picker dropdown (see <a href="#inputTypes-time">time</a>)</li>
+<li><strong>dateTime</strong> a combination of date and time types (see <a href="#inputTypes-dateTime">dateTime</a>)</li>
+<li><strong>select</strong> replacment for <code>&lt;select&gt;</code> elements (see <a href="#inputTypes-select">select</a>)</li>
+</ul>
+</li>
+</ul>
+<h2><a name="inputTypes-select" class="anchor"></a>select</h2><p>Instead of using the normal select tag, you can use an <em>input</em> tag with <strong>data-type=&quot;select&quot;</strong>. It has the basic elements of a select tag, but with more functionality. When clicked, a dropdown appears with sorted option labels (which are scrollable vertically and horizontally) for the user to choose from. It also has a search box the user can use to quickly find a label by typing in what they are searching for. </p>
+<ul>
+<li><p>Attribute Options </p>
+<ul>
+<li><strong>data-default</strong> <em>Optional</em> Can be used to set what the default selection will be in the case that no selection is made. This is available as an alternative to the first non-empty option being selected. </li>
+<li><strong>data-empty-label</strong> <em>Optional</em> Can be used to create an option with a label but no value. Will set the label of an option to the value that the user sets the data-empty label to and will set the value to &#39;&#39;</li>
+<li><strong>data-no-sort</strong> <em>Optional</em> Can be set to true, or 1, by the user to prevent the options from being sorted alphabetically. </li>
+<li><strong>data-filter-min</strong> The minimum amount of options required until the search filter in the dropdown is shown. <strong>Default:</strong> <code>5</code>.</li>
+<li><strong>data-options</strong> <em>Required.</em> String representation of a JSON array of objects each containing a &quot;value&quot; and a &quot;label&quot;.<ul>
+<li>Select Option Properties<ul>
+<li><strong>value</strong> <em>Required.</em> The value of the option</li>
+<li><strong>label</strong> <em>Required.</em> The label of the option which a user will see.</li>
+<li><strong>showClass</strong> <em>(string) Optional</em> Set the showClass equal to a class that you wish to be able to show or hide based on the user&#39;s click on the item where showClass is set. In order for this functionality to work the class must be placed inside of the same formbuilder form that the select input is. <em>Do not use classes directly on inputFields. Instead, wrap all fields that you wish to be hidden in a div and then apply the showClass option to the outer div</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Methods (public)</p>
+<ul>
+<li><strong>setUp(<em>widget</em> inputWidget)</strong> Sets up the select type by wrapping it in the appropriate containers and html and appending it to the form. Also handles events such as &#39;click&#39;, &#39;mouseenter&#39;, &#39;mouseleave&#39;, &#39;keydown&#39;, and &#39;keyup&#39;. Also writes a closeListener method that can handle certain key presses and closing the panel. </li>
+<li><strong>showHideCommand()</strong> If there are no sections, or no showClass, then return. Otherwise hide the sections and show the class. </li>
+<li><strong>clear(<em>boolean</em> andSelectNothing)</strong> Unselects any current selected class and sets all the values, filter values, and text to &#39;&#39;. If the parameter &#39;andSelectNothing&#39; exists then it should call <code>_handleItemNotFound()</code>. Finally it should redraw. </li>
+<li><strong>toggle()</strong> Toggles between opening and closing the select panel.</li>
+<li><strong>getOptions()</strong> Returns the options.</li>
+<li><strong>open()</strong> Opens the panel, sets the height and width of the panel based on the optional settings, hides the closed icon, shows the open icon. Puts the filter box into focus and calls <code>_scroll()</code> to determine how the options should be displayed. </li>
+<li><strong>renderLabel(<em>object</em> item)</strong> Returns the item and its label if they exist. Returns &#39;&#39; if they do not. </li>
+<li><strong>renderItem(<em>object</em> item)</strong> Returns only item.label</li>
+<li><strong>close()</strong> Closes the panel by hiding it. Calls <code>_clearFilter()</code>. Shows the closed icon and hides the open icon. </li>
+<li><strong>update()</strong> Updates the dropdown panel. Clears any selected option, sets the new options, hides the filter if less than five items are returned and scans for showClass commands and performs the necessary functions if they exist. Returns self.loaded.</li>
+<li><strong>removeInvalid(<em>event</em> ev, <em>object</em> ui)</strong> Checks to see if the current item matches an id in the source and that the label matches. If this is not the case then it will set the element value to &#39;&#39;.</li>
+<li><strong>setOptions(options)</strong>Sets the options. Sets self.optionsMap to options, self.optionsSetDynamically to false and calls <code>update()</code>.</li>
+<li><strong>load()</strong> Returns a sorted array of objects that have value and label properties in the format of a promise object.</li>
+<li><strong>map(raw)</strong> Returns an object with the label and value set to the &#39;raw&#39; parameter that has been passed in.</li>
+<li><strong>deMap(<em>object</em> obj)</strong> Either returns the value of the object or null.</li>
+<li><strong>isEmpty()</strong> Determines if an option is selected.</li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromField()</strong> Form data is passed through this method when retrieving it from the form. Returns null if either data or val are undefined, otherwise returns the val.</li>
+<li><strong>toField(rawdata)</strong> Form data is passed through this method when passing it to the form. If data or self.item are undefined will call <code>clear()</code>, otherwise will return the label of the current calling object. </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_keyDownNavigate(<em>event</em> ev)</strong> Modifies the select dropdown window and performs appropriate functions based on what keys have been pressed. </li>
+<li><strong>_onKeyup(<em>event</em> ev)</strong> Called on keyup and filters through the value and the options.</li>
+<li><strong>_setSelected()</strong> Sets which item in the dropdown menu will be selected and highlighted. Calls the <code>_setLabel(self.renderLabel(item))</code> to set the label to the label of the item that has been selected. </li>
+<li><strong>_selectFirstNonEmptyOption()</strong> Called when an option needs to be selected but the user has not clarified what option to select. This method will allow for a default option to be set and will select the first option that is not empty.</li>
+<li><strong>_set(<em>string</em> val)</strong> Sets the value of the selected item. If the val passed into the method cannot be found then it will call <code>_selectFirstNonEmptyOption()</code>.</li>
+<li><strong>_removeSelection()</strong> Removes the selection from the dropdown window so that no item is selected. </li>
+<li><strong>_handleItemNotFound()</strong> Calls <code>_setDefaultItem()</code>. If there is no item or no item value then it will call <code>_selectFirstItem()</code>.</li>
+<li><strong>_setDefaultItem()</strong> Sets the default value to the attribute &#39;data-default&#39;. It will then iterate through each item in the list and if the itemData is equal to the defaultValue then it will select that item. </li>
+<li><strong>_selectFirstItem()</strong> Selects the first item in the list </li>
+<li><strong>_equal(<em>object</em> a, <em>object</em> b)</strong> Checks to see if the two values, a &amp; b, are equal to each other. Returns true if they are, false if they are not. </li>
+<li><strong>_setLabel(<em>string</em> text)</strong> Sets the label of the dropdown panel.</li>
+<li><strong>_getLabel()</strong> Returns the label of the select dropDown.</li>
+<li><strong>_filterOptions()</strong> Removes selected class from the options and adds a filtered class. Used for when a search is typed in the input field to filter out what options are displayed in the drop down panel. Calls <code>_filterOptionsWork(optionsElements)</code>.</li>
+<li><strong>_filterOptionsWork(optionsElements)</strong> Performs the work for filtering the options. Filters through what options have already been filtered and will iterate through each individual one. Calls <code>_filterItem(optionEl, val)</code>.</li>
+<li><strong>_filterItem(<em>string</em> optionEl, <em>string</em> val)</strong> If the item should be filtered (calls <code>_itemsShouldBeFiltered(item, val)</code>) then it will add the filtered class to that item, otherwise it will remove the filtered class from that item. </li>
+<li><strong>_itemsShouldBeFiltered(<em>string</em> item, <em>string</em> val)</strong> Tests to see if the item matches the typed in text and returns true if it does and false if it does not. </li>
+<li><strong>_clearFilter()</strong> Finds the filtered options and removes the filtered class from them. </li>
+<li><strong>_buildEmptyOption()</strong> Builds an option with no value and the label set to the data-emptyLabel value.</li>
+<li><strong>_buildOptions()</strong> Builds the options that will appear in the dropdown panel.</li>
+<li><strong>_sort(<em>array</em> items)</strong> Sorts the options alphabetically.</li>
+<li><strong>_scroll()</strong> Sets what options should be visible based on what option is currently selected.</li>
+</ul>
+</li>
+<li>Events<ul>
+<li><strong>filterdone</strong> Called inside of <code>_filterOptionsWork(optionsElements)</code> if optionsElements exists. Called to finish filtering the options.</li>
+<li><strong>tmsselectbeforebuild</strong> Called inside of <code>_buildOptions()</code> to prepare the select to have its options built.</li>
+<li><strong>tmsselectafterbuild</strong> Called at the end of <code>_buildOptions()</code> to handle the select after its options have been built, passes an array of the options.</li>
+<li><strong>itemnotfound</strong> Called inside of <strong>_set(val)</strong> inside of an if statement. Used to determine if the item being searched for is found or not. </li>
+</ul>
+</li>
+</ul>
+<h2><a name="inputTypes-date" class="anchor"></a>date</h2><p>The date data type is created to have an inputfield that allows the user to enter a date, either by typing the date directly into the inputfield, or by picking a date from a datepicker tooltip that will open when the user clicks on the inputfield.</p>
+<ul>
+<li>Options <ul>
+<li><strong>minyear</strong> User can set a minumum year.</li>
+<li><strong>maxyear</strong> User can set a maximum year.</li>
+<li><strong>startdate</strong> User can set the date that will be the starting date (used primarily for dateTime).</li>
+<li><strong>enddate</strong> User can set the date that will be the ending date (used primarily for dateTime).</li>
+<li><strong>enforceMax</strong> User can set this value to true or false depending on whether or not they wish to enforce the maximum year value.</li>
+<li><strong>enforceMin</strong> User can set this value to true or false depending on whether or not they wish to enforce the minimum year value</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>setUp(ifw)</strong> Sets up the type with its attributes and its datePicker. Also sets the inputFilter.</li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromField(val, ifw)</strong> Input data is passed through this method when retrieving it from the input field. Date is passed in using the format yyyy-mm-dd and returned in the format mm/dd/yyyy.</li>
+<li><strong>toField(val, ifw)</strong> Input data is passed through this method when passing it to the input field. Date is passed in in the format mm/dd/yyyy and returned in the format yyyy-mm-dd. </li>
+</ul>
+</li>
+<li><strong>tearDown(ifw)</strong> Removes the datepicker from the element.</li>
+<li><strong>validate(ifw)</strong> Determines if the date is valid. If it is not valid then it will return an invalid message. </li>
+</ul>
+</li>
+</ul>
+<h2><a name="inputTypes-time" class="anchor"></a>time</h2><p>The time data type is created to have an inputfield that allows the user to enter a time, either by typing the time directly into the inputfield, or by picking a time from a timepicker tooltip that will open when the user clicks on the inputfield.</p>
+<ul>
+<li>Options <ul>
+<li><strong>step</strong> Allows you to modify what level of precision you wish the times to be displayed in the dropdown panel. Sets the amount of time between each time option in the timepicker. <strong>Default</strong> 30</li>
+<li><strong>military</strong> User can set this value to true if they wish to be able to enter the time in 24-hour format. This will also modify the dropdown panel to display 24-hour time instead of 12-hour time. <strong>Default</strong> false</li>
+<li><strong>storeUtc</strong> Allows the user to chose if they wish to store the time in utc format instead of local time.</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>setUp(ifw)</strong> Sets up the type with its attributes and its timePicker. Also sets the inputFilter depending on whether the time is intended to be in 24-hour time or not.</li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromField(val, ifw)</strong> Input data is passed through this method when retrieving it from the input field. Time is passed in as a moment format HH:mm (utc) and is returned converted to h:mma (local). Confirms that the time is valid before returning the converted format.</li>
+<li><strong>toField(val, ifw)</strong> Input data is passed through this method when passing it to the input field. Time is passed in as h:mma (local) and is returned converted to a moment format HH:mm (utc). Confirms that the time is valid before returning the converted format.</li>
+</ul>
+</li>
+<li><strong>tearDown(ifw)</strong> Removes the timepicker from the element.</li>
+<li><strong>validate(ifw)</strong> Determines if the time is valid by matching it against a regex. If it is not valid then it will return an invalid message. </li>
+</ul>
+</li>
+</ul>
+<h2><a name="inputTypes-dateTime" class="anchor"></a>dateTime</h2><p>dateTime is a data type that is a combination of the two inputfields, date and time. The original inputfield is hidden between these two types. </p>
+<ul>
+<li>Methods (public)<ul>
+<li><strong>setUp(inputFieldWidgetInstance)</strong> Gets the option constants and then calls <code>_setUpFields()</code>, <code>_refreshFieldWidth()</code>, and <code>_setUpCleanDirtyEvents()</code>. Also sets up that <code>_refreshFieldWidth()</code> will be called on &#39;resize&#39;.</li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromField(val, ifw)</strong> Input data is passed through this method when retrieving it from the input field. utc and local formats are handled in the date and time data types. If one of the fields is empty then default to the current time. Convert the date and time passed in into moment objects, parse them, and combine them into one object. </li>
+<li><strong>toField(val, ifw)</strong> Input data is passed through this method when passing it to the input field. utc and local formats are handled in the date and time data types. Makes sure that the time and date passed in are split by calling &#39;splitDate.time&#39; and &#39;splitDate.date&#39; on the timeWidgetInstance and the dateWidgetInstance respectively.</li>
+</ul>
+</li>
+<li><strong>validate(ifw)</strong> Validates if the date and time are correct individually. If one of them is not valid then it will return a string stating that they are invalid. </li>
+<li><strong>isEmpty()</strong> Determines if the inputfield is empty.</li>
+<li><strong>tearDown(ifw)</strong> Removes the dateWidget and the timeWidget and sets them to undefined. Shows the element&#39;s parent.</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_setUpFields()</strong> Creates the elements for the dateWidget and the timeWidget and passes the date and time attributes in. Also creates the widgets and adds the appropriate classes and data to them. </li>
+<li><strong>_refreshFieldWidth()</strong> Makes sure that the child widgets total width is equal to the base elements width.</li>
+<li><strong>_setUpCleanDirtyEvents()</strong> Sets it so that on dirty or clean events the dateWidget and the timeWidget will call <code>stopPropagation()</code> and <code>checkDirty()</code>.</li>
+<li><strong>_splitDateAndTime(<em>string</em> dateTimeString)</strong> Parses the dateTimeString passed in and returns a formatted result. If the dateTime is invalid then it will return an empty object.</li>
+<li><strong>_joinDateAndTimeMoments(<em>moment</em> localDateMoment, <em>moment</em> localTimeMoment)</strong> Returns a moment of the localDateMoment and the localTimeMoment combined. </li>
+</ul>
+</li>
+</ul>
+<h2><a name="inputTypes-money" class="anchor"></a>money</h2><p>Data type used to allow for the input of monetary amounts into an inputfield. Allows the user to type amount into the inputfield but if they type an incorrect value it will not allow anything to be entered. </p>
+<ul>
+<li>Attribute Options <ul>
+<li><strong>data-currency-symbol</strong> User can set this value to equal any symbol they want. Will be used to change the symbol that appears in the prefix of the input field. Can be used to change the money symbol and allow for international currency. <strong>Default</strong> undefined (will be set to $ when undefined)</li>
+<li><strong>data-hide-symbol</strong> When included, the currency symbol attribute will not be displayed.</li>
+<li><strong>data-max-amount</strong> User can set the max amount that will be allowed to be entered in the field. If more than this amount is entered into the field then an error message will be displayed. </li>
+<li><strong>data-min-amount</strong> User can set the min amount that will be allowed to be entered in the field. If less than this amount is entered into the field then an error message will be displayed. </li>
+<li><strong>data-allow-negative</strong> User can include this attribute to allow negative currency amounts to be entered. This attribute does not have to be set to true.</li>
+</ul>
+</li>
+<li>Methods (public)<ul>
+<li><strong>setUp(ifw)</strong> Sets all of the options to their values, determines if the currency symbol should be displayed or not. Also sets up the inputFilter. </li>
+<li><strong>format(money)</strong> Ensures that what the user is typing in is in the correct format with only one decimal. If an incorrect format is entered then the method will return &#39;&#39;.</li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromField(val, ifw)</strong> Input data is passed through this method when retrieving it from the input field. If the value of the trimmed val is equal to &#39;&#39; then return &#39;&#39;, otherwise return +this.format(val).</li>
+<li><strong>toField(val, ifw)</strong> Input data is passed through this method when passing it to the input field.  Returns the formatted value. </li>
+</ul>
+</li>
+<li><strong>validate(ifw)</strong> Validates that the entered amount does not exceed the maximum value allowed (if one is set), and is not less than the minimum amount allowed (if one is set).</li>
+</ul>
+</li>
+<li>Methods (private)<ul>
+<li><strong>_onChange()</strong> Calls <code>format(money)</code> on the change event. </li>
+</ul>
+</li>
+</ul>
+<h2><a name="inputTypes-phone" class="anchor"></a>phone</h2><p>Data type that allows for the input of phone numbers. Filters to ensure that input is in correct format. </p>
+<ul>
+<li>Methods (public)<ul>
+<li><strong>setUp(ifw)</strong> Sets up the inputFilter and sets the value of the input filter to be formatted on blur. </li>
+<li><strong>converter</strong> <em>(object)</em><ul>
+<li><strong>fromField(val, ifw)</strong> Input data is passed through this method when retrieving it from the input field. Returns the formatted value.</li>
+<li><strong>toField(val, ifw)</strong> Input data is passed through this method when passing it to the input field. Returns the formatted value.</li>
+</ul>
+</li>
+<li><strong>format(<em>string</em> text)</strong> Ensures that the input is in the format xxx-xxx-xxxx and returns that number.</li>
+<li><strong>validate(ifw)</strong> Tests to see if the element matches the specified regex. If they do not match then it returns an invalid message. </li>
+</ul>
+</li>
+</ul>
+<h1><a name="plugins" class="anchor"></a>Plugins</h1><h2><a name="plugins-caret" class="anchor"></a>caret</h2><p>Manages the display and positioning of the caret. Determines where the beginning and ending point should be if the input has been changed through filtering or formatting. Also organizes positioning when part of the input text has been highlighted. </p>
+<ul>
+<li>Method <ul>
+<li>caret(begin, end)<ul>
+<li>If begin is a number then the method will set the beginning and ending point of the caret according to the parameters that were passed into the method. </li>
+<li>If begin is not a number, then the method turns into getter mode and will return an object with the begin and end value within it. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+    <!-- =========== Bower JS Dependencies (using CDNs for demo) ===========-->
+    <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+      // Wrap each example in a form if not already in one (for documentation only)
+      $('.example').each(function(){
+      	if(!$(this).parents('form').length && 
+      	!$(this).parents('.code').length && 
+      	!$(this).children('form').length) {
+      		$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
+      	}
+      });
+    </script>
+    <script type="text/javascript" src="./bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="./bower_components/spinjs/spin.min.js"></script>
+    <script type="text/javascript" src="./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="./bower_components/jquery-timepicker-jt/jquery.timepicker.min.js"></script>
+    <!-- ===================== formBuilder Dependencies ====================-->
+    <script type="text/javascript" src="./bower_components/add-formbuilder/dist/formBuilder.min.js"></script>
+    <!-- ====================== Extra for displaying =======================-->
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/codemirror-compressed.js"></script>
+    <script type="text/javascript" src="./js/codemirrorSetup.js"></script>
+  </body>
+</html>

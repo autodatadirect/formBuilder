@@ -1,0 +1,124 @@
+<h1><a name="about" class="anchor"></a>About</h1><h2><a name="about-whatisformBuilder" class="anchor"></a>What is formBuilder?</h2><p>FormBuilder is a library that can be used to create forms online. These forms will be able to accept user input and save the data in varying ways depending on what data-types have been chosen for the input fields.</p>
+<p>There are many different input field data-types and each have different filters, validation methods, and options that dictate what kind of data they can or can not accept, and how the input fields will look and behave. These types have been developed to meet the typical needs of what would be desired from an online form, such as a phone number type, an email type, a regular text input type, and many more. If you would like to see a full list of the input types that are available to you with formBuilder please feel free to look ahead to the <a href="./guide.html#dataTypes">Data Types</a> section in the User Guide. </p>
+<p>It is also possible, if these types do not meet the requirements of what is needed for a form that is being built, to easily design a custom input type by modifying a set of base methods, or developing a regular expression to define what input will be allowed in the new type. A more detailed description of how to do this can be found in the <a href="./guide.html#customization">Customization</a> section of the User Guide.</p>
+<p>If you would like to see an example of a form that is built using formBuilder, and how the data from that form is saved, feel free to look ahead to our <a href="./guide.html#demo">Live Demo</a>. </p>
+<h2><a name="about-howisformBuilderused" class="anchor"></a>How is formBuilder used?</h2><p>FormBuilder is used by creating forms and then initializing them as formBuilder widgets. FormBuilder will construct the form fields automatically. You can then build upon those forms by adding as many different kinds of input as are desired. </p>
+<p>If you would like to know how to use formBuilder and see examples of each different input types and how they work, please feel free to look ahead to the <a href="./guide.html#basics">User Guide</a>.</p>
+<p>For a more in-depth understanding of how to use and manipulate each different available resource in the formBuilder library, please feel free to look ahead to our <a href='./api.html#widgets'><a href="">API Reference</a></a></p>
+<h2><a name="about-whyshouldIuseformBuilder" class="anchor"></a>Why should I use formBuilder?</h2><p>FormBuilder allows you to create complicated input fields on forms by using only one or two lines of code in your html file. By implementing one or two attributes on an input field you will be able to apply large changes to how the field will appear and how it will handle data.</p>
+<p>It is also a quick and easy way to be able to eliminate most human error from any online form that you are trying to build. By using input types that have been designed to only accept certain entries you can help to prevent the chance that forms will be submitted to you incorrectly. </p>
+<p>FormBuilder is also very easy to understand and implement into your code. The user guide and API reference that have been provided to you are useful tools to be able to understand and see examples of how to build your form using formBuilder. In short, formBuilder is a useful tool that can be used to enhance any online form that you are trying to build.</p>
+<h1><a name="contributing" class="anchor"></a>Contributing</h1><p>If you would like to see this project grow, fork the <a href="https://github.com/autodatadirect/formBuilder">repository</a> on GitHub and make pull requests on the master branch. The guide below will get you going.</p>
+<p>If you find a bug or have a suggestion on how to improve formBuilder, please <a href="https://github.com/autodatadirect/formBuilder/issues">submit an issue</a> and we will take a look at it.</p>
+<h2><a name="contributing-projectStructure" class="anchor"></a>Project Structure</h2><ul>
+<li><strong><code>assets/</code></strong> static, non-source code files (images, fonts, etc.)</li>
+<li><strong><code>bower_components/</code></strong> bower install directory</li>
+<li><strong><code>build/</code></strong> gitignored temporary build folder used in unit tests, <em>do not edit directly</em></li>
+<li><strong><code>dist/</code></strong> distribution build folder saved in repo and used for versioning, <em>do not edit directly</em></li>
+<li><strong><code>docs/</code></strong> This documentaion website. Good for visual testing, copied to gh-pages branch when updating. Build .html files with by running <code>gulp docs</code> or <code>gulp docs:watch</code>.<ul>
+<li><strong><code>content/</code></strong> Partials for the base jade page files. Subfolders correspond to sections of the guide.<ul>
+<li><code>api.md</code> Markdown source for the API Reference page. 1st and 2nd level headings are to be used with the sideNav.</li>
+<li><code>demo.jade</code> source for the demo in the guide</li>
+<li><code>index.md</code> Markdown source for the index page. 1st and 2nd level headings are to be used with the sideNav.</li>
+</ul>
+</li>
+<li><strong><code>css/</code></strong> all extra css for the docs only</li>
+<li><strong><code>img/</code></strong> all extra images for the docs only</li>
+<li><strong><code>js/</code></strong> all extra js for the docs only</li>
+<li><code>**/*.html</code> gulp/jade generated static pages, <em>do not edit directly</em> </li>
+<li><code>_layout.jade</code> main jade layout</li>
+<li><code>api.jade</code> API Reference page base, edit this file only when adding new headings to the sideNav.</li>
+<li><code>guide.jade</code> Guide page base, edit this file only when adding new sections.</li>
+<li><code>index.jade</code> About page base, edit this file only when adding new headings to the sideNav.</li>
+</ul>
+</li>
+<li><strong><code>node_modules/</code></strong> npm install directory</li>
+<li><strong><code>sass/</code></strong> Sass files for main css<ul>
+<li><strong><code>partials/</code></strong> main partials, separated by component</li>
+<li><strong><code>themes/</code></strong> theme partials, containing constants to easily restyle formBuilder</li>
+<li><code>formBuilder.scss</code> main Sass build file, need to include all partials here</li>
+</ul>
+</li>
+<li><strong><code>src/</code></strong> JavaScript source files, separated by component and concatenated in the order in parenthesis for the build<ul>
+<li><strong><code>locales/</code></strong> (1) All localization files, ment to be independent. Only the files an underscore prefix are built with the main js. All are copied as separate js also.</li>
+<li><strong><code>plugins/</code></strong> (2) jQuery plugins on $.fn</li>
+<li><strong><code>types/</code></strong> (5) inputField types, separated into dependancy tiers for concatenation order reasons. Tiers can be added as needed.<ul>
+<li><strong><code>tier0/</code></strong> (5-0) base types</li>
+<li><strong><code>tier1/</code></strong> (5-1) types that use at least one type in tier0</li>
+<li><strong><code>[tierN/]</code></strong> (5-N) types that use at least one type in tier[N-1]</li>
+</ul>
+</li>
+<li><strong><code>util/</code></strong> (3) utilities for project-wide usage</li>
+<li><strong><code>widgets/</code></strong> (4) jQuery widgets order doesnt matter here</li>
+</ul>
+</li>
+<li><strong><code>uncomplete/</code></strong> types/componenets not yet complete or integrated into formBuilder</li>
+<li><strong><code>unitTests/</code></strong><ul>
+<li><strong><code>specs/</code></strong> Jasmine tests, mirroring the <code>src/</code> structure. All test files must be end in <code>.spec.js</code></li>
+<li><code>karma.conf.js</code> main Karma configuration file</li>
+<li><code>karmaSetup.js</code> used to load css files into the karma test browsers</li>
+<li><code>testRunner.html</code> browser test file for debugging tests. If new test files are added, this file we need to be rebuilt by running <code>gulp tester</code>.</li>
+</ul>
+</li>
+<li><code>.travis.yml</code> TravisCI build setup script (<a href="http://docs.travis-ci.com/user/customizing-the-build/">guide</a>)</li>
+<li><code>gulpfile.js</code> setup file for using Gulp</li>
+</ul>
+<h2><a name="contributing-branches" class="anchor"></a>Branches</h2><ul>
+<li><code>master</code> latest, used for development, not always stable</li>
+<li><code>gh-pages</code> GitHub repo website, see the <a href="https://help.github.com/articles/creating-project-pages-manually/">project pages guide</a>.</li>
+</ul>
+<p>Bower versions are handled using git tags. </p>
+<h2><a name="contributing-setup" class="anchor"></a>Setup</h2><p>To setup the develpment for fomBuilder you will need Git and Node.js with npm. </p>
+<p><code data-mode='shell'>
+$ git clone https://github.com/autodatadirect/formBuilder.git
+$ cd formBuilder/
+$ npm install bower -g
+$ npm install gulp -g
+$ npm install
+$ bower install</code></p>
+<p>To make sure everything is working correctly, try running <code>gulp test</code>. The results should match the latest TravisCI build check. </p>
+<p>The recommended editor is <a href="http://www.sublimetext.com/">Sublime Text 3</a> with the <a href="https://github.com/SublimeText-Markdown/MarkdownEditing">Markdown Editing</a>, <a href="https://github.com/SublimeCodeIntel/SublimeCodeIntel">SublimeCodeIntel</a>, <a href="http://www.sublimelinter.com/en/latest/">SublimeLinter</a>, <a href="https://github.com/SublimeLinter/SublimeLinter-jshint">SublimeLinter-jshint</a>, <a href="https://packagecontrol.io/packages/Jade">Jade</a>, and <a href="https://packagecontrol.io/packages/Sass">Sass</a> packages.</p>
+<h2><a name="contributing-building" class="anchor"></a>Building</h2><p>The build scripts are all run with <a href="http://gulpjs.com/">Gulp</a> and use various node modules. The tests are run using the <a href="http://karma-runner.github.io/0.13/index.html">Karma</a> node module. The commands with <code>:watch</code> will rerun the command when any related file is changed. You must have the Chrome and FireFox installed in order to run tests on them.</p>
+<h3>Gulp Commands</h3><ul>
+<li>main<ul>
+<li><code>gulp [-dowmh]</code> default, used for easy building</li>
+<li><code>gulp build [-dom]</code> build all javascript and sass, does not include docs</li>
+<li><code>gulp test [-knb]</code>, <code>gulp test:watch [-knb]</code> runs all unit tests in Karma in all browsers (phantomjs -&gt; chrome -&gt; firefox)</li>
+<li><code>gulp tester</code> rebuilds the manual unit test page <code>unitTests/testRunner.html</code></li>
+<li><code>gulp docs</code>, <code>gulp docs:watch</code> builds final docs html files using the jade and markdown files</li>
+<li><code>gulp help</code> display help</li>
+</ul>
+</li>
+<li>to be run automatically<ul>
+<li><code>gulp lint</code> runs jshint linter on javascript</li>
+<li><code>gulp clean</code> cleans out build directory</li>
+<li><code>gulp copy:assets</code> copies assests into build directory</li>
+<li><code>gulp copy:locales</code> copies locale javascript source to build folder</li>
+<li><code>gulp sass</code>, <code>gulp sass:watch</code> compiles sass</li>
+<li><code>gulp compileMarkdown</code> parse and compile the documenation markdown</li>
+</ul>
+</li>
+</ul>
+<h3>Gulp Flags</h3><ul>
+<li>for building<ul>
+<li><code>-d</code>, <code>--dist</code> use the <code>dist/</code> folder as the build directory instead of <code>build/</code></li>
+<li><code>-o</code>, <code>--original</code> do not uglify build javascript (with --dist)</li>
+<li><code>-m</code>, <code>--mangle</code> mangle variable names with build javascript (automatic with --dist)</li>
+<li><code>-w</code>, <code>--watch</code> watch source files and rebuild when needed </li>
+<li><code>-h</code>, <code>--help</code> display help</li>
+</ul>
+</li>
+<li>for testing<ul>
+<li><code>-k</code>, <code>--keepalive</code> keep karma browser instances alive</li>
+<li><code>-n</code>, <code>--nice</code> display karma tests in a nice Jasmine format</li>
+<li><code>-b &lt;browserName&gt;</code>, <code>--browser &lt;browserName&gt;</code> (Chrome/PhantomJS/Firefox) run tests with only a single given browser</li>
+</ul>
+</li>
+</ul>
+<h2><a name="contributing-unitTests" class="anchor"></a>Unit Tests</h2><p>The unit tests are all written in <a href="http://jasmine.github.io/">Jasmine</a> and are located in <code>unitTests/specs/</code>. Each component should have its own test file. All tests files must end in <code>.spec.js</code>. </p>
+<p>Use the manual test runner when writing the tests for easy debugging. The tests will use the <code>build/</code> folder for the formBuilder js and css. <em>You may need to rerun the runner or tweak its test delay settings based on your computer.</em></p>
+<p>The TravisCI build will fail if any test in a given commit fails.</p>
+<h2><a name="contributing-documentation" class="anchor"></a>Documentation</h2><p>The documentation is written using <a href="http://jade-lang.com/">Jade</a> and <a href="https://guides.github.com/features/mastering-markdown/">Markdown</a>. The About and API Reference pages are generated from markdown, while the Guide page is put together from Jade partials. </p>
+<p>The sideNav links must be manually entered into the base jade files. The markdown parser will use the first and second headers for the outer and inner navagation links, respectivly. Anchor names will be in the format <code>outerCategory-innerCategory</code> camel case, matching the header text.</p>
+<h1><a name="license" class="anchor"></a>License</h1><p>MIT</p>
+<h1><a name="credits" class="anchor"></a>Credits</h1><p>Auto Data Direct, Inc.</p>
