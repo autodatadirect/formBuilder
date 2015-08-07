@@ -89,7 +89,6 @@ var argv = require('yargs')
 
 	.argv;
 
-
 var banner = 
 	'/** \n' +
 	' * <%= pkg.name %> - <%= pkg.description %>\n' +

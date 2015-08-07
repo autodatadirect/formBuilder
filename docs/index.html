@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>jquery.formBuilder.js | About</title>
+    <title>formBuilder.js | About</title>
     <!-- ==================== External CSS Dependencies ====================-->
     <!-- Any jquery-ui theme-->
     <link type="text/css" rel="stylesheet" href="./css/Aristo.css">
@@ -40,7 +40,7 @@
   </head>
   <body>
     <div class="header">
-      <div class="center-container"><a href="./index.html" class="title">jQuery.formBuilder</a>
+      <div class="center-container"><a href="./index.html" class="title">formBuilder</a>
         <div class="topNav"><a id="About" href="./index.html" class="current">About</a><a id="Guide" href="./guide.html">User Guide</a><a id="API" href="./api.html">API Reference</a></div>
         <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
       </div>
@@ -68,7 +68,8 @@
 <h2><a name="about-howcanformBuilderbeused" class="anchor"></a>How can formBuilder be used?</h2><p>FormBuilder is used by creating forms and then initializing them as formBuilder widgets. FormBuilder will construct the form fields automatically. You can then build upon those forms by adding as many different kinds of input as are desired. </p>
 <p>For a more in-depth understanding of how to use and manipulate each different available resource in the formBuilder library, please feel free to look ahead to our <a href='./api.html#widgets'><a href="">API Reference</a></a></p>
 <h2><a name="about-whyshouldIuseformBuildertomakemyforms" class="anchor"></a>Why should I use formBuilder to make my forms?</h2><p>FormBuilder allows you to create complicated input fields on forms by using only one or two lines of code in your html file. By implementing one or two attributes on an input field you will be able to apply large changes to how the field will appear and how it will handle data. It is also a quick and easy way to be able to eliminate most human error from any online form that you are trying to build. By using input types that have been designed to only accept certain entries you can help to prevent the chance that forms will be submitted to you incorrectly. FormBuilder is also very easy to understand and implement into your code. The user guide and API reference that have been provided to you are useful tools to be able to understand and see examples of how to build your form using formBuilder. In short, formBuilder is a useful tool that can be used to enhance any online form that you are trying to build.</p>
-<h1><a name="contributing" class="anchor"></a>Contributing</h1><p>TODO write an explanation</p>
+<h1><a name="contributing" class="anchor"></a>Contributing</h1><p>If you would like to see this project grow, fork the <a href="https://github.com/autodatadirect/formBuilder">repository</a> on GitHub and make pull requests on the master branch. The guide below will get you going.</p>
+<p>If you find a bug or have a suggestion on how to improve formBuilder, please <a href="https://github.com/autodatadirect/formBuilder/issues">submit an issue</a> and we will take a look at it.</p>
 <h2><a name="contributing-projectStructure" class="anchor"></a>Project Structure</h2><ul>
 <li><strong><code>assets/</code></strong> static, non-source code files (images, fonts, etc.)</li>
 <li><strong><code>bower_components/</code></strong> bower install directory</li>
@@ -137,9 +138,48 @@ $ npm install
 $ bower install</code></p>
 <p>To make sure everything is working correctly, try running <code>gulp test</code>. The results should match the latest TravisCI build check. </p>
 <p>The recommended editor is <a href="http://www.sublimetext.com/">Sublime Text 3</a> with the <a href="https://github.com/SublimeText-Markdown/MarkdownEditing">Markdown Editing</a>, <a href="https://github.com/SublimeCodeIntel/SublimeCodeIntel">SublimeCodeIntel</a>, <a href="http://www.sublimelinter.com/en/latest/">SublimeLinter</a>, <a href="https://github.com/SublimeLinter/SublimeLinter-jshint">SublimeLinter-jshint</a>, <a href="https://packagecontrol.io/packages/Jade">Jade</a>, and <a href="https://packagecontrol.io/packages/Sass">Sass</a> packages.</p>
-<h2><a name="contributing-building" class="anchor"></a>Building</h2><p>The build scripts are all run with <a href="http://gulpjs.com/">Gulp</a> and use various node modules.</p>
-<h2><a name="contributing-unitTests" class="anchor"></a>Unit Tests</h2><p>TODO</p>
-<h2><a name="contributing-documentation" class="anchor"></a>Documentation</h2><p>TODO</p>
+<h2><a name="contributing-building" class="anchor"></a>Building</h2><p>The build scripts are all run with <a href="http://gulpjs.com/">Gulp</a> and use various node modules. The tests are run using the <a href="http://karma-runner.github.io/0.13/index.html">Karma</a> node module. The commands with <code>:watch</code> will rerun the command when any related file is changed. You must have the Chrome and FireFox installed in order to run tests on them.</p>
+<h3>Gulp Commands</h3><ul>
+<li>main<ul>
+<li><code>gulp [-dowmh]</code> default, used for easy building</li>
+<li><code>gulp build [-dom]</code> build all javascript and sass, does not include docs</li>
+<li><code>gulp test [-knb]</code>, <code>gulp test:watch [-knb]</code> runs all unit tests in Karma in all browsers (phantomjs -&gt; chrome -&gt; firefox)</li>
+<li><code>gulp tester</code> rebuilds the manual unit test page <code>unitTests/testRunner.html</code></li>
+<li><code>gulp docs</code>, <code>gulp docs:watch</code> builds final docs html files using the jade and markdown files</li>
+<li><code>gulp help</code> display help</li>
+</ul>
+</li>
+<li>to be run automatically<ul>
+<li><code>gulp lint</code> runs jshint linter on javascript</li>
+<li><code>gulp clean</code> cleans out build directory</li>
+<li><code>gulp copy:assets</code> copies assests into build directory</li>
+<li><code>gulp copy:locales</code> copies locale javascript source to build folder</li>
+<li><code>gulp sass</code>, <code>gulp sass:watch</code> compiles sass</li>
+<li><code>gulp compileMarkdown</code> parse and compile the documenation markdown</li>
+</ul>
+</li>
+</ul>
+<h3>Gulp Flags</h3><ul>
+<li>for building<ul>
+<li><code>-d</code>, <code>--dist</code> use the <code>dist/</code> folder as the build directory instead of <code>build/</code></li>
+<li><code>-o</code>, <code>--original</code> do not uglify build javascript (with --dist)</li>
+<li><code>-m</code>, <code>--mangle</code> mangle variable names with build javascript (automatic with --dist)</li>
+<li><code>-w</code>, <code>--watch</code> watch source files and rebuild when needed </li>
+<li><code>-h</code>, <code>--help</code> display help</li>
+</ul>
+</li>
+<li>for testing<ul>
+<li><code>-k</code>, <code>--keepalive</code> keep karma browser instances alive</li>
+<li><code>-n</code>, <code>--nice</code> display karma tests in a nice Jasmine format</li>
+<li><code>-b &lt;browserName&gt;</code>, <code>--browser &lt;browserName&gt;</code> (Chrome/PhantomJS/Firefox) run tests with only a single given browser</li>
+</ul>
+</li>
+</ul>
+<h2><a name="contributing-unitTests" class="anchor"></a>Unit Tests</h2><p>The unit tests are all written in <a href="http://jasmine.github.io/">Jasmine</a> and are located in <code>unitTests/specs/</code>. Each component should have its own test file. All tests files must end in <code>.spec.js</code>. </p>
+<p>Use the manual test runner when writing the tests for easy debugging. The tests will use the <code>build/</code> folder for the formBuilder js and css. <em>You may need to rerun the runner or tweak its test delay settings based on your computer.</em></p>
+<p>The TravisCI build will fail if any test in a given commit fails.</p>
+<h2><a name="contributing-documentation" class="anchor"></a>Documentation</h2><p>The documentation is written using <a href="http://jade-lang.com/">Jade</a> and <a href="https://guides.github.com/features/mastering-markdown/">Markdown</a>. The About and API Reference pages are generated from markdown, while the Guide page is put together from Jade partials. </p>
+<p>The sideNav links must be manually entered into the base jade files. The markdown parser will use the first and second headers for the outer and inner navagation links, respectivly. Anchor names will be in the format <code>outerCategory-innerCategory</code> camel case, matching the header text.</p>
 <h1><a name="license" class="anchor"></a>License</h1><p>MIT</p>
 <h1><a name="credits" class="anchor"></a>Credits</h1><p>Auto Data Direct, Inc.</p>
 
@@ -163,7 +203,7 @@ $ bower install</code></p>
     <script type="text/javascript" src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js"></script>
     <!-- ===================== formBuilder Dependencies ====================-->
-    <script type="text/javascript" src="../dist/jquery.formBuilder.min.js"></script>
+    <script type="text/javascript" src="../dist/formBuilder.min.js"></script>
     <!-- ====================== Extra for displaying =======================-->
     <script type="text/javascript" src="./js/main.js"></script>
     <script type="text/javascript" src="./js/codemirror-compressed.js"></script>

@@ -37,7 +37,7 @@ module.exports = function(config) {
 			'bower_components/spinjs/spin.min.js',
 			'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
 			'bower_components/jquery-timepicker-jt/jquery.timepicker.min.js',
-			'build/jquery.formBuilder.min.js',
+			'build/formBuilder.min.js',
 			'unitTests/formBuilderTesting.js',
 
 			// Executed tests

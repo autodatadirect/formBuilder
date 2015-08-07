@@ -15,7 +15,9 @@ FormBuilder allows you to create complicated input fields on forms by using only
 
 
 # Contributing
-TODO write an explanation
+If you would like to see this project grow, fork the [repository](https://github.com/autodatadirect/formBuilder) on GitHub and make pull requests on the master branch. The guide below will get you going.
+
+If you find a bug or have a suggestion on how to improve formBuilder, please [submit an issue](https://github.com/autodatadirect/formBuilder/issues) and we will take a look at it.
 
 ## Project Structure
 
@@ -82,14 +84,47 @@ To make sure everything is working correctly, try running `gulp test`. The resul
 The recommended editor is [Sublime Text 3](http://www.sublimetext.com/) with the [Markdown Editing](https://github.com/SublimeText-Markdown/MarkdownEditing), [SublimeCodeIntel](https://github.com/SublimeCodeIntel/SublimeCodeIntel), [SublimeLinter](http://www.sublimelinter.com/en/latest/), [SublimeLinter-jshint](https://github.com/SublimeLinter/SublimeLinter-jshint), [Jade](https://packagecontrol.io/packages/Jade), and [Sass](https://packagecontrol.io/packages/Sass) packages.
 
 ## Building
-The build scripts are all run with [Gulp](http://gulpjs.com/) and use various node modules.
+The build scripts are all run with [Gulp](http://gulpjs.com/) and use various node modules. The tests are run using the [Karma](http://karma-runner.github.io/0.13/index.html) node module. The commands with `:watch` will rerun the command when any related file is changed. You must have the Chrome and FireFox installed in order to run tests on them.
 
+### Gulp Commands
+* main
+    - `gulp [-dowmh]` default, used for easy building
+    - `gulp build [-dom]` build all javascript and sass, does not include docs
+    - `gulp test [-knb]`, `gulp test:watch [-knb]` runs all unit tests in Karma in all browsers (phantomjs -> chrome -> firefox)
+    - `gulp tester` rebuilds the manual unit test page `unitTests/testRunner.html`
+    - `gulp docs`, `gulp docs:watch` builds final docs html files using the jade and markdown files
+    - `gulp help` display help
+* to be run automatically
+    - `gulp lint` runs jshint linter on javascript
+    - `gulp clean` cleans out build directory
+    - `gulp copy:assets` copies assests into build directory
+    - `gulp copy:locales` copies locale javascript source to build folder
+    - `gulp sass`, `gulp sass:watch` compiles sass
+    - `gulp compileMarkdown` parse and compile the documenation markdown
+
+### Gulp Flags
+* for building
+    - `-d`, `--dist` use the `dist/` folder as the build directory instead of `build/`
+    - `-o`, `--original` do not uglify build javascript (with --dist)
+    - `-m`, `--mangle` mangle variable names with build javascript (automatic with --dist)
+    - `-w`, `--watch` watch source files and rebuild when needed 
+    - `-h`, `--help` display help
+* for testing
+    - `-k`, `--keepalive` keep karma browser instances alive
+    - `-n`, `--nice` display karma tests in a nice Jasmine format
+    - `-b <browserName>`, `--browser <browserName>` (Chrome/PhantomJS/Firefox) run tests with only a single given browser
 
 ## Unit Tests
-TODO
+The unit tests are all written in [Jasmine](http://jasmine.github.io/) and are located in `unitTests/specs/`. Each component should have its own test file. All tests files must end in `.spec.js`. 
+
+Use the manual test runner when writing the tests for easy debugging. The tests will use the `build/` folder for the formBuilder js and css. *You may need to rerun the runner or tweak its test delay settings based on your computer.*
+
+The TravisCI build will fail if any test in a given commit fails.
 
 ## Documentation
-TODO
+The documentation is written using [Jade](http://jade-lang.com/) and [Markdown](https://guides.github.com/features/mastering-markdown/). The About and API Reference pages are generated from markdown, while the Guide page is put together from Jade partials. 
+
+The sideNav links must be manually entered into the base jade files. The markdown parser will use the first and second headers for the outer and inner navagation links, respectivly. Anchor names will be in the format `outerCategory-innerCategory` camel case, matching the header text.
 
 # License
 MIT

@@ -36,6 +36,7 @@ formBuilder
     - [dateRangePicker](#daterangepicker)
     - [dateTimeRangePicker](#datetimerangepicker)
     - [dropDownPanel](#dropdownpanel)
+- [selectionWidget](#selectionwidget)
 - [Customization](#customization)
     - [Custom type](#custom-type)
     - [Custom inputFilter](#custom-inputfilter)
@@ -57,7 +58,7 @@ TODO - describe formBuilder
 ####JavaScript
 * [jQuery v1.11.3](https://code.jquery.com/jquery-1.11.3.min.js) - not sure of min version
 * [jQuery ui 1.11.4](https://code.jquery.com/ui/1.11.4/jquery-ui.min.js) - not sure of min version
-* jquery.formBuilder.js
+* formBuilder.js
 
 ### Initialization
 *HTML*
@@ -636,7 +637,7 @@ If you want to manually choose a language, define `$.formBuilder.lang.code` abov
     // $.formBuilder.lang.code = 'es'; // Spanish
 </script>
 <!-- Any formBuilder language packs -->
-<script type='text/javascript' src='/bower_componenets/jquery.formBuilder.min.js'></script>
+<script type='text/javascript' src='/bower_componenets/formBuilder.min.js'></script>
 
 ...
 ```

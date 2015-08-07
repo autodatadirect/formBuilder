@@ -3,7 +3,7 @@ html
 	block vars
 	head
 		meta(charset='utf-8')
-		title jquery.formBuilder.js | #{title}
+		title formBuilder.js | #{title}
 
 		// ==================== External CSS Dependencies ====================
 		// Any jquery-ui theme
@@ -27,7 +27,7 @@ html
 
 	body
 		.header: .center-container
-			a.title(href='./index.html') jQuery.formBuilder
+			a.title(href='./index.html') formBuilder
 			.topNav
 				a#About(href='./index.html' class = title === 'About' ? 'current' : '') About
 				a#Guide(href='./guide.html' class = title === 'User Guide' ? 'current' : '') User Guide
@@ -65,7 +65,7 @@ html
 		script(type='text/javascript' src='../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js')
 
 		// ===================== formBuilder Dependencies ====================
-		script(type='text/javascript' src='../dist/jquery.formBuilder.min.js')
+		script(type='text/javascript' src='../dist/formBuilder.min.js')
 
 		// ====================== Extra for displaying =======================
 		script(type='text/javascript' src='./js/main.js')

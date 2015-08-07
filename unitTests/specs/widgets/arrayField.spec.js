@@ -41,8 +41,6 @@ describe('A formBuilder.arrayField widget', function(){
 			e = e.children();
 			expect(e.length).toBe(2);
 			expect(e.eq(0).is('.first.field-item.addon.clickable.array-field-add')).toBe(true);
-			expect(e.eq(0).children().length).toBe(1);
-			expect(e.eq(0).children().is('a[href="#"]')).toBe(true);
 			expect(e.eq(1).is('.field-item.array-field-add-message')).toBe(true);
 			expect(e.eq(1).text()).toBe('');
 		};
