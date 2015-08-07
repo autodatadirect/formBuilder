@@ -4,7 +4,27 @@ block vars
 	- title = 'About'
 
 block localCSS
-	//- link(type='text/css' rel='stylesheet' href='./css/guide.css')
+	style(type='text/css' rel='stylesheet').
+		/* Directory bullet format */
+		.content > ul:first-of-type,
+		.content > ul:first-of-type ul,
+		.content > ul:first-of-type li {
+			list-style: none;
+			margin-left: 0;
+			padding-left: .75em;
+		}
+		.content > ul:first-of-type li:before {
+			content: '├';
+			margin-right: 2px;
+		}
+		.content > ul:first-of-type li:last-child:before {
+			content: '└';
+			
+		}
+		.content > ul:first-of-type > li:first-child:before {
+			content: '┌';
+		}
+	//- 
 
 block localJS
 	//- script(type='text/javascript' src='./js/guide.js')
@@ -12,6 +32,15 @@ block localJS
 block sideNav
 	li.current
 		a(href='#about') About
+	li
+		a(href='#contributing') Contributing
+		ul.navDepth-1
+			li: a(href='#contributing-projectStructure') Project Structure
+			li: a(href='#contributing-branches') Branches
+			li: a(href='#contributing-setup') Setup
+			li: a(href='#contributing-building') Building
+			li: a(href='#contributing-unitTests') Unit Tests
+			li: a(href='#contributing-documentation') Documentation
 	li
 		a(href='#license') License
 	li

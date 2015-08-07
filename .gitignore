@@ -6,3 +6,5 @@ build
 .tmp
 spec/reports
 phantomjsdriver.log
+docs/content/*.html
+docs/content/*/*.html

@@ -815,7 +815,7 @@
 				'<div class="items"><div class="items-content"></div></div>' + 
 				'<div class="input-field">' + 
 					'<div class="field-items">' + 
-						'<span class="first field-item addon clickable array-field-add noselect"><a href="#">+</a></span>' + 
+						'<span class="first field-item addon clickable array-field-add noselect">+</span>' + 
 						'<span class="field-item array-field-add-message"></span>' + 
 					'</div>' + 
 				'</div>' + 
@@ -832,7 +832,7 @@
 				'<div class="input-field">' +
 					'<div class="field-items">' +
 						'<span class="field-item addon clickable array-field-delete">' +
-							'<span class="fb-icon fb-icon-remove" title="'+ dict.remoasdase+'"></span>' +
+							'<span class="fb-icon fb-icon-remove" title="'+ dict.remove+'"></span>' +
 						'</span>' +
 					'</div>' +
 				'</div>' +
