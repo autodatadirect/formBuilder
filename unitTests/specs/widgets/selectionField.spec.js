@@ -156,9 +156,9 @@ describe('The selectionField widget', function(){
 		
 		expect(sfw.length).toBe(3);
 
-		expect(sfw[0].prevValue).toBeUndefined();
-		expect(sfw[1].prevValue).toBeUndefined();
-		expect(sfw[2].prevValue).toBeUndefined();
+		expect(sfw[0].prevValue).toBe('');
+		expect(sfw[1].prevValue).toBe('');
+		expect(sfw[2].prevValue).toBe('');
 
 		// can be done from any in group
 		sfw[0]._updatePreviousValue('2');
@@ -375,7 +375,7 @@ describe('The selectionField widget', function(){
 				sfw.push(radio.data('formBuilderSelectionField'));
 
 				expect(radio.prop('checked')).toBe(false);
-				expect(sfw[index].prevValue).toBeUndefined();
+				expect(sfw[index].prevValue).toBe('');
 			});
 
 			spyOn(sfw[0], '_updatePreviousValue').and.callThrough();
