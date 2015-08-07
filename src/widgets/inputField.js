@@ -301,7 +301,15 @@
 				layers = self.layers;
 
 			if(o.prefix){
-				var space = "&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ;
+				var space = '&nbsp;&nbsp;&nbsp;&nbsp;';
+
+				var pre = o.prefix;
+				var i;
+
+				for(i = 0; i < pre.length; i++)
+				{
+					space = space + '&nbsp;';
+				}
 
 				t = space + t; 
 			}
@@ -792,14 +800,16 @@
 							e.css({
 								paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + "px",
 								width: (self.startInputWidth - layers.prefix.outerWidth())  + 'px'
-							});
+							}); 
 						}else{
 							valWidth = layers.suffix.find('.value').outerWidth();
+							self.startPaddingRight = e.css('padding-right').replace('[^0-9]','');
+							self.startPaddingRight = isNaN(self.startPaddingRight)? 0 : parseInt(self.startPaddingRight, 10);
 
 							e.css({
 								paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + "px",
-								paddingRight: (self.startPaddingRight + valWidth) + 'px',
-								width: (self.startInputWidth - layers.prefix.outerWidth())  + 'px'
+								paddingRight: (self.startPaddingRight + valWidth - layers.prefix.outerWidth()) + 'px',	
+								width: (self.startInputWidth - (valWidth))  + 'px'	
 							});
 
 							self.suffixShim.css({
