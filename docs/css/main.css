@@ -25,10 +25,11 @@ button:disabled {
 
 code:not([data-mode]) {
 	background-color: #D8D8D8;
-	padding-left: 2px;
-	padding-right: 2px;
+	padding-left: 4px;
+	padding-right: 4px;
 	font-size: .85em;
 	border-radius: 4px;
+	font-family: monospace;
 }
 
 
@@ -302,4 +303,43 @@ h2 .anchor {
 		margin-left: auto;
 		margin-right: auto;
 	}
+}
+
+/********************************************************
+ * Code Snippets
+ */
+.CodeMirror {
+	height: auto;
+	margin-top: .5em;
+	margin-bottom: .5em;
+}
+.CodeMirror-scroll {
+	height: auto;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+.resultDisplay {
+	width: 100%;
+	min-height: 15em;
+	resize: vertical;
+}
+
+code[data-mode] {
+	display: block;
+	position: relative;
+	width: 100%;
+	font-size: 14px;
+}
+.codeTitle {
+	display: block;
+	position: absolute;
+	top: 5px;
+	left: 0px;
+	font-style: italic;
+}
+.codeToggle {
+	display: block;
+	position: relative;
+	margin-left: auto;
+	margin-right: 0px; 
 }
