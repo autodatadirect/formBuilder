@@ -3959,7 +3959,7 @@
 				return;
 			}
 
-			var prevValue = value || self.radioGroup.filter(':checked').val();
+			var prevValue = value || self.radioGroup.filter(':checked').val() || '';
 			self.radioGroup.filter(':formBuilder-selectionField').each(function(){
 				$(this).data('formBuilderSelectionField').prevValue = prevValue;
 			});
