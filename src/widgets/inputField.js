@@ -297,22 +297,7 @@
 
 		setSuffix: function (t) {
 			var self = this,
-				o = self.options,
 				layers = self.layers;
-
-			if(o.prefix){
-				var space = '&nbsp;&nbsp;&nbsp;&nbsp;';
-
-				var pre = o.prefix;
-				var i;
-
-				for(i = 0; i < pre.length; i++)
-				{
-					space = space + '&nbsp;';
-				}
-
-				t = space + t; 
-			}
 
 			if(!layers.suffix){
 				layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value noselect">' + t + '</span></div>').prependTo(layers.items);
@@ -788,36 +773,16 @@
 				self.suffixShim.text(e.val());
 			}
 
-			var valWidth;
-
 			if(layers.prefix){
 				if(!showPlaceholder) {
 					if(!self.prefixPaddingAdded) {
 						self.startInputWidth = e.width();
-						self.startPaddingLeft = parseInt(e.css('padding-left'), 10);
-						self.startPaddingLeft = isNaN(self.startPaddingLeft)? 5 : self.startPaddingLeft;
-						if(!(layers.prefix && layers.suffix)){
-							e.css({
-								paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + "px",
-								width: (self.startInputWidth - layers.prefix.outerWidth())  + 'px'
-							}); 
-						}else{
-							valWidth = layers.suffix.find('.value').outerWidth();
-							self.startPaddingRight = e.css('padding-right').replace('[^0-9]','');
-							self.startPaddingRight = isNaN(self.startPaddingRight)? 0 : parseInt(self.startPaddingRight, 10);
-
-							e.css({
-								paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + "px",
-								paddingRight: (self.startPaddingRight + valWidth - layers.prefix.outerWidth()) + 'px',	
-								width: (self.startInputWidth - (valWidth))  + 'px'	
-							});
-
-							self.suffixShim.css({
-								maxWidth: (self.startInputWidth - valWidth)  + 'px'
-							});
-
-							self.suffixPaddingAdded = true;
-						}
+						self.startPaddingLeft = e.css('padding-left').replace('[^0-9]','');
+						self.startPaddingLeft = isNaN(self.startPaddingLeft)? 5 : parseInt(self.startPaddingLeft, 10);
+						e.css({
+							paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + "px",
+							width: (self.startInputWidth - layers.prefix.outerWidth())  + 'px'
+						});
 
 						self.prefixPaddingAdded = true;
 					}
@@ -834,7 +799,7 @@
 			if(layers.suffix){
 				if(!showPlaceholder) {
 					if(!self.suffixPaddingAdded) {
-						valWidth = layers.suffix.find('.value').outerWidth();
+						var valWidth = layers.suffix.find('.value').outerWidth();
 
 						self.startInputWidth = e.width();
 						self.startPaddingRight = e.css('padding-right').replace('[^0-9]','');
@@ -859,8 +824,6 @@
 					self.suffixPaddingAdded = false;
 				}
 			}
-
-
 
 			/*
 			if(o.hover){
