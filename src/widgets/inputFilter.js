@@ -37,8 +37,8 @@
 			 */
 			self.nativeChange = false;
 
-			if(!e.is('input[type=text], textarea')) {
-				throw new Error('inputFilter must be applied to a text input ');
+			if(!e.is('input[type=text], input[type=password], textarea')) {
+				throw new Error('inputFilter must be applied to a text or password input ');
 			}
 
 			e.on('keydown.inputFilter', $.proxy(this._onKeyDown, self));

@@ -19,60 +19,67 @@ $.extend($.formBuilder.inputField.types,{
 });
 
 // Adding full custom types
-$.extend($.formBuilder.inputField.types,{
-	'SSN': {
-		setUp: function(ui) {
-			var self = this,
-				e = ui.element;
+$.formBuilder.inputField.types.SSN = {
+	setUp: function(ifw) {
+		var self = this,
+			e = ifw.element;
 
-			//- Set the characters a user can enter
-			e.inputFilter({
-				pattern: /[0-9]/,
-				max: 12
-			});
+		// Add a placeholder
+		ifw.placeholder('XXX-XX-XXXX');
 
-			//- Replace the input with a formatted input
-			e.on('blur keydown', function(){
-				e.val(self.format(e.val()));
-			});
+		// Set the characters a user can enter
+		e.inputFilter({
+			pattern: /[0-9]/,
+			max: 11,
+			extraFilter: function(val, inText) {
+				// A special character maximimum
+				if(val.replace(/[^0-9]/g,'').length < 9) {
+					return inText;
+				}
+			}
+		});
+
+		// Replace the input with a formatted input
+		e.on('blur', function(){
+			e.val(self.format(e.val()));
+		});
+	},
+	converter: {
+		toField: function(value, ifw) {
+			return this.format(value);
 		},
-		converter: {
-			toField: function(value, ui) {
-				return this.format(value);
-			},
-			fromField: function(value, ui) {
-				return this.format(value);
-			}
-		},
-		validate: function(ui) {
-			if(!this.format(ui.element.val()).match(/^[0-9]{4}\-[0-9]{2}\-[0-9]{4}$/)) {
-				return {
-					message: 'invalid'
-				};
-			}
-		},
-
-		//- This is an extra function specifically for this type
-		format: function(text) {
-			if(!text) {
-				return '';
-			}
-
-			//- Remove non-digits
-			text = text.replace(/[^0-9]/g,'');
-			text = text.substring(0, 10);
-
-			//- add correct dashes
-			if(text.length <= 4) {
-				return text;
-			} else if(text.length <= 6) {
-				return text.substring(0,4) + '-' + text.substring(4);
-			} else {
-				return  text.substring(0,4) + '-' + text.substring(4,6) + '-' + text.substring(6);
-			}
+		fromField: function(value, ifw) {
+			return parseInt(this.format(value).replace(/\-/g,''),10);
 		}
-	} 
-});
+	},
+	validate: function(ifw) {
+		if(!this.format(ifw.element.val()).match(/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/)) {
+			return {
+				message: 'invalid'
+			};
+		}
+	},
+
+	//- This is an extra function specifically for this type
+	format: function(text) {
+		if(!text) {
+			return '';
+		}
+
+		//- Remove non-digits
+		text = text.replace(/[^0-9]/g,'');
+		text = text.substring(0, 10);
+
+		//- add correct dashes
+		if(text.length <= 3) {
+			return text;
+		} else if(text.length <= 5) {
+			return text.substring(0,3) + '-' + text.substring(3);
+		} else {
+			return  text.substring(0,3) + '-' + text.substring(3,5) + '-' + text.substring(5);
+		}
+	}
+};
 
 
 
@@ -302,7 +309,7 @@ $.widget('examples.customColorPicker', {
 
 		// Load any options from DOM (overrides any passed options if set)
 		util.loadDomData(e, o, ['outerDiameter','innerDiameter', 'padding','divider', 'background', 'randomCount']);
-		util.loadDomToggleData(e, o, ['randomColors']);
+		util.loadDomToggleData(e, o, ['required','randomColors']);
 
 		self.sideLength = o.outerDiameter + o.padding;
 
@@ -448,6 +455,15 @@ $.widget('examples.customColorPicker', {
 	 */
 	flash: function() {
 
+	},
+
+	/**
+	 * Runs input validation on the widget's inputs. This can 
+	 * be anything specific to the widget.
+	 * @return {Boolean} valid/invalid
+	 */
+	validate: function() {
+		return this.field.inputField('validate');
 	},
 
 	/**
