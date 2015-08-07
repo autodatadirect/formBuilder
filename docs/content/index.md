@@ -75,7 +75,8 @@ If you find a bug or have a suggestion on how to improve formBuilder, please [su
 
 * `master` latest, used for development, not always stable
 * `gh-pages` GitHub repo website, see the [project pages guide](https://help.github.com/articles/creating-project-pages-manually/).
-* `vX.X.X` bower version branch
+
+Bower versions are handled using git tags. 
 
 ## Setup
 

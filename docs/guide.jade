@@ -13,7 +13,8 @@ block sideNav
 	li.current
 		a(href='#basics') Basics
 		ul.navDepth-1
-			li.current: a(href='#basics-applyingFormBuilder') Applying formBuilder
+			li.current: a(href='#basics-setup') Download
+			li: a(href='#basics-applyingFormBuilder') Applying formBuilder
 			li: a(href='#basics-requiredInputs') Required Inputs
 			li: a(href='#basics-usingNamespace') Using Namespaces
 
@@ -68,6 +69,10 @@ block content
 	h1 Basics
 		a.anchor(name='basics')
 	.section
+		h2 Setup
+			a.anchor(name='basics-download')
+		.section: include content/basics/download
+
 		h2 Applying formBuilder
 			a.anchor(name='basics-applyingFormBuilder')
 		.section: include content/basics/applyingFormBuilder
