@@ -12,6 +12,8 @@ If you would like to see an example of a form that is built using formBuilder, a
 ## How is formBuilder used?
 FormBuilder is used by creating forms and then initializing them as formBuilder widgets. FormBuilder will construct the form fields automatically. You can then build upon those forms by adding as many different kinds of input as are desired. 
 
+If you would like to know how to use formBuilder and see examples of each different input types and how they work, please feel free to look ahead to the <a href="./guide.html#basics">User Guide</a>.
+
 For a more in-depth understanding of how to use and manipulate each different available resource in the formBuilder library, please feel free to look ahead to our <a href='./api.html#widgets'>[API Reference]()</a>
 
 ## Why should I use formBuilder?
