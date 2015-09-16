@@ -8,6 +8,13 @@ describe('A dateTimeRangePicker widget',function(){
 	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 
+	// Expect wrapper to make it easier to see difference
+	var expectTimeEquality = function(t1, t2) {
+		expect(t1.from).toEqual(t2.from);
+		expect(t1.to).toEqual(t2.to);
+		expect(t1.range).toEqual(t2.range);
+	};
+
 	it('can be created', function(){
 		var div = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
 
@@ -19,19 +26,17 @@ describe('A dateTimeRangePicker widget',function(){
 		var picker = $('<div></div>').dateTimeRangePicker(); 
 		var ddrw = picker.data('formBuilderDateTimeRangePicker');
 
-		var date = {
-			from: '2001-05-13T15:52:00Z',
-			to: '2001-05-13T19:34:00Z',
-			range: 'custom'
-		};
-
 		ddrw.set({
 			from: '2001-05-13T15:52:00Z',
 			to: '2001-05-13T19:34:00Z',
 			range: 'custom'
 		});
 
-		expect(picker.dateTimeRangePicker('get')).toEqual(date);
+		expectTimeEquality(picker.dateTimeRangePicker('get'), {
+			from: '2001-05-13T15:52:00Z',
+			to: '2001-05-13T19:34:00Z',
+			range: 'custom'
+		});
 	});
 
 	it('but will not set invalid data', function(){
@@ -44,13 +49,11 @@ describe('A dateTimeRangePicker widget',function(){
 			range: 'custom'
 		});
 
-		var date = {
+		expectTimeEquality(drpw.get(), {
 			from: '', 
 			to: '2016-12-03T11:00:00Z', 
 			range: 'custom'
-		};
-
-		expect(drpw.get()).toEqual(date);
+		});
 	});
 
 	it('can serialize its date', function(){
@@ -77,12 +80,6 @@ describe('A dateTimeRangePicker widget',function(){
 		var picker = $('<div class="dateRange"></div>').dateTimeRangePicker();
 		var drpw = picker.data('formBuilderDateTimeRangePicker');
 
-		var date = {
-			from: '',
-			to: '',
-			range: 'custom'
-		};
-
 		drpw.set({
 			from: '2001-05-13T15:52:00Z',
 			to: '2001-05-13T19:34:00Z',
@@ -91,7 +88,11 @@ describe('A dateTimeRangePicker widget',function(){
 
 		drpw.clear();
 
-		expect(drpw.get()).toEqual(date);
+		expectTimeEquality(drpw.get(), {
+			from: '',
+			to: '',
+			range: 'custom'
+		});
 	});
 
 	it('can check if its data is dirty', function(){
@@ -143,12 +144,6 @@ describe('A dateTimeRangePicker widget',function(){
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
 				var drpw = picker.data('formBuilderDateTimeRangePicker');
 
-				var date = {
-					from: '2001-05-13T15:52:00Z',
-					to: '2001-05-13T19:34:00Z',
-					range: 'day'
-				};
-
 				drpw.set({
 					from: '2001-05-13T15:52:00Z',
 					to: '2001-05-13T19:34:00Z',
@@ -157,18 +152,17 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('day');
 
-				expect(drpw.get()).toEqual(date);
+
+				expectTimeEquality(drpw.get(), {
+					from: '2001-05-13T15:52:00Z',
+					to: '2001-05-13T19:34:00Z',
+					range: 'day'
+				});
 			});
 
 			it('a week date range', function(){
 				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
 				var drpw = picker.data('formBuilderDateTimeRangePicker');
-
-				var date = {
-					from: '2001-05-06T15:52:00Z',
-					to: '2001-05-12T19:34:00Z',
-					range: 'week'
-				};
 
 				drpw.set({
 					from: '2001-05-07T15:52:00Z',
@@ -178,18 +172,16 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('week');
 
-				expect(drpw.get()).toEqual(date);
+				expectTimeEquality(drpw.get(), {
+					from: '2001-05-06T15:52:00Z',
+					to: '2001-05-12T19:34:00Z',
+					range: 'week'
+				});
 			});
 
 			it('a month date range', function(){
-				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker(); 
+				var picker = $('<div class="dateRange"></div>').dateTimeRangePicker();
 				var drpw = picker.data('formBuilderDateTimeRangePicker');
-
-				var date = {
-					from:  '2001-05-01T15:52:00Z',
-					to: '2001-05-31T19:34:00Z',
-					range: 'month'
-				};
 
 				drpw.set({
 					from: '2001-05-07T15:52:00Z',
@@ -199,7 +191,11 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('month');
 
-				expect(drpw.get()).toEqual(date);
+				expectTimeEquality(drpw.get(), {
+					from:  '2001-05-01T15:52:00Z',
+					to: '2001-05-31T19:34:00Z',
+					range: 'month'
+				});
 			});
 
 			it('a year date range', function(){
@@ -214,7 +210,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('year');
 
-				expect(drpw.get()).toEqual({
+				expectTimeEquality(drpw.get(), {
 					from: '2005-01-01T15:52:00Z',
 					to: '2005-12-31T19:34:00Z',
 					range: 'year'
@@ -233,7 +229,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				drpw.setRange('custom');
 
-				expect(drpw.get()).toEqual({
+				expectTimeEquality(drpw.get(), {
 					from: '2003-01-02T09:00:00Z', 
 					to: '2000-01-21T11:00:00Z',
 					range: 'custom'
@@ -276,7 +272,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual({
+					expectTimeEquality(drpw.get(), {
 						from: '2000-01-02T03:00:00Z', 
 						to: '2000-01-02T03:00:00Z', 
 						range: 'day' 
@@ -305,7 +301,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual({
+					expectTimeEquality(drpw.get(), {
 						from: '2015-01-04T15:52:00Z', 
 						to: '2015-01-10T05:34:00Z', 
 						range: 'week' 
@@ -334,9 +330,9 @@ describe('A dateTimeRangePicker widget',function(){
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual({
+					expectTimeEquality(drpw.get(), {
 						from: '2000-02-01T12:00:00Z', 
-						to: '2000-02-28T13:00:00Z', 
+						to: '2000-02-29T13:00:00Z', 
 						range: 'month' 
 					});
 
@@ -363,7 +359,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual({
+					expectTimeEquality(drpw.get(), {
 						from: '2004-01-01T13:00:00Z', 
 						to: '2004-12-31T12:00:00Z',  
 						range: 'year' 
@@ -391,7 +387,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(drpw.get()).toEqual({
+				expectTimeEquality(drpw.get(), {
 					from: '2003-01-02T10:00:00Z', 
 					to: '2000-01-21T12:00:00Z', 
 					range: 'custom' 
@@ -421,7 +417,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual({
+					expectTimeEquality(drpw.get(), {
 						from: '2000-01-01T10:00:00Z', 
 						to: '2000-01-01T12:00:00Z',
 						range: 'day' 
@@ -450,7 +446,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual({
+					expectTimeEquality(drpw.get(), {
 						from: '1999-12-26T10:00:00Z', 
 						to: '2000-01-01T12:00:00Z',
 						range: 'week' 
@@ -479,7 +475,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual({
+					expectTimeEquality(drpw.get(), {
 						from: '1999-12-01T10:00:00Z', 
 						to: '1999-12-31T12:00:00Z',
 						range: 'month' 
@@ -508,7 +504,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 				pause(triggerWaitTime)
 				.then(function(){
-					expect(drpw.get()).toEqual({
+					expectTimeEquality(drpw.get(), {
 						from: '1999-01-01T10:00:00Z', 
 						to: '1999-12-31T12:00:00Z',
 						range: 'year' 
@@ -538,7 +534,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(drpw.get()).toEqual( {
+				expectTimeEquality(drpw.get(), {
 					from: '2000-01-02T10:00:00Z', 
 					to: '2000-01-02T12:00:00Z', 
 					range: 'custom'
@@ -564,7 +560,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw._moveRange(1, 'day');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual({
+			expectTimeEquality(picker.dateTimeRangePicker('get'), {
 				from: '2000-01-03T10:00:00Z', 
 				to: '2000-01-03T12:00:00Z', 
 				range: 'custom'
@@ -572,7 +568,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw._moveRange(-1, 'day');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual({
+			expectTimeEquality(picker.dateTimeRangePicker('get'), {
 				from: '2000-01-02T10:00:00Z', 
 				to: '2000-01-02T12:00:00Z',
 				range: 'custom'
@@ -591,7 +587,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw._moveRange(1, 'week');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual({
+			expectTimeEquality(picker.dateTimeRangePicker('get'), {
 				from: '2015-01-11T10:00:00Z', 
 				to: '2015-01-17T12:00:00Z',
 				range: 'custom'
@@ -599,7 +595,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw._moveRange(-1, 'week');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual({
+			expectTimeEquality(picker.dateTimeRangePicker('get'), {
 				from: '2015-01-04T10:00:00Z', 
 				to: '2015-01-10T12:00:00Z',
 				range: 'custom'
@@ -618,7 +614,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw._moveRange(1, 'month');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual({
+			expectTimeEquality(picker.dateTimeRangePicker('get'), {
 				from: '2015-02-01T10:00:00Z', 
 				to: '2015-02-28T12:00:00Z',
 				range: 'custom'
@@ -626,7 +622,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw._moveRange(-1, 'month');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual({
+			expectTimeEquality(picker.dateTimeRangePicker('get'), {
 				from: '2015-01-01T10:00:00Z', 
 				to: '2015-01-31T12:00:00Z',
 				range: 'custom'
@@ -645,7 +641,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw._moveRange(1, 'year');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual({
+			expectTimeEquality(picker.dateTimeRangePicker('get'), {
 				from: '2016-01-01T10:00:00Z', 
 				to: '2016-12-31T12:00:00Z', 
 				range: 'custom'
@@ -653,7 +649,7 @@ describe('A dateTimeRangePicker widget',function(){
 
 			drpw._moveRange(-1, 'year');
 
-			expect(picker.dateTimeRangePicker('get')).toEqual({
+			expectTimeEquality(picker.dateTimeRangePicker('get'), {
 				from: '2015-01-01T10:00:00Z', 
 				to: '2015-12-31T12:00:00Z', 
 				range: 'custom'

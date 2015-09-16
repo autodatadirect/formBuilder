@@ -196,7 +196,7 @@
 						time = moment(time, types.time.momentStoreFormat);
 					}
 				}
-				
+
 				// Combine them
 				dateTime = self._joinDateAndTimeMoments(localDate,time);
 
@@ -252,9 +252,10 @@
 				.minute(localTimeMoment.minute())
 				.hour(localTimeMoment.hour())
 
-				.date(localDateMoment.date())
+				// Day set order is required from highest -> lowest
+				.year(localDateMoment.year())
 				.month(localDateMoment.month())
-				.year(localDateMoment.year());
+				.date(localDateMoment.date());
 		},
 
 		validate: function(ifw) {
