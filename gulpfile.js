@@ -18,6 +18,7 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
+var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var jade = require('gulp-jade');
 var header = require('gulp-header');
@@ -35,6 +36,7 @@ var argv = require('yargs')
 	.usage('Usage: $0 [command] [options]')
 
 	.command('build','(default) runs the build process for the main code base')
+	.command('build:nested', 'builds js with nested external dependencies')
 
 	.command('test', 'run karma testing')
 	.command('test:watch', 'runs test automatically on found changes')
@@ -49,6 +51,7 @@ var argv = require('yargs')
 	.command('copy:locales', 'uglifies and copies locales into build folder')
 
 	.command('sass', 'compiles sass into the build folder')
+	.command('css:nested', 'concatenates css with nested external dependencies')
 	.command('sass:watch', 'runs sass automatically on found changes')
 
 	.command('compileMarkdown', 'compiles the documentation markdown into formatted html partials')
@@ -105,13 +108,14 @@ var dirs = {
 	src: __dirname + '/src',
 	unitTests: __dirname + '/unitTests',
 	sass: __dirname + '/sass',
-	docs: __dirname + '/docs'
+	docs: __dirname + '/docs',
+	bowerComponents: __dirname + '/bower_components'
 };
+
+dirs.out = argv.dist? dirs.distribution : dirs.build;
 
 var date = new Date();
 var today = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
-
-var outDir = argv.dist? dirs.distribution : dirs.build;
 
 gulp.task('lint', function(done){
 	return gulp.src([
@@ -124,12 +128,12 @@ gulp.task('lint', function(done){
 });
 
 gulp.task('clean', function(done){
-	del(outDir + '/**/*', done);
+	del(dirs.out + '/**/*', done);
 });
 
 gulp.task('copy:assets', ['clean'], function(){
 	return gulp.src(dirs.assets + '/**/*')
-		.pipe(gulp.dest(outDir));
+		.pipe(gulp.dest(dirs.out));
 });
 
 gulp.task('copy:locales', ['clean'], function(){
@@ -137,33 +141,60 @@ gulp.task('copy:locales', ['clean'], function(){
 		.pipe(rename(function(path){
 			path.basename = pkg.name + '_' + path.basename;
 		}))
-		.pipe(gulp.dest(outDir + '/locales'))
+		.pipe(header(banner, {pkg : pkg}))
+		.pipe(gulp.dest(dirs.out + '/locales'))
 		.pipe(uglify({
-				banner: '/*! ' + pkg.name + ' ' + pkg.version + ' ' + today + '*/\n',
 				mangle: !argv.original && argv.dist || argv.mangle,
 				compress: !argv.original && argv.dist || argv.mangle
 		}))
+		.pipe(header(banner, {pkg : pkg}))
 		.pipe(rename(function(path){
 			path.extname = '.min.js';
 		}))
-		.pipe(gulp.dest(outDir + '/locales'));
+		.pipe(gulp.dest(dirs.out + '/locales'));
 });
 
-gulp.task('sass', ['clean'], function(){
+gulp.task('sass', ['clean'], function() {
 	return gulp.src(dirs.sass + '/**/*.scss')
 		.pipe(sourcemaps.init())
 		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(autoprefixer({
 			cascade: false
 		}))
-		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest(outDir + '/css'));
+		.pipe(sourcemaps.write('./', {
+			addComment: true,
+			includeContent: true
+		}))
+		.pipe(gulp.dest(dirs.out + '/css'));
 });
+
+gulp.task('css:nested', ['sass'], function() {
+	return gulp.src([
+			dirs.bowerComponents + '/jquery-timepicker-jt/jquery.timepicker.css',
+			dirs.bowerComponents + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css',
+			dirs.out + '/css/'+pkg.name+'.css'
+		])
+		.pipe(sourcemaps.init())
+		.pipe(concat(pkg.name + '.nested.css'))
+		.pipe(gulp.dest(dirs.out + '/css'))
+		.pipe(minifyCss({
+			keepSpecialComments: 0
+		}))
+		.pipe(rename(function(path){
+			path.extname = '.min.css';
+		}))
+		.pipe(sourcemaps.write('./', {
+			addComment: true,
+			includeContent: true
+		}))
+		.pipe(gulp.dest(dirs.out + '/css'));
+});
+
 gulp.task('sass:watch', function(){
 	gulp.watch(dirs.sass + '/**/*.scss', ['sass']);
 });
 
-gulp.task('build', ['lint', 'clean', 'copy:assets', 'copy:locales', 'sass'], function(){
+gulp.task('build', ['lint', 'clean', 'copy:assets', 'copy:locales', 'sass', 'css:nested'], function(){
 	return gulp.src([
 			dirs.src + '/locales/english.en.js',
 			dirs.src + '/locales/spanish.es.js',
@@ -173,30 +204,46 @@ gulp.task('build', ['lint', 'clean', 'copy:assets', 'copy:locales', 'sass'], fun
 			dirs.src + '/types/**/*.js'
 		])
 		.pipe(sourcemaps.init())
-			.pipe(concat(pkg.name + '.js'))
-			.pipe(header(banner, {pkg : pkg}))
-			.pipe(gulp.dest(outDir))
-			.pipe(rename(function(path){
-				path.extname = '.min.js';
-			}))
-			.pipe(uglify({
-				banner: '/*! ' + pkg.name + ' ' + pkg.version + ' ' + today + '*/\n',
-				mangle: !argv.original && argv.dist || argv.mangle,
-				compress: !argv.original && argv.dist || argv.mangle
-			}))
-			.pipe(header(banner, {pkg : pkg})) //uglify removes it, add it back
+		.pipe(concat(pkg.name + '.js'))
+		.pipe(header(banner, {pkg : pkg}))
+		.pipe(gulp.dest(dirs.out))
+		.pipe(rename(function(path){
+			path.extname = '.min.js';
+		}))
+		.pipe(uglify({
+			mangle: !argv.original && argv.dist || argv.mangle,
+			compress: !argv.original && argv.dist || argv.mangle
+		}))
+		.pipe(header(banner, {pkg : pkg})) //uglify removes it, add it back
 		.pipe(sourcemaps.write('./',{
 			addComment: true,
 			includeContent: true
 		}))
-		.pipe(gulp.dest(outDir));
+		.pipe(gulp.dest(dirs.out));
+});
+
+// Builds dependencies into it as well
+gulp.task('build:nested', ['build'], function() {
+	return gulp.src([
+			dirs.bowerComponents + '/spinjs/spin.min.js',
+			dirs.bowerComponents + '/jquery-timepicker-jt/jquery.timepicker.min.js',
+			dirs.bowerComponents + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+			dirs.out + '/'+pkg.name+'.min.js'
+		])
+		.pipe(sourcemaps.init())
+		.pipe(concat(pkg.name + '.nested.min.js'))
+		.pipe(sourcemaps.write('./',{
+			addComment: true,
+			includeContent: true
+		}))
+		.pipe(gulp.dest(dirs.out));
 });
 
 gulp.task('tester', function(done){
 	require(dirs.unitTests)(done);
 });
 
-gulp.task('test',['build'], function(done){
+gulp.task('test',['build:nested'], function(done){
 	var reporters = ['progress'];
 	var browsers = [
 		'PhantomJS',
@@ -270,11 +317,11 @@ var startBuildWatch = function(){
 		dirs.src + '/**/*',
 		dirs.assets + '/**/*',
 		dirs.sass + '/**/**'
-	], ['build']);
+	], ['build:nested']);
 };
 
 
-gulp.task('default', ['build'], function(){
+gulp.task('default', ['build:nested'], function(){
 	if(argv.watch) {
 		startBuildWatch();
 	}

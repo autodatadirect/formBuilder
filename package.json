@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "repository": "https://github.com/autodatadirect/formBuilder",
   "license": "MIT",
-  "homepage": "http://autodatadirect.github.io/formBuilder/", 
+  "homepage": "http://autodatadirect.github.io/formBuilder/",
   "devDependencies": {
     "jade": "~1.11.0",
     "gulp": "~3.9.0",
@@ -31,7 +31,8 @@
     "gulp-jade": "~1.0.1",
     "marked": "~0.3.3",
     "gulp-marked": "~1.0.0",
-    "gulp-header": "~1.2.2"
+    "gulp-header": "~1.2.2",
+    "gulp-minify-css": "~1.2.1"
   },
   "scripts": {
     "test": "gulp test"
