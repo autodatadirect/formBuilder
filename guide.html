@@ -92,38 +92,54 @@
             <p>Download formBuilder either directly from the repository or by using <a href="http://bower.io/">bower</a>.</p><code data-mode="shell"> $ bower install add-formbuilder</code>
             <h3>Bower dependencies:</h3>
             <ul>
-              <li>jquery (1.8.3 - 1.11.3)</li>
-              <li>jquery-ui (1.9.2)</li>
-              <li>normalize.css</li>
-              <li>moment</li>
-              <li>spinjs</li>
-              <li>jquery-timepicker-jt</li>
-              <li>bootstrap-datepicker</li>
+              <li><a href="https://jquery.com/">jquery (1.8.3 - 1.11.3)</a></li>
+              <li><a href="https://jqueryui.com/">jquery-ui (1.9.2)</a></li>
+              <li><a href="https://necolas.github.io/normalize.css/">normalize.css</a></li>
+              <li><a href="http://momentjs.com/">moment</a></li>
+              <li><a href="http://fgnass.github.io/spin.js/">spinjs</a> [nested]</li>
+              <li><a href="http://jonthornton.github.io/jquery-timepicker/">jquery-timepicker-jt</a> [nested]</li>
+              <li><a href="https://bootstrap-datepicker.readthedocs.org/en/latest/">bootstrap-datepicker</a> [nested]</li>
             </ul>
             <p>You will also need a jquery-ui theme.</p>
-            <p>You must include all of the dependencies</p><code data-mode="html">
+            <p>You must include all of the dependencies. There is a compiled nested version of formBuilder with some of the dependencies included and minified for convenience.</p><code data-mode="html">
               &lt;html&gt;
               &lt;head&gt;
               
               	...
               
-              	&lt;!-- Needed CSS --&gt;
+              	&lt;!-- Default CSS setup (nested) --&gt;
+              	&lt;link type="text/css" rel="stylesheet" href="/bower_components/normalize.css/normalize.css"&gt;
+              	&lt;link type="text/css" rel="stylesheet" href="/bower_components/add-formbuilder/dist/css/formBuilder.nested.min.css"&gt;
+              
+              	&lt;!-- Optional CSS setup (non-nested)
               	&lt;link type="text/css" rel="stylesheet" href="/bower_components/normalize.css/normalize.css"&gt;
               	&lt;link type="text/css" rel="stylesheet" href="/bower_components/jquery-timepicker-jt/jquery.timepicker.css"&gt;
               	&lt;link type="text/css" rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css"&gt;
               	&lt;link type="text/css" rel="stylesheet" href="/bower_components/add-formbuilder/dist/css/formBuilder.css"&gt;
+              	--&gt;
+              
               &lt;/head&gt;
               &lt;body&gt;
               
               	...
               
-              	&lt;!-- Needed JavaScript --&gt;
+              	&lt;!-- Default JavaScript setup (nested) --&gt;
+              	&lt;script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
+              	&lt;script type="text/javascript" src="/bower_components/jquery-ui/ui/minified/jquery-ui.min.js"&gt;&lt;/script&gt;
+              	&lt;script type="text/javascript" src="/bower_components/moment/min/moment.min.js"&gt;&lt;/script&gt;
+              	&lt;script type="text/javascript" src="/bower_components/add-formbuilder/dist/formBuilder.nested.min.js"&gt;&lt;/script&gt;
+              
+              	&lt;!-- Optional JavaScript setup (non-nested)
+              	&lt;script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
               	&lt;script type="text/javascript" src="/bower_components/jquery-ui/ui/minified/jquery-ui.min.js"&gt;&lt;/script&gt;
               	&lt;script type="text/javascript" src="/bower_components/moment/min/moment.min.js"&gt;&lt;/script&gt;
               	&lt;script type="text/javascript" src="/bower_components/spinjs/spin.min.js"&gt;&lt;/script&gt;
               	&lt;script type="text/javascript" src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"&gt;&lt;/script&gt;
               	&lt;script type="text/javascript" src="/bower_components/jquery-timepicker-jt/jquery.timepicker.min.js"&gt;&lt;/script&gt;
-              	&lt;script type="text/javascript" src="/bower_components/add-formbuilder//dist/formBuilder.min.js"&gt;&lt;/script&gt;
+              	&lt;script type="text/javascript" src="/bower_components/add-formbuilder/dist/formBuilder.min.js"&gt;&lt;/script&gt;
+              	--&gt;
+              
+              
               &lt;/body&gt;
               &lt;html&gt;</code>
           </div>
