@@ -810,15 +810,16 @@
 							width: (self.startInputWidth - valWidth)  + 'px'
 						});
 						self.suffixShim.css({
+							paddingLeft: (layers.prefix? layers.prefix.outerWidth() : 1) + 'px',
 							maxWidth: (self.startInputWidth - valWidth)  + 'px'
 						});
-
+						
 						self.suffixPaddingAdded = true;
 					}
 				} else {	
 					e.css({
 						paddingRight: self.startPaddingRight,
-						width: self.startInputWidth + 'px'
+						width: self.startInputWidth + (layers.prefix? layers.prefix.outerWidth() : 0) + 'px'
 					});
 					
 					self.suffixPaddingAdded = false;
