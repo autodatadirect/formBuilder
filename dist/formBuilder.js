@@ -1,6 +1,6 @@
 /** 
  * formBuilder - An advanced HTML5 form creation & validation framework
- * @version v2.0.0
+ * @version v2.0.2
  * @link http://autodatadirect.github.io/formBuilder/
  * @repository https://github.com/autodatadirect/formBuilder
  * @license MIT
@@ -2253,14 +2253,14 @@
 
 			self.fields.each(function() {
 				var el = $(this);
-				if((!self.ignoreHidden || el.is(':visible')) && el.inputField('validate') === false){
+				if((!o.ignoreHidden || el.is(':visible')) && el.inputField('validate') === false){
 					valid = false;
 				}
 			});
 
 			self.fieldsWidgets.each(function() {
 				var el = $(this);
-				if((!self.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, false, 'validate') === false){
+				if((!o.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, false, 'validate') === false){
 					valid = false;
 				}
 			});
