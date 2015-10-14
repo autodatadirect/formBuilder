@@ -564,6 +564,30 @@ describe('A formBuilder widget',function(){
 		expect(radio1.is(':formBuilder-selectionField')).toBe(false);
 		expect(radio2.is(':formBuilder-selectionField')).toBe(false);
 	});
+	
+	it('should validate hidden fields by default', function() {
+		var form = $('<form></form>');
+		var input = $('<input type="text" style="display:none;" data-required/>').appendTo(form);
+		form.formBuilder();
+		expect(form.is(':formBuilder-formBuilder')).toBe(true);
+		expect(input.is(':formBuilder-inputField')).toBe(true);
+		expect(input.is(':visible')).toBe(false);
+		expect(form.formBuilder('validate')).toBe(false);
+
+	});
+
+	it('can be configured to ignore hidden fields on validate', function() {
+		var form = $('<form></form>');
+		var input = $('<input type="text" style="display:none;" data-required/>').appendTo(form);
+		form.formBuilder({
+			ignoreHidden: true
+		});
+		expect(form.is(':formBuilder-formBuilder')).toBe(true);
+		expect(input.is(':formBuilder-inputField')).toBe(true);
+		expect(input.is(':visible')).toBe(false);
+		expect(form.formBuilder('validate')).toBe(true);
+
+	});
 
 
 });

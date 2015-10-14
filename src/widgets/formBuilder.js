@@ -441,14 +441,14 @@
 
 			self.fields.each(function() {
 				var el = $(this);
-				if((!self.ignoreHidden || el.is(':visible')) && el.inputField('validate') === false){
+				if((!o.ignoreHidden || el.is(':visible')) && el.inputField('validate') === false){
 					valid = false;
 				}
 			});
 
 			self.fieldsWidgets.each(function() {
 				var el = $(this);
-				if((!self.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, false, 'validate') === false){
+				if((!o.ignoreHidden || el.is(':visible')) && self._proxyCommandToWidget(el, false, 'validate') === false){
 					valid = false;
 				}
 			});
