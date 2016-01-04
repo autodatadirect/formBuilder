@@ -1,5 +1,9 @@
 /**
  * submitButton Widget
+ *
+ * Status Classes:
+ * submitting - when waiting for the onComplete callback
+ * complete - set/unset with mark functions
  */
 (function($) {
 	'use strict';
@@ -136,11 +140,31 @@
 		},
 
 		enable: function() {
-			this.options.disabled = false;
+			var self = this,
+				e = self.element;
+			self.options.disabled = false;
+			e.button('enable');
 		},
 
 		disable: function() {
-			this.options.disabled = true;
+			var self = this,
+				e = self.element;
+			self.options.disabled = true;
+			e.button('disable');
+		},
+
+		markComplete: function() {
+			var self = this,
+				e = self.element;
+			e.addClass('complete');
+			self.disable();
+		},
+
+		markIncomplete: function() {
+			var self = this,
+				e = self.element;
+			e.removeClass('complete');
+			self.enable();
 		},
 
 		_destroy: function() {

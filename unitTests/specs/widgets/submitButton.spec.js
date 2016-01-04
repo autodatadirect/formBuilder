@@ -291,6 +291,39 @@ describe('A submitButton', function(){
 		});
 	});
 
+	describe('can be marked', function() {
+		it('as complete', function() {
+			var btn =  $(buttonHtml).submitButton();
+			var sbw = btn.data('formBuilderSubmitButton');
+
+			spyOn(sbw, 'disable');
+
+			expect(btn.is('.complete')).toBe(false);
+			expect(sbw.disable).not.toHaveBeenCalled();
+
+			sbw.markComplete();
+
+			expect(btn.is('.complete')).toBe(true);
+			expect(sbw.disable).toHaveBeenCalled();
+		});
+
+		it('as incomplete', function() {
+			var btn =  $(buttonHtml).submitButton();
+			var sbw = btn.data('formBuilderSubmitButton');
+
+			sbw.markComplete();
+			spyOn(sbw, 'enable');
+
+			expect(btn.is('.complete')).toBe(true);
+			expect(sbw.enable).not.toHaveBeenCalled();
+			
+			sbw.markIncomplete();
+
+			expect(btn.is('.complete')).toBe(false);
+			expect(sbw.enable).toHaveBeenCalled();
+		});
+	});
+
 
 	it('can destory itself', function(){
 		var btn =  $(buttonHtml).submitButton();
