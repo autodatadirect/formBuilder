@@ -1,5 +1,5 @@
 @mixin fieldTextFormatting($horizontalEnd) {
-	position:absolute;
+	position: absolute;
 	top: $inputField-fieldItem-borderWidth;
 	#{$horizontalEnd}: $inputField-fieldText-horizontalPadding;
 	line-height: $inputField-fieldItem-height;
@@ -13,18 +13,17 @@
 		color: $inputField-label-color;
 	}
 
+	&.disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
 	.field-items {
 		background: $base-background;
 		position: relative;
 		vertical-align: middle;
-		width:auto;
+		width: auto;
 		min-width: 16px;
-
-		.disable-overlay {
-			@include fieldTextFormatting(left);
-			opacity: 0.7;
-			background: $base-background;
-		}
 
 		.suffix-overlay {
 			@include fieldTextFormatting(left);
@@ -159,6 +158,10 @@
 
 	&.hover .field-items .field-item-input {
 		border-color: $inputField-borderColor-hover;
+	}
+
+	&.hover.disable .field-items .field-item-input {
+		border-color: $inputField-fieldItem-borderColor;
 	}
 
 	&.error .field-items .field-item-input {

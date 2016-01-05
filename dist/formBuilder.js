@@ -2362,7 +2362,7 @@
 		}
 	};
 
-	var statusNames = ['require', 'disable', 'error', 'hover', 'warn', 'focus'];
+	var statusNames = ['require', 'disabled', 'error', 'hover', 'warn', 'focus'];
 
 	$.widget('formBuilder.fieldWidget', {
 
@@ -3283,15 +3283,15 @@
 		},
 
 		enable: function() {
-			this.status('disable', false);
+			this.status('disabled', false);
 		},
 
 		disable: function() {
-			this.status('disable', true);
+			this.status('disabled', true);
 		},
 
 		isDisabled: function() {
-			return this.hasStatus('disable');
+			return this.hasStatus('disabled');
 		},
 
 		/*
@@ -3300,6 +3300,13 @@
 		status: function(statusName, bool, fireEvents) {
 			var self = this,
 				o = self.options;
+
+			/**
+			 * Legacy support
+			 */
+			if(statusName === 'disable') {
+				statusName = 'disabled';
+			}
 
 			/*
 			 * only allow changes to status flags
@@ -3331,26 +3338,6 @@
 				self.field.addClass(statusName);
 			} else {
 				self.field.removeClass(statusName);
-			}
-
-			/*
-			 * run any updates to the field needed
-			 */
-			var layers = self.layers;
-			if(statusName === 'disable') {
-
-				if(!layers.disable) {
-					layers.disable = $('<div class="disable-overlay"></div>').appendTo(layers.items);
-				}
-
-				if(cleanBool) {
-					layers.disable.css({
-						width: (layers.items.outerWidth() - 2) + 'px',
-						height: (layers.items.outerHeight() - 2) + 'px'
-					}).show();
-				} else {
-					layers.disable.hide();
-				}
 			}
 
 			/*
