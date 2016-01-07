@@ -19,7 +19,8 @@
     "uncomplete",
     "package.json",
     "build",
-    "bower.json"
+    "bower.json",
+    "docs"
   ],
   "main": [],
   "dependencies": {
