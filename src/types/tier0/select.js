@@ -6,7 +6,8 @@
  * data-empty-label
  * data-no-sort
  * data-options
- * data-no-filter 
+ * data-filter-min
+ * data-overflow-tooltips
  * 
  */
 
@@ -16,19 +17,26 @@
 	var doc = $(document);
 	var util = $.formBuilder.util;
 
+	var defaultOptions = {
+		filterMin: 5
+	};
+
 	$.formBuilder.inputField.types.select = {
+
 		setUp: function(inputFieldWidget) {
 			var self = this, // Object = {}
-				o = inputFieldWidget.options,
 				e = inputFieldWidget.element;
 
 			self.element = e;
 			self.source = [];
 			self.inputWidget = inputFieldWidget;
 
+			self.typeOptions = $.extend({}, defaultOptions);
+			self._getTypeOptions();
+
 			var fieldGroup = self.fieldGroup = inputFieldWidget.field.parents('.input-field-group');
 
-			if(e.is('select')){
+			if(e.is('select')) {
 				console.log('** ERROR: deprecated use of <select> in the select type **');
 			}
 
@@ -162,7 +170,7 @@
 
 					if(which === 13){
 						self._setSelected();
-					}else{
+					} else {
 						self.element.focus();
 					}
 
@@ -183,6 +191,22 @@
 			};
 
 			self.update();
+		},
+
+		_getTypeOptions: function() {
+			var self = this,
+				e = self.element,
+				o = self.typeOptions;
+
+			util.loadDomData(e, o, [
+				'default',
+				'emptyLabel',
+				'filterMin'
+			]);
+			util.loadDomToggleData(e, o, [
+				'noSort',
+				'overflowTooltips'
+			]);
 		},
 
 		_keyDownNavigate: function (ev) {
@@ -215,7 +239,7 @@
 
 				if(!selected.length){
 					panel.find('.option:first').addClass(selectionClass);
-				}else{
+				} else {
 					next = selected.next();
 					if(next.length){
 						next.addClass(selectionClass);
@@ -234,7 +258,7 @@
 
 				if(!selected.length){
 					panel.find('.option:last').addClass(selectionClass);
-				}else{
+				} else {
 					next = selected.prev();
 					if(next.length){
 						next.addClass(selectionClass);
@@ -366,7 +390,7 @@
 			var self = this,
 				e = self.element,
 				options = self.panel.find('.option'),
-				defaultValue =  { value: e.attr('data-default')};
+				defaultValue =  { value: self.typeOptions['default']};
 
 			options.each(function () {
 				var item = $(this),
@@ -471,7 +495,7 @@
 			var self = this;
 			if(self.panel.is(':visible')){
 				self.close();
-			}else{
+			} else {
 				self.open();
 			}
 		},
@@ -546,7 +570,7 @@
 
 			if(self._itemShoudBeFiltered(item, val)){
 				optionEl.addClass('filtered');
-			}else{			
+			} else {			
 				optionEl.removeClass('filtered');
 			}
 		},
@@ -571,14 +595,14 @@
 		_buildEmptyOption: function () {
 			var self = this,
 				e = self.element,
-				emptyLabel = e.data('emptyLabel');
+				o = self.typeOptions;
 
-			if(emptyLabel !== '' && !emptyLabel){
+			if(o.emptyLabel !== '' && !o.emptyLabel){
 				return;
 			}
 
 			self.source.unshift({
-				label: emptyLabel,
+				label: o.emptyLabel,
 				value: ''
 			});
 		},
@@ -614,6 +638,16 @@
 				if(renderedItem === ''){
 					option.height(20);
 				}
+
+				if(self.typeOptions.overflowTooltips) {
+					option.on('mouseenter', function() {
+						if(this.offsetWidth < this.scrollWidth) {
+							$(this).attr('title', item.label);
+						} else {
+							$(this).removeAttr('title');
+						}
+					});
+				}
 			});
 
 			options.append(optionsbuffer);
@@ -643,7 +677,7 @@
 
 				if(selected.length === 0){
 					options.scrollTop(0);
-				}else{
+				} else {
 					options.scrollTop(selected.position().top - selected.before().outerHeight());
 				}
 				
@@ -721,14 +755,11 @@
 
 		update: function () {
 			var self = this,
-				e = self.element;
+				e = self.element,
+				o = self.typeOptions;
 
 			// Reload settings
-			var o = self.typeOptions = {
-				filterMin: 5
-			};
-			util.loadDomToggleData(e, o, ['noSort']);
-			util.loadDomData(e, o, ['filterMin']);
+			self._getTypeOptions();
 
 			// Clear any selected option 
 			self.clear(true);
@@ -740,10 +771,7 @@
 					source = [];
 				}
 				self.source = source;
-				setTimeout(function() {
-					self.removeInvalid();
-				}, 0);
-
+				
 				self._buildOptions();
 
 				/*
@@ -752,7 +780,7 @@
 				if (self.filter && self.filter.data('inputField')) {
 					if(source.length < o.filterMin) {
 						self.filter.inputField('hide');
-					}else{
+					} else {
 						self.filter.inputField('show');
 					}
 				}
@@ -775,35 +803,6 @@
 				self.showHideCommand();
 			});
 			return self.loaded;
-		},
-
-		removeInvalid: function (ev, ifw) {
-			var self = this,
-				e = self.element, 
-				val = e.val(),
-				source = self.source, 
-				l = source.length, 
-				i; 
-
-			/*
-			 * if ui.item is set, the autocomplete just set this
-			 * and it does not need to be checked
-			 */
-			if(ifw && ifw.item){
-				return;
-			}
-
-
-			/*
-			 * verify that the current self.item matches an id in the source and that the label matches
-			 */
-			for(i = 0; i < l; i++){
-				if(source[i].label === val && self.item && self.item.value === source[i].value){
-					self.item = source[i];
-					return;
-				}
-			}
-			e.val('');
 		},
 
 		setOptions: function(options) {
@@ -886,10 +885,11 @@
 			toField: function (rawdata) {
 				var self = this,
 					e = self.element,
+					o = self.typeOptions,
 					data = self.map(rawdata);
 
-				if(!rawdata && typeof e.data('default') !== 'undefined') {
-					data = self.map(e.data('default'));
+				if(!rawdata && typeof o['default'] !== 'undefined') {
+					data = self.map(o['default']);
 				}
 
 				if (!data) {
