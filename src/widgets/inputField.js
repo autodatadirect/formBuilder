@@ -83,8 +83,9 @@
 			min: '', 
 			max: '',
 
+			error: 'error',
 
-			error: 'error' 
+			forceFirst: false // force the addition of .first on input (left border fix)
 		},
 
 		_create: function() {
@@ -162,6 +163,10 @@
 
 			if(!parentContainer.length || parentContainer.is(':formBuilder-formBuilder')) {
 				field.wrap('<div class="input-field-group"/>');
+				field.find('.field-item:first').addClass('first');
+			}
+
+			if(o.forceFirst) {
 				field.find('.field-item:first').addClass('first');
 			}
 

@@ -840,7 +840,12 @@
 
 		_create: function(){
 			var self = this,
-				e = self.element;
+				e = self.element,
+				o = self.options;
+
+			util.loadDomData(e, o, ['addmessage', 'subWidget']);
+			util.loadDomToggleData(e, o, ['nosort']);
+			console.log(e, o);
 
 			self.subField = e.html();
 
@@ -848,8 +853,8 @@
 
 			e.html(self._arrayFieldTemplate);
 
-			if(e.attr('data-addmessage')){
-				e.find('.array-field-add-message').text(e.attr('data-addmessage'));
+			if(o.addmessage) {
+				e.find('.array-field-add-message').text(o.addmessage);
 			}
 
 			var items = self.items = e.find('.items');
@@ -880,15 +885,17 @@
 				self._trigger('afterdelete', ev);
 			});
 
-			self.itemsContent.sortable({
-				axis: "y",
-				handle: '.sort-handle',
-				containment: self.itemsContent,
-				tolerance: 'pointer',
-				stop: function () {
-					self._checkDirty();
-				}
-			});
+			if(!o.nosort) {
+				self.itemsContent.sortable({
+					axis: "y",
+					handle: '.sort-handle',
+					containment: self.itemsContent,
+					tolerance: 'pointer',
+					stop: function () {
+						self._checkDirty();
+					}
+				});
+			}
 
 			/*
 			 * proxy dirty and clean events
@@ -983,7 +990,7 @@
 
 		get: function () {
 			var self = this,
-				subWidget = self.element.attr('data-sub-widget') || 'inputField',
+				subWidget = self.options.subWidget || 'inputField',
 				itemsContent = self.itemsContent,
 				data = [];
 
@@ -1079,7 +1086,7 @@
 
 			if((index || index === 0) && index >= 0){
 				content.children().eq(index).before(itemEl);
-			}else{
+			} else {
 				/*
 				 * if no insert index is defined, just append
 				 */
@@ -1093,12 +1100,17 @@
 
 		drawItem: function (item) {
 			var self = this,
-				subWidget = self.element.attr('data-sub-widget'),
+				o = self.options,
 				itemView = $(self._arrayFieldItemTemplate);
 
-			if(subWidget) {
-				self._drawWidgetItem(item, itemView, subWidget);
-			}else{
+			if(o.nosort)  {
+				// remove sort handle
+				itemView.children().first().remove();
+			}
+
+			if(o.subWidget) {
+				self._drawWidgetItem(item, itemView, o.subWidget);
+			} else {
 				self._drawInternalMarkupItem(item, itemView);
 			}
 			return itemView;
@@ -1111,7 +1123,7 @@
 			self._trigger('beforeadd', null, field);
 			itemView.find('.sub-field').html(field);
 			field.parent().find('input[type!=submit], select, textarea, [data-load-widget-as-field]')
-				.inputField()
+				.inputField({ forceFirst: self.options.nosort })
 				.inputField('set', item)
 				.addClass('array-field-input-' + self.id);
 		},
@@ -2417,8 +2429,9 @@
 			min: '', 
 			max: '',
 
+			error: 'error',
 
-			error: 'error' 
+			forceFirst: false // force the addition of .first on input (left border fix)
 		},
 
 		_create: function() {
@@ -2496,6 +2509,10 @@
 
 			if(!parentContainer.length || parentContainer.is(':formBuilder-formBuilder')) {
 				field.wrap('<div class="input-field-group"/>');
+				field.find('.field-item:first').addClass('first');
+			}
+
+			if(o.forceFirst) {
 				field.find('.field-item:first').addClass('first');
 			}
 
