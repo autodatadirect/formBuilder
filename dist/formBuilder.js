@@ -1296,15 +1296,11 @@
 		},
 
 		get: function () {
-			var self = this;
-
-			return self.form.formBuilder('get');
+			return this.form.formBuilder('get');
 		},
 
 		set: function (data) {
-			var self = this;
-
-			self.form.formBuilder('set', data);
+			this.form.formBuilder('set', data);
 		},
 
 		isDirty: function () {
@@ -1312,15 +1308,11 @@
 		},
 
 		clearDirty: function () {
-			var self = this;
-
-			self.form.formBuilder('clearDirty');
+			this.form.formBuilder('clearDirty');
 		},
 
 		clear: function () {
-			var self = this;
-
-			self.set({
+			this.set({
 				from: '',
 				to: '',
 				range: 'custom'
@@ -1328,13 +1320,7 @@
 		},
 
 		validate: function () {
-			var self = this,
-				e = self.element,
-				form = self.form;
-
-			if (!form.formBuilder('validate')) {
-				return false;
-			}			
+			return this.form.formBuilder('validate');
 		}
 	});
 
@@ -4755,19 +4741,10 @@
 			 * yyyy-mm-dd => mm/dd/yyyy
 			 */
 			toField: function(val, ifw) {
-				var self = this;
-
-				if(!val) {
+				if(!val || !val.match(/^\d{4}-\d{2}-\d{2}$/)) {
 					return '';
 				}
-			
-				val = moment(val, self.momentStoreFormat, true);
-
-				if(val.isValid()) {
-					return val.format(self._dateFormat);
-				}
-
-				return '';
+				return val.substring(5, 7) + '/' + val.substring(8, 10) + '/' + val.substring(0, 4);
 			},
 
 			/**
@@ -4776,17 +4753,11 @@
 			fromField: function(val, ifw) {
 				var self = this;
 
-				if(!val) {
+				if(!val || !val.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
 					return '';
 				}
 
-				val = moment(val, self._dateFormat, true);
-
-				if(val.isValid()) {
-					return val.format(self.momentStoreFormat);
-				}
-
-				return '';
+				return val.substring(6, 10) + '-' + val.substring(0, 2) + '-' + val.substring(3, 5);
 			}
 		},
 
@@ -4797,7 +4768,6 @@
 		validate: function(ifw) {
 			var self = this,
 				date = moment(ifw.element.val(), self._dateFormat, true);
-
 
 			if(!date.isValid() || 
 				(self.minDate && date.isBefore(moment(self.minDate, self._dateFormat))) ||
@@ -6200,10 +6170,6 @@
 
 				time = moment.utc(val, self.momentStoreFormat, true);
 
-				if(!time.isValid()) {
-					return '';
-				}
-
 				if(self.typeOptions.storeUtc) {
 					// Convert utc back to local for display
 					time.local();
@@ -6225,10 +6191,6 @@
 
 
 				time = moment(val, self.typeOptions.military? 'H:mm' : 'h:mma').milliseconds(0);
-
-				if(!time.isValid()) {
-					return '';
-				}
 
 				if(self.typeOptions.storeUtc) {
 					// Convert to utc for storage

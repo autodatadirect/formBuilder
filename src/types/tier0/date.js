@@ -199,19 +199,10 @@
 			 * yyyy-mm-dd => mm/dd/yyyy
 			 */
 			toField: function(val, ifw) {
-				var self = this;
-
-				if(!val) {
+				if(!val || !val.match(/^\d{4}-\d{2}-\d{2}$/)) {
 					return '';
 				}
-			
-				val = moment(val, self.momentStoreFormat, true);
-
-				if(val.isValid()) {
-					return val.format(self._dateFormat);
-				}
-
-				return '';
+				return val.substring(5, 7) + '/' + val.substring(8, 10) + '/' + val.substring(0, 4);
 			},
 
 			/**
@@ -220,17 +211,11 @@
 			fromField: function(val, ifw) {
 				var self = this;
 
-				if(!val) {
+				if(!val || !val.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
 					return '';
 				}
 
-				val = moment(val, self._dateFormat, true);
-
-				if(val.isValid()) {
-					return val.format(self.momentStoreFormat);
-				}
-
-				return '';
+				return val.substring(6, 10) + '-' + val.substring(0, 2) + '-' + val.substring(3, 5);
 			}
 		},
 
@@ -241,7 +226,6 @@
 		validate: function(ifw) {
 			var self = this,
 				date = moment(ifw.element.val(), self._dateFormat, true);
-
 
 			if(!date.isValid() || 
 				(self.minDate && date.isBefore(moment(self.minDate, self._dateFormat))) ||

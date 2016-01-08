@@ -142,15 +142,11 @@
 		},
 
 		get: function () {
-			var self = this;
-
-			return self.form.formBuilder('get');
+			return this.form.formBuilder('get');
 		},
 
 		set: function (data) {
-			var self = this;
-
-			self.form.formBuilder('set', data);
+			this.form.formBuilder('set', data);
 		},
 
 		isDirty: function () {
@@ -158,15 +154,11 @@
 		},
 
 		clearDirty: function () {
-			var self = this;
-
-			self.form.formBuilder('clearDirty');
+			this.form.formBuilder('clearDirty');
 		},
 
 		clear: function () {
-			var self = this;
-
-			self.set({
+			this.set({
 				from: '',
 				to: '',
 				range: 'custom'
@@ -174,13 +166,7 @@
 		},
 
 		validate: function () {
-			var self = this,
-				e = self.element,
-				form = self.form;
-
-			if (!form.formBuilder('validate')) {
-				return false;
-			}			
+			return this.form.formBuilder('validate');
 		}
 	});
 

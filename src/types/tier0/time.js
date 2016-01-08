@@ -87,10 +87,6 @@
 
 				time = moment.utc(val, self.momentStoreFormat, true);
 
-				if(!time.isValid()) {
-					return '';
-				}
-
 				if(self.typeOptions.storeUtc) {
 					// Convert utc back to local for display
 					time.local();
@@ -112,10 +108,6 @@
 
 
 				time = moment(val, self.typeOptions.military? 'H:mm' : 'h:mma').milliseconds(0);
-
-				if(!time.isValid()) {
-					return '';
-				}
 
 				if(self.typeOptions.storeUtc) {
 					// Convert to utc for storage
