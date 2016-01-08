@@ -324,25 +324,25 @@ describe('The time data-type', function(){
 	it('can handle UTC vs local time when setting/getting', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('formBuilderInputField');
-		var utcOffset = -240,
+		var utcOffset = moment().utcOffset(),
 			utcTime;
-		
+
 		utcTime = '04:00';
 		ifw.set(utcTime);
 		// expect(input.val()).toBe('12:00am');
-		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).local().format('h:mma'));
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
 		expect(ifw.get()).toBe(utcTime);
 
 		utcTime = '02:00';
 		ifw.set(utcTime);
 		// expect(input.val()).toBe('10:00pm');
-		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).local().format('h:mma'));
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
 		expect(ifw.get()).toBe(utcTime);
 
 		utcTime = '22:00';
 		ifw.set(utcTime);
 		// expect(input.val()).toBe('6:00pm');
-		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).local().format('h:mma'));
+		expect(input.val()).toBe(moment.utc('2000-6-1T'+utcTime,'YYYY-M-DTHH:mm').utcOffset(utcOffset).format('h:mma'));
 		expect(ifw.get()).toBe(utcTime);
 	
 	});

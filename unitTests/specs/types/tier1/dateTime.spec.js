@@ -343,18 +343,19 @@ describe('The dateTime data-type', function(){
 			timeFormat = 'h:mma',
 			dateTimeFormat = 'YYYY-MM-DDTHH:mm:ss[Z]',
 			dateTimeMoment,
-			testVal;
+			testVal,
+			utcOffset = moment().utcOffset(); // local
 
 		testVal = '2004-06-28T00:00:00Z';
 		ifw.set(testVal);
-		dateTimeMoment = moment.utc(testVal,dateTimeFormat).local();
+		dateTimeMoment = moment.utc(testVal, dateTimeFormat).utcOffset(utcOffset);
 		expect(typeInstance.dateWidget.val()).toBe(dateTimeMoment.format(dateFomat));
 		expect(typeInstance.timeWidget.val()).toBe(dateTimeMoment.format(timeFormat));
 		expect(ifw.get()).toBe(testVal);
 
 		testVal = '2004-06-28T12:00:00Z';
 		ifw.set(testVal);
-		dateTimeMoment = moment.utc(testVal,dateTimeFormat).local();
+		dateTimeMoment = moment.utc(testVal, dateTimeFormat).utcOffset(utcOffset);
 		expect(typeInstance.dateWidget.val()).toBe(dateTimeMoment.format(dateFomat));
 		expect(typeInstance.timeWidget.val()).toBe(dateTimeMoment.format(timeFormat));
 		expect(ifw.get()).toBe(testVal);

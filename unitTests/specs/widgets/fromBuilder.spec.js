@@ -260,13 +260,13 @@ describe('A formBuilder widget',function(){
 		var fields = fbw.getFields();
 
 		fields.each(function(){
-			expect($(this).inputField('hasStatus','disable')).toBe(false);
+			expect($(this).inputField('hasStatus','disabled')).toBe(false);
 		});
 
 		fbw.disable();
 
 		fields.each(function(){
-			expect($(this).inputField('hasStatus','disable')).toBe(true);
+			expect($(this).inputField('hasStatus','disabled')).toBe(true);
 		});
 	});
 		
@@ -278,13 +278,13 @@ describe('A formBuilder widget',function(){
 		fbw.disable();
 
 		fields.each(function(){
-			expect($(this).inputField('hasStatus','disable')).toBe(true);
+			expect($(this).inputField('hasStatus','disabled')).toBe(true);
 		});
 
 		fbw.enable();
 
 		fields.each(function(){
-			expect($(this).inputField('hasStatus','disable')).toBe(false);
+			expect($(this).inputField('hasStatus','disabled')).toBe(false);
 		});
 	});
 

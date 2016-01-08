@@ -1183,20 +1183,20 @@ describe('An inputField', function(){
 			
 		});
 
-		describe('including a "disable" status', function(){
+		describe('including a "disabled" status', function(){
 			it('that can be checked', function(){
 				var input = $('<input type="text">').wrap('<div/>').inputField();
 				var ifw = input.data('formBuilderInputField');
 
-				ifw.status('disable', true);
-				expect(ifw.hasStatus('disable')).toBe(ifw.isDisabled());
+				ifw.status('disabled', true);
+				expect(ifw.hasStatus('disabled')).toBe(ifw.isDisabled());
 			});
 
 			it('that can be set', function(){
 				var input = $('<input type="text">').wrap('<div/>').inputField();
 				var ifw = input.data('formBuilderInputField');
 
-				ifw.status('disable', false);
+				ifw.status('disabled', false);
 				ifw.disable();
 				expect(ifw.isDisabled()).toBe(true);
 			});
@@ -1205,44 +1205,11 @@ describe('An inputField', function(){
 				var input = $('<input type="text">').wrap('<div/>').inputField();
 				var ifw = input.data('formBuilderInputField');
 
-				ifw.status('disable', true);
+				ifw.status('disabled', true);
 				ifw.enable();
 				expect(ifw.isDisabled()).toBe(false);
 			});
 
-			it('that has an overlay that is visible when set', function(done){
-				var input = $('<input type="text">');
-				var ifw, overlay;
-
-				testContainer.append(input);
-				input.inputField();
-				ifw = input.data('formBuilderInputField');
-
-				overlay = input.parent().siblings('.disable-overlay');
-				expect(overlay.length).toBe(0);
-
-				ifw.disable();
-				overlay = input.parent().siblings('.disable-overlay');
-				expect(overlay.length).toBe(1);
-
-				pause(triggerWaitTime)
-				.then(function(){
-					expect(overlay.is(':visible')).toBe(true);
-
-					ifw.enable();
-					expect(overlay.length).toBe(1);
-
-					return pause(triggerWaitTime);
-				})
-				.then(function(){
-					expect(overlay.is(':visible')).toBe(false);
-
-					testContainer.empty();
-
-					done();
-				});
-
-			});
 		});
 	});
 

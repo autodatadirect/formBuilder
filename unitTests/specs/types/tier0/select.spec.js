@@ -993,24 +993,6 @@
 		expect(result).toEqual(mainObject); 
 	});
 
-	it('can remove invalid data', function(){
-		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
-		var ifw = input.data('formBuilderInputField');
-		var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
-		var i; 
-
-		ifw.element.val('test');
-
-		ifw.getType().removeInvalid(); 
-
-		expect(ifw.element.val()).toBe(''); // val should be reset to zero since 'test' is an incorrect value 
-
-		ifw.set('X-Ray');
-
-		ifw.getType().removeInvalid(); 
-
-		expect(ifw.element.val()).toBe('Xylophone'); // X-Ray is a valid entry so the val will now be set to its label 
-	});
 
 	it('can remove a selection', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
@@ -1445,7 +1427,6 @@
 		var spy_def = spyOn($, 'Deferred').and.callThrough();
 		var spy_each = spyOn($, 'each').and.callThrough();
 		var spy_load = spyOn(ifw.getType(), 'load').and.callThrough();
-		var spy_inval = spyOn(ifw.getType(), 'removeInvalid').and.callThrough();
 		var spy_build = spyOn(ifw.getType(), '_buildOptions').and.callThrough();    
 		var spy_sh = spyOn(ifw.getType(), 'showHideCommand').and.callThrough(); 
 
@@ -1455,7 +1436,6 @@
 		.then(function() {
 			expect(spy_def).toHaveBeenCalled();
 			expect(spy_load).toHaveBeenCalled();
-			expect(spy_inval).toHaveBeenCalled();
 			expect(spy_build).toHaveBeenCalled();
 			expect(spy_sh).toHaveBeenCalled(); 
 			expect(spy_each).toHaveBeenCalled(); 
