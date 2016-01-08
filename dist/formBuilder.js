@@ -845,7 +845,6 @@
 
 			util.loadDomData(e, o, ['addmessage', 'subWidget']);
 			util.loadDomToggleData(e, o, ['nosort']);
-			console.log(e, o);
 
 			self.subField = e.html();
 
@@ -4565,7 +4564,7 @@
  * data-max-date [YYYY-MM-DD] | offset - last date visible in datepicker & valid
  * data-no-rounding - disables offset date unit rounding
  * 
- * The offset format should match /[+-]*\d+[dmyw]/gi and is an offset from the current
+ * The offset format should match /[+-]*\d+\!?[dmyw]/gi and is an offset from the current
  * date. Multple offsets can be in one string and are applied in order of unit
  * size, largest to smallest. Multiple offsets with the same unit will be 
  * evaluated left to right.
@@ -4576,6 +4575,11 @@
  * particularly useful when you want to get a specific date that is partially
  * relative to the current date. As a result, +0x/-0x can be used to move to
  * the end/start of unit x, changing any smaller units to match that fact.
+ *
+ * Rounding may also be disabled on a per-offset unit basis by adding a '!' 
+ * before the unit character. Other offsets without it will still be rounded
+ * unless the no-rounding option is set. For example in "+1!y+0m" will evaluate
+ * as "the end of this month next year".
  * 
  * For example, "-5y" and "+4d-5y" will both evalulate to the 
  * same date.
@@ -4584,22 +4588,34 @@
  * setting/retrieving from this type. This type should only touch local dates.
  * 
  * Examples for displayed values (local):
+ *
+ * min-date="1995-06-07" max-date="2020-02-20"
+ * @ 2016-01-05 => [1995-06-07, 2020-02-20]
+ * @ 2000-05-20 => [1995-06-07, 2020-02-20]
  * 
  * min-date="-5y" max-month="+1m"
- * @ 2016-01-05 dates allowed are [2015-01-05, 2016-02-29]
- * @ 2000-05-20 dates allowed are [1995-01-01, 2000-06-30]
+ * @ 2016-01-05 => [2015-01-05, 2016-02-29]
+ * @ 2000-05-20 => [1995-01-01, 2000-06-30]
  *
  * min-date="0" max-date="+60d"
- * @ 2016-01-05 dates allowed are [2015-01-05, 2016-03-05]
- * @ 2000-05-20 dates allowed are [1995-05-20, 2000-07-19]
+ * @ 2016-01-05 => [2015-01-05, 2016-03-05]
+ * @ 2000-05-20 => [1995-05-20, 2000-07-19]
  *
  * max-date="+2y"
- * @ 2016-01-05 dates allowed are (beg. of time, 2018-12-31]
- * @ 2000-05-20 dates allowed are (beg. of time, 2002-12-31]
+ * @ 2016-01-05 => (beg. of time, 2018-12-31]
+ * @ 2000-05-20 => (beg. of time, 2002-12-31]
  *
  * min-date="-1y+1m-0m+5d" (last year, Feb 6) max-date="+1y-0m+2y" (+3y, Dec 1)
- * @ 2016-01-05 dates allowed are (2016-02-06, 2019-12-01]
+ * @ 2016-01-05 => (2016-02-06, 2019-12-01]
  * @ 2000-05-20 dates allowed are (1999-02-06, 2003-12-01]
+ *
+ * min-date="+1w+1d" (next Monday)
+ * @ 2016-01-05 => [2016-01-11, end of time)
+ * @ 2000-05-20 => [2000-05-08, end of time)
+ *
+ * min-date="-1!y" max-date="+1y"
+ * @ 2016-01-05 => [2015-01-05, 2017-12-31]
+ * @ 2000-05-20 => [1999-05-08, 2001-12-31]
  */
 
 /*global  moment:true */
@@ -4667,7 +4683,7 @@
 		 */
 		_parseOffsetDate: function(str) {
 			var self = this,
-				offsets, m, type;
+				offsets, m, type, u, noRound;
 
 			if(!str) {
 				return;
@@ -4680,7 +4696,7 @@
 
 			}
 
-			offsets = str.match(/[+-]*\d+[dmyw]/gi);
+			offsets = str.match(/[+-]*\d+\!?[dmyw]/gi);
 			if(offsets) {
 
 				// sort units from largest -> smallest
@@ -4700,7 +4716,7 @@
 				});
 
 				// apply offsets
-				offsets.forEach(function(o){
+				offsets.forEach(function(o) {
 					switch(o[o.length - 1]) {
 						case 'm': type = 'months'; break;
 						case 'y': type = 'years'; break;
@@ -4714,7 +4730,7 @@
 
 					m.add(parseInt(o, 10), type);
 					
-					if(!self.noRounding) {
+					if(!self.noRounding && o[o.length - 2] !== '!') {
 						m[(o[0] === '+')? 'endOf' : 'startOf'](type.substring(0, type.length-1));
 					}
 					
@@ -4748,7 +4764,7 @@
 				val = moment(val, self.momentStoreFormat, true);
 
 				if(val.isValid()) {
-					return val.format(val, self._dateFormat);
+					return val.format(self._dateFormat);
 				}
 
 				return '';
@@ -4767,7 +4783,7 @@
 				val = moment(val, self._dateFormat, true);
 
 				if(val.isValid()) {
-					return val.format(val, self.momentStoreFormat);
+					return val.format(self.momentStoreFormat);
 				}
 
 				return '';
@@ -4780,12 +4796,12 @@
 
 		validate: function(ifw) {
 			var self = this,
-				date = moment(ifw.element.val(), self._dateFormat,true);
+				date = moment(ifw.element.val(), self._dateFormat, true);
 
 
 			if(!date.isValid() || 
-				(date.isBefore(moment(self.minDate, self._dateFormat))) ||
-				(moment(self.maxDate, self._dateFormat).isBefore(date))) {
+				(self.minDate && date.isBefore(moment(self.minDate, self._dateFormat))) ||
+				(self.maxDate && moment(self.maxDate, self._dateFormat).isBefore(date))) {
 				return {
 					message: lang.dict.invalid
 				};

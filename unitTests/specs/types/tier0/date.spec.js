@@ -2,9 +2,9 @@
  * Testing date data-type
  */
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
+/*global moment:true, jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
-describe('The date data-type', function(){
+describe('The date data-type', function() {
  	var testContainer = window.formBuilderTesting.testContainer;
  	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
@@ -13,7 +13,7 @@ describe('The date data-type', function(){
 
 	var typeName = 'date';
 
-	it('is a valid data-type', function(){
+	it('is a valid data-type', function() {
 		var input = $('<input type="text"/>').inputField();
 		var ifw = input.data('formBuilderInputField');
 		var typeInstance;
@@ -24,19 +24,20 @@ describe('The date data-type', function(){
 		
 		// Should have these
 		typeInstance = ifw.getType();
-		expect(typeInstance.startDate).toBeDefined();
-		expect(typeInstance.endDate).toBeDefined();
+		expect(typeInstance.noRounding).toBe(false);
+		expect(typeInstance.minDate).toBeUndefined();
+		expect(typeInstance.maxDate).toBeUndefined();
 	});
 
-	it('is created with a placeholder', function(){
+	it('is created with a placeholder', function() {
 		var input = $('<input type="text" data-type="date"/>').inputField();	
 
 		expect(input.parent().children('.placeholder').length).toBe(1);
 		expect(input.parent().children('.placeholder').text()).toBe('MM/DD/YYYY');
 	});
 
-	describe('has a datepicker', function(){
-		it('that opens on focus', function(done){
+	describe('has a datepicker', function() {
+		it('that opens on focus', function(done) {
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('formBuilderInputField');
 			var datepicker;
@@ -48,7 +49,7 @@ describe('The date data-type', function(){
 			input.focus();
 
 			pause(triggerWaitTime)
-			.then(function(){
+			.then(function() {
 				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
 				expect(datepicker.length).toBe(1);
 				expect(datepicker.is(':visible')).toBe(true);
@@ -59,7 +60,7 @@ describe('The date data-type', function(){
 			});	 
 		});
 
-		it('that can select a date', function(done){
+		it('that can select a date', function(done) {
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('formBuilderInputField');
 			var datepicker;
@@ -68,7 +69,7 @@ describe('The date data-type', function(){
 
 			input.focus();
 			pause(triggerWaitTime)
-			.then(function(){
+			.then(function() {
 				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
 				expect(datepicker.length).toBe(1);
 
@@ -77,7 +78,7 @@ describe('The date data-type', function(){
 				day.click(); 
 				return pause(triggerWaitTime);
 			})
-			.then(function(){
+			.then(function() {
 				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
 				expect(datepicker.length).toBe(0);
 				expect(ifw.get()).not.toBe('');
@@ -88,7 +89,7 @@ describe('The date data-type', function(){
 			});		
 		}); 
 
-		it('and can be torn down', function(done){
+		it('and can be torn down', function(done) {
 			var input = $('<input type="text" data-type="date"/>').appendTo(testContainer).inputField();
 			var ifw = input.data('formBuilderInputField');
 			var datepicker;
@@ -97,7 +98,7 @@ describe('The date data-type', function(){
 
 			input.focus();
 			pause(triggerWaitTime)
-			.then(function(){
+			.then(function() {
 				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
 				expect(datepicker.length).toBe(1);
 
@@ -105,7 +106,7 @@ describe('The date data-type', function(){
 
 				return pause(triggerWaitTime);
 			})
-			.then(function(){
+			.then(function() {
 				datepicker = testContainer.siblings('.datepicker.datepicker-dropdown');
 				expect(datepicker.length).toBe(0);
 
@@ -117,14 +118,14 @@ describe('The date data-type', function(){
 	});
 	
 
-	it('has filter support', function(){
+	it('has filter support', function() {
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('formBuilderInputField');
 		var filter = input.data('formBuilderInputFilter'); 
 
 		var typeNewString = function(str) {
 			input.val('');
-			for(var i = 0; i < str.length; ++i){
+			for(var i = 0; i < str.length; ++i) {
 				filter._type(str[i]);
 			}
 
@@ -137,7 +138,7 @@ describe('The date data-type', function(){
 		expect(typeNewString(chars.symbols)).toEqual('/');
 	});
 
-	describe('has simple regex validation', function(){
+	describe('has simple regex validation', function() {
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('formBuilderInputField');
 		var valids, invalids;
@@ -156,90 +157,145 @@ describe('The date data-type', function(){
 			'55555555555555' // too many characters, max allowed is ten
 		];
 		
-		var validateNewVal = function(str){
+		var validateNewVal = function(str) {
 			input.val(str);
 			return (typeof(ifw.getType().validate(ifw)) === 'undefined');
 		};
 
-		batchTest('that accepts',valids,true,validateNewVal);
-		batchTest('that rejects',invalids,false,validateNewVal);
+		batchTest('that accepts', valids, true, validateNewVal);
+		batchTest('that rejects', invalids, false, validateNewVal);
 	});
 
-	it('can enforce the startDate', function(){
-		var input = $('<input type="text" data-type="'+typeName+'" data-minyear="2000" data-enforce-min="true"/>').inputField();
+	it('can parse standard dates', function() {
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+		var ifw = input.data('formBuilderInputField');
+		var typeInstance = ifw.getType();
+		var parse = typeInstance._parseOffsetDate.bind(typeInstance);
+
+		expect(parse('1995-06-07')).toBe('06/07/1995');
+		expect(parse('2020-02-20')).toBe('02/20/2020');
+		expect(parse('bad format')).toBeUndefined();
+		expect(parse()).toBeUndefined();
+	});
+
+	describe('can parse offset dates', function() {
+		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
+		var ifw = input.data('formBuilderInputField');
+		var typeInstance = ifw.getType();
+		var parse = typeInstance._parseOffsetDate.bind(typeInstance);
+		var f = 'MM/DD/YYYY';
+
+		it('with a single offset', function() {
+			expect(parse("+5y")).toBe(moment().add(5,'years').endOf('year').format(f));
+			expect(parse("+6m")).toBe(moment().add(6,'months').endOf('month').format(f));
+			expect(parse("+7w")).toBe(moment().add(7,'weeks').endOf('week').format(f));
+			expect(parse("+42d")).toBe(moment().add(42,'days').endOf('day').format(f));
+
+			expect(parse("-5y")).toBe(moment().add(-5,'years').startOf('year').format(f));
+			expect(parse("-6m")).toBe(moment().add(-6,'months').startOf('month').format(f));
+			expect(parse("-7w")).toBe(moment().add(-7,'weeks').startOf('week').format(f));
+			expect(parse("-42d")).toBe(moment().add(-42,'days').startOf('day').format(f));
+		});
+
+		it('with multiple offsets', function() {
+			var m = moment().add(5,'years').endOf('year');
+			expect(parse("+5y-6m")).toBe(m.add(-6,'months').startOf('month').format(f));
+			expect(parse("+5y-6m+2m")).toBe(m.add(2,'months').endOf('month').format(f));
+			expect(parse("+5y-6m+2m+7w")).toBe(m.add(7,'weeks').endOf('week').format(f));
+			expect(parse("+5y-6m+2m+7w-42d")).toBe(m.add(-42,'days').startOf('day').format(f));
+			expect(parse("-42d+5y+7w-6m+2m")).toBe(m.format(f));
+			expect(parse("-42d+5y+7w+2m-6m")).not.toBe(m.format(f)); // like-unit order matters
+		});
+
+		describe('with disabled offset rounding', function() {
+			it('for all offsets via attribute', function() {
+				var input = $('<input type="text" data-type="'+typeName+'" data-no-rounding/>').inputField();
+				var ifw = input.data('formBuilderInputField');
+				var typeInstance = ifw.getType();
+				var parse = typeInstance._parseOffsetDate.bind(typeInstance);
+
+				var m = moment().add(5,'years');
+				expect(parse("+5y-6m")).toBe(m.add(-6,'months').format(f));
+				expect(parse("+5y-6m+2m")).toBe(m.add(2,'months').format(f));
+				expect(parse("+5y-6m+2m+7w")).toBe(m.add(7,'weeks').format(f));
+				expect(parse("+5y-6m+2m+7w-42d")).toBe(m.add(-42,'days').format(f));
+			});
+
+			it('for individual offsets via "!"', function() {
+				var m = moment().add(5,'years').endOf('year');
+				expect(parse("+5y-6!m")).toBe(m.add(-6,'months').format(f));
+				expect(parse("+5y-6!m+2m")).toBe(m.add(2,'months').endOf('month').format(f));
+				expect(parse("+5y-6!m+2m+7!w")).toBe(m.add(7,'weeks').format(f));
+				expect(parse("+5y-6!m+2m+7!w-42d")).toBe(m.add(-42,'days').startOf('day').format(f));
+			});
+		});
+	
+	});
+
+	it('can have a minDate', function() {
+		var min = '1995-06-07';
+		var input = $('<input type="text" data-type="'+typeName+'" data-min-date="'+min+'"/>').inputField();
 		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 
-		// Valid
-		input.val('02/02/2000');
-		expect(typeInstance.validate(ifw)).toBeUndefined();
-		input.val('02/02/2001');
-		expect(typeInstance.validate(ifw)).toBeUndefined();
-
-		// Invalid
-		input.val('02/02/1999');
-		expect(typeInstance.validate(ifw)).toBeDefined();
+		expect(typeInstance.minDate).toBe('06/07/1995');
+		expect(typeInstance.maxDate).toBeUndefined();
 	});
-
-	it('can enforce the endDate', function(){
-		var input = $('<input type="text" data-type="'+typeName+'" data-maxyear="2017" data-enforce-max="true"/>').inputField();
+	it('can have a maxDate', function() {
+		var max = '2020-02-20';
+		var input = $('<input type="text" data-type="'+typeName+'" data-max-date="'+max+'"/>').inputField();
 		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();
 
-		// Valid
-		input.val('02/02/2016');
-		expect(typeInstance.validate(ifw)).toBeUndefined();
-		input.val('02/02/2017');
-		expect(typeInstance.validate(ifw)).toBeUndefined();
-
-		// Invalid
-		input.val('02/02/2018');
-		expect(typeInstance.validate(ifw)).toBeDefined();
+		expect(typeInstance.minDate).toBeUndefined();
+		expect(typeInstance.maxDate).toBe('02/20/2020');
 	});
 
-	describe('can handle conversion', function(){
-		it('using its toField', function(){
+	describe('can handle conversion', function() {
+		it('using its toField', function() {
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('formBuilderInputField');
+			var typeInstance = ifw.getType();
 
 			// With correct input 
-			var result = ifw.getType().converter.toField('1988-07-23');
+			var result = typeInstance.converter.toField.call(typeInstance, '1988-07-23');
 
 			expect(result).toBe('07/23/1988');
 
 			// With incorrect input 
-			var result2 = ifw.getType().converter.toField('18-07-23');
+			var result2 = typeInstance.converter.toField.call(typeInstance, '18-07-23');
 
 			expect(result2).toBe('');
 
 			// With no input 
-			var result3 = ifw.getType().converter.toField();
+			var result3 = typeInstance.converter.toField.call(typeInstance);
 
 			expect(result3).toBe('');
 		});
 
-		it('and fromField functions', function(){
+		it('and fromField functions', function() {
 			var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 			var ifw = input.data('formBuilderInputField');
+			var typeInstance = ifw.getType();
 
 			// With correct input 
-			var result = ifw.getType().converter.fromField('07/23/1988');
+			var result = typeInstance.converter.fromField.call(typeInstance, '07/23/1988');
 
 			expect(result).toBe('1988-07-23');
 
 			// With incorrect input 
-			var result2 = ifw.getType().converter.fromField('07/23/88');
+			var result2 = typeInstance.converter.fromField.call(typeInstance, '07/23/88');
 
 			expect(result2).toBe('');
 
 			// With no input 
-			var result3 = ifw.getType().converter.fromField();
+			var result3 = typeInstance.converter.fromField.call(typeInstance);
 
 			expect(result3).toBe('');
 		});
 	});
 
-	it('stores as local date, rather than utc date', function(){
+	it('stores as local date, rather than utc date', function() {
 		var input = $('<input type="text" data-type="'+typeName+'" data-store-utc="false"/>').inputField();
 		var ifw = input.data('formBuilderInputField');
 
@@ -248,7 +304,7 @@ describe('The date data-type', function(){
 		expect(input.val()).toBe('06/14/2015');
 	});
 
-	it('can be torn down', function(){
+	it('can be torn down', function() {
 		var input = $('<input type="text" data-type="'+typeName+'"/>').inputField();
 		var ifw = input.data('formBuilderInputField');
 		var typeInstance = ifw.getType();

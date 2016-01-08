@@ -55,7 +55,6 @@
 
 			util.loadDomData(e, o, ['addmessage', 'subWidget']);
 			util.loadDomToggleData(e, o, ['nosort']);
-			console.log(e, o);
 
 			self.subField = e.html();
 
