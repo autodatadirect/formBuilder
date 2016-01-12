@@ -25,8 +25,6 @@
  * unless the no-rounding option is set. For example in "+1!y+0m" will evaluate
  * as "the end of this month next year".
  * 
- * For example, "-5y" and "+4d-5y" will both evalulate to the 
- * same date.
  *
  * Any dateTime objects stored in UTC must convert to/from local timezone when 
  * setting/retrieving from this type. This type should only touch local dates.

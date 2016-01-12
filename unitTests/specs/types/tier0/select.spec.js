@@ -1,21 +1,19 @@
 /**
  * Testing select data type 
  */
+describe('A select data type', function(){
+	'use strict';
 
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  JSON:true*/
- describe('A select data type', function(){
- 	'use strict';
-
- 	var testContainer = window.formBuilderTesting.testContainer;
- 	var pause = window.formBuilderTesting.pause;
+	var testContainer = window.formBuilderTesting.testContainer;
+	var pause = window.formBuilderTesting.pause;
 	var triggerWaitTime = window.formBuilderTesting.triggerWaitTime;
 
 	var typeName = 'select';
 	var type = $.formBuilder.inputField.types[typeName];
 	var util = $.formBuilder.util;
 
- 	describe('can be setup', function(){
- 		it('is a valid data-type', function(){
+	describe('can be setup', function(){
+		it('is a valid data-type', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
 			var ifw = input.data('formBuilderInputField');
 			
@@ -26,7 +24,7 @@
 			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.text)).toBe(false);
 		});
 
- 		it('to have an input field with data', function(){
+		it('to have an input field with data', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').appendTo(testContainer).inputField();	
 			var ifw = input.data('formBuilderInputField');
 			var openIcon = '.fb-icon.fb-icon-sort-up.dropdown-open-icon';

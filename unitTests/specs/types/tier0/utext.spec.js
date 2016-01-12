@@ -3,8 +3,6 @@
  *
  * Regex type
  */
-
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
 describe('The utext data-type', function(){
 	var testContainer = window.formBuilderTesting.testContainer;

@@ -5,7 +5,7 @@ p.
 	Date offsets must match the format <code>/[+-]*\d+\!?[dmyw]/gi</code> and is an offset from the current date. Multple offsets can be in one string and are applied in order of unit size, largest to smallest. Multiple offsets with the same unit will be evaluated left to right.
 
 p.
-	By default, each offset will round the date to the start or end of the offset unit when subtracting or adding, respectively. This can be disabled with the <code>data-no-rounding</code> attribute. Combining addition/subtration with the same unit is particularly useful when you want to get a specific date that is partially relative to the current date. As a result, +0x/-0x can be used to move to the end/start of unit x, changing any smaller units to match that fact. For example, "-5y" and "+4d-5y" will both evalulate to the same date.
+	By default, each offset will round the date to the start or end of the offset unit when subtracting or adding, respectively. This can be disabled with the <code>data-no-rounding</code> attribute. Combining addition/subtration with the same unit is particularly useful when you want to get a specific date that is partially relative to the current date. As a result, +0x/-0x can be used to move to the end/start of unit x, changing any smaller units to match that fact.
 
 p.
 	Rounding may also be disabled on a per-offset unit basis by adding a '!' before the unit character. Other offsets without it will still be rounded unless the no-rounding option is set. For example in "+1!y+0m" will evaluate as "the end of this month next year". 

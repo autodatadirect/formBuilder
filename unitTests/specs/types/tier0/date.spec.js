@@ -1,8 +1,6 @@
 /**
  * Testing date data-type
  */
-
-/*global moment:true, jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true*/
 'use strict';
 describe('The date data-type', function() {
  	var testContainer = window.formBuilderTesting.testContainer;

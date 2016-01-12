@@ -1,7 +1,6 @@
 /**
  * Testing dropDownPanel widget
  */
-/*global jasmine:true, describe:true, xdescribe:true, it:true, xit:true, expect:true, spyOn:true,  moment:true*/
 'use strict';
 describe('A dropDownPanel widget', function(){
 	var testContainer = window.formBuilderTesting.testContainer;
