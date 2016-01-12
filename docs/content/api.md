@@ -33,8 +33,8 @@ Base form widget. For many applications, this is the only widget needing direct 
     - **_writeDataToDom(*object* data, setOptions)** Writes data to the Dom by either calling `inputField.set(util.selectPath(data, $(this).attr('name')), setOptions)` method or `_proxyCommandToWidget($(this), 'set', util.selectPath(data, $(this).attr('name')), setOptions)`.
     - **_readDataFromDom()** Reads data from the Dom and returns it.
 * Events
-    - **beforeset(*object* formData)** *Optional* Called before `set(data, setOptions)` replaced the form values. **Default:** undefined
-    - **afterset(*object* formData)** *Optional* Called after `set(data, setOptions)` replaces the form values. **Default:** undefined
+    - **beforeset(*object* formData)** *Optional.* Called before `set(data, setOptions)` replaced the form values. **Default:** undefined
+    - **afterset(*object* formData)** *Optional.* Called after `set(data, setOptions)` replaces the form values. **Default:** undefined
 
 ## inputField
 Builds a base input object that is able to get, set, and modify data based on what the type of the input is.
@@ -90,8 +90,8 @@ Builds a base input object that is able to get, set, and modify data based on wh
     - **_showLayer(*string* layer, *boolean* show)** Makes the layer that has been passed in visible. 
     - **_destroy()** If the current type has a tearDown method then call it. 
 * Events 
-    - **dirty** *Optional* Triggered if the form has been changed but not saved.
-    - **clean** *Optional* Triggered if the form's current value equals the previous value, and the form has been correctly saved. 
+    - **dirty** *Optional.* Triggered if the form has been changed but not saved.
+    - **clean** *Optional.* Triggered if the form's current value equals the previous value, and the form has been correctly saved. 
         + Also triggered in the clearDirty() method.
     - **afterset(null, [val, value])** *Optional.* Called after `set()` replaces the form values **Default:** (undefined).
 
@@ -117,8 +117,8 @@ Filters through the input in the inputField and, based on the type of the input,
     - **_type(*string* text)** Manually enters the given text into the input field obeying the regular expression and triggering events when characters are ignored.
     - **_destroy()** removes the inputFilter from the current element
 * Events
-    - **keyignored** *Optional* Ignore the character that has been entered if it is not valid for the current type
-    - **keytyped** *Optional* If the character entered is valid for the current type then enter it into the formfield
+    - **keyignored** *Optional.* Ignore the character that has been entered if it is not valid for the current type
+    - **keytyped** *Optional.* If the character entered is valid for the current type then enter it into the formfield
 
 ## submitButton
 Widget that handles the creation of a submit button and the spinner that accompanies it. The submit button can be clicked and the spinner will be displayed while the data is being submitted. 
@@ -136,18 +136,20 @@ Widget that handles the creation of a submit button and the spinner that accompa
     - **disable()** Sets `disabled` to true.
     - **getButtonLabel()** Returns the label of the button.
     - **submit()** Begins submission process as if the button was clicked.
+    - **markComplete()** runs `disable()` and adds `.complete`
+    - **markIncomplete()** runs `enable()` and removes `.complete`
 * Methods (private)
     - **_showLoading()** Shows the spinner while the data is submitting.
     - **_hideLoading()** Hides the spinner after the data has completed its submission.
     - **_create()** creates the spinner, appends it to the correct location on the form, and wraps it in the appropriate html.
     - **_destroy()** Removes the submitButton from the current element.
 * Events
-    - **beforesubmit(*event* ev)** *Optional* Called before a submit, if false it does not submit.
+    - **beforesubmit(*event* ev)** *Optional.* Called before a submit, if false it does not submit.
     - **submit(*event* ev)** *Required* Called to submit the code.
         + Not called if in a `disabled` or `waiting` state. 
         + Write your Ajax or other form submission here.
         + Must call `finish()` after completed.
-    - **aftersubmit(*event* ev)** *Optional* Called after the submit returns.
+    - **aftersubmit(*event* ev)** *Optional.* Called after the submit returns.
         + Clean up form here.
 
 ## fieldWidget
@@ -202,7 +204,8 @@ Handles checkboxes and radio buttons, allowing them to be used like inputFields 
 
 ## arrayField
 Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. The array field should contain one type of input field and can have as many or as few inputs as the user desires. The arrayField widget will create an array of the data that is contained within each of the inputFields within it.
-
+* Attribute Options
+    - **data-nosort** - *Optional.* Items are not sortable and do not have a `.sort-handle`
 * Methods (public)
     - **getId()** Return the id of the current calling object.
     - **isDirty()** Returns current dirty value (true/false).
@@ -227,10 +230,10 @@ Creates an array of inputFields and other widgets and can perform methods on the
     - **_drawWidgetItem(item, *template* itemView, *widget* subWidget)** Called when the item is a subwidget. Triggers 'beforeadd'. Draws the subwidget inside of the relevant widget.
     - **_destroy()** Removes everything from the array and returns it to its original state. 
 * Events
-    - **beforeadd** *Optional* Triggered before adding an item that is not a new item.
-    - **beforeaddnewitem** *Optional* Triggered before a new item is added to the array, prepares the array for a new item.
-    - **afteradd** *Optional* Triggered after adding an item to the array to ensure that the array has handled adding the item correctly.
-    - **afterdelete** *Optional* Triggered after deleting an item from array to make sure that array has handled deletion correctly.
+    - **beforeadd** *Optional.* Triggered before adding an item that is not a new item.
+    - **beforeaddnewitem** *Optional.* Triggered before a new item is added to the array, prepares the array for a new item.
+    - **afteradd** *Optional.* Triggered after adding an item to the array to ensure that the array has handled adding the item correctly.
+    - **afterdelete** *Optional.* Triggered after deleting an item from array to make sure that array has handled deletion correctly.
 
 ## dropDownPanel
 Drop down panel widgets may be used to add an extra hovering container to any element. Drop downs are shown when a user clicks on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop down, or the target element, or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and down the page with the element when scrolling.
@@ -255,10 +258,10 @@ Drop down panel widgets may be used to add an extra hovering container to any el
     - **_create()** Creates the dropDownPanel and its' content. Also includes closeListener and openListener methods to handle the opening and closing of the panel. 
     - **_destroy()** Removes the wrapper and destroys the element.
 * Events
-    **beforeopen(null, [*jquery object* panel, *object* css])** *Optional* Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.
-    **afteropen** *Optional* Triggered after the panel is positioned and shown.
-    **beforeclose** *Optional* Triggered before the panel is closed. If the default is prevented the panel will not hidden.
-    **afterclose** *Optional* Triggered after the panel is hidden.
+    **beforeopen(null, [*jquery object* panel, *object* css])** *Optional.* Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.
+    **afteropen** *Optional.* Triggered after the panel is positioned and shown.
+    **beforeclose** *Optional.* Triggered before the panel is closed. If the default is prevented the panel will not hidden.
+    **afterclose** *Optional.* Triggered after the panel is hidden.
 
 ## dateRangePicker
 Creates two input fields for a beginning and ending date. Allows the user to select different ranges of dates if they wish to. Based off of the date data-type.
@@ -406,10 +409,11 @@ There are a general set of methods that every type must contain in order to func
 Instead of using the normal select tag, you can use an *input* tag with **data-type="select"**. It has the basic elements of a select tag, but with more functionality. When clicked, a dropdown appears with sorted option labels (which are scrollable vertically and horizontally) for the user to choose from. It also has a search box the user can use to quickly find a label by typing in what they are searching for. 
 
 * Attribute Options 
-    - **data-default** *Optional* Can be used to set what the default selection will be in the case that no selection is made. This is available as an alternative to the first non-empty option being selected. 
-    - **data-empty-label** *Optional* Can be used to create an option with a label but no value. Will set the label of an option to the value that the user sets the data-empty label to and will set the value to ''
-    - **data-no-sort** *Optional* Can be set to true, or 1, by the user to prevent the options from being sorted alphabetically. 
+    - **data-default** *Optional.* Can be used to set what the default selection will be in the case that no selection is made. This is available as an alternative to the first non-empty option being selected. 
+    - **data-empty-label** *Optional.* Can be used to create an option with a label but no value. Will set the label of an option to the value that the user sets the data-empty label to and will set the value to ''
+    - **data-no-sort** *Optional.* Can be set to true, or 1, by the user to prevent the options from being sorted alphabetically. 
     - **data-filter-min** The minimum amount of options required until the search filter in the dropdown is shown. **Default:** `5`.
+    - **data-overflow-tooltips** *Optional.* Displays the value in an html tooltip when an item is only partially visible in the dropdown.
     - **data-options** *Required.* String representation of a JSON array of objects each containing a "value" and a "label".
         + Select Option Properties
             * **value** *Required.* The value of the option
@@ -427,7 +431,6 @@ Instead of using the normal select tag, you can use an *input* tag with **data-t
     - **renderItem(*object* item)** Returns only item.label
     - **close()** Closes the panel by hiding it. Calls `_clearFilter()`. Shows the closed icon and hides the open icon. 
     - **update()** Updates the dropdown panel. Clears any selected option, sets the new options, hides the filter if less than five items are returned and scans for showClass commands and performs the necessary functions if they exist. Returns self.loaded.
-    - **removeInvalid(*event* ev, *object* ui)** Checks to see if the current item matches an id in the source and that the label matches. If this is not the case then it will set the element value to ''.
     - **setOptions(options)**Sets the options. Sets self.optionsMap to options, self.optionsSetDynamically to false and calls `update()`.
     - **load()** Returns a sorted array of objects that have value and label properties in the format of a promise object.
     - **map(raw)** Returns an object with the label and value set to the 'raw' parameter that has been passed in.
@@ -465,15 +468,13 @@ Instead of using the normal select tag, you can use an *input* tag with **data-t
     - **itemnotfound** Called inside of **_set(val)** inside of an if statement. Used to determine if the item being searched for is found or not. 
 
 ## date
-The date data type is created to have an inputfield that allows the user to enter a date, either by typing the date directly into the inputfield, or by picking a date from a datepicker tooltip that will open when the user clicks on the inputfield.
+The date data type is created to have an inputfield that allows the user to enter a date, either by typing the date directly into the inputfield, or by picking a date from a datepicker tooltip that will open when the user clicks on the inputfield. For valid `offset` syntax, see the Date Offsets guide.
 
-* Options 
-    - **minyear** User can set a minumum year.
-    - **maxyear** User can set a maximum year.
-    - **startdate** User can set the date that will be the starting date (used primarily for dateTime).
-    - **enddate** User can set the date that will be the ending date (used primarily for dateTime).
-    - **enforceMax** User can set this value to true or false depending on whether or not they wish to enforce the maximum year value.
-    - **enforceMin** User can set this value to true or false depending on whether or not they wish to enforce the minimum year value
+* Attribute Options
+    -  **data-min-date** *Optional.* `[YYYY-MM-DD]` or `offset` - first date visible in datepicker & valid
+    -  **data-min-date** *Optional.* `[YYYY-MM-DD]` or `offset` - last date visible in datepicker & valid
+    -  **data-no-rounding** *Optional.* - disables offset date unit rounding for offsets
+
 * Methods (public)
     - **setUp(ifw)** Sets up the type with its attributes and its datePicker. Also sets the inputFilter.
     - **converter** *(object)*

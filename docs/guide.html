@@ -20,9 +20,9 @@
   </head>
   <body>
     <div class="header">
-      <div class="center-container"><a href="./index.html" class="title">formBuilder</a>
+      <div class="center-container"><a href="./index.html" class="title">formBuilder <span>v2.1.0</span></a>
         <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html" class="current">User Guide</a><a id="API" href="./api.html">API Reference</a></div>
-        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
+        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder/branches"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=v2.1.0"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
       </div>
     </div>
     <div class="center-container page-container">
@@ -55,6 +55,7 @@
               <li><a href="#dataTypes-radio">Radio Groups</a></li>
               <li><a href="#dataTypes-textarea">Textarea</a></li>
               <li><a href="#dataTypes-arrayField">Array Field</a></li>
+              <li><a href="#dataTypes-dateOffsets">Date Offsets</a></li>
             </ul>
           </li>
           <li><a href="#standaloneWidgets">Standalone Widgets</a>
@@ -658,6 +659,47 @@
               <div name="arrayFieldExampleMessage" data-load-widget-as-field="arrayField" data-label="Some label">
               	<input type="text" data-type="utext">
               </div></code>
+          </div>
+          <h2>Date Offsets<a name="dataTypes-dateOffsets" class="anchor"></a></h2>
+          <div class="section">
+            <p>
+              The date data type has two attribute options, <code>data-min-date</code> and <code>data-max-date</code>, for setting min/max valid dates and those that are visible in the datepicker widget. These dates may be set by either a specific date string in the format <code>"YYYY-MM-DD"</code> or by a collection of date offsets.
+              
+            </p>
+            <p>
+              Date offsets must match the format <code>/[+-]*\d+\!?[dmyw]/gi</code> and is an offset from the current date. Multple offsets can be in one string and are applied in order of unit size, largest to smallest. Multiple offsets with the same unit will be evaluated left to right.
+              
+            </p>
+            <p>
+              By default, each offset will round the date to the start or end of the offset unit when subtracting or adding, respectively. This can be disabled with the <code>data-no-rounding</code> attribute. Combining addition/subtration with the same unit is particularly useful when you want to get a specific date that is partially relative to the current date. As a result, +0x/-0x can be used to move to the end/start of unit x, changing any smaller units to match that fact. For example, "-5y" and "+4d-5y" will both evalulate to the same date.
+              
+            </p>
+            <p>
+              Rounding may also be disabled on a per-offset unit basis by adding a '!' before the unit character. Other offsets without it will still be rounded unless the no-rounding option is set. For example in "+1!y+0m" will evaluate as "the end of this month next year". 
+              
+            </p>
+            <p>Examples for displayed values (local):</p>
+            <div class="example">
+              <input type="text" data-type="date" data-min-date="1995-06-07" data-max-date="2020-02-20" data-label="min-date=&quot;1995-06-07&quot; max-date=&quot;2020-02-20&quot;"><span>on 2016-01-05 the range would be [1995-06-07, 2020-02-20]<br/></span><span>on 2000-05-20 the range would be [1995-06-07, 2020-02-20]</span>
+            </div>
+            <div class="example">
+              <input type="text" data-type="date" data-min-date="-5y" data-max-date="+1m" data-label="min-date=&quot;-5y&quot; max-month=&quot;+1m&quot;"><span>on 2016-01-05 the range would be [2015-01-05, 2016-02-29]<br/></span><span>on 2000-05-20 the range would be [1995-01-01, 2000-06-30]</span>
+            </div>
+            <div class="example">
+              <input type="text" data-type="date" data-min-date="0d" data-max-date="+60d" data-label="min-date=&quot;0d&quot; max-date=&quot;+60d&quot;"><span>on 2016-01-05 the range would be [2015-01-05, 2016-03-05]<br/></span><span>on 2000-05-20 the range would be [1995-05-20, 2000-07-19]</span>
+            </div>
+            <div class="example">
+              <input type="text" data-type="date" data-max-date="+2y" data-label="max-date=&quot;+2y&quot;"><span>on 2016-01-05 the range would be (beg. of time, 2018-12-31]<br/></span><span>on 2000-05-20 the range would be (beg. of time, 2002-12-31]</span>
+            </div>
+            <div class="example">
+              <input type="text" data-type="date" data-min-date="-1y+1m-0m+5d" data-max-date="+1y-0m+2y" data-label="min-date=&quot;-1y+1m-0m+5d&quot; max-date=&quot;+1y-0m+2y&quot;"><span>on 2016-01-05 the range would be [2016-02-06, 2019-12-01]<br/></span><span>on 2000-05-20 the range would be [1999-02-06, 2003-12-01]</span>
+            </div>
+            <div class="example">
+              <input type="text" data-type="date" data-min-date="+1w-0w+1d" data-label="min-date=&quot;+1w-0w+1d&quot; (next Monday)"><span>on 2016-01-05 the range would be [2016-01-11, end of time)<br/></span><span>on 2000-05-20 the range would be [2000-05-08, end of time)</span>
+            </div>
+            <div class="example">
+              <input type="text" data-type="date" data-min-date="-1!y" data-max-date="+1y" data-label="min-date=&quot;-1!y&quot; max-date=&quot;+1y&quot;"><span>on 2016-01-05 the range would be [2015-01-05, 2017-12-31]<br/></span><span>on 2000-05-20 the range would be [1999-05-08, 2001-12-31]</span>
+            </div>
           </div>
         </div>
         <h1>Standalone Widgets<a name="standaloneWidgets" class="anchor"></a></h1>

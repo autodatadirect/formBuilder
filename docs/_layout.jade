@@ -27,14 +27,16 @@ html
 
 	body
 		.header: .center-container
-			a.title(href='./index.html') formBuilder
+			a.title(href='./index.html')
+				| formBuilder 
+				span #{release}
 			.topNav
 				a#About(href='./index.html' class = title === 'About' ? 'current' : '') About
 				a#Guide(href='./guide.html' class = title === 'User Guide' ? 'current' : '') User Guide
 				a#API(href='./api.html' class = title === 'API Reference' ? 'current' : '') API Reference
 			.links
-				a#travis(href='https://travis-ci.org/autodatadirect/formBuilder')
-					img(src='https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master')
+				a#travis(href='https://travis-ci.org/autodatadirect/formBuilder/branches')
+					img(src='https://travis-ci.org/autodatadirect/formBuilder.svg?branch=#{release}')
 				a#github(href='https://github.com/autodatadirect/formBuilder')
 					img(src='./img/GitHub-Mark-Light-32px.png')
 		.center-container.page-container

@@ -55,7 +55,8 @@ var argv = require('yargs')
 	.command('sass:watch', 'runs sass automatically on found changes')
 
 	.command('compileMarkdown', 'compiles the documentation markdown into formatted html partials')
-	.command('docs', 'recompiles the documentaion pages')
+	.command('compileJade', 'compiles the jade into the final .html')
+	.command('docs', 'recompiles the documentaion pages + cleans partials')
 	.command('docs:watch', 'runs docs automatically on found changes')
 	
 
@@ -370,20 +371,29 @@ gulp.task('compileMarkdown', function() {
 			renderer: renderer
 		}))
 		.pipe(gulp.dest(dirs.docs + '/content/'));
-	});
+});
 
-gulp.task('docs', ['compileMarkdown'], function() {
+gulp.task('compileJade', ['compileMarkdown'], function() {
 	return gulp.src([
-		dirs.docs + '/index.jade',
+			dirs.docs + '/index.jade',
 			dirs.docs + '/guide.jade',
 			dirs.docs + '/api.jade'
 		])
 		.pipe(jade({
 			pretty: true,
-			locals: {}
+			locals: {
+				release: 'v' + pkg.version
+			}
 		}))
 		.pipe(gulp.dest(dirs.docs));
 });
+
+gulp.task('docs', ['compileJade'], function(done) {
+	// cleanup partials
+	del(dirs.docs + '/content/**/*.html', done);
+});
+
+
 
 gulp.task('docs:watch', ['docs'], function() {
 	return gulp.watch([

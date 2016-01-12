@@ -19,9 +19,9 @@
   </head>
   <body>
     <div class="header">
-      <div class="center-container"><a href="./index.html" class="title">formBuilder</a>
+      <div class="center-container"><a href="./index.html" class="title">formBuilder <span>v2.1.0</span></a>
         <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html">User Guide</a><a id="API" href="./api.html" class="current">API Reference</a></div>
-        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
+        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder/branches"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=v2.1.0"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
       </div>
     </div>
     <div class="center-container page-container">
@@ -102,8 +102,8 @@
 </ul>
 </li>
 <li>Events<ul>
-<li><strong>beforeset(<em>object</em> formData)</strong> <em>Optional</em> Called before <code>set(data, setOptions)</code> replaced the form values. <strong>Default:</strong> undefined</li>
-<li><strong>afterset(<em>object</em> formData)</strong> <em>Optional</em> Called after <code>set(data, setOptions)</code> replaces the form values. <strong>Default:</strong> undefined</li>
+<li><strong>beforeset(<em>object</em> formData)</strong> <em>Optional.</em> Called before <code>set(data, setOptions)</code> replaced the form values. <strong>Default:</strong> undefined</li>
+<li><strong>afterset(<em>object</em> formData)</strong> <em>Optional.</em> Called after <code>set(data, setOptions)</code> replaces the form values. <strong>Default:</strong> undefined</li>
 </ul>
 </li>
 </ul>
@@ -166,8 +166,8 @@
 </ul>
 </li>
 <li>Events <ul>
-<li><strong>dirty</strong> <em>Optional</em> Triggered if the form has been changed but not saved.</li>
-<li><strong>clean</strong> <em>Optional</em> Triggered if the form&#39;s current value equals the previous value, and the form has been correctly saved. <ul>
+<li><strong>dirty</strong> <em>Optional.</em> Triggered if the form has been changed but not saved.</li>
+<li><strong>clean</strong> <em>Optional.</em> Triggered if the form&#39;s current value equals the previous value, and the form has been correctly saved. <ul>
 <li>Also triggered in the clearDirty() method.</li>
 </ul>
 </li>
@@ -201,8 +201,8 @@
 </ul>
 </li>
 <li>Events<ul>
-<li><strong>keyignored</strong> <em>Optional</em> Ignore the character that has been entered if it is not valid for the current type</li>
-<li><strong>keytyped</strong> <em>Optional</em> If the character entered is valid for the current type then enter it into the formfield</li>
+<li><strong>keyignored</strong> <em>Optional.</em> Ignore the character that has been entered if it is not valid for the current type</li>
+<li><strong>keytyped</strong> <em>Optional.</em> If the character entered is valid for the current type then enter it into the formfield</li>
 </ul>
 </li>
 </ul>
@@ -223,6 +223,8 @@
 <li><strong>disable()</strong> Sets <code>disabled</code> to true.</li>
 <li><strong>getButtonLabel()</strong> Returns the label of the button.</li>
 <li><strong>submit()</strong> Begins submission process as if the button was clicked.</li>
+<li><strong>markComplete()</strong> runs <code>disable()</code> and adds <code>.complete</code></li>
+<li><strong>markIncomplete()</strong> runs <code>enable()</code> and removes <code>.complete</code></li>
 </ul>
 </li>
 <li>Methods (private)<ul>
@@ -233,14 +235,14 @@
 </ul>
 </li>
 <li>Events<ul>
-<li><strong>beforesubmit(<em>event</em> ev)</strong> <em>Optional</em> Called before a submit, if false it does not submit.</li>
+<li><strong>beforesubmit(<em>event</em> ev)</strong> <em>Optional.</em> Called before a submit, if false it does not submit.</li>
 <li><strong>submit(<em>event</em> ev)</strong> <em>Required</em> Called to submit the code.<ul>
 <li>Not called if in a <code>disabled</code> or <code>waiting</code> state. </li>
 <li>Write your Ajax or other form submission here.</li>
 <li>Must call <code>finish()</code> after completed.</li>
 </ul>
 </li>
-<li><strong>aftersubmit(<em>event</em> ev)</strong> <em>Optional</em> Called after the submit returns.<ul>
+<li><strong>aftersubmit(<em>event</em> ev)</strong> <em>Optional.</em> Called after the submit returns.<ul>
 <li>Clean up form here.</li>
 </ul>
 </li>
@@ -303,43 +305,37 @@
 </ul>
 </li>
 </ul>
-<h2><a name="widgets-arrayField" class="anchor"></a>arrayField</h2><p>Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. The array field should contain one type of input field and can have as many or as few inputs as the user desires. The arrayField widget will create an array of the data that is contained within each of the inputFields within it.</p>
-<ul>
-<li>Methods (public)<ul>
-<li><strong>getId()</strong> Return the id of the current calling object.</li>
-<li><strong>isDirty()</strong> Returns current dirty value (true/false).</li>
-<li><strong>getFieldInstances()</strong> Returns an array of field instances.</li>
-<li><strong>get()</strong> Returns an array of the data in the current arrayField.</li>
-<li><strong>validate()</strong> Calls <code>inputField.validate()</code> to validate the input in the array field, returns true/false if arrayField is valid or not.</li>
-<li><strong>clearDirty()</strong> Resets the current dirty status to false.</li>
-<li><strong>clear()</strong> Resets the calling object to an empty array.</li>
-<li><strong>flash()</strong> Calls the <code>inputField.flash()</code> to flash the error message to the screen. </li>
-<li><strong>set(data)</strong> Appends a new item, set with the data that is passed into the method, to end of the array.</li>
-<li><strong>addItem(<em>integer</em> index, item)</strong> Adds a new item to the location of the index passed into the method, if no index is defined then append to the end of the array.</li>
-<li><strong>drawItem(item)</strong> Draws the item based on its template and whether or not it is a subwidget.</li>
-<li><strong>subFieldMarkup()</strong> Returns the subField.</li>
-</ul>
-</li>
-<li>Methods (private)<ul>
-<li><strong>_create()</strong> Creates the arrayField based off of the template that the user wishes to apply and fills out the appropriate elements.</li>
-<li><strong>_handleAddButtonClick()</strong> If the &#39;beforeaddnewitem&#39; event has been triggered then call <code>addItem()</code>.</li>
-<li><strong>_checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing. </li>
-<li><strong>_onDirty()</strong> Will return if dirty, otherwise will call <code>_checkDirty()</code>.</li>
-<li><strong>_onClean()</strong> Performs the same function as _onDirty().</li>
-<li><strong>_empty()</strong> Clears the array and calls the children&#39;s destroy methods.</li>
-<li><strong>_drawInternalMarkupItem(item, <em>template</em> itemView)</strong> Called when the item is not a subwidget. Triggers &#39;beforeadd&#39; event. Draws it and wraps it with the appropriate html and parents.</li>
-<li><strong>_drawWidgetItem(item, <em>template</em> itemView, <em>widget</em> subWidget)</strong> Called when the item is a subwidget. Triggers &#39;beforeadd&#39;. Draws the subwidget inside of the relevant widget.</li>
-<li><strong>_destroy()</strong> Removes everything from the array and returns it to its original state. </li>
-</ul>
-</li>
-<li>Events<ul>
-<li><strong>beforeadd</strong> <em>Optional</em> Triggered before adding an item that is not a new item.</li>
-<li><strong>beforeaddnewitem</strong> <em>Optional</em> Triggered before a new item is added to the array, prepares the array for a new item.</li>
-<li><strong>afteradd</strong> <em>Optional</em> Triggered after adding an item to the array to ensure that the array has handled adding the item correctly.</li>
-<li><strong>afterdelete</strong> <em>Optional</em> Triggered after deleting an item from array to make sure that array has handled deletion correctly.</li>
-</ul>
-</li>
-</ul>
+<h2><a name="widgets-arrayField" class="anchor"></a>arrayField</h2><p>Creates an array of inputFields and other widgets and can perform methods on the array as a whole, including validation and clear. The array field should contain one type of input field and can have as many or as few inputs as the user desires. The arrayField widget will create an array of the data that is contained within each of the inputFields within it.
+<em> Attribute Options
+    - <strong>data-nosort</strong> - </em>Optional.<em> Items are not sortable and do not have a <code>.sort-handle</code>
+</em> Methods (public)
+    - <strong>getId()</strong> Return the id of the current calling object.
+    - <strong>isDirty()</strong> Returns current dirty value (true/false).
+    - <strong>getFieldInstances()</strong> Returns an array of field instances.
+    - <strong>get()</strong> Returns an array of the data in the current arrayField.
+    - <strong>validate()</strong> Calls <code>inputField.validate()</code> to validate the input in the array field, returns true/false if arrayField is valid or not.
+    - <strong>clearDirty()</strong> Resets the current dirty status to false.
+    - <strong>clear()</strong> Resets the calling object to an empty array.
+    - <strong>flash()</strong> Calls the <code>inputField.flash()</code> to flash the error message to the screen. 
+    - <strong>set(data)</strong> Appends a new item, set with the data that is passed into the method, to end of the array.
+    - <strong>addItem(<em>integer</em> index, item)</strong> Adds a new item to the location of the index passed into the method, if no index is defined then append to the end of the array.
+    - <strong>drawItem(item)</strong> Draws the item based on its template and whether or not it is a subwidget.
+    - <strong>subFieldMarkup()</strong> Returns the subField.
+<em> Methods (private)
+    - <strong>_create()</strong> Creates the arrayField based off of the template that the user wishes to apply and fills out the appropriate elements.
+    - <strong>_handleAddButtonClick()</strong> If the &#39;beforeaddnewitem&#39; event has been triggered then call <code>addItem()</code>.
+    - <strong>_checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing. 
+    - <strong>_onDirty()</strong> Will return if dirty, otherwise will call <code>_checkDirty()</code>.
+    - <strong>_onClean()</strong> Performs the same function as _onDirty().
+    - <strong>_empty()</strong> Clears the array and calls the children&#39;s destroy methods.
+    - **_drawInternalMarkupItem(item, </em>template<em> itemView)<strong> Called when the item is not a subwidget. Triggers &#39;beforeadd&#39; event. Draws it and wraps it with the appropriate html and parents.
+    - </strong>_drawWidgetItem(item, </em>template<em> itemView, </em>widget<em> subWidget)<strong> Called when the item is a subwidget. Triggers &#39;beforeadd&#39;. Draws the subwidget inside of the relevant widget.
+    - </strong>_destroy()** Removes everything from the array and returns it to its original state. 
+</em> Events
+    - <strong>beforeadd</strong> <em>Optional.</em> Triggered before adding an item that is not a new item.
+    - <strong>beforeaddnewitem</strong> <em>Optional.</em> Triggered before a new item is added to the array, prepares the array for a new item.
+    - <strong>afteradd</strong> <em>Optional.</em> Triggered after adding an item to the array to ensure that the array has handled adding the item correctly.
+    - <strong>afterdelete</strong> <em>Optional.</em> Triggered after deleting an item from array to make sure that array has handled deletion correctly.</p>
 <h2><a name="widgets-dropDownPanel" class="anchor"></a>dropDownPanel</h2><p>Drop down panel widgets may be used to add an extra hovering container to any element. Drop downs are shown when a user clicks on the target element, and/or focuses (if possible) on the focusTarget element. They can be hidden by clicking outside of the drop down, or the target element, or by pressing the escape key. Drop downs are inserted after the target and as a result, will move up and down the page with the element when scrolling.</p>
 <ul>
 <li>Options<ul>
@@ -370,10 +366,10 @@
 </ul>
 </li>
 <li>Events
-  <strong>beforeopen(null, [<em>jquery object</em> panel, <em>object</em> css])</strong> <em>Optional</em> Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.
-  <strong>afteropen</strong> <em>Optional</em> Triggered after the panel is positioned and shown.
-  <strong>beforeclose</strong> <em>Optional</em> Triggered before the panel is closed. If the default is prevented the panel will not hidden.
-  <strong>afterclose</strong> <em>Optional</em> Triggered after the panel is hidden.</li>
+  <strong>beforeopen(null, [<em>jquery object</em> panel, <em>object</em> css])</strong> <em>Optional.</em> Triggered before the panel is opened. If the default is prevented the panel will not be repositioned or shown.
+  <strong>afteropen</strong> <em>Optional.</em> Triggered after the panel is positioned and shown.
+  <strong>beforeclose</strong> <em>Optional.</em> Triggered before the panel is closed. If the default is prevented the panel will not hidden.
+  <strong>afterclose</strong> <em>Optional.</em> Triggered after the panel is hidden.</li>
 </ul>
 <h2><a name="widgets-dateRangePicker" class="anchor"></a>dateRangePicker</h2><p>Creates two input fields for a beginning and ending date. Allows the user to select different ranges of dates if they wish to. Based off of the date data-type.</p>
 <ul>
@@ -543,10 +539,11 @@
 <ul>
 <li><p>Attribute Options </p>
 <ul>
-<li><strong>data-default</strong> <em>Optional</em> Can be used to set what the default selection will be in the case that no selection is made. This is available as an alternative to the first non-empty option being selected. </li>
-<li><strong>data-empty-label</strong> <em>Optional</em> Can be used to create an option with a label but no value. Will set the label of an option to the value that the user sets the data-empty label to and will set the value to &#39;&#39;</li>
-<li><strong>data-no-sort</strong> <em>Optional</em> Can be set to true, or 1, by the user to prevent the options from being sorted alphabetically. </li>
+<li><strong>data-default</strong> <em>Optional.</em> Can be used to set what the default selection will be in the case that no selection is made. This is available as an alternative to the first non-empty option being selected. </li>
+<li><strong>data-empty-label</strong> <em>Optional.</em> Can be used to create an option with a label but no value. Will set the label of an option to the value that the user sets the data-empty label to and will set the value to &#39;&#39;</li>
+<li><strong>data-no-sort</strong> <em>Optional.</em> Can be set to true, or 1, by the user to prevent the options from being sorted alphabetically. </li>
 <li><strong>data-filter-min</strong> The minimum amount of options required until the search filter in the dropdown is shown. <strong>Default:</strong> <code>5</code>.</li>
+<li><strong>data-overflow-tooltips</strong> <em>Optional.</em> Displays the value in an html tooltip when an item is only partially visible in the dropdown.</li>
 <li><strong>data-options</strong> <em>Required.</em> String representation of a JSON array of objects each containing a &quot;value&quot; and a &quot;label&quot;.<ul>
 <li>Select Option Properties<ul>
 <li><strong>value</strong> <em>Required.</em> The value of the option</li>
@@ -570,7 +567,6 @@
 <li><strong>renderItem(<em>object</em> item)</strong> Returns only item.label</li>
 <li><strong>close()</strong> Closes the panel by hiding it. Calls <code>_clearFilter()</code>. Shows the closed icon and hides the open icon. </li>
 <li><strong>update()</strong> Updates the dropdown panel. Clears any selected option, sets the new options, hides the filter if less than five items are returned and scans for showClass commands and performs the necessary functions if they exist. Returns self.loaded.</li>
-<li><strong>removeInvalid(<em>event</em> ev, <em>object</em> ui)</strong> Checks to see if the current item matches an id in the source and that the label matches. If this is not the case then it will set the element value to &#39;&#39;.</li>
 <li><strong>setOptions(options)</strong>Sets the options. Sets self.optionsMap to options, self.optionsSetDynamically to false and calls <code>update()</code>.</li>
 <li><strong>load()</strong> Returns a sorted array of objects that have value and label properties in the format of a promise object.</li>
 <li><strong>map(raw)</strong> Returns an object with the label and value set to the &#39;raw&#39; parameter that has been passed in.</li>
@@ -615,18 +611,17 @@
 </ul>
 </li>
 </ul>
-<h2><a name="inputTypes-date" class="anchor"></a>date</h2><p>The date data type is created to have an inputfield that allows the user to enter a date, either by typing the date directly into the inputfield, or by picking a date from a datepicker tooltip that will open when the user clicks on the inputfield.</p>
+<h2><a name="inputTypes-date" class="anchor"></a>date</h2><p>The date data type is created to have an inputfield that allows the user to enter a date, either by typing the date directly into the inputfield, or by picking a date from a datepicker tooltip that will open when the user clicks on the inputfield. For valid <code>offset</code> syntax, see the Date Offsets guide.</p>
 <ul>
-<li>Options <ul>
-<li><strong>minyear</strong> User can set a minumum year.</li>
-<li><strong>maxyear</strong> User can set a maximum year.</li>
-<li><strong>startdate</strong> User can set the date that will be the starting date (used primarily for dateTime).</li>
-<li><strong>enddate</strong> User can set the date that will be the ending date (used primarily for dateTime).</li>
-<li><strong>enforceMax</strong> User can set this value to true or false depending on whether or not they wish to enforce the maximum year value.</li>
-<li><strong>enforceMin</strong> User can set this value to true or false depending on whether or not they wish to enforce the minimum year value</li>
+<li><p>Attribute Options</p>
+<ul>
+<li><strong>data-min-date</strong> <em>Optional.</em> <code>[YYYY-MM-DD]</code> or <code>offset</code> - first date visible in datepicker &amp; valid</li>
+<li><strong>data-min-date</strong> <em>Optional.</em> <code>[YYYY-MM-DD]</code> or <code>offset</code> - last date visible in datepicker &amp; valid</li>
+<li><strong>data-no-rounding</strong> <em>Optional.</em> - disables offset date unit rounding for offsets</li>
 </ul>
 </li>
-<li>Methods (public)<ul>
+<li><p>Methods (public)</p>
+<ul>
 <li><strong>setUp(ifw)</strong> Sets up the type with its attributes and its datePicker. Also sets the inputFilter.</li>
 <li><strong>converter</strong> <em>(object)</em><ul>
 <li><strong>fromField(val, ifw)</strong> Input data is passed through this method when retrieving it from the input field. Date is passed in using the format yyyy-mm-dd and returned in the format mm/dd/yyyy.</li>

@@ -1,6 +1,6 @@
 formBuilder
 ===========
-[![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master)](https://travis-ci.org/autodatadirect/formBuilder)
+[![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master)](https://travis-ci.org/autodatadirect/formBuilder/branches)
 
 # Documentation
 Checkout the GitHub page docs [here](http://autodatadirect.github.io/formBuilder/)!
