@@ -1,0 +1,232 @@
+@mixin fieldTextFormatting($horizontalEnd) {
+	position: absolute;
+	top: $inputField-fieldItem-borderWidth;
+	#{$horizontalEnd}: $inputField-fieldText-horizontalPadding;
+	line-height: $inputField-fieldItem-height;
+}
+
+
+.input-field {
+	font-size: $base-fontSize;
+
+	label {
+		color: $inputField-label-color;
+	}
+
+	&.disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	.field-items {
+		background: $base-background;
+		position: relative;
+		vertical-align: middle;
+		width: auto;
+		min-width: 16px;
+
+		.suffix-overlay {
+			@include fieldTextFormatting(left);
+			color: $inputField-overlay-color;
+			font-family: sans-serif;
+
+			.shim {
+				visibility: hidden;
+				display: inline-block;
+			}
+
+			.value {
+				padding-left: $inputField-fieldText-horizontalPadding/2;
+				padding-right: $inputField-fieldText-horizontalPadding;
+			}
+		}
+
+		.prefix-overlay {
+			@include fieldTextFormatting(left);
+			color: $inputField-overlay-color;
+			font-family: sans-serif;
+		}
+
+		// May need to be reorganized
+		.field-item-input {
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+
+			position: relative;
+			/*background:#fff; hide for suffix*/
+
+			transition: box-shadow linear 0.2s;
+
+		}
+	}
+
+	.error-overlay {
+		@include fieldTextFormatting(right);
+		color: $color-error;
+		font-size: .8em;
+	}
+
+	.field-item {
+		display:inline-block;
+		white-space: nowrap;
+		border: $inputField-fieldItem-borderWidth solid $inputField-fieldItem-borderColor;
+		border-left: 0;
+		
+		height: $inputField-fieldItem-height;
+		line-height: $inputField-fieldItem-height;
+
+		vertical-align: top;
+
+		overflow: hidden;
+	
+		&.first {
+			border: $inputField-fieldItem-borderWidth solid $inputField-fieldItem-borderColor;
+		}
+	}
+
+	.clickable {
+		cursor: pointer;
+	}
+
+	.addon {
+		padding-left:8px;
+		padding-right:8px;
+		text-align: center;
+		text-shadow: 0 1px 0 white;
+		background:$inputField-addon-backgroundColor;
+
+		&.clickable {
+			text-align: center;
+			text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+			vertical-align: middle;
+
+			/*background-color: whiteSmoke;*/
+			background-image: linear-gradient(to bottom, white, #D0D0D0);
+			
+			background-repeat: repeat-x;
+			
+			
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+			filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+			
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+
+			&:hover {
+				background-image: linear-gradient(to bottom, white, #c0c0c0);
+			}
+
+			&.open {
+				background-color: $inputField-addon-clickable-backgroundColor;
+				background-image: none;
+				box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+			}
+
+		}
+	}
+
+	.field-item-input {
+		input, select, textarea {
+			padding-left: $inputField-fieldText-horizontalPadding;
+			padding-right: $inputField-fieldText-horizontalPadding;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin: 0;
+			border: 0;
+			outline: none;
+			background: transparent;
+			resize: none;
+			color: $inputField-fieldItem-inputColor;
+		}
+
+
+		// select {
+		// 	padding-right: 5px;
+		// }
+
+		.placeholder {
+			@include fieldTextFormatting(right);
+			left: $inputField-fieldText-horizontalPadding + 1;
+			margin-right: $inputField-fieldText-horizontalPadding + 1;
+			color: $inputField-placeholder-color;
+			font-size:0.9em;
+		}
+	}
+
+	&.warn .field-item-input {
+		border-color: $inputField-borderColor-warn;
+		background:#ffffd0;
+	}
+
+	&.hover .field-items .field-item-input {
+		border-color: $inputField-borderColor-hover;
+	}
+
+	&.hover.disable .field-items .field-item-input {
+		border-color: $inputField-fieldItem-borderColor;
+	}
+
+	&.error .field-items .field-item-input {
+		border-color: $color-error;
+		box-shadow:  inset 0 1px 2px rgba(0, 0, 0, 0.15),  0 0 8px rgba(204, 85, 85, 0.5);
+	}
+
+	&.focus .field-items .field-item-input {
+		border-color: $inputField-borderColor-focus;
+		box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.015),  0 0 8px rgba(82, 168, 236, 0.5);
+	}
+
+	&.flash {
+		.field-items .field-item-input {
+			border-color: $color-flash;
+			color: $color-flash;
+			box-shadow:  inset 0 1px 2px rgba(0, 0, 0, 0.15),  0 0 8px rgba(204, 85, 85, 0.5);
+			transition: none;
+
+			input, select, textarea {
+				color: $color-flash;
+			}
+		}
+
+		label {
+			color: $color-flash;
+		}
+	}
+
+	&.textarea-fix {
+		textarea {
+			// padding-top: .3em;
+			line-height: $inputField-fieldItem-height*.75;
+		}
+
+		.placeholder {
+			line-height: $inputField-fieldItem-height*.75;
+		}
+
+		.field-item {
+			height: auto;
+		}
+	}
+
+	/* No longer used
+	.calendar-icon {
+		background: transparent url('../img/calendar.gif') no-repeat 0 0;
+		display: inline-block;
+		height: 21px;
+		width: 16px;
+		vertical-align: middle;
+	}
+	*/
+}
+
+
+/**
+ * Field group support
+ */
+.input-field-group {
+	font-size: 0; // kill whitespace errors
+
+	.input-field {
+		display: inline-block;
+		white-space: nowrap;
+		vertical-align: bottom;
+	}
+}

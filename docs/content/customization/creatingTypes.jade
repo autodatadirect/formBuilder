@@ -1,0 +1,88 @@
+p.
+	FormBuilder input types are stored as normal objects, and new types may be added to formBuilder in 
+	order to specialize forms for fit your needs. All custom type objects must be added to the 
+	<b>$.formBuilder.inputField.types</b> object. The properties of the type objects are used as 
+	prototypes when creating instances of each type. The type must be defined in the types object before 
+	the inputField is initialized on the input element or it will default to type "text".
+
+p.
+	In order to work correctly with formBuilder, each type must have a set of base methods. These are 
+	listed <a href='./api.html#inputTypes-standard' target='_blank'>here</a> in the API Reference. Below 
+	is an example a full custom type. This is a very simple type to represent and format U.S. Social Security Numbers. 
+	<b>Note:</b> If you were to make your own SSN type it is suggested to make it more complex.
+
+
+.example 
+	input(type='text' data-label='Custom "SSN" type' data-type='SSN')
+
+code(data-mode='html').
+	<form id='fullCustomTypeForm' action='#'>
+		<input type='text' data-label='Custom "SSN" type' data-type='SSN'>
+	</form>
+//- 
+
+code(data-mode='javascript').
+	$.formBuilder.inputField.types.SSN = {
+		setUp: function(ifw) {
+			var self = this,
+				e = ifw.element;
+
+			// Add a placeholder
+			ifw.placeholder('XXX-XX-XXXX');
+
+			// Set the characters a user can enter
+			e.inputFilter({
+				pattern: /[0-9]/,
+				max: 11,
+				extraFilter: function(val, inText) {
+					// A special character maximimum
+					if(val.replace(/[^0-9]/g,'').length < 9) {
+						return inText;
+					}
+				}
+			});
+
+			// Replace the input with a formatted input
+			e.on('blur', function(){
+				e.val(self.format(e.val()));
+			});
+		},
+		converter: {
+			toField: function(value, ifw) {
+				return this.format(value);
+			},
+			fromField: function(value, ifw) {
+				return parseInt(this.format(value).replace(/\-/g,''),10);
+			}
+		},
+		validate: function(ifw) {
+			if(!this.format(ifw.element.val()).match(/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/)) {
+				return {
+					message: 'invalid'
+				};
+			}
+		},
+
+		//- This is an extra function specifically for this type
+		format: function(text) {
+			if(!text) {
+				return '';
+			}
+
+			//- Remove non-digits
+			text = text.replace(/[^0-9]/g,'');
+			text = text.substring(0, 10);
+
+			//- add correct dashes
+			if(text.length <= 3) {
+				return text;
+			} else if(text.length <= 5) {
+				return text.substring(0,3) + '-' + text.substring(3);
+			} else {
+				return  text.substring(0,3) + '-' + text.substring(3,5) + '-' + text.substring(5);
+			}
+		}
+	};
+
+	$('fullCustomTypeForm').formBuilder();
+//- 

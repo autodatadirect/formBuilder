@@ -1,0 +1,12 @@
+
+p The <i>data-preinput</i> attribute adds a block of text before any input
+.example: input(type='text' data-preinput='pre')
+p The <i>data-postinput</i> attribute adds a block of text after any input
+.example: input(type='text' data-postinput='post')
+p Both can be used at the same time
+.example: input(type='text' data-preinput='pre' data-postinput='post')
+code(data-mode='html').
+	<input type="text" data-preinput="pre">
+	<input type="text" data-postinput="post">
+	<input type="text" data-preinput="pre" data-postinput="post">
+//- 

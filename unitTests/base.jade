@@ -1,0 +1,64 @@
+doctype html
+html
+	head
+		meta(charset='UTF-8')
+		meta(http-equiv='content-type' content='text/html; charset=utf-8')
+
+		title formBuilder Test Runner
+
+		// External CSS Dependencies
+		link(type='text/css' rel='stylesheet' href='../bower_components/Aristo-jQuery-UI-Theme/css/Aristo/Aristo.css')
+		link(type='text/css' rel='stylesheet' href='../bower_components/normalize.css/normalize.css')
+		//- link(type='text/css' rel='stylesheet' href='../bower_components/jquery-timepicker-jt/jquery.timepicker.css')
+		//- link(type='text/css' rel='stylesheet' href='../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css')
+
+		// formBuilder CSS Dependencies	
+		link(type='text/css' rel='stylesheet' href ='../build/css/formBuilder.nested.min.css')
+
+		// Testing
+		link(type='text/css' rel='stylesheet' href ='../bower_components/jasmine/lib/jasmine-core/jasmine.css')
+
+
+		// =================== JavaScript ===================
+
+		// External JS Dependencies
+		script(type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js')
+		script(type='text/javascript' src='../bower_components/jquery-ui/ui/minified/jquery-ui.min.js')
+		script(type='text/javascript' src='../bower_components/moment/min/moment.min.js')
+		//- script(type='text/javascript' src='../bower_components/spinjs/spin.min.js')
+		//- script(type='text/javascript' src='../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')
+		//- script(type='text/javascript' src='../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js')
+
+		// formBuilder JS Dependencies		
+		script(type='text/javascript' src='../build/formBuilder.nested.min.js')
+
+		// Testing Dependencies
+		script(type='text/javascript' src='../bower_components/jasmine/lib/jasmine-core/jasmine.js')
+		script(type='text/javascript' src='../bower_components/jasmine/lib/jasmine-core/jasmine-html.js')
+		script(type='text/javascript' src='../bower_components/requirejs/require.js')
+		script(type='text/javascript' src='../bower_components/jasmine/lib/jasmine-core/boot.js')
+
+		
+		// Some styling to make the tests look better
+		style.
+			html, body {
+				height: 100%;
+				width: 100%;
+			}
+			.test-container {
+				padding: 2em;
+				height: 300px;
+			}
+
+	body
+		.test-container
+			
+
+		script(type='text/javascript' src='formBuilderTesting.js')
+
+		// Specs
+		for file in specs
+			script(type='text/javascript' src='#{file}')
+
+
+

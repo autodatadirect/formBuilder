@@ -1,0 +1,40 @@
+{
+  "name": "add-formbuilder",
+  "description": "An advanced HTML5 form creation & validation framework",
+  "repository": "https://github.com/autodatadirect/formBuilder",
+  "license": "MIT",
+  "homepage": "http://autodatadirect.github.io/formBuilder/",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "bower.json",
+    "Gruntfile.js",
+    "README.md",
+    "unitTests",
+    "e2eTests",
+    "spec",
+    ".gitignore",
+    "src",
+    "assets",
+    "uncomplete",
+    "package.json",
+    "build",
+    "bower.json",
+    "docs"
+  ],
+  "main": [],
+  "dependencies": {
+    "jquery": "1.8.3 - 1.11.3",
+    "jquery-ui": "1.9.2",
+    "normalize.css": "~3.0.3",
+    "moment": "~2.10.3",
+    "spinjs": "~2.3.0",
+    "jquery-timepicker-jt": "~1.8.0",
+    "bootstrap-datepicker": "1.4.0"
+  },
+  "devDependencies": {
+    "requirejs": "~2.1.18",
+    "jasmine": "~2.3.4",
+    "Aristo-jQuery-UI-Theme": "https://github.com/taitems/Aristo-jQuery-UI-Theme.git#master"
+  }
+}
