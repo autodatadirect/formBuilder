@@ -1583,6 +1583,9 @@
 				done();
 			});
 		});
+
+
+		it('can have tooltips for items that overflow the view');
 	});
 
  });

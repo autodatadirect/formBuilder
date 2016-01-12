@@ -17,7 +17,6 @@ describe('A formBuilder.arrayField widget', function(){
 	testCode.inputInt = '<input type="text" data-type="integer">';
 	testCode.inputEmail = '<input type="text" data-type="email">';
 	testCode.widgetContainer = '<div name="'+testCode.name+'" data-load-widget-as-field="arrayField" data-sub-widgetName="date-range-picker" data-sub-widget="dateRangePicker"></div>';
-	
 
 	describe('can be created', function(){
 		var checkStructure = function(e) {
@@ -226,6 +225,7 @@ describe('A formBuilder.arrayField widget', function(){
 			});
 		});
 	});
+
 
 	it('can have a message next to the add field button', function(){
 		var arrayField = $('<div name="'+testCode.name+'" data-load-widget-as-field="arrayField" data-addmessage="some message"></div>')
@@ -492,11 +492,33 @@ describe('A formBuilder.arrayField widget', function(){
 		expect(afw.itemsContent.is(':empty')).toBe(true);
 	});
 
-	it('has sortable field items', function(){
+	it('has sortable field items by default', function(){
 		var arrayField = $(testCode.container).append(testCode.inputUtext).arrayField();
 		var afw = arrayField.data('formBuilder-arrayField');
+		var item; 
 
 		expect(afw.itemsContent.is(':ui-sortable')).toBe(true);
+
+		afw.addItem();
+		item = afw.itemsContent.children('.array-field-item');
+		
+		expect(item.children().length).toBe(3); // sort + input + delete
+		expect(item.find('.sort-handle').length).toBe(1);
+	});
+
+	it('can have unsortable field items with data-nosort', function() {
+		var arrayField = $('<div name="'+testCode.name+'" data-load-widget-as-field="arrayField" data-nosort></div>')
+			.append(testCode.inputInt).arrayField();
+		var afw = arrayField.data('formBuilder-arrayField');
+		var item;
+
+		expect(afw.itemsContent.is(':ui-sortable')).toBe(false);
+		
+		afw.addItem();
+		item = afw.itemsContent.children('.array-field-item');
+		
+		expect(item.children().length).toBe(2); // input + delete
+		expect(item.find('.sort-handle').length).toBe(0);
 	});
 
 	it('get the instances of all the field items in its array', function(){

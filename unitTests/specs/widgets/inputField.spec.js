@@ -567,6 +567,23 @@ describe('An inputField', function(){
 		});
 
 	});
+	
+	it('is not .first when placed in an existing group', function() {
+		var group = $('<div class="input-field-group"></div>'),
+			input = $('<input type="text">').appendTo(group).inputField();
+
+		expect(group.find('.first').length).toBe(0);
+	});
+
+	it('can force the input to be .first', function() {
+		var group = $('<div class="input-field-group"></div>'),
+			input = $('<input type="text">').appendTo(group).inputField({
+				forceFirst: true
+			});
+
+		expect(group.find('.first').length).toBe(1);
+		expect(input.parent().is('.first')).toBe(true);
+	});
 
 	describe('can have a placeholder', function() {
 		var placeholderText = 'some placeholder';

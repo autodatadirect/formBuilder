@@ -48,7 +48,7 @@
 				'</div>' +
 			'</div>', 
 
-		_create: function(){
+		_create: function() {
 			var self = this,
 				e = self.element,
 				o = self.options;
@@ -94,6 +94,8 @@
 				self._trigger('afterdelete', ev);
 			});
 
+
+
 			if(!o.nosort) {
 				self.itemsContent.sortable({
 					axis: "y",
@@ -130,7 +132,7 @@
 
 				if(ev.type === 'dirty'){
 					self._onDirty();
-				}else{
+				} else {
 					self._onClean();
 				}
 			});
@@ -156,7 +158,7 @@
 			if(util.equals(newData, curData)){
 				self.dirty = false;
 				self.element.trigger('clean');
-			}else{
+			} else {
 				self.dirty = true;
 				self.element.trigger('dirty');
 			}
