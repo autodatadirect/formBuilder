@@ -23,6 +23,8 @@ var rename = require('gulp-rename');
 var jade = require('gulp-jade');
 var header = require('gulp-header');
 
+var ghPages = require('gulp-gh-pages');
+
 var gMarked = require('gulp-marked');
 var marked = require('marked');
 
@@ -90,6 +92,9 @@ var argv = require('yargs')
 
 	.alias('b', 'browser')
 	.describe('b','[test] specify browser to use with karma (Chrome/PhantomJS/Firefox)')
+
+	.alias('l', 'local')
+	.describe('l','deploys docs:deploy to local branch only, for checking if cache is correct')
 
 	.argv;
 
@@ -400,4 +405,24 @@ gulp.task('docs:watch', ['docs'], function() {
 			dirs.docs + '/**/**.jade',
 			dirs.docs + '/**/**.md'
 		], ['docs']);
+});
+
+
+gulp.task('docs:deploy', ['build', 'docs'], function() {
+	return gulp.src([
+		dirs.docs + '/css/**/*',
+		dirs.docs + '/img/**/*',
+		dirs.docs + '/js/**/*',
+		dirs.docs + '/*.html',
+		dirs.distribution + '/**/*',
+		dirs.bowerComponents + '/**/*'
+	], { base: __dirname} )
+	.pipe(ghPages({
+		remoteUrl: pkg.repository,
+		branch: 'gh-pages',
+		push: !argv.local,
+		force: true,
+		message: 'gh-pages update v' + pkg.version,
+		cacheDir: '.gh-pages'
+	}));
 });

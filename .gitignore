@@ -8,3 +8,4 @@ spec/reports
 phantomjsdriver.log
 docs/content/*.html
 docs/content/*/*.html
+.gh-pages
