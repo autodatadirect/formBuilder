@@ -24,6 +24,8 @@ var jade = require('gulp-jade');
 var header = require('gulp-header');
 
 var ghPages = require('gulp-gh-pages');
+var replace = require('gulp-replace');
+var filter = require('gulp-filter');
 
 var gMarked = require('gulp-marked');
 var marked = require('marked');
@@ -409,6 +411,11 @@ gulp.task('docs:watch', ['docs'], function() {
 
 
 gulp.task('docs:deploy', ['build', 'docs'], function() {
+	var docsFilter = filter([
+		'*.html'
+	], {restore: true});
+
+	// only use files that are needed for docs
 	return gulp.src([
 		dirs.docs + '/css/**/*',
 		dirs.docs + '/img/**/*',
@@ -416,7 +423,21 @@ gulp.task('docs:deploy', ['build', 'docs'], function() {
 		dirs.docs + '/*.html',
 		dirs.distribution + '/**/*',
 		dirs.bowerComponents + '/**/*'
-	], { base: __dirname} )
+	], {base: __dirname})
+
+	// put pages in root folder and update relative paths to dependencies
+	.pipe(rename(function(path) {
+		path.dirname = path.dirname.replace('docs', '');
+		if(path.dirname[0] === '/') {
+			path.dirname = path.dirname.substring(1);
+		}
+	}))
+	.pipe(docsFilter)
+	.pipe(replace('="../bower_components/', '="./bower_components/'))
+	.pipe(replace('="../dist/', '="./dist/'))
+	.pipe(docsFilter.restore)
+
+	// push to git
 	.pipe(ghPages({
 		remoteUrl: pkg.repository,
 		branch: 'gh-pages',
