@@ -10,8 +10,6 @@ before_install:
  - sh -e /etc/init.d/xvfb start
 install:
  - npm install -g npm
- - npm install -n n
- - n stable
  - npm install -g gulp
  - npm install -g bower
  - npm install
