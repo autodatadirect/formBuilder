@@ -20,9 +20,9 @@
   </head>
   <body>
     <div class="header">
-      <div class="center-container"><a href="./index.html" class="title">formBuilder <span>v2.1.0</span></a>
+      <div class="center-container"><a href="./index.html" class="title">formBuilder <span>v2.1.1</span></a>
         <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html" class="current">User Guide</a><a id="API" href="./api.html">API Reference</a></div>
-        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder/branches"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=v2.1.0"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
+        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder/branches"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=v2.1.1"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
       </div>
     </div>
     <div class="center-container page-container">
@@ -30,7 +30,7 @@
         <ul class="navDepth-0">
           <li class="current"><a href="#basics">Basics</a>
             <ul class="navDepth-1">
-              <li class="current"><a href="#basics-setup">Download</a></li>
+              <li class="current"><a href="#basics-setup">Setup</a></li>
               <li><a href="#basics-applyingFormBuilder">Applying formBuilder</a></li>
               <li><a href="#basics-requiredInputs">Required Inputs</a></li>
               <li><a href="#basics-usingNamespace">Using Namespaces</a></li>
@@ -88,7 +88,7 @@
       <div class="content">
         <h1>Basics<a name="basics" class="anchor"></a></h1>
         <div class="section">
-          <h2>Setup<a name="basics-download" class="anchor"></a></h2>
+          <h2>Setup<a name="basics-setup" class="anchor"></a></h2>
           <div class="section">
             <p>Download formBuilder either directly from the repository or by using <a href="http://bower.io/">bower</a>.</p><code data-mode="shell"> $ bower install add-formbuilder</code>
             <h3>Bower dependencies:</h3>
@@ -417,10 +417,10 @@
               <input type="text" data-label="utext" data-type="utext"><span>For uppercase text. If a user types in lowercase text, it is automatically converted to uppercase.</span>
             </div>
             <div class="example">
-              <input type="text" data-label="integer" data-type="integer"><span>For integers and negative numbers.</span>
+              <input type="text" data-label="integer" data-type="integer"><span>For integers and negative numbers. Will return a number on get().</span>
             </div>
             <div class="example">
-              <input type="text" data-label="number" data-type="number"><span>For integers, negatives, and decimal numbers.</span>
+              <input type="text" data-label="number" data-type="number"><span>For integers, negatives, and decimal numbers. Will return a number on get().</span>
             </div>
             <div class="example">
               <input type="text" data-label="state" data-type="state"><span>For state abbreviations [A-Z]. With a data-max of two. </span>
@@ -432,7 +432,7 @@
               <input type="text" data-label="email" data-type="email"><span>For email inputs. The correct format is a username, then a single '@', then an alphanumeric domain name, then a single '.', then a alphabetic domain extension 2-4 characters in length. </span>
             </div>
             <div class="example">
-              <input type="text" data-label="money" data-type="money"><span>For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur.</span>
+              <input type="text" data-label="money" data-type="money"><span>For currency inputs. Similar to the number field, but will automatically round to 2 decimal places on blur. Will return a number on get().</span>
             </div>
             <div class="example">
               <input type="text" data-label="money" data-type="money" data-allow-negative><span>For currency inputs, allows negatives. Include <b>data-allow-negative</b> to enable this. </span>

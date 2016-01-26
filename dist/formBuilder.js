@@ -1,6 +1,6 @@
 /** 
  * formBuilder - An advanced HTML5 form creation & validation framework
- * @version v2.0.2
+ * @version v2.1.1
  * @link http://autodatadirect.github.io/formBuilder/
  * @repository https://github.com/autodatadirect/formBuilder
  * @license MIT
@@ -4569,8 +4569,6 @@
  * unless the no-rounding option is set. For example in "+1!y+0m" will evaluate
  * as "the end of this month next year".
  * 
- * For example, "-5y" and "+4d-5y" will both evalulate to the 
- * same date.
  *
  * Any dateTime objects stored in UTC must convert to/from local timezone when 
  * setting/retrieving from this type. This type should only touch local dates.
@@ -4585,7 +4583,7 @@
  * @ 2016-01-05 => [2015-01-05, 2016-02-29]
  * @ 2000-05-20 => [1995-01-01, 2000-06-30]
  *
- * min-date="0" max-date="+60d"
+ * min-date="0d" max-date="+60d"
  * @ 2016-01-05 => [2015-01-05, 2016-03-05]
  * @ 2000-05-20 => [1995-05-20, 2000-07-19]
  *
@@ -4594,10 +4592,10 @@
  * @ 2000-05-20 => (beg. of time, 2002-12-31]
  *
  * min-date="-1y+1m-0m+5d" (last year, Feb 6) max-date="+1y-0m+2y" (+3y, Dec 1)
- * @ 2016-01-05 => (2016-02-06, 2019-12-01]
- * @ 2000-05-20 dates allowed are (1999-02-06, 2003-12-01]
+ * @ 2016-01-05 => [2016-02-06, 2019-12-01]
+ * @ 2000-05-20 => [1999-02-06, 2003-12-01]
  *
- * min-date="+1w+1d" (next Monday)
+ * min-date="+1w-0w+1d" (next Monday)
  * @ 2016-01-05 => [2016-01-11, end of time)
  * @ 2000-05-20 => [2000-05-08, end of time)
  *
@@ -5053,7 +5051,7 @@
 })(jQuery);
 /**
  * Basic Regex data types
- * 
+ *
  * Types defined:
  *  - utext
  *  - integer
@@ -5062,6 +5060,13 @@
  *  - feid
  *  - zip
  *  - email
+ *
+ * Formatters/Convertes
+ * $.formBuilder.inputField.standardConverters
+ * 	- formatter
+ * 	- number
+ * $.formBuilder.inputField.standardFormatters
+ * 	- trim
  *
  * Type Creator defined:
  *  - createRegexType(pattern, filter, flags, max)
@@ -5074,13 +5079,36 @@
 	var types = $.formBuilder.inputField.types;
 	var dict = $.formBuilder.lang.dict;
 
-	var cannedFormatters = {
+	var formatters = $.formBuilder.inputField.standardFormatters = {
 		trim: function(val) {
 			return $.trim(val);
 		}
 	};
 
-	/*
+	var converters = $.formBuilder.inputField.standardConverters = {
+		formatter: {
+			toField: function (val, ifw) { return this.format(val); },
+			fromField: function (val, ifw) { return this.format(val); }
+		},
+		number: {
+			// number => string
+			toField: function(value) {
+				if(!value && value !== 0) {
+					return '';
+				}
+				return value + '';
+			},
+			// string => number
+			fromField: function(value) {
+				if(!value || isNaN(value)) {
+					return null;
+				}
+				return +value;
+			}
+		}
+	};
+
+	/**
 	 * helper function to build basic types
 	 */
 	var createRegexType = function(pattern, filter, flags, max) {
@@ -5114,20 +5142,34 @@
 					filterData.max = ifw.element.attr('data-max');
 				}
 
-				//console.log('setup ', ifw.element.attr('name'), filterData, max);
 				ifw.element.inputFilter(filterData);
 			};
 		}
 
-		if(flags.cannedFormatter !== undefined) {
-			if($.isFunction(cannedFormatters[flags.cannedFormatter])) {
-				type.format = cannedFormatters[flags.cannedFormatter];
+		// Legacy support
+		if(flags.cannedFormatter) {
+			flags.formatter = flags.cannedFormatter;
+		}
 
-				// add converters
-				type.converter = {
-					toField: function (val, ifw) { return type.format(val); },
-					fromField: function (val, ifw) { return type.format(val); }
-				};
+		// passed in formatter?
+		if(flags.formatter) {
+			if(typeof flags.formatter === 'string' && $.isFunction(formatters[flags.formatter])) {
+				// standard
+				type.format = formatters[flags.formatter];
+				type.converter = converters.formatter;
+			} else if($.isFunction(flags.formatter)) {
+				// custom
+				type.format = flags.formatter;
+				type.converter = converters.formatter;
+			}
+		}
+
+		// passed in converter?
+		if(flags.converter) {
+			if(typeof flags.converter === 'string' && converters[flags.converter]) {
+				type.converter = converters[flags.converter];
+			} else if($.isFunction(flags.converter)) {
+				type.converter = flags.converter;
 			}
 		}
 
@@ -5136,15 +5178,13 @@
 	$.formBuilder.inputField.createRegexType = createRegexType;
 
 
-	/*
+	/**
 	 * basic types
 	 */
 	$.extend(types, {
 		'utext': createRegexType(/.*/, /.*/, {
 			toUpper: true
 		}),
-		'integer': createRegexType(/^-?[0-9]*$/, /[-0-9]/),
-		'number': createRegexType(/^-?[0-9]+\.?[0-9]*$/, /[-0-9.]/),
 		'state': createRegexType(/^[A-Z]{2}$/, /[A-Z]/, {}, 2),
 		'feid': createRegexType(/^[0-9]{2}\-?[0-9]{7}$/, /[0-9\-]/, {}, 10),
 		'zip': createRegexType(/(^\d{5}(\-?\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} ?\d{1}[A-Za]{1}\d{1})$/, /[0-9A-Z\s\-]/, {}, 10),
@@ -5153,9 +5193,17 @@
 			cannedFormatter: 'trim'
 		})
 	});
-	
+
+	types.integer = createRegexType(/^-?[0-9]*$/, /[-0-9]/, {
+		converter: 'number'
+	});
+	types.number = createRegexType(/^-?[0-9]+\.?[0-9]*$/, /[-0-9.]/, {
+		converter: 'number'
+	});
+
 
 })(jQuery);
+
 /**
  * Datatype 'select'
  * 
