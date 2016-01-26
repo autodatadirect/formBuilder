@@ -16,18 +16,18 @@ describe('The number data-type', function(){
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
 		var ifw = input.data('formBuilderInputField');
-		
+
 		expect(type).toBeDefined();
 
 		ifw.setType(typeName);
-		
+
 		expect(util.equals(ifw.getType(), type)).toBe(true);
 	});
 
 	it('has filter support', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').wrap('<div/>').inputField();
 		var ifw = input.data('formBuilderInputField');
-		var filter = input.data('formBuilderInputFilter'); 
+		var filter = input.data('formBuilderInputFilter');
 
 		var typeNewString = function(str) {
 			input.val('');
@@ -64,7 +64,7 @@ describe('The number data-type', function(){
 			'worse',
 			'!@#'
 		];
-		
+
 		var validateNewVal = function(str){
 			input.val(str);
 			return (typeof(ifw.getType().validate(ifw)) === 'undefined');
@@ -78,9 +78,9 @@ describe('The number data-type', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 		var ifw = input.data('formBuilderInputField');
 
-		ifw.set('12345'); 
+		ifw.set(12345.23);
 
-		expect(ifw.get()).toBe('12345');
+		expect(ifw.get()).toBe(12345.23);
 
 		testContainer.empty();
 	});

@@ -1,6 +1,6 @@
 /**
  * Basic Regex data types
- * 
+ *
  * Types defined:
  *  - utext
  *  - integer
@@ -9,6 +9,13 @@
  *  - feid
  *  - zip
  *  - email
+ *
+ * Formatters/Convertes
+ * $.formBuilder.inputField.standardConverters
+ * 	- formatter
+ * 	- number
+ * $.formBuilder.inputField.standardFormatters
+ * 	- trim
  *
  * Type Creator defined:
  *  - createRegexType(pattern, filter, flags, max)
@@ -21,13 +28,36 @@
 	var types = $.formBuilder.inputField.types;
 	var dict = $.formBuilder.lang.dict;
 
-	var cannedFormatters = {
+	var formatters = $.formBuilder.inputField.standardFormatters = {
 		trim: function(val) {
 			return $.trim(val);
 		}
 	};
 
-	/*
+	var converters = $.formBuilder.inputField.standardConverters = {
+		formatter: {
+			toField: function (val, ifw) { return this.format(val); },
+			fromField: function (val, ifw) { return this.format(val); }
+		},
+		number: {
+			// number => string
+			toField: function(value) {
+				if(!value && value !== 0) {
+					return '';
+				}
+				return value + '';
+			},
+			// string => number
+			fromField: function(value) {
+				if(!value || isNaN(value)) {
+					return null;
+				}
+				return +value;
+			}
+		}
+	};
+
+	/**
 	 * helper function to build basic types
 	 */
 	var createRegexType = function(pattern, filter, flags, max) {
@@ -61,20 +91,34 @@
 					filterData.max = ifw.element.attr('data-max');
 				}
 
-				//console.log('setup ', ifw.element.attr('name'), filterData, max);
 				ifw.element.inputFilter(filterData);
 			};
 		}
 
-		if(flags.cannedFormatter !== undefined) {
-			if($.isFunction(cannedFormatters[flags.cannedFormatter])) {
-				type.format = cannedFormatters[flags.cannedFormatter];
+		// Legacy support
+		if(flags.cannedFormatter) {
+			flags.formatter = flags.cannedFormatter;
+		}
 
-				// add converters
-				type.converter = {
-					toField: function (val, ifw) { return type.format(val); },
-					fromField: function (val, ifw) { return type.format(val); }
-				};
+		// passed in formatter?
+		if(flags.formatter) {
+			if(typeof flags.formatter === 'string' && $.isFunction(formatters[flags.formatter])) {
+				// standard
+				type.format = formatters[flags.formatter];
+				type.converter = converters.formatter;
+			} else if($.isFunction(flags.formatter)) {
+				// custom
+				type.format = flags.formatter;
+				type.converter = converters.formatter;
+			}
+		}
+
+		// passed in converter?
+		if(flags.converter) {
+			if(typeof flags.converter === 'string' && converters[flags.converter]) {
+				type.converter = converters[flags.converter];
+			} else if($.isFunction(flags.converter)) {
+				type.converter = flags.converter;
 			}
 		}
 
@@ -83,15 +127,13 @@
 	$.formBuilder.inputField.createRegexType = createRegexType;
 
 
-	/*
+	/**
 	 * basic types
 	 */
 	$.extend(types, {
 		'utext': createRegexType(/.*/, /.*/, {
 			toUpper: true
 		}),
-		'integer': createRegexType(/^-?[0-9]*$/, /[-0-9]/),
-		'number': createRegexType(/^-?[0-9]+\.?[0-9]*$/, /[-0-9.]/),
 		'state': createRegexType(/^[A-Z]{2}$/, /[A-Z]/, {}, 2),
 		'feid': createRegexType(/^[0-9]{2}\-?[0-9]{7}$/, /[0-9\-]/, {}, 10),
 		'zip': createRegexType(/(^\d{5}(\-?\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} ?\d{1}[A-Za]{1}\d{1})$/, /[0-9A-Z\s\-]/, {}, 10),
@@ -100,6 +142,13 @@
 			cannedFormatter: 'trim'
 		})
 	});
-	
+
+	types.integer = createRegexType(/^-?[0-9]*$/, /[-0-9]/, {
+		converter: 'number'
+	});
+	types.number = createRegexType(/^-?[0-9]+\.?[0-9]*$/, /[-0-9.]/, {
+		converter: 'number'
+	});
+
 
 })(jQuery);
