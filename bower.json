@@ -5,22 +5,10 @@
   "license": "MIT",
   "homepage": "http://autodatadirect.github.io/formBuilder/",
   "ignore": [
-    "node_modules",
-    "bower_components",
-    "bower.json",
-    "Gruntfile.js",
-    "README.md",
-    "unitTests",
-    "e2eTests",
-    "spec",
-    ".gitignore",
-    "src",
-    "assets",
-    "uncomplete",
-    "package.json",
-    "build",
-    "bower.json",
-    "docs"
+    "**/*",
+	"!/dist/**",
+	"!/sass/**",
+	"!/src/**"
   ],
   "main": [],
   "dependencies": {
