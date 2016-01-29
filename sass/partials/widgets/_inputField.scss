@@ -70,14 +70,14 @@
 		white-space: nowrap;
 		border: $inputField-fieldItem-borderWidth solid $inputField-fieldItem-borderColor;
 		border-left: 0;
-		
+
 		height: $inputField-fieldItem-height;
 		line-height: $inputField-fieldItem-height;
 
 		vertical-align: top;
 
 		overflow: hidden;
-	
+
 		&.first {
 			border: $inputField-fieldItem-borderWidth solid $inputField-fieldItem-borderColor;
 		}
@@ -101,13 +101,13 @@
 
 			/*background-color: whiteSmoke;*/
 			background-image: linear-gradient(to bottom, white, #D0D0D0);
-			
+
 			background-repeat: repeat-x;
-			
-			
+
+
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
 			filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-			
+
 			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 
 			&:hover {
@@ -136,11 +136,6 @@
 			resize: none;
 			color: $inputField-fieldItem-inputColor;
 		}
-
-
-		// select {
-		// 	padding-right: 5px;
-		// }
 
 		.placeholder {
 			@include fieldTextFormatting(right);
@@ -193,7 +188,6 @@
 
 	&.textarea-fix {
 		textarea {
-			// padding-top: .3em;
 			line-height: $inputField-fieldItem-height*.75;
 		}
 
@@ -206,15 +200,32 @@
 		}
 	}
 
-	/* No longer used
-	.calendar-icon {
-		background: transparent url('../img/calendar.gif') no-repeat 0 0;
+	.addin {
 		display: inline-block;
-		height: 21px;
-		width: 16px;
-		vertical-align: middle;
 	}
-	*/
+
+	.addin-container-left {
+		float: left;
+		vertical-align: middle;
+
+		.addin {
+			padding-left: $inputField-fieldText-horizontalPadding;
+		}
+		>:last-child {
+			padding-right: $inputField-fieldText-horizontalPadding;
+		}
+	}
+	.addin-container-right {
+		float: right;
+		vertical-align: middle;
+
+		.addin {
+			padding-right: $inputField-fieldText-horizontalPadding;
+		}
+		>:first-child {
+			padding-left: $inputField-fieldText-horizontalPadding;
+		}
+	}
 }
 
 

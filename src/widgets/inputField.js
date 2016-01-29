@@ -41,7 +41,7 @@
 		},
 
 		clearDirty: function () {
-			
+
 		},
 
 		clear: function () {
@@ -49,11 +49,11 @@
 		},
 
 		flash: function () {
-			
+
 		},
 
 		set: function (data) {
-			
+
 		},
 
 		get: function () {
@@ -80,7 +80,7 @@
 			/*
 			 * min and max, there meaning depends on the type that is loaded
 			 */
-			min: '', 
+			min: '',
 			max: '',
 
 			error: 'error',
@@ -102,7 +102,7 @@
 			/*
 			 * load DOM settings from field into options
 			 */
-			
+
 			util.loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
 			util.loadDomToggleData(e, o, ['require', 'required']);
 
@@ -125,7 +125,7 @@
 			/*
 			 * convert the simple input into the full field format
 			 */
-			 
+
 			var field = self.field = $('<div class="input-field"><div class="field-items"><span class="field-item field-item-input"></span></div></div>');
 
 			var layers = self.layers = {
@@ -470,7 +470,7 @@
 			if(!found && weight < 0){
 				// Must just left of input
 				layers.items.find('.field-item-input').before(addon);
-				
+
 				// refresh first
 				layers.items.find('.field-item.first').not(':first').removeClass('first');
 				layers.items.find('.field-item').filter(':first').addClass('first');
@@ -481,6 +481,77 @@
 			}
 
 			return addon;
+		},
+
+		_saveInputWidth: function() {
+			var self = this,
+				e = this.element;
+			self.savedWidth = e.parent().width();
+		},
+		_restoreInputWidth: function() {
+			var self = this,
+				e = this.element;
+			e.width(e.width() + (self.savedWidth - e.parent().width()));
+		},
+
+		addin: function(html, weight, containerClass) {
+			var self = this,
+				e = self.element,
+				index = Math.abs(weight),
+				side, group, container,
+				addin,
+				inwardAdjacentElement;
+
+			side = (weight < 0)? 'left' : 'right';
+
+			// create initial side structure
+			if(!self.layers.addins) {
+				self.layers.addins = {};
+			}
+			if(!self.layers.addins[side]) {
+				self.layers.addins[side] = {
+					container: $('<div class="addin-container-'+side+'"></div>'),
+					group: [null] // items away from input (>i = >distance)
+				};
+			}
+
+			group = self.layers.addins[side].group;
+			container = self.layers.addins[side].container;
+
+			// Create addin element
+			addin = $('<div class="addin"></div>');
+			if(containerClass) {
+				addin.addClass(containerClass);
+			}
+			addin.append(html);
+
+
+			// store element reference
+			if(index === 0) {
+				// keep input at 0, null in groups
+				++index;
+			}
+			group.splice(index, 0, addin);
+			index = group.indexOf(addin);
+
+			// make sure side container is there
+			if(!e.siblings('.addin-container-'+side).length) {
+				e[(side === 'left')? 'before' : 'after'](container);
+			}
+
+			// place element, maintaining input field width
+			self._saveInputWidth();
+
+			if(index === 1) {
+				// add to inner wall
+				container[(side === 'left')? 'append' : 'prepend'](addin);
+			} else {
+				// offset from another element
+				inwardAdjacentElement = group[index-1];
+				inwardAdjacentElement[(side === 'left')? 'before' : 'after'](addin);
+			}
+
+			self._restoreInputWidth();
 		},
 
 		placeholder: function (s) {
@@ -545,9 +616,9 @@
 			setOptions = $.extend({autoClean: true}, setOptions);
 
 			if (setOptions.autoClean) {
-				
+
 				 // * store the base value
-				 
+
 				self.prevValue = value;
 
 				self.clearDirty();
@@ -578,11 +649,11 @@
 			}
 
 			self._trigger('afterset', null, [val, value]);
-			
+
 			// Redraw synchronously to avoid display errors (was not working perfectly with setTimeout)
 			self.redraw();
 		},
-		
+
 
 		get: function() {
 			var self = this,
@@ -613,7 +684,7 @@
 			if($.isFunction(type.isEmpty)) {
 				return type.isEmpty.call(type, self);
 			}
-			
+
 			return $.trim(self.element.val()) === '';
 		},
 
@@ -768,7 +839,7 @@
 				showPlaceholder = true,
 				layers = self.layers;
 
-				//self.inputWidth = self.element.width(); // Added this line to fix display issue 
+				//self.inputWidth = self.element.width(); // Added this line to fix display issue
 
 			if(hasVal) {
 				showPlaceholder = false;
@@ -790,6 +861,13 @@
 						});
 
 						self.prefixPaddingAdded = true;
+
+						console.log(self.layers);
+						if(self.layers.addins && self.layers.addins.left) {
+							layers.prefix.css('left', self.layers.addins.left.container.width());
+						} else {
+							layers.prefix.css('left', self.startPaddingLeft);
+						}
 					}
 				} else {
 					e.css({
@@ -818,15 +896,15 @@
 							paddingLeft: (layers.prefix? layers.prefix.outerWidth() : 1) + 'px',
 							maxWidth: (self.startInputWidth - valWidth)  + 'px'
 						});
-						
+
 						self.suffixPaddingAdded = true;
 					}
-				} else {	
+				} else {
 					e.css({
 						paddingRight: self.startPaddingRight,
 						width: self.startInputWidth + (layers.prefix? layers.prefix.outerWidth() : 0) + 'px'
 					});
-					
+
 					self.suffixPaddingAdded = false;
 				}
 			}
@@ -903,7 +981,7 @@
 			/*
 			 * run the type tear down if it exists
 			 */
-			
+
 			if(type && $.isFunction(type.tearDown)) {
 				type.tearDown().call(type, self);
 			}
@@ -1048,7 +1126,7 @@
 		}
 	});
 
-	
+
 
 
 
@@ -1097,4 +1175,3 @@
 
 
 }(jQuery));
-
