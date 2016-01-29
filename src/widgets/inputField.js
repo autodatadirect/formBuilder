@@ -494,6 +494,10 @@
 			e.width(e.width() + (self.savedWidth - e.parent().width()));
 		},
 
+		_weightToSide: function(weight) {
+			return (weight < 0)? 'left' : 'right';
+		},
+
 		addin: function(html, weight, containerClass) {
 			var self = this,
 				e = self.element,
@@ -502,7 +506,7 @@
 				addin,
 				inwardAdjacentElement;
 
-			side = (weight < 0)? 'left' : 'right';
+			side = self._weightToSide(weight);
 
 			// create initial side structure
 			if(!self.layers.addins) {
@@ -551,6 +555,29 @@
 				inwardAdjacentElement[(side === 'left')? 'before' : 'after'](addin);
 			}
 
+			self._restoreInputWidth();
+
+			// return accurate weight
+			return index * ((side === 'left')? -1 : 1);
+		},
+
+		toggleAddin: function(weight, visibility) {
+			var self = this,
+				addin;
+
+			if(!self.layers.addins) {
+				return;
+			}
+
+			addin = self.layers.addins[self._weightToSide(weight)].group[Math.abs(weight)];
+
+			if(!addin) {
+				console.error('Invalid addin weight. Does not match existing addin.');
+				return;
+			}
+
+			self._saveInputWidth();
+			addin.toggle(visibility);
 			self._restoreInputWidth();
 		},
 
