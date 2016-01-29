@@ -498,12 +498,12 @@
 			return (weight < 0)? 'left' : 'right';
 		},
 
-		addin: function(html, weight, containerClass) {
+		addin: function(html, weight, containerClass, makeFixed) {
 			var self = this,
 				e = self.element,
 				index = Math.abs(weight),
 				side, group, container,
-				addin,
+				addin, fixed,
 				inwardAdjacentElement;
 
 			side = self._weightToSide(weight);
@@ -515,12 +515,14 @@
 			if(!self.layers.addins[side]) {
 				self.layers.addins[side] = {
 					container: $('<div class="addin-container-'+side+'"></div>'),
-					group: [null] // items away from input (>i = >distance)
+					group: [null], // items away from input (>i = >distance)
+					fixed: []
 				};
 			}
 
 			group = self.layers.addins[side].group;
 			container = self.layers.addins[side].container;
+			fixed = self.layers.addins[side].fixed;
 
 			// Create addin element
 			addin = $('<div class="addin"></div>');
@@ -531,12 +533,17 @@
 
 
 			// store element reference
-			if(index === 0) {
+			while(index === 0 || !makeFixed && fixed.indexOf(index) !== -1) {
 				// keep input at 0, null in groups
 				++index;
 			}
 			group.splice(index, 0, addin);
 			index = group.indexOf(addin);
+			weight = index * ((side === 'left')? -1 : 1);
+
+			if(makeFixed) {
+				fixed.push(index);
+			}
 
 			// make sure side container is there
 			if(!e.siblings('.addin-container-'+side).length) {
@@ -558,14 +565,14 @@
 			self._restoreInputWidth();
 
 			// return accurate weight
-			return index * ((side === 'left')? -1 : 1);
+			return weight;
 		},
 
 		toggleAddin: function(weight, visibility) {
 			var self = this,
 				addin;
 
-			if(!self.layers.addins) {
+			if(!self.layers.addins || weight === 0) {
 				return;
 			}
 
@@ -579,6 +586,8 @@
 			self._saveInputWidth();
 			addin.toggle(visibility);
 			self._restoreInputWidth();
+
+			return addin;
 		},
 
 		placeholder: function (s) {
