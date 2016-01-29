@@ -312,14 +312,14 @@
 			}
 		},
 
-		setPrefix: function (t) {
+		setPrefix: function(t) {
 			var self = this,
 				layers = self.layers;
 
 			if(!layers.prefix){
-				layers.prefix = $('<div class="prefix-overlay noselect">' + t + '</div>').prependTo(layers.items);
-			}else{
-				self.layers.prefix.find('.value').text(t);
+				layers.prefix = self.addin(t, -1, 'prefix-overlay addin-edge', true);
+			} else {
+				layers.prefix.html(t);
 			}
 		},
 
@@ -539,7 +539,6 @@
 			}
 			group.splice(index, 0, addin);
 			index = group.indexOf(addin);
-			weight = index * ((side === 'left')? -1 : 1);
 
 			if(makeFixed) {
 				fixed.push(index);
@@ -565,22 +564,26 @@
 			self._restoreInputWidth();
 
 			// return accurate weight
-			return weight;
+			return addin;
 		},
 
-		toggleAddin: function(weight, visibility) {
+		toggleAddin: function(selector, visibility) {
 			var self = this,
 				addin;
 
-			if(!self.layers.addins || weight === 0) {
+			if(!self.layers.addins || !selector) {
 				return;
 			}
 
-			addin = self.layers.addins[self._weightToSide(weight)].group[Math.abs(weight)];
-
-			if(!addin) {
-				console.error('Invalid addin weight. Does not match existing addin.');
-				return;
+			if(typeof selector === 'number') {
+				// treat as weight
+				addin = self.layers.addins[self._weightToSide(selector)].group[Math.abs(selector)];
+				if(!addin) {
+					console.error('Invalid addin weight. Does not match existing addin.');
+					return;
+				}
+			} else {
+				addin = selector;
 			}
 
 			self._saveInputWidth();
@@ -885,35 +888,7 @@
 				self.suffixShim.text(e.val());
 			}
 
-			if(layers.prefix){
-				if(!showPlaceholder) {
-					if(!self.prefixPaddingAdded) {
-						self.startInputWidth = e.width();
-						self.startPaddingLeft = e.css('padding-left').replace('[^0-9]','');
-						self.startPaddingLeft = isNaN(self.startPaddingLeft)? 5 : parseInt(self.startPaddingLeft, 10);
-						e.css({
-							paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + "px",
-							width: (self.startInputWidth - layers.prefix.outerWidth())  + 'px'
-						});
-
-						self.prefixPaddingAdded = true;
-
-						console.log(self.layers);
-						if(self.layers.addins && self.layers.addins.left) {
-							layers.prefix.css('left', self.layers.addins.left.container.width());
-						} else {
-							layers.prefix.css('left', self.startPaddingLeft);
-						}
-					}
-				} else {
-					e.css({
-						paddingLeft: self.startPaddingLeft,
-						width: self.startInputWidth + 'px'
-					});
-
-					self.prefixPaddingAdded = false;
-				}
-			}
+			self.toggleAddin(layers.prefix, !showPlaceholder);
 
 			if(layers.suffix){
 				if(!showPlaceholder) {
@@ -975,7 +950,7 @@
 			self._showLayer('notice', showNotice);
 			self._showLayer('placeholder', showPlaceholder);
 			self._showLayer('suffix', !showPlaceholder);
-			self._showLayer('prefix', !showPlaceholder);
+			// self._showLayer('prefix', !showPlaceholder);
 		},
 
 		_showLayer: function(layer, show) {
