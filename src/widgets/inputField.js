@@ -305,10 +305,9 @@
 				layers = self.layers;
 
 			if(!layers.suffix){
-				layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value noselect">' + t + '</span></div>').prependTo(layers.items);
-				self.suffixShim = layers.suffix.find('.shim');
+				layers.suffix = self.addin(t, 1, 'suffix-overlay noselect', true);
 			} else {
-				layers.suffix.find('.value').text(t);
+				layers.suffix.html(t);
 			}
 		},
 
@@ -317,7 +316,7 @@
 				layers = self.layers;
 
 			if(!layers.prefix){
-				layers.prefix = self.addin(t, -1, 'prefix-overlay addin-edge', true);
+				layers.prefix = self.addin(t, -1, 'prefix-overlay noselect', true);
 			} else {
 				layers.prefix.html(t);
 			}
@@ -617,7 +616,7 @@
 
 			if(type && $.isFunction(type.clear)) {
 				type.clear.call(type, self);
-			}else{
+			} else {
 				self.prevValue = '';
 				self.set('');
 			}
@@ -878,63 +877,13 @@
 				showPlaceholder = true,
 				layers = self.layers;
 
-				//self.inputWidth = self.element.width(); // Added this line to fix display issue
-
 			if(hasVal) {
 				showPlaceholder = false;
 			}
 
-			if(self.suffixShim && !showPlaceholder){
-				self.suffixShim.text(e.val());
-			}
-
 			self.toggleAddin(layers.prefix, !showPlaceholder);
+			self.toggleAddin(layers.suffix, !showPlaceholder);
 
-			if(layers.suffix){
-				if(!showPlaceholder) {
-					if(!self.suffixPaddingAdded) {
-						var valWidth = layers.suffix.find('.value').outerWidth();
-
-						self.startInputWidth = e.width();
-						self.startPaddingRight = e.css('padding-right').replace('[^0-9]','');
-						self.startPaddingRight = isNaN(self.startPaddingRight)? 0 : parseInt(self.startPaddingRight, 10);
-
-						e.css({
-							paddingRight: (self.startPaddingRight + valWidth) + 'px',
-							width: (self.startInputWidth - valWidth)  + 'px'
-						});
-						self.suffixShim.css({
-							paddingLeft: (layers.prefix? layers.prefix.outerWidth() : 1) + 'px',
-							maxWidth: (self.startInputWidth - valWidth)  + 'px'
-						});
-
-						self.suffixPaddingAdded = true;
-					}
-				} else {
-					e.css({
-						paddingRight: self.startPaddingRight,
-						width: self.startInputWidth + (layers.prefix? layers.prefix.outerWidth() : 0) + 'px'
-					});
-
-					self.suffixPaddingAdded = false;
-				}
-			}
-
-			/*
-			if(o.hover){
-
-			}
-			*/
-			/*
-			if(o.focus){
-				showSuggest = false;
-			}
-			*/
-			/*
-			if(o.warn){
-
-			}
-			*/
 			if(self.states.error) {
 				showNotice = false;
 				showError = true;
@@ -942,7 +891,7 @@
 
 			if(self.dirty){
 				self.field.addClass('dirty');
-			}else{
+			} else {
 				self.field.removeClass('dirty');
 			}
 
@@ -950,7 +899,6 @@
 			self._showLayer('notice', showNotice);
 			self._showLayer('placeholder', showPlaceholder);
 			self._showLayer('suffix', !showPlaceholder);
-			// self._showLayer('prefix', !showPlaceholder);
 		},
 
 		_showLayer: function(layer, show) {

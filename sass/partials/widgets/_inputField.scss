@@ -25,21 +25,7 @@
 		width: auto;
 		min-width: 16px;
 
-		.suffix-overlay {
-			@include fieldTextFormatting(left);
-			color: $inputField-overlay-color;
-			font-family: sans-serif;
 
-			.shim {
-				visibility: hidden;
-				display: inline-block;
-			}
-
-			.value {
-				padding-left: $inputField-fieldText-horizontalPadding/2;
-				padding-right: $inputField-fieldText-horizontalPadding;
-			}
-		}
 
 		// May need to be reorganized
 		.field-item-input {
@@ -194,11 +180,16 @@
 		}
 	}
 
+
+
+	// Addin Support
+
 	.addin {
 		display: inline-block;
 	}
 
-	.prefix-overlay {
+	.prefix-overlay,
+	.suffix-overlay {
 		color: $inputField-overlay-color;
 		font-family: sans-serif;
 	}
@@ -209,12 +200,6 @@
 
 		.addin {
 			padding-left: $inputField-fieldText-horizontalPadding;
-			&.addin-edge {
-				padding-right: 0px;
-			}
-		}
-		>:last-child {
-			padding-right: $inputField-fieldText-horizontalPadding;
 		}
 	}
 	.addin-container-right {
@@ -223,13 +208,6 @@
 
 		.addin {
 			padding-right: $inputField-fieldText-horizontalPadding;
-
-			&.addin-edge {
-				padding-left: 0px;
-			}
-		}
-		>:first-child {
-			padding-left: $inputField-fieldText-horizontalPadding;
 		}
 	}
 }
