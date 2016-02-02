@@ -171,7 +171,7 @@
 			}
 
 			if(o.placeholder){
-				self.placeholder(o.placeholder);
+				self.setPlaceholder(o.placeholder);
 			}
 
 			if(o.preinput) {
@@ -321,6 +321,22 @@
 				layers.prefix.html(t);
 			}
 		},
+
+		// legacy support
+		placeholder: function(t) {
+			this.setPlaceholder(t);
+		},
+		setPlaceholder: function(t) {
+			var self = this,
+				layers = self.layers;
+
+			if(!layers.placeholder){
+				layers.placeholder = $('<div class="placeholder noselect"></div>').hide().appendTo(layers.input);
+			}
+
+			layers.placeholder.html(t);
+		},
+
 
 		setMax: function (max) {
 			var self = this,
@@ -483,14 +499,36 @@
 		},
 
 		_saveInputWidth: function() {
-			var self = this,
-				e = this.element;
-			self.savedWidth = e.parent().width();
+			this.savedWidth = this.element.parent().width();
 		},
 		_restoreInputWidth: function() {
-			var self = this,
+			var e = this.element;
+			e.width(e.width() + (this.savedWidth - e.parent().width()));
+			this._repositionPlaceholder();
+		},
+
+		_repositionPlaceholder: function() {
+			var p = this.layers.placeholder,
 				e = this.element;
-			e.width(e.width() + (self.savedWidth - e.parent().width()));
+
+			if(!p) {
+				return;
+			}
+
+			// Make the placeholder in the same location + same size as element
+			p.width(e.width());
+			p.css('margin-left', e.position().left);
+
+			// Make sure the placholder text does not overflow container
+			if(!this.savedPlaceholderSize) {
+				this.savedPlaceholderFontSize = p.css('font-size');
+			} else {
+				p.css('font-size', this.savedPlaceholderSize);
+			}
+
+			while(p[0].scrollWidth > e.width() && (parseFloat(p.css('font-size'),10) >= 8.0)) {
+				p.css('font-size','-=1.0');
+			}
 		},
 
 		_weightToSide: function(weight) {
@@ -592,16 +630,7 @@
 			return addin;
 		},
 
-		placeholder: function (s) {
-			var self = this,
-				layers = self.layers;
 
-			if(!layers.placeholder){
-				layers.placeholder = $('<div class="placeholder noselect"></div>').hide().appendTo(layers.input);
-			}
-
-			layers.placeholder.text(s);
-		},
 
 		_init: function() {
 			var self = this;
@@ -870,7 +899,6 @@
 		redraw: function() {
 			var self = this,
 				e = self.element,
-				o = self.options,
 				hasVal = !!e.val(),
 				showError = false,
 				showNotice = true,
@@ -895,40 +923,22 @@
 				self.field.removeClass('dirty');
 			}
 
-			self._showLayer('error', showError);
-			self._showLayer('notice', showNotice);
-			self._showLayer('placeholder', showPlaceholder);
-			self._showLayer('suffix', !showPlaceholder);
+			self._toggleLayer('error', showError);
+			self._toggleLayer('notice', showNotice);
+			self._toggleLayer('placeholder', showPlaceholder);
 		},
 
-		_showLayer: function(layer, show) {
-			var self = this,
-				e = self.element;
+		_toggleLayer: function(layerName, isVisible) {
+			var layer = this.layers[layerName];
 
-			if(!self.layers[layer]) {
+			if(!layer) {
 				return;
 			}
 
-			if(show) {
-				if(layer === 'suffix') {
-					self.layers[layer].css('visibility', 'visible');
-				} else {
-					self.layers[layer].show();
-				}
+			layer.toggle(isVisible);
 
-				// MISC-919 make sure placeholder stays in input box
-				if(layer === 'placeholder' && e.width() > 0) {
-					var ph = self.layers[layer];
-					while((ph.outerWidth(true)) > e.width() && (parseFloat(ph.css('font-size'),10) >= 8.0)) {
-						ph.css('font-size','-=1.0');
-					}
-				}
-			} else {
-				if(layer === 'suffix') {
-					self.layers[layer].css('visibility', 'hidden');
-				} else {
-					self.layers[layer].hide();
-				}
+			if(isVisible && layerName === 'placholder') {
+				this._repositionPlaceholder();
 			}
 		},
 

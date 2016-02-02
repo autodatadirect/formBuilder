@@ -2374,7 +2374,7 @@
 		},
 
 		clearDirty: function () {
-			
+
 		},
 
 		clear: function () {
@@ -2382,11 +2382,11 @@
 		},
 
 		flash: function () {
-			
+
 		},
 
 		set: function (data) {
-			
+
 		},
 
 		get: function () {
@@ -2413,7 +2413,7 @@
 			/*
 			 * min and max, there meaning depends on the type that is loaded
 			 */
-			min: '', 
+			min: '',
 			max: '',
 
 			error: 'error',
@@ -2435,7 +2435,7 @@
 			/*
 			 * load DOM settings from field into options
 			 */
-			
+
 			util.loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
 			util.loadDomToggleData(e, o, ['require', 'required']);
 
@@ -2458,7 +2458,7 @@
 			/*
 			 * convert the simple input into the full field format
 			 */
-			 
+
 			var field = self.field = $('<div class="input-field"><div class="field-items"><span class="field-item field-item-input"></span></div></div>');
 
 			var layers = self.layers = {
@@ -2504,7 +2504,7 @@
 			}
 
 			if(o.placeholder){
-				self.placeholder(o.placeholder);
+				self.setPlaceholder(o.placeholder);
 			}
 
 			if(o.preinput) {
@@ -2638,23 +2638,38 @@
 				layers = self.layers;
 
 			if(!layers.suffix){
-				layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value noselect">' + t + '</span></div>').prependTo(layers.items);
-				self.suffixShim = layers.suffix.find('.shim');
+				layers.suffix = self.addin(t, 1, 'suffix-overlay noselect', true);
 			} else {
-				layers.suffix.find('.value').text(t);
+				layers.suffix.html(t);
 			}
 		},
 
-		setPrefix: function (t) {
+		setPrefix: function(t) {
 			var self = this,
 				layers = self.layers;
 
 			if(!layers.prefix){
-				layers.prefix = $('<div class="prefix-overlay noselect">' + t + '</div>').prependTo(layers.items);
-			}else{
-				self.layers.prefix.find('.value').text(t);
+				layers.prefix = self.addin(t, -1, 'prefix-overlay noselect', true);
+			} else {
+				layers.prefix.html(t);
 			}
 		},
+
+		// legacy support
+		placeholder: function(t) {
+			this.setPlaceholder(t);
+		},
+		setPlaceholder: function(t) {
+			var self = this,
+				layers = self.layers;
+
+			if(!layers.placeholder){
+				layers.placeholder = $('<div class="placeholder noselect"></div>').hide().appendTo(layers.input);
+			}
+
+			layers.placeholder.html(t);
+		},
+
 
 		setMax: function (max) {
 			var self = this,
@@ -2803,7 +2818,7 @@
 			if(!found && weight < 0){
 				// Must just left of input
 				layers.items.find('.field-item-input').before(addon);
-				
+
 				// refresh first
 				layers.items.find('.field-item.first').not(':first').removeClass('first');
 				layers.items.find('.field-item').filter(':first').addClass('first');
@@ -2816,16 +2831,139 @@
 			return addon;
 		},
 
-		placeholder: function (s) {
-			var self = this,
-				layers = self.layers;
+		_saveInputWidth: function() {
+			this.savedWidth = this.element.parent().width();
+		},
+		_restoreInputWidth: function() {
+			var e = this.element;
+			e.width(e.width() + (this.savedWidth - e.parent().width()));
+			this._repositionPlaceholder();
+		},
 
-			if(!layers.placeholder){
-				layers.placeholder = $('<div class="placeholder noselect"></div>').hide().appendTo(layers.input);
+		_repositionPlaceholder: function() {
+			var p = this.layers.placeholder,
+				e = this.element;
+
+			if(!p) {
+				return;
 			}
 
-			layers.placeholder.text(s);
+			// Make the placeholder in the same location + same size as element
+			p.width(e.width());
+			p.css('margin-left', e.position().left);
+
+			// Make sure the placholder text does not overflow container
+			if(!this.savedPlaceholderSize) {
+				this.savedPlaceholderFontSize = p.css('font-size');
+			} else {
+				p.css('font-size', this.savedPlaceholderSize);
+			}
+
+			while(p[0].scrollWidth > e.width() && (parseFloat(p.css('font-size'),10) >= 8.0)) {
+				p.css('font-size','-=1.0');
+			}
 		},
+
+		_weightToSide: function(weight) {
+			return (weight < 0)? 'left' : 'right';
+		},
+
+		addin: function(html, weight, containerClass, makeFixed) {
+			var self = this,
+				e = self.element,
+				index = Math.abs(weight),
+				side, group, container,
+				addin, fixed,
+				inwardAdjacentElement;
+
+			side = self._weightToSide(weight);
+
+			// create initial side structure
+			if(!self.layers.addins) {
+				self.layers.addins = {};
+			}
+			if(!self.layers.addins[side]) {
+				self.layers.addins[side] = {
+					container: $('<div class="addin-container-'+side+'"></div>'),
+					group: [null], // items away from input (>i = >distance)
+					fixed: []
+				};
+			}
+
+			group = self.layers.addins[side].group;
+			container = self.layers.addins[side].container;
+			fixed = self.layers.addins[side].fixed;
+
+			// Create addin element
+			addin = $('<div class="addin"></div>');
+			if(containerClass) {
+				addin.addClass(containerClass);
+			}
+			addin.append(html);
+
+
+			// store element reference
+			while(index === 0 || !makeFixed && fixed.indexOf(index) !== -1) {
+				// keep input at 0, null in groups
+				++index;
+			}
+			group.splice(index, 0, addin);
+			index = group.indexOf(addin);
+
+			if(makeFixed) {
+				fixed.push(index);
+			}
+
+			// make sure side container is there
+			if(!e.siblings('.addin-container-'+side).length) {
+				e[(side === 'left')? 'before' : 'after'](container);
+			}
+
+			// place element, maintaining input field width
+			self._saveInputWidth();
+
+			if(index === 1) {
+				// add to inner wall
+				container[(side === 'left')? 'append' : 'prepend'](addin);
+			} else {
+				// offset from another element
+				inwardAdjacentElement = group[index-1];
+				inwardAdjacentElement[(side === 'left')? 'before' : 'after'](addin);
+			}
+
+			self._restoreInputWidth();
+
+			// return accurate weight
+			return addin;
+		},
+
+		toggleAddin: function(selector, visibility) {
+			var self = this,
+				addin;
+
+			if(!self.layers.addins || !selector) {
+				return;
+			}
+
+			if(typeof selector === 'number') {
+				// treat as weight
+				addin = self.layers.addins[self._weightToSide(selector)].group[Math.abs(selector)];
+				if(!addin) {
+					console.error('Invalid addin weight. Does not match existing addin.');
+					return;
+				}
+			} else {
+				addin = selector;
+			}
+
+			self._saveInputWidth();
+			addin.toggle(visibility);
+			self._restoreInputWidth();
+
+			return addin;
+		},
+
+
 
 		_init: function() {
 			var self = this;
@@ -2840,7 +2978,7 @@
 
 			if(type && $.isFunction(type.clear)) {
 				type.clear.call(type, self);
-			}else{
+			} else {
 				self.prevValue = '';
 				self.set('');
 			}
@@ -2878,9 +3016,9 @@
 			setOptions = $.extend({autoClean: true}, setOptions);
 
 			if (setOptions.autoClean) {
-				
+
 				 // * store the base value
-				 
+
 				self.prevValue = value;
 
 				self.clearDirty();
@@ -2911,11 +3049,11 @@
 			}
 
 			self._trigger('afterset', null, [val, value]);
-			
+
 			// Redraw synchronously to avoid display errors (was not working perfectly with setTimeout)
 			self.redraw();
 		},
-		
+
 
 		get: function() {
 			var self = this,
@@ -2946,7 +3084,7 @@
 			if($.isFunction(type.isEmpty)) {
 				return type.isEmpty.call(type, self);
 			}
-			
+
 			return $.trim(self.element.val()) === '';
 		},
 
@@ -3094,91 +3232,19 @@
 		redraw: function() {
 			var self = this,
 				e = self.element,
-				o = self.options,
 				hasVal = !!e.val(),
 				showError = false,
 				showNotice = true,
 				showPlaceholder = true,
 				layers = self.layers;
 
-				//self.inputWidth = self.element.width(); // Added this line to fix display issue 
-
 			if(hasVal) {
 				showPlaceholder = false;
 			}
 
-			if(self.suffixShim && !showPlaceholder){
-				self.suffixShim.text(e.val());
-			}
+			self.toggleAddin(layers.prefix, !showPlaceholder);
+			self.toggleAddin(layers.suffix, !showPlaceholder);
 
-			if(layers.prefix){
-				if(!showPlaceholder) {
-					if(!self.prefixPaddingAdded) {
-						self.startInputWidth = e.width();
-						self.startPaddingLeft = e.css('padding-left').replace('[^0-9]','');
-						self.startPaddingLeft = isNaN(self.startPaddingLeft)? 5 : parseInt(self.startPaddingLeft, 10);
-						e.css({
-							paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + "px",
-							width: (self.startInputWidth - layers.prefix.outerWidth())  + 'px'
-						});
-
-						self.prefixPaddingAdded = true;
-					}
-				} else {
-					e.css({
-						paddingLeft: self.startPaddingLeft,
-						width: self.startInputWidth + 'px'
-					});
-
-					self.prefixPaddingAdded = false;
-				}
-			}
-
-			if(layers.suffix){
-				if(!showPlaceholder) {
-					if(!self.suffixPaddingAdded) {
-						var valWidth = layers.suffix.find('.value').outerWidth();
-
-						self.startInputWidth = e.width();
-						self.startPaddingRight = e.css('padding-right').replace('[^0-9]','');
-						self.startPaddingRight = isNaN(self.startPaddingRight)? 0 : parseInt(self.startPaddingRight, 10);
-
-						e.css({
-							paddingRight: (self.startPaddingRight + valWidth) + 'px',
-							width: (self.startInputWidth - valWidth)  + 'px'
-						});
-						self.suffixShim.css({
-							paddingLeft: (layers.prefix? layers.prefix.outerWidth() : 1) + 'px',
-							maxWidth: (self.startInputWidth - valWidth)  + 'px'
-						});
-						
-						self.suffixPaddingAdded = true;
-					}
-				} else {	
-					e.css({
-						paddingRight: self.startPaddingRight,
-						width: self.startInputWidth + (layers.prefix? layers.prefix.outerWidth() : 0) + 'px'
-					});
-					
-					self.suffixPaddingAdded = false;
-				}
-			}
-
-			/*
-			if(o.hover){
-
-			}
-			*/
-			/*
-			if(o.focus){
-				showSuggest = false;
-			}
-			*/
-			/*
-			if(o.warn){
-
-			}
-			*/
 			if(self.states.error) {
 				showNotice = false;
 				showError = true;
@@ -3186,45 +3252,26 @@
 
 			if(self.dirty){
 				self.field.addClass('dirty');
-			}else{
+			} else {
 				self.field.removeClass('dirty');
 			}
 
-			self._showLayer('error', showError);
-			self._showLayer('notice', showNotice);
-			self._showLayer('placeholder', showPlaceholder);
-			self._showLayer('suffix', !showPlaceholder);
-			self._showLayer('prefix', !showPlaceholder);
+			self._toggleLayer('error', showError);
+			self._toggleLayer('notice', showNotice);
+			self._toggleLayer('placeholder', showPlaceholder);
 		},
 
-		_showLayer: function(layer, show) {
-			var self = this,
-				e = self.element;
+		_toggleLayer: function(layerName, isVisible) {
+			var layer = this.layers[layerName];
 
-			if(!self.layers[layer]) {
+			if(!layer) {
 				return;
 			}
 
-			if(show) {
-				if(layer === 'suffix') {
-					self.layers[layer].css('visibility', 'visible');
-				} else {
-					self.layers[layer].show();
-				}
+			layer.toggle(isVisible);
 
-				// MISC-919 make sure placeholder stays in input box
-				if(layer === 'placeholder' && e.width() > 0) {
-					var ph = self.layers[layer];
-					while((ph.outerWidth(true)) > e.width() && (parseFloat(ph.css('font-size'),10) >= 8.0)) {
-						ph.css('font-size','-=1.0');
-					}
-				}
-			} else {
-				if(layer === 'suffix') {
-					self.layers[layer].css('visibility', 'hidden');
-				} else {
-					self.layers[layer].hide();
-				}
+			if(isVisible && layerName === 'placholder') {
+				this._repositionPlaceholder();
 			}
 		},
 
@@ -3236,7 +3283,7 @@
 			/*
 			 * run the type tear down if it exists
 			 */
-			
+
 			if(type && $.isFunction(type.tearDown)) {
 				type.tearDown().call(type, self);
 			}
@@ -3381,7 +3428,7 @@
 		}
 	});
 
-	
+
 
 
 
@@ -3430,7 +3477,6 @@
 
 
 }(jQuery));
-
 
 /**
  * inputFilter widget
