@@ -39,11 +39,7 @@
 		}
 	}
 
-	.error-overlay {
-		@include fieldTextFormatting(right);
-		color: $color-error;
-		font-size: .8em;
-	}
+
 
 	.field-item {
 		display:inline-block;
@@ -192,6 +188,10 @@
 	.suffix-overlay {
 		color: $inputField-overlay-color;
 		font-family: sans-serif;
+	}
+	.error-overlay {
+		color: $color-error;
+		font-size: 0.8em;
 	}
 
 	.addin-container-left {

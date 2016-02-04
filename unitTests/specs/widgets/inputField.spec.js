@@ -10,12 +10,12 @@ describe('An inputField', function(){
 
 	var util = $.formBuilder.util;
 
-	it('ui testing', function() {
-		var input = $('<input type="text" data-type="date" data-placeholder="someonedsa"/>').wrap('<div>').appendTo(testContainer).inputField();
+	xit('ui testing', function() {
+		var input = $('<input type="text" data-type="email" data-placeholder="someonedsa"/>').wrap('<div>').appendTo(testContainer).inputField();
 		var ifw = input.data('formBuilderInputField');
-		// ifw.addin('<span>l1</span>', -1);
+		ifw.addin('<span>l1</span>', -1);
 		// ifw.addin('<span>l2</span>', -1);
-		// ifw.addin('<span>r1</span>', 1);
+		ifw.addin('<span>r1</span>', 1);
 		// ifw.addin('<span>r2f</span>', 1, undefined, true);
 		// ifw.addin('<span>r3</span>', 3);
 
@@ -104,10 +104,13 @@ describe('An inputField', function(){
 			var ifw = input.data('formBuilderInputField');
 
 			spyOn(ifw, '_toggleLayer');
+			spyOn(ifw, 'toggleAddin');
 
 			ifw.redraw();
 			expect(ifw._toggleLayer).toHaveBeenCalled();
-			expect(ifw._toggleLayer.calls.count()).toBe(3);
+			expect(ifw._toggleLayer.calls.count()).toBe(2);
+			expect(ifw.toggleAddin).toHaveBeenCalled();
+			expect(ifw.toggleAddin.calls.count()).toBe(3);
 		});
 
 		it('after a set',function(done){
@@ -914,14 +917,14 @@ describe('An inputField', function(){
 			input.inputField();
 			ifw = input.data('formBuilderInputField');
 
-			overlay = input.siblings('.error-overlay');
-			expect(overlay.length).toBe(0);
+			overlay = ifw.layers.error;
+			expect(overlay).toBeUndefined();
 
 			ifw.setError({
 				message: 'some error'
 			});
 
-			overlay = input.siblings('.error-overlay');
+			overlay = ifw.layers.error;
 			expect(overlay.length).toBe(1);
 			expect(overlay.is(':visible')).toBe(true);
 			expect(overlay.text()).toBe('some error');
@@ -943,7 +946,7 @@ describe('An inputField', function(){
 			});
 			ifw.clearError();
 
-			overlay = input.siblings('.error-overlay');
+			overlay = ifw.layers.error;
 			expect(overlay.length).toBe(1);
 			expect(overlay.is(':visible')).toBe(false);
 			expect(overlay.text()).toBe('some error');

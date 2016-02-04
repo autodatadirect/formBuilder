@@ -344,7 +344,7 @@
 
 			if(e.is(':formBuilder-inputFilter')){
 				e.inputFilter('setMax', max);
-			}else{
+			} else {
 				e.inputFilter({
 					toUpper: false,
 					max: max,
@@ -636,11 +636,16 @@
 				}
 			} else {
 				// treat as a jquery selector, find the container
-				addin = self.layers.input.find(selector).closest('.addin-container-left, .addin-container-right');
+				addin = self.layers.input.find(selector).closest('.addin');
 			}
 
 			if(!addin || !addin.length) {
 				console.warn('[formBuilder] Addin selector does not match any addin', self.element, selector);
+				return;
+			}
+
+			if(typeof visibility !== 'undefined' && addin.is(':visible') === visibility) {
+				// Not needed
 				return;
 			}
 
@@ -859,11 +864,14 @@
 			}
 
 			if(!layers.error) {
-				layers.error = $('<div class="error-overlay noselect"></div>').appendTo(layers.input);
+				layers.error = self.addin('', 1000, 'error-overlay noselect', true);
 			}
 
-			//TODO: place error then check for overlaps
-			layers.error.text(err.message);
+			if(err.message) {
+				self._saveInputWidth();
+				layers.error.html(err.message);
+				self._restoreInputWidth();
+			}
 
 			self.status('error', true);
 
@@ -919,32 +927,14 @@
 			var self = this,
 				e = self.element,
 				hasVal = !!e.val(),
-				showError = false,
-				showNotice = true,
-				showPlaceholder = true,
 				layers = self.layers;
 
-			if(hasVal) {
-				showPlaceholder = false;
-			}
-
-			self.toggleAddin(layers.prefix, !showPlaceholder);
-			self.toggleAddin(layers.suffix, !showPlaceholder);
-
-			if(self.states.error) {
-				showNotice = false;
-				showError = true;
-			}
-
-			if(self.dirty){
-				self.field.addClass('dirty');
-			} else {
-				self.field.removeClass('dirty');
-			}
-
-			self._toggleLayer('error', showError);
-			self._toggleLayer('notice', showNotice);
-			self._toggleLayer('placeholder', showPlaceholder);
+			self.toggleAddin(layers.prefix, hasVal);
+			self.toggleAddin(layers.suffix, hasVal);
+			self.field.toggleClass('dirty', !!self.dirty);
+			self.toggleAddin(layers.error, self.states.error);
+			self._toggleLayer('notice', !self.states.error);
+			self._toggleLayer('placeholder', !hasVal);
 		},
 
 		_toggleLayer: function(layerName, isVisible) {
