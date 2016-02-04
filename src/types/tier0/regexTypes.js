@@ -131,7 +131,7 @@
 	 * basic types
 	 */
 	$.extend(types, {
-		utext: createRegexType(/.*/, /.*/, {
+		'utext': createRegexType(/.*/, /.*/, {
 			toUpper: true
 		}),
 		state: createRegexType(/^[A-Z]{2}$/, /[A-Z]/, {}, 2),

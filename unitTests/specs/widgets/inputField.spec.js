@@ -11,12 +11,11 @@ describe('An inputField', function(){
 	var util = $.formBuilder.util;
 
 	it('ui testing', function() {
-		var input = $('<input type="text" data-type="number" data-placeholder="someonedsa"/>').wrap('<div>').appendTo(testContainer).inputField();
-		var input2 = $('<input type="text" data-type="number" data-placeholder="someonedsa"/>').wrap('<div>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="date" data-placeholder="someonedsa"/>').wrap('<div>').appendTo(testContainer).inputField();
 		var ifw = input.data('formBuilderInputField');
-		ifw.addin('<span>l1</span>', -1);
-		ifw.addin('<span>l2</span>', -1);
-		ifw.addin('<span>r1</span>', 1);
+		// ifw.addin('<span>l1</span>', -1);
+		// ifw.addin('<span>l2</span>', -1);
+		// ifw.addin('<span>r1</span>', 1);
 		// ifw.addin('<span>r2f</span>', 1, undefined, true);
 		// ifw.addin('<span>r3</span>', 3);
 
@@ -89,11 +88,11 @@ describe('An inputField', function(){
 		expect(ifw.layers.someLayer.is(':visible')).toBe(true);
 
 		// Hide it
-		ifw._showLayer('someLayer', false);
+		ifw._toggleLayer('someLayer', false);
 		expect(ifw.layers.someLayer.is(':visible')).toBe(false);
 
 		// Show it again
-		ifw._showLayer('someLayer', true);
+		ifw._toggleLayer('someLayer', true);
 		expect(ifw.layers.someLayer.is(':visible')).toBe(true);
 
 		testContainer.empty();
@@ -104,11 +103,11 @@ describe('An inputField', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
 			var ifw = input.data('formBuilderInputField');
 
-			spyOn(ifw, '_showLayer');
+			spyOn(ifw, '_toggleLayer');
 
 			ifw.redraw();
-			expect(ifw._showLayer).toHaveBeenCalled();
-			expect(ifw._showLayer.calls.count()).toBe(5);
+			expect(ifw._toggleLayer).toHaveBeenCalled();
+			expect(ifw._toggleLayer.calls.count()).toBe(3);
 		});
 
 		it('after a set',function(done){
@@ -225,25 +224,20 @@ describe('An inputField', function(){
 			var ifw = input.data('formBuilderInputField');
 
 			ifw.setSuffix('some suffix');
-			var overlay = input.parent().siblings('.suffix-overlay');
+			var overlay = ifw.layers.suffix;
 
 			expect(overlay.length).toBe(1);
-			expect(overlay.children('.shim').length).toBe(1);
-			expect(overlay.children('.value').length).toBe(1);
-			expect(overlay.children('.value').html()).toBe('some suffix');
+			expect(overlay.html()).toBe('some suffix');
 		});
 
 		it('that can be set with an attribute', function(){
 			var input = $('<input type="text" data-suffix="some suffix"/>').wrap('<div/>').inputField();
 			var container = input.parent();
 			var ifw = input.data('inputField');
-			var overlay = input.parent().siblings('.suffix-overlay');
+			var overlay = ifw.layers.suffix;
 
 			expect(overlay.length).toBe(1);
-			expect(overlay.children('.shim').length).toBe(1);
-			expect(overlay.children('.value').length).toBe(1);
-			expect(overlay.children('.value').html()).toBe('some suffix');
-
+			expect(overlay.html()).toBe('some suffix');
 		});
 
 		it('that is hidden at the start', function(){
@@ -260,9 +254,9 @@ describe('An inputField', function(){
 			ifw.setSuffix('some suffix');
 			ifw.redraw();
 
-			overlay = input.parent().siblings('.suffix-overlay');
+			overlay = ifw.layers.suffix;
 
-			expect(overlay.css('visibility')).toBe('hidden');
+			expect(overlay.is(':visible')).toBe(false);
 
 			testContainer.empty();
 		});
@@ -279,15 +273,15 @@ describe('An inputField', function(){
 
 			ifw.setSuffix('some suffix');
 			ifw.redraw();
-			overlay = input.parent().siblings('.suffix-overlay');
+			overlay = ifw.layers.suffix;
 
-			expect(overlay.css('visibility')).toBe('hidden');
+			expect(overlay.is(':visible')).toBe(false);
 
 			ifw.set('some value');
 			ifw.redraw();
 
-			overlay = container.find('.suffix-overlay');
-			expect(overlay.css('visibility')).toBe('visible');
+			overlay = ifw.layers.suffix;
+			expect(overlay.is(':visible')).toBe(true);
 
 			testContainer.empty();
 		});
@@ -304,21 +298,21 @@ describe('An inputField', function(){
 
 			ifw.setSuffix('some suffix');
 			ifw.redraw();
-			overlay = input.parent().siblings('.suffix-overlay');
+			overlay = ifw.layers.suffix;
 
-			expect(overlay.css('visibility')).toBe('hidden');
+			expect(overlay.is(':visible')).toBe(false);
 
 			ifw.set('some value');
 			ifw.redraw();
 
-			overlay = container.find('.suffix-overlay');
-			expect(overlay.css('visibility')).toBe('visible');
+			overlay = ifw.layers.suffix;
+				expect(overlay.is(':visible')).toBe(true);
 
 			ifw.set('');
 			ifw.redraw();
 
-			overlay = container.find('.suffix-overlay');
-			expect(overlay.css('visibility')).toBe('hidden');
+			overlay = ifw.layers.suffix;
+			expect(overlay.is(':visible')).toBe(false);
 
 			testContainer.empty();
 		});
@@ -331,7 +325,7 @@ describe('An inputField', function(){
 			var ifw = input.data('formBuilderInputField');
 
 			ifw.setPrefix('some prefix');
-			var overlay = input.parent().siblings('.prefix-overlay');
+			var overlay = ifw.layers.prefix;
 
 			expect(overlay.length).toBe(1);
 			expect(overlay.html()).toBe('some prefix');
@@ -341,11 +335,10 @@ describe('An inputField', function(){
 			var input = $('<input type="text" data-prefix="some prefix"/>').wrap('<div/>').inputField();
 			var container = input.parent();
 			var ifw = input.data('inputField');
-			var overlay = input.parent().siblings('.prefix-overlay');
+			var overlay = ifw.layers.prefix;
 
 			expect(overlay.length).toBe(1);
 			expect(overlay.html()).toBe('some prefix');
-
 		});
 
 		it('that is hidden at the start', function(){
@@ -362,7 +355,7 @@ describe('An inputField', function(){
 			ifw.setPrefix('some prefix');
 			ifw.redraw();
 
-			overlay = input.parent().siblings('.prefix-overlay');
+			overlay = ifw.layers.prefix;
 
 			expect(overlay.is(':visible')).toBe(false);
 
@@ -381,14 +374,14 @@ describe('An inputField', function(){
 
 			ifw.setPrefix('some prefix');
 			ifw.redraw();
-			overlay = input.parent().siblings('.prefix-overlay');
+			overlay = ifw.layers.prefix;
 
 			expect(overlay.is(':visible')).toBe(false);
 
 			ifw.set('some value');
 			ifw.redraw();
 
-			overlay = container.find('.prefix-overlay');
+			overlay = ifw.layers.prefix;
 			expect(overlay.is(':visible')).toBe(true);
 
 			testContainer.empty();
@@ -406,20 +399,20 @@ describe('An inputField', function(){
 
 			ifw.setPrefix('some prefix');
 			ifw.redraw();
-			overlay = input.parent().siblings('.prefix-overlay');
+			overlay = ifw.layers.prefix;
 
 			expect(overlay.is(':visible')).toBe(false);
 
 			ifw.set('some value');
 			ifw.redraw();
 
-			overlay = container.find('.prefix-overlay');
+			overlay = ifw.layers.prefix;
 			expect(overlay.is(':visible')).toBe(true);
 
 			ifw.set('');
 			ifw.redraw();
 
-			overlay = container.find('.prefix-overlay');
+			overlay = ifw.layers.prefix;
 			expect(overlay.is(':visible')).toBe(false);
 
 			testContainer.empty();
@@ -1014,8 +1007,14 @@ describe('An inputField', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();
 			var ifw = input.data('formBuilderInputField');
 
-			ifw.setType(testType);
-			expect(ifw.getType()).not.toBe(testType);
+			var error;
+			try {
+				ifw.setType(testType);
+			} catch(e) {
+				error = e;
+			}
+
+			expect(error).toBeDefined();
 
 			ifw.setType('utext');
 
@@ -1270,5 +1269,10 @@ describe('An inputField', function(){
 
 			done();
 		});
+	});
+
+
+	describe('can have addins', function() {
+		it('TODO');
 	});
 });

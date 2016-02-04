@@ -103,7 +103,7 @@
 			 * load DOM settings from field into options
 			 */
 
-			util.loadDomData(e, o, ['empty', 'placeholder', 'tqype', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+			util.loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
 			util.loadDomToggleData(e, o, ['require', 'required']);
 
 			/*
@@ -631,7 +631,7 @@
 				// treat as weight
 				addin = self.layers.addins[self._weightToSide(selector)].group[Math.abs(selector)];
 				if(!addin) {
-					console.warn('[formBuilder] Invalid addin weight. Does not match existing addin.');
+					console.warn('[formBuilder] Invalid addin weight. Does not match existing addin.', self.element);
 					return;
 				}
 			} else {
@@ -640,7 +640,7 @@
 			}
 
 			if(!addin || !addin.length) {
-				console.warn('[formBuilder] Addin selector does not match any addin', self, selector);
+				console.warn('[formBuilder] Addin selector does not match any addin', self.element, selector);
 				return;
 			}
 
@@ -978,6 +978,10 @@
 			 * if type doesn't exist set to the default of text
 			 */
 			if(!sType || !types[sType]) {
+				if(sType) {
+					throw new Error('[formBuilder] Invalid type "'+sType+'"', self.element);
+				}
+
 				sType = 'text';
 			}
 

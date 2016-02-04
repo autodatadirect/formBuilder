@@ -155,13 +155,13 @@
 </li>
 <li>Methods (private)<ul>
 <li><strong>_create()</strong> Creates a new inputField object and initializes attributes. Loads data to the Dom, creates a tooltip if it has been given. Can convert the simple input into the full field format by wrapping it in the appropriate divs. Initializes the different statuses to their appropriate values.   </li>
-<li><strong>_onKeydown(<em>event</em> ev)</strong> When the keydown event occurs calls <code>_showLayer(&#39;placeholder&#39;, false)</code>.</li>
+<li><strong>_onKeydown(<em>event</em> ev)</strong> When the keydown event occurs calls <code>_toggleLayer(&#39;placeholder&#39;, false)</code>.</li>
 <li><strong>_onKeyup(<em>event</em> ev)</strong>  When the keyup event occurs, will validate if self.autoValidate is equal to &#39;keyup&#39;. Then calls <code>checkDirty()</code> and <code>redraw()</code>.</li>
 <li><strong>_onBlur(<em>event</em> ev)</strong> When the blur event occurs, will validate if self.autoValidate is equal to &#39;blur&#39;.</li>
 <li><strong>_init()</strong> Automatically called when inputField is created. Sets the current element&#39;s value attribute. </li>
 <li><strong>_formatToField(<em>string</em> value)</strong> If the value is null or undefined, returns the value. If there is no type, no type converter, and no converter method for the type, then returns the value. Otherwise, returns <code>type.converter.toField.call(type, value, self)</code>.</li>
 <li><strong>_formatFromField(<em>string</em> value)</strong> If there is no type, no type converter, and no converter method for the type, then returns the value. Otherwise, returns <code>type.converter.fromField.call(type, value, self)</code>.</li>
-<li><strong>_showLayer(<em>string</em> layer, <em>boolean</em> show)</strong> Makes the layer that has been passed in visible. </li>
+<li><strong>_toggleLayer(<em>string</em> layer, <em>boolean</em> show)</strong> Makes the layer that has been passed in visible. </li>
 <li><strong>_destroy()</strong> If the current type has a tearDown method then call it. </li>
 </ul>
 </li>

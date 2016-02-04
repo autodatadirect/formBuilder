@@ -81,13 +81,13 @@ Builds a base input object that is able to get, set, and modify data based on wh
     - **hasStatus(*string* statusName)** Returns the current object's state for the status name that was passed into the method. 
 * Methods (private)
     - **_create()** Creates a new inputField object and initializes attributes. Loads data to the Dom, creates a tooltip if it has been given. Can convert the simple input into the full field format by wrapping it in the appropriate divs. Initializes the different statuses to their appropriate values.   
-    - **_onKeydown(*event* ev)** When the keydown event occurs calls `_showLayer('placeholder', false)`.
+    - **_onKeydown(*event* ev)** When the keydown event occurs calls `_toggleLayer('placeholder', false)`.
     - **_onKeyup(*event* ev)**  When the keyup event occurs, will validate if self.autoValidate is equal to 'keyup'. Then calls `checkDirty()` and `redraw()`.
     - **_onBlur(*event* ev)** When the blur event occurs, will validate if self.autoValidate is equal to 'blur'.
     - **_init()** Automatically called when inputField is created. Sets the current element's value attribute. 
     - **_formatToField(*string* value)** If the value is null or undefined, returns the value. If there is no type, no type converter, and no converter method for the type, then returns the value. Otherwise, returns `type.converter.toField.call(type, value, self)`.
     - **_formatFromField(*string* value)** If there is no type, no type converter, and no converter method for the type, then returns the value. Otherwise, returns `type.converter.fromField.call(type, value, self)`.
-    - **_showLayer(*string* layer, *boolean* show)** Makes the layer that has been passed in visible. 
+    - **_toggleLayer(*string* layer, *boolean* show)** Makes the layer that has been passed in visible. 
     - **_destroy()** If the current type has a tearDown method then call it. 
 * Events 
     - **dirty** *Optional.* Triggered if the form has been changed but not saved.
