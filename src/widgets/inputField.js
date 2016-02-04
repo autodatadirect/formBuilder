@@ -103,7 +103,7 @@
 			 * load DOM settings from field into options
 			 */
 
-			util.loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+			util.loadDomData(e, o, ['empty', 'placeholder', 'tqype', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
 			util.loadDomToggleData(e, o, ['require', 'required']);
 
 			/*
@@ -133,7 +133,7 @@
 				input: field.find('.field-item-input')
 			};
 
-			if(o.label){
+			if(o.label) {
 				self.setLabel(o.label);
 			}
 
@@ -355,7 +355,7 @@
 
 		_onKeydown: function(ev) {
 			var self = this;
-			self._showLayer('placeholder', false);
+			self._toggleLayer('placeholder', false);
 		},
 
 		_onKeyup: function(ev) {
@@ -535,6 +535,16 @@
 			return (weight < 0)? 'left' : 'right';
 		},
 
+		/**
+		 * Adds an element inside the input field container either to the left
+		 * or right of the actual input spot while still maintaining the field
+		 * width.
+		 * @param  html           html string or jQuery element, content of addin
+		 * @param  weight         offset from center input (<0 left, >0 right)
+		 * @param  containerClass class added to the addin container
+		 * @param  makeFixed      Prevents weight from being changed by other addins
+		 * @return the created addin container jQuery element
+		 */
 		addin: function(html, weight, containerClass, makeFixed) {
 			var self = this,
 				e = self.element,
@@ -604,6 +614,11 @@
 			return addin;
 		},
 
+		/**
+		 * Toggles addin visiblity. The selector may be a weight or jQuery
+		 * selector that matches an addin.
+		 * @return addin container of changed addin, or undefined if not found
+		 */
 		toggleAddin: function(selector, visibility) {
 			var self = this,
 				addin;
@@ -616,11 +631,17 @@
 				// treat as weight
 				addin = self.layers.addins[self._weightToSide(selector)].group[Math.abs(selector)];
 				if(!addin) {
-					console.error('Invalid addin weight. Does not match existing addin.');
+					console.warn('[formBuilder] Invalid addin weight. Does not match existing addin.');
 					return;
 				}
 			} else {
-				addin = selector;
+				// treat as a jquery selector, find the container
+				addin = self.layers.input.find(selector).closest('.addin-container-left, .addin-container-right');
+			}
+
+			if(!addin || !addin.length) {
+				console.warn('[formBuilder] Addin selector does not match any addin', self, selector);
+				return;
 			}
 
 			self._saveInputWidth();
@@ -629,8 +650,6 @@
 
 			return addin;
 		},
-
-
 
 		_init: function() {
 			var self = this;
