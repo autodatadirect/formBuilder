@@ -855,16 +855,16 @@
 				error = self.states.error,
 				layers = self.layers;
 
-			/*
-			 * check if we need to clear the error
-			 */
+			// check if we need to clear the error
 			if(err === undefined) {
 				self.clearError();
 				return;
 			}
 
 			if(!layers.error) {
-				layers.error = self.addin('', 1000, 'error-overlay noselect', true);
+				layers.error = self.addin(
+					'', layers.suffix? 2 : 1, 'error-overlay noselect', true
+				);
 			}
 
 			if(err.message) {
@@ -875,9 +875,7 @@
 
 			self.status('error', true);
 
-			/*
-			 * listen to keyUp events and rerun validate on this field
-			 */
+			// listen to keyUp events and rerun validate on this field
 			self.autoValidate = 'keyup';
 		},
 

@@ -14,7 +14,7 @@
 	chars.ALPHAS = chars.alphas.toUpperCase();
 	chars.all = chars.alphas + chars.ALPHAS + chars.digits + chars.symbols;
 
-	window.formBuilderTesting = {
+	var formBuilderTesting = window.formBuilderTesting = {
 		testContainer: $('.test-container'),
 
 		//for testing q chains
@@ -45,4 +45,29 @@
 			}
 		}
 	};
+
+	// Simple wrapper easier testing
+	var TestInstance = formBuilderTesting.TestInstance = function() {
+		this.e = undefined; // element, should be manually set
+		this.w = undefined; // widget instance, should be manually set
+	};
+	TestInstance.prototype.frame = formBuilderTesting.testContainer;
+	TestInstance.prototype.add = function(element) {
+		if(!element && this.e) {
+			element = this.e;
+		}
+		if(element) {
+			this.frame.append(element);
+		}
+	};
+	TestInstance.prototype.clear = function() {
+		// Frame must be cleared if add() has been called.
+
+		if(this.e) {
+			this.e.remove();
+		}
+		this.frame.children().remove();
+	};
+
+
 })();

@@ -11,7 +11,7 @@ describe('An inputField', function(){
 	var util = $.formBuilder.util;
 
 	xit('ui testing', function() {
-		var input = $('<input type="text" data-type="email" data-placeholder="someonedsa"/>').wrap('<div>').appendTo(testContainer).inputField();
+		var input = $('<input type="text" data-type="email" data-suffix="ab" data-placeholder="someonedsa"/>').wrap('<div>').appendTo(testContainer).inputField();
 		var ifw = input.data('formBuilderInputField');
 		ifw.addin('<span>l1</span>', -1);
 		// ifw.addin('<span>l2</span>', -1);
@@ -20,8 +20,6 @@ describe('An inputField', function(){
 		// ifw.addin('<span>r3</span>', 3);
 
 		window.ifw = ifw;
-
-		expect(1).toBe(1);
 	});
 
 	it('can be created', function(){

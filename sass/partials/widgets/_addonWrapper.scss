@@ -1,0 +1,29 @@
+.addon-container {
+	display: inline-block;
+	vertical-align: top;
+	width: auto;
+
+	.addon {
+		height: 100%;
+		display: inline-block;
+	}
+}
+
+.addon-container-before {
+	.addon {
+		padding-right: $addonWrapper-addonSpacing;
+
+		&:first-child {
+			padding-left: $addonWrapper-addonSpacing;
+		}
+	}
+}
+.addon-container-after {
+	.addon {
+		padding-left: $addonWrapper-addonSpacing;
+
+		&:last-child {
+			padding-right: $addonWrapper-addonSpacing;
+		}
+	}
+}

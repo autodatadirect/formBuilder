@@ -12,20 +12,18 @@ module.exports = function(done){
 	var priortySpecFiles = [];
 	var specFiles = [];
 	var specDirs = [];
-	
 
-	
+
+
 	var inputJadeFile = path.join(__dirname, 'base.jade');
 	var outputHtmlFile = path.join(__dirname, 'testRunner.html');
-
-	
 
 	// Get all the specs
 	var searchDirectory = function(dir, ignoreDirs) {
 		if(!dir) {
 			dir = '';
 		}
-		
+
 		var stat, filePath, relPath;
 
 		fs.readdirSync(dir).forEach(function(file) {
@@ -33,8 +31,8 @@ module.exports = function(done){
 			relPath = path.relative(__dirname, filePath);
 			stat = fs.lstatSync(filePath);
 
-			if(stat.isFile()) {
-				if(file[0] === '_') {
+			if(stat.isFile() && file.endsWith('.spec.js')) {
+				if(file.startsWith('_')) {
 					priortySpecFiles.push(relPath);
 					console.log('FOUND PRIORITY TESTSCRIPT '+relPath);
 				} else {
@@ -66,7 +64,7 @@ module.exports = function(done){
 
 	// Compile Jade
 	var fn, html;
-	
+
 	fn = jade.compileFile(inputJadeFile, {
 		pretty: true
 	});
