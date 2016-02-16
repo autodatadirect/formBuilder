@@ -212,7 +212,7 @@
 
 			// Remove all side elements
 			$.each(this.sides, function(sideName, side) {
-				side.container.remove();
+				$(side.container).remove();
 			});
 
 		}
