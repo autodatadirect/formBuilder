@@ -26,16 +26,53 @@
 		min-width: 16px;
 
 
+		// Handle borders
+		> * {
+			border-style: solid;
+			border-color: $inputField-fieldItem-borderColor;
+			border-width: $inputField-fieldItem-borderWidth;
 
-		// May need to be reorganized
+			// Only have left border to prevent doubling up
+			border-right-width: 0px;
+
+			// Finish it off by capping the borders
+			&:last-child {
+				border-right-width: $inputField-fieldItem-borderWidth;
+			}
+
+		}
+
 		.field-item-input {
 			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
-
 			position: relative;
-			/*background:#fff; hide for suffix*/
-
 			transition: box-shadow linear 0.2s;
 
+			// Input has full border, side elements do not to prevent double
+			border-right-width: $inputField-fieldItem-borderWidth;
+			+ * {
+				border-left-width: 0px;
+			}
+		}
+
+		> .addon-container {
+			height: $inputField-fieldItem-height;
+			line-height: $inputField-fieldItem-height;
+
+			.addon {
+				background: $inputField-addon-backgroundColor;
+				padding-left: $addonWrapper-addonSpacing;
+				padding-right: $addonWrapper-addonSpacing;
+
+				// Handle inner borders
+				border-style: inherit;
+				border-color: inherit;
+				border-width: 0px;
+				border-left-width: $inputField-fieldItem-borderWidth;
+
+				&:first-child {
+					border-left-width: 0px;
+				}
+			}
 		}
 	}
 
@@ -44,19 +81,13 @@
 	.field-item {
 		display:inline-block;
 		white-space: nowrap;
-		border: $inputField-fieldItem-borderWidth solid $inputField-fieldItem-borderColor;
-		border-left: 0;
-
 		height: $inputField-fieldItem-height;
 		line-height: $inputField-fieldItem-height;
-
 		vertical-align: top;
-
 		overflow: hidden;
 
-		&.first {
-			border: $inputField-fieldItem-borderWidth solid $inputField-fieldItem-borderColor;
-		}
+
+
 	}
 
 	.clickable {
@@ -64,18 +95,13 @@
 	}
 
 	.addon {
-		padding-left:8px;
-		padding-right:8px;
-		text-align: center;
 		text-shadow: 0 1px 0 white;
-		background:$inputField-addon-backgroundColor;
 
 		&.clickable {
 			text-align: center;
 			text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 			vertical-align: middle;
 
-			/*background-color: whiteSmoke;*/
 			background-image: linear-gradient(to bottom, white, #D0D0D0);
 
 			background-repeat: repeat-x;
@@ -120,19 +146,24 @@
 			color: $inputField-placeholder-color;
 			font-size:0.9em;
 		}
+
+		.addon {
+
+		}
 	}
+
+
+
+
+	// Status styles
 
 	&.warn .field-item-input {
 		border-color: $inputField-borderColor-warn;
 		background:#ffffd0;
 	}
 
-	&.hover .field-items .field-item-input {
+	&.hover:not(.disable) .field-items .field-item-input {
 		border-color: $inputField-borderColor-hover;
-	}
-
-	&.hover.disable .field-items .field-item-input {
-		border-color: $inputField-fieldItem-borderColor;
 	}
 
 	&.error .field-items .field-item-input {
@@ -162,6 +193,10 @@
 		}
 	}
 
+
+
+	// Compatibility
+
 	&.textarea-fix {
 		textarea {
 			line-height: $inputField-fieldItem-height*.75;
@@ -179,11 +214,7 @@
 
 
 	// Addin Support
-
-	.addin {
-		display: inline-block;
-	}
-
+	
 	.prefix-overlay,
 	.suffix-overlay {
 		color: $inputField-overlay-color;
@@ -192,23 +223,6 @@
 	.error-overlay {
 		color: $color-error;
 		font-size: 0.8em;
-	}
-
-	.addin-container-left {
-		float: left;
-		vertical-align: middle;
-
-		.addin {
-			padding-left: $inputField-fieldText-horizontalPadding;
-		}
-	}
-	.addin-container-right {
-		float: right;
-		vertical-align: middle;
-
-		.addin {
-			padding-right: $inputField-fieldText-horizontalPadding;
-		}
 	}
 }
 

@@ -10,14 +10,20 @@ describe('An inputField', function(){
 
 	var util = $.formBuilder.util;
 
-	xit('ui testing', function() {
+	it('ui testing', function() {
 		var input = $('<input type="text" data-type="email" data-suffix="ab" data-placeholder="someonedsa"/>').wrap('<div>').appendTo(testContainer).inputField();
 		var ifw = input.data('formBuilderInputField');
 		ifw.addin('<span>l1</span>', -1);
-		// ifw.addin('<span>l2</span>', -1);
+		ifw.addin('<span>l2</span>', -1);
 		ifw.addin('<span>r1</span>', 1);
-		// ifw.addin('<span>r2f</span>', 1, undefined, true);
-		// ifw.addin('<span>r3</span>', 3);
+		ifw.addin('<span>r2f</span>', 1, true);
+		ifw.addin('<span>r3</span>', 3);
+
+		ifw.addon('<span>ol1</span>', -1);
+		ifw.addon('<span>ol2</span>', -1);
+		ifw.addon('<span>or1</span>', 1);
+		ifw.addon('<span>or2f</span>', 1, true);
+		ifw.addon('<span>or3</span>', 3);
 
 		window.ifw = ifw;
 	});

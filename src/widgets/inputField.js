@@ -175,11 +175,11 @@
 			}
 
 			if(o.preinput) {
-				self.addOn(-1, o.preinput);
+				self.addon(o.preinput, -1);
 			}
 
 			if(o.postinput) {
-				self.addOn(1, o.postinput);
+				self.addon(o.postinput, 1);
 			}
 
 			if(o.suffix){
@@ -207,10 +207,7 @@
 					e.focus();
 				});
 
-
-
 				tooltip.popOver('hide');
-
 
 				addon.on('click', function() {
 					tooltip.popOver('toggle');
@@ -432,81 +429,49 @@
 			}
 		},
 
-		/*
-		 * weight < 0 goest to left
-		 *
-		 * Overly complex weight logic, maybe this can be refactored!
+		/**
+		 * Handles addonWrapper around field-item-input
 		 */
 		addOn: function(weight, html, className) {
+			// Legacy support
+			var element = $(html);
+			element.wrap('<span class="'+className+'"></span>');
+			return this.addon(element, weight);
+		},
+		addon: function(element, weight, keepPosition) {
+			var input = this.layers.input;
+
+			if(!input.is(':formBuilder-addonWrapper')) {
+				// Initialize it
+				input.addonWrapper();
+			}
+
+			return input.addonWrapper('add', element, weight, keepPosition);
+		},
+
+		/**
+		 * Handles addonWrapper around input element
+		 */
+		addin: function(element, weight, keepPosition) {
 			var self = this,
-				layers = self.layers;
+				e = self.element;
 
-			if(typeof(weight) !== 'number') {
-				weight = 0;
+			if(!e.is(':formBuilder-addonWrapper')) {
+				// Initialize it
+				e.addonWrapper({
+					fixWidth: true,
+					postUpdate: function() {
+						self._repositionPlaceholder();
+					}
+				});
 			}
 
-			var addon = $('<span data-weight="' + weight + '" class="field-item addon">' + html + '</span>');
-
-			if(className) {
-				addon.addClass(className);
-			}
-
-			var pre = true, found = false;
-			layers.items.children().each(function () {
-				var el = $(this);
-
-				if(el.hasClass('field-item-input')){
-					pre = false;
-					return;
-				}
-
-				// Get correct element weight
-				var eWeight = el.data('weight');
-				if(typeof(eWeight) !== 'number') {
-					eWeight = 0;
-				}
-
-				if(pre && weight < 0 && weight <= eWeight){
-					addon.insertBefore(el);
-					found = true;
-
-					// refresh first
-					layers.items.find('.field-item.first').not(':first').removeClass('first');
-					layers.items.find('.field-item').filter(':first').addClass('first');
-
-					return false;
-				} else if(!pre && weight >= 0 && weight <= eWeight) {
-					addon.insertBefore(el);
-					found = true;
-					return false;
-				}
-			});
-
-			if(!found && weight < 0){
-				// Must just left of input
-				layers.items.find('.field-item-input').before(addon);
-
-				// refresh first
-				layers.items.find('.field-item.first').not(':first').removeClass('first');
-				layers.items.find('.field-item').filter(':first').addClass('first');
-
-			} else if(!found){
-				// Must go all the way right
-				layers.items.append(addon);
-			}
-
-			return addon;
+			return e.addonWrapper('add', element, weight, keepPosition);
 		},
 
-		_saveInputWidth: function() {
-			this.savedWidth = this.element.parent().width();
-		},
-		_restoreInputWidth: function() {
-			var e = this.element;
-			e.width(e.width() + (this.savedWidth - e.parent().width()));
-			this._repositionPlaceholder();
-		},
-
+		/**
+		 * Keeps placeholder over input element only, reducing font if needed
+		 */
 		_repositionPlaceholder: function() {
 			var p = this.layers.placeholder,
 				e = this.element;
@@ -529,131 +494,6 @@
 			while(p[0].scrollWidth > e.width() && (parseFloat(p.css('font-size'),10) >= 8.0)) {
 				p.css('font-size','-=1.0');
 			}
-		},
-
-		_weightToSide: function(weight) {
-			return (weight < 0)? 'left' : 'right';
-		},
-
-		/**
-		 * Adds an element inside the input field container either to the left
-		 * or right of the actual input spot while still maintaining the field
-		 * width.
-		 * @param  html           html string or jQuery element, content of addin
-		 * @param  weight         offset from center input (<0 left, >0 right)
-		 * @param  containerClass class added to the addin container
-		 * @param  makeFixed      Prevents weight from being changed by other addins
-		 * @return the created addin container jQuery element
-		 */
-		addin: function(html, weight, containerClass, makeFixed) {
-			var self = this,
-				e = self.element,
-				index = Math.abs(weight),
-				side, group, container,
-				addin, fixed,
-				inwardAdjacentElement;
-
-			side = self._weightToSide(weight);
-
-			// create initial side structure
-			if(!self.layers.addins) {
-				self.layers.addins = {};
-			}
-			if(!self.layers.addins[side]) {
-				self.layers.addins[side] = {
-					container: $('<div class="addin-container-'+side+'"></div>'),
-					group: [null], // items away from input (>i = >distance)
-					fixed: []
-				};
-			}
-
-			group = self.layers.addins[side].group;
-			container = self.layers.addins[side].container;
-			fixed = self.layers.addins[side].fixed;
-
-			// Create addin element
-			addin = $('<div class="addin"></div>');
-			if(containerClass) {
-				addin.addClass(containerClass);
-			}
-			addin.append(html);
-
-
-			// store element reference
-			while(index === 0 || !makeFixed && fixed.indexOf(index) !== -1) {
-				// keep input at 0, null in groups
-				++index;
-			}
-			group.splice(index, 0, addin);
-			index = group.indexOf(addin);
-
-			if(makeFixed) {
-				fixed.push(index);
-			}
-
-			// make sure side container is there
-			if(!e.siblings('.addin-container-'+side).length) {
-				e[(side === 'left')? 'before' : 'after'](container);
-			}
-
-			// place element, maintaining input field width
-			self._saveInputWidth();
-
-			if(index === 1) {
-				// add to inner wall
-				container[(side === 'left')? 'append' : 'prepend'](addin);
-			} else {
-				// offset from another element
-				inwardAdjacentElement = group[index-1];
-				inwardAdjacentElement[(side === 'left')? 'before' : 'after'](addin);
-			}
-
-			self._restoreInputWidth();
-
-			// return accurate weight
-			return addin;
-		},
-
-		/**
-		 * Toggles addin visiblity. The selector may be a weight or jQuery
-		 * selector that matches an addin.
-		 * @return addin container of changed addin, or undefined if not found
-		 */
-		toggleAddin: function(selector, visibility) {
-			var self = this,
-				addin;
-
-			if(!self.layers.addins || !selector) {
-				return;
-			}
-
-			if(typeof selector === 'number') {
-				// treat as weight
-				addin = self.layers.addins[self._weightToSide(selector)].group[Math.abs(selector)];
-				if(!addin) {
-					console.warn('[formBuilder] Invalid addin weight. Does not match existing addin.', self.element);
-					return;
-				}
-			} else {
-				// treat as a jquery selector, find the container
-				addin = self.layers.input.find(selector).closest('.addin');
-			}
-
-			if(!addin || !addin.length) {
-				console.warn('[formBuilder] Addin selector does not match any addin', self.element, selector);
-				return;
-			}
-
-			if(typeof visibility !== 'undefined' && addin.is(':visible') === visibility) {
-				// Not needed
-				return;
-			}
-
-			self._saveInputWidth();
-			addin.toggle(visibility);
-			self._restoreInputWidth();
-
-			return addin;
 		},
 
 		_init: function() {
@@ -863,14 +703,18 @@
 
 			if(!layers.error) {
 				layers.error = self.addin(
-					'', layers.suffix? 2 : 1, 'error-overlay noselect', true
+					'<div class="error-overlay noselect"></div>',
+					layers.suffix? 2 : 1,
+					true
 				);
 			}
 
+			console.log('ERROR', layers.error, layers.error.parent()[0]);
+
 			if(err.message) {
-				self._saveInputWidth();
-				layers.error.html(err.message);
-				self._restoreInputWidth();
+				self.element.addonWrapper('update', function() {
+					layers.error.html(err.message);
+				});
 			}
 
 			self.status('error', true);
@@ -927,12 +771,19 @@
 				hasVal = !!e.val(),
 				layers = self.layers;
 
-			self.toggleAddin(layers.prefix, hasVal);
-			self.toggleAddin(layers.suffix, hasVal);
+
 			self.field.toggleClass('dirty', !!self.dirty);
-			self.toggleAddin(layers.error, self.states.error);
 			self._toggleLayer('notice', !self.states.error);
 			self._toggleLayer('placeholder', !hasVal);
+
+			// Update the addins to preserve width
+			if(e.is(':formBuilder-addonWrapper')) {
+				e.addonWrapper('update', function() {
+					self._toggleLayer(layers.error, self.states.error);
+					self._toggleLayer(layers.prefix, hasVal);
+					self._toggleLayer(layers.suffix, hasVal);
+				});
+			}
 		},
 
 		_toggleLayer: function(layerName, isVisible) {

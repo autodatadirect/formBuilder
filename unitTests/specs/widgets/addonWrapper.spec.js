@@ -43,6 +43,7 @@ describe('The addonWrapper widget', function() {
 	it('can be created', function() {
 		var t = simpleTestInstance();
 
+		expect(t.e.is(':formBuilder-addonWrapper')).toBe(true);
 		expect(t.w).toBeDefined();
 		expect(t.w.sides).toBeDefined();
 	});
@@ -417,5 +418,6 @@ describe('The addonWrapper widget', function() {
 		t.e.addonWrapper('destroy');
 		expect(t.p.find('.addon-container, .test').length).toBe(0);
 		expect(t.e.data('formBuilderAddonWrapper')).toBeUndefined();
+		expect(t.e.is(':formBuilder-addonWrapper')).toBe(false);
 	});
 });
