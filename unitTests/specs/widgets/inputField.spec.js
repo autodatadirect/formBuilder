@@ -805,6 +805,16 @@ describe('An inputField', function(){
 		expect(input.val()).toBe('');
 	});
 
+	it('can clear its value by setting it with null', function(){
+		var input = $('<input type="text"/>').wrap('<div/>').inputField();
+		var ifw = input.data('formBuilderInputField');
+
+		ifw.set('some value');
+		expect(input.val()).toBe('some value');
+		ifw.set();
+		expect(input.val()).toBe('');
+	});
+
 	it('can get its value', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
 		var ifw = input.data('formBuilderInputField');

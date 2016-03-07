@@ -2896,10 +2896,12 @@
 			// var val = value;
 			/*
 			 * some complex types might not want input.val() to be called,
-			 * so ignore all undefined variables
+			 * so set all undefined variables to ''
 			 */
-			if(typeof(val) !== 'undefined') {
+			if(val !== 'undefined') {
 				e.val(val);
+			} else {
+				e.val('');
 			}
 
 			/*
@@ -3064,9 +3066,9 @@
 			var self = this,
 				type = self.type;
 
-			if(value === null || value === undefined) {
-				return value;
-			}
+			//if(value === null || value === undefined) {
+			//	return value;
+			//}
 
 			if(!type || !type.converter || !$.isFunction(type.converter.toField)) {
 				return value;

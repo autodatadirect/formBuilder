@@ -267,36 +267,7 @@ describe('A select data type', function(){
 			ev.preventDefault(); //just in case
 		}); 
 
-
-		it('when the down arrow key is pressed and no option is selected', function(){
-			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}]\'/>').inputField();	
-			var ifw = input.data('formBuilderInputField');
-			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
-
-			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
-			var spy_find = spyOn($.fn, 'find').and.callThrough();
-			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
-			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
-
-			// Before the keydown no option should be selected 
-			expect(options.eq(0).is('.selected')).not.toBe(true);
-			expect(options.eq(1).is('.selected')).not.toBe(true);
-
-			var ev = $.Event("keydown");
-			ev.which = 40; // Down arrow key code value
-			ifw.getType()._keyDownNavigate(ev);
-
-			expect(spy_scroll).toHaveBeenCalled();
-			expect(spy_find.calls.count()).toBe(2); 
-			expect(spy_add).toHaveBeenCalled(); 
-			expect(spy_open).toHaveBeenCalled();
-
-			// Should have selected the first option
-			expect(options.eq(0).is('.selected')).toBe(true);
-			expect(options.eq(1).is('.selected')).not.toBe(true);
-		}); 
-
-			it('when the down arrow key is pressed and an option is selected', function(){
+		it('when the down arrow key is pressed and an option is selected', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('formBuilderInputField');
 			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
@@ -307,8 +278,9 @@ describe('A select data type', function(){
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
 
-			// Before the keydown no option should be selected 
-			for(i = 0; i < 8; i++)
+			// Before the keydown the first option should be selected (and no others) 
+			expect(options.eq(0).is('.selected')).toBe(true);
+			for(i = 1; i < 8; i++)
 			{
 				expect(options.eq(i).is('.selected')).not.toBe(true);
 			}
@@ -333,43 +305,6 @@ describe('A select data type', function(){
 			expect(options.eq(4).is('.selected')).toBe(true);
 		}); 
 
-		it('when the up arrow key is pressed and no option is selected', function(){
-			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
-			var ifw = input.data('formBuilderInputField');
-			var options = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
-			var i; 
-			var x; 
-
-			var spy_scroll = spyOn(ifw.getType(), '_scroll').and.callThrough();
-			var spy_find = spyOn($.fn, 'find').and.callThrough();
-			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
-			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough();
-
-
-			// Before the keydown no option should be selected
-			for(i = 0; i < 8; i++)
-			{
-				expect(options.eq(i).is('.selected')).not.toBe(true);
-			}
-
-			var ev = $.Event("keydown");
-			ev.which = 38; // Up arrow key code value
-			ifw.getType()._keyDownNavigate(ev);
-
-			expect(spy_scroll).toHaveBeenCalled(); 
-			expect(spy_find.calls.count()).toBe(2);
-			expect(spy_add).toHaveBeenCalled(); 
-			expect(spy_open).toHaveBeenCalled();
-
-			// Only the last option should now be selected 
-			for(x = 0; x < 7; x++)
-			{
-				expect(options.eq(x).is('.selected')).not.toBe(true);
-			}
-
-			expect(options.eq(7).is('.selected')).toBe(true);
-		}); 
-
 		it('when the up arrow key is pressed and an option is selected', function(){
 			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"},  {"value":"Eeyore", "label": "Elephant"}, {"value":"Dude", "label": "David"}]\'/>').inputField();	
 			var ifw = input.data('formBuilderInputField');
@@ -382,8 +317,9 @@ describe('A select data type', function(){
 			var spy_add = spyOn($.fn, 'addClass').and.callThrough();
 			var spy_open = spyOn(ifw.getType(), 'open').and.callThrough(); 
 
-			// Before the keydown no option should be selected
-			for(i = 0; i < 8; i++)
+			// Before the keydown the first option should be selected (and no others) 
+			expect(options.eq(0).is('.selected')).toBe(true);
+			for(i = 1; i < 8; i++)
 			{
 				expect(options.eq(i).is('.selected')).not.toBe(true);
 			}
@@ -477,9 +413,9 @@ describe('A select data type', function(){
 			var param = ifw.getType();
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children().eq(0);
 
-			expect(ifw.get()).toBe(null);
+			expect(ifw.get()).toBe('Aragorn');
 
-			expect(option.is('.option')).toBe(true);
+			expect(option.is('.option.selected')).toBe(true);
 
 			var spy_to = spyOn(ifw.getType().converter, 'toField').and.callThrough();
 			var spy_from = spyOn(ifw.getType().converter, 'fromField').and.callThrough();
@@ -487,11 +423,11 @@ describe('A select data type', function(){
 			var spy_rem = spyOn(ifw.getType(), '_removeSelection').and.callThrough();
 			var spy_remC = spyOn($.fn, 'removeClass').and.callThrough();
 
-			ifw.set('run');
-			expect(option.is('.option.selected')).toBe(true);
+			ifw.set('Cat');
+			expect(option.is('.option.selected')).not.toBe(true);
 			pause(triggerWaitTime)
 			.then(function(){
-				expect(ifw.get()).toBe('Aragorn'); 
+				expect(ifw.get()).toBe('Cat'); 
 				expect(spy_to).toHaveBeenCalled(); 
 				expect(spy_from).toHaveBeenCalled(); 
 				expect(spy_set).toHaveBeenCalled(); // toField should call _set()
@@ -767,7 +703,7 @@ describe('A select data type', function(){
 		// If nothing has been selected, first item should be selected 
 		typeInstance.open();
 		typeInstance._setSelected(); 
-		expect(spy_first).toHaveBeenCalled(); 
+		//expect(spy_first).toHaveBeenCalled(); 
 
 		expect(options.eq(0).is('.option.selected')).toBe(true);
 		options.eq(0).removeClass('selected');
@@ -878,6 +814,48 @@ describe('A select data type', function(){
 		expect(option.eq(4).is('.option')).toBe(true);
 	}); 
 
+	it('can set a default item', function(){
+		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\' data-default = "X-Ray"/>').inputField();	
+		var ifw = input.data('formBuilderInputField');
+		var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
+
+		var spy_add = spyOn($.fn, 'addClass').and.callThrough();
+		var spy_label = spyOn(ifw.getType(), '_setLabel').and.callThrough();
+		var spy_SH = spyOn(ifw.getType(), 'showHideCommand').and.callThrough();
+
+		expect(option.eq(0).is('.option')).toBe(true);
+		expect(option.eq(1).is('.option')).toBe(true);
+		expect(option.eq(2).is('.option')).toBe(true);
+		expect(option.eq(3).is('.option')).toBe(true);
+		expect(option.eq(4).is('.option')).toBe(true);
+
+		ifw.getType()._setDefaultItem(); 
+
+		expect(spy_add).toHaveBeenCalled();
+		expect(spy_label).toHaveBeenCalled();
+		expect(spy_SH).toHaveBeenCalled();
+
+		expect(option.eq(0).is('.option')).toBe(true);
+		expect(option.eq(1).is('.option')).toBe(true);
+		expect(option.eq(2).is('.option')).toBe(true); 
+		expect(option.eq(3).is('.option.selected')).toBe(true);  // This option was set to be the default selected in data-options
+		expect(option.eq(4).is('.option')).toBe(true);
+
+		ifw.set('Cat');
+		expect(option.eq(0).is('.option')).toBe(true);
+		expect(option.eq(1).is('.option')).toBe(true); 
+		expect(option.eq(2).is('.option.selected')).toBe(true); // This option was set
+		expect(option.eq(3).is('.option')).toBe(true);
+		expect(option.eq(4).is('.option')).toBe(true);
+
+		ifw.set();
+		expect(option.eq(0).is('.option')).toBe(true);
+		expect(option.eq(1).is('.option')).toBe(true);
+		expect(option.eq(2).is('.option')).toBe(true); 
+		expect(option.eq(3).is('.option.selected')).toBe(true);  // This option was set to be the default selected in data-options
+		expect(option.eq(4).is('.option')).toBe(true);
+	}); 
+
 	it('can select the first item if a default item is not set', function(){
 		var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple"}]\'/>').inputField();	
 		var ifw = input.data('formBuilderInputField');
@@ -900,7 +878,7 @@ describe('A select data type', function(){
 			var testForm = $('<form></form>').appendTo(testContainer).formBuilder();
 			var aClass = $('<div class="aClass" style="display: block; height: 1em; width: 1em;">visible</div>').appendTo(testForm);
 			testForm.find(".aClass").hide();
-			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple", "showClass":"aClass"}]\'/>').appendTo(testForm).inputField();	
+			var input = $('<input type="text" data-type="'+typeName+'" data-options =\'[{"value":"X-Ray", "label":"Xylophone"}, {"value":"Cat", "label":"Cucumber"}, {"value":"Yak", "label": "Yellow"},  {"value":"Book", "label": "Banana", "showClass":"aClass"}, {"value":"Zoo", "label": "Zingales"}, {"value":"Aragorn", "label": "Apple", "showClass":"bClass"}]\'/>').appendTo(testForm).inputField();	
 			var ifw = input.data('formBuilderInputField');
 			var option = input.parent().eq(0).siblings().eq(0).children().children().eq(1).children().children();
 
@@ -912,7 +890,7 @@ describe('A select data type', function(){
 
 			ifw.getType().open();
 
-			option.eq(0).click(); 
+			ifw.set('Book');
 
 			expect(spy_showHide).toHaveBeenCalled();
 			expect(spy_hide).toHaveBeenCalled();
@@ -999,20 +977,19 @@ describe('A select data type', function(){
  
 		var spy_remC = spyOn($.fn, 'removeClass').and.callThrough(); 
 
-		// At this point none of the options should be selected
-		expect(options.eq(0).is('.selected')).not.toBe(true);
+		// At this point the first option should be selected
+		expect(options.eq(0).is('.selected')).toBe(true);
 		expect(options.eq(1).is('.selected')).not.toBe(true);
 		expect(options.eq(2).is('.selected')).not.toBe(true);
 		expect(options.eq(3).is('.selected')).not.toBe(true);
 		expect(options.eq(4).is('.selected')).not.toBe(true);
 
 		ifw.getType().open();
-
-		options.eq(2).addClass('selected'); 
+		ifw.set('Book');
 
 		expect(options.eq(0).is('.selected')).not.toBe(true);
-		expect(options.eq(1).is('.selected')).not.toBe(true);
-		expect(options.eq(2).is('.selected')).toBe(true);
+		expect(options.eq(1).is('.selected')).toBe(true);
+		expect(options.eq(2).is('.selected')).not.toBe(true);
 		expect(options.eq(3).is('.selected')).not.toBe(true);
 		expect(options.eq(4).is('.selected')).not.toBe(true);
 
@@ -1280,7 +1257,8 @@ describe('A select data type', function(){
 		.then(function(){
 			expect(scroll).toBe(options.scrollTop());
 
-			selected = options.children().children().eq(3).addClass('selected');
+			ifw.set('Dude');
+			selected = options.children().children().eq(3);
 
 			scroll = options.scrollTop();	
 
@@ -1582,8 +1560,85 @@ describe('A select data type', function(){
 			});
 		});
 
-
 		it('can have tooltips for items that overflow the view');
 	});
 
+	it('Empty Value Parameter', function () {
+		var select = $('<input name="category" data-empty-label="No Value Here" data-type="select" data-options=\'[{"value": "b","label": "B"},{"value": "a","label": "A"}]\'>').wrap('<div/>').inputField(),
+			type = select.inputField('getType');
+
+		expect(select.inputField('get')).toBeFalsy();
+		
+		var options = type.panel.find('.option');
+		expect(options.length).toEqual(3);
+
+		var emptyOption = type.panel.find('.option').eq(0);
+		expect(emptyOption.html()).toEqual('No Value Here');
+	});
+
+	it('Empty Value Parameter of Empty String', function () {
+		var select = $('<input name="category" data-empty-label="" data-type="select" data-options=\'[{"value": "b","label": "B"},{"value": "a","label": "A"}]\'>').wrap('<div/>').inputField(),
+			type = select.inputField('getType');
+
+		expect(select.inputField('get')).toBeFalsy();
+
+		var options = type.panel.find('.option');
+		expect(options.length).toEqual(3);
+
+		var emptyOption = type.panel.find('.option').eq(0);
+		expect(emptyOption.html()).toEqual('');
+		expect(emptyOption.height()).toEqual(20);
+	});
+
+	it('Default Selection', function () {
+		var select = $('<input name="category" data-no-sort="true"  data-type="select" data-options=\'[{"value": "b","label": "B"},{"value": "a","label": "A"}]\'>').wrap('<div/>').inputField();
+		expect(select.inputField('get')).toEqual('b');
+	});
+
+	it('Default Selection (select first like HTML select)', function () {
+		var select = $('<input name="category" data-no-sort="true" data-type="select" data-options=\'[{"value": "b","label": "B"},{"value": "a","label": "A"}]\'>').wrap('<div/>').inputField();
+		expect(select.inputField('get')).toEqual('b');
+		select.inputField('set');
+		expect(select.inputField('get')).toEqual('b');
+		select.inputField('set','a');
+		select.inputField('set', null);
+		expect(select.inputField('get')).toEqual('b');
+		select.inputField('set', 'bugusValue');
+		expect(select.inputField('get')).toEqual('b');
+	});
+
+	it('Default Selection with empty label', function () {
+		var select = $('<input name="category" data-empty-label="" data-no-sort="true"  data-type="select" data-options=\'[{"value": "b","label": "B"},{"value": "a","label": "A"}]\'>').wrap('<div/>').inputField();
+		expect(select.inputField('get')).toBeFalsy();
+		select.inputField('set');
+		expect(select.inputField('get')).toBeFalsy();
+		select.inputField('set','a');
+		select.inputField('set', null);
+		expect(select.inputField('get')).toBeFalsy();
+		select.inputField('set', 'bugusValue');
+		expect(select.inputField('get')).toBeFalsy();
+	});
+
+	it('Default Selection with sorting', function ()  {
+		var select = $('<input name="category" data-no-sort="false"  data-type="select" data-options=\'[{"value": "b","label": "B"},{"value": "a","label": "A"}]\'>').wrap('<div/>').inputField();
+		expect(select.inputField('get')).toEqual('a');
+		select.inputField('set');
+		expect(select.inputField('get')).toEqual('a');
+		select.inputField('set','a');
+		select.inputField('set', null);
+		expect(select.inputField('get')).toEqual('a');
+		select.inputField('set', 'bugusValue');
+		expect(select.inputField('get')).toEqual('a');
+	});
+
+	it('Default Selection with sorting', function ()  {
+		var select = $('<input name="category" data-default="c"  data-type="select" data-options=\'[{"value": "b","label": "B"},{"value": "a","label": "A"}, {"value": "c","label": "C"}]\'>').wrap('<div/>').inputField();
+		expect(select.inputField('get')).toEqual('c');
+		select.inputField('set');
+		expect(select.inputField('get')).toEqual('c');
+		select.inputField('set', null);
+		expect(select.inputField('get')).toEqual('c');
+		select.inputField('set', 'bugusValue');
+		expect(select.inputField('get')).toEqual('c');
+	});
  });

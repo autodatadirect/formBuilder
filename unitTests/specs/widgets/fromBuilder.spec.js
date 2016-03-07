@@ -588,5 +588,34 @@ describe('A formBuilder widget',function(){
 
 	});
 
+	it('can set partial data and then set different partial data and return only second set data', function(){
+		var form = $('<form></form>');
+		var input1 = $('<input name="first" type="text"/>').appendTo(form);
+		var input2 = $('<input name="second" type="text"/>').appendTo(form);
+
+		form.formBuilder().appendTo(testContainer);
+
+		var	fbw = form.data('formBuilderFormBuilder');
+
+		var data = {
+			first: 'test'
+		};
+
+		var data2 = {
+			second: 'test2'
+		};
+
+		fbw.set(data);
+
+		expect(input1.val()).toBe('test');
+		expect(input2.val()).toBe('');
+
+		fbw.set(data2);
+
+		expect(input1.val()).toBe('');
+		expect(input2.val()).toBe('test2');
+
+		testContainer.empty();
+	});
 
 });
