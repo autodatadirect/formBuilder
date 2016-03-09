@@ -1226,6 +1226,8 @@
 			self.range = form.find('select[name="range"]').on('change', function () {
 				self.setRange($(this).val());
 			});
+			
+			self.set();
 		},
 
 		_moveRange: function (number, unit) {
@@ -1247,6 +1249,11 @@
 
 		setRange: function (range) {
 			var self = this;
+			
+			self.set({
+				range: range
+			});
+			
 			if (range === 'custom') {
 				return;
 			}
@@ -1302,7 +1309,19 @@
 		},
 
 		set: function (data) {
-			this.form.formBuilder('set', data);
+			var self = this;
+
+			if(typeof data === 'undefined') {
+				data = self._getDataDefault();
+			}
+			
+			self.form.formBuilder('set', data);
+		},
+		
+		_getDataDefault: function () {
+			return {
+				range: 'custom'
+			};
 		},
 
 		isDirty: function () {
@@ -1327,6 +1346,7 @@
 	});
 
 }(jQuery));
+
 
 /**
  * dateTimeRangePicker Widget
@@ -2898,7 +2918,7 @@
 			 * some complex types might not want input.val() to be called,
 			 * so set all undefined variables to ''
 			 */
-			if(val !== 'undefined') {
+			if(typeof val !== 'undefined') {
 				e.val(val);
 			} else {
 				e.val('');
@@ -3065,10 +3085,6 @@
 		_formatToField: function(value) {
 			var self = this,
 				type = self.type;
-
-			//if(value === null || value === undefined) {
-			//	return value;
-			//}
 
 			if(!type || !type.converter || !$.isFunction(type.converter.toField)) {
 				return value;
