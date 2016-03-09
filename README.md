@@ -2,7 +2,7 @@ formBuilder
 ===========
 | Branch | Build Status |
 |:-------|:-------------|
-| v2.1.1 | [![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=v2.1.1)](https://travis-ci.org/autodatadirect/formBuilder/branches) |
+| v2.1.2 | [![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=v2.1.2)](https://travis-ci.org/autodatadirect/formBuilder/branches) |
 | master | [![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=master)](https://travis-ci.org/autodatadirect/formBuilder/branches) |
 | dev | [![Build Status](https://travis-ci.org/autodatadirect/formBuilder.svg?branch=dev)](https://travis-ci.org/autodatadirect/formBuilder/branches) |
 
