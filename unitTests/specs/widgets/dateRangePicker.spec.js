@@ -130,7 +130,7 @@ describe('A dateRangePicker widget',function(){
 				var date = {
 					from: from, 
 					to: to, 
-					range: 'custom'
+					range: 'day'
 				};
 
 				ddrw.setRange('day');
@@ -152,7 +152,7 @@ describe('A dateRangePicker widget',function(){
 				var date = {
 					from: from, 
 					to: to, 
-					range: 'custom'
+					range: 'week'
 				};
 
 				ddrw.setRange('week');
@@ -173,7 +173,7 @@ describe('A dateRangePicker widget',function(){
 				var date = {
 					from: from, 
 					to: to, 
-					range: 'custom'
+					range: 'month'
 				};
 
 				ddrw.setRange('month');
@@ -194,7 +194,7 @@ describe('A dateRangePicker widget',function(){
 				var date = {
 					from: from, 
 					to: to, 
-					range: 'custom'
+					range: 'year'
 				};
 
 				ddrw.setRange('year');
@@ -530,7 +530,7 @@ describe('A dateRangePicker widget',function(){
 			to: to, 
 			range: 'custom'
 		};
-
+		
    		ddrw._setFromAndTo(from, to); 
 
    		expect(ddrw.get()).toEqual(date);

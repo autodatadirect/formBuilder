@@ -565,7 +565,7 @@
 			 * some complex types might not want input.val() to be called,
 			 * so set all undefined variables to ''
 			 */
-			if(val !== 'undefined') {
+			if(typeof val !== 'undefined') {
 				e.val(val);
 			} else {
 				e.val('');
@@ -732,10 +732,6 @@
 		_formatToField: function(value) {
 			var self = this,
 				type = self.type;
-
-			//if(value === null || value === undefined) {
-			//	return value;
-			//}
 
 			if(!type || !type.converter || !$.isFunction(type.converter.toField)) {
 				return value;

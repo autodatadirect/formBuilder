@@ -70,6 +70,8 @@
 			self.range = form.find('select[name="range"]').on('change', function () {
 				self.setRange($(this).val());
 			});
+			
+			self.set();
 		},
 
 		_moveRange: function (number, unit) {
@@ -91,6 +93,11 @@
 
 		setRange: function (range) {
 			var self = this;
+			
+			self.set({
+				range: range
+			});
+			
 			if (range === 'custom') {
 				return;
 			}
@@ -146,7 +153,19 @@
 		},
 
 		set: function (data) {
-			this.form.formBuilder('set', data);
+			var self = this;
+
+			if(typeof data === 'undefined') {
+				data = self._getDataDefault();
+			}
+			
+			self.form.formBuilder('set', data);
+		},
+		
+		_getDataDefault: function () {
+			return {
+				range: 'custom'
+			};
 		},
 
 		isDirty: function () {
