@@ -20,6 +20,11 @@
 }
 
 .select-box {
+
+	> .field-items > .field-item-input > input {
+		visibility:hidden;
+	}	
+
 	.field-item-input, input {
 		cursor: pointer;
 	}
