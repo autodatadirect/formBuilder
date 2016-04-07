@@ -105,7 +105,8 @@
 				format: self._dateFormat.toLowerCase(),
 				todayBtn: true,
 				todayHighlight: true,
-				language: lang.code
+				language: lang.code,
+				keyboardNavigation: false
 			};
 
 			e.datepicker(datePickerOptions);
