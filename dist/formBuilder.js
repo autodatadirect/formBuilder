@@ -1,6 +1,6 @@
 /** 
  * formBuilder - An advanced HTML5 form creation & validation framework
- * @version v2.1.3
+ * @version v2.1.4
  * @link http://autodatadirect.github.io/formBuilder/
  * @repository https://github.com/autodatadirect/formBuilder
  * @license MIT
@@ -4667,7 +4667,8 @@
 				format: self._dateFormat.toLowerCase(),
 				todayBtn: true,
 				todayHighlight: true,
-				language: lang.code
+				language: lang.code,
+				keyboardNavigation: false
 			};
 
 			e.datepicker(datePickerOptions);
