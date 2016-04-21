@@ -454,9 +454,7 @@
 			self.filterValue = '';
 			self.shim.text('');
 
-			if(!andSelectNothing) {
-				self._handleItemNotFound();
-			}
+			self._handleItemNotFound();
 
 			self.inputWidget.redraw();
 		},

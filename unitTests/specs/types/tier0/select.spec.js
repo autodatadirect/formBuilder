@@ -772,6 +772,7 @@ describe('A select data type', function(){
 
 		expect(ifw.item).toBe();
 		expect(option.is('.option')).toBe(true);
+		expect(ifw.getType().shim.text()).toBe('Apple');
 	});
 
 	it('can handle when an item that has been selected is not found', function(){
@@ -1553,7 +1554,7 @@ describe('A select data type', function(){
 				return pause(triggerWaitTime);
 			})
 			.then(function(){
-				expect(typeInstance.shim.text()).toBe('');
+				expect(typeInstance.shim.text()).toBe('Different Option');
 
 				testContainer.empty();
 				done();
