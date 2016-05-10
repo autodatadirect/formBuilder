@@ -104,7 +104,7 @@
 				autoclose: true,
 				forceParse: false,
 				format: self._dateFormat.toLowerCase(),
-				todayBtn: true,
+				todayBtn: "linked",
 				todayHighlight: true,
 				language: lang.code,
 				keyboardNavigation: false
