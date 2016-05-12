@@ -25,21 +25,21 @@ module.exports = function(config) {
 			{pattern:'build/img/**',watched:false,included:false,served:true},
 
 			// Dynamically added CSS
-			{pattern:'bower_components/Aristo-jQuery-UI-Theme/css/Aristo/Aristo.css',watched:false,included:false,served:true},
-			{pattern:'bower_components/normalize.css/normalize.css',watched:false,included:false,served:true},
+			{pattern:'lib/Aristo-jQuery-UI-Theme/css/Aristo/Aristo.css',watched:false,included:false,served:true},
+			{pattern:'node_modules/normalize.css/normalize.css',watched:false,included:false,served:true},
 			{pattern:'build/css/formBuilder.css',watched:false,included:false,served:true},
-			{pattern:'bower_components/jquery-timepicker-jt/jquery.timepicker.css',watched:false,included:false,served:true},
-			{pattern:'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css',watched:false,included:false,served:true},
-			
-			'bower_components/jquery/dist/jquery.min.js',
+			{pattern:'node_modules/timepicker/jquery.timepicker.css',watched:false,included:false,served:true},
+			{pattern:'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css',watched:false,included:false,served:true},
+
+			'node_modules/jquery/dist/jquery.min.js',
 			'unitTests/karmaSetup.js',
 
 			// Executed Javascript
-			'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
-			'bower_components/moment/min/moment.min.js',
-			'bower_components/spinjs/spin.min.js',
-			'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
-			'bower_components/jquery-timepicker-jt/jquery.timepicker.min.js',
+			'node_modules/jquery-ui/ui/minified/jquery-ui.min.js',
+			'node_modules/moment/min/moment.min.js',
+			'node_modules/spin.js/spin.min.js',
+			'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+			'node_modules/timepicker/jquery.timepicker.min.js',
 			'build/formBuilder.min.js',
 			'unitTests/formBuilderTesting.js',
 
@@ -93,7 +93,7 @@ module.exports = function(config) {
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
 		browsers: [
 			// 'Chrome'
-			// 'Firefox' 
+			// 'Firefox'
 			'PhantomJS'
 		],
 

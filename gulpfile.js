@@ -1,6 +1,6 @@
 /**
  * Gulp buildfile
- * 
+ *
  * Basics: http://www.hongkiat.com/blog/getting-started-with-gulp-js/
  * Good Plugins: http://geekswithblogs.net/shaunxu/archive/2015/02/17/10-awesome-gulp-plugins-working-with-angularjs-and-bower.aspx
  * More: https://github.com/Pestov/essential-gulp-plugins
@@ -44,11 +44,11 @@ var argv = require('yargs')
 
 	.command('test', 'run karma testing')
 	.command('test:watch', 'runs test automatically on found changes')
-	
+
 	.command('tester', 'recompiles the testRunner.html used for manual browser testing')
 
 	.command('lint', 'run linter on test and source files')
-	
+
 	.command('clean','empty the build folder')
 
 	.command('copy:assets', 'copies assets into build folder')
@@ -62,7 +62,7 @@ var argv = require('yargs')
 	.command('compileJade', 'compiles the jade into the final .html')
 	.command('docs', 'recompiles the documentaion pages + cleans partials')
 	.command('docs:watch', 'runs docs automatically on found changes')
-	
+
 
 	.alias('h', 'help')
 	.help('h')
@@ -77,7 +77,7 @@ var argv = require('yargs')
 	.describe('o','uglify without mangling variable names or compressing')
 
 	.alias('m', 'mangle')
-	.boolean('m') 
+	.boolean('m')
 	.describe('m','uglify with mangling/compressing (default is true)')
 
 	.alias('w', 'watch')
@@ -100,7 +100,7 @@ var argv = require('yargs')
 
 	.argv;
 
-var banner = 
+var banner =
 	'/** \n' +
 	' * <%= pkg.name %> - <%= pkg.description %>\n' +
 	' * @version v<%= pkg.version %>\n' +
@@ -117,7 +117,7 @@ var dirs = {
 	unitTests: __dirname + '/unitTests',
 	sass: __dirname + '/sass',
 	docs: __dirname + '/docs',
-	bowerComponents: __dirname + '/bower_components'
+	nodeModules: __dirname + '/node_modules'
 };
 
 dirs.out = argv.dist? dirs.distribution : dirs.build;
@@ -178,8 +178,8 @@ gulp.task('sass', ['clean'], function() {
 
 gulp.task('css:nested', ['sass'], function() {
 	return gulp.src([
-			dirs.bowerComponents + '/jquery-timepicker-jt/jquery.timepicker.css',
-			dirs.bowerComponents + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css',
+			dirs.nodeModules + '/jquery-timepicker-jt/jquery.timepicker.css',
+			dirs.nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css',
 			dirs.out + '/css/'+pkg.name+'.css'
 		])
 		.pipe(sourcemaps.init())
@@ -233,9 +233,9 @@ gulp.task('build', ['lint', 'clean', 'copy:assets', 'copy:locales', 'sass', 'css
 // Builds dependencies into it as well
 gulp.task('build:nested', ['build'], function() {
 	return gulp.src([
-			dirs.bowerComponents + '/spinjs/spin.min.js',
-			dirs.bowerComponents + '/jquery-timepicker-jt/jquery.timepicker.min.js',
-			dirs.bowerComponents + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+			dirs.nodeModules + '/spin.js/spin.min.js',
+			dirs.nodeModules + '/timepicker/jquery.timepicker.min.js',
+			dirs.nodeModules + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
 			dirs.out + '/'+pkg.name+'.min.js'
 		])
 		.pipe(sourcemaps.init())
@@ -267,7 +267,7 @@ gulp.task('test',['build:nested'], function(done){
 
 	if(process.env.TRAVIS) {
 		// Switch to travis-ci specific browsers
-		browsers[1] = 'Chrome_travis_ci'; 
+		browsers[1] = 'Chrome_travis_ci';
 	}
 
 	karmaOptions = {
@@ -367,7 +367,7 @@ renderer.heading = function(text, level) {
 
 	anchorGroup = anchor + '-';
 	return '<h'+level+'><a name="'+anchor+'" class="anchor"></a>'+text+'</h'+level+'>';
-	
+
 };
 
 
@@ -422,7 +422,7 @@ gulp.task('docs:deploy', ['build', 'docs'], function() {
 		dirs.docs + '/js/**/*',
 		dirs.docs + '/*.html',
 		dirs.distribution + '/**/*',
-		dirs.bowerComponents + '/**/*'
+		dirs.nodeModules + '/**/*'
 	], {base: __dirname})
 
 	// put pages in root folder and update relative paths to dependencies
@@ -433,7 +433,7 @@ gulp.task('docs:deploy', ['build', 'docs'], function() {
 		}
 	}))
 	.pipe(docsFilter)
-	.pipe(replace('="../bower_components/', '="./bower_components/'))
+	.pipe(replace('="../node_modules/', '="./node_modules/'))
 	.pipe(replace('="../dist/', '="./dist/'))
 	.pipe(docsFilter.restore)
 

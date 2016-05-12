@@ -8,11 +8,11 @@ html
 		// ==================== External CSS Dependencies ====================
 		// Any jquery-ui theme
 		link(type='text/css' rel='stylesheet' href='./css/Aristo.css')
-		
+
 		// ===================== bower CSS Dependencies ======================
-		link(type='text/css' rel='stylesheet' href='../bower_components/normalize.css/normalize.css')
-		link(type='text/css' rel='stylesheet' href='../bower_components/jquery-timepicker-jt/jquery.timepicker.css')
-		link(type='text/css' rel='stylesheet' href='../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css')
+		link(type='text/css' rel='stylesheet' href='../node_modules/normalize.css/normalize.css')
+		link(type='text/css' rel='stylesheet' href='../node_modules/timepicker/jquery.timepicker.css')
+		link(type='text/css' rel='stylesheet' href='../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css')
 
 
 		// =================== formBuilder CSS Dependencies ==================
@@ -28,7 +28,7 @@ html
 	body
 		.header: .center-container
 			a.title(href='./index.html')
-				| formBuilder 
+				| formBuilder
 				span #{release}
 			.topNav
 				a#About(href='./index.html' class = title === 'About' ? 'current' : '') About
@@ -46,25 +46,25 @@ html
 
 			.content
 				block content
-		
+
 
 		//- JavaScript
 		// =========== Bower JS Dependencies (using CDNs for demo) ===========
-		script(type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js')
+		script(type='text/javascript' src='../node_modules/jquery/dist/jquery.min.js')
 		script(type='text/javascript').
 			// Wrap each example in a form if not already in one (for documentation only)
 			$('.example').each(function(){
-				if(!$(this).parents('form').length && 
-				!$(this).parents('.code').length && 
+				if(!$(this).parents('form').length &&
+				!$(this).parents('.code').length &&
 				!$(this).children('form').length) {
 					$(this).wrap('<form class="fb" action="#" style="display:none;" data-default-required="false">');
 				}
 			});
-		script(type='text/javascript' src='../bower_components/jquery-ui/ui/minified/jquery-ui.min.js')
-		script(type='text/javascript' src='../bower_components/moment/min/moment.min.js')
-		script(type='text/javascript' src='../bower_components/spinjs/spin.min.js')
-		script(type='text/javascript' src='../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')
-		script(type='text/javascript' src='../bower_components/jquery-timepicker-jt/jquery.timepicker.min.js')
+		script(type='text/javascript' src='../node_modules/jquery-ui/ui/minified/jquery-ui.min.js')
+		script(type='text/javascript' src='../node_modules/moment/min/moment.min.js')
+		script(type='text/javascript' src='../node_modules/spin.js/spin.min.js')
+		script(type='text/javascript' src='../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')
+		script(type='text/javascript' src='../node_modules/timepicker/jquery.timepicker.min.js')
 
 		// ===================== formBuilder Dependencies ====================
 		script(type='text/javascript' src='../dist/formBuilder.min.js')
@@ -73,6 +73,6 @@ html
 		script(type='text/javascript' src='./js/main.js')
 
 		block localJS
-		
+
 		script(type='text/javascript' src='./js/codemirror-compressed.js')
 		script(type='text/javascript' src='./js/codemirrorSetup.js')

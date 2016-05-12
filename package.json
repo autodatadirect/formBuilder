@@ -25,6 +25,7 @@
     "gulp-sourcemaps": "~1.5.2",
     "gulp-uglify": "~1.2.0",
     "jade": "~1.11.0",
+    "jasmine": "~2.4.1",
     "jasmine-core": "~2.3.4",
     "jshint": "~2.8.0",
     "karma": "~0.12.37",
@@ -37,9 +38,19 @@
     "karma-spec-reporter": "0.0.19",
     "marked": "~0.3.3",
     "phantomjs": "~1.9.17",
+    "requirejs": "^2.1.18",
     "yargs": "~3.11.0"
   },
   "scripts": {
     "test": "gulp test"
+  },
+  "dependencies": {
+    "bootstrap-datepicker": "~1.4.0",
+    "jquery": "^1.11.3",
+    "jquery-ui": "git://github.com/components/jqueryui.git#1.9.2",
+    "moment": "~2.10.3",
+    "normalize.css": "~3.0.3",
+    "spin.js": "~2.3.2",
+    "timepicker": "~1.8.11"
   }
 }
