@@ -16,18 +16,18 @@ describe('The state data-type', function(){
 	it('is a valid data-type', function(){
 		var input = $('<input type="text"/>').wrap('<div/>').inputField();
 		var ifw = input.data('formBuilderInputField');
-		
+
 		expect(type).toBeDefined();
 
 		ifw.setType(typeName);
-		
+
 		expect(util.equals(ifw.getType(), type)).toBe(true);
 	});
 
 	it('has filter support', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').wrap('<div/>').inputField();
 		var ifw = input.data('formBuilderInputField');
-		var filter = input.data('formBuilderInputFilter'); 
+		var filter = input.data('formBuilderInputFilter');
 
 		var typeNewString = function(str) {
 			input.val('');
@@ -50,18 +50,21 @@ describe('The state data-type', function(){
 		var valids, invalids;
 
 		valids = [
-			'KA',
+			'AK',
 			'NY',
-			'WA'
+			'WA',
+			'GA'
 		];
 
 		invalids = [
 			'cat',
 			'A',
 			'ASDS',
-			'ab'
+			'ab',
+			'XX',
+			'DY'
 		];
-		
+
 		var validateNewVal = function(str){
 			input.val(str);
 			return (typeof(ifw.getType().validate(ifw)) === 'undefined');
@@ -75,9 +78,9 @@ describe('The state data-type', function(){
 		var input = $('<input type="text" data-type="'+typeName+'"/>').appendTo(testContainer).inputField();
 		var ifw = input.data('formBuilderInputField');
 
-		ifw.set('KA'); 
+		ifw.set('AK');
 
-		expect(ifw.get()).toBe('KA');
+		expect(ifw.get()).toBe('AK');
 
 		testContainer.empty();
 	});
