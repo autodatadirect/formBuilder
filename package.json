@@ -5,7 +5,6 @@
   "repository": "https://github.com/autodatadirect/formBuilder",
   "license": "MIT",
   "homepage": "http://autodatadirect.github.io/formBuilder/",
-  "private": true,
   "main": "dist/bundle.min.js",
   "publishConfig": {
    "registry": "https://nexus3.add123.com/repository/npm-releases"
