@@ -6,7 +6,7 @@ module.exports = {
 	entry: "./dist/formBuilder.js",
 	output: {
 		path: path.join(__dirname, 'dist'),
-		filename: "bundle.min.js"
+		filename: "add-formbuilder.min.js"
 	},
 	plugins: [
     new webpack.optimize.UglifyJsPlugin({
@@ -15,7 +15,7 @@ module.exports = {
       },
     }),
     new webpack.optimize.OccurenceOrderPlugin()
-  	],
+	],
 	module: {
 		loaders: [
 			{ test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
