@@ -29,6 +29,12 @@
  * Possible browser country codes: https://www.iso.org/obp/ui/#search
  */
 
+require('./css/formBuilder.css');
+require('./fonts/formBuilderIcons.eot');
+require('./fonts/formBuilderIcons.svg');
+require('./fonts/formBuilderIcons.ttf');
+require('./fonts/formBuilderIcons.woff');
+
 (function($) {
 	'use strict';
 

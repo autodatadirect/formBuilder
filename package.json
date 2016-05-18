@@ -7,8 +7,13 @@
   "homepage": "http://autodatadirect.github.io/formBuilder/",
   "private": true,
   "main": [],
+  "publishConfig": {
+   "registry": "https://nexus3.add123.com/repository/npm-releases"
+ },
   "devDependencies": {
+    "css-loader": "^0.23.1",
     "del": "~1.2.0",
+    "file-loader": "^0.8.5",
     "gulp": "~3.9.0",
     "gulp-autoprefixer": "~2.3.1",
     "gulp-concat": "~2.5.2",
@@ -40,6 +45,8 @@
     "marked": "~0.3.3",
     "phantomjs": "~1.9.17",
     "requirejs": "^2.1.18",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
     "yargs": "~3.11.0"
   },
