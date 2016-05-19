@@ -40,7 +40,7 @@ module.exports = function(config) {
 			'node_modules/spin.js/spin.min.js',
 			'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
 			'node_modules/timepicker/jquery.timepicker.min.js',
-			'build/formBuilder.min.js',
+			'build/add-formbuilder.min.js',
 			'unitTests/formBuilderTesting.js',
 
 			// Executed tests

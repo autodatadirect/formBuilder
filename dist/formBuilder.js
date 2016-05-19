@@ -34,9 +34,9 @@ require('./fonts/formBuilderIcons.eot');
 require('./fonts/formBuilderIcons.svg');
 require('./fonts/formBuilderIcons.ttf');
 require('./fonts/formBuilderIcons.woff');
-require('bootstrap-datepicker');
 require('normalize.css');
 require('timepicker');
+require('./../node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js');
 
 (function($) {
 	'use strict';

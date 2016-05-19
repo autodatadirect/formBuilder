@@ -4,6 +4,10 @@ var webpack = require('webpack')
 
 module.exports = {
 	entry: "./dist/formBuilder.js",
+	resolve: {
+		moduleDirectories: [ './../node_modules', './../bower_components'],
+	},
+
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: "add-formbuilder.min.js"
