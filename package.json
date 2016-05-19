@@ -1,14 +1,14 @@
 {
   "name": "add-formbuilder",
   "description": "An advanced HTML5 form creation & validation framework",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "repository": "https://github.com/autodatadirect/formBuilder",
   "license": "MIT",
   "homepage": "http://autodatadirect.github.io/formBuilder/",
   "main": "dist/formbuilder.js",
   "publishConfig": {
-   "registry": "https://nexus3.add123.com/repository/npm-releases"
- },
+    "registry": "https://nexus3.add123.com/repository/npm-releases"
+  },
   "devDependencies": {
     "css-loader": "^0.23.1",
     "del": "~1.2.0",
