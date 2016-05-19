@@ -1,4 +1,4 @@
-/** 
+/**
  * formBuilder - An advanced HTML5 form creation & validation framework
  * @version v2.1.7
  * @link http://autodatadirect.github.io/formBuilder/
@@ -16,15 +16,15 @@
  *
  *
  * ======== Localization Notes ========
- * 
+ *
  * Unless $.formBuilder.lang.code is already defined, this will
  * attempt to match the browser's code with one in the acceptedCodes[].
- * If matched, it will define it as the formBuilder language code. 
+ * If matched, it will define it as the formBuilder language code.
  *
  * Browser codes take the form 'langCode-countryCode'. When creating your own
  * codes you may choose to use to ignore the country code. This script has an
  * example of how to do that at the bottom.
- * 
+ *
  * Possible browser lang codes: http://www.loc.gov/standards/iso639-2/php/code_list.php
  * Possible browser country codes: https://www.iso.org/obp/ui/#search
  */
@@ -34,6 +34,9 @@ require('./fonts/formBuilderIcons.eot');
 require('./fonts/formBuilderIcons.svg');
 require('./fonts/formBuilderIcons.ttf');
 require('./fonts/formBuilderIcons.woff');
+require('bootstrap-datepicker');
+require('normalize.css');
+require('timepicker');
 
 (function($) {
 	'use strict';
@@ -41,7 +44,7 @@ require('./fonts/formBuilderIcons.woff');
 	// Code used by formBuilder to select the language
 	var code = 'en';
 
-	// Accepted language codes from the browser 
+	// Accepted language codes from the browser
 	var acceptedCodes = [
 		'en',
 		'eng'
@@ -73,7 +76,7 @@ require('./fonts/formBuilderIcons.woff');
 
 		// Chrome, Firefox, Opera, Safari, IE 11+ (desktop only)
 		browserCode = navigator.language;
-		
+
 		// Other IE support
 		if(!browserCode) { browserCode = navigator.userLanguage; }
 		if(!browserCode) { browserCode = navigator.browserLanguage; }
@@ -90,7 +93,7 @@ require('./fonts/formBuilderIcons.woff');
 
 		}
 	}
-	
+
 	/**
 	 * Define formBuilder language
 	 */
@@ -98,10 +101,10 @@ require('./fonts/formBuilderIcons.woff');
 		/**
 		 * Widgets
 		 */
-		
+
 		// arrayField
 		remove: 'Remove',
-		
+
 
 		// dateRangePicker
 		from :'From',
@@ -122,7 +125,7 @@ require('./fonts/formBuilderIcons.woff');
 		/**
 		 * Types
 		 */
-		
+
 		invalid: 'invalid',
 
 		// money
@@ -140,7 +143,7 @@ require('./fonts/formBuilderIcons.woff');
 		no: 'No'
 
 		// tmsFullName TODO
-		
+
 	});
 
 	var dict = $.formBuilder.lang.dict;
@@ -149,10 +152,10 @@ require('./fonts/formBuilderIcons.woff');
 	 * Extension language support
 	 */
 	// Datepicker (default english included)
-	
 
 
-	
+
+
 
 })(jQuery);
 /**
@@ -170,7 +173,7 @@ require('./fonts/formBuilderIcons.woff');
 	// Code used by formBuilder to select the language
 	var code = 'es';
 
-	// Accepted language codes from the browser 
+	// Accepted language codes from the browser
 	var acceptedCodes = [
 		'es',
 		'spa'
@@ -201,7 +204,7 @@ require('./fonts/formBuilderIcons.woff');
 
 		// Chrome, Firefox, Opera, Safari, IE 11+ (desktop only)
 		browserCode = navigator.language;
-		
+
 		// Other IE support
 		if(!browserCode) { browserCode = navigator.userLanguage; }
 		if(!browserCode) { browserCode = navigator.browserLanguage; }
@@ -227,7 +230,7 @@ require('./fonts/formBuilderIcons.woff');
 		remove: 'Quitar',
 
 		// textSubmitter TODO
-		
+
 		// tmsPhone
 		mobile: 'Móvil',
 		home: 'Casa',
@@ -254,7 +257,7 @@ require('./fonts/formBuilderIcons.woff');
 		clear: "Borre",
 		rtl: false
 	};
-	
+
 
 })(jQuery);
 /**
@@ -328,7 +331,7 @@ require('./fonts/formBuilderIcons.woff');
 })(jQuery);
 
 /*
- * A subset of the ADD Utility library. 
+ * A subset of the ADD Utility library.
  *
  * It only declares objects/functions when they do not already exist
  */
@@ -377,7 +380,7 @@ require('./fonts/formBuilderIcons.woff');
 	/*****************************************************
 	 * $.formBuilder.util (formerly window.util)
 	 */
-	
+
 	if(typeof($.formBuilder) === 'undefined') {
 		$.formBuilder = {};
 	}
@@ -393,7 +396,7 @@ require('./fonts/formBuilderIcons.woff');
 	 * Language Support Setup
 	 */
 	var lang = $.formBuilder.lang; //should be defined in at least the english package
-	
+
 	if(typeof(lang.code) === 'undefined' || !lang.locales[lang.code]) {
 		lang.code = 'en';
 	}
@@ -404,7 +407,7 @@ require('./fonts/formBuilderIcons.woff');
 	if(lang.code !== 'en') {
 		$.extend(lang.dict, lang.locales[lang.code]);
 	}
-	
+
 
 	/*
 	 * Retrieve from a namespace given the dot-notated key
@@ -627,7 +630,7 @@ require('./fonts/formBuilderIcons.woff');
 						}
 					}
 				}
-				
+
 				break;
 			case 'function':
 				if(typeof(b) === 'undefined' || (a.toString() !== b.toString())) {
@@ -661,7 +664,7 @@ require('./fonts/formBuilderIcons.woff');
 				remove = true;
 				for(p in a) {
 					if(a.hasOwnProperty(p)) {
-						
+
 						if($.inArray(p, ignoreDiffKeys) > -1){
 							removeTmp = true;
 						}else{
@@ -697,7 +700,7 @@ require('./fonts/formBuilderIcons.woff');
 	 * For reading boolean values from dom attributes.
 	 * When the the attribute does not exist, the key retains its !!value. (therefore undefined -> false and true -> true)
 	 * Allows for 'data-some-key' and 'data-some-key="true"' to both be true.
-	 * 
+	 *
 	 * Note: 'data-some-key="false"' is still false.
 	 */
 	util.loadDomToggleData = function(element, namespace, aKey) {
@@ -715,7 +718,7 @@ require('./fonts/formBuilderIcons.woff');
 
 (function($){
 	'use strict';
-	
+
 	/*
 	 * This plugin only operates on the first element of the working set
 	 */
@@ -742,7 +745,7 @@ require('./fonts/formBuilderIcons.woff');
 			if(input.setSelectionRange) {
 				input.focus();
 				input.setSelectionRange(begin, end);
-				
+
 				/*
 				 * chrome hack
 				 * TMS-2049
@@ -816,15 +819,15 @@ require('./fonts/formBuilderIcons.woff');
 	};
 
 	$.widget("formBuilder.arrayField", {
-		_arrayFieldTemplate: 
-			'<div class="array-field">' + 
-				'<div class="items"><div class="items-content"></div></div>' + 
-				'<div class="input-field">' + 
-					'<div class="field-items">' + 
-						'<span class="first field-item addon clickable array-field-add noselect">+</span>' + 
-						'<span class="field-item array-field-add-message"></span>' + 
-					'</div>' + 
-				'</div>' + 
+		_arrayFieldTemplate:
+			'<div class="array-field">' +
+				'<div class="items"><div class="items-content"></div></div>' +
+				'<div class="input-field">' +
+					'<div class="field-items">' +
+						'<span class="first field-item addon clickable array-field-add noselect">+</span>' +
+						'<span class="field-item array-field-add-message"></span>' +
+					'</div>' +
+				'</div>' +
 			'</div>',
 
 		_arrayFieldItemTemplate:
@@ -842,7 +845,7 @@ require('./fonts/formBuilderIcons.woff');
 						'</span>' +
 					'</div>' +
 				'</div>' +
-			'</div>', 
+			'</div>',
 
 		_create: function() {
 			var self = this,
@@ -1009,14 +1012,14 @@ require('./fonts/formBuilderIcons.woff');
 				}
 			});
 			*/
-			
+
 			itemsContent.children('.array-field-item').each(function () {
 				var val = $(this).find('.array-field-input-' + self.id)[subWidget]('get');
 				if(val === 0 || val){
 					data.push(val);
 				}
 			});
-			
+
 
 			return data;
 		},
@@ -1189,9 +1192,9 @@ require('./fonts/formBuilderIcons.woff');
 			'<div class="date-range-picker form">'+
 				'<input type="text" name="from" data-type="date" data-label="'+dict.from+'"/>' +
 				'<input type="text" name="to" data-type="date" data-label="'+dict.to+'"/>' +
-				
+
 				'<button type="button" class="previous-range">&lt;&lt;</button>' +
-				
+
 				'<div class="input-field-group range-select">' +
 					'<select name="range" style="width: 138px;">' +
 						'<option value="custom">'+dict.custom+'</option>' +
@@ -1232,7 +1235,7 @@ require('./fonts/formBuilderIcons.woff');
 			self.range = form.find('select[name="range"]').on('change', function () {
 				self.setRange($(this).val());
 			});
-			
+
 			self.set();
 		},
 
@@ -1255,11 +1258,11 @@ require('./fonts/formBuilderIcons.woff');
 
 		setRange: function (range) {
 			var self = this;
-			
+
 			self.set({
 				range: range
 			});
-			
+
 			if (range === 'custom') {
 				return;
 			}
@@ -1271,7 +1274,7 @@ require('./fonts/formBuilderIcons.woff');
 			}
 
 			if (typeof fromDate === 'string') {
-				fromDate = self.deserialize(fromDate);	
+				fromDate = self.deserialize(fromDate);
 			}
 
 			var from = fromDate.startOf(range);
@@ -1279,7 +1282,7 @@ require('./fonts/formBuilderIcons.woff');
 
 			self._setFromAndTo(from, to);
 		},
-		
+
 		_setFromAndTo: function (from, to) {
 			var self = this;
 
@@ -1294,7 +1297,7 @@ require('./fonts/formBuilderIcons.woff');
 			self.toDate.inputField('set', to);
 		},
 
-		serialize: function (momentDate) {	
+		serialize: function (momentDate) {
 			if (!momentDate) {
 				return;
 			}
@@ -1320,10 +1323,10 @@ require('./fonts/formBuilderIcons.woff');
 			if(typeof data === 'undefined') {
 				data = self._getDataDefault();
 			}
-			
+
 			self.form.formBuilder('set', data);
 		},
-		
+
 		_getDataDefault: function () {
 			return {
 				range: 'custom'
@@ -1376,7 +1379,7 @@ require('./fonts/formBuilderIcons.woff');
 (function($) {
 	"use strict";
 	var dict = $.formBuilder.lang.dict;
-	
+
 	$.widget("formBuilder.dateTimeRangePicker", {
 		_dateTimeRangePickerTemplate:
 				'<div class="date-range-picker form">' +
@@ -1397,7 +1400,7 @@ require('./fonts/formBuilderIcons.woff');
 
 					'<button type="button" class="next-range">&gt;&gt;</button>' +
 				'</div>',
-				
+
 		_create: function () {
 			var self = this,
 				e = self.element;
@@ -1451,7 +1454,7 @@ require('./fonts/formBuilderIcons.woff');
 			if(fromTypeInstance.timeWidgetInstance.isEmpty()) {
 				fromTypeInstance.timeWidgetInstance.set(moment().hours(0).minutes(0).utc().format('HH:mm'));
 			}
-			
+
 			if(toTypeInstance.timeWidgetInstance.isEmpty()) {
 				toTypeInstance.timeWidgetInstance.set(moment().hours(23).minutes(59).utc().format('HH:mm'));
 			}
@@ -1476,7 +1479,7 @@ require('./fonts/formBuilderIcons.woff');
 			if (typeof fromDate === 'string') {
 				fromDate = self.deserializeDate(fromDate);
 			}
-						
+
 
 			var from = fromDate.startOf(range);
 			var to = moment(from).endOf(range);
@@ -1488,7 +1491,7 @@ require('./fonts/formBuilderIcons.woff');
 			if(fromTypeInstance.timeWidgetInstance.isEmpty()) {
 				fromTypeInstance.timeWidgetInstance.set(moment().hours(0).minutes(0).utc().format('HH:mm'));
 			}
-			
+
 			if(toTypeInstance.timeWidgetInstance.isEmpty()) {
 				toTypeInstance.timeWidgetInstance.set(moment().hours(23).minutes(59).utc().format('HH:mm'));
 			}
@@ -1601,8 +1604,8 @@ require('./fonts/formBuilderIcons.woff');
 			// Automatically change target to the given target's first .field-item-input child, if it has one
 			targetInput: true,
 
-			// Array of name attributes to hide 
-			hideFields: undefined	
+			// Array of name attributes to hide
+			hideFields: undefined
 		},
 
 		_create: function() {
@@ -1656,7 +1659,7 @@ require('./fonts/formBuilderIcons.woff');
 				}, 0);
 			};
 
-			
+
 			self.attach(o.target, o.focusTarget);
 		},
 
@@ -1720,7 +1723,7 @@ require('./fonts/formBuilderIcons.woff');
 
 			} else if(newTarget.is('.input-field') && !newFocusTarget) {
 				newFocusTarget = newTarget.find(':focusable:tabbable'); //NOTE: This may be mutiple elements, but that's okay
-				
+
 			} else {
 				self.wrapper.insertAfter(newTarget);
 			}
@@ -1736,7 +1739,7 @@ require('./fonts/formBuilderIcons.woff');
 					}
 				}
 			}
-			
+
 
 
 			if(!newFocusTarget) {
@@ -1752,7 +1755,7 @@ require('./fonts/formBuilderIcons.woff');
 				self.focusTarget.removeClass(instanceClasses.focus);
 				self.focusTarget.off('click focus', self.openListener);
 			}
-			
+
 			self.target = newTarget;
 			self.focusTarget = newFocusTarget;
 
@@ -1767,7 +1770,7 @@ require('./fonts/formBuilderIcons.woff');
 				o = self.options,
 				panel = self.panel,
 				e = self.element;
-			
+
 			if(self.isOpen || !self.target){
 				return;
 			}
@@ -1832,7 +1835,7 @@ require('./fonts/formBuilderIcons.woff');
 	});
 
 
-	
+
 })(jQuery);
 
 /**
@@ -1863,7 +1866,7 @@ require('./fonts/formBuilderIcons.woff');
 					return data;
 				}
 			},
-			
+
 			// ignore fields that are not $(':visible')
 			ignoreHidden: false,
 
@@ -1880,7 +1883,7 @@ require('./fonts/formBuilderIcons.woff');
 				o = self.options,
 				e = self.element;
 
-			// Get options 
+			// Get options
 			util.loadDomToggleData(e, o, ['ignoreHidden','defaultRequired','loadHidden']);
 
 			if(o.loadHidden) {
@@ -2008,10 +2011,10 @@ require('./fonts/formBuilderIcons.woff');
 				.not('.form-builder-ignore *')
 				.not('[data-load-widget-as-field]')
 				.not('[data-load-widget-as-field] *');
-			
+
 			radios.each(function() {
 				var el = $(this);
-				
+
 				if(el.is(':formBuilder-selectionField')) {
 					// ignore the ones already grouped
 					return;
@@ -2025,7 +2028,7 @@ require('./fonts/formBuilderIcons.woff');
 						radioGroup: radioGroup
 					});
 				});
-				
+
 				self.fieldsWidgets = self.fieldsWidgets.add(el);
 			});
 
@@ -2038,7 +2041,7 @@ require('./fonts/formBuilderIcons.woff');
 				.not('[data-load-widget-as-field] *')
 				.each(function () {
 					var newInput = $(this);
-				
+
 					newInput.inputField({
 						required: o.defaultRequired
 					});
@@ -2064,7 +2067,7 @@ require('./fonts/formBuilderIcons.woff');
 				method = Array.prototype.splice.call(arguments, 2, 1),
 				args = Array.prototype.slice.call(arguments, 2),
 				widgetName, instance;
-				
+
 			if(widgetElement.is(':formBuilder-inputField')) {
 				widgetName = 'formBuilderInputField';
 			} else if(widgetElement.is(':formBuilder-selectionField')) {
@@ -2085,7 +2088,7 @@ require('./fonts/formBuilderIcons.woff');
 				throw new Error('ERROR: widget field error NAME[' + widgetName + '] METHOD[' + method + ']');
 			}
 		},
-	
+
 
 		isDirty: function() {
 			var self = this,
@@ -2158,7 +2161,7 @@ require('./fonts/formBuilderIcons.woff');
 			self.fieldsWidgets.each(function() {
 				self._proxyCommandToWidget($(this), true, 'status', 'disabled', false);
 			});
-			
+
 		},
 
 		get: function() {
@@ -2354,7 +2357,7 @@ require('./fonts/formBuilderIcons.woff');
 		}
 	});
 
-	
+
 
 }(jQuery));
 /**
@@ -2400,7 +2403,7 @@ require('./fonts/formBuilderIcons.woff');
 		},
 
 		clearDirty: function () {
-			
+
 		},
 
 		clear: function () {
@@ -2408,11 +2411,11 @@ require('./fonts/formBuilderIcons.woff');
 		},
 
 		flash: function () {
-			
+
 		},
 
 		set: function (data) {
-			
+
 		},
 
 		get: function () {
@@ -2439,7 +2442,7 @@ require('./fonts/formBuilderIcons.woff');
 			/*
 			 * min and max, there meaning depends on the type that is loaded
 			 */
-			min: '', 
+			min: '',
 			max: '',
 
 			error: 'error',
@@ -2461,7 +2464,7 @@ require('./fonts/formBuilderIcons.woff');
 			/*
 			 * load DOM settings from field into options
 			 */
-			
+
 			util.loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
 			util.loadDomToggleData(e, o, ['require', 'required']);
 
@@ -2484,7 +2487,7 @@ require('./fonts/formBuilderIcons.woff');
 			/*
 			 * convert the simple input into the full field format
 			 */
-			 
+
 			var field = self.field = $('<div class="input-field"><div class="field-items"><span class="field-item field-item-input"></span></div></div>');
 
 			var layers = self.layers = {
@@ -2829,7 +2832,7 @@ require('./fonts/formBuilderIcons.woff');
 			if(!found && weight < 0){
 				// Must just left of input
 				layers.items.find('.field-item-input').before(addon);
-				
+
 				// refresh first
 				layers.items.find('.field-item.first').not(':first').removeClass('first');
 				layers.items.find('.field-item').filter(':first').addClass('first');
@@ -2904,9 +2907,9 @@ require('./fonts/formBuilderIcons.woff');
 			setOptions = $.extend({autoClean: true}, setOptions);
 
 			if (setOptions.autoClean) {
-				
+
 				 // * store the base value
-				 
+
 				self.prevValue = value;
 
 				self.clearDirty();
@@ -2939,11 +2942,11 @@ require('./fonts/formBuilderIcons.woff');
 			}
 
 			self._trigger('afterset', null, [val, value]);
-			
+
 			// Redraw synchronously to avoid display errors (was not working perfectly with setTimeout)
 			self.redraw();
 		},
-		
+
 
 		get: function() {
 			var self = this,
@@ -2974,7 +2977,7 @@ require('./fonts/formBuilderIcons.woff');
 			if($.isFunction(type.isEmpty)) {
 				return type.isEmpty.call(type, self);
 			}
-			
+
 			return $.trim(self.element.val()) === '';
 		},
 
@@ -3125,7 +3128,7 @@ require('./fonts/formBuilderIcons.woff');
 				showPlaceholder = true,
 				layers = self.layers;
 
-				//self.inputWidth = self.element.width(); // Added this line to fix display issue 
+				//self.inputWidth = self.element.width(); // Added this line to fix display issue
 
 			if(hasVal) {
 				showPlaceholder = false;
@@ -3175,15 +3178,15 @@ require('./fonts/formBuilderIcons.woff');
 							paddingLeft: (layers.prefix? layers.prefix.outerWidth() : 1) + 'px',
 							maxWidth: (self.startInputWidth - valWidth)  + 'px'
 						});
-						
+
 						self.suffixPaddingAdded = true;
 					}
-				} else {	
+				} else {
 					e.css({
 						paddingRight: self.startPaddingRight,
 						width: self.startInputWidth + (layers.prefix? layers.prefix.outerWidth() : 0) + 'px'
 					});
-					
+
 					self.suffixPaddingAdded = false;
 				}
 			}
@@ -3260,7 +3263,7 @@ require('./fonts/formBuilderIcons.woff');
 			/*
 			 * run the type tear down if it exists
 			 */
-			
+
 			if(type && $.isFunction(type.tearDown)) {
 				type.tearDown().call(type, self);
 			}
@@ -3405,7 +3408,7 @@ require('./fonts/formBuilderIcons.woff');
 		}
 	});
 
-	
+
 
 
 
@@ -3478,7 +3481,7 @@ require('./fonts/formBuilderIcons.woff');
 
 			// If the typed character/text matches the pattern it will go through this function.
 			// This can be used for custom checks. The text returned is the
-			// one that is actually put into the input. If no text is returned, 
+			// one that is actually put into the input. If no text is returned,
 			// the key is ignored like ususal
 			extraFilter: function(currentValue, inText) {
 				return inText;
@@ -3854,13 +3857,13 @@ require('./fonts/formBuilderIcons.woff');
 				e = self.element;
 
 			self.dirty = false;
-			
+
 			// Load DOM data settings into options + clean bools
 			util.loadDomData(e, o, ['label']);
 			util.loadDomToggleData(e, o, ['require', 'required']);
 
 			o.required = o.require || o.required;
-			
+
 			// convert input to field format
 			var field = self.field = $('<div class="selection-field"></div>');
 			var layers = self.layers = {};
@@ -3884,7 +3887,7 @@ require('./fonts/formBuilderIcons.woff');
 			// Checkbox or Radio?
 			self.isRadio = e.is('[type="radio"]');
 
-			
+
 
 			/*
 			 * if this field is not part of a group in its form, add a group class to this field for proper styling
@@ -3893,7 +3896,7 @@ require('./fonts/formBuilderIcons.woff');
 
 			if(!parentContainer.length || parentContainer.is(':formBuilder-formBuilder')) {
 				field.wrap('<div class="selection-field-group"/>');
-				
+
 				if(self.isRadio) {
 					self.radioGroup = e;
 				}
@@ -3928,7 +3931,7 @@ require('./fonts/formBuilderIcons.woff');
 						sfw.options.required = o.required;
 					});
 				}
-				
+
 
 			} else {
 				self.prevValue = e.is(':checked');
@@ -4051,7 +4054,7 @@ require('./fonts/formBuilderIcons.woff');
 				self.field.removeClass('dirty');
 			}
 
-			
+
 			self._trigger('clean');
 		},
 
@@ -4080,7 +4083,7 @@ require('./fonts/formBuilderIcons.woff');
 				if(typeof(value) !== 'undefined') {
 					self.radioGroup.filter('[value="'+value+'"]').prop('checked', true);
 				}
-				
+
 				self._updatePreviousValue();
 
 			} else {
@@ -4092,7 +4095,7 @@ require('./fonts/formBuilderIcons.woff');
 			self.clearDirty();
 			self._trigger('afterset', null, [value]);
 		},
-		
+
 
 		get: function() {
 			var self = this,
@@ -4113,7 +4116,7 @@ require('./fonts/formBuilderIcons.woff');
 				isValid = true;
 
 			if(o.required) {
-				if(self.isRadio) {				
+				if(self.isRadio) {
 					isValid = self.radioGroup.filter(':checked').length === 1;
 				} else {
 					isValid = !!e.prop('checked');
@@ -4126,7 +4129,7 @@ require('./fonts/formBuilderIcons.woff');
 			return isValid;
 		},
 
-		
+
 		hide: function() {
 			this.field.hide();
 		},
@@ -4192,7 +4195,7 @@ require('./fonts/formBuilderIcons.woff');
 			// Enforce high-level css
 			if(statusName === 'disable') {
 				self.field.css('pointer-events', cleanBool? 'none' : 'auto');
-			} 
+			}
 
 			// Sync rest of radioGroup if needed
 			if(self.isRadio && (statusName === 'disable' || statusName === 'error' || statusName === 'warn' || statusName === 'require')) {
@@ -4422,7 +4425,7 @@ require('./fonts/formBuilderIcons.woff');
 
 (function($){
 	'use strict';
-	
+
 	var dict = $.formBuilder.lang.dict;
 
 	// Converted the lang.sendInstruction to an option with 'press enter to submit' as a default
@@ -4439,7 +4442,7 @@ require('./fonts/formBuilderIcons.woff');
 			width: '300px',
 			placeholder: '',
 			sendInstruction: dict.defaultSendInstruction,
-			rows: undefined, 
+			rows: undefined,
 			ignoreEmptySubmit: false	// submit when empty yes/no
 		},
 
@@ -4506,7 +4509,7 @@ require('./fonts/formBuilderIcons.woff');
 			var self = this,
 				o = self.options;
 
-			if(self.textEntry.inputField('isDisabled') || 
+			if(self.textEntry.inputField('isDisabled') ||
 				(o.ignoreEmptySubmit && self.textEntry.inputField('isEmpty'))) {
 				return;
 			}
@@ -4563,7 +4566,7 @@ require('./fonts/formBuilderIcons.woff');
 			self.container.remove();
 		}
 	});
-	
+
 })(jQuery);
 
 /*
@@ -4575,10 +4578,10 @@ require('./fonts/formBuilderIcons.woff');
  * data-min-date [YYYY-MM-DD] | offset - first date visible in datepicker & valid
  * data-max-date [YYYY-MM-DD] | offset - last date visible in datepicker & valid
  * data-no-rounding - disables offset date unit rounding
- * 
+ *
  * The offset format should match /[+-]*\d+\!?[dmyw]/gi and is an offset from the current
  * date. Multple offsets can be in one string and are applied in order of unit
- * size, largest to smallest. Multiple offsets with the same unit will be 
+ * size, largest to smallest. Multiple offsets with the same unit will be
  * evaluated left to right.
  *
  * By default, each offset will round the date to the start or end of the offset
@@ -4588,21 +4591,21 @@ require('./fonts/formBuilderIcons.woff');
  * relative to the current date. As a result, +0x/-0x can be used to move to
  * the end/start of unit x, changing any smaller units to match that fact.
  *
- * Rounding may also be disabled on a per-offset unit basis by adding a '!' 
+ * Rounding may also be disabled on a per-offset unit basis by adding a '!'
  * before the unit character. Other offsets without it will still be rounded
  * unless the no-rounding option is set. For example in "+1!y+0m" will evaluate
  * as "the end of this month next year".
- * 
  *
- * Any dateTime objects stored in UTC must convert to/from local timezone when 
+ *
+ * Any dateTime objects stored in UTC must convert to/from local timezone when
  * setting/retrieving from this type. This type should only touch local dates.
- * 
+ *
  * Examples for displayed values (local):
  *
  * min-date="1995-06-07" max-date="2020-02-20"
  * @ 2016-01-05 => [1995-06-07, 2020-02-20]
  * @ 2000-05-20 => [1995-06-07, 2020-02-20]
- * 
+ *
  * min-date="-5y" max-month="+1m"
  * @ 2016-01-05 => [2015-01-05, 2016-02-29]
  * @ 2000-05-20 => [1995-01-01, 2000-06-30]
@@ -4667,7 +4670,7 @@ require('./fonts/formBuilderIcons.woff');
 
 			// Setup datepicker
 			var datePickerOptions = {
-				startDate: self.minDate, 
+				startDate: self.minDate,
 				endDate: self.maxDate,
 				autoclose: true,
 				forceParse: false,
@@ -4702,7 +4705,7 @@ require('./fonts/formBuilderIcons.woff');
 			}
 
 			str = String(str).trim();
-			
+
 			if(str === '0') {
 				return moment().format(self._dateFormat);
 
@@ -4741,11 +4744,11 @@ require('./fonts/formBuilderIcons.woff');
 					}
 
 					m.add(parseInt(o, 10), type);
-					
+
 					if(!self.noRounding && o[o.length - 2] !== '!') {
 						m[(o[0] === '+')? 'endOf' : 'startOf'](type.substring(0, type.length-1));
 					}
-					
+
 				});
 
 				return m.format(self._dateFormat);
@@ -4760,9 +4763,9 @@ require('./fonts/formBuilderIcons.woff');
 
 		converter: {
 			/*
-			 * Store date in XSD standard: yyyy-mm-dd, display in dd/mm/yyy 
+			 * Store date in XSD standard: yyyy-mm-dd, display in dd/mm/yyy
 			 */
-			
+
 			/**
 			 * yyyy-mm-dd => mm/dd/yyyy
 			 */
@@ -4795,7 +4798,7 @@ require('./fonts/formBuilderIcons.woff');
 			var self = this,
 				date = moment(ifw.element.val(), self._dateFormat, true);
 
-			if(!date.isValid() || 
+			if(!date.isValid() ||
 				(self.minDate && date.isBefore(moment(self.minDate, self._dateFormat))) ||
 				(self.maxDate && moment(self.maxDate, self._dateFormat).isBefore(date))) {
 				return {
@@ -4835,7 +4838,7 @@ require('./fonts/formBuilderIcons.woff');
 				return ifw.element.parents('.field-items').find('.input-display').html().trim();
 			}
 		}
-	};	
+	};
 
 })(jQuery);
 /**
@@ -4843,7 +4846,7 @@ require('./fonts/formBuilderIcons.woff');
  *
  * Attribute Settings:
  * data-currency-symbol (default='$') - Can modify currency symbol to any other symbol
- * data-hide-symbol (default=false) - Choose whether or not to show currency symbol 
+ * data-hide-symbol (default=false) - Choose whether or not to show currency symbol
  * data-max-amount
  * data-min-amount
  */
@@ -4889,8 +4892,8 @@ require('./fonts/formBuilderIcons.woff');
 				});
 
 			}
-			
-			
+
+
 
 			if(!o.hideSymbol) {
 				ifw.addOn(-100, o.currencySymbol);
@@ -4906,7 +4909,7 @@ require('./fonts/formBuilderIcons.woff');
 		},
 
 		format: function (money) {
-			var self = this; 
+			var self = this;
 			if($.trim(money) === ''){
 				return '';
 			}
@@ -4914,7 +4917,7 @@ require('./fonts/formBuilderIcons.woff');
 				// MISC-916 removed extra decimals that cause NaN
 				if(isNaN(money)) {
 					money = money.toString();
-					var count = 0; 
+					var count = 0;
 					for(var i = 0; i < money.length; i++){
 
 						if((money[i]) === '.'){
@@ -4924,7 +4927,7 @@ require('./fonts/formBuilderIcons.woff');
 					if(dec !== -1) {
 						money = money.replace(/\./g,'');
 						money = money.substring(0,dec) + '.' + money.substring(dec);
-					}			
+					}
 					money = parseFloat(money);
 				}
 				return (+money).toFixed(2);
@@ -4963,10 +4966,10 @@ require('./fonts/formBuilderIcons.woff');
 						message: dict.under
 					};
 				}
-				
+
 			}
 		}
-	};	
+	};
 
 })(jQuery);
 /**
@@ -5073,7 +5076,7 @@ require('./fonts/formBuilderIcons.woff');
 			}
 		}
 	};
-	
+
 
 })(jQuery);
 /**
@@ -5231,20 +5234,20 @@ require('./fonts/formBuilderIcons.woff');
 
 /**
  * Datatype 'select'
- * 
- * 
+ *
+ *
  * Attribute Options:
  * data-empty-label
  * data-no-sort
  * data-options
  * data-filter-min
  * data-overflow-tooltips
- * 
+ *
  */
 
 (function($) {
 	'use strict';
-	
+
 	var doc = $(document);
 	var util = $.formBuilder.util;
 
@@ -5282,7 +5285,7 @@ require('./fonts/formBuilderIcons.woff');
 
 			self.iconClosed = $('<span class="fb-icon fb-icon-sort-down dropdown-closed-icon"></span>').insertAfter(e);
 			self.iconOpen = $('<span class="fb-icon fb-icon-sort-up dropdown-open-icon"></span>').insertAfter(e).hide();
-			
+
 
 
 			/*
@@ -5609,7 +5612,7 @@ require('./fonts/formBuilderIcons.woff');
 		_handleItemNotFound: function () {
 			var self = this,
 				e = self.element;
-			
+
 			self._setDefaultItem();
 
 			if(!self.item || !self.item.value){
@@ -5646,7 +5649,7 @@ require('./fonts/formBuilderIcons.woff');
 				options = self.panel.find('.option');
 
 			self.item = options.first().addClass('selected').data('item');
-	
+
 			if(self.item && self.item.label) {
 				self._setLabel(self.item.label);
 			} else {
@@ -5709,8 +5712,8 @@ require('./fonts/formBuilderIcons.woff');
 
 				self.shimWidthSet = true;
 			}
-			
-			
+
+
 		},
 
 		/*
@@ -5770,7 +5773,7 @@ require('./fonts/formBuilderIcons.woff');
 			if(!optionsElements){
 				optionsElements = self.panel.find('.option');
 			}
-			
+
 			if(!optionsElements.length){
 				self.panel.removeClass('filtering');
 				self.inputWidget._trigger('filterdone');
@@ -5799,7 +5802,7 @@ require('./fonts/formBuilderIcons.woff');
 
 			if(self._itemShoudBeFiltered(item, val)){
 				optionEl.addClass('filtered');
-			} else {			
+			} else {
 				optionEl.removeClass('filtered');
 			}
 		},
@@ -5855,7 +5858,7 @@ require('./fonts/formBuilderIcons.woff');
 			self._buildEmptyOption();
 
 			$.each(self.source, function (i, item) {
-				
+
 				var option = $('<div class="option"/>'),
 					renderedItem = self.renderItem(item);
 
@@ -5909,7 +5912,7 @@ require('./fonts/formBuilderIcons.woff');
 				} else {
 					options.scrollTop(selected.position().top - selected.before().outerHeight());
 				}
-				
+
 			}, 0);
 
 
@@ -5990,17 +5993,17 @@ require('./fonts/formBuilderIcons.woff');
 			// Reload settings
 			self._getTypeOptions();
 
-			// Clear any selected option 
+			// Clear any selected option
 			self.clear(true);
 
-			// Setup the new options 
+			// Setup the new options
 			self.loaded = $.Deferred();
 			self.load().done(function (source) {
 				if (!source) {
 					source = [];
 				}
 				self.source = source;
-				
+
 				self._buildOptions();
 
 				/*
@@ -6151,7 +6154,7 @@ require('./fonts/formBuilderIcons.woff');
 
 	var types = $.formBuilder.inputField.types;
 
-	types.text = {};	
+	types.text = {};
 
 })(jQuery);
 /**
@@ -6209,7 +6212,7 @@ require('./fonts/formBuilderIcons.woff');
 					max: 5
 				});
 			}
-			
+
 
 			e.timepicker({
 				appendTo: ifw.getField(),
@@ -6257,7 +6260,7 @@ require('./fonts/formBuilderIcons.woff');
 			fromField: function(val, ifw) {
 				var self = this,
 					time;
-				
+
 				if(!val || !val.match(self.typeOptions.military? self._regex2400 : self._regex)) {
 					return '';
 				}
@@ -6298,7 +6301,7 @@ require('./fonts/formBuilderIcons.woff');
 })(jQuery);
 /**
  * Data Type 'dateTime'
- * 
+ *
  * A combination of two InputFields, date & time.
  *
  * The original inputfield is hidden between them.
@@ -6306,7 +6309,7 @@ require('./fonts/formBuilderIcons.woff');
  * Format: 'YYYY-MM-DDTHH:mm:ssZ' in UTC
  *
  * Attribute Settings:
- * data-time-width-ratio (default=0.5, min=.2, max=.8) 
+ * data-time-width-ratio (default=0.5, min=.2, max=.8)
  * data-store-utc (default true) keeps set/get in utc time zone format, rather than local.
  *
  * CSS Settings:
@@ -6369,7 +6372,7 @@ require('./fonts/formBuilderIcons.woff');
 					self.dateWidget.data(types.date.attributes[i], tmp);
 				}
 			}
-			
+
 			// Pass time attributes
 			for(i = 0; i < types.time.attributes.length; ++i) {
 				tmp = e.data(types.time.attributes[i]);
@@ -6402,11 +6405,11 @@ require('./fonts/formBuilderIcons.woff');
 				elTime = self.timeWidget,
 				timeWidthRatio,
 				minWidth;
-					
+
 				// Take out widghet margins/padding from outer width
 				fullWidth -= elDate.outerWidth(true) - elDate.width();
 				fullWidth -= elTime.outerWidth(true) - elTime.width();
-				
+
 				// Prevent it from being too small
 				minWidth = self.ifw.element.css('min-width');
 				if(minWidth !== null) {
@@ -6431,7 +6434,7 @@ require('./fonts/formBuilderIcons.woff');
 		},
 
 		_setUpCleanDirtyEvents: function() {
-			var self = this;	
+			var self = this;
 
 			self.dateWidget.on('dirty clean', function (ev) {
 				ev.stopPropagation();
@@ -6449,7 +6452,7 @@ require('./fonts/formBuilderIcons.woff');
 			 * No need to worry about utc/local. Handled in type time.
 			 * All retrived/set times should be in utc
 			 *
-			 * Seconds are included in the formatting but are ignored and 
+			 * Seconds are included in the formatting but are ignored and
 			 * always set to 00
 			 */
 			toField: function(val, ifw) {
@@ -6459,8 +6462,8 @@ require('./fonts/formBuilderIcons.woff');
 
 				self.timeWidgetInstance.set(splitDate.time);
 				self.dateWidgetInstance.set(splitDate.date);
-			}, 
-			
+			},
+
 			fromField: function(val, ifw) {
 				var self = this,
 					localDate = self.dateWidgetInstance.get(),
@@ -6471,7 +6474,7 @@ require('./fonts/formBuilderIcons.woff');
 				if(!localDate.trim() || !time.trim()) {
 					return '';
 				}
-				
+
 				if(!localDate.trim()) {
 					localDate = moment();
 				} else {
@@ -6481,7 +6484,7 @@ require('./fonts/formBuilderIcons.woff');
 
 				if(!time.trim()) {
 					time.moment();
-					
+
 					if(self.storeUtc) {
 						time.utc();
 					}
@@ -6514,11 +6517,11 @@ require('./fonts/formBuilderIcons.woff');
 			var self = this,
 				dateTime,
 				result = {};
-			
+
 			if(self.storeUtc) {
 				// Parse as UTC
 				dateTime = moment.utc(dateTimeString, self.momentStoreFormat);
-				
+
 			} else {
 				// Parse as local
 				dateTime = moment(dateTimeString, self.momentStoreFormat);
@@ -6607,7 +6610,7 @@ require('./fonts/formBuilderIcons.woff');
 
 (function($){
 	'use strict';
-	
+
 	var types = $.formBuilder.inputField.types;
 	var dict = $.formBuilder.lang.dict;
 
@@ -6714,7 +6717,7 @@ require('./fonts/formBuilderIcons.woff');
 				number = types.phone.converter.fromField.call(self, number, inputWidget);
 				// Number is the value being entered
 
-				// Returns null if the value entered is not a number 
+				// Returns null if the value entered is not a number
 				if(number !== 0 && !number){
 					return null;
 				}
@@ -6748,20 +6751,20 @@ require('./fonts/formBuilderIcons.woff');
 			$.Widget.prototype.destroy.call(this);
 		}
 	});
-	
+
 })(jQuery);
 
 /**
  * Functions to quickly make extensions of the select type
- * 
+ *
  * arraySelectCreator(array)
  * booleanSelectCreator(trueString, falseString)
- * 
+ *
  */
 
 (function($){
 	'use strict';
-	
+
 	var types = $.formBuilder.inputField.types;
 	var dict = $.formBuilder.lang.dict;
 
@@ -6818,8 +6821,8 @@ require('./fonts/formBuilderIcons.woff');
 	for (var i = 0; i <= 10; i++) {
 		years.push((date.getFullYear() + i).toString());
 	}
-	
+
 	types.tmsExpYear = $.formBuilder.inputField.arraySelectCreator(years);
 	types.tmsYesNo = $.formBuilder.inputField.booleanSelectCreator(dict.yes, dict.no);
-	
+
 })(jQuery);
