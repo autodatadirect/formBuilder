@@ -1,6 +1,6 @@
 /**
  * formBuilder - An advanced HTML5 form creation & validation framework
- * @version v2.1.7
+ * @version v2.1.9
  * @link http://autodatadirect.github.io/formBuilder/
  * @repository https://github.com/autodatadirect/formBuilder
  * @license MIT
@@ -36,7 +36,7 @@ require('./fonts/formBuilderIcons.ttf');
 require('./fonts/formBuilderIcons.woff');
 require('normalize.css');
 require('timepicker');
-require('./../node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js');
+require('bootstrap-datepicker');
 
 (function($) {
 	'use strict';

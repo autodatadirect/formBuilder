@@ -1,7 +1,7 @@
 {
   "name": "add-formbuilder",
   "description": "An advanced HTML5 form creation & validation framework",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "repository": "https://github.com/autodatadirect/formBuilder",
   "license": "MIT",
   "homepage": "http://autodatadirect.github.io/formBuilder/",
@@ -53,7 +53,7 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "bootstrap-datepicker": "1.4.0",
+    "bootstrap-datepicker": "^1.6.1",
     "jquery": "1.11.3",
     "jquery-ui": "git://github.com/components/jqueryui.git#1.9.2",
     "moment": "2.10.3",
