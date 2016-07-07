@@ -6,6 +6,9 @@
   "license": "MIT",
   "homepage": "http://autodatadirect.github.io/formBuilder/",
   "main": "dist/bundle.js",
+  "publishConfig": {
+      "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "css-loader": "^0.23.1",
     "del": "~1.2.0",
