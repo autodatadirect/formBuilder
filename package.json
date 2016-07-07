@@ -5,7 +5,7 @@
   "repository": "https://github.com/autodatadirect/formBuilder",
   "license": "MIT",
   "homepage": "http://autodatadirect.github.io/formBuilder/",
-  "main": "dist/formbuilder.js",
+  "main": "dist/bundle.js",
   "devDependencies": {
     "css-loader": "^0.23.1",
     "del": "~1.2.0",

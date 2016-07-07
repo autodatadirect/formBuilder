@@ -1,29 +1,44 @@
-
-var path = require('path')
-var webpack = require('webpack')
+'use strict';
 
 module.exports = {
-	entry: "./dist/formBuilder.js",
-	resolve: {
-		moduleDirectories: [ './../node_modules', './../bower_components'],
-	},
+	entry: './src/entry.js',
 
 	output: {
-		path: path.join(__dirname, 'dist'),
-		filename: "add-formbuilder.min.js"
+		path: 'dist',
+		filename: 'bundle.js'
 	},
-	plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-      },
-    }),
-    new webpack.optimize.OccurenceOrderPlugin()
-	],
+	
+	externals: {
+		'json': 'JSON',
+		'document': 'document',
+		'window': 'window'
+	},
+	
+	resolve: {
+		alias: {
+			
+		}
+	},
+
+	devServer: {
+		host: 'localhost',
+		port: 9999,
+		hot: true,
+		inline: true,
+		open: true
+	},
+
 	module: {
 		loaders: [
-			{ test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
-			{ test: /\.css$/, loaders: ['style', 'css'] }
-			]
-	}
+			{ test: /\.css$/, loader: 'style!css' },
+			{ test: /\.hbs$/, loader: 'handlebars-loader?helperDirs[]=' + __dirname + '/js/handlebarHelpers'},
+			{ test: /\.less$/, loaders: [ 'style', 'css', 'less' ]},
+			{ test: /\.scss$/, loaders: [ 'style', 'css', 'sass' ]},
+			{ test: /\.(png|jpg|gif|eot|ttf|woff|svg|woff2)(\?.*)?$/, loader: 'url-loader?limit=5000&name=img/[name].[hash].[ext]' }
+		]
+	},
+
+	plugins: [
+		
+	]
 };
