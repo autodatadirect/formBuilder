@@ -1,6 +1,6 @@
 /** 
- * add-formbuilder - An advanced HTML5 form creation & validation framework
- * @version v2.1.9
+ * add-formbuilder - An advanced HTML5 form creation and validation framework
+ * @version v2.2.3
  * @link http://autodatadirect.github.io/formBuilder/
  * @repository https://github.com/autodatadirect/formBuilder
  * @license MIT
@@ -4680,9 +4680,28 @@
 				max : 10,
 				toUpper: true
 			});
+			
+			e.on('blur', function() {
+				e.val(self.format(e.val()));
+			});
 
 		},
-
+		
+		format: function (val) {
+			var self = this;
+			
+			if (!val || val.length === 10) {
+				return val;
+			}
+			
+			if (/^\d{6}$/.test(val)) {
+				return moment(val, 'MMDDYY').format(self._dateFormat);
+			}
+			
+			if (/^\d{8}$/.test(val)) {
+				return moment(val, 'MMDDYYYY').format(self._dateFormat);
+			}
+		},
 
 		/**
 		 * Converts a offset or date string to a plain date string

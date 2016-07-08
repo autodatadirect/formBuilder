@@ -118,9 +118,28 @@
 				max : 10,
 				toUpper: true
 			});
+			
+			e.on('blur', function() {
+				e.val(self.format(e.val()));
+			});
 
 		},
-
+		
+		format: function (val) {
+			var self = this;
+			
+			if (!val || val.length === 10) {
+				return val;
+			}
+			
+			if (/^\d{6}$/.test(val)) {
+				return moment(val, 'MMDDYY').format(self._dateFormat);
+			}
+			
+			if (/^\d{8}$/.test(val)) {
+				return moment(val, 'MMDDYYYY').format(self._dateFormat);
+			}
+		},
 
 		/**
 		 * Converts a offset or date string to a plain date string
