@@ -1,7 +1,7 @@
 {
   "name": "add-formbuilder",
   "description": "An advanced HTML5 form creation and validation framework",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "repository": "https://github.com/autodatadirect/formBuilder",
   "license": "MIT",
   "homepage": "http://autodatadirect.github.io/formBuilder/",
