@@ -139,6 +139,8 @@
 			if (/^\d{8}$/.test(val)) {
 				return moment(val, 'MMDDYYYY').format(self._dateFormat);
 			}
+			
+			return val;
 		},
 
 		/**
