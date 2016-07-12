@@ -6,6 +6,9 @@
   "license": "MIT",
   "homepage": "http://autodatadirect.github.io/formBuilder/",
   "main": "src/entry.js",
+  "scripts": {
+    "test": "gulp test"
+  },
   "devDependencies": {
     "css-loader": "^0.23.1",
     "del": "~1.2.0",
@@ -44,15 +47,13 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
-    "yargs": "~3.11.0"
-  },
-  "scripts": {
-    "test": "gulp test"
+    "yargs": "~3.11.0",
+    "expose-loader": "^0.7.1"
   },
   "dependencies": {
     "bootstrap-datepicker": "^1.6.1",
     "jquery": "1.11.3",
-    "jquery-ui": "git://github.com/components/jqueryui.git#1.9.2",
+    "jquery-ui": "github:autodatadirect/jquery-ui#1.9.2-npm",
     "moment": "2.10.3",
     "normalize.css": "3.0.3",
     "spin.js": "2.3.2",
