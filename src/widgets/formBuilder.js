@@ -226,7 +226,8 @@
 			var self = this,
 				method = Array.prototype.splice.call(arguments, 2, 1),
 				args = Array.prototype.slice.call(arguments, 2),
-				widgetName, instance;
+				data = widgetElement.data(),
+				widgetName, instance, keys, pattern;
 				
 			if(widgetElement.is(':formBuilder-inputField')) {
 				widgetName = 'formBuilderInputField';
@@ -235,8 +236,14 @@
 			} else {
 				widgetName = widgetElement.data('load-widget-as-field');
 			}
-
-			instance = widgetElement.data(widgetName);
+			
+			keys = Object.keys(data);
+		    for (var i = 0; i < keys.length; i++) {
+		    	var key = keys[i];
+	        	if(key.match('-' + widgetName)) {
+	        		instance = data[key];
+	        	}
+		    }
 
 			if(ignoreInvalid && (!widgetName || !instance || !instance[method])) {
 				return;
