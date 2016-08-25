@@ -237,13 +237,18 @@
 				widgetName = widgetElement.data('load-widget-as-field');
 			}
 			
-			keys = Object.keys(data);
-		    for (var i = 0; i < keys.length; i++) {
-		    	var key = keys[i];
-	        	if(key.match('-' + widgetName)) {
-	        		instance = data[key];
-	        	}
-		    }
+			
+			instance = data[widgetName];
+			
+			if(!instance) {
+				keys = Object.keys(data);
+			    for (var i = 0; i < keys.length; i++) {
+			    	var key = keys[i];
+		        	if(key.match('-' + widgetName)) {
+		        		instance = data[key];
+		        	}
+			    }				
+			}
 
 			if(ignoreInvalid && (!widgetName || !instance || !instance[method])) {
 				return;
