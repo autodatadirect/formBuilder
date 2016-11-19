@@ -24,6 +24,8 @@ import types from '../types';
 
 import './fieldWidget';
 
+import './inputField.scss';
+
 /*
  * TODO: replace with i18next
  */

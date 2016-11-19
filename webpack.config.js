@@ -13,6 +13,10 @@ module.exports = {
 			{
 				test: /\.css$/,
 				loader: 'style!css'
+			},
+			{
+				test: /\.scss$/,
+				loaders: ['style', 'css', 'sass']
 			},{
 				test: /\.(woff|png|jpg|gif|eot|ttf|woff|svg)$/,
 				loader: 'url'
