@@ -1,8 +1,8 @@
 module.exports = {
 	entry: './src/entry.js',
 	output: {
-		path: __dirname,
-		filename: 'dist/add-formbuilder.js'
+		path: __dirname + '/dist',
+		filename: 'add-formbuilder.js'
 	},
 	externals : {
 		'jquery': true,
