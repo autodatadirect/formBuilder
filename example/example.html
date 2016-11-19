@@ -14,6 +14,8 @@
 <body>
 	<div id="form">
 		<input type="text" name="test" data-postinput="lbs."/>
+		<input type="checkbox" name="cb.test" data-label="Test Checkbox" />
+		<button class="btn-get">Get</button>
 	</div>
 
 	<!-- include jQuery and jQuery UI -->
@@ -25,9 +27,11 @@
 
 	<!-- now make some forms! -->
 	<script type="text/javascript">
-		const $ = window.jQuery;
-		$('[name="test"]').inputField();
+		const form = window.jQuery('#form').formBuilder();
+		$('.btn-get').button().on('click', function () {
+			console.log('GET: ',  form.formBuilder('get'));
+		});
 	</script>
-	
+
 </body>
 </html>

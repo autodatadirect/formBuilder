@@ -4,4 +4,4 @@
 //import '../dist/css/formBuilder.css';
 //require('../dist/css/add-formbuilder.nested.css');
 
-import './widgets/inputField';
+import './widgets/formBuilder';

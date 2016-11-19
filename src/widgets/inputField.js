@@ -259,6 +259,8 @@ $.widget('formBuilder.inputField', {
 		if(o.max){
 			self.setMax(o.max);
 		}
+
+		e.addClass('inputField-widget');
 	},
 
 	setLabel: function (label) {
