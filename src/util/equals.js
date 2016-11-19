@@ -1,3 +1,4 @@
+import isEmpty from './isEmpty';
 export default function equals(a, b) {
 	let p;
 
@@ -5,11 +6,11 @@ export default function equals(a, b) {
 		return true;
 	}
 
-	if(window.isEmpty(a) && window.isEmpty(b)){
+	if(isEmpty(a) && isEmpty(b)){
 		return true;
 	}
 
-	if(window.isEmpty(a) || window.isEmpty(b)){
+	if(isEmpty(a) || isEmpty(b)){
 		return false;
 	}
 

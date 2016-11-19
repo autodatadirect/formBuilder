@@ -5,7 +5,7 @@ module.exports = {
 		filename: 'add-formbuilder.js'
 	},
 	externals : {
-		'jquery': true,
+		'jquery': 'jQuery',
 		'jquery-ui': true
 	},
 	module: {

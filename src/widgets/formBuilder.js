@@ -43,6 +43,8 @@
 				o = self.options,
 				e = self.element;
 
+			e.addClass('formBuilder-widget');
+
 			// Get options 
 			util.loadDomToggleData(e, o, ['ignoreHidden','defaultRequired','loadHidden']);
 
