@@ -8,7 +8,7 @@
 import $ from 'jquery';
 import loadDomData from '../util/loadDomData';
 import loadDomToggleData from '../util/loadDomToggleData';
-import equals from '../equals';
+import equals from '../util/equals';
 
 //TODO: refactor
 const dict = {};
