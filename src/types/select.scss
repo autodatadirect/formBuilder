@@ -1,5 +1,5 @@
 @import '../theme.scss';
-@import './_dropDownPanel.scss';
+@import './dropDownPanel.scss';
 
 .filter-box {
 	.field-item-input {
@@ -19,10 +19,9 @@
 			pointer-events: none;
 		}
 	}
-
 }
 
-.select-box {
+.select-box.input-field {
 
 /*
 	> .field-items > .field-item-input > input {
