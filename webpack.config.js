@@ -6,7 +6,8 @@ module.exports = {
 	},
 	externals : {
 		'jquery': 'jQuery',
-		'jquery-ui': true
+		'jquery-ui': true,
+		'moment': 'moment'
 	},
 	module: {
 		loaders: [

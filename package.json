@@ -21,13 +21,11 @@
     "webpack": "^1.13.3"
   },
   "scripts": {
-    "dev": "webpack -wd"
+    "dev": "webpack -wd",
+    "build": "webpack -p"
   },
   "dependencies": {
     "bootstrap-datepicker": "^1.6.1",
-    "jquery": "1.11.3",
-    "jquery-ui": "git://github.com/components/jqueryui.git#1.9.2",
-    "moment": "2.10.3",
     "normalize.css": "3.0.3",
     "spin.js": "2.3.2",
     "timepicker": "1.8.11"
