@@ -1,26 +1,12 @@
-import regexTypes from './regexTypes';
-import text from './text';
-import select from './select';
-import phone from './phone';
-import date from './date';
-import display from './display';
-import money from './money';
-import time from './time';
-import dateTime from './dateTime';
-import tmsPhone from './tmsPhone';
-import tmsExpYear from './tmsExpYear';
-import tmsYesNo from './tmsYesNo';
+import $ from 'jquery';
+import '../widgets/inputField';
 
-export default Object.assign({}, regexTypes, {
-	text,
-	select,
-	phone,
-	date,
-	display,
-	money,
-	time,
-	dateTime,
-	tmsPhone,
-	tmsExpYear,
-	tmsYesNo
-});
+const types = $.formBuilder.inputField.types;
+
+export function register (newTypes) {
+	Object.assign(types, newTypes);
+}
+
+export function get () {
+	return types;
+}
