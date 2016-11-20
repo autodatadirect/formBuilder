@@ -1,0 +1,45 @@
+@import '../theme.scss';
+.tooltip-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1010;
+	display: none;
+
+	background-color: $tooltip-backgroundColor;
+	background-clip: padding-box;
+
+	border: $tooltip-borderWidth solid rgba($tooltip-borderColorBase, .3);
+	border-radius: $tooltip-borderRadius;
+
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		
+	.tooltip-title {
+		margin: 0;
+		padding: $tooltip-contentMargin $tooltip-contentMargin*1.75;
+
+		font-size: .85em;
+		font-weight: normal;
+		line-height: 1.5em;
+		background-color: darken($tooltip-backgroundColor, 5%);
+		border-bottom: $tooltip-borderWidth solid rgba($tooltip-borderColorBase, .1);
+	}
+
+	.form-input-tooltip {
+		position: relative;
+		display: block;
+		margin: $tooltip-contentMargin;
+		padding: $tooltip-contentMargin $tooltip-contentMargin*1.75;
+		color: $tooltip-textColor;
+		
+		> :first-child {
+			margin-top: 0;
+		}
+
+		p, ul, ol {
+			margin-bottom: 0;
+		}
+
+	}
+
+}

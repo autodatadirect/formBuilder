@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>FormBuilder</title>
+	<meta name="description" content="">
+	<meta name="author" content="Auto Data Direct, Inc.">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" /> 
+	<style>
+		body, html {
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="form">
+		<input type="text" name="test" data-postinput="lbs."/>
+		<input type="checkbox" name="cb.test" data-label="Test Checkbox" />
+
+		<input name="time" type="text" data-type="time" data-label="Time Test" />
+
+		<input name="dateTime" type="text" data-type="dateTime" data-label="dateTime Test" />
+		<input name="tmsPhone" type="text" data-type="tmsPhone" data-label="tmsPhone Test" />
+
+		<input name="tmsExpYear" type="text" data-type="tmsExpYear" data-label="tmsExpYear Test" />
+		<input name="tmsYesNo" type="text" data-type="tmsYesNo" data-label="tmsYesNo Test" />
+
+		<input type='text' name="selectTest" data-label='formBuilder select' data-type='select' data-options='[
+			{"value":"submitted to form", "label":"Searched Item"},
+			{"value":"true", "label":"Yes"},
+			{"value":"false", "label":"No"},
+			{"value":"1", "label":"option 1"},
+			{"value":"2", "label":"option 2"},
+			{"value":"3", "label":"option 3"},
+			{"value":"4", "label":"option 4"},
+			{"value":"5", "label":"option 5"},
+			{"value":"100",  "label":"Some label"},
+			{"value":"AAA",  "label":"123 Some St."},
+			{"value":"BBB",  "label":"Some Business Name Inc."},
+			{"value":"Hodor",  "label":"Bran"}
+		]'>
+		<input name="phone" type="text" data-type="phone" data-label="Phone Test" />
+		<input name="date" type="text" data-type="date" data-label="Date Test" />
+
+		<input name="display" type="text" value="Test Display Field" data-type="display" data-label="Display Test" />
+
+		<input name="money" type="text" data-type="money" data-label="Money Test" />
+		<input name="utext" type="text" data-type="utext" data-label="utext Test" />
+		<input name="state" type="text" data-type="state" data-label="state Test" />
+		<input name="feid" type="text" data-type="feid" data-label="feid Test" />
+		<input name="zip" type="text" data-type="zip" data-label="zip Test" />
+		<input name="email" type="text" data-type="email" data-label="email Test" />
+		<input name="integer" type="text" data-type="integer" data-label="integer Test" />
+		<input name="number" type="text" data-type="number" data-label="number Test" />
+		
+		<button class="btn-get" style="margin-top:2em;">Get</button>
+	</div>
+
+
+	<!-- include moment for date/time field types -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment.min.js"></script>
+
+	<!-- include jQuery and jQuery UI -->
+	<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+
+	<!-- include formBuilder -->
+	<script type="text/javascript" src="../dist/add-formbuilder.js"></script>
+
+	<!-- now make some forms! -->
+	<script type="text/javascript">
+		const form = window.jQuery('#form').formBuilder();
+		$('.btn-get').button().on('click', function () {
+			console.log('GET: ',  form.formBuilder('get'));
+		});
+	</script>
+
+</body>
+</html>

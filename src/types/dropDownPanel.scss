@@ -1,0 +1,31 @@
+.fb-dropDownPanel {
+	left: 0;
+	position: absolute;
+	z-index: 100;
+	overflow: hidden;
+	white-space: normal;
+
+	background: $base-background;
+	background-clip: padding-box;
+	box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+
+	border: 1px solid #707070;
+	border-top: 1px solid #B6B6B6;
+	border-radius: 0 0 4px 4px;
+
+	padding: $base-padding * 2;
+
+
+	font-size: $base-fontSize;
+	cursor: default;
+
+	.fb-dropDownPanel-content {
+		position: relative;
+
+		> :first-child {
+			padding-top: 0;
+			margin-top: 0;
+		}
+	}
+
+}

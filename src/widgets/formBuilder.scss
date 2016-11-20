@@ -1,0 +1,25 @@
+@import '../theme.scss';
+@import 'tooltip';
+@import 'formBuilderIcons';
+
+.submitting {
+	color: #aaa;
+}
+
+.input-hidden {
+	display: none;
+}
+
+.ui-autocomplete {
+	max-height: 400px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+
+/**
+ * For things that shouldn't selectable with a highlight
+ */
+.noselect {
+	user-select: none;
+}
