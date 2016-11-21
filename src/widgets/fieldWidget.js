@@ -1,31 +1,40 @@
 import $ from 'jquery';
-$.widget('formBuilder.fieldWidget', {
 
-	isDirty: function () {
-		return false;
-	},
+export default function test() {
+	console.log('-----------invoking');
+	$.widget('formBuilder.fieldWidget', {
 
-	validate: function () {
-		return true;
-	},
+		isDirty: function () {
+			return false;
+		},
 
-	clearDirty: function () {
-		
-	},
+		validate: function () {
+			return true;
+		},
 
-	clear: function () {
-		this.set();
-	},
+		clearDirty: function () {
+			
+		},
 
-	flash: function () {
-		
-	},
+		clear: function () {
+			this.set();
+		},
 
-	set: function (data) {
-		
-	},
+		flash: function () {
+			
+		},
 
-	get: function () {
-		return null;
-	}
-});
+		set: function () {
+			
+		},
+
+		get: function () {
+			return null;
+		}
+	});
+}
+
+
+/*
+ * 
+ */
