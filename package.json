@@ -31,6 +31,7 @@
   "scripts": {
     "dev": "webpack -wd",
     "build": "webpack -p",
+    "build_embedded": "webpack --config webpack.config.embedded.js -p",
     "test": "mocha-webpack --watch"
   },
   "dependencies": {

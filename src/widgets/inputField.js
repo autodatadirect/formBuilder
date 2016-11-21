@@ -20,7 +20,6 @@ import repeat from '../util/repeat';
 import loadDomData from '../util/loadDomData';
 import loadDomToggleData from '../util/loadDomToggleData';
 import equals from '../util/equals';
-import types from '../types';
 
 import './fieldWidget';
 
@@ -888,7 +887,7 @@ $.widget('formBuilder.inputField', {
 		/*
 		 * setup the field type
 		 */
-		type = Object.create(types[sType]);
+		type = Object.create(types[sType] || {});
 
 		/*
 		 * run the type setup
@@ -1037,7 +1036,7 @@ $.widget('formBuilder.inputField', {
  * }
  *
  */
-$.formBuilder.inputField.types = types;
+$.formBuilder.inputField.types = {};
 
 /* Basic Type Structure
 $.formBuilder.inputField.types = {

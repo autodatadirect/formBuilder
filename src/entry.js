@@ -1,7 +1,9 @@
 'use strict';
-
-//require('../dist/add-formbuilder.nested.min.js');
-//import '../dist/css/formBuilder.css';
-//require('../dist/css/add-formbuilder.nested.css');
-
 import './widgets/formBuilder';
+import './widgets/arrayField';
+import './widgets/dateRangePicker';
+import './widgets/dateTimeRangePicker';
+import './widgets/dropDownPanel';
+import {register} from './types/index';
+import allTypes from './types/allTypes';
+register(allTypes);
