@@ -343,8 +343,7 @@ $.widget('formBuilder.arrayField', {
 	subFieldMarkup: function () {
 		return this.subField;
 	},
-
-
+	
 	_destroy: function(){
 		const self = this;
 

@@ -223,7 +223,8 @@ $.widget('formBuilder.formBuilder', {
 	},
 
 	_proxyCommandToWidget: function (widgetElement, ignoreInvalid) {
-		const method = Array.prototype.splice.call(arguments, 2, 1),
+		const self = this,
+			method = Array.prototype.splice.call(arguments, 2, 1),
 			args = Array.prototype.slice.call(arguments, 2),
 			data = widgetElement.data();
 
@@ -239,6 +240,10 @@ $.widget('formBuilder.formBuilder', {
 		
 		
 		instance = data[widgetName];
+
+		if(!instance){
+			instance = self._searchForWidgetInstance(data, widgetName);
+		}
 		
 		if(!instance) {
 			keys = Object.keys(data);
@@ -261,6 +266,31 @@ $.widget('formBuilder.formBuilder', {
 		}
 	},
 
+
+	_capitalizeFirstLetter: function (string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	},
+
+	_searchForWidgetInstance: function (elementData, widgetName) {
+		const self = this;
+	
+		if(!elementData || !widgetName){
+			return null;
+		}
+
+		let instance = null;
+		const widgetNameSearch = self._capitalizeFirstLetter(widgetName);
+
+		$.each(elementData, (key, value) => {
+			if(key.endsWith(widgetNameSearch)){
+				if(value && value.widgetName === widgetName){
+					instance = value;
+				}
+			}
+		});
+
+		return instance;
+	},
 
 	isDirty: function() {
 		const self = this;
