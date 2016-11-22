@@ -1,10 +1,10 @@
 import  '../util/jsdomSetup';
 import expect from 'expect';
-//import './inputField';
+import './inputField.def.js';
 
 //import './fieldWidget';
 
-describe('inputField Widget', function(){
+describe('The inputField Widget', function(){
 	it('to work', () => {
 		expect(true).toExist();
 	});
