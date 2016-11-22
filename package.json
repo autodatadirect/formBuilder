@@ -19,6 +19,7 @@
     "jquery-ui-bundle": "^1.11.4",
     "jsdom": "^9.8.3",
     "lodash": "^4.17.2",
+    "lolex": "^1.5.2",
     "mocha": "^3.1.2",
     "mocha-webpack": "^0.7.0",
     "moment": "^2.16.0",

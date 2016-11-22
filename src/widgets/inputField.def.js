@@ -299,7 +299,7 @@ export default {
 		const self = this,
 			e = self.element;
 
-		if(e.is(':formBuilder-inputFilter')){
+		if(e.hasClass('inputFilter-widget')){
 			e.inputFilter('setMax', max);
 		}else{
 			e.inputFilter({
@@ -861,9 +861,17 @@ export default {
 		}
 	},
 
+	getTypes: function () {
+		try {
+			return $.formBuilder.inputField.types;
+		} catch (err) {
+			return [{}];
+		}
+	},
+
 	setType: function(sType) {
 		const self = this,
-			types = $.formBuilder.inputField.types;
+			types = self.getTypes();
 		
 		let type = self.type;
 
