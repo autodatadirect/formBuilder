@@ -1,7 +1,6 @@
 import '../util/jsdomSetup';
 import expect from 'expect';
-import 'jquery-ui/ui/widget';
-import './formBuilder';
+//import './formBuilder';
 
 describe('formBuilder Widget', function(){
 	

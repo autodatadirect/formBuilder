@@ -3,12 +3,10 @@ const nodeExternals = require('webpack-node-externals');
 
 const config = {
 	target: 'node',
-	resolve: {
-		alias: {
-			jquery: 'jQuery'
-		}
-	},
-	externals: [nodeExternals()],
+	externals: [nodeExternals(), {
+		'jquery': 'jQuery',
+		'jquery-ui': true
+	}],
 	module: baseConfig.module
 };
 
