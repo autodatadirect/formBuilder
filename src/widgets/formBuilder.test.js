@@ -39,20 +39,22 @@ describe('The formBuilder Widget', function(){
 
 	it('to have working test setup', function(){
 		expect(form).toExist();
-		expect(form.length).toBe(1);
+		//expect(form.length).toBe(1);
 		expect(widget).toExist();
 		expect(true).toExist();
 	});
 
-	it('with the default setup', function(){
+	
+
+	describe('can be created', function(){
+		
+		/*		
+		it('with the default setup', function(){
 			console.log('ClassName: ', form[0].className);
 			expect(form.hasClass('formBuilder-widget')).toBe(true);
 			expect(widget).toBeDefined();
 		});
-
-	describe('can be created', function(){
-				
-		
+		*/
 		
 
 		/*
