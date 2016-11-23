@@ -831,8 +831,7 @@ export default {
 	},
 
 	_showLayer: function(layer, show) {
-		const self = this,
-			e = self.element;
+		const self = this;
 
 		if(!self.layers[layer]) {
 			return;
@@ -845,13 +844,15 @@ export default {
 				self.layers[layer].show();
 			}
 
+			/* TODO: attempt to fix this in a better way as this is very slow
 			// MISC-919 make sure placeholder stays in input box
-			if(layer === 'placeholder' && e.width() > 0) {
+			if(layer === 'placeholder' && self.element.width() > 0) {
 				const ph = self.layers[layer];
-				while((ph.outerWidth(true)) > e.width() && (parseFloat(ph.css('font-size'),10) >= 8.0)) {
+				while((ph.outerWidth(true)) > self.element.width() && (parseFloat(ph.css('font-size'),10) >= 8.0)) {
 					ph.css('font-size','-=1.0');
 				}
 			}
+			*/
 		} else {
 			if(layer === 'suffix') {
 				self.layers[layer].css('visibility', 'hidden');
