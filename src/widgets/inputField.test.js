@@ -553,241 +553,175 @@ describe('The inputField Widget', function(){
 		});
 	});
 
-/*	
-	describe('can validate its value', function(){
-		it('to be valid (text)', function(){
-			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
 
-			expect(ifw.validate()).toBe(true);
-			ifw.set('asdasd');
-			expect(ifw.validate()).toBe(true);
+	describe('can validate its value', function(){
+
+		it('to be valid (text)', function(){
+			expect(widget.validate()).toBe(true);
+			widget.set('asdasd');
+			expect(widget.validate()).toBe(true);
 		});
 
-		// Other validity tests run individual types
-
 		it('to be invalid when empty and required', function(){
-			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-
-			expect(ifw.validate()).toBe(false);
-			ifw.set('some value');
-			expect(ifw.validate()).toBe(true);
+			setup('<input type="text" data-require="true"/>');
+			expect(widget.validate()).toBe(false);
+			widget.set('some value');
+			expect(widget.validate()).toBe(true);
 		});
 
 		it('and sets an error message when found invalid', function(){
-			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-			
-			spyOn(ifw, 'setError');
-
-			expect(ifw.validate()).toBe(false);
-			expect(ifw.setError).toHaveBeenCalled();
-			expect(ifw.setError).toHaveBeenCalledWith({
+			setup('<input type="text" data-require="true"/>');
+			spyOn(widget, 'setError');
+			expect(widget.validate()).toBe(false);
+			expect(widget.setError).toHaveBeenCalled();
+			expect(widget.setError).toHaveBeenCalledWith({
 				message: 'required'
 			});
 		});
 
 		it('and clears an error message when found valid', function(){
-			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-			
-			spyOn(ifw, 'clearError');
-
-			expect(ifw.validate()).toBe(false);
-			ifw.set('some value');
-			expect(ifw.validate()).toBe(true);
-			expect(ifw.clearError).toHaveBeenCalled();
+			setup('<input type="text" data-require="true"/>');
+			spyOn(widget, 'clearError');
+			expect(widget.validate()).toBe(false);
+			widget.set('some value');
+			expect(widget.validate()).toBe(true);
+			expect(widget.clearError).toHaveBeenCalled();
 		});
+
+		
 
 		it('and will attempt to revalidate invalids after typing', function(done){
-			var input = $('<input type="text" data-require="true"/>');
-			var ifw;
-			
-			testContainer.append(input);
+			clock.uninstall();
+			setup('<input type="text" data-require="true"/>');
+			expect(widget.validate()).toBe(false);
+			spyOn(widget,'validate').andCallThrough();
+			input.val('a').keyup(); 
 
-			input.inputField();
-			ifw = input.data('formBuilderInputField');
-
-			expect(ifw.validate()).toBe(false);
-
-			spyOn(ifw,'validate').and.callThrough();
-
-			input.val('a').keyup(); //type while invalid
-
-			pause(triggerWaitTime)
-			.then(function(){
-				expect(ifw.validate).toHaveBeenCalled();
-				expect(ifw.validate).toHaveBeenCalledWith(true); //skipping required
-				expect(ifw.validate.calls.count()).toBe(1);
+			setTimeout(function () {
+				expect(widget.validate).toHaveBeenCalled();
+				expect(widget.validate).toHaveBeenCalledWith(true); //skipping required
+				expect(widget.validate.calls.length).toBe(1);
 				
 				input.val('b').keyup(); //type while valid
-				return pause(triggerWaitTime);
-			})
-			.then(function(){
-				expect(ifw.validate).toHaveBeenCalled();
-				expect(ifw.validate).toHaveBeenCalledWith(true);
-				expect(ifw.validate.calls.count()).toBe(1); //not called b/c valid
-				
-				testContainer.empty();
-				done();
-			});
-		});
+				setTimeout(function () {
+					expect(widget.validate).toHaveBeenCalled();
+					expect(widget.validate).toHaveBeenCalledWith(true); //skipping required
+					expect(widget.validate.calls.length).toBe(1);
 
+					input.val('c').keyup();
+					setTimeout(function () {
+						expect(widget.validate).toHaveBeenCalled();
+						expect(widget.validate).toHaveBeenCalledWith(true); //skipping required
+						expect(widget.validate.calls.length).toBe(1);
+						done();
+					}, 0);
+				}, 0);
+			}, 0);
+		});
 	});
 
-
 	it('can hide itself', function(){
-		var input = $('<input type="text"/>');
-		var ifw, field;
-
-		testContainer.append(input);
-
-		input.inputField();
-		ifw = input.data('formBuilderInputField');
-		field = ifw.getField();
-
-		expect(field.is(':visible')).toBe(true);
-		ifw.hide();
-		expect(field.is(':visible')).toBe(false);
-
-		testContainer.empty();
+		const field = widget.getField();
+		expect(field[0].style._values.display).toNotExist();
+		widget.hide();
+		expect(field[0].style._values.display).toBe('none');
 	});
 
 	it('can show itself', function(){
-		var input = $('<input type="text"/>');
-		var ifw, field;
-
-		testContainer.append(input);
-
-		input.inputField();
-		ifw = input.data('formBuilderInputField');
-		field = ifw.getField();
-
-		expect(field.is(':visible')).toBe(true);
-		ifw.hide();
-		expect(field.is(':visible')).toBe(false);
-		ifw.show();
-		expect(field.is(':visible')).toBe(true);
-
-		testContainer.empty();
+		const field = widget.getField();
+		expect(field[0].style._values.display).toNotExist();
+		widget.hide();
+		expect(field[0].style._values.display).toBe('none');
+		widget.show();
+		expect(field[0].style._values.display).toNotExist();
 	});
 
-	describe('can have statuses', function(){
-		it('that can be checked', function(){
-			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
 
-			expect(ifw.hasStatus('require')).toBe(true);
+	describe('can have statuses', function(){
+
+		it('that can be checked', function() {
+			setup('<input type="text" data-require="true"/>');
+			expect(widget.hasStatus('require')).toBe(true);
 		});
 
 		it('that can be updated', function(){
-			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-
-			expect(ifw.hasStatus('require')).toBe(true);
-			ifw.status('require', false);
-			expect(ifw.hasStatus('require')).toBe(false);
+			expect(widget.hasStatus('require')).toBe(true);
+			widget.status('require', false);
+			expect(widget.hasStatus('require')).toBe(false);
 		});
 
 		it('that can be updated (legacy)', function(){
-			var input = $('<input type="text" data-require="true"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-
-			expect(ifw.hasStatus('require')).toBe(true);
-			ifw.updateStatus('require', false);
-			expect(ifw.hasStatus('require')).toBe(false);
+			setup('<input type="text" data-require="true"/>');
+			expect(widget.hasStatus('require')).toBe(true);
+			widget.updateStatus('require', false);
+			expect(widget.hasStatus('require')).toBe(false);
 		});
 
 		it('that can update and fire events', function(){
-			var input = $('<input type="text" data-require="true"/>').wrap('<div/>');
-			var ifw;
+			setup('<input type="text" data-require="true"/>');
 
-			var foo = {
-				bar: function(e, data){}
-			};
+			expect(widget.hasStatus('require')).toBe(true);
+			widget.status('require', false, true);
+			expect(widget.hasStatus('require')).toBe(false);
 
-			input.inputField({
-				statusUpdate: function(e, data){
-					foo.bar(null, data); //event data irrelevant
-				}
-			});
-			
-			ifw = input.data('formBuilderInputField');
+			expect(widget._trigger).toHaveBeenCalled();
+			expect(widget._trigger.calls.length).toBe(1);
+			const call = widget._trigger.calls[0];
 
-			expect(ifw.hasStatus('require')).toBe(true);
-
-			spyOn(foo, 'bar');
-
-			ifw.status('require', false, true);
-
-			expect(ifw.hasStatus('require')).toBe(false);
-			expect(foo.bar).toHaveBeenCalled();
-			expect(foo.bar).toHaveBeenCalledWith(null, {
+			expect(call.arguments.length).toBe(3);
+			expect(call.arguments[0]).toBe('statusUpdate');
+			expect(call.arguments[1]).toBe(null);
+			expect(call.arguments[2]).toEqual({
 				statusName: 'require',
 				value: false
 			});
-			
+
 		});
 
 		describe('including a "disabled" status', function(){
 			it('that can be checked', function(){
-				var input = $('<input type="text">').wrap('<div/>').inputField();
-				var ifw = input.data('formBuilderInputField');
-
-				ifw.status('disabled', true);
-				expect(ifw.hasStatus('disabled')).toBe(ifw.isDisabled());
+				widget.status('disabled', true);
+				expect(widget.hasStatus('disabled')).toBe(widget.isDisabled());
 			});
 
 			it('that can be set', function(){
-				var input = $('<input type="text">').wrap('<div/>').inputField();
-				var ifw = input.data('formBuilderInputField');
-
-				ifw.status('disabled', false);
-				ifw.disable();
-				expect(ifw.isDisabled()).toBe(true);
+				widget.status('disabled', false);
+				widget.disable();
+				expect(widget.isDisabled()).toBe(true);
 			});
 
 			it('that can be unset', function(){
-				var input = $('<input type="text">').wrap('<div/>').inputField();
-				var ifw = input.data('formBuilderInputField');
-
-				ifw.status('disabled', true);
-				ifw.enable();
-				expect(ifw.isDisabled()).toBe(false);
+				widget.status('disabled', true);
+				widget.enable();
+				expect(widget.isDisabled()).toBe(false);
 			});
-
 		});
 	});
 
-	it('can be destroyed', function(done){
-		var input = $('<input type="text" data-type="time">').appendTo(testContainer).wrap('<div/>').inputField();
-		var ifw = input.data('formBuilderInputField');
+	it('can be destroyed', function(){
+		clock.uninstall();
+		let setUp = 0, tearDown = 0;
 
-		input.trigger('focus');
+		const type = {
+			setUp: function() {
+				setUp++;
+			},
+			tearDown: function() {
+				tearDown++;
+			}
+		};
 
-		pause(triggerWaitTime)
-		.then(function(){
-			var element = $(document).find('.ui-timepicker-wrapper');
+		widget.getTypes = () => {
+			return {
+				text: type
+			};
+		};
 
-			expect(element.length).toBe(1);
-
-			ifw.destroy();
-
-			return pause(triggerWaitTime);
-		})
-		.then(function(){
-
-			var element = $(document).find('.ui-timepicker-wrapper');
-
-			expect(element.length).toBe(0);
-
-			testContainer.empty();
-
-			done(); 
-		});
+		widget.setType('text');
+		expect(setUp).toBe(1);
+		expect(tearDown).toBe(0);
+		widget._destroy();
+		expect(setUp).toBe(1);
+		expect(tearDown).toBe(1);
 	});	
-	 * 
-	 */
-	
 });

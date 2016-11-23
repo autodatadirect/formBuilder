@@ -747,7 +747,9 @@ export default {
 		try {
 			return $.formBuilder.inputField.types;
 		} catch (err) {
-			return [{}];
+			return {
+				text: {}
+			};
 		}
 	},
 
