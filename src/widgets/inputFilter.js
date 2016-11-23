@@ -57,7 +57,8 @@ $.widget('formBuilder.inputFilter', {
 			}
 			self.nativeChange = false;
 		});
-
+		
+		e.addClass('inputFilter-widget');
 	},
 
 	setMax: function (max) {
