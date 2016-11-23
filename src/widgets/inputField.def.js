@@ -20,7 +20,6 @@ import repeat from '../util/repeat';
 import loadDomData from '../util/loadDomData';
 import loadDomToggleData from '../util/loadDomToggleData';
 import equals from '../util/equals';
-
 import './inputField.scss';
 
 /*
@@ -74,7 +73,7 @@ export default {
 		 * load DOM settings from field into options
 		 */
 		
-		loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput', 'suffix', 'prefix']);
+		loadDomData(e, o, ['empty', 'placeholder', 'type', 'label', 'min', 'max', 'preinput', 'postinput']);
 		loadDomToggleData(e, o, ['require', 'required']);
 
 		/*
@@ -155,14 +154,6 @@ export default {
 			self.addOn(1, o.postinput);
 		}
 
-		if(o.suffix){
-			self.setSuffix(o.suffix);
-		}
-
-		if(o.prefix){
-			self.setPrefix(o.prefix);
-		}
-
 		if(tooltip) {
 			const addon = self.addOn(1000, '<span class="tooltip noselect">?</span>', 'clickable');
 
@@ -230,10 +221,6 @@ export default {
 			self._onKeyup(ev);
 		}).on('inputfilterkeyignored.inputField', function() {
 			self.flash();
-		}).on('inputfilterkeytyped.inputField', function() {
-			if(self.suffixShim){
-				self.suffixShim.text(self.element.val());
-			}
 		}).on('keyup', function(ev) {
 			self._onKeyup(ev);
 		}).on('keydown', function(ev) {
@@ -270,29 +257,6 @@ export default {
 		}
 
 		self.label.html(label);
-	},
-
-	setSuffix: function (t) {
-		const self = this,
-			layers = self.layers;
-
-		if(!layers.suffix){
-			layers.suffix = $('<div class="suffix-overlay"><div class="shim"></div><span class="value noselect">' + t + '</span></div>').prependTo(layers.items);
-			self.suffixShim = layers.suffix.find('.shim');
-		} else {
-			layers.suffix.find('.value').text(t);
-		}
-	},
-
-	setPrefix: function (t) {
-		const self = this,
-			layers = self.layers;
-
-		if(!layers.prefix){
-			layers.prefix = $('<div class="prefix-overlay noselect">' + t + '</div>').prependTo(layers.items);
-		}else{
-			self.layers.prefix.find('.value').text(t);
-		}
 	},
 
 	setMax: function (max) {
@@ -727,8 +691,7 @@ export default {
 	redraw: function() {
 		const self = this,
 			e = self.element,
-			hasVal = !!e.val(),
-			layers = self.layers;
+			hasVal = !!e.val();
 
 		let showPlaceholder = true,
 			showError = false,
@@ -740,78 +703,6 @@ export default {
 			showPlaceholder = false;
 		}
 
-		if(self.suffixShim && !showPlaceholder){
-			self.suffixShim.text(e.val());
-		}
-
-		if(layers.prefix){
-			if(!showPlaceholder) {
-				if(!self.prefixPaddingAdded) {
-					self.startInputWidth = e.width();
-					self.startPaddingLeft = e.css('padding-left').replace('[^0-9]','');
-					self.startPaddingLeft = isNaN(self.startPaddingLeft)? 5 : parseInt(self.startPaddingLeft, 10);
-					e.css({
-						paddingLeft: (self.startPaddingLeft + layers.prefix.outerWidth()) + 'px',
-						width: (self.startInputWidth - layers.prefix.outerWidth())  + 'px'
-					});
-
-					self.prefixPaddingAdded = true;
-				}
-			} else {
-				e.css({
-					paddingLeft: self.startPaddingLeft,
-					width: self.startInputWidth + 'px'
-				});
-
-				self.prefixPaddingAdded = false;
-			}
-		}
-
-		if(layers.suffix){
-			if(!showPlaceholder) {
-				if(!self.suffixPaddingAdded) {
-					const valWidth = layers.suffix.find('.value').outerWidth();
-
-					self.startInputWidth = e.width();
-					self.startPaddingRight = e.css('padding-right').replace('[^0-9]','');
-					self.startPaddingRight = isNaN(self.startPaddingRight)? 0 : parseInt(self.startPaddingRight, 10);
-
-					e.css({
-						paddingRight: (self.startPaddingRight + valWidth) + 'px',
-						width: (self.startInputWidth - valWidth)  + 'px'
-					});
-					self.suffixShim.css({
-						paddingLeft: (layers.prefix? layers.prefix.outerWidth() : 1) + 'px',
-						maxWidth: (self.startInputWidth - valWidth)  + 'px'
-					});
-					
-					self.suffixPaddingAdded = true;
-				}
-			} else {	
-				e.css({
-					paddingRight: self.startPaddingRight,
-					width: self.startInputWidth + (layers.prefix? layers.prefix.outerWidth() : 0) + 'px'
-				});
-				
-				self.suffixPaddingAdded = false;
-			}
-		}
-
-		/*
-		if(o.hover){
-
-		}
-		*/
-		/*
-		if(o.focus){
-			showSuggest = false;
-		}
-		*/
-		/*
-		if(o.warn){
-
-		}
-		*/
 		if(self.states.error) {
 			showNotice = false;
 			showError = true;
@@ -826,8 +717,6 @@ export default {
 		self._showLayer('error', showError);
 		self._showLayer('notice', showNotice);
 		self._showLayer('placeholder', showPlaceholder);
-		self._showLayer('suffix', !showPlaceholder);
-		self._showLayer('prefix', !showPlaceholder);
 	},
 
 	_showLayer: function(layer, show) {
@@ -838,12 +727,8 @@ export default {
 		}
 
 		if(show) {
-			if(layer === 'suffix') {
-				self.layers[layer].css('visibility', 'visible');
-			} else {
-				self.layers[layer].show();
-			}
-
+			self.layers[layer].show();
+			
 			/* TODO: attempt to fix this in a better way as this is very slow
 			// MISC-919 make sure placeholder stays in input box
 			if(layer === 'placeholder' && self.element.width() > 0) {
@@ -854,11 +739,7 @@ export default {
 			}
 			*/
 		} else {
-			if(layer === 'suffix') {
-				self.layers[layer].css('visibility', 'hidden');
-			} else {
-				self.layers[layer].hide();
-			}
+			self.layers[layer].hide();
 		}
 	},
 

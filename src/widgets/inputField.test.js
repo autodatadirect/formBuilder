@@ -80,7 +80,7 @@ describe('The inputField Widget', function(){
 	it('will show only valid layers after redraw', function(){
 		spyOn(widget, '_showLayer');
 		widget.redraw();
-		expect(widget._showLayer.calls.length).toBe(5);
+		expect(widget._showLayer.calls.length).toBe(3);
 	});
 
 	describe('will redraw', () => {
@@ -125,135 +125,6 @@ describe('The inputField Widget', function(){
 		widget.setLabel('some label');
 		expect(input.parent().parent().siblings('label').length).toBe(1);
 		expect(input.parent().parent().siblings('label').html()).toBe('some label');
-	});
-
-	describe('can have a suffix', function() {
-		it('that can be set with a function', function() {
-			widget.setSuffix('some suffix');
-			const overlay = input.parent().siblings('.suffix-overlay');
-			expect(overlay.length).toBe(1);
-			expect(overlay.children('.shim').length).toBe(1);
-			expect(overlay.children('.value').length).toBe(1);
-			expect(overlay.children('.value').html()).toBe('some suffix');
-		});
-
-		it('that can be set with an attribute', function(){
-			setup('<input type="text" data-suffix="some suffix"/>');
-			const overlay = input.parent().siblings('.suffix-overlay');
-			expect(overlay.length).toBe(1);
-			expect(overlay.children('.shim').length).toBe(1);
-			expect(overlay.children('.value').length).toBe(1);
-			expect(overlay.children('.value').html()).toBe('some suffix');
-		});
-
-		it('that is hidden at the start', function(){
-			widget.setSuffix('some suffix');
-			widget.redraw();
-			const overlay = input.parent().siblings('.suffix-overlay');
-			expect(overlay.css('visibility')).toBe('hidden');
-		});
-
-		
-		it('that is visible when the field has a value', function() {
-			widget.setSuffix('some suffix');
-			widget.redraw();
-			let overlay = input.parent().siblings('.suffix-overlay');
-
-			expect(overlay.css('visibility')).toBe('hidden');
-
-			
-			widget.set('some value');
-			widget.redraw();
-
-			overlay = widget.getField().find('.suffix-overlay');
-			expect(overlay[0].style._values.visibility).toBe('visible');
-		});
-		
-		it('that becomes hidden when the field loses all value', function(){
-			widget.setSuffix('some suffix');
-			widget.redraw();
-			let overlay = input.parent().siblings('.suffix-overlay');
-
-			expect(overlay[0].style._values.visibility).toBe('hidden');
-
-			widget.set('some value');
-			widget.redraw();
-
-			overlay = widget.getField().find('.suffix-overlay');
-			expect(overlay[0].style._values.visibility).toBe('visible');
-
-			widget.set('');
-			widget.redraw();
-			
-			overlay = widget.getField().find('.suffix-overlay');
-			expect(overlay[0].style._values.visibility).toBe('hidden');
-		});
-	});
-
-	describe('can have a prefix', function() {
-
-		const getPrefixOverlay = () => widget.getField()[0].getElementsByClassName('prefix-overlay').item(0);
-
-
-
-		it('that can be set with a function', function() {
-			widget.setPrefix('some prefix');
-			const overlay = input.parent().siblings('.prefix-overlay');
-			expect(overlay.length).toBe(1);
-			expect(overlay.html()).toBe('some prefix');
-		});
-		
-		
-		it('that can be set with an attribute', function(){
-			setup('<input type="text" data-prefix="some prefix"/>');
-			const overlay = input.parent().siblings('.prefix-overlay');
-			expect(overlay.length).toBe(1);
-			expect(overlay.html()).toBe('some prefix');
-
-		});
-
-		it('that is hidden at the start', function(){
-			const overlay = getPrefixOverlay();
-			expect(overlay.style.display).toBe('none');
-			widget.setPrefix('some prefix');
-			widget.redraw();
-			expect(overlay.innerHTML).toBe('some prefix');
-			expect(overlay.style.display).toBe('none');
-		});
-
-		it('that is visible when the field has a value', function() {
-			widget.setPrefix('some prefix');
-			widget.redraw();
-			let overlay = getPrefixOverlay();
-			expect(overlay.style.display).toBe('none');
-
-			widget.set('some value');
-			widget.redraw();
-
-			overlay = getPrefixOverlay();
-			expect(overlay.style.display).toBe('');
-		});
-		
-		it('that becomes hidden when the field loses all value', function(){
-			widget.setPrefix('some prefix');
-			widget.redraw();
-			let overlay = getPrefixOverlay();
-
-			expect(overlay.style.display).toBe('none');
-
-			widget.set('some value');
-			widget.redraw();
-
-			overlay = getPrefixOverlay();
-			expect(overlay.style.display).toBe('');
-
-			widget.set('');
-			widget.redraw();
-
-			overlay = getPrefixOverlay();
-			expect(overlay.style.display).toBe('none');
-		});
-
 	});
 
 	describe('can have a max', function() {
