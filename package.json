@@ -21,6 +21,7 @@
     "lodash": "^4.17.2",
     "lolex": "^1.5.2",
     "mocha": "^3.1.2",
+    "mocha-jsdom": "^1.1.0",
     "mocha-webpack": "^0.7.0",
     "moment": "^2.16.0",
     "node-sass": "^3.13.0",

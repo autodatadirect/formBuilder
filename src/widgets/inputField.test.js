@@ -2,7 +2,7 @@ import  '../util/jsdomSetup';
 import expect, {spyOn} from 'expect';
 import def from './inputField.def.js';
 import lolex from 'lolex';
-
+import equals from '../util/equals';
 import $ from 'jquery';
 
 describe('The inputField Widget', function(){
@@ -434,48 +434,21 @@ describe('The inputField Widget', function(){
 		clock.tick(999999);
 		expect(field.hasClass('flash')).toBe(false);
 	});
-/*
-	xit('can handle conflicts', function(){
-		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('formBuilderInputField');
 
-		var conflicts;
-
-		var result = {
-			key: undefined, 
-			vOld: 'test', 
-			vNew: 'test'
-		};
-
-		input.val('test');
-		input.trigger('change');
-		expect(ifw.isDirty()).toBe(true);
-
-		conflicts = ifw.conflicts('test');
-		expect(conflicts).toEqual(result);
-
-		ifw.clearDirty();
-
-		conflicts = ifw.conflicts('test2');
-		expect(conflicts).toEqual(null);
-
-	});
 
 	it('can return a value', function(){
-		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('formBuilderInputField');
+		
+		const spy_set = spyOn(widget, 'set').andCallThrough();
+		const spy_get = spyOn(widget, 'get').andCallThrough();
 
-		var spy_set = spyOn(ifw, 'set').and.callThrough();
-		var spy_get = spyOn(ifw, 'get').and.callThrough();
-
-		ifw.value('test');
+		widget.value('test');
 
 		expect(spy_set).toHaveBeenCalled();
-		expect(ifw.get()).toBe('test');
+		expect(widget.get()).toBe('test');
 
 		input.val('test2');
 
-		var result = ifw.value();
+		const result = widget.value();
 
 		expect(result).toBe('test2');
 		expect(spy_get).toHaveBeenCalled(); 
@@ -483,143 +456,104 @@ describe('The inputField Widget', function(){
 	});
 
 	it('can return if it is empty', function(){
-		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('formBuilderInputField');
-
-		expect(ifw.isEmpty()).toBe(true);
-
+		expect(widget.isEmpty()).toBe(true);
 		input.val('test');
-
-		expect(ifw.isEmpty()).toBe(false);
+		expect(widget.isEmpty()).toBe(false);
 	});
 
 	describe('can have an error message in the input box', function(){
 		it('and set it', function(){
-			var input = $('<input type="text"/>');
-			var ifw, overlay;
-
-			testContainer.append(input);
-
-			input.inputField();
-			ifw = input.data('formBuilderInputField');
-
-			overlay = input.siblings('.error-overlay');
+			
+			
+			let overlay = input.siblings('.error-overlay');
 			expect(overlay.length).toBe(0);
 
-			ifw.setError({
+			widget.setError({
 				message: 'some error'
 			});
 
 			overlay = input.siblings('.error-overlay');
 			expect(overlay.length).toBe(1);
-			expect(overlay.is(':visible')).toBe(true);
+			expect(overlay[0].style._values.display).toNotExist();
 			expect(overlay.text()).toBe('some error');
 
-			testContainer.empty();
 		});
 
 		it('and clear it', function(){
-			var input = $('<input type="text"/>');
-			var ifw, overlay;
-
-			testContainer.append(input);
-
-			input.inputField();
-			ifw = input.data('formBuilderInputField');
-
-			ifw.setError({
+			widget.setError({
 				message: 'some error'
 			});
-			ifw.clearError();
+			widget.clearError();
 
-			overlay = input.siblings('.error-overlay');
+			const overlay = input.siblings('.error-overlay');
 			expect(overlay.length).toBe(1);
-			expect(overlay.is(':visible')).toBe(false);
+			expect(overlay[0].style._values.display).toBe('none');
 			expect(overlay.text()).toBe('some error');
 
-			testContainer.empty();
 		});
 	});
 
 	describe('can format a value', function(){
-		var input = $('<input type="text"/>').wrap('<div/>').inputField();
-		var ifw = input.data('formBuilderInputField');
-		var testType = {
-			converter: {
-				toField: function(val, ui){return val + ' to';},
-				fromField: function(val, ui){return val + ' from';}
-			}
-		};
 
-		ifw.type = testType;
+		before(() => {
+			const testType = {
+				converter: {
+					toField: function(val){return val + ' to';},
+					fromField: function(val){return val + ' from';}
+				}
+			};
+			widget.type = testType;
+		});
 		
-		it('to prepare it to go in the field', function(){
-			var ret;
+		xit('to prepare it to go in the field', function(){
+			
+			spyOn(widget.type.converter, 'toField').and.callThrough();
 
-			spyOn(ifw.type.converter, 'toField').and.callThrough();
-
-			ret = ifw._formatToField('some val');
+			const ret = widget._formatToField('some val');
 			expect(ret).toBe('some val to');
-			expect(ifw.type.converter.toField).toHaveBeenCalled();
-			expect(ifw.type.converter.toField).toHaveBeenCalledWith('some val', ifw);
+			expect(widget.type.converter.toField).toHaveBeenCalled();
+			expect(widget.type.converter.toField).toHaveBeenCalledWith('some val', widget);
 		});
 
-		it('to prepare it for coming from the field', function(){
-			var ret;
+		xit('to prepare it for coming from the field', function(){
+			
+			spyOn(widget.type.converter, 'fromField').and.callThrough();
 
-			spyOn(ifw.type.converter, 'fromField').and.callThrough();
-
-			ret = ifw._formatFromField('some val');
+			const ret = widget._formatFromField('some val');
 			expect(ret).toBe('some val from');
-			expect(ifw.type.converter.fromField).toHaveBeenCalled();
-			expect(ifw.type.converter.fromField).toHaveBeenCalledWith('some val', ifw);
+			expect(widget.type.converter.fromField).toHaveBeenCalled();
+			expect(widget.type.converter.fromField).toHaveBeenCalledWith('some val', widget);
 		});
 	});
 
-
 	describe('has a type', function(){
-		var testType = {
+		const testType = {
 			someProp: 'someValue'
 		};
 
 		it('that it can get', function(){
-			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-			var type;
-
-			ifw.type = testType;
-			type = ifw.getType();
+			widget.type = testType;
+			const type = widget.getType();
 			expect(type).toBe(testType);
 		});
 
-		it('that can be set with a function (if the type exists)', function(){
-			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-
-			ifw.setType(testType);
-			expect(ifw.getType()).not.toBe(testType);
-
-			ifw.setType('utext');
-
-			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.utext)).toBe(true);
+		xit('that can be set with a function (if the type exists)', function(){
+			widget.setType(testType);
+			expect(widget.getType()).not.toBe(testType);
+			widget.setType('utext');
+			expect(equals(widget.getType(), $.formBuilder.inputField.types.utext)).toBe(true);
 		});
 
-		it('that be set with an attribute', function(){
-			var input = $('<input type="text" data-type="utext"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-
-			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.utext)).toBe(true);
+		xit('that be set with an attribute', function(){
+			expect(equals(widget.getType(), $.formBuilder.inputField.types.utext)).toBe(true);
 		});
 
-		it('that is "text" by default', function(){
-			var input = $('<input type="text"/>').wrap('<div/>').inputField();
-			var ifw = input.data('formBuilderInputField');
-
-			expect(util.equals(ifw.getType(), $.formBuilder.inputField.types.text)).toBe(true);
+		xit('that is "text" by default', function(){
+			expect(equals(widget.getType(), $.formBuilder.inputField.types.text)).toBe(true);
 		});
-		
 	});
-	
+
+/*	
 	describe('can validate its value', function(){
 		it('to be valid (text)', function(){
 			var input = $('<input type="text"/>').wrap('<div/>').inputField();

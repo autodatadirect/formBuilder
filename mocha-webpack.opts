@@ -1,4 +1,4 @@
 --colors
 --webpack-config webpack.config-test.babel.js
--R nyan
+-R spec
 src/**/*.test.js
