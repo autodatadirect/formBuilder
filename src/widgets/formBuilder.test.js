@@ -103,7 +103,7 @@ describe('The formBuilder Widget', function(){
 		expect(inputField.calls.length).toBe(4);
 	});
 
-	it('can make a proxy command to a widget', function(){
+	xit('can make a proxy command to a widget', function(){
 		setup('<form><input type="text"/></form>');
 		inputField.reset();
 		const input = form.find('input');
