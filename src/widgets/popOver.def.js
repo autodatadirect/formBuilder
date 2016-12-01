@@ -6,7 +6,7 @@ const doc = $(document),
 
 export default {
 
-	options: {
+	_defaultOptions: {
 		target: '',
 		top: 0,
 		left: 0,
@@ -15,20 +15,12 @@ export default {
 
 	_create: function() {
 		const self = this,
-			o = self.options,
 			e = self.element;
 
+		self.options = $.extend(self._defaultOptions, self.options);
 		self.showing = false;
 		
-		/****************************************************/
-		// John Cyr
-
-		// Hide is being called because though by default the 
-		// widget property, 'showing' is set to 'false' it can
-		// never truly hide the widget until the widget has
-		// been first visible
 		e.hide();
-		/****************************************************/
 
 		e.detach();
 		const content = e.clone().addClass('form-input-tooltip');
@@ -40,7 +32,7 @@ export default {
 
 		e.append(self.title).append(content);
 
-		e.appendTo(o.appendTo);
+		e.appendTo(self.options.appendTo);
 
 		self.onClick = function(ev) {
 			const target = $(ev.target);
@@ -49,7 +41,7 @@ export default {
 				return;
 			}
 
-			if(!target.childOf(e, true) && !$(ev.delegateTarget.activeElement).childOf(e, true) && !target.childOf(o.target, true)) {
+			if(!target.childOf(e, true) && !$(ev.delegateTarget.activeElement).childOf(e, true) && !target.childOf(self.options.target, true)) {
 				if(self._trigger('beforeoffclick', ev, target)) {
 					self.hide();
 				}

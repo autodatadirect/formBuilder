@@ -1,31 +1,23 @@
 import '../util/jsdomSetup';
-//import expect, {spyOn} from 'expect';
 import expect from 'expect';
 import def from './popOver.def.js';
 import lolex from 'lolex';
-// import equals from '../util/equals';
 import $ from 'jquery';
 
 describe('The popOver Widget', () => {
-	let pop, pow, clock, target, spy;
+	let pop, pow, clock, spy;
+
 	const testContainer = $('<div/>').appendTo(document.body);
+	const target = $('<div id="target"><h1>This is a target!</h1></div>').appendTo(testContainer);
 
 	const setup = (htmlString = '<div><p>Some content</p><br><h4>And some more content</h4></div>', options) => {
-		testContainer.empty();
-		target = $('<div id="target"><h1>This is a target!</h1></div>').appendTo(testContainer);
-
 		pop = $(htmlString);
-		pow = Object.create(def);
 
+		pow = Object.create(def);
 		pow.element = pop;
 		pow.options = options || pow.options;
-		pow.options.target = target;
-
-		/****************************************************/
-		// Talk to charles about this needing to be done since trigger does not exist yet
 		pow._trigger = expect.createSpy();
-		/****************************************************/
-		
+
 		pow._create();
 		pow._init();
 
@@ -52,15 +44,10 @@ describe('The popOver Widget', () => {
 		pop.remove();
 	});
 
-	/****************************************************/
-	// Needs looking over
 	it('is hidden by default', () => {
-		// This test needs to be looked over
-		// pow.hide();
 		expect(pop[0].style._values.display).toBe('none');
-		expect(pow.showing).toBe(false); // this part is fine
+		expect(pow.showing).toBe(false);
 	});
-	/****************************************************/
 
 	it('can show itself', () => {
 		expect(pop[0].style._values.display).toBe('none');
@@ -71,9 +58,7 @@ describe('The popOver Widget', () => {
 
 		pow.show();
 
-		/****************************************************/
-		clock.tick(); // Clock tick useddue to fadein with show
-		/****************************************************/
+		clock.tick();
 
 		expect(pop[0].style._values.display).toNotExist();
 		expect(pow.showing).toBe(true);
@@ -92,7 +77,7 @@ describe('The popOver Widget', () => {
 
 		pow.show();
 
-		clock.tick(); // Clock tick useddue to fadein with show
+		clock.tick();
 		expect(pop[0].style._values.display).toNotExist();
 
 		pow.hide();
@@ -108,15 +93,14 @@ describe('The popOver Widget', () => {
 	it('can set its position around its target', () => {
 		pow._destroy();
 		pop.remove();
-
 		const options = {
+			target: target,
 			my: 'left',
 			at: 'left bottom',
 			collision: 'flipfit'
 		};
 
 		setup(undefined, options);
-
 		pow.position();
 		clock.tick();
 
@@ -145,7 +129,7 @@ describe('The popOver Widget', () => {
 
 		pow.show();
 		clock.tick();
-		
+
 		$(window).trigger('resize');
 		expect(pow.position).toHaveBeenCalled();
 	});
@@ -223,26 +207,21 @@ describe('The popOver Widget', () => {
 	describe('can be toggled', () => {
 		it('from shown to hidden', () => {
 			pow.show();
-
 			clock.tick();
 
-			// expect.spyOn(pow, 'hide');
-			// expect.spyOn(pow, 'show');
-
-			// pow.toggle();
-
-			// expect(pow.show).toNotHaveBeenCalled();
-			// expect(pow.hide).toHaveBeenCalled();
-		});
-
-		it('from hidden to shown', () => {
-			expect.spyOn(pow, 'hide');
-			expect.spyOn(pow, 'show');
+			spy.show.reset();
 
 			pow.toggle();
 
-			expect(pow.hide).toNotHaveBeenCalled();
-			expect(pow.show).toHaveBeenCalled();
+			expect(pow.hide).toHaveBeenCalled();
+			expect(spy.show).toNotHaveBeenCalled();
+		});
+
+		xit('from hidden to shown', () => {
+			pow.toggle();
+
+			expect(spy.hide).toNotHaveBeenCalled();
+			expect(spy.show).toHaveBeenCalled();
 		});
 	});
 });
