@@ -217,7 +217,7 @@ describe('The popOver Widget', () => {
 			expect(spy.show).toNotHaveBeenCalled();
 		});
 
-		xit('from hidden to shown', () => {
+		it('from hidden to shown', () => {
 			pow.toggle();
 
 			expect(spy.hide).toNotHaveBeenCalled();
