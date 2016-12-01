@@ -27,8 +27,10 @@ describe('The popOver Widget', () => {
 			show: expect.spyOn(pow, 'show').andCallThrough(),
 			hide: expect.spyOn(pow, 'hide').andCallThrough(),
 			element: {
-				position: expect.spyOn(pow.element, 'position').andCallThrough(),
-				fadeIn: expect.spyOn(pow.element, 'fadeIn').andCallThrough()
+				position: expect.spyOn(pow.element, 'position'),
+				fadeIn: expect.spyOn(pow.element, 'fadeIn').andCall(function () {
+					this[0].style.display = '';
+				})
 			}
 		};
 	};

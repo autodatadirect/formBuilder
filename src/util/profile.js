@@ -6,6 +6,9 @@ export function startProfile() {
 }
 
 export function profile(label = '?') {
+	if(!start && start != 0){
+		return;
+	}
 	let now = new Date().getTime();
 	let time = now - last;
 	last = now;
