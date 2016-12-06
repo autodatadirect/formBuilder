@@ -5,20 +5,37 @@ import lolex from 'lolex';
 import $ from 'jquery';
 
 describe('A submitButton', () => {
-	let sbp, sbw, clock, spy, spinner, label;
-	const testContainer = $('<div/>').appendTo(document.body);
+	let sbp, sbw, clock, spinner, label;
 
-	const setup = (options, buttonHtml = '<button type="submit">Submit</button>') => {
+	const testContainer = $('<div/>').appendTo(document.body),
+		form = $('<form><form>'),
+		input = $('<input type="text"></input>');
+
+	const setup = (options, buttonHtml = '<button type="submit">Submit</button>', testContainerFlag = false, formFlag = false) => {
 		testContainer.empty();
+
+		if(testContainerFlag) {
+			$(buttonHtml).appendTo(testContainer);
+		}
+
+		if (formFlag) {
+			input.appendTo(form);
+			$(buttonHtml).appendTo(form);
+			form.appendTo(testContainer);
+		}
 
 		sbp = $(buttonHtml);
 		sbw = Object.create(def);
 
 		sbw.element = sbp;
-		sbw.options = options || sbw.options;
-		
+
+		if(options) {
+			sbw.options = $.extend({}, sbw.options, options);
+		} else {
+			sbw.options = $.extend({}, sbw.options);
+		}
+
 		sbw.element.button = expect.createSpy().andCall(() => {
-			// console.log('\t\tButton element called');
 			const button = $('<button>A button element</button>');
 			button.appendTo(sbw.element);
 			button.addClass('ui-button-text');
@@ -28,36 +45,28 @@ describe('A submitButton', () => {
 
 		sbw._create();
 
-		sbw.spinner.spin = expect.createSpy().andCall(() => {
-			console.log('Spin Called!!!');
-			// sbw.spinner.spin.options = {
-			// 	color: '',
-			// 	top: '',
-			// 	left: ''
-			// };
-
-			// return sbw.spinner.spin;
+		sbw.spinner.spin = expect.createSpy();
+		sbw.spinner.appendTo = expect.createSpy().andCall(() => {
+			$('<div class="spinner"></div>').appendTo(sbw.element);
 		});
 
-		spy = {
-			button: expect.spyOn(sbw.element, 'button'),
-			spinner: expect.spyOn(sbw.spinner, 'appendTo').andCall(() => {
-				console.log('$$$$$$$$$$$$$$$$$$');
-				return sbw.spinner;
-			}),
-			spin: expect.spyOn(sbw.spinner, 'appendTo').andCall(() => {
-				console.log('$$$$$$$$$$$$$$$$$$');
-				return sbw.spinner;
-			})
-		};
-		// sbw.spinner = expect.createSpy().andCall(() => {
-		// 	console.log('Spinner element called');
-			
-		// });
+		sbw._trigger = expect.createSpy().andCall((eventName, ev, data) => {
+			const func = sbw.options[eventName];
+
+			if(func) {
+				func(ev, data);
+			}
+
+			return this;
+		});
+
+		expect.spyOn(sbw, '_showLoading').andCallThrough();
+		expect.spyOn(sbw, '_hideLoading').andCallThrough();
+		expect.spyOn(sbw, 'disable').andCallThrough();
+		expect.spyOn(sbw, 'enable').andCallThrough();
 
 		label = sbp.children('.ui-button-text');
 		spinner = sbp.children('.spinner');
-		// console.log(spinner);
 	};
 
 	beforeEach(() => {
@@ -71,6 +80,66 @@ describe('A submitButton', () => {
 		sbp.remove();
 	});
 
+	it('can show its loading status', () => {
+		expect(label.css('visibility')).toNotBe('hidden');
+		expect(sbw.spinner.appendTo).toNotHaveBeenCalled();
+		expect(sbw.spinner.spin).toNotHaveBeenCalled();
+
+		sbw._showLoading();
+
+		expect(label.css('visibility')).toBe('hidden');
+		expect(sbw.spinner.appendTo).toHaveBeenCalled();
+		expect(sbw.spinner.spin).toHaveBeenCalled();
+	});
+
+	it('can hide its loading status', () => {
+		sbw._showLoading();
+
+		expect(label.css('visibility')).toBe('hidden');
+		expect(sbw.spinner.appendTo).toHaveBeenCalled();
+		expect(sbw.spinner.spin).toHaveBeenCalled();
+		expect(sbw.element.is('.submitting')).toBeTruthy();
+
+		sbw._hideLoading();
+
+		expect(sbw.element.is('.submitting')).toBeFalsy();
+		expect(label.css('visibility')).toBe('visible');
+	});
+
+	it('can be disabled', () => {
+		expect(sbw.options.disabled).toBe(false);
+
+		sbw.disable();
+
+		expect(sbw.options.disabled).toBe(true);
+	});
+
+	it('can be enabled', () => {
+		sbw.disable();
+
+		expect(sbw.options.disabled).toBe(true);
+
+		sbw.enable();
+
+		expect(sbw.options.disabled).toBe(false);
+	});
+
+	it('can destory itself', () => {
+		expect(sbw).toBeTruthy();
+
+		sbw._destroy();
+
+		expect(sbw.destroyed).toBe(true);
+		expect(sbw._destroy()).toBeFalsy();
+	});
+
+	describe('is created with', () => {
+		it('a hidden spinner', () => {
+			expect(spinner.length).toBe(1);
+			expect(spinner.children().length).toBe(0);
+		});
+	});
+
 	describe('can be created', () => {
 		it('created with defaults', () => {
 			expect(sbp.is('.formBuilder-submitButton')).toBe(true);
@@ -78,25 +147,24 @@ describe('A submitButton', () => {
 			expect(sbp.children().length).toBe(2);
 		});
 
-		it('with set options', function(){
-
+		it('with set options', () => {
 			const options = {
 				color: '#EAEAEA',
 				delay: 42,
 				disabled: true,
 				waiting: true,
 				preventDefault: false,
-				enterKeyListenerProvider: function(){
+				enterKeyListenerProvider: () => {
 					return $('form')[0];
 				},
-				onKeyDown: function() {
+				onKeyDown: () => {
 					return;
 				}
 			};
 
 			setup(options);
 
-			expect(spy.button).toHaveBeenCalled();
+			expect(sbw.element.button).toHaveBeenCalled();
 
 			expect(sbp.is('.formBuilder-submitButton')).toBe(true);
 			expect(sbp.children().length).toBe(2);
@@ -112,39 +180,113 @@ describe('A submitButton', () => {
 		});
 	});
 
-	describe('is created with', () => {
-		it('a hidden spinner', () => {	
-			expect(spinner.length).toBe(1);
-			expect(spinner.children().length).toBe(0);
+	describe('can be submitted', () => {
+		it('on click', () => {
+			setup(undefined, undefined, true);
+
+			sbp.click();
+			clock.tick();
+
+			expect(sbw._showLoading).toHaveBeenCalled();
 		});
 
-		xit('jquery-ui button text', () => {
-			// var btn =  $(buttonHtml).submitButton();
-			// var sbw = btn.data('formBuilderSubmitButton');
-			// var label = btn.children('.ui-button-text');
+		xit('on enter key (by default)', () => {
+			setup(undefined, undefined, false, true);
 
-			// expect(label.length).toBe(1);
-			// expect(label.text()).toBe('Submit');
-			// expect(label.css('visibility')).not.toBe('hidden');
+			input.focus();
+
+			const e = $.Event('keydown');
+			e.keyCode = 13;
+			sbp.siblings('input').trigger(e);
+			clock.tick(10);
+
+			expect(sbw._showLoading).toHaveBeenCalled();
+		});
+
+		it('on form submit (manual)', () => {
+			form.submit((ev) => {
+				sbw.submit(ev);
+
+				expect(ev.isDefaultPrevented()).toBe(true);
+				ev.preventDefault();
+			});
+
+			form.submit();
+			clock.tick(10);
+
+			expect(sbw._showLoading).toHaveBeenCalled();
+		});
+
+		it('directly, without an event', () => {
+			sbw.submit();
+			clock.tick();
+
+			expect(sbw._showLoading).toHaveBeenCalled();
+		});
+
+		it('and trigger "beforesubmit"', () => {
+			sbw.submit();
+			clock.tick();
+
+			expect(sbw._trigger).toHaveBeenCalled();
+			expect(sbw._trigger).toHaveBeenCalledWith('beforesubmit', null);
+		});
+
+		it('and trigger "submit"', () => {
+			sbw.submit();
+			clock.tick(10);
+
+			expect(sbw._trigger).toHaveBeenCalled();
+			expect(sbw._trigger.calls.length).toBe(2);
+
+			const args = sbw._trigger.calls[1].arguments;
+
+			expect(args.length).toBe(3);
+			expect(args[0]).toBe('submit');
+			expect(args[1]).toBeFalsy();
+			expect($.isFunction(args[2])).toBe(true);
+		});
+
+		it('and trigger "aftersubmit" and hide on completion',() => {
+			setup({
+				submit: (ev, cb) => {
+					cb();
+				}
+			});
+
+			sbw.submit();
+
+			clock.tick(10);
+
+			expect(sbw._hideLoading).toHaveBeenCalled();
+			expect(sbw._trigger).toHaveBeenCalled();
+			expect(sbw._trigger).toHaveBeenCalledWith('aftersubmit', null);
+			expect(sbw.spinner.appendTo).toHaveBeenCalled();
+			expect(sbw.spinner.spin).toHaveBeenCalled();
 		});
 	});
 
-	xit('can get its button label', function(){
-		// expect(label.is(sbw.getButtonLabel())).toBe(true);
-	});
+	describe('can be marked', () =>  {
+		it('as complete', () =>  {
+			expect(sbp.is('.complete')).toBe(false);
+			expect(sbw.disable).toNotHaveBeenCalled();
 
-	it('can show its loading status', function(){
-		// var spinner = btn.children('.spinner');
-		// var label = sbw.getButtonLabel();
+			sbw.markComplete();
 
-		expect(spinner.children().length).toBe(0);
-		expect(label.css('visibility')).toNotBe('hidden');
-		console.log('Before: ' + label.css('visibility'));
+			expect(sbp.is('.complete')).toBe(true);
+			expect(sbw.disable).toHaveBeenCalled();
+		});
 
-		sbw._showLoading();
+		it('as incomplete', () =>  {
+			sbw.markComplete();
 
-		console.log('After: ' + label.css('visibility'));
-		expect(label.css('visibility')).toBe('hidden');
-		// expect(spinner.children().length).toBeGreaterThan(0); //spinner stuff
+			expect(sbp.is('.complete')).toBe(true);
+			expect(sbw.enable).toNotHaveBeenCalled();
+
+			sbw.markIncomplete();
+
+			expect(sbp.is('.complete')).toBe(false);
+			expect(sbw.enable).toHaveBeenCalled();
+		});
 	});
 });
