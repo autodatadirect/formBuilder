@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 export default {
-	_defaultOptions: {
+	options: {
 		color: '#000',
 		delay: 10,
 		disabled: false,
@@ -21,7 +21,6 @@ export default {
 		const self = this,
 			e = self.element,
 			o = self.options,
-			//w = e.width(),
 			h = e.height();
 
 		e.addClass('submitting');
@@ -56,11 +55,8 @@ export default {
 	_create: function() {
 		const self = this,
 			e = self.element,
+			o = self.options,
 			bOptions = {};
-
-		let o = self.options;
-
-		o = $.extend({}, self._defaultOptions, o);
 		
 		e.addClass('formBuilder-submitButton');
 			
@@ -75,7 +71,7 @@ export default {
 			bOptions.disabled = o.disabled;
 		}
 
-		if(o.text !== undefined){
+		if(o.text !== undefined) {
 			bOptions.text = o.text;
 		}
 
@@ -113,7 +109,6 @@ export default {
 		if(self._trigger('beforesubmit', ev) === false) {
 			return this;
 		}
-
 
 		o.waiting = true;
 		self._showLoading.call(self);
