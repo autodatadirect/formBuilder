@@ -26,10 +26,13 @@ import './selectionField.scss';
 const statusNames = ['require', 'disable', 'error', 'hover', 'warn'];
 
 export default {
-	_defaultOptions: {
+	options: {
 		require: undefined, // both the same
 		required: undefined, // both the same
 		label: '',
+		/*
+		 * TODO: refactor radios to a declarative API like other fields
+		 */
 		radioGroup: undefined // Radio specific
 	},
 
@@ -39,7 +42,7 @@ export default {
 
 		e.addClass('selectionField-widget');
 
-		self.options = $.extend({}, self._defaultOptions, self.options);
+		
 		self.dirty = false;
 
 		const o = self.options;
@@ -166,7 +169,7 @@ export default {
 		const prevValue = value || self.radioGroup.filter(':checked').val() || '';
 
 		self.radioGroup.filter('.selectionField-widget').each(function(){
-			$(this).data('formBuilderSelectionField').prevValue = prevValue;
+			$(this).find('.selectionField-widget').prevValue = prevValue;
 		});
 	},
 
