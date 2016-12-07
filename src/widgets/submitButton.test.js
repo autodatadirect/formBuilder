@@ -35,7 +35,7 @@ describe('A submitButton', () => {
 			sbw.options = $.extend({}, sbw.options);
 		}
 
-		sbw.element.button = expect.createSpy().andCall(() => {
+		$.fn.button = expect.createSpy().andCall(() => {
 			const button = $('<button>A button element</button>');
 			button.appendTo(sbw.element);
 			button.addClass('ui-button-text');
