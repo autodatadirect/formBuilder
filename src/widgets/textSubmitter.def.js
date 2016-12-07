@@ -1,6 +1,11 @@
 import $ from 'jquery';
 
-const dict = $.formBuilder.lang.dict;
+/*
+ * TODO: replace with i18next
+ */
+const dict = {
+	defaultSendInstruction: 'default'
+};
 
 // Converted the lang.sendInstruction to an option with 'press enter to submit' as a default
 // Note: this differs from the tms 'press enter to add note'
@@ -24,6 +29,8 @@ export default {
 		const self = this,
 			e = self.element,
 			o = self.options;
+
+		e.addClass('formBuilder-textSubmitter');
 
 		/**
 		 * Setup html
@@ -135,7 +142,10 @@ export default {
 	},
 
 	_destroy: function() {
-		const self = this;
+		const self = this,
+			e = self.element;
+			
 		self.container.remove();
+		e.removeClass('formBuilder-textSubmitter');
 	}
 };
