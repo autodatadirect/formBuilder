@@ -19,9 +19,9 @@
   </head>
   <body>
     <div class="header">
-      <div class="center-container"><a href="./index.html" class="title">formBuilder <span>v2.1.9</span></a>
+      <div class="center-container"><a href="./index.html" class="title">formBuilder<span>v3.0.0</span></a>
         <div class="topNav"><a id="About" href="./index.html">About</a><a id="Guide" href="./guide.html">User Guide</a><a id="API" href="./api.html" class="current">API Reference</a></div>
-        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder/branches"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=v2.1.9"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
+        <div class="links"><a id="travis" href="https://travis-ci.org/autodatadirect/formBuilder/branches"><img src="https://travis-ci.org/autodatadirect/formBuilder.svg?branch=v3.0.0"></a><a id="github" href="https://github.com/autodatadirect/formBuilder"><img src="./img/GitHub-Mark-Light-32px.png"></a></div>
       </div>
     </div>
     <div class="center-container page-container">
@@ -316,7 +316,7 @@
     - <strong>validate()</strong> Calls <code>inputField.validate()</code> to validate the input in the array field, returns true/false if arrayField is valid or not.
     - <strong>clearDirty()</strong> Resets the current dirty status to false.
     - <strong>clear()</strong> Resets the calling object to an empty array.
-    - <strong>flash()</strong> Calls the <code>inputField.flash()</code> to flash the error message to the screen.
+    - <strong>flash()</strong> Calls the <code>inputField.flash()</code> to flash the error message to the screen. 
     - <strong>set(data)</strong> Appends a new item, set with the data that is passed into the method, to end of the array.
     - <strong>addItem(<em>integer</em> index, item)</strong> Adds a new item to the location of the index passed into the method, if no index is defined then append to the end of the array.
     - <strong>drawItem(item)</strong> Draws the item based on its template and whether or not it is a subwidget.
@@ -324,13 +324,13 @@
 <em> Methods (private)
     - <strong>_create()</strong> Creates the arrayField based off of the template that the user wishes to apply and fills out the appropriate elements.
     - <strong>_handleAddButtonClick()</strong> If the &#39;beforeaddnewitem&#39; event has been triggered then call <code>addItem()</code>.
-    - <strong>_checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing.
+    - <strong>_checkDirty()</strong> Determines whether the data-dirty is supposed to be true or false in that moment of typing. 
     - <strong>_onDirty()</strong> Will return if dirty, otherwise will call <code>_checkDirty()</code>.
     - <strong>_onClean()</strong> Performs the same function as _onDirty().
     - <strong>_empty()</strong> Clears the array and calls the children&#39;s destroy methods.
     - **_drawInternalMarkupItem(item, </em>template<em> itemView)<strong> Called when the item is not a subwidget. Triggers &#39;beforeadd&#39; event. Draws it and wraps it with the appropriate html and parents.
     - </strong>_drawWidgetItem(item, </em>template<em> itemView, </em>widget<em> subWidget)<strong> Called when the item is a subwidget. Triggers &#39;beforeadd&#39;. Draws the subwidget inside of the relevant widget.
-    - </strong>_destroy()** Removes everything from the array and returns it to its original state.
+    - </strong>_destroy()** Removes everything from the array and returns it to its original state. 
 </em> Events
     - <strong>beforeadd</strong> <em>Optional.</em> Triggered before adding an item that is not a new item.
     - <strong>beforeaddnewitem</strong> <em>Optional.</em> Triggered before a new item is added to the array, prepares the array for a new item.
