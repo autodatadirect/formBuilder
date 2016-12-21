@@ -9,9 +9,7 @@ import $ from 'jquery';
 import loadDomData from '../util/loadDomData';
 import loadDomToggleData from '../util/loadDomToggleData';
 import equals from '../util/equals';
-
-//TODO: refactor
-const dict = {};
+import dict from '../util/i18n';
 
 let arrayFieldId = 0;
 
@@ -42,7 +40,7 @@ $.widget('formBuilder.arrayField', {
 			'<div class="input-field">' +
 				'<div class="field-items">' +
 					'<span class="field-item addon clickable array-field-delete">' +
-						'<span class="fb-icon fb-icon-remove" title="'+ dict.remove+'"></span>' +
+						'<span class="fb-icon fb-icon-remove" title="' + dict.t('remove') + '"></span>' +
 					'</span>' +
 				'</div>' +
 			'</div>' +

@@ -10,9 +10,7 @@
 import $ from 'jquery';
 import loadDomData from '../util/loadDomData';
 import loadDomToggleData from '../util/loadDomToggleData';
-
-//TODO refactor
-const dict = {};
+import dict from '../util/i18n';
 
 export default {
 
@@ -104,12 +102,12 @@ export default {
 
 			if(o.maxAmount && enteredAmount > o.maxAmount){
 				return {
-					message: dict.over
+					message: dict.t('over')
 				};
 			}
 			if(o.minAmount && enteredAmount < o.minAmount){
 				return {
-					message: dict.under
+					message: dict.t('under')
 				};
 			}
 		}

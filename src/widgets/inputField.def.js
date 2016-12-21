@@ -13,21 +13,13 @@
 *   status(statusName, bool)
 */
 
-//TODO replace with i18next:: const dict = $.formBuilder.lang.dict;
-
 import $ from 'jquery';
 import repeat from '../util/repeat';
 import loadDomData from '../util/loadDomData';
 import loadDomToggleData from '../util/loadDomToggleData';
 import equals from '../util/equals';
 import './inputField.scss';
-
-/*
- * TODO: replace with i18next
- */
-const dict = {
-	required: 'required'
-};
+import dict from '../util/i18n';
 
 const statusNames = ['require', 'disabled', 'error', 'hover', 'warn', 'focus'];
 
@@ -564,7 +556,7 @@ export default {
 		 */
 		if(!skipRequired && states.require && empty) {
 			self.setError({
-				message: dict.required
+				message: dict.t('required')
 			});
 			return false;
 		}

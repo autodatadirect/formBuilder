@@ -63,9 +63,7 @@
 import loadDomData from '../util/loadDomData';
 import loadDomToggleData from '../util/loadDomToggleData';
 import moment from 'moment';
-
-//TODO upgrade
-const lang = {};
+import dict from '../util/i18n';
 
 export default {
 	attributes: [
@@ -101,7 +99,8 @@ export default {
 			format: self._dateFormat.toLowerCase(),
 			todayBtn: 'linked',
 			todayHighlight: true,
-			language: lang.code,
+			//TODO support different lang codes
+			language: 'en',
 			keyboardNavigation: false
 		};
 
@@ -250,7 +249,7 @@ export default {
 			(self.minDate && date.isBefore(moment(self.minDate, self._dateFormat))) ||
 			(self.maxDate && moment(self.maxDate, self._dateFormat).isBefore(date))) {
 			return {
-				message: lang.dict.invalid
+				message: dict.t('invalid')
 			};
 		}
 	}
