@@ -51,7 +51,8 @@
     "dev": "webpack -wd",
     "build": "webpack -p",
     "build_embedded": "webpack --config webpack.config.embedded.js -p",
-    "test": "mocha-webpack --watch"
+    "test": "mocha-webpack",
+    "test_watch": "mocha-webpack --watch"
   },
   "dependencies": {
     "bootstrap-datepicker": "^1.6.1",
