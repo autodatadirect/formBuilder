@@ -1,5 +1,8 @@
 language: node_js
 node_js:
  - "6.9.2"
-before_deploy:
+script:
  - npm build
+before_deploy:
+ - npm docs
+after_deploy:
