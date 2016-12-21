@@ -1,0 +1,21 @@
+{
+	"required": "required",
+	"remove": "Remove",
+	"from": "From",
+	"to": "To",
+	"custom": "Custom",
+	"day": "Day",
+	"week": "Week",
+	"month": "Month",
+	"year": "Year",
+	"defaultSendInstruction": "press enter to submit",
+	"invalid": "invalid",
+	"over": "over",
+	"under": "under",
+	"mobile": "Mobile",
+	"home": "Home",
+	"work": "Work",
+	"fax": "Fax",
+	"yes": "Yes",
+	"no": "No"
+}

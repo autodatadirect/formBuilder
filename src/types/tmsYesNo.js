@@ -1,9 +1,4 @@
 import booleanSelectCreator from '../util/booleanSelectCreator';
+import dict from '../util/i18n';
 
-//TODO: refactor
-const dict = {
-	yes: 'Yes',
-	no: 'No'
-};
-
-export default booleanSelectCreator(dict.yes, dict.no);
+export default booleanSelectCreator(dict.t('yes'), dict.t('no'));

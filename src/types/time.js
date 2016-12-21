@@ -14,9 +14,7 @@ import loadDomToggleData from '../util/loadDomToggleData';
 import loadDomData from '../util/loadDomData';
 import 'timepicker/jquery.timepicker.js';
 import 'timepicker/jquery.timepicker.css';
-
-//TODO: refactor
-const dict = {};
+import dict from '../util/i18n';
 
 export default {
 	attributes: ['step', 'military','storeUtc'],
@@ -120,7 +118,7 @@ export default {
 		const self = this,
 			e = ifw.element,
 			val = e.val(),
-			invalidMessage = {message: dict.invalid},
+			invalidMessage = {message: dict.t('invalid')},
 			valid = self.typeOptions.military? val.match(self._regex2400) : val.match(self._regex);
 
 		if(!valid) {

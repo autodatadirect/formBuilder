@@ -4,9 +4,7 @@
 import $ from 'jquery';
 import formatters from './standardFormatters';
 import converters from './standardConverters';
-
-//TODO: refactor
-const dict = {};
+import dict from '../util/i18n';
 
 export default function(pattern, filter, flags, max) {
 	if(flags === undefined) {
@@ -21,7 +19,7 @@ export default function(pattern, filter, flags, max) {
 		validate: function(ifw) {
 			if(!ifw.element.val().match(pattern)) {
 				return {
-					message: dict.invalid
+					message: dict.t('invalid')
 				};
 			}
 		}

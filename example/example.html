@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div id="form">
-		<input data-suffix="$" data-placeholder="Test Input" type="text" name="test" data-postinput="lbs."/>
+		<input data-suffix="$" data-placeholder="Test Input" type="text" name="test" data-postinput="lbs." data-require="true"/>
 
 		<input type="checkbox" name="cb.test" data-label="Test Checkbox" />
 
@@ -79,7 +79,9 @@
 	<!-- now make some forms! -->
 	<script type="text/javascript">
 		const form = window.jQuery('#form').formBuilder();
-		$('.btn-get').button().on('click', function () {
+		window.jQuery('.btn-get').button().on('click', function () {
+			
+			console.log('validate: ',  form.formBuilder('validate'));
 			console.log('GET: ',  form.formBuilder('get'));
 		});
 	</script>

@@ -17,33 +17,25 @@
 
 import $ from 'jquery';
 import moment from 'moment';
-
-//TODO: refactor
-const dict = {
-	custom: 'Custom',
-	day: 'Day',
-	week: 'Week',
-	month: 'Month',
-	year: 'Year'
-};
+import dict from '../util/i18n';
 
 $.widget('formBuilder.dateRangePicker', {
 	
 	//TODO: this needs to be replaced with a template
 	_dateRangePickerTemplate:
 		'<div class="date-range-picker form">'+
-			'<input type="text" name="from" data-type="date" data-label="'+dict.from+'"/>' +
-			'<input type="text" name="to" data-type="date" data-label="'+dict.to+'"/>' +
+			'<input type="text" name="from" data-type="date" data-label="' + dict.t('from') + '"/>' +
+			'<input type="text" name="to" data-type="date" data-label="' + dict.t('to') + '"/>' +
 			
 			'<button type="button" class="previous-range">&lt;&lt;</button>' +
 			
 			'<div class="input-field-group range-select">' +
 				'<select name="range" style="width: 138px;">' +
-					'<option value="custom">'+dict.custom+'</option>' +
-					'<option value="day">'+dict.day+'</option>' +
-					'<option value="week">'+dict.week+'</option>' +
-					'<option value="month">'+dict.month+'</option>' +
-					'<option value="year">'+dict.year+'</option>' +
+					'<option value="custom">' + dict.t('custom') + '</option>' +
+					'<option value="day">' + dict.t('day') + '</option>' +
+					'<option value="week">' + dict.t('week') + '</option>' +
+					'<option value="month">' + dict.t('month') + '</option>' +
+					'<option value="year">' + dict.t('year') + '</option>' +
 				'</select>' +
 			'</div>'+
 
