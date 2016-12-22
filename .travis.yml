@@ -2,6 +2,7 @@ language: node_js
 node_js:
  - "6.9.2"
 script:
+ - npm run test
  - npm run build
 before_deploy:
  - npm run docs
