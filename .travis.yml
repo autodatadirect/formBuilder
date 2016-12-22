@@ -1,5 +1,18 @@
 language: node_js
 node_js:
  - "6.9.2"
+script:
+ - npm run test
+ - npm run build
 before_deploy:
- - npm build
+ - npm run docs
+deploy:
+  provider: npm
+  email: frodare@gmail.com
+  api_key:
+    secure: OUd4z6lMZ7yD6s0lxDxOaDYw40u0ElaZLlGlMfSTT3nPTDBf3MZVj769vg3XjqdMK/643wouefkALij50Lwvp0m6o7ISqlaIT3UFa7uhQOE+H8VbDrHVicaCU2pf6bjAO8bBfh1uUBz8Rh0+TNaEeTAWq4krupkVgfH/61nHj+5Xi52oqIsGO9zaPfxMZ+CqmZSE9AoGczfVEeX9fDbdZt9aNjrBla8DfizyUnwHt/7Xud5Qkngw9sex8gci68xEUNkj2nGgVd9EpTjD4eCkwPXTQSAqAcSmkpSobUMCVnrcNvET5YNs/YizYGg4UFsmfq8FdiDXNb/MPPEAwO5Du6qqnJbQWAw5ZZFxYDjuAYlUkvgc1nLnFZuTRU4bQwiGtJ624V28Amjm78dF+LuKFNOuni/fz4v+Ct/SDuynV6Tn9/+PmNhw7UNp7zRkJdjUXIx35Jp1oSF8OWhQpskbsJ+yIbSQM8JAWKv6CK6rFmZdOM1aiEr2dT+clMmZMgoJjgGW58AK4fqoiWiaPQOARDjqUj77YkT9tFDpEgDhTZ4vo8A9Ug75X9xmlO1fPpcIHVuEdzI2mKJd6qQl0Ubkn5jybUzCFKRbIJjqCTXk5g9awrJRfsNzk5TLynSdyk//vYVDI80e2xHNLT6V1vFKNUo8rYbhr5JeT8o/ZQpH0f0=
+  on:
+    tags: true
+    repo: autodatadirect/formBuilder
+    branch: master
+after_deploy:
