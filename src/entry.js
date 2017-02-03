@@ -4,6 +4,7 @@ import './widgets/arrayField';
 import './widgets/dateRangePicker';
 import './widgets/dateTimeRangePicker';
 import './widgets/dropDownPanel';
+import './widgets/submitButton';
 import {register} from './types/index';
 import allTypes from './types/allTypes';
 register(allTypes);

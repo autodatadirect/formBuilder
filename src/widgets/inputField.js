@@ -15,6 +15,7 @@
 
 import $ from 'jquery';
 import def from './inputField.def.js';
+import createRegexType from '../util/regexInputFieldTypeCreator';
 
 import './fieldWidget';
 
@@ -42,6 +43,7 @@ $.widget('formBuilder.inputField', def);
  *
  */
 $.formBuilder.inputField.types = {};
+$.formBuilder.inputField.createRegexType = createRegexType;
 
 /* Basic Type Structure
 $.formBuilder.inputField.types = {
