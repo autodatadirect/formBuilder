@@ -1,5 +1,4 @@
 language: node_js
-skip_cleanup: true
 node_js:
 - 6.9.2
 script:
@@ -10,6 +9,7 @@ script:
 before_deploy:
 - npm run docs
 deploy:
+  skip_cleanup: true
   provider: npm
   email: frodare@gmail.com
   api_key:
