@@ -1,8 +1,10 @@
+var productionMode = process.argv.indexOf('-p') !== -1;
+
 module.exports = {
 	entry: './src/entry.js',
 	output: {
 		path: __dirname + '/dist',
-		filename: 'add-formbuilder.js'
+		filename: productionMode ? 'add-formbuilder.js' : 'add-formbuilder.min.js'
 	},
 	externals : {
 		'jquery': 'jQuery',

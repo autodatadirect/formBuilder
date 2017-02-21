@@ -4,6 +4,8 @@ node_js:
 script:
 - npm run test
 - npm run build
+- npm run build_embedded
+- npm run build_source
 before_deploy:
 - npm run docs
 deploy:

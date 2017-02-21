@@ -53,6 +53,7 @@
     "dev": "webpack -wd",
     "build": "webpack -p",
     "build_embedded": "webpack --config webpack.config.embedded.js -p",
+    "build_source": "webpack -d",
     "test": "mocha-webpack",
     "test_watch": "mocha-webpack --watch",
     "docs": "gulp docs"
