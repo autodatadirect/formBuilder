@@ -1,18 +1,18 @@
 language: node_js
 node_js:
- - "6.9.2"
+- 6.9.2
 script:
- - npm run test
- - npm run build
+- npm run test
+- npm run build
 before_deploy:
- - npm run docs
+- npm run docs
 deploy:
   provider: npm
   email: frodare@gmail.com
   api_key:
-    secure: OUd4z6lMZ7yD6s0lxDxOaDYw40u0ElaZLlGlMfSTT3nPTDBf3MZVj769vg3XjqdMK/643wouefkALij50Lwvp0m6o7ISqlaIT3UFa7uhQOE+H8VbDrHVicaCU2pf6bjAO8bBfh1uUBz8Rh0+TNaEeTAWq4krupkVgfH/61nHj+5Xi52oqIsGO9zaPfxMZ+CqmZSE9AoGczfVEeX9fDbdZt9aNjrBla8DfizyUnwHt/7Xud5Qkngw9sex8gci68xEUNkj2nGgVd9EpTjD4eCkwPXTQSAqAcSmkpSobUMCVnrcNvET5YNs/YizYGg4UFsmfq8FdiDXNb/MPPEAwO5Du6qqnJbQWAw5ZZFxYDjuAYlUkvgc1nLnFZuTRU4bQwiGtJ624V28Amjm78dF+LuKFNOuni/fz4v+Ct/SDuynV6Tn9/+PmNhw7UNp7zRkJdjUXIx35Jp1oSF8OWhQpskbsJ+yIbSQM8JAWKv6CK6rFmZdOM1aiEr2dT+clMmZMgoJjgGW58AK4fqoiWiaPQOARDjqUj77YkT9tFDpEgDhTZ4vo8A9Ug75X9xmlO1fPpcIHVuEdzI2mKJd6qQl0Ubkn5jybUzCFKRbIJjqCTXk5g9awrJRfsNzk5TLynSdyk//vYVDI80e2xHNLT6V1vFKNUo8rYbhr5JeT8o/ZQpH0f0=
+    secure: ctZ5c/JC2wNMd9phMhBomJ7IxNNPHYEqtPzEJ0aN4cYHp/p3JaKwIgVIwSAJIzwUQvoX8/B0BiBNRMT8zY/TumjcbQjb+hG/HIOF6xx8ikhz1eSw3txL6zf233i9SEFru2SJwa2sbMK7wYamkMwAr4kDcz5q7XZoQuQrUOOdZqoBz60z3h5Qvlc5Z8XSdwBAMkswxF4D+Ceevg0sfIneyto1cCy8koRRBeh8w7Vr/1FdEZlsRa5RtRwPR9UZWeN5IW/ye11ij+5R6LuGhgeWAh+/cmC7fwmorelaUdFAAjo0uwZICWldv3w4OxLCVBSFLyPVJ1KTuN6mgYLKKYGtGCgZFg9KnHaDcahZnAqKCj/6Oz/7lV/6gzjuVQNCqhYUOrwto9Rd7AbqCeFNJc/q27tVlX+nhNDa2CcHxxtoJm8SEAfbdfVhO4/CrVMvXqxEDIra1Q7OVVN2GJo3qHO7r1vSYgZotkh1sWBlE2gw0wHg2B8FlccI3hLH8wezNgCbaCYJr7HS0PAXaZa7DC07aHngm3Nd9xmG+t6AF/2t/Z/USk5Ws2wgehZjWuUlMWQ6WNW5yg6ggF4j5HMPVzWNT6eDRHjWvw1QMrkOtHwup1OdLNOQiRTQorqwqdbTq+6C2WOGUcmIvJEO7L3E68zeY+XDQoNsmGOIT/d7+AjErvg=
   on:
     tags: true
     repo: autodatadirect/formBuilder
     branch: master
-after_deploy:
+after_deploy: 
