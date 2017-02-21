@@ -30,7 +30,7 @@
     "jquery": "^3.1.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-bundle": "^1.11.4",
-    "jsdom": "^9.8.3",
+    "jsdom": "9.8.3",
     "lodash": "^4.17.2",
     "lolex": "^1.5.2",
     "marked": "^0.3.6",
