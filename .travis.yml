@@ -9,11 +9,11 @@ script:
 before_deploy:
 - npm run docs
 deploy:
-  skip_cleanup: true
   provider: npm
   email: frodare@gmail.com
   api_key:
     secure: ctZ5c/JC2wNMd9phMhBomJ7IxNNPHYEqtPzEJ0aN4cYHp/p3JaKwIgVIwSAJIzwUQvoX8/B0BiBNRMT8zY/TumjcbQjb+hG/HIOF6xx8ikhz1eSw3txL6zf233i9SEFru2SJwa2sbMK7wYamkMwAr4kDcz5q7XZoQuQrUOOdZqoBz60z3h5Qvlc5Z8XSdwBAMkswxF4D+Ceevg0sfIneyto1cCy8koRRBeh8w7Vr/1FdEZlsRa5RtRwPR9UZWeN5IW/ye11ij+5R6LuGhgeWAh+/cmC7fwmorelaUdFAAjo0uwZICWldv3w4OxLCVBSFLyPVJ1KTuN6mgYLKKYGtGCgZFg9KnHaDcahZnAqKCj/6Oz/7lV/6gzjuVQNCqhYUOrwto9Rd7AbqCeFNJc/q27tVlX+nhNDa2CcHxxtoJm8SEAfbdfVhO4/CrVMvXqxEDIra1Q7OVVN2GJo3qHO7r1vSYgZotkh1sWBlE2gw0wHg2B8FlccI3hLH8wezNgCbaCYJr7HS0PAXaZa7DC07aHngm3Nd9xmG+t6AF/2t/Z/USk5Ws2wgehZjWuUlMWQ6WNW5yg6ggF4j5HMPVzWNT6eDRHjWvw1QMrkOtHwup1OdLNOQiRTQorqwqdbTq+6C2WOGUcmIvJEO7L3E68zeY+XDQoNsmGOIT/d7+AjErvg=
+  skip_cleanup: true
   on:
     tags: true
     repo: autodatadirect/formBuilder
