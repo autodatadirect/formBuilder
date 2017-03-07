@@ -18,7 +18,6 @@ import repeat from '../util/repeat';
 import loadDomData from '../util/loadDomData';
 import loadDomToggleData from '../util/loadDomToggleData';
 import equals from '../util/equals';
-import './inputField.scss';
 import dict from '../util/i18n';
 
 const statusNames = ['require', 'disabled', 'error', 'hover', 'warn', 'focus'];

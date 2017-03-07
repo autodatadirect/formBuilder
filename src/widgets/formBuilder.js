@@ -13,5 +13,6 @@ import $ from 'jquery';
 import def from './formBuilder.def.js';
 import './inputField';
 import './selectionField';
+import './formBuilder.scss';
 
 $.widget('formBuilder.formBuilder', def);
