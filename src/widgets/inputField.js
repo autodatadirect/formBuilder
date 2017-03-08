@@ -18,6 +18,7 @@ import def from './inputField.def.js';
 import createRegexType from '../util/regexInputFieldTypeCreator';
 
 import './fieldWidget';
+import './inputField.scss';
 
 $.widget('formBuilder.inputField', def);
 
