@@ -200,9 +200,9 @@ export default {
 			selected = panel.find('.' + selectionClass);
 
 			if(!selected.length){
-				panel.find('.option:first').addClass(selectionClass);
+				panel.find('.option:visible:first').addClass(selectionClass);
 			} else {
-				next = selected.next();
+				next = $('~ .option:visible:first', selected);
 				if(next.length){
 					next.addClass(selectionClass);
 					selected.removeClass(selectionClass);
@@ -213,15 +213,15 @@ export default {
 		}
 
 		/*
-		 * move down
+		 * move up
 		 */
 		if(which === 38){
 			selected = panel.find('.' + selectionClass);
 
 			if(!selected.length){
-				panel.find('.option:last').addClass(selectionClass);
+				panel.find('.option:visible:last').addClass(selectionClass);
 			} else {
-				next = selected.prev();
+				next = selected.prevAll(':visible').first();
 				if(next.length){
 					next.addClass(selectionClass);
 					selected.removeClass(selectionClass);
