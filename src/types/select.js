@@ -517,14 +517,14 @@ export default {
 		const self = this,
 			item = optionEl.data('item');
 
-		if(self._itemShoudBeFiltered(item, val)){
+		if(self._itemShouldBeFiltered(item, val)){
 			optionEl.addClass('filtered');
 		} else {			
 			optionEl.removeClass('filtered');
 		}
 	},
 
-	_itemShoudBeFiltered: function (item, val) {
+	_itemShouldBeFiltered: function (item, val) {
 		if(!val){
 			return false;
 		}
@@ -797,17 +797,17 @@ export default {
 	},
 
 	deMap: function (obj) {
-		if(!obj){
+		if (!obj) {
 			return null;
 		}
-		return obj.value || null;
+		return obj.value;
 	},
 
 	isEmpty: function () {
 		const self = this,
 			data = self.deMap(self.item);
 
-		return data !== 0 && !data;
+		return data !== 0 && data !== false && !data;
 	},
 
 	converter: {
