@@ -807,7 +807,7 @@ export default {
 		const self = this,
 			data = self.deMap(self.item);
 
-		return data === 0 || data === undefined || data === null || data === '';
+		return data !== 0 && data !== false && !data;
 	},
 
 	converter: {
