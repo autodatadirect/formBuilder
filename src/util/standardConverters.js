@@ -4,10 +4,10 @@
 export default {
 	formatter: {
 		toField: function (val) {
-			this.format(val);
+			return this.format(val);
 		},
 		fromField: function (val) {
-			this.format(val);
+			return this.format(val);
 		}
 	},
 	number: {
