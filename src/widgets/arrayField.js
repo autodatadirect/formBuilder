@@ -84,7 +84,7 @@ $.widget('formBuilder.arrayField', {
 			ev.stopPropagation();
 			$(this).parents('.array-field-item').first().remove();
 			self._onDirty();
-			self._trigger('afterdelete', ev);
+			self.element.trigger('afterdelete', ev);
 		});
 
 		if(!o.nosort) {
@@ -294,7 +294,7 @@ $.widget('formBuilder.arrayField', {
 			content.append(itemEl);
 		}
 
-		self._trigger('afteradd', null, itemEl);
+		self.element.trigger('afteradd', null, itemEl);
 
 		return itemEl || null;
 	},
