@@ -11,6 +11,8 @@ import loadDomToggleData from '../util/loadDomToggleData';
 import equals from '../util/equals';
 import dict from '../util/i18n';
 
+import './arrayField.scss';
+
 let arrayFieldId = 0;
 
 const nextArrayFieldId = function () {
