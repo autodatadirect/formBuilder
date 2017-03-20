@@ -485,7 +485,6 @@ export default {
 
 		const val = self._formatToField(value);
 
-		// var val = value;
 		/*
 		 * some complex types might not want input.val() to be called,
 		 * so set all undefined variables to ''
