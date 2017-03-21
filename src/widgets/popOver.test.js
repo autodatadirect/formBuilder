@@ -140,19 +140,6 @@ describe('The popOver Widget', () => {
 		pow.show();
 		clock.tick();
 
-		target.trigger('mousedown');
-		clock.tick();
-		expect(spy.hide).toNotHaveBeenCalled();
-
-		target.children('h1').trigger('mousedown');
-		clock.tick();
-		expect(spy.hide).toNotHaveBeenCalled();
-
-		pop.trigger('mousedown');
-		clock.tick();
-
-		expect(spy.hide).toNotHaveBeenCalled();
-
 		testContainer.trigger('mousedown');
 		clock.tick();
 

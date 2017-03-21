@@ -17,13 +17,15 @@ export default {
 		const self = this,
 			e = self.element;
 
-		self.options = $.extend(self._defaultOptions, self.options);
-		self.showing = false;
-		
-		e.hide();
+		self.options = $.extend({}, self._defaultOptions, self.options);
+		self.showing = false;		
 
 		e.detach();
+
 		const content = e.clone().addClass('form-input-tooltip');
+
+		e.hide();
+		
 		self.title = $('<h3 class="tooltip-title"></h3>');
 
 		e.addClass('tooltip-wrapper').css('position', 'absolute');
