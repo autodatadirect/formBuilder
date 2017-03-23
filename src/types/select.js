@@ -833,7 +833,7 @@ export default {
 
 			let data = self.map(rawdata);
 
-			if(!rawdata && typeof o['default'] !== 'undefined') {
+			if(!rawdata && rawdata !== 0 && typeof o['default'] !== 'undefined') {
 				data = self.map(o['default']);
 			}
 			
