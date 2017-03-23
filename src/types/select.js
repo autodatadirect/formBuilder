@@ -325,7 +325,7 @@ export default {
 				}
 			});
 
-			if(!self.item || !self.item.value){
+			if(!self.item || (!self.item.value && self.item.value !== 0)){
 				if(self.inputWidget._trigger('itemnotfound', null, [val])){
 					self._handleItemNotFound();
 				}
@@ -836,8 +836,8 @@ export default {
 			if(!rawdata && typeof o['default'] !== 'undefined') {
 				data = self.map(o['default']);
 			}
-
-			if (!data) {
+			
+			if (!data && data !== 0) {
 				self.clear();
 				return;
 			}
