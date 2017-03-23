@@ -1,4 +1,5 @@
-var productionMode = process.argv.indexOf('-p') === -1;
+const webpack = require('webpack'),
+	productionMode = process.argv.indexOf('-p') === -1;
 
 module.exports = {
 	entry: './src/entry.js',
@@ -11,6 +12,11 @@ module.exports = {
 		'jquery-ui': true,
 		'moment': 'moment'
 	},
+	plugins: [
+		new webpack.DefinePlugin({
+			VERSION: JSON.stringify(require('./package.json').version)
+		})
+	],
 	module: {
 		loaders: [
 			{

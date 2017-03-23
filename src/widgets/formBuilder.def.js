@@ -17,6 +17,8 @@ import set from 'lodash/set';
 
 export default {
 
+	version : VERSION,
+
 	options: {
 		converter: {
 			fromForm: function(data) {
