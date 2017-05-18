@@ -221,9 +221,14 @@ $.widget('formBuilder.arrayField', {
 			itemsContent = self.itemsContent;
 
 		let valid = true;
+		let subWidget = this.element.data('sub-widget');
 
 		itemsContent.find('.sub-field').each(function () {
-			valid = valid && $(this).find(':formBuilder-inputField').inputField('validate');
+			if(subWidget) {
+				valid = valid && $(this).find('.' + subWidget)[subWidget]('validate');
+			} else {
+				valid = valid && $(this).find(':formBuilder-inputField').inputField('validate');
+			}
 		});
 
 		return valid;
