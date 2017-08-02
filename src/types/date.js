@@ -7,10 +7,10 @@
 * data-min-date [YYYY-MM-DD] | offset - first date visible in datepicker & valid
 * data-max-date [YYYY-MM-DD] | offset - last date visible in datepicker & valid
 * data-no-rounding - disables offset date unit rounding
-* 
+*
 * The offset format should match /[+-]*\d+\!?[dmyw]/gi and is an offset from the current
 * date. Multple offsets can be in one string and are applied in order of unit
-* size, largest to smallest. Multiple offsets with the same unit will be 
+* size, largest to smallest. Multiple offsets with the same unit will be
 * evaluated left to right.
 *
 * By default, each offset will round the date to the start or end of the offset
@@ -20,21 +20,21 @@
 * relative to the current date. As a result, +0x/-0x can be used to move to
 * the end/start of unit x, changing any smaller units to match that fact.
 *
-* Rounding may also be disabled on a per-offset unit basis by adding a '!' 
+* Rounding may also be disabled on a per-offset unit basis by adding a '!'
 * before the unit character. Other offsets without it will still be rounded
 * unless the no-rounding option is set. For example in "+1!y+0m" will evaluate
 * as "the end of this month next year".
-* 
 *
-* Any dateTime objects stored in UTC must convert to/from local timezone when 
+*
+* Any dateTime objects stored in UTC must convert to/from local timezone when
 * setting/retrieving from this type. This type should only touch local dates.
-* 
+*
 * Examples for displayed values (local):
 *
 * min-date="1995-06-07" max-date="2020-02-20"
 * @ 2016-01-05 => [1995-06-07, 2020-02-20]
 * @ 2000-05-20 => [1995-06-07, 2020-02-20]
-* 
+*
 * min-date="-5y" max-month="+1m"
 * @ 2016-01-05 => [2015-01-05, 2016-02-29]
 * @ 2000-05-20 => [1995-01-01, 2000-06-30]
@@ -83,28 +83,31 @@ export default {
 			'minDate',
 			'maxDate'
 		]);
-		loadDomToggleData(e, self, ['noRounding']);
+		loadDomToggleData(e, self, ['noRounding', 'noCalendar']);
 
 		ifw.placeholder(self._dateFormat);
 
 		self.minDate = self._parseOffsetDate(self.minDate);
 		self.maxDate = self._parseOffsetDate(self.maxDate);
 
-		// Setup datepicker
-		const datePickerOptions = {
-			startDate: self.minDate, 
-			endDate: self.maxDate,
-			autoclose: true,
-			forceParse: false,
-			format: self._dateFormat.toLowerCase(),
-			todayBtn: 'linked',
-			todayHighlight: true,
-			//TODO support different lang codes
-			language: 'en',
-			keyboardNavigation: false
-		};
+		if(!self.noCalendar) {
+			// Setup datepicker
+			const datePickerOptions = {
+				startDate: self.minDate,
+				endDate: self.maxDate,
+				autoclose: true,
+				forceParse: false,
+				format: self._dateFormat.toLowerCase(),
+				todayBtn: 'linked',
+				todayHighlight: true,
+				//TODO support different lang codes
+				language: 'en',
+				keyboardNavigation: false
+			};
 
-		e.datepicker(datePickerOptions);
+			e.datepicker(datePickerOptions);
+
+		}
 
 		// Setup inputFilter
 		e.inputFilter({
@@ -112,27 +115,27 @@ export default {
 			max : 10,
 			toUpper: true
 		});
-		
+
 		e.on('blur', function() {
 			e.val(self.format(e.val()));
 		});
 	},
-	
+
 	format: function (val) {
 		const self = this;
-		
+
 		if (!val || val.length === 10) {
 			return val;
 		}
-		
+
 		if (/^\d{6}$/.test(val)) {
 			return moment(val, 'MMDDYY').format(self._dateFormat);
 		}
-		
+
 		if (/^\d{8}$/.test(val)) {
 			return moment(val, 'MMDDYYYY').format(self._dateFormat);
 		}
-		
+
 		return val;
 	},
 
@@ -141,7 +144,7 @@ export default {
 	 */
 	_parseOffsetDate: function(str) {
 		const self = this;
-		
+
 		let m, type;
 
 		if(!str) {
@@ -149,7 +152,7 @@ export default {
 		}
 
 		str = String(str).trim();
-		
+
 		if(str === '0') {
 			return moment().format(self._dateFormat);
 
@@ -177,16 +180,16 @@ export default {
 			// apply offsets
 			offsets.forEach(function(o) {
 				switch(o[o.length - 1]) {
-				case 'm': 
+				case 'm':
 					type = 'months';
 					break;
-				case 'y': 
+				case 'y':
 					type = 'years';
 					break;
-				case 'w': 
+				case 'w':
 					type = 'weeks';
 					break;
-				default : 
+				default :
 					type = 'days';
 					break;
 				}
@@ -196,7 +199,7 @@ export default {
 				}
 
 				m.add(parseInt(o, 10), type);
-				
+
 				if(!self.noRounding && o[o.length - 2] !== '!') {
 					m[(o[0] === '+')? 'endOf' : 'startOf'](type.substring(0, type.length-1));
 				}
@@ -213,9 +216,9 @@ export default {
 
 	converter: {
 		/*
-		 * Store date in XSD standard: yyyy-mm-dd, display in dd/mm/yyy 
+		 * Store date in XSD standard: yyyy-mm-dd, display in dd/mm/yyy
 		 */
-		
+
 		/**
 		 * yyyy-mm-dd => mm/dd/yyyy
 		 */
@@ -245,7 +248,7 @@ export default {
 		const self = this,
 			date = moment(ifw.element.val(), self._dateFormat, true);
 
-		if(!date.isValid() || 
+		if(!date.isValid() ||
 			(self.minDate && date.isBefore(moment(self.minDate, self._dateFormat))) ||
 			(self.maxDate && moment(self.maxDate, self._dateFormat).isBefore(date))) {
 			return {
